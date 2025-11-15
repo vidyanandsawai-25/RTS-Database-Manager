@@ -1,0 +1,48 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    branches: [ main*]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+    
+    env:
+      DB_CONNECTION_STRING: "Data Source=(LocalDB)\\MSSQLLocalDB;Integrated Security=True;TrustServerCertificate=True"
+      DB_NAME: "MyAppDb"
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+    
+    - name: Restore dependencies
+      run: dotnet restore src/DatabaseManager.sln
+    
+    - name: Build solution
+      run: dotnet build src/DatabaseManager.sln --configuration Release --no-restore
+    
+    - name: Setup LocalDB
+      run: |
+        SqlLocalDB create MSSQLLocalDB
+        SqlLocalDB start MSSQLLocalDB
+        SqlLocalDB info MSSQLLocalDB
+    
+    - name: Create test database
+      run: |
+        cd src
+        dotnet run --project DatabaseManager.csproj -- C --connection-string "$env:DB_CONNECTION_STRING" --database "$env:DB_NAME"
+      env:
+        DOTNET_ENVIRONMENT: Development
+    
+    - name: Verify upgrade execution
+      run: |
+        cd src
+        dotnet run --project DatabaseManager.csproj -- U --connection-string "$env:DB_CONNECTION_STRING" --database "$env:DB_NAME"
+      env:
+        DOTNET_ENVIRONMENT: Development
