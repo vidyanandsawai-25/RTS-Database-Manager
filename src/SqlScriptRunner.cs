@@ -148,6 +148,44 @@ END
         }
     }
 
+    /// <summary>
+    /// Executes the post-deployment script if it exists
+    /// This always runs after base creation or upgrades
+    /// </summary>
+    public async Task ExecutePostDeploymentAsync(string databaseName)
+    {
+        var postDeploymentPath = Path.Combine(AppContext.BaseDirectory, "sql", "post-deployment.sql");
+        
+        if (!File.Exists(postDeploymentPath))
+        {
+            Console.WriteLine("Post-deployment script not found, skipping.");
+            return;
+        }
+
+        Console.WriteLine("Executing post-deployment script...");
+        var sql = await File.ReadAllTextAsync(postDeploymentPath);
+        
+        // Switch connection to target database
+        var dbConnectionString = new SqlConnectionStringBuilder(_connectionString)
+        {
+            InitialCatalog = databaseName
+        }.ConnectionString;
+
+        using var conn = new SqlConnection(dbConnectionString);
+        await conn.OpenAsync();
+        
+        var commands = SplitSqlStatements(sql);
+        foreach (var cmdText in commands)
+        {
+            if (string.IsNullOrWhiteSpace(cmdText)) continue;
+            using var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.Text;
+            await cmd.ExecuteNonQueryAsync();
+        }
+        
+        Console.WriteLine("Post-deployment script executed successfully.");
+    }
+
     private async Task ExecuteSqlAsync(string sql)
     {
         // Use the configured connection string that should include target database

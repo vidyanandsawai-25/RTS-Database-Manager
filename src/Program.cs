@@ -12,6 +12,9 @@ internal class Program
     {
         // Parse command-line arguments
         bool dryRun = args.Contains("--dry-run", StringComparer.OrdinalIgnoreCase);
+        string? dbNameArg = GetArgValue(args, "--database");
+        string? versionArg = GetArgValue(args, "--version");
+        string? connectionStringArg = GetArgValue(args, "--connection-string");
         var commandArgs = args.Where(a => !a.StartsWith("--")).ToArray();
 
         // Load configuration
@@ -28,14 +31,27 @@ internal class Program
             return 1;
         }
 
+        // Override with command-line arguments if provided
+        if (!string.IsNullOrEmpty(dbNameArg))
+        {
+            appSettings.DatabaseName = dbNameArg;
+        }
+        
+        if (!string.IsNullOrEmpty(versionArg))
+        {
+            appSettings.TargetVersion = versionArg;
+        }
+
         if (string.IsNullOrEmpty(appSettings.TargetVersion))
         {
-            Console.WriteLine("TargetVersion not specified in appsettings.json");
+            Console.WriteLine("TargetVersion not specified in appsettings.json or --version argument");
             return 1;
         }
 
-        // Get connection string from ConnectionStrings section or build from Database properties
-        var connectionString = Configuration.GetConnectionString("Default") ?? appSettings.GetConnectionString();
+        // Get connection string from command-line, ConnectionStrings section, or build from Database properties
+        var connectionString = connectionStringArg 
+            ?? Configuration.GetConnectionString("Default") 
+            ?? appSettings.GetConnectionString();
         var runner = new SqlScriptRunner(connectionString);
         var versionManager = new DatabaseVersionManager(connectionString);
 
@@ -144,6 +160,9 @@ internal class Program
                     var basePath = Path.Combine(AppContext.BaseDirectory, "sql", "base");
                     await runner.ExecuteVersionedSqlFilesAsync(basePath, "0.0.0", appSettings.TargetVersion, versionManager, appSettings.DatabaseName);
 
+                    // Execute post-deployment script
+                    await runner.ExecutePostDeploymentAsync(appSettings.DatabaseName);
+
                     Console.WriteLine($"Database created successfully at version {appSettings.TargetVersion}");
                     break;
 
@@ -206,6 +225,9 @@ internal class Program
 
                     if (!dryRun)
                     {
+                        // Execute post-deployment script
+                        await runner.ExecutePostDeploymentAsync(appSettings.DatabaseName);
+                        
                         var finalVersion = await versionManager.GetCurrentDatabaseVersionAsync(appSettings.DatabaseName);
                         Console.WriteLine($"\nUpgrade completed. Database is now at version {finalVersion}");
                     }
@@ -253,5 +275,26 @@ internal class Program
 
         if (sb.Length > 0)
             yield return sb.ToString();
+    }
+
+    /// <summary>
+    /// Gets the value of a command-line argument like --database=MyDb or --database MyDb
+    /// </summary>
+    private static string? GetArgValue(string[] args, string argName)
+    {
+        for (int i = 0; i < args.Length; i++)
+        {
+            // Check for --argName=value format
+            if (args[i].StartsWith($"{argName}=", StringComparison.OrdinalIgnoreCase))
+            {
+                return args[i].Substring(argName.Length + 1);
+            }
+            // Check for --argName value format
+            if (args[i].Equals(argName, StringComparison.OrdinalIgnoreCase) && i + 1 < args.Length)
+            {
+                return args[i + 1];
+            }
+        }
+        return null;
     }
 }

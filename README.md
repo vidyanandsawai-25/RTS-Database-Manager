@@ -1,4 +1,4 @@
-# Database Manager
+﻿# Database Manager
 
 A command-line tool for managing SQL Server database schema versioning and upgrades.
 
@@ -22,12 +22,12 @@ Edit `appsettings.json` to configure your database connection:
 
 ```json
 {
-  "ConnectionStrings": {
-    "Default": "Data Source=.\\SQLEXPRESS;Initial Catalog=master;Integrated Security=True;TrustServerCertificate=True"
+  ConnectionStrings: {
+    Default: Data Source=.\\SQLEXPRESS;Initial Catalog=master;Integrated Security=True;TrustServerCertificate=True
   },
-  "Database": {
-    "DatabaseName": "MyAppDb",
-    "TargetVersion": "1.1.0"
+  Database: {
+    DatabaseName: MyAppDb,
+    TargetVersion: 1.1.0
   }
 }
 ```
@@ -65,9 +65,24 @@ dotnet run -- U
 
 # Dry-run (preview upgrade without executing)
 dotnet run -- U --dry-run
+
+# Override database name from command line
+dotnet run -- C --database MyCustomDb
+
+# Override target version from command line
+dotnet run -- U --version 2.0.0
+
+# Override connection string from command line
+dotnet run -- U --connection-string "Data Source=.\SQLEXPRESS;Integrated Security=True;TrustServerCertificate=True"
 ```
 
-**Important:** When creating a database with the `C` command, it will be created directly at the `TargetVersion` specified in `appsettings.json`. The base schema files (`sql/base/`) are expected to always contain the latest schema code matching the target version.
+**Command-Line Options:**
+- `--database <name>`: Override the database name from `appsettings.json`
+- `--version <version>`: Override the target version from `appsettings.json`
+- `--connection-string <connection>`: Override the connection string from `appsettings.json`
+- `--dry-run`: Preview changes without executing them (Upgrade command only)
+
+**Important:** When creating a database with the `C` command, it will be created directly at the `TargetVersion` specified in `appsettings.json` (or overridden with `--version`). The base schema files (`sql/base/`) are expected to always contain the latest schema code matching the target version.
 
 ### Dry-Run Mode
 
@@ -91,20 +106,21 @@ This will:
 DatabaseManager/
 ├── sql/
 │   ├── base/               # Latest database schema (at TargetVersion)
-│   │   ├── 00_system_initialization.sql
-│   │   ├── 01_seed_data.sql
+│   │   ├── 01_system_initialization.sql
 │   │   ├── 02_base_schema.sql
-│   │   └── 03_core_schema.sql
-│   └── upgrades/           # Incremental version upgrades
-│       ├── 1.1.0/
-│       │   ├── 01_base_schema.sql
-│       │   └── 02_core_schema.sql
-│       ├── 1.5.0/
-│       ├── 1.7.0/
-│       └── 2.0.0/
+│   │   ├── 03_core_schema.sql
+│   │   ├── 04_seed_data.sql
+│   ├── upgrades/           # Incremental version upgrades
+│   │   ├── 1.1.0/
+│   │   │   ├── 01_base_schema.sql
+│   │   │   ├── 02_core_schema.sql
+│   │   ├── 1.5.0/
+│   │   ├── 1.7.0/
+│   │   ├── 2.0.0/
+│   ├──post-deployment.sql  
 ├── appsettings.json        # Database configuration
 ├── upgradePaths.json       # Version upgrade definitions
-└── DatabaseManager.csproj  # Project file
+├── DatabaseManager.csproj  # Project file
 ```
 
 **Key Concepts:**
@@ -138,8 +154,8 @@ When releasing a new version, you need to update both the base schema and create
    In `upgradePaths.json`:
    ```json
    {
-     "upgrades": {
-       "2.1.0": { "enabled": true }
+     upgrades: {
+       2.1.0: { enabled: true }
      }
    }
    ```
@@ -147,8 +163,8 @@ When releasing a new version, you need to update both the base schema and create
    In `appsettings.json`:
    ```json
    {
-     "Database": {
-       "TargetVersion": "2.1.0"
+     Database: {
+       TargetVersion: 2.1.0
      }
    }
    ```
@@ -162,8 +178,8 @@ To skip a version during upgrades, set `enabled` to `false`:
 
 ```json
 {
-  "upgrades": {
-    "1.7.0": { "enabled": false }
+  upgrades: {
+    1.7.0: { enabled: false }
   }
 }
 ```
@@ -227,16 +243,16 @@ Update `appsettings.json` with production connection details and run with `dotne
 
 ## Troubleshooting
 
-**"Database does not exist" error:**
+**Database does not exist error:**
 - Run with `C` command to create the database first
 
-**"Column 'Version' does not exist" error:**
+**Column 'Version' does not exist error:**
 - Drop and recreate the database, or manually drop tracking tables
 
 **Connection timeout:**
 - Verify SQL Server is running
 - Check connection string in `appsettings.json`
-- Test with: `sqlcmd -S .\SQLEXPRESS -E -Q "SELECT @@VERSION"`
+- Test with: `sqlcmd -S .\SQLEXPRESS -E -Q SELECT @@VERSION`
 
 **Scripts fail mid-upgrade:**
 - Check error message for SQL syntax issues
@@ -256,3 +272,7 @@ Update `appsettings.json` with production connection details and run with `dotne
 ## License
 
 This project is provided as-is for database version management.
+
+
+
+
