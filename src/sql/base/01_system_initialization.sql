@@ -11,3 +11,9 @@ BEGIN
     PRINT 'SchemaVersions table created successfully.';
 END;
 GO
+
+
+
+IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'PTIS')
+    EXEC('CREATE SCHEMA PTIS AUTHORIZATION dbo;');
+GO

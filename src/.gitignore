@@ -102,3 +102,10 @@ $RECYCLE.BIN/
 
 # Mac
 .DS_Store
+
+
+
+# 🔐 Local / secret config files
+appsettings.*.local.json
+appsettings.Development.local.json
+appsettings.Production.local.json
