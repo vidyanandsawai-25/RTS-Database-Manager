@@ -94,17 +94,43 @@ END
     }
 
     /// <summary>
-    /// Executes SQL files from a specified folder and records the version as applied
+    /// Executes SQL files from a specified folder and records the version as applied.
+    /// First executes files in the folder, then processes any 'modules' subdirectory.
     /// </summary>
     public async Task ExecuteVersionedSqlFilesAsync(string folderPath, string fromVersion, string toVersion, DatabaseVersionManager versionManager, string databaseName)
     {
         if (!Directory.Exists(folderPath))
             throw new DirectoryNotFoundException($"SQL folder not found: {folderPath}");
 
-        var files = Directory.GetFiles(folderPath, "*.sql").OrderBy(f => f).ToList();
-        if (files.Count == 0)
+        // Collect all files to execute: base folder files first, then module files
+        var allFiles = new List<(string FilePath, string DisplayName)>();
+
+        // Get files directly in the base folder
+        var baseFiles = Directory.GetFiles(folderPath, "*.sql").OrderBy(f => f).ToList();
+        foreach (var file in baseFiles)
         {
-            Console.WriteLine($"No .sql files found in {folderPath}");
+            allFiles.Add((file, Path.GetFileName(file)));
+        }
+
+        // Check for modules subfolder and process each module alphabetically
+        var modulesPath = Path.Combine(folderPath, "..", "modules");
+        if (Directory.Exists(modulesPath))
+        {
+            var moduleDirectories = Directory.GetDirectories(modulesPath).OrderBy(d => d).ToList();
+            foreach (var moduleDir in moduleDirectories)
+            {
+                var moduleName = Path.GetFileName(moduleDir);
+                var moduleFiles = Directory.GetFiles(moduleDir, "*.sql").OrderBy(f => f).ToList();
+                foreach (var file in moduleFiles)
+                {
+                    allFiles.Add((file, $"{moduleName}/{Path.GetFileName(file)}"));
+                }
+            }
+        }
+
+        if (allFiles.Count == 0)
+        {
+            Console.WriteLine($"No .sql files found in {folderPath} or modules");
             return;
         }
 
@@ -116,18 +142,17 @@ END
 
         using var conn = new SqlConnection(dbConnectionString);
         await conn.OpenAsync();
-        
+
         using var transaction = conn.BeginTransaction();
         try
         {
             var executedFiles = new List<string>();
-            foreach (var file in files)
+            foreach (var (filePath, displayName) in allFiles)
             {
-                var fileName = Path.GetFileName(file);
-                Console.WriteLine($"  Executing: {fileName}");
-                var sql = await File.ReadAllTextAsync(file);
+                Console.WriteLine($"  Executing: {displayName}");
+                var sql = await File.ReadAllTextAsync(filePath);
                 await ExecuteSqlWithTransactionAsync(sql, conn, transaction);
-                executedFiles.Add(fileName);
+                executedFiles.Add(displayName);
             }
 
             // Record the executed files as belonging to the upgrade from fromVersion -> toVersion
@@ -135,7 +160,7 @@ END
 
             // Record the version as applied (summary row)
             await versionManager.RecordVersionAsync(toVersion, transaction);
-            
+
             // Commit all changes if everything succeeded
             await transaction.CommitAsync();
             Console.WriteLine($"Version {toVersion} applied successfully.");
@@ -154,37 +179,53 @@ END
     /// </summary>
     public async Task ExecutePostDeploymentAsync(string databaseName)
     {
-        var postDeploymentPath = Path.Combine(AppContext.BaseDirectory, "sql", "post-deployment.sql");
-        
-        if (!File.Exists(postDeploymentPath))
+        await ExecuteSqlScriptIfExistsAsync(databaseName, Path.Combine("sql", "post-deployment.sql"));
+        await ExecuteSqlScriptIfExistsAsync(databaseName, Path.Combine("sql", "seed_multilingual.sql"));
+    }
+
+    private async Task ExecuteSqlScriptIfExistsAsync(string databaseName, string relativePath)
+    {
+        var scriptPath = Path.Combine(AppContext.BaseDirectory, relativePath);
+        if (!File.Exists(scriptPath))
         {
-            Console.WriteLine("Post-deployment script not found, skipping.");
+            Console.WriteLine($"Script not found: {relativePath}, skipping.");
             return;
         }
-
-        Console.WriteLine("Executing post-deployment script...");
-        var sql = await File.ReadAllTextAsync(postDeploymentPath);
-        
-        // Switch connection to target database
-        var dbConnectionString = new SqlConnectionStringBuilder(_connectionString)
+        Console.WriteLine($"Executing script: {relativePath}...");
+        try
         {
-            InitialCatalog = databaseName
-        }.ConnectionString;
+            var sql = await File.ReadAllTextAsync(scriptPath);
 
-        using var conn = new SqlConnection(dbConnectionString);
-        await conn.OpenAsync();
-        
-        var commands = SplitSqlStatements(sql);
-        foreach (var cmdText in commands)
-        {
-            if (string.IsNullOrWhiteSpace(cmdText)) continue;
-            using var cmd = new SqlCommand(cmdText, conn);
-            cmd.CommandType = CommandType.Text;
-            await cmd.ExecuteNonQueryAsync();
+            var dbConnectionString = new SqlConnectionStringBuilder(_connectionString)
+            {
+                InitialCatalog = databaseName
+            }.ConnectionString;
+
+            using var conn = new SqlConnection(dbConnectionString);
+            await conn.OpenAsync();
+
+            var commands = SplitSqlStatements(sql);
+            foreach (var cmdText in commands)
+            {
+                if (string.IsNullOrWhiteSpace(cmdText)) continue;
+
+                using var cmd = new SqlCommand(cmdText, conn)
+                {
+                    CommandType = CommandType.Text
+                };
+                await cmd.ExecuteNonQueryAsync();
+            }
+            Console.WriteLine($"Script executed successfully: {relativePath}");
         }
-        
-        Console.WriteLine("Post-deployment script executed successfully.");
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error executing script: {relativePath}");
+            Console.WriteLine($"Details: {ex.Message}");
+            throw new Exception($"Failed to execute SQL script '{relativePath}'.", ex);
+        }
     }
+
+
 
     private async Task ExecuteSqlAsync(string sql)
     {

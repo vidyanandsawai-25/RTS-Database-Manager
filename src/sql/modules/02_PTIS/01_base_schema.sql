@@ -4,7 +4,7 @@
 
 	[Description] [nvarchar](100)  NULL,
 
-	[DescriptionEnglish] [nvarchar](100) NULL,
+	-- [DescriptionEnglish] [nvarchar](100) NULL,
 
 	[SequenceNo] int null,
 
@@ -32,7 +32,7 @@ CREATE TABLE [PTIS].[WardMaster](
 
 	[Description] [nvarchar] (100)  NULL,
 
-	[DescriptionEnglish] [nvarchar](100) NULL,
+	-- [DescriptionEnglish] [nvarchar](100) NULL,
 
 	[ZoneNo] [nvarchar](10) NOT NULL,
 	
@@ -72,7 +72,7 @@ GO
 
 CREATE TABLE [PTIS].[OwnerTypeMaster](
 	[OwnerType] [nvarchar](30) NOT NULL,
-	[OwnerTypeEnglish] [nvarchar](30) NOT NULL,
+	-- [OwnerTypeEnglish] [nvarchar](30) NOT NULL,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_OwnerTypeMaster_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_OwnerTypeMaster_CreatedDate DEFAULT (GETDATE()),
@@ -91,9 +91,9 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[PropertyTypeCategoryMaster](
-	[PropertyTypeCategoryID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[PropertyTypeCategoryID] int IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[PropertyTypeCategory] [nvarchar](100) NULL,
-	[PropertyTypeCategoryEnglish] [nvarchar](100) NULL,
+	-- [PropertyTypeCategoryEnglish] [nvarchar](100) NULL,
 	[IsActive] [bit] NULL,
 	[CreatedBy] [int] NULL,
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PropertyTypeCategoryMaster_CreatedDate DEFAULT (GETDATE()),
@@ -113,15 +113,15 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[PropertyTypeMaster](
-	[PropertyTypeID] int NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[PropertyTypeID] int IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[PropertyDescription] [nvarchar](100) NULL,
-	[PropertyDescriptionEnglish] [nvarchar](100) NULL,
+	-- [PropertyDescriptionEnglish] [nvarchar](100) NULL,
 	[Type] [varchar](5) NULL,
-	[IsActive] [bit] NULL,
 	[PropertyTypeGroup] [nvarchar](50) NULL,
-	[KeyboardShortCutKey] [nvarchar](20) NULL,
-	[KeyWiseSequence] [int] NULL,
+	[SearchKey] [nvarchar](20) NULL,
+	[SearchSequence] [int] NULL,
 	[PropertyTypeCategoryID] [int] NULL,
+	[IsActive] [bit] NULL,
 	[CreatedBy] [int] NULL,
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PropertyTypeMaster_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
@@ -145,31 +145,57 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[CategoryMaster](
-	[Category] [nvarchar](30) NOT NULL,
+	[CategoryID] int IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[CategoryName] [nvarchar](50) NULL,
+	[SubCategoryName] [nvarchar](50) NULL,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_CategoryMaster_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_CategoryMaster_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
-	CONSTRAINT [PK_CategoryMaster] PRIMARY KEY CLUSTERED ([Category] ASC)
+	CONSTRAINT [PK_CategoryMaster] PRIMARY KEY CLUSTERED ([CategoryID] ASC)
 )
 
-/****** Object:  Table [PTIS].[SubCategory]******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [PTIS].[SubCategory](
-	[SubCategory] [nvarchar] (30) NOT NULL,
-	[SubCategoryType] [nvarchar](50) NOT NULL,
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_SubCategory_IsActive] DEFAULT (1),
+-- /****** Object:  Table [PTIS].[SubCategory]******/
+-- SET ANSI_NULLS ON
+-- GO
+-- SET QUOTED_IDENTIFIER ON
+-- GO
+-- CREATE TABLE [PTIS].[SubCategory](
+-- 	[SubCategory] [nvarchar] (30) NOT NULL,
+-- 	[SubCategoryType] [nvarchar](50) NOT NULL,
+-- 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_SubCategory_IsActive] DEFAULT (1),
+-- 	[CreatedBy] [int] NULL,
+-- 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_SubCategory_CreatedDate DEFAULT (GETDATE()),
+-- 	[UpdatedBy] [int] NULL,
+-- 	[UpdatedDate] [datetime] NULL,
+--  CONSTRAINT [PK_SubCategory] PRIMARY KEY CLUSTERED ([SubCategory] ASC)
+
+-- ) 
+
+
+CREATE TABLE [PTIS].[SocietyDetailsMast](
+	[SocietyID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[WingName] [nvarchar](30) NULL,
+	[WingID] [int] NULL,
+	[BHKType] [nvarchar](20) NULL,
+	[SecretoryName] [nvarchar](200) NULL,
+	[SocietyName] [nvarchar](500) NULL,
+	[ManagerName] [nvarchar](200) NULL,
+	[SecretoryNameEnglish] [nvarchar](200) NULL,
+	[SocietyNameEnglish] [nvarchar](500) NULL,
+	[ManagerNameEnglish] [nvarchar](200) NULL,
+	[ManagerMobileNo] [varchar](13) NULL,
+	[SecretaryMobileNo] [varchar](13) NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_SocietyDetailsMaster_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_SubCategory_CreatedDate DEFAULT (GETDATE()),
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_SocietyDetailsMaster_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_SubCategory] PRIMARY KEY CLUSTERED ([SubCategory] ASC)
+ CONSTRAINT [PK_SocietyDetailsMaster] PRIMARY KEY CLUSTERED ([SocietyID] ASC)
+) ON [PRIMARY]
+GO
 
-) 
 
 
 /****** Object:  Table [PTIS].[PropertyMast]******/
@@ -179,7 +205,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [PTIS].[PropertyMast](
-	[OwnerID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[OwnerID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[TaxZone] [nvarchar](10) NULL,
 	[WardNo] [nvarchar](10) NULL,
 	[PropertyNo] [nvarchar](10) NULL,
@@ -190,12 +216,10 @@ CREATE TABLE [PTIS].[PropertyMast](
 	[CSN] [nvarchar](30) NULL,
 	[SubZoneNo] [nvarchar](20) NULL,
 	[PlotNo] [nvarchar](20) NULL,
-	[Category] [nvarchar](30) NULL,
-	[SubCategory] [nvarchar](30) NULL,
+	[CategoryID] [int] NULL,
 	[Type] [varchar](5) NULL,
 	[PartType] [nvarchar](20) NULL,
 	[OwnerTitle] [nvarchar](10) NULL,
-	[OwnerType] [nvarchar](30) NULL,
 	[OwnerName] [nvarchar](1000) NULL,
 	[OccupierTitle] [nvarchar](10) NULL,
 	[OccupierName] [nvarchar](1000) NULL,
@@ -205,9 +229,7 @@ CREATE TABLE [PTIS].[PropertyMast](
 	[Location] [nvarchar](200) NULL,
 	[MobileNo] [varchar](13) NULL,
 	[EmailId] [nvarchar](100) NULL,
-	[SecretaryName] [nvarchar](300) NULL,
-	[SocietyName] [nvarchar](200) NULL,
-	[ManagerName] [nvarchar](300) NULL,
+	[SocietyID] [int] NULL,
 	[OwnerTitleEnglish] [nvarchar](10) NULL,
 	[OwnerNameEnglish] [nvarchar](1000) NULL,
 	[OccupierTitleEnglish] [varchar](10) NULL,
@@ -216,9 +238,6 @@ CREATE TABLE [PTIS].[PropertyMast](
 	[FlatOrShopNameEnglish] [nvarchar](200) NULL,
 	[AddressEnglish] [nvarchar](500) NULL,
 	[LocationEnglish] [nvarchar](200) NULL,
-	[SecretaryNameEnglish] [nvarchar](300) NULL,
-	[SocietyNameEnglish] [nvarchar](200) NULL,
-	[ManagerNameEnglish] [nvarchar](300) NULL,
 	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_PropertyMast_MarkedForDeletion] DEFAULT (0),
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyMast_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
@@ -235,23 +254,23 @@ GO
 ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_PropertyTypeMaster];
 GO
 
-alter table [PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_OwnerTypeMaster] FOREIGN KEY([OwnerType])
-REFERENCES [PTIS].[OwnerTypeMaster] ([OwnerType])	
-GO
-ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_OwnerTypeMaster]
+-- alter table [PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_OwnerTypeMaster] FOREIGN KEY([OwnerType])
+-- REFERENCES [PTIS].[OwnerTypeMaster] ([OwnerType])	
+-- GO
+-- ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_OwnerTypeMaster]
 
-ALTER TABLE [PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_CategoryMaster] FOREIGN KEY([Category])
-REFERENCES [PTIS].[CategoryMaster] ([Category])
+ALTER TABLE [PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_CategoryMaster] FOREIGN KEY([CategoryID])
+REFERENCES [PTIS].[CategoryMaster] ([CategoryID])
 GO	
 ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_CategoryMaster]
 GO
 
 
-ALTER TABLE [PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_SubCategory] FOREIGN KEY([SubCategory])
-REFERENCES [PTIS].[SubCategory] ([SubCategory])
-GO
-ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_SubCategory]
-GO
+-- ALTER TABLE [PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_SubCategory] FOREIGN KEY([SubCategory])
+-- REFERENCES [PTIS].[SubCategory] ([SubCategory])
+-- GO
+-- ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_SubCategory]
+-- GO
 
 
 ALTER TABLE [PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_WardMaster] FOREIGN KEY([WardNo])
@@ -273,7 +292,7 @@ CREATE NONCLUSTERED INDEX [Ind_Category] ON [PTIS].[PropertyMast]
 	[PropertyNo] ASC,
 	[PartitionNo] ASC
 )
-INCLUDE([Category]) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+INCLUDE([CategoryID]) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
 
 
@@ -288,7 +307,7 @@ GO
 CREATE TABLE [PTIS].[FloorMaster](
 	[FloorID] nvarchar(5) NOT NULL,
 	[Description] [nvarchar](100) NOT NULL,
-	[DescriptionEnglish] [nvarchar](100) NULL,
+	-- [DescriptionEnglish] [nvarchar](100) NULL,
 	[SequenceNo] [int] NULL,
 	[MaxFloorNo] [int] NULL,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_FloorMaster_IsActive] DEFAULT (1),
@@ -310,9 +329,9 @@ GO
 CREATE TABLE [PTIS].[ConstructionTypeMaster](
 	[ConstructionId] [varchar](7) NOT NULL,
 	[Description] [nvarchar](100) NOT NULL,
-	[DescriptionEnglish] [nvarchar](100) NULL,
-	[KeyboardShortCutKey] [nvarchar](20) NULL,
-	[KeyWiseSequence] [int] NULL,
+	-- [DescriptionEnglish] [nvarchar](100) NULL,
+	[SearchKey] [nvarchar](20) NULL,
+	[SearchSequence] [int] NULL,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_ConstructionTypeMaster_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_ConstructionTypeMaster_CreatedDate DEFAULT (GETDATE()),
@@ -322,6 +341,24 @@ CREATE TABLE [PTIS].[ConstructionTypeMaster](
  CONSTRAINT [UQ_ConstructionTypeMaster_Description] UNIQUE ([Description])
   );
 GO
+
+
+
+/****** Object:  Table [PTIS].[TypeOfUseGroupMaster]******/
+
+CREATE TABLE [PTIS].[TypeOfUseGroupMaster](
+	[TypeOfUseGroupId]  [varchar](10) NOT NULL,
+	[GroupName] [nvarchar](50) NOT NULL,
+    [GroupIcon] [nvarchar](50) NOT NULL,
+	-- [GroupNameEnglish] [nvarchar](50) NOT NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_TypeOfUseGroupMaster_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime]  NOT NULL CONSTRAINT DF_TypeOfUseGroupMaster_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_TypeOfUseGroupMaster] PRIMARY KEY CLUSTERED ([TypeOfUseGroupID] ASC),
+    CONSTRAINT [UQ_TypeOfUseGroupMaster] UNIQUE ([GroupName])
+  )
 
 
 /****** Object:  Table [PTIS].[TypeOfUseMaster]******/
@@ -334,11 +371,11 @@ GO
 CREATE TABLE [PTIS].[TypeOfUseMaster](
 	[TypeOfUseId] [varchar](10) NOT NULL,
 	[Description] [nvarchar](100) NULL,
-	[DescriptionEnglish] [nvarchar](100) NULL,
+	-- [DescriptionEnglish] [nvarchar](100) NULL,
 	[Type] [varchar](5) NULL,
-	[GroupID] [nvarchar](50) NULL,
-	[KeyboardShortCutKey] [nvarchar](20) NULL,
-	[KeyWiseSequence] [int] NULL,
+	[TypeOfUseGroupId] [varchar](10) NULL,
+	[SearchKey] [nvarchar](20) NULL,
+	[SearchSequence] [int] NULL,
 	[IsSociety] [bit] NULL,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_TypeOfUseMaster_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
@@ -349,23 +386,13 @@ CREATE TABLE [PTIS].[TypeOfUseMaster](
  CONSTRAINT [UQ_TypeOfUseMaster_Description] UNIQUE ([Description])
 )
 GO
+alter table [PTIS].[TypeOfUseMaster]  WITH CHECK ADD  CONSTRAINT [FK_TypeOfUseMaster_TypeOfUseGroupMaster] FOREIGN KEY([TypeOfUseGroupID])	
+REFERENCES [PTIS].[TypeOfUseGroupMaster] ([TypeOfUseGroupID])
+GO
+ALTER TABLE [PTIS].[TypeOfUseMaster] CHECK CONSTRAINT [FK_TypeOfUseMaster_TypeOfUseGroupMaster]
+GO
 
 
-/****** Object:  Table [PTIS].[TypeOfUseGroupMaster]******/
-
-CREATE TABLE [PTIS].[TypeOfUseGroupMaster](
-	[TypeOfUseGroupID]  [varchar](10) NOT NULL,
-	[GroupName] [nvarchar](50) NOT NULL,
-    [GroupIcon] [nvarchar](50) NOT NULL,
-	[GroupNameEnglish] [nvarchar](50) NOT NULL,
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_TypeOfUseGroupMaster_IsActive] DEFAULT (1),
-	[CreatedBy] [int] NULL,
-	[CreatedDate] [datetime]  NOT NULL CONSTRAINT DF_TypeOfUseGroupMaster_CreatedDate DEFAULT (GETDATE()),
-	[UpdatedBy] [int] NULL,
-	[UpdatedDate] [datetime] NULL,
-	CONSTRAINT [PK_TypeOfUseGroupMaster] PRIMARY KEY CLUSTERED ([TypeOfUseGroupID] ASC),
-    CONSTRAINT [UQ_TypeOfUseGroupMaster] UNIQUE ([GroupName])
-  )
 
 /****** Object:  Table [PTIS].[SubTypeOfUseMaster]******/
 SET ANSI_NULLS ON
@@ -375,11 +402,11 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[SubTypeOfUseMaster](
-	[SubTypeOfUseId] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[SubTypeOfUseId] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[Description] [nvarchar](80) NULL,
 	[TypeOfUseId] [varchar](10) NOT NULL,
-	[KeyboardShortCutKey] [nvarchar](20) NULL,
-	[KeyWiseSequence] [int] NULL,
+	[SearchKey] [nvarchar](20) NULL,
+	[SearchSequence] [int] NULL,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_SubTypeOfUseMaster_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_SubTypeOfUseMaster_CreatedDate DEFAULT (GETDATE()),
@@ -401,7 +428,7 @@ GO
 CREATE TABLE [PTIS].[RateSectionMaster](
 	[RateSectionNo] [nvarchar](20) NOT NULL,
 	[Description] [nvarchar](80) NULL,
-	[DescriptionEnglish] [nvarchar](80) NULL,
+	-- [DescriptionEnglish] [nvarchar](80) NULL,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RateSectionMaster_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_RateSectionMaster_CreatedDate DEFAULT (GETDATE()),
@@ -413,23 +440,22 @@ CREATE TABLE [PTIS].[RateSectionMaster](
 
 
 
-/****** Object:  Table [PTIS].[SubZoneSectionDetails]******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [PTIS].[SubZoneSectionDetails](
-	[SubZoneSectionId] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
-	[TaxZoneNo] [nvarchar](10) NULL,
+/****** Object:  Table [PTIS].[SubZoneDetailsForCV]******/
+CREATE TABLE [PTIS].[SubZoneDetailsForCV](
+	[SubZoneId] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[MoujaName] [nvarchar](300) NULL,
 	[SubZoneNo] [nvarchar](20) NULL,
-	[SubZoneName] [nvarchar](300) NULL,
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_SubZoneSectionDetails_IsActive] DEFAULT (1),
+	[SubZoneName] [nvarchar](1000) NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_SubZoneDetailsForCV_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_SubZoneSectionDetails_CreatedDate DEFAULT (GETDATE()),
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_SubZoneDetailsForCV_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_SubZoneSectionDetails] PRIMARY KEY CLUSTERED ([SubZoneSectionId] ASC)
+CONSTRAINT [PK_SubZoneDetailsForCV] PRIMARY KEY CLUSTERED  ([SubZoneId] ASC)
 )
+GO
+
+
 /****** Object:  Table [PTIS].[SubFloorMaster]******/
 SET ANSI_NULLS ON
 GO
@@ -440,7 +466,7 @@ GO
 CREATE TABLE [PTIS].[SubFloorMaster](
 	[SubFloorId] [nvarchar](10) NOT NULL,
 	[SubFloorDescription] [nvarchar](200) NULL,
-	[SubFloorDescriptionEnglish] [nvarchar](200) NULL,
+	-- [SubFloorDescriptionEnglish] [nvarchar](200) NULL,
 	[SubFloorPercentage] [money] NULL,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_SubFloorMaster_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
@@ -468,15 +494,98 @@ CREATE TABLE [PTIS].[YearMaster](
  CONSTRAINT [PK_YearMaster] PRIMARY KEY CLUSTERED ([Year] ASC)
 )
 
-/****** Object:  Table [PTIS].[PropertyDetailsNew]******/
+/****** Object:  Table [PTIS].[PropertyDetails]******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [PTIS].[PropertyDetailsNew](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+CREATE TABLE [PTIS].[PropertyDetails](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[OwnerID] [int] NOT NULL,
+	[FloorID] nvarchar(5) NOT NULL,
+	[SubFloorID] [nvarchar](10) NULL,
+	[ConstructionYear] [varchar](4) NULL,
+	[AssessmentYear] [nvarchar](4) NULL,
+	[ConstructionId] [varchar](7) NULL,
+	[TypeOfUseId] [varchar](10) NULL,
+	[CarpetAreaSqFeet] [float] NULL,
+	[CarpetAreaSqMeter] [float] NULL,
+	[NoOfRooms] [int] NULL,
+	[RenterYesNO] [bit] NULL,
+	[RentMonthly] [float] NULL,
+	[RentYearly] [float] NULL,
+	[NonCalculateRentMonthly] [float] NULL,
+	[RenterNameEnglish] [nvarchar](500) NULL,
+	[RenterName] [nvarchar](500) NULL,
+	[AgreementFromDate] [datetime] NULL,
+	[AgreementDate] [datetime] NULL,
+	[AgreementToDate] [datetime] NULL,
+	[SubTypeOfUseId] [int] NULL,
+	[BuiltupAreaSqFeet] [float] NULL,
+	[BuiltupAreaSqMeter] [float] NULL,
+	[TaxLiability] [nvarchar](20) NULL,
+	[IsTaxable] [bit] NULL,
+	[OccupancyDate] [datetime] NULL,
+	[OccupancyApplyOrNot] [bit] NULL,
+	[OccupancyNumber] [varchar](30) NULL,
+	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_PropertyDetails_MarkedForDeletion] DEFAULT (0),
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyDetails_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PropertyDetails_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+ CONSTRAINT [PK_PropertyDetails] PRIMARY KEY CLUSTERED ([Id] ASC)
+)
+GO
+ALTER TABLE [PTIS].[PropertyDetails] WITH CHECK ADD CONSTRAINT [FK_PropertyDetails_PropertyMast] 
+FOREIGN KEY([OwnerID]) REFERENCES [PTIS].[PropertyMast]([OwnerID]);
+GO
+ALTER TABLE [PTIS].[PropertyDetails] CHECK CONSTRAINT [FK_PropertyDetails_PropertyMast];
+GO
+
+ALTER TABLE [PTIS].[PropertyDetails] WITH CHECK ADD CONSTRAINT [FK_PropertyDetails_SubFloorMaster] 
+FOREIGN KEY([SubFloorID]) REFERENCES [PTIS].[SubFloorMaster]([SubFloorId]);
+GO
+ALTER TABLE [PTIS].[PropertyDetails] CHECK CONSTRAINT [FK_PropertyDetails_SubFloorMaster];
+GO
+
+ALTER TABLE [PTIS].[PropertyDetails] WITH CHECK ADD CONSTRAINT [FK_PropertyDetails_ConstructionTypeMaster] 
+FOREIGN KEY([ConstructionId]) REFERENCES [PTIS].[ConstructionTypeMaster]([ConstructionId]);
+GO
+ALTER TABLE [PTIS].[PropertyDetails] CHECK CONSTRAINT [FK_PropertyDetails_ConstructionTypeMaster];
+GO
+
+ALTER TABLE [PTIS].[PropertyDetails] WITH CHECK ADD CONSTRAINT [FK_PropertyDetails_FloorMaster] 
+FOREIGN KEY([FloorID]) REFERENCES [PTIS].[FloorMaster]([FloorID]);
+GO
+ALTER TABLE [PTIS].[PropertyDetails] CHECK CONSTRAINT [FK_PropertyDetails_FloorMaster];
+GO
+
+ALTER TABLE [PTIS].[PropertyDetails] WITH CHECK ADD CONSTRAINT [FK_PropertyDetails_TypeOfUseMaster] 
+FOREIGN KEY([TypeOfUseId]) REFERENCES [PTIS].[TypeOfUseMaster]([TypeOfUseId]);
+GO
+ALTER TABLE [PTIS].[PropertyDetails] CHECK CONSTRAINT [FK_PropertyDetails_TypeOfUseMaster];
+GO
+
+ALTER TABLE [PTIS].[PropertyDetails] WITH CHECK ADD CONSTRAINT [FK_PropertyDetails_SubTypeOfUseMaster]
+FOREIGN KEY([SubTypeOfUseId]) REFERENCES [PTIS].[SubTypeOfUseMaster]([SubTypeOfUseId]);
+GO
+ALTER TABLE [PTIS].[PropertyDetails] CHECK CONSTRAINT [FK_PropertyDetails_SubTypeOfUseMaster];
+GO
+
+
+
+/****** Object:  Table [PTIS].[PropertyDetailsReassesment]******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [PTIS].[PropertyDetailsReassesment](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[OwnerID] [int] NOT NULL,
 	[FloorID] nvarchar(5) NOT NULL,
 	[SubFloorID] [nvarchar](10) NULL,
@@ -503,55 +612,49 @@ CREATE TABLE [PTIS].[PropertyDetailsNew](
 	[OccupancyDate] [datetime] NULL,
 	[OccupancyApplyOrNot] [bit] NULL,
 	[OccupancyNumber] [varchar](30) NULL,
-	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_PropertyDetailsNew_MarkedForDeletion] DEFAULT (0),
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyDetailsNew_IsActive] DEFAULT (1),
+	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_PropertyDetailsReassesment_MarkedForDeletion] DEFAULT (0),
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyDetailsReassesment_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PropertyDetailsNew_CreatedDate DEFAULT (GETDATE()),
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PropertyDetailsReassesment_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_PropertyDetailsNew] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_PropertyDetailsReassesment] PRIMARY KEY CLUSTERED ([Id] ASC)
 )
 GO
-ALTER TABLE [PTIS].[PropertyDetailsNew] WITH CHECK
-ADD CONSTRAINT [FK_PropertyDetailsNew_PropertyMast]
-FOREIGN KEY([OwnerID]) REFERENCES [PTIS].[PropertyMast]([OwnerID]);
+ALTER TABLE [PTIS].[PropertyDetailsReassesment] WITH CHECK
+ADD CONSTRAINT [FK_PropertyDetailsReassesment_PropertyMast] FOREIGN KEY([OwnerID]) REFERENCES [PTIS].[PropertyMast]([OwnerID]);
 GO
-ALTER TABLE [PTIS].[PropertyDetailsNew] CHECK CONSTRAINT [FK_PropertyDetailsNew_PropertyMast];
-GO
-
-ALTER TABLE [PTIS].[PropertyDetailsNew] WITH CHECK
-ADD CONSTRAINT [FK_PropertyDetailsNew_SubFloorMaster]
-FOREIGN KEY([SubFloorID]) REFERENCES [PTIS].[SubFloorMaster]([SubFloorId]);
-GO
-ALTER TABLE [PTIS].[PropertyDetailsNew] CHECK CONSTRAINT [FK_PropertyDetailsNew_SubFloorMaster];
+ALTER TABLE [PTIS].[PropertyDetailsReassesment] CHECK CONSTRAINT [FK_PropertyDetailsReassesment_PropertyMast];
 GO
 
-ALTER TABLE [PTIS].[PropertyDetailsNew] WITH CHECK
-ADD CONSTRAINT [FK_PropertyDetailsNew_ConstructionTypeMaster]
-FOREIGN KEY([ConstructionId]) REFERENCES [PTIS].[ConstructionTypeMaster]([ConstructionId]);
+ALTER TABLE [PTIS].[PropertyDetailsReassesment] WITH CHECK
+ADD CONSTRAINT [FK_PropertyDetailsReassesment_SubFloorMaster] FOREIGN KEY([SubFloorID]) REFERENCES [PTIS].[SubFloorMaster]([SubFloorId]);
 GO
-ALTER TABLE [PTIS].[PropertyDetailsNew] CHECK CONSTRAINT [FK_PropertyDetailsNew_ConstructionTypeMaster];
-GO
-
-ALTER TABLE [PTIS].[PropertyDetailsNew] WITH CHECK
-ADD CONSTRAINT [FK_PropertyDetailsNew_FloorMaster]
-FOREIGN KEY([FloorID]) REFERENCES [PTIS].[FloorMaster]([FloorID]);
-GO
-ALTER TABLE [PTIS].[PropertyDetailsNew] CHECK CONSTRAINT [FK_PropertyDetailsNew_FloorMaster];
+ALTER TABLE [PTIS].[PropertyDetailsReassesment] CHECK CONSTRAINT [FK_PropertyDetailsReassesment_SubFloorMaster];
 GO
 
-ALTER TABLE [PTIS].[PropertyDetailsNew] WITH CHECK
-ADD CONSTRAINT [FK_PropertyDetailsNew_TypeOfUseMaster]
-FOREIGN KEY([TypeOfUseId]) REFERENCES [PTIS].[TypeOfUseMaster]([TypeOfUseId]);
+ALTER TABLE [PTIS].[PropertyDetailsReassesment] WITH CHECK
+ADD CONSTRAINT [FK_PropertyDetailsReassesment_ConstructionTypeMaster] FOREIGN KEY([ConstructionId]) REFERENCES [PTIS].[ConstructionTypeMaster]([ConstructionId]);
 GO
-ALTER TABLE [PTIS].[PropertyDetailsNew] CHECK CONSTRAINT [FK_PropertyDetailsNew_TypeOfUseMaster];
+ALTER TABLE [PTIS].[PropertyDetailsReassesment] CHECK CONSTRAINT [FK_PropertyDetailsReassesment_ConstructionTypeMaster];
 GO
 
-ALTER TABLE [PTIS].[PropertyDetailsNew] WITH CHECK
-ADD CONSTRAINT [FK_PropertyDetailsNew_SubTypeOfUseMaster]
-FOREIGN KEY([SubTypeOfUseId]) REFERENCES [PTIS].[SubTypeOfUseMaster]([SubTypeOfUseId]);
+ALTER TABLE [PTIS].[PropertyDetailsReassesment] WITH CHECK
+ADD CONSTRAINT [FK_PropertyDetailsReassesment_FloorMaster] FOREIGN KEY([FloorID]) REFERENCES [PTIS].[FloorMaster]([FloorID]);
 GO
-ALTER TABLE [PTIS].[PropertyDetailsNew] CHECK CONSTRAINT [FK_PropertyDetailsNew_SubTypeOfUseMaster];
+ALTER TABLE [PTIS].[PropertyDetailsReassesment] CHECK CONSTRAINT [FK_PropertyDetailsReassesment_FloorMaster];
+GO
+
+ALTER TABLE [PTIS].[PropertyDetailsReassesment] WITH CHECK
+ADD CONSTRAINT [FK_PropertyDetailsReassesment_TypeOfUseMaster] FOREIGN KEY([TypeOfUseId]) REFERENCES [PTIS].[TypeOfUseMaster]([TypeOfUseId]);
+GO
+ALTER TABLE [PTIS].[PropertyDetailsReassesment] CHECK CONSTRAINT [FK_PropertyDetailsReassesment_TypeOfUseMaster];
+GO
+
+ALTER TABLE [PTIS].[PropertyDetailsReassesment] WITH CHECK
+ADD CONSTRAINT [FK_PropertyDetailsReassesment_SubTypeOfUseMaster] FOREIGN KEY([SubTypeOfUseId]) REFERENCES [PTIS].[SubTypeOfUseMaster]([SubTypeOfUseId]);
+GO
+ALTER TABLE [PTIS].[PropertyDetailsReassesment] CHECK CONSTRAINT [FK_PropertyDetailsReassesment_SubTypeOfUseMaster];
 GO
 
 /****** Object:  Table [PTIS].[ActiveTaxesMaster]******/
@@ -562,16 +665,11 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[ActiveTaxesMaster](
-	[TaxNameID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[TaxNameID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[TaxName] [nvarchar](200) NULL,
 	[TaxNameAlias] [nvarchar](200) NULL,
-	[TaxNameOrder] [int] NULL,
-	[ActiveTaxHeadsOnly] [bit] NULL,
-	[FixedStanderdTax] [bit] NULL,
-	[PartialPayOrderWise] [bit] NULL,
-	[ReportSequenceNo] [int] NULL,
-	[TaxID] [int] NULL,
 	[DisplayOrder] [int] NULL,
+	[TaxOnUnit] [bit] NOT NULL CONSTRAINT [DF_ActiveTaxesMaster_TaxOnUnit] DEFAULT (0),
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_ActiveTaxesMaster_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_ActiveTaxesMaster_CreatedDate DEFAULT (GETDATE()),
@@ -625,7 +723,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[AppealMast](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[OwnerID] [int] NOT NULL,
 	[PolicyRemark] [nvarchar](10) NULL,
 	[AppealDate] [datetime] NULL,
@@ -780,7 +878,7 @@ CREATE TABLE [PTIS].[AppealMast](
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
 	
- CONSTRAINT [PK_AppealMast] PRIMARY KEY CLUSTERED   ([ID] 	ASC)
+ CONSTRAINT [PK_AppealMast] PRIMARY KEY CLUSTERED   ([Id] 	ASC)
  )
 
 ALTER TABLE [PTIS].[AppealMast]  WITH CHECK ADD  CONSTRAINT [FK_AppealMast_PropertyMast_OwnerID] FOREIGN KEY([OwnerID])
@@ -799,7 +897,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[ApplyTaxesMaster](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[OwnerID] [int] NOT NULL,
 	[GeneralTax] [bit] NOT NULL,
 	[StateEducationTax] [bit] NOT NULL,
@@ -839,7 +937,7 @@ CREATE TABLE [PTIS].[ApplyTaxesMaster](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_ApplyTaxesMaster_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
-CONSTRAINT [PK_ApplyTaxesMaster] PRIMARY KEY CLUSTERED ([ID] ASC)
+CONSTRAINT [PK_ApplyTaxesMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
 )
 
 ALTER TABLE [PTIS].[ApplyTaxesMaster] ADD  CONSTRAINT [DF_ApplyTaxesMaster_IsTaxForPlot]  DEFAULT ((0)) FOR [IsTaxForPlot]
@@ -865,7 +963,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[ApplyTaxesMasterPrime](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[TypeOfUseId] [varchar](10) NULL,
 	[Type] [varchar](5) NULL,
 	[GeneralTax] [bit] NOT NULL,
@@ -903,7 +1001,7 @@ CREATE TABLE [PTIS].[ApplyTaxesMasterPrime](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_ApplyTaxesMasterPrime_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_ApplyTaxesMasterPrime] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_ApplyTaxesMasterPrime] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 
@@ -922,7 +1020,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[AssessmentMaster](
-	[AssessmentID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[AssessmentID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[FromYear] [int] NULL,
 	[ToYear] [int] NULL,
 	[MaxYear] [int] NULL,
@@ -969,7 +1067,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[BillBookMaster](
-	[ID] [int] NOT NULL,
+	[Id] [int] NOT NULL,
 	[EmpName] [nvarchar](50) NULL,
 	[BillBookNo] [nvarchar](50) NULL,
 	[ReceiptNoFrom] [int] NULL,
@@ -984,12 +1082,12 @@ CREATE TABLE [PTIS].[BillBookMaster](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_BillBookMaster_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_BillBookMaster] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_BillBookMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 /****** Object:  Table [PTIS].[BillTransactionDetails]******/
 CREATE TABLE [PTIS].[BillTransactionDetails](
-	[BilltransactionID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[BilltransactionID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[OwnerID] [int] NULL,
 	[BillbookNo] [nvarchar](50) NULL,
 	[InvoiceNo] [int] NULL,
@@ -1196,7 +1294,7 @@ GO
 
 
 CREATE TABLE [PTIS].[BillTransactionDiscountDetails](
-	[BilltransactionDiscountID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[BilltransactionDiscountID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[BilltransactionID] [int] NOT NULL,
 	[OwnerID] [int] NOT NULL,
 	[OnlineDiscountAmount] [money] NULL,
@@ -1277,32 +1375,32 @@ GO
 
 
  
-/****** Object:  Table [PTIS].[CitySurveyNoMaster]******/
-SET ANSI_NULLS ON
-GO
+-- /****** Object:  Table [PTIS].[CitySurveyNoMaster]******/
+-- SET ANSI_NULLS ON
+-- GO
 
-SET QUOTED_IDENTIFIER ON
-GO
+-- SET QUOTED_IDENTIFIER ON
+-- GO
 
-CREATE TABLE [PTIS].[CitySurveyNoMaster](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
-	[SubZoneID] [int] NULL,
-	[CSN] [nvarchar](4000) NULL,
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_CitySurveyNoMaster_IsActive] DEFAULT (1),
-	[CreatedBy] [int] NULL,
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_CitySurveyNoMaster_CreatedDate DEFAULT (GETDATE()),
-	[UpdatedBy] [int] NULL,
-	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_CitySurveyNoMaster] PRIMARY KEY CLUSTERED ([ID] ASC)
-)
-GO
+-- CREATE TABLE [PTIS].[CitySurveyNoMaster](
+-- 	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+-- 	[SubZoneID] [int] NULL,
+-- 	[CSN] [nvarchar](4000) NULL,
+-- 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_CitySurveyNoMaster_IsActive] DEFAULT (1),
+-- 	[CreatedBy] [int] NULL,
+-- 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_CitySurveyNoMaster_CreatedDate DEFAULT (GETDATE()),
+-- 	[UpdatedBy] [int] NULL,
+-- 	[UpdatedDate] [datetime] NULL,
+--  CONSTRAINT [PK_CitySurveyNoMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
+-- )
+-- GO
 
-ALTER TABLE [PTIS].[CitySurveyNoMaster]  WITH CHECK ADD  CONSTRAINT [FK_CitySurveyNoMaster_SubZoneSectionDetails] FOREIGN KEY([SubZoneID])
-REFERENCES [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId])
-GO
+-- ALTER TABLE [PTIS].[CitySurveyNoMaster]  WITH CHECK ADD  CONSTRAINT [FK_CitySurveyNoMaster_SubZoneDetailsForCV] FOREIGN KEY([SubZoneID])
+-- REFERENCES [PTIS].[SubZoneDetailsForCV] ([SubZoneId])
+-- GO
 
-ALTER TABLE [PTIS].[CitySurveyNoMaster] CHECK CONSTRAINT [FK_CitySurveyNoMaster_SubZoneSectionDetails]
-GO
+-- ALTER TABLE [PTIS].[CitySurveyNoMaster] CHECK CONSTRAINT [FK_CitySurveyNoMaster_SubZoneDetailsForCV]
+-- GO
 
 
 /****** Object:  Table [PTIS].[TaxPercentageMasterCV]******/
@@ -1313,13 +1411,15 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[TaxPercentageMasterCV](
-    [ID] int NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+    [Id] int IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [TypeOfUseId] varchar(10) NOT NULL,
     [Description] nvarchar(80) NOT NULL,
     [Type] varchar(5) NOT NULL,
+	[FromYear] [int] NOT NULL,
+	[ToYear] [int] NOT NULL,
     [GeneralTax] money NOT NULL,
-    [StateEducationTax] money NOT NULL,
-    [StateEmploymentTax] money NOT NULL,
+    -- [StateEducationTax] money NOT NULL,
+    -- [StateEmploymentTax] money NOT NULL,
     [TreeCess] money NOT NULL,
     [SpWaterCess] money NOT NULL,
     [RoadCess] money NOT NULL,
@@ -1354,7 +1454,7 @@ CREATE TABLE [PTIS].[TaxPercentageMasterCV](
     [UpdatedBy] int NULL,
     [UpdatedDate] datetime NULL,
 
-    CONSTRAINT [PK_TaxPercentageMasterCV] PRIMARY KEY CLUSTERED ([ID] ASC),
+    CONSTRAINT [PK_TaxPercentageMasterCV] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [CK_TaxPercentageMasterCV_Effective]  CHECK (EffectiveTo IS NULL OR EffectiveFrom <= EffectiveTo)
 ) ON [PRIMARY];
 GO
@@ -1368,12 +1468,11 @@ GO
 ALTER TABLE [PTIS].[TaxPercentageMasterCV] ADD  DEFAULT ((0)) FOR [GeneralTax]
 GO
 
-ALTER TABLE [PTIS].[TaxPercentageMasterCV] ADD  DEFAULT ((0)) FOR [StateEducationTax]
-GO
+-- ALTER TABLE [PTIS].[TaxPercentageMasterCV] ADD  DEFAULT ((0)) FOR [StateEducationTax]
+-- GO
 
-ALTER TABLE [PTIS].[TaxPercentageMasterCV] ADD  DEFAULT ((0)) FOR [StateEmploymentTax]
-GO
-
+-- ALTER TABLE [PTIS].[TaxPercentageMasterCV] ADD  DEFAULT ((0)) FOR [StateEmploymentTax]
+-- GO
 ALTER TABLE [PTIS].[TaxPercentageMasterCV] ADD  DEFAULT ((0)) FOR [TreeCess]
 GO
 
@@ -1460,13 +1559,15 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[TaxPercentageMasterRV](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[TypeOfUseId] [varchar](10) NOT NULL,
 	[Description] [nvarchar](80) NOT NULL,
 	[Type] [varchar](5) NOT NULL,
+	[FromYear] [int] NOT NULL,
+	[ToYear] [int] NOT NULL,
 	[GeneralTax] [money] NOT NULL,
-	[StateEducationTax] [money] NOT NULL,
-	[StateEmploymentTax] [money] NOT NULL,
+	-- [StateEducationTax] [money] NOT NULL,
+	-- [StateEmploymentTax] [money] NOT NULL,
 	[TreeCess] [money] NOT NULL,
 	[SpWaterCess] [money] NOT NULL,
 	[RoadCess] [money] NOT NULL,
@@ -1501,7 +1602,7 @@ CREATE TABLE [PTIS].[TaxPercentageMasterRV](
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
  
-    CONSTRAINT [PK_TaxPercentageMasterRV] PRIMARY KEY CLUSTERED ([ID] ASC),
+    CONSTRAINT [PK_TaxPercentageMasterRV] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [CK_TaxPercentageMasterRV_Effective]  CHECK (EffectiveTo IS NULL OR EffectiveFrom <= EffectiveTo)
 ) ON [PRIMARY];
 GO
@@ -1515,11 +1616,11 @@ GO
 ALTER TABLE [PTIS].[TaxPercentageMasterRV] ADD  DEFAULT ((0)) FOR [GeneralTax]
 GO
 
-ALTER TABLE [PTIS].[TaxPercentageMasterRV] ADD  DEFAULT ((0)) FOR [StateEducationTax]
-GO
+-- ALTER TABLE [PTIS].[TaxPercentageMasterRV] ADD  DEFAULT ((0)) FOR [StateEducationTax]
+-- GO
 
-ALTER TABLE [PTIS].[TaxPercentageMasterRV] ADD  DEFAULT ((0)) FOR [StateEmploymentTax]
-GO
+-- ALTER TABLE [PTIS].[TaxPercentageMasterRV] ADD  DEFAULT ((0)) FOR [StateEmploymentTax]
+-- GO
 
 ALTER TABLE [PTIS].[TaxPercentageMasterRV] ADD  DEFAULT ((0)) FOR [TreeCess]
 GO
@@ -1607,7 +1708,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[ConditionMaster](
-	[ConditionID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[ConditionID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[FloorID] [nvarchar](500) NULL,
 	[ConstructionId] [nvarchar](100) NULL,
 	[PropType] [nvarchar](50) NULL,
@@ -1630,7 +1731,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[ConditionMasterRates](
-	[RateID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[RateID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[FloorID] [nvarchar](10) NULL,
 	[ConstructionId] [nvarchar](7) NULL,
 	[PropType] [nvarchar](10) NULL,
@@ -1654,7 +1755,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[CustomDatabaseChangesParameter](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[WardWiseRate] [bit] NULL,
 	[SqFtToSqMt] [float] NULL,
 	[EduEmpOnRV] [bit] NULL,
@@ -1666,7 +1767,7 @@ CREATE TABLE [PTIS].[CustomDatabaseChangesParameter](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_CustomDatabaseChangesParameter_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
-    CONSTRAINT [PK_CustomDatabaseChangesParameter] PRIMARY KEY CLUSTERED ([ID] ASC)
+    CONSTRAINT [PK_CustomDatabaseChangesParameter] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY];
 GO
 
@@ -1679,7 +1780,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[DepreciationMaster](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[ConstructionId] [varchar](7) NULL,
 	[MinYear] [int] NULL,
 	[MaxYear] [int] NULL,
@@ -1691,7 +1792,7 @@ CREATE TABLE [PTIS].[DepreciationMaster](
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
 	
- CONSTRAINT [PK_DepreciationMaster] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_DepreciationMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 
@@ -1710,7 +1811,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[EducationTaxMaster](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[Type] [varchar](5) NULL,
 	[Year] [int] NULL,
 	[MinAmount] [money] NULL,
@@ -1722,7 +1823,7 @@ CREATE TABLE [PTIS].[EducationTaxMaster](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_EducationTaxMaster_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_EducationTaxMaster] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_EducationTaxMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 
@@ -1734,7 +1835,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[EmploymentTaxMaster](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[Type] [varchar](5) NULL,
 	[Year] [int] NULL,
 	[MinAmount] [money] NULL,
@@ -1746,7 +1847,7 @@ CREATE TABLE [PTIS].[EmploymentTaxMaster](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_EmploymentTaxMaster_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_EmploymentTaxMaster] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_EmploymentTaxMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 
@@ -1758,7 +1859,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[FlagMaster](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[OwnerID] [int] NOT NULL,
 	[LatestTaxCalculated] [bit] NOT NULL,
 	[NewSecurityDeposit] [bit] NOT NULL,
@@ -1800,7 +1901,7 @@ CREATE TABLE [PTIS].[FlagMaster](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_FlagMaster_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_FlagMaster] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_FlagMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 
@@ -1921,7 +2022,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[FloorFactorCVMaster](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[FloorID] [nvarchar](5) NOT NULL,
 	[FactorWithLift] [decimal](5, 2) NULL,
 	[FactorWithoutLift] [decimal](5, 2) NULL,
@@ -1933,7 +2034,7 @@ CREATE TABLE [PTIS].[FloorFactorCVMaster](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_FloorFactorCVMaster_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_FloorFactorCVMaster] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_FloorFactorCVMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 ALTER TABLE [PTIS].[FloorFactorCVMaster] WITH CHECK ADD CONSTRAINT [FK_FloorFactorCVMaster_FloorMaster]
@@ -1943,110 +2044,109 @@ GO
 ALTER TABLE [PTIS].[FloorFactorCVMaster] CHECK CONSTRAINT [FK_FloorFactorCVMaster_FloorMaster];
 GO
 
-/****** Object:  Table [PTIS].[FloorSubmissionDetails]******/
+/****** Object:  Table [PTIS].[RoomWiseSubmissionDetails]******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [PTIS].[FloorSubmissionDetails](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+CREATE TABLE [PTIS].[RoomWiseSubmissionDetails](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[OwnerID] [int] NULL,
-	[FloorID] [nvarchar](5) NULL,
-	[SubFloorID] [nvarchar](10) NULL,
-	[ConstructionYear] [varchar](4) NULL,
-	[ConstructionId] [varchar](7) NULL,
-	[TypeOfUseId] [varchar](10) NULL,
-	[LengthMtr] [float] NULL,
-	[WidthMtr] [float] NULL,
-	[AreaSqMtr] [float] NULL,
-	[NoOfRooms] [int] NULL,
-	[TotalAreaSqMtr] [float] NULL,
-	[RoomNo] [nvarchar](100) NULL,
-	[InnerOuter] [varchar](20) NULL,
 	[PDNId] [int] NULL,
+	[LengthMtr] [decimal](18,2) NULL,
+	[WidthMtr] [decimal](18,2) NULL,
+	[AreaSqMtr] [decimal](18,2) NULL,
+	[HeightMtr] [decimal](18,2) NULL,
+	[Base1Mtr] [decimal](18,2) NULL,
+	[Base2Mtr] [decimal](18,2) NULL,
+	[NoOfRooms] [int] NULL,
+	[TotalAreaSqMtr] [decimal](18, 2) NULL,
+	[Shape] [nvarchar] (25) NULL,
+	[RoomNo] [nvarchar](100) NULL,
+	[OuterYesNo] [bit] NOT NULL CONSTRAINT [DF_RoomWiseSubmissionDetails_OuterYesNo] DEFAULT (0),
 	[RoomType] [nvarchar](100) NULL,
 	[SubmissionType] [nvarchar](100) NULL,
-	[MinusYesNo] [nvarchar](400) NULL,
-	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_FloorSubmissionDetails_MarkedForDeletion] DEFAULT (0),
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_FloorSubmissionDetails_IsActive] DEFAULT (1),
+	[MinusYesNo] [bit] NOT NULL CONSTRAINT [DF_RoomWiseSubmissionDetails_MinusYesNo] DEFAULT (0),
+	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_RoomWiseSubmissionDetails_MarkedForDeletion] DEFAULT (0),
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RoomWiseSubmissionDetails_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_FloorSubmissionDetails_CreatedDate DEFAULT (GETDATE()),
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_RoomWiseSubmissionDetails_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_FloorSubmissionDetails] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_RoomWiseSubmissionDetails] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
-ALTER TABLE [PTIS].[FloorSubmissionDetails] WITH CHECK
-ADD CONSTRAINT [FK_FloorSubmissionDetails_PropertyDetailsNew]
+ALTER TABLE [PTIS].[RoomWiseSubmissionDetails] WITH CHECK
+ADD CONSTRAINT [FK_RoomWiseSubmissionDetails_PropertyDetails]
 FOREIGN KEY([PDNId])
-REFERENCES [PTIS].[PropertyDetailsNew] ([ID]);
+REFERENCES [PTIS].[PropertyDetails] ([Id]);
 GO
-ALTER TABLE [PTIS].[FloorSubmissionDetails]
-CHECK CONSTRAINT [FK_FloorSubmissionDetails_PropertyDetailsNew];
+ALTER TABLE [PTIS].[RoomWiseSubmissionDetails]
+CHECK CONSTRAINT [FK_RoomWiseSubmissionDetails_PropertyDetails];
 GO
 
-ALTER TABLE [PTIS].[FloorSubmissionDetails] WITH CHECK
-ADD CONSTRAINT [FK_FloorSubmissionDetails_PropertyMast]
+ALTER TABLE [PTIS].[RoomWiseSubmissionDetails] WITH CHECK
+ADD CONSTRAINT [FK_RoomWiseSubmissionDetails_PropertyMast]
 FOREIGN KEY([OwnerID])
 REFERENCES [PTIS].[PropertyMast] ([OwnerID]);
 GO
-ALTER TABLE [PTIS].[FloorSubmissionDetails]
-CHECK CONSTRAINT [FK_FloorSubmissionDetails_PropertyMast];
+ALTER TABLE [PTIS].[RoomWiseSubmissionDetails]
+CHECK CONSTRAINT [FK_RoomWiseSubmissionDetails_PropertyMast];
 GO
 
-ALTER TABLE [PTIS].[FloorSubmissionDetails] WITH NOCHECK
-ADD CONSTRAINT [FK_FloorSubmissionDetails_ConstructionTypeMaster]
-FOREIGN KEY([ConstructionId])
-REFERENCES [PTIS].[ConstructionTypeMaster] ([ConstructionId]);
-GO
-ALTER TABLE [PTIS].[FloorSubmissionDetails]
-CHECK CONSTRAINT [FK_FloorSubmissionDetails_ConstructionTypeMaster];
-GO
+-- ALTER TABLE [PTIS].[RoomWiseSubmissionDetails] WITH NOCHECK
+-- ADD CONSTRAINT [FK_RoomWiseSubmissionDetails_ConstructionTypeMaster]
+-- FOREIGN KEY([ConstructionId])
+-- REFERENCES [PTIS].[ConstructionTypeMaster] ([ConstructionId]);
+-- GO
+-- ALTER TABLE [PTIS].[RoomWiseSubmissionDetails]
+-- CHECK CONSTRAINT [FK_RoomWiseSubmissionDetails_ConstructionTypeMaster];
+-- GO
 
-ALTER TABLE [PTIS].[FloorSubmissionDetails] WITH NOCHECK
-ADD CONSTRAINT [FK_FloorSubmissionDetails_FloorMaster]
-FOREIGN KEY([FloorID])
-REFERENCES [PTIS].[FloorMaster] ([FloorID]);
-GO
-ALTER TABLE [PTIS].[FloorSubmissionDetails]
-WITH CHECK CHECK CONSTRAINT [FK_FloorSubmissionDetails_FloorMaster];
-GO
+-- ALTER TABLE [PTIS].[RoomWiseSubmissionDetails] WITH NOCHECK
+-- ADD CONSTRAINT [FK_RoomWiseSubmissionDetails_FloorMaster]
+-- FOREIGN KEY([FloorID])
+-- REFERENCES [PTIS].[FloorMaster] ([FloorID]);
+-- GO
+-- ALTER TABLE [PTIS].[RoomWiseSubmissionDetails]
+-- WITH CHECK CHECK CONSTRAINT [FK_RoomWiseSubmissionDetails_FloorMaster];
+-- GO
 
-ALTER TABLE [PTIS].[FloorSubmissionDetails] WITH NOCHECK
-ADD CONSTRAINT [FK_FloorSubmissionDetails_TypeOfUseMaster]
-FOREIGN KEY([TypeOfUseId])
-REFERENCES [PTIS].[TypeOfUseMaster] ([TypeOfUseId]);
-GO
-ALTER TABLE [PTIS].[FloorSubmissionDetails]
-WITH CHECK CHECK CONSTRAINT [FK_FloorSubmissionDetails_TypeOfUseMaster];
-GO
+-- ALTER TABLE [PTIS].[RoomWiseSubmissionDetails] WITH NOCHECK
+-- ADD CONSTRAINT [FK_RoomWiseSubmissionDetails_TypeOfUseMaster]
+-- FOREIGN KEY([TypeOfUseId])
+-- REFERENCES [PTIS].[TypeOfUseMaster] ([TypeOfUseId]);
+-- GO
+-- ALTER TABLE [PTIS].[RoomWiseSubmissionDetails]
+-- WITH CHECK CHECK CONSTRAINT [FK_RoomWiseSubmissionDetails_TypeOfUseMaster];
+-- GO
 
-ALTER TABLE [PTIS].[FloorSubmissionDetails] WITH NOCHECK
-ADD CONSTRAINT [FK_FloorSubmissionDetails_SubFloorMaster]
-FOREIGN KEY([SubFloorID])
-REFERENCES [PTIS].[SubFloorMaster] ([SubFloorID]);
-GO
-ALTER TABLE [PTIS].[FloorSubmissionDetails]
-CHECK CONSTRAINT [FK_FloorSubmissionDetails_SubFloorMaster];
-GO
+-- ALTER TABLE [PTIS].[RoomWiseSubmissionDetails] WITH NOCHECK
+-- ADD CONSTRAINT [FK_RoomWiseSubmissionDetails_SubFloorMaster]
+-- FOREIGN KEY([SubFloorID])
+-- REFERENCES [PTIS].[SubFloorMaster] ([SubFloorID]);
+-- GO
+-- ALTER TABLE [PTIS].[RoomWiseSubmissionDetails]
+-- CHECK CONSTRAINT [FK_RoomWiseSubmissionDetails_SubFloorMaster];
+-- GO
 /****** Object:  Table [PTIS].[FloorSubmissionRoomNoDetail]******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [PTIS].[FloorSubmissionRoomNoDetail](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
-	[RoomNo] [nvarchar](100) NOT NULL,
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_FloorSubmissionRoomNoDetail_IsActive] DEFAULT (1),
-	[CreatedBy] [int] NULL,
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_FloorSubmissionRoomNoDetail_CreatedDate DEFAULT (GETDATE()),
-	[UpdatedBy] [int] NULL,
-	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_FloorSubmissionRoomNoDetail] PRIMARY KEY CLUSTERED ([ID] ASC)
-) ON [PRIMARY]
-GO
+ SET ANSI_NULLS ON
+ GO
+ SET QUOTED_IDENTIFIER ON
+ GO
+ CREATE TABLE [PTIS].[RoomNoCountMaster](
+ 	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+ 	[RoomNo] [nvarchar](100) NOT NULL,
+ 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RoomNoCountMaster_IsActive] DEFAULT (1),
+ 	[CreatedBy] [int] NULL,
+ 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_RoomNoCountMaster_CreatedDate DEFAULT (GETDATE()),
+ 	[UpdatedBy] [int] NULL,
+ 	[UpdatedDate] [datetime] NULL,
+  CONSTRAINT [PK_RoomNoCountMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
+ ) ON [PRIMARY]
+ GO
 
 /****** Object:  Table [PTIS].[NatureFactorCVMaster]******/
 SET ANSI_NULLS ON
@@ -2056,19 +2156,18 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[NatureFactorCVMaster](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[ConstructionId] [varchar](7) NOT NULL,
 	[Factor] [decimal](5, 2) NOT NULL,
 	[EffectiveFrom] [date] NOT NULL,
 	[EffectiveTo] [date] NOT NULL,
-
 	[Code] [varchar](50) NULL,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_NatureFactorCVMaster_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_NatureFactorCVMaster_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_NatureFactorCVMaster] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_NatureFactorCVMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 ALTER TABLE [PTIS].[NatureFactorCVMaster] WITH CHECK ADD CONSTRAINT [FK_NatureFactorCVMaster_ConstructionTypeMaster]
@@ -2086,12 +2185,12 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[RateSectionDetails](
-	[RateSectionDetailsID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[RateSectionDetailsID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[RateSectionNo] [nvarchar](20) NOT NULL,
 	[WardNo] [nvarchar](10) NULL,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RateSectionDetails_IsActive] DEFAULT (1),
 	[CreatedBy] int NULL,
-    [CreatedDate] datetime NOT NULL CONSTRAINT DF_NodeSectionDetails_CreatedDate DEFAULT (GETDATE()),
+    [CreatedDate] datetime NOT NULL CONSTRAINT DF_RateSectionDetails_CreatedDate DEFAULT (GETDATE()),
     [UpdatedBy] int NULL,
     [UpdatedDate] datetime NULL,
     CONSTRAINT [PK_RateSectionDetails] PRIMARY KEY CLUSTERED ([RateSectionDetailsID] ASC)
@@ -2116,7 +2215,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[ParkingTypeMaster](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[TypeOfUseId] [varchar](10) NOT NULL,
 	[Active] [bit] NOT NULL,
 	[Type] [varchar](5) NULL,
@@ -2126,7 +2225,7 @@ CREATE TABLE [PTIS].[ParkingTypeMaster](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_ParkingTypeMaster_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_ParkingTypeMaster] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_ParkingTypeMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 
@@ -2145,7 +2244,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[PartTypeMaster](
-	[PartTypeID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[PartTypeID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[PartType] [nvarchar](20) NULL,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PartTypeMaster_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
@@ -2164,7 +2263,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[PenaltyDetails](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[FinanceYear] [int] NOT NULL,
 	[OwnerID] [int] NULL,
 	[CurrentPenalty] [money] NULL,
@@ -2184,7 +2283,7 @@ CREATE TABLE [PTIS].[PenaltyDetails](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PenaltyDetails_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_PenaltyDetails] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_PenaltyDetails] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 
@@ -2205,7 +2304,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[PenaltyTaxesMaster](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[FinanceYear] [int] NOT NULL,
 	[BillGenerationDate] [datetime] NULL,
 	[PenaltyPercent_Current] [float] NULL,
@@ -2251,7 +2350,7 @@ CREATE TABLE [PTIS].[PenaltyTaxesMaster](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PenaltyTaxesMaster_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_ApplyPenaltyTaxesMaster] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_ApplyPenaltyTaxesMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 
@@ -2350,7 +2449,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[PlotDetails](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[OwnerID] [int] NULL,
 	[PlotArea] [float] NULL,
 	[PlotTaxableAreaSqFt] [float] NULL,
@@ -2371,7 +2470,7 @@ CREATE TABLE [PTIS].[PlotDetails](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PlotDetails_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedDate] [datetime] NULL,
 	[UpdatedBy] [int] NULL,
- CONSTRAINT [PK_PlotDetails] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_PlotDetails] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY] 
 GO
 
@@ -2418,12 +2517,13 @@ GO
 ALTER TABLE [PTIS].[PropertyAssessmentDetails] CHECK CONSTRAINT [FK_PropertyAssessmentDetails_PropertyMast]
 GO
 
+
 CREATE TABLE [PTIS].[PropertyDescriptionAndTypeOfUseValidation](
-	ID INT NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[PropertyTypeID] [int] NOT NULL,
-	[PropertyDescription] [nvarchar](100) NULL,
-	[Type] [varchar](5) NULL,
-	[TypeDescription] [nvarchar](100) NULL,
+	-- [PropertyDescription] [nvarchar](100) NULL,
+	-- [Type] [varchar](5) NULL,
+	-- [TypeDescription] [nvarchar](100) NULL,
 	[First] [varchar](7) NULL ,
 	[Second] [varchar](7) NULL ,
 	[Third] [varchar](7) NULL ,
@@ -2449,16 +2549,20 @@ CREATE TABLE [PTIS].[PropertyDescriptionAndTypeOfUseValidation](
 	[TwentyThird] [varchar](7) NULL ,
 	[TwentyFourth] [varchar](7) NULL ,
 	[TwentyFifth] [varchar](7) NULL ,
+	[TwentySixth]   [varchar](7) NULL ,
+    [TwentySeventh] [varchar](7) NULL ,
+    [TwentyEighth]  [varchar](7) NULL ,
+    [TwentyNinth]   [varchar](7) NULL ,
+    [Thirtieth]     [varchar](7) NULL ,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyDescriptionAndTypeOfUseValidation_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PropertyDescriptionAndTypeOfUseValidation_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
-    CONSTRAINT [PK_PropertyDescriptionAndTypeOfUseValidation]
-        PRIMARY KEY CLUSTERED (ID),
+    CONSTRAINT [PK_PropertyDescriptionAndTypeOfUseValidation] PRIMARY KEY CLUSTERED ([Id]),
 
     CONSTRAINT [FK_PropertyDescriptionAndTypeOfUseValidation_PropertyType]
-        FOREIGN KEY ([PropertyTypeID])
+        FOREIGN KEY ([PropertyTypeID]) 
         REFERENCES [PTIS].[PropertyTypeMaster]([PropertyTypeID])
 		
 ) ON [PRIMARY];
@@ -2472,7 +2576,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[PropertyDetailsOld](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[OwnerID] [int] NOT NULL,
 	[OldFloorID] [nvarchar](10) NULL,
 	[OldConstructionYear] [varchar](4) NULL,
@@ -2487,7 +2591,7 @@ CREATE TABLE [PTIS].[PropertyDetailsOld](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PropertyDetailsOld_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_OldPropertyDetails] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_OldPropertyDetails] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 
@@ -2590,7 +2694,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[PropertyMastDetails](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[OwnerID] [int] NULL,
 	[OwnerType] [nvarchar](30) NULL,
 	[WingName] [nvarchar](30) NULL,
@@ -2626,7 +2730,7 @@ CREATE TABLE [PTIS].[PropertyMastDetails](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PropertyMastDetails_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_PropertyMastDetails] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_PropertyMastDetails] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY] 
 GO
 
@@ -2658,7 +2762,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[PropertyMastOld](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[OwnerID] [int] NULL,
 	[OldWardNo] [nvarchar](10) NULL,
 	[OldPropertyNo] [nvarchar](10) NULL,
@@ -2700,7 +2804,7 @@ CREATE TABLE [PTIS].[PropertyMastOld](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PropertyMastOld_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_PropertyMastOld] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_PropertyMastOld] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY] 
 GO
 
@@ -2719,7 +2823,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[PropertySocialDetails](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[OwnerID] [int] NOT NULL,
 	[RoadWidth] [float] NULL,
 	[WaterConnStatus] [int] NULL,
@@ -2785,7 +2889,7 @@ CREATE TABLE [PTIS].[PropertySocialDetails](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PropertySocialDetails_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_PropertySocialDetails] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_PropertySocialDetails] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 
@@ -2804,7 +2908,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[PropertySocialDetailsSequenceMaster](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[FeildName] [nvarchar](50) NULL,
 	[IsActive] [bit] NULL,
 	[SequenceNo] [int] NULL,
@@ -2812,21 +2916,22 @@ CREATE TABLE [PTIS].[PropertySocialDetailsSequenceMaster](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PropertySocialDetailsSequenceMaster_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
-PRIMARY KEY CLUSTERED ([ID] ASC)
+PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 
-/****** Object:  Table [PTIS].[PropertyTaxCalculationResults]******/
+/****** Object:  Table [PTIS].[PropertyTaxCalculationRVResults]******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [PTIS].[PropertyTaxCalculationResults](
-	[TaxCalcID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+CREATE TABLE [PTIS].[PropertyTaxCalculationRVResults](
+	[TaxCalcID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[OwnerID] [int] NULL,
-	[FloorID] nvarchar(5) NOT NULL,
+	[PDNID] [int] NOT NULL,
+	[FloorID] [nvarchar](5) NULL,
 	[RenterYesNO] [bit] NULL,
 	[ConstructionYear] [varchar](4) NULL,
 	[ConstructionId] [varchar](7) NULL,
@@ -2914,42 +3019,268 @@ CREATE TABLE [PTIS].[PropertyTaxCalculationResults](
 	[TotalAreaSqMtr] [float] NULL,
 	[RAreaSqMtr] [float] NULL,
 	[CAreaSqlMtr] [float] NULL,
-	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_PropertyTaxCalculationResults_MarkedForDeletion] DEFAULT (0),
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyTaxCalculationResults_IsActive] DEFAULT (1),
+	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_PropertyTaxCalculationRVResults_MarkedForDeletion] DEFAULT (0),
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyTaxCalculationRVResults_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PropertyTaxCalculationResults_CreatedDate DEFAULT (GETDATE()),
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PropertyTaxCalculationRVResults_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_PropertyTaxCalculationResults] PRIMARY KEY CLUSTERED ([TaxCalcID] ASC)
+ CONSTRAINT [PK_PropertyTaxCalculationRVResults] PRIMARY KEY CLUSTERED ([TaxCalcID] ASC)
 ) ON [PRIMARY]
 GO
 
-ALTER TABLE [PTIS].[PropertyTaxCalculationResults]  WITH CHECK ADD  CONSTRAINT [FK_PropertyTaxCalculationResults_PropertyMast] FOREIGN KEY([OwnerID])
+ALTER TABLE [PTIS].[PropertyTaxCalculationRVResults]  WITH CHECK ADD  CONSTRAINT [FK_PropertyTaxCalculationRVResults_PropertyMast] FOREIGN KEY([OwnerID])
 REFERENCES [PTIS].[PropertyMast] ([OwnerID])
 GO
 
-ALTER TABLE [PTIS].[PropertyTaxCalculationResults] CHECK CONSTRAINT [FK_PropertyTaxCalculationResults_PropertyMast]
+ALTER TABLE [PTIS].[PropertyTaxCalculationRVResults] CHECK CONSTRAINT [FK_PropertyTaxCalculationRVResults_PropertyMast]
 GO
 
-ALTER TABLE PTIS.PropertyTaxCalculationResults ADD CONSTRAINT FK_PropertyTaxCalculationResults_TypeOfUseMaster FOREIGN KEY (TypeOfUseId)
+ALTER TABLE PTIS.PropertyTaxCalculationRVResults ADD CONSTRAINT FK_PropertyTaxCalculationRVResults_TypeOfUseMaster FOREIGN KEY (TypeOfUseId)
 REFERENCES PTIS.TypeOfUseMaster (TypeOfUseId);
 GO
-ALTER TABLE PTIS.PropertyTaxCalculationResults CHECK CONSTRAINT FK_PropertyTaxCalculationResults_TypeOfUseMaster
+ALTER TABLE PTIS.PropertyTaxCalculationRVResults CHECK CONSTRAINT FK_PropertyTaxCalculationRVResults_TypeOfUseMaster
 GO	
 
 
-alter table PTIS.PropertyTaxCalculationResults ADD CONSTRAINT FK_PropertyTaxCalculationResults_ConstructionTypeMaster FOREIGN KEY (ConstructionId)
+alter table PTIS.PropertyTaxCalculationRVResults ADD CONSTRAINT FK_PropertyTaxCalculationRVResults_ConstructionTypeMaster FOREIGN KEY (ConstructionId)
 REFERENCES PTIS.ConstructionTypeMaster (ConstructionId);
 GO
-alter table PTIS.PropertyTaxCalculationResults CHECK CONSTRAINT FK_PropertyTaxCalculationResults_ConstructionTypeMaster
+alter table PTIS.PropertyTaxCalculationRVResults CHECK CONSTRAINT FK_PropertyTaxCalculationRVResults_ConstructionTypeMaster
 GO
 
-
-
-alter table PTIS.PropertyTaxCalculationResults add constraint FK_PropertyTaxCalculationResults_FloorMaster FOREIGN KEY (FloorID)
+alter table PTIS.PropertyTaxCalculationRVResults add constraint FK_PropertyTaxCalculationRVResults_FloorMaster FOREIGN KEY (FloorID)
 REFERENCES PTIS.FloorMaster (FloorID);
 GO
-alter table PTIS.PropertyTaxCalculationResults CHECK CONSTRAINT FK_PropertyTaxCalculationResults_FloorMaster
+alter table PTIS.PropertyTaxCalculationRVResults CHECK CONSTRAINT FK_PropertyTaxCalculationRVResults_FloorMaster
+GO
+
+
+ALTER TABLE PTIS.PropertyTaxCalculationRVResults ADD CONSTRAINT FK_PropertyTaxCalculationRVResults_PropertyDetails FOREIGN KEY (PDNID)
+REFERENCES PTIS.PropertyDetails (Id);
+GO
+ALTER TABLE PTIS.PropertyTaxCalculationRVResults CHECK CONSTRAINT FK_PropertyTaxCalculationRVResults_PropertyDetails
+GO
+
+
+---****** Object:  Table [PTIS].[PropertyTaxCalculationCVResults]******/
+SET ANSI_NULLS ON		
+GO	
+SET QUOTED_IDENTIFIER ON
+GO	
+
+------------------------------------------------------------------------------
+CREATE TABLE [PTIS].[PropertyTaxCalculationCVResults](
+	[TaxCalcID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[PDNID] [int] NOT NULL,
+	[OwnerID] [int] NOT NULL,
+	[FloorID] [nvarchar](5) NULL,
+	[ConstructionYear] [varchar](4) NULL,
+	[ConstructionId] [varchar](7) NULL,
+	[TypeOfUseId] [varchar](10) NULL,
+	[Type] [varchar](5) NULL,
+	[CarpetAreaSqFeet] [float] NULL,
+	[CarpetAreaInMtr] [float] NULL,
+	[BuiltUpAreaInSqft] [float] NULL,
+	[BuiltUpAreaInSqMtr] [float] NULL,
+	[NoOfRooms] [int] NULL,
+	[SDRR] [float] NULL,
+	[BaseValue] [float] NULL,
+	[FloorFactor] [float] NULL,
+	[AgeFactor] [float] NULL,
+	[NTBFactor] [float] NULL,
+	[UseFactor] [float] NULL,
+	[CapitalValue] [money] NULL,
+	[GeneralTaxPer] [money] NULL,
+	[GeneralTax] [money] NULL,
+	[StateEducationTaxPer] [money] NULL,
+	[StateEducationTax] [money] NULL,
+	[StateEmploymentTaxPer] [money] NULL,
+	[StateEmploymentTax] [money] NULL,
+	[TreeCessPer] [money] NULL,
+	[TreeCess] [money] NULL,
+	[SpWaterCessPer] [money] NULL,
+	[SpWaterCess] [money] NULL,
+	[RoadCessPer] [money] NULL,
+	[RoadCess] [money] NULL,
+	[FireCessPer] [money] NULL,
+	[FireCess] [money] NULL,
+	[LightCessPer] [money] NULL,
+	[LightCess] [money] NULL,
+	[WaterBenefitCessPer] [money] NULL,
+	[WaterBenefitCess] [money] NULL,
+	[SewageDisposalCessPer] [money] NULL,
+	[SewageDisposalCess] [money] NULL,
+	[SpEducationTaxPer] [money] NULL,
+	[SpEducationTax] [money] NULL,
+	[SanitationCessPer] [money] NULL,
+	[SanitationCess] [money] NULL,
+	[DrainCessPer] [money] NULL,
+	[DrainCess] [money] NULL,
+	[WaterBillPer] [money] NULL,
+	[WaterBill] [money] NULL,
+	[BigBuildingPer] [money] NULL,
+	[BigBuilding] [money] NULL,
+	[IllegalConstPenaltyPer] [money] NULL,
+	[IllegalConstPenalty] [money] NULL,
+	[UserChargesPer] [money] NULL,
+	[UserCharges] [money] NULL,
+	[ServiceTaxPer] [money] NULL,
+	[ServiceTax] [money] NULL,
+	[Tax1Per] [money] NULL,
+	[Tax1] [money] NULL,
+	[Tax2Per] [money] NULL,
+	[Tax2] [money] NULL,
+	[Tax3Per] [money] NULL,
+	[Tax3] [money] NULL,
+	[Tax4Per] [money] NULL,
+	[Tax4] [money] NULL,
+	[Tax5Per] [money] NULL,
+	[Tax5] [money] NULL,
+	[Tax6Per] [money] NULL,
+	[Tax6] [money] NULL,
+	[Tax7Per] [money] NULL,
+	[Tax7] [money] NULL,
+	[Tax8Per] [money] NULL,
+	[Tax8] [money] NULL,
+	[Tax9Per] [money] NULL,
+	[Tax9] [money] NULL,
+	[Tax10Per] [money] NULL,
+	[Tax10] [money] NULL,
+	[REducationTax] [money] NULL,
+	[CEducationTax] [money] NULL,
+	[REducationTaxPercentage] [money] NULL,
+	[CEducationTaxPercentage] [money] NULL,
+	[REmploymentTax] [money] NULL,
+	[CEmploymentTax] [money] NULL,
+	[REmploymentTaxPercentage] [money] NULL,
+	[CEmploymentTaxPercentage] [money] NULL,
+	[TotalAreaSqMtr] [float] NULL,
+	[RAreaSqMtr] [float] NULL,
+	[CAreaSqlMtr] [float] NULL,
+	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_PropertyTaxCalculationCVResults_MarkedForDeletion] DEFAULT (0),
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyTaxCalculationCVResults_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PropertyTaxCalculationCVResults_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+ CONSTRAINT [PK_PropertyTaxCalculationCVResults] PRIMARY KEY CLUSTERED ([TaxCalcID] ASC) 
+) ON [PRIMARY]
+GO
+ALTER TABLE [PTIS].[PropertyTaxCalculationCVResults]  WITH CHECK ADD  CONSTRAINT [FK_PropertyTaxCalculationCVResults_ConstructionTypeMaster] FOREIGN KEY([ConstructionId])
+REFERENCES [PTIS].[ConstructionTypeMaster] ([ConstructionId])
+GO
+ALTER TABLE [PTIS].[PropertyTaxCalculationCVResults] CHECK CONSTRAINT [FK_PropertyTaxCalculationCVResults_ConstructionTypeMaster]
+GO
+
+ALTER TABLE [PTIS].[PropertyTaxCalculationCVResults]  WITH CHECK ADD  CONSTRAINT [FK_PropertyTaxCalculationCVResults_FloorMaster] FOREIGN KEY([FloorID])
+REFERENCES [PTIS].[FloorMaster] ([FloorID])
+GO
+ALTER TABLE [PTIS].[PropertyTaxCalculationCVResults] CHECK CONSTRAINT [FK_PropertyTaxCalculationCVResults_FloorMaster]
+GO
+
+ALTER TABLE [PTIS].[PropertyTaxCalculationCVResults]  WITH CHECK ADD  CONSTRAINT [FK_PropertyTaxCalculationCVResults_PropertyMast] FOREIGN KEY([OwnerID])
+REFERENCES [PTIS].[PropertyMast] ([OwnerID])
+GO
+ALTER TABLE [PTIS].[PropertyTaxCalculationCVResults] CHECK CONSTRAINT [FK_PropertyTaxCalculationCVResults_PropertyMast]
+GO
+
+ALTER TABLE [PTIS].[PropertyTaxCalculationCVResults]  WITH CHECK ADD  CONSTRAINT [FK_PropertyTaxCalculationCVResults_TypeOfUseMaster] FOREIGN KEY([TypeOfUseId])
+REFERENCES [PTIS].[TypeOfUseMaster] ([TypeOfUseId])
+GO
+ALTER TABLE [PTIS].[PropertyTaxCalculationCVResults] CHECK CONSTRAINT [FK_PropertyTaxCalculationCVResults_TypeOfUseMaster]
+GO
+
+ALTER TABLE PTIS.PropertyTaxCalculationCVResults ADD CONSTRAINT FK_PropertyTaxCalculationCVResults_PropertyDetails FOREIGN KEY (PDNID)
+REFERENCES PTIS.PropertyDetails (Id);
+GO
+ALTER TABLE PTIS.PropertyTaxCalculationCVResults CHECK CONSTRAINT FK_PropertyTaxCalculationCVResults_PropertyDetails
+GO
+
+
+------****** Object:  Table [PTIS].[PropertyTaxCalculationSection129Results]******/
+
+CREATE TABLE [PTIS].[PropertyTaxCalculationSection129Results](
+	[TaxCalcID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[OwnerID] [int] NOT NULL,
+	[RateableValue] [money] NULL,
+	[CapitalValue] [money] NULL,
+	[GeneralTaxPer] [money] NULL,
+	[GeneralTax] [money] NULL,
+	[StateEducationTaxPer] [money] NULL,
+	[StateEducationTax] [money] NULL,
+	[StateEmploymentTaxPer] [money] NULL,
+	[StateEmploymentTax] [money] NULL,
+	[TreeCessPer] [money] NULL,
+	[TreeCess] [money] NULL,
+	[SpWaterCessPer] [money] NULL,
+	[SpWaterCess] [money] NULL,
+	[RoadCessPer] [money] NULL,
+	[RoadCess] [money] NULL,
+	[FireCessPer] [money] NULL,
+	[FireCess] [money] NULL,
+	[LightCessPer] [money] NULL,
+	[LightCess] [money] NULL,
+	[WaterBenefitCessPer] [money] NULL,
+	[WaterBenefitCess] [money] NULL,
+	[SewageDisposalCessPer] [money] NULL,
+	[SewageDisposalCess] [money] NULL,
+	[SpEducationTaxPer] [money] NULL,
+	[SpEducationTax] [money] NULL,
+	[SanitationCessPer] [money] NULL,
+	[SanitationCess] [money] NULL,
+	[DrainCessPer] [money] NULL,
+	[DrainCess] [money] NULL,
+	[WaterBillPer] [money] NULL,
+	[WaterBill] [money] NULL,
+	[BigBuildingPer] [money] NULL,
+	[BigBuilding] [money] NULL,
+	[IllegalConstPenaltyPer] [money] NULL,
+	[IllegalConstPenalty] [money] NULL,
+	[UserChargesPer] [money] NULL,
+	[UserCharges] [money] NULL,
+	[ServiceTaxPer] [money] NULL,
+	[ServiceTax] [money] NULL,
+	[Tax1Per] [money] NULL,
+	[Tax1] [money] NULL,
+	[Tax2Per] [money] NULL,
+	[Tax2] [money] NULL,
+	[Tax3Per] [money] NULL,
+	[Tax3] [money] NULL,
+	[Tax4Per] [money] NULL,
+	[Tax4] [money] NULL,
+	[Tax5Per] [money] NULL,
+	[Tax5] [money] NULL,
+	[Tax6Per] [money] NULL,
+	[Tax6] [money] NULL,
+	[Tax7Per] [money] NULL,
+	[Tax7] [money] NULL,
+	[Tax8Per] [money] NULL,
+	[Tax8] [money] NULL,
+	[Tax9Per] [money] NULL,
+	[Tax9] [money] NULL,
+	[Tax10Per] [money] NULL,
+	[Tax10] [money] NULL,
+	[EducationTax] [money] NULL,
+	[EducationTaxPercentage] [money] NULL,
+	[EmploymentTax] [money] NULL,
+	[EmploymentTaxPercentage] [money] NULL,
+	[TotalAreaSqMtr] [float] NULL,
+	[RAreaSqMtr] [float] NULL,
+	[CAreaSqlMtr] [float] NULL,
+	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_PropertyTaxCalculationSection129Results_MarkedForDeletion] DEFAULT (0),
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyTaxCalculationSection129Results_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PropertyTaxCalculationSection129Results_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+ CONSTRAINT [PK_PropertyTaxCalculationSection129Results] PRIMARY KEY CLUSTERED  ([TaxCalcID] ASC ) 
+ )
+ 
+ALTER TABLE [PTIS].[PropertyTaxCalculationSection129Results]  WITH CHECK ADD  CONSTRAINT [FK_PropertyTaxCalculationSection129Results_PropertyMast] FOREIGN KEY([OwnerID])
+REFERENCES [PTIS].[PropertyMast] ([OwnerID])
+GO
+ALTER TABLE [PTIS].[PropertyTaxCalculationSection129Results] CHECK CONSTRAINT [FK_PropertyTaxCalculationSection129Results_PropertyMast]
 GO
 
 /****** Object:  Table [PTIS].[PropertyTaxSlabWiseMaster]******/
@@ -2960,7 +3291,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[PropertyTaxSlabWiseMaster](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[Type] [varchar](5) NULL,
 	[Year] [int] NULL,
 	[MinRV] [money] NULL,
@@ -2971,7 +3302,7 @@ CREATE TABLE [PTIS].[PropertyTaxSlabWiseMaster](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PropertyTaxSlabWiseMaster_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_PropertyTaxSlabWiseMaster] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_PropertyTaxSlabWiseMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 
@@ -3007,7 +3338,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[RateChartDetails](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[Year] [int] NULL,
 	[TaxZoneNo] [nvarchar](10) NULL,
 	[ConstructionId] [varchar](7) NULL,
@@ -3020,7 +3351,7 @@ CREATE TABLE [PTIS].[RateChartDetails](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_RateChartDetails_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_RateChartDetails] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_RateChartDetails] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 
@@ -3044,7 +3375,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[RateChartMaster](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[Year] [int] NOT NULL,
 	[CommercialMultiplier] [float] NULL,
 	[IndustrialMultiplier] [float] NULL,
@@ -3060,7 +3391,7 @@ CREATE TABLE [PTIS].[RateChartMaster](
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
 	
- CONSTRAINT [PK_RateChartMaster] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_RateChartMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 
@@ -3077,7 +3408,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[RateMaster](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[Year] [int] NULL,
 	[TaxZoneNo] [nvarchar](10) NULL,
 	[FloorID] [nvarchar](5) NULL,
@@ -3095,7 +3426,7 @@ CREATE TABLE [PTIS].[RateMaster](
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
 	
- CONSTRAINT [PK_RateMaster] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_RateMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 
 
@@ -3130,6 +3461,23 @@ ALTER TABLE PTIS.RateMaster CHECK CONSTRAINT [FK_RateMaster_RateSectionMaster];
 GO
 
 
+ALTER TABLE PTIS.RateMaster ADD CONSTRAINT UQ_RateMaster_TaxZone_Construction_UseGroup_Year_Section
+UNIQUE (Year,TaxZoneNo,ConstructionId, TypeOfUseGroupID, MinYear, MaxYear, RateSectionNo);
+GO
+
+
+/****** Object:  Table [PTIS].[MoujaMaster]******/
+CREATE TABLE [PTIS].[MoujaMaster](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Year] [int] NOT NULL,
+	[MoujaName] [nvarchar](50) NOT NULL,
+	[IsActive] [bit] NOT NULL,
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL,
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+CONSTRAINT [PK_MoujaMaster] PRIMARY KEY CLUSTERED 	([Id] ASC)	
+)
 
 /****** Object:  Table [PTIS].[RateMasterForCV]******/
 SET ANSI_NULLS ON
@@ -3139,10 +3487,11 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[RateMasterForCV](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
-	[CSNID] [int] NULL,
-	[Year] [int] NULL,
-	[FloorID] [nvarchar](5) NULL,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[MoujaId] [int] NOT NULL,
+	[SubZoneNo] [nvarchar](20) NOT NULL,
+	[SubZoneName] [nvarchar](1000) NOT NULL,
+	[CSN] [nvarchar](4000) NOT NULL,
 	[OpenPlotRate] [money] NULL,
 	[ResidentialRate] [money] NULL,
 	[OfficeRate] [money] NULL,
@@ -3153,20 +3502,18 @@ CREATE TABLE [PTIS].[RateMasterForCV](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_RateMasterForCV_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_RateMasterForCV] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_RateMasterForCV] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 
-ALTER TABLE [PTIS].[RateMasterForCV]  WITH CHECK ADD  CONSTRAINT [FK_RateMasterForCV_CitySurveyNoMaster] FOREIGN KEY([CSNID])
-REFERENCES [PTIS].[CitySurveyNoMaster] ([ID])
+ALTER TABLE [PTIS].[RateMasterForCV]  WITH CHECK ADD  CONSTRAINT [FK_RateMasterForCV_MoujaMaster] FOREIGN KEY([MoujaId])
+REFERENCES [PTIS].[MoujaMaster] ([Id])
+GO
+ 
+ALTER TABLE [PTIS].[RateMasterForCV] CHECK CONSTRAINT [FK_RateMasterForCV_MoujaMaster]
 GO
 
-ALTER TABLE [PTIS].[RateMasterForCV] CHECK CONSTRAINT [FK_RateMasterForCV_CitySurveyNoMaster]
-GO
 
-alter table PTIS.RateMasterForCV with check add constraint FK_RateMasterForCV_FloorID
-foreign key (FloorID) references PTIS.FloorMaster(FloorID);	
-alter table PTIS.RateMasterForCV check constraint FK_RateMasterForCV_FloorID;
 
 /****** Object:  Table [PTIS].[RetentionFactMaster]******/
 SET ANSI_NULLS ON
@@ -3176,7 +3523,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[RetentionFactMaster](
-	[FactorID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[FactorID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[FactorValue] [float] NULL,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RetentionFactMaster_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
@@ -3195,7 +3542,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[RetentionPolicyFactWiseMaster](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[FromFactor] [float] NULL,
 	[ToFactor] [float] NULL,
 	[FactorValue] [float] NULL,
@@ -3204,7 +3551,7 @@ CREATE TABLE [PTIS].[RetentionPolicyFactWiseMaster](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_RetentionPolicyFactWiseMaster_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_RetentionPolicyFactWiseMaster] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_RetentionPolicyFactWiseMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 
@@ -3216,7 +3563,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[RetentionPolicyYearWiseMaster](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[FromYear] [int] NULL,
 	[ToYear] [int] NULL,
 	[FactorValue] [float] NULL,
@@ -3225,7 +3572,7 @@ CREATE TABLE [PTIS].[RetentionPolicyYearWiseMaster](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_RetentionPolicyYearWiseMaster_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_RetentionPolicyYearWiseMaster] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_RetentionPolicyYearWiseMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 
@@ -3237,14 +3584,14 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[SocietyPartitionNo](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[PartitionNo] [nvarchar](10) NOT NULL,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_SocietyPartitionNo_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_SocietyPartitionNo_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_SocietyPartitionNo] PRIMARY KEY CLUSTERED ([ID] ASC),
+ CONSTRAINT [PK_SocietyPartitionNo] PRIMARY KEY CLUSTERED ([Id] ASC),
  CONSTRAINT [UQ_SocietyPartitionNo_PartitionNo] UNIQUE ([PartitionNo])
 ) ON [PRIMARY]
 GO
@@ -3257,7 +3604,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[SubmissionRemarkMaster](
-	[SubmissionRemarkMasterID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[SubmissionRemarkMasterID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[SubmissionRemark] [nvarchar](200) NULL,
 	[RemarkType] [nvarchar](200) NULL,
 	[IsAreaRemark] [int] NOT NULL,
@@ -3278,7 +3625,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[SubmissionSameAsUserHistory](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[CopyOn] [int] NULL,
 	[SameAs] [int] NULL,
 	[Remark] [nvarchar](400) NULL,
@@ -3289,7 +3636,7 @@ CREATE TABLE [PTIS].[SubmissionSameAsUserHistory](
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
 	
-PRIMARY KEY CLUSTERED ([ID] ASC)
+PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 
@@ -3303,7 +3650,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[TaxNameMaster](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[TaxName] [nvarchar](100) NULL,
 	[AliseName] [nvarchar](100) NULL,
 	
@@ -3314,7 +3661,7 @@ CREATE TABLE [PTIS].[TaxNameMaster](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_TaxNameMaster_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_TaxNameMaster] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_TaxNameMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 /****** Object:  Table [PTIS].[TaxPendingDetails]******/
@@ -3325,7 +3672,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[TaxPendingDetails](
-	[TaxPendingID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[TaxPendingID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[OwnerID] [int] NULL,
 	[PendingYear] [int] NULL,
 	[RVorCVvalue] [money] NOT NULL,
@@ -3506,7 +3853,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[TaxPendingDetailsArchive](
-	[TaxPendingPrevious_ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[TaxPendingPrevious_ID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[OwnerID] [int] NULL,
 	[PendingYear] [int] NULL,
 	[GeneralTax] [money] NOT NULL,
@@ -3577,7 +3924,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[TaxPendingDetailsCV](
-	[TaxPendingCVID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[TaxPendingCVID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[OwnerID] [int] NULL,
 	[PendingYear] [int] NULL,
 	[GeneralTax] [money] NOT NULL,
@@ -3643,7 +3990,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[TaxPendingDetailsLookup](
-	[ID] [int] NOT NULL,
+	[Id] [int] NOT NULL,
 	[OwnerID] [int] NULL,
 	[PendingYear] [int] NULL,
 	[GeneralTax] [money] NOT NULL,
@@ -3689,7 +4036,7 @@ CREATE TABLE [PTIS].[TaxPendingDetailsLookup](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_TaxPendingDetailsLookup_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_TaxPendingDetailsLookup] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_TaxPendingDetailsLookup] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 
@@ -3708,7 +4055,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[TaxPendingDetailsRetro](
-	[RetroID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[RetroID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[OwnerID] [int] NULL,
 	[FinanceYear] [int] NULL,
 	[PendingYear] [int] NULL,
@@ -3781,7 +4128,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[TaxPendingDetailsRV](
-	[TaxPendingRVID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[TaxPendingRVID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[OwnerID] [int] NULL,
 	[PendingYear] [int] NULL,
 	[GeneralTax] [money] NOT NULL,
@@ -3849,7 +4196,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[TransMast](
-	[TransMastID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[TransMastID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[OwnerID] [int] NOT NULL,
 	[FinanceYear] [int] NULL,
 	[RVorCV] [varchar](2) NOT NULL,
@@ -4043,7 +4390,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[TransMastArchive](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[OwnerID] [int] NOT NULL,
 	[FinanceYear] [int] NULL,
 	[RVorCV] [varchar](2) NOT NULL,
@@ -4092,7 +4439,7 @@ CREATE TABLE [PTIS].[TransMastArchive](
 	[CreatedDate] [datetime] NULL,
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_TransMastArchive] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_TransMastArchive] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 
@@ -4117,7 +4464,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[TransMastCV](
-	[TransMastCVID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[TransMastCVID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[OwnerID] [int] NOT NULL,
 	[FinanceYear] [int] NULL,
 	[CapitalValue] [money] NULL,
@@ -4190,7 +4537,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[TransMastLookup](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[OwnerID] [int] NOT NULL,
 	[FinanceYear] [int] NULL,
 	[RVorCV] [varchar](2) NOT NULL,
@@ -4239,7 +4586,7 @@ CREATE TABLE [PTIS].[TransMastLookup](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_TransMastLookup_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_TransMastLookup] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_TransMastLookup] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 
@@ -4258,7 +4605,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[TransMastRV](
-	[TransMastRVID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[TransMastRVID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[OwnerID] [int] NOT NULL,
 	[FinanceYear] [int] NULL,
 	[RateableValue] [money] NULL,
@@ -4331,7 +4678,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[TypeOfUsePrimeMaster](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[Type] [varchar](5) NULL,
 	[Description] [nvarchar](80) NULL,
 	[TypeTaxableStaus] [bit] NOT NULL,
@@ -4342,7 +4689,7 @@ CREATE TABLE [PTIS].[TypeOfUsePrimeMaster](
 	[UpdatedDate] [datetime] NULL,
 	
 
- CONSTRAINT [PK_TypeOfUsePrimeMaster] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK_TypeOfUsePrimeMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 
@@ -4354,7 +4701,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE TABLE [PTIS].[UseFactorCVMaster](
-	[ID] [int] NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[TypeOfUseId] [varchar](10) NOT NULL,
 	[SubTypeOfUseId] [int] NOT NULL,
 	[Factor] [decimal](5, 2) NOT NULL,
@@ -4366,7 +4713,7 @@ CREATE TABLE [PTIS].[UseFactorCVMaster](
 	[CreatedDate] [datetime] NULL,
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK__UseFacto__3214EC27DFB51781] PRIMARY KEY CLUSTERED ([ID] ASC)
+ CONSTRAINT [PK__UseFacto__3214EC27DFB51781] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
 
@@ -4389,3 +4736,208 @@ GO
 
 
 
+CREATE TABLE [PTIS].[AssessmentYearRangeMaster](
+	[YearId] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[FromYear] [int] NOT NULL,
+	[ToYear] [int] NOT NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_AssessmentYearRangeMaster_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_AssessmentYearRangeMaster_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_AssessmentYearRangeMaster] PRIMARY KEY CLUSTERED ([YearId] ASC),
+	CONSTRAINT [UQ_AssessmentYearRangeMaster_FromYear_ToYear] UNIQUE ([FromYear], [ToYear]),
+	CONSTRAINT [CK_AssessmentYearRange_ValidYear] CHECK (FromYear <= ToYear)
+)
+
+
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [PTIS].[RoomWiseMinusData](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[OwnerID] [int] NOT NULL,
+	[IDFSD] [int] NULL,
+	[LengthMtr] [decimal](18, 2) NULL,
+	[WidthMtr] [decimal](18, 2) NULL,
+	[AreaSqMtr] [decimal](18, 2) NULL,
+	[HeightMtr] [decimal](18, 2) NULL,
+	[Base1Mtr] [decimal](18, 2) NULL,
+	[Base2Mtr] [decimal](18, 2) NULL,
+	[Shape] [nvarchar](25) NULL,
+	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_RoomWiseMinusData_MarkedForDeletion] DEFAULT (0),
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RoomWiseMinusData_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_RoomWiseMinusData_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+CONSTRAINT [PK_RoomWiseMinusData] PRIMARY KEY CLUSTERED ( [Id] ASC )
+) ON [PRIMARY]
+GO	
+
+ALTER TABLE [PTIS].[RoomWiseMinusData]  WITH CHECK ADD  CONSTRAINT [FK_FSDM_FSD] FOREIGN KEY([IDFSD])
+REFERENCES [PTIS].[RoomWiseSubmissionDetails] ([Id])
+GO
+
+ALTER TABLE [PTIS].[RoomWiseMinusData] CHECK CONSTRAINT [FK_FSDM_FSD]
+GO
+
+
+
+CREATE TABLE [PTIS].[RenterDetails] (
+    [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [PDNId] [INT] NOT NULL,
+    [AgreementID] [Nvarchar](25) NULL, 
+    -- [AgreementDate] [DATETIME] NULL,
+    [IncrementFrequency] [NVARCHAR](35) NULL,
+    [IncrementType] [NVARCHAR](35) NULL,
+    [IncrementValue] [FLOAT] NULL,
+    [IncrementMethod] [NVARCHAR](35) NULL,
+    [DurationFrom] [DATETIME] NULL,
+    [DurationTo] [DATETIME] NULL,
+    [RentAmount] [FLOAT] NULL,
+    [Increment] [Float] NULL, 
+    [IncrementStatus] [bit] NULL,
+    [RentMonthly] [float] null,
+	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_RenterDetails_MarkedForDeletion] DEFAULT (0),
+    [IsActive] [bit] NOT NULL CONSTRAINT [DF_RenterDetails_IsActive] DEFAULT (1),
+    [CreatedBy] [INT] NULL,
+    [CreatedDate] [datetime] NOT NULL CONSTRAINT DF_RenterDetails_CreatedDate DEFAULT (GETDATE()),
+    [UpdatedBy] [INT] NULL,
+    [UpdatedDate] [DATETIME] NULL,
+	CONSTRAINT Pk_RenterDetails PRIMARY KEY CLUSTERED ([Id] ASC	)
+    );
+
+ALTER TABLE PTIS.RenterDetails  WITH CHECK ADD  CONSTRAINT [FK_RenterDetails_PropertyDetails] FOREIGN KEY([PDNId])
+REFERENCES [PTIS].[PropertyDetails] ([Id])
+GO	
+ALTER TABLE PTIS.RenterDetails CHECK CONSTRAINT [FK_RenterDetails_PropertyDetails]
+GO	
+
+
+
+CREATE TABLE  [PTIS].[RenterMast] (
+    [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [PDNId] [INT] NOT NULL,
+    [FinalRent] [float] NULL,
+    [FinancialYear] [nvarchar](4) NULL,
+    [DurationFrom] [DATETIME] NULL,
+    [DurationTo] [DATETIME] NULL,
+    [MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_RenterMast_MarkedForDeletion] DEFAULT (0),
+    [IsActive] [bit] NOT NULL CONSTRAINT [DF_RenterMast_IsActive] DEFAULT (1),
+    [CreatedBy] [INT] NULL,
+    [CreatedDate] [datetime] NOT NULL CONSTRAINT DF_RenterMast_CreatedDate DEFAULT (GETDATE()),
+    [UpdatedBy] [INT] NULL,
+    [UpdatedDate] [DATETIME] NULL,
+	CONSTRAINT Pk_RenterMast PRIMARY KEY CLUSTERED ([Id] ASC)
+) ON [PRIMARY]
+ALTER TABLE PTIS.RenterMast  WITH CHECK ADD  CONSTRAINT [FK_RenterMast_PropertyDetails] FOREIGN KEY([PDNId])
+REFERENCES [PTIS].[PropertyDetails] ([Id])
+GO	
+ALTER TABLE PTIS.RenterMast CHECK CONSTRAINT [FK_RenterMast_PropertyDetails]
+GO
+
+
+
+----------- Master For Global Survey App ----Start----------
+GO
+
+
+GO
+CREATE TABLE [PTIS].[GenderMaster](
+	[GenderID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[GenderName] NVARCHAR(50) NOT NULL,
+	[IsActive] BIT NOT NULl CONSTRAINT DF_GenderMaster_IsActive DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_GenderMaster_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT UQ_GenderMaster_GenderName UNIQUE ([GenderName]),
+ 	CONSTRAINT [PK_GenderMaster] PRIMARY KEY CLUSTERED ( [GenderID] ASC )
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [PTIS].[DocumentMaster](
+	[DocId] [int] IDENTITY(1,1) not FOR REPLICATION NOT NULL,
+	[DocumentName] [nvarchar](100) NOT null, 
+	[DocPrefix] [varchar](50) not null, 
+	[IsActive] BIT NOT NULl CONSTRAINT DF_documentmaster_IsActive DEFAULT (1),
+	[CreatedBy] [int] null,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_documentmaster_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] null,
+	[UpdatedDate] [datetime] null,
+PRIMARY KEY CLUSTERED ([DocId] ASC)
+) ON [primary]
+GO
+
+CREATE TABLE [PTIS].[PropertyVisitMeasurementMaster](
+	[PropertyVisitMeasurementID] int NOT NULL IDENTITY(1,1) NOT FOR REPLICATION,
+	[PropertyVisitAndMeasurement] [nvarchar](200) NULL,
+	[BillAcceptStatus] [varchar](20) NULL,
+	[Remark] [varchar](100) NULL,
+	[Flag] [varchar](20) NULL,
+	[IsActive] BIT NOT NULl CONSTRAINT DF_PropertyVisitMeasurementMaster_IsActive DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PropertyVisitMeasurement_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	PRIMARY KEY CLUSTERED ([PropertyVisitMeasurementID] ASC )
+
+) ON [PRIMARY]
+GO
+
+GO
+CREATE TABLE [PTIS].[MobileScreenValidationMaster](
+	[TabScreenID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[TabScreenName] [varchar](500) NULL,
+	[Flag] [nvarchar](30) NULL,
+	[Alias] [nvarchar](200) NULL,
+	[DefaultSequenceNo] [int] NULL,
+	[DefaultNumberingAccess] [bit] NULL,
+	[DefaultSurveyAccess] [bit] NULL,
+	[IsActive] BIT NOT NULl CONSTRAINT DF_MobileScreenValidationMaster_IsActive DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_MobileScreenValidationMaster_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+ CONSTRAINT [PK_TabScreenMaster] PRIMARY KEY CLUSTERED  (	[TabScreenID] ASC )
+) ON [PRIMARY]
+
+
+GO
+CREATE TABLE [PTIS].[BlockMaster](
+	[BlockMasterID] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[WardNo] [nvarchar](10) NULL,
+	[BlockNo] [nvarchar](20) NULL,
+	[IsActive] BIT NOT NULl CONSTRAINT DF_BlockMaster_IsActive DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_BlockMaster_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+ CONSTRAINT [PK_BlockMaster] PRIMARY KEY CLUSTERED  ([BlockMasterID] ASC)
+) ON [PRIMARY]
+GO
+----------- Master For Global Survey App ----End----------
+
+
+
+CREATE TABLE [PTIS].[RuleMaster]
+(
+    [RuleCode] SYSNAME NOT NULL,
+    [Category] NVARCHAR(50) NOT NULL,
+    [DisplayName] NVARCHAR(100) NOT NULL,
+    [Description] NVARCHAR(500) NULL,
+    [DataType] NVARCHAR(20) NOT NULL CONSTRAINT [DF_RuleMaster_DataType] DEFAULT (N'bit'),
+    [DefaultValue] NVARCHAR(50) NULL, 
+    [IsActive] BIT NOT NULL CONSTRAINT [DF_RuleMaster_IsActive] DEFAULT (1),
+    [CreatedBy] INT NULL, 
+    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_RuleMaster_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy] INT NULL,
+    [UpdatedDate] DATETIME NULL,  
+    CONSTRAINT [PK_RuleMaster] PRIMARY KEY CLUSTERED ([RuleCode] ASC)
+);
+GO

@@ -114,7 +114,9 @@ public class UpgradePathResolver
     }
 
     /// <summary>
-    /// Gets all SQL files from a version folder, ordered by filename
+    /// Gets all SQL files from a version folder, ordered by filename.
+    /// Supports module-based structure: {version}/modules/{module}/*.sql
+    /// Falls back to flat structure: {version}/*.sql
     /// </summary>
     private List<string> GetScriptsFromFolder(string folderPath, string version)
     {
@@ -126,11 +128,31 @@ public class UpgradePathResolver
             return scripts;
         }
 
-        var sqlFiles = Directory.GetFiles(folderPath, "*.sql").OrderBy(f => f).ToList();
-        foreach (var file in sqlFiles)
+        // Check for module-based structure
+        var modulesPath = Path.Combine(folderPath, "modules");
+
+        if (Directory.Exists(modulesPath))
         {
-            var fileName = Path.GetFileName(file);
-            scripts.Add(Path.Combine(version, fileName));
+            // Process modules alphabetically
+            var moduleDirectories = Directory.GetDirectories(modulesPath).OrderBy(d => d).ToList();
+            foreach (var moduleDir in moduleDirectories)
+            {
+                var moduleName = Path.GetFileName(moduleDir);
+                var moduleFiles = Directory.GetFiles(moduleDir, "*.sql").OrderBy(f => f).ToList();
+                foreach (var file in moduleFiles)
+                {
+                    scripts.Add(Path.Combine(version, "modules", moduleName, Path.GetFileName(file)));
+                }
+            }
+        }
+        else
+        {
+            // Fallback: flat structure (files directly in version folder)
+            var sqlFiles = Directory.GetFiles(folderPath, "*.sql").OrderBy(f => f).ToList();
+            foreach (var file in sqlFiles)
+            {
+                scripts.Add(Path.Combine(version, Path.GetFileName(file)));
+            }
         }
 
         return scripts;

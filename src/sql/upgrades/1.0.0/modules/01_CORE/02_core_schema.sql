@@ -1,0 +1,3 @@
+-- CORE Module Core Schema Changes for Version 1.0.0
+-- Add your core schema modifications here
+

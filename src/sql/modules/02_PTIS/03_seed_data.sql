@@ -124,338 +124,241 @@ INSERT PTIS.WardMaster ([ZoneNo], [WardNo]) VALUES
   (N'UT', N'UT1'),
   (N'VN', N'VN1'),
   (N'WE', N'WE1');
--- [PTIS].[SubTypeOfUseMaster]
 
 
- SET IDENTITY_INSERT [PTIS].[SubTypeOfUseMaster] OFF;
--- [PTIS].[TypeOfUseMaster]
 
 
-INSERT [PTIS].[TypeOfUseMaster] ([TypeOfUseID], [Description], [Type], [DescriptionEnglish], [GroupID], [CreatedBy], [UpdatedBy], [UpdatedDate], [KeyboardShortCutKey], [KeyWiseSequence], [IsSociety]) VALUES
-  (N'C', N'अनिवासी', N'C', '', N'बिगर निवासी', 1, NULL, NULL, N'C', 1, 0),
-  (N'T', N'धार्मिक स्थळ', N'N', '', N'धार्मीक', 1, NULL, NULL, N'T', 1, 1),
-  (N'V', N'V-व्हरांडा टॉयल॓ट बाथ', N'N', '', N'निवासी', 1, NULL, NULL, N'V', 1, 0),
-  (N'R', N'निवासी', N'R', '', N'निवासी', 1, NULL, NULL, N'R', 1, 1),
-  (N'UC', N'बांधकाम चालू ', N'N', '', N'निवासी', 1, NULL, NULL, N'U', 1, 0),
-  (N'SPK', N'स्टील पार्किंग ', N'R', '', N'अनिवासी', 1, NULL, NULL, N'S', 5, 1),
-  (N'N', N'मनपा मालमत्ता', N'N', '', N'महानगरपालीका मालमत्ता', 1, NULL, NULL, N'N', 1, 1),
-  (N'EG', N'शैक्षणिक शासकीय ', N'C', '', N'बिगर निवासी', 1, NULL, NULL, N'E', 3, 0),
-  (N'GO', N'गोडाऊन', N'C', '', N'बिगर निवासी', 1, NULL, NULL, N'G', 3, 0),
-  (N'GR', N'शासकीय निवासी', N'R', '', N'शासकीय निवासी', 1, NULL, NULL, N'G', 4, 0),
-  (N'HO', N'खाजगी वसतिगृह', N'R', '', N'निवासी', 1, NULL, NULL, N'H', 4, 0),
-  (N'LB', N'वाचनालय/लायब्ररी ', N'C', '', N'निवासी', 1, NULL, NULL, N'L', 2, 1),
-  (N'UCC', N'बांधकाम चालु-अनिवासी ', N'N', '', N'बिगर निवासी', 1, NULL, NULL, N'U', 1, 0),
-  (N'MTR', N'टॉवर जागा', N'C', '', N'वाणिज्य', 1, NULL, NULL, N'W', 9, 0),
-  (N'FF', N'स्वातंत्र्य सैनिक', N'R', '', N'निवासी', 1, NULL, NULL, N'F', 1, 0),
-  (N'WGC', N'WGC-व्हरांडा  शासकीय अनिवासी', N'C', '', N'.', 1, NULL, NULL, N'G', 2, 0),
-  (N'WEG', N'WEG-व्हरांडा शैक्षणीक शासकीय', N'C', '', N'शैक्षणीक', 1, NULL, NULL, N'E', 4, 0),
-  (N'WEP', N'WEP-व्हरांडा खाजगी शैक्षणीक ', N'C', '', N'शैक्षणीक', 1, NULL, NULL, N'E', 2, 0),
-  (N'WGR', N'WGR-व्हरांडा शासकीय निवासी', N'R', '', N'शासकीय', 1, NULL, NULL, N'G', 4, 0),
-  (N'PC', N'पार्किंग अनिवासी', N'N', '', N'अनिवासी', 1, NULL, NULL, N'P', NULL, 0),
-  (N'S', N'दुकान', N'C', '', N'बिगर निवासी', 1, NULL, NULL, N'S', 1, 0),
-  (N'D', N'दवाखाना', N'C', '', N'बिगर निवासी', 1, NULL, NULL, N'D', 1, 0),
-  (N'B', N'बँक', N'C', '', N'बिगर निवासी', 1, NULL, NULL, N'B', 1, 0),
-  (N'SW', N'जलतरण तलाव', N'C', '', N'बिगर निवासी', 1, NULL, NULL, N'S', 4, 0),
-  (N'I', N'कारखाना', N'I', '', N'औदयोगिक', 1, NULL, NULL, N'I', 1, 0),
-  (N'EP', N'खाजगी शैक्षणिक', N'C', '', N'EP', NULL, NULL, NULL, N'E', 1, 0),
-  (N'WR', N'WR-व्हरांडा निवासी', N'R', '', N'व्हरांडा', NULL, NULL, NULL, N'R', 2, 0),
-  (N'WC', N'WC-व्हरांडा अनिवासी', N'C', '', N'व्हरांडा', NULL, NULL, NULL, N'S', 2, 0),
-  (N'CC', N'कोचिंग क्लासेस', N'C', '', N'कोचिंग क्लासेस', NULL, NULL, NULL, N'C', 2, 0),
-  (N'CG', N'केंद्र शासकीय मालमत्ता', N'C', '', N'अनिवासी', NULL, NULL, NULL, N'', NULL, 0),
-  (N'CR', N'केंद्र शासकीय मालमत्ता निवासी', N'R', '', N'निवासी', NULL, NULL, NULL, N'', NULL, 0),
-  (N'OPR', N'खुला भूखंड निवासी', N'C', '', N'निवासी', NULL, NULL, NULL, N'', NULL, 0),
-  (N'OPC', N'खुला भूखंड अनिवासी', N'C', '', N'अनिवासी', NULL, NULL, NULL, N'', NULL, 0),
-  (N'PTR', N'पेट्रोल पंप', N'C', '', N'पेट्रोल पंप', NULL, NULL, NULL, N'P', 1, 0),
-  (N'GC', N'शासकीय अनिवासी', N'C', '', N'शासकीय अनिवासी', NULL, NULL, NULL, N'', NULL, 0),
-  (N'O', N'ऑफिस', N'C', '', N'अनिवासी', NULL, NULL, NULL, N'O', 1, 0),
-  (N'M', N'मंगल कार्यालय', N'C', '', N'अनिवासी', NULL, NULL, NULL, N'M', 1, 0),
-  (N'KT', N'मल्टीप्लेक्स', N'C', '', N'आनिवासी', NULL, NULL, NULL, N'T', 2, 0),
-  (N'H', N'हॉटेल', N'C', '', N'अनिवसी', NULL, NULL, NULL, N'H', 1, 0),
-  (N'OPK', N'ओपन पार्किंग', N'R', '', N' निवासी', NULL, NULL, NULL, NULL, NULL, 1),
-  (N'WI', N'WI-व्हरांडा औद्योगिक', N'I', '', N'अनिवासी', 1, NULL, NULL, N'I', 2, 0),
-  (N'OP', N'खुला भूखंड', N'R', '', N'खुला भूखंड', 1, 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), N'', 0, 0),
-  (N'WCGR', N'WCGR-केंद्र शासकीय मालमत्ता', N'R', '', N'बिगर अनिवासी', NULL, NULL, NULL, N'', NULL, 0),
-  (N'WCGC', N'WCGC-केंद्र शासकीय मालमत्ता', N'C', '', N'बिगर निवासी', NULL, NULL, NULL, N'', NULL, 0),
-  (N'CH', N'सामाजिक सभागृह', N'C', '', N'बिगर निवासी', NULL, NULL, NULL, N'', NULL, 0),
-  (N'L', N'लॉज', N'C', '', N'बिगर निवासी', NULL, NULL, NULL, N'', NULL, 0),
-  (N'AG', N'शेती', N'N', '', N'बिगर निवासी', NULL, NULL, NULL, N'', NULL, 1),
-  (N'ACH', N'क्लब हाऊस ', N'C', '', N'निवासी', NULL, NULL, NULL, N'', NULL, 1),
-  (N'AGM', N'सोसायटी जिम', N'C', '', N'निवासी', NULL, NULL, NULL, N'', NULL, 1),
-  (N'AH', N'कॉमन हॉल', N'C', '', N'निवासी', NULL, NULL, NULL, N'', NULL, 1),
-  (N'AMH', N'मल्टीपर्पज हॉल', N'C', '', N'निवासी', NULL, NULL, NULL, N'', NULL, 1),
-  (N'AO', N'सोसायटी ऑफीस ', N'C', '', N'निवासी', NULL, NULL, NULL, N'', NULL, 1),
-  (N'APG', N'खेळाचे मैदान', N'N', '', N'निवासी', NULL, NULL, NULL, N'', NULL, 1),
-  (N'ASW', N'सोसायटी स्विमिंग पूल', N'N', '', N'निवासी', NULL, NULL, NULL, N'', NULL, 1),
-  (N'AWC', N'वॉचमन कॅबिन', N'N', '', N'निवासी', NULL, NULL, NULL, N'', NULL, 1),
-  (N'CCO', N'C-कॉरिडॉर', N'N', '', N'अनिवासी', NULL, NULL, NULL, N'', NULL, 1),
-  (N'CCR', N'CCR-ट्युशन क्लासेस ', N'C', '', N'ट्युशन क्लासेस', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'CGC', N'केंद्र शासन वाणिज्य मालमत्ता', N'C', '', N'केंद्र शासन मालमत्ता', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'ENCC', N'ENCC', N'C', ' ', N'अनिवासी', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'ENCEG', N'ENCEG', N'R', '', N'शैक्षणीक', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'ENCEP', N'ENCEP', N'C', '', N'खाजगी शैक्षणीक', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'ENCI', N'ENCI', N'I', '', N'औदयोगिक', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'ENCR', N'ENCR', N'R', '', N'निवासी', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'GM', N'व्यायाम शाळा ', N'C', '', N'व्यायाम शाळा', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'GMR', N'GMR-व्यायाम शाळा', N'C', '', N'व्यायाम शाळा', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'KTR', N'KTR-टॉकीज/चित्रपट गृह', N'C', '', N'वाणिज्य', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'NPD', N'न.प.दुकान गाळे', N'C', '', N'बिगर निवासी', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'OBR', N'OBR', N'N', '', N'निवासी', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'OPKC', N'ओपन पार्किंग अनिवासी', N'C', '', N'अनिवासी', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'RCO', N'R-कॉरिडॉर', N'N', '', N'निवासी', NULL, NULL, NULL, N'', NULL, 1),
-  (N'RGN', N'जनरेटर रूम/मिटर रूम', N'N', '', N'निवासी', NULL, NULL, NULL, N'', NULL, 1),
-  (N'SPKC', N'स्टील पार्किंग अनिवासी', N'C', '', N'अनिवासी', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'WT', N'R-टॉवर', N'C', '', N'बिगर निवासी', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'PG', N'पेयिंग गेस्ट', N'R', '', N'पेयिंग गेस्ट', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'GA', N'गार्डन', N'N', '', N'निवासी', NULL, NULL, NULL, N'', NULL, 1),
-  (N'RFG', N'रिफ्युज एरिया', N'N', '', N'निवासी', NULL, NULL, NULL, N'', NULL, 1),
-  (N'PH', N'पंप हाऊस रूम', N'N', '', N'पंप हाऊस रूम', NULL, NULL, NULL, N'', NULL, 1),
-  (N'SR', N' स्टोअर रूम', N'R', '', N'स्टोअर रूम', NULL, NULL, NULL, N'', NULL, 1),
-  (N'WAT', N' वॉटर टॅंक', N'N', '', N'वॉटर टॅंक', NULL, NULL, NULL, N'', NULL, 1),
-  (N'ISR', N'इनडोअर स्पोर्ट रूम ', N'N', '', N'इनडोअर स्पोर्ट रूम ', NULL, NULL, NULL, N'', NULL, 1),
-  (N'EHO', N'शैक्षणिक संस्था-वसतिगृह', N'C', '', N'अनिवासी', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'PF', N'पोल्ट्रीफार्म', N'C', '', N'अनिवासी', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'NR', N'सर्व्हेक्षण निवासी', N'R', '', N'निवासी', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'NC', N'सर्व्हेक्षण अनिवासी', N'C', '', N'अनिवासी', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'NI', N'सर्व्हेक्षण औद्योगिक', N'I', '', N'औद्योगिक', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'ICR', N'अनधिकृत बांधकाम निवासी', N'R', '', N'निवासी', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'ICC', N'अनधिकृत बांधकाम अनिवासी ', N'C', '', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'ICI', N'अनधिकृत बांधकाम औद्योगिक', N'I', '', N'I', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'ICRT', N'निवासी शास्तीस पात्र अनधिकृत बांधकाम ', N'R', '', N'निवासी', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'ICCT', N'अनिवासी शास्तीस पात्र अनधिकृत बांधकाम ', N'C', '', N'अनिवासी', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'ICIT', N'औद्योगिक शास्तीस पात्र अनधिकृत बांधकाम ', N'I', '', N'औद्योगिक', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'ICHT', N'हॉटेल शास्तीस पात्र अनधिकृत बांधकाम', N'C', '', N'अनिवासी', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'ICH', N'हॉटेल अनधिकृत बांधकाम', N'C', '', N'अनिवासी', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'ICP', N'अनधिकृत बांधकाम निवासी पार्किंग', N'R', '', N'निवासी', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'ICPRT', N'निवासी पार्किंग शास्तीस पात्र अनधिकृत बांधकाम', N'R', '', N'निवासी', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'OAH', N'वृद्धाश्रम', N'C', '', N'अनिवासी', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'ABLC', N'टेरेस-बाल्कनी अनिवासी', N'C', '', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'ABLOP', N'ओपन टेरेस', N'R', '', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'ABLR', N'टेरेस-बाल्कनी ', N'R', '', N'R', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'ACHC', N'क्लब हाऊस C', N'C', '', N'बिगर निवासी', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'ASWC', N'सोसायटी स्विमिंग पूल C', N'C', '', N'बिगर निवासी', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'AWA', N'वेटिंग एरिया', N'R', '', N'R', NULL, NULL, NULL, N'', NULL, 1),
-  (N'FCR', N'फायर कंट्रोल रूम', N'R', '', N'C', NULL, NULL, NULL, N'', NULL, NULL);
 
-INSERT [PTIS].[TypeOfUseMaster] ([TypeOfUseID], [Description], [Type], [DescriptionEnglish], [GroupID], [CreatedBy], [UpdatedBy], [UpdatedDate], [KeyboardShortCutKey], [KeyWiseSequence], [IsSociety]) VALUES (N'FIRR', N'फायर रूम
-', N'R', '', N'R', NULL, NULL, NULL, N'', NULL, 1)
-INSERT [PTIS].[TypeOfUseMaster] ([TypeOfUseID], [Description], [Type], [DescriptionEnglish], [GroupID], [CreatedBy], [UpdatedBy], [UpdatedDate], [KeyboardShortCutKey], [KeyWiseSequence], [IsSociety]) VALUES (N'GRR', N'गारबेज रूम
-', N'R', '', N'R', NULL, NULL, NULL, N'', NULL, 1)
-INSERT [PTIS].[TypeOfUseMaster] ([TypeOfUseID], [Description], [Type], [DescriptionEnglish], [GroupID], [CreatedBy], [UpdatedBy], [UpdatedDate], [KeyboardShortCutKey], [KeyWiseSequence], [IsSociety]) VALUES
-  (N'IT', N'माहिती व तंत्रज्ञान उद्योग', N'I', '', N'I', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'LR', N'लिफ्ट रूम', N'R', '', N'R', NULL, NULL, NULL, N'', NULL, 1),
-  (N'MR', N'Mail रूम', N'R', '', N'c', NULL, NULL, NULL, N'', NULL, 1),
-  (N'OL', N'ओपनिंग लॉबी', N'R', '', N'R', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'OWC', N'सेंद्रिय कचरा कन्व्हर्टर रूम', N'R', '', N'R', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'SI', N'सामाजिक संस्था', N'R', '', N'R', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'TL', N'टेरेस लिफ्ट', N'R', '', N'R', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'OPKI', N'ओपन पार्किंग औदयोगिक', N'C', '', N'अनिवासी', NULL, NULL, NULL, N'', NULL, NULL),
-  (N'SPKI', N'स्टील पार्किंग औदयोगिक', N'C', '', N'अनिवासी', NULL, NULL, NULL, N'', NULL, NULL);
--- [PTIS].[ConstructionTypeMaster]
+
+INSERT INTO [PTIS].[TypeOfUseGroupMaster]
+([TypeOfUseGroupID], [GroupName], [GroupIcon], [CreatedBy], [UpdatedBy], [UpdatedDate])
+VALUES
+('R',  N'निवासी',   'home', NULL, NULL, NULL),
+('C',  N'व्यावसायिक', 'home', NULL, NULL, NULL),
+('I',  N'औद्योगिक',  'home', NULL, NULL, NULL),
+('N',  N'इतर',       'home', NULL, NULL, NULL),
+('OP', N'प्लॉट',    'home', NULL, NULL, NULL);
+
+
+
+INSERT [PTIS].[TypeOfUseMaster]
+([TypeOfUseID], [Description], [Type], [TypeOfUseGroupId],
+ [CreatedBy], [UpdatedBy], [UpdatedDate], [SearchKey], [SearchSequence], [IsSociety])
+VALUES
+
+(N'C', N'अनिवासी', N'C', N'C', 1, NULL, NULL, N'C', 1, 0),
+(N'T', N'धार्मिक स्थळ', N'N', N'N', 1, NULL, NULL, N'T', 1, 1),
+(N'V', N'V-व्हरांडा टॉयल॓ट बाथ', N'N', N'N', 1, NULL, NULL, N'V', 1, 0),
+(N'R', N'निवासी', N'R', N'R', 1, NULL, NULL, N'R', 1, 1),
+(N'UC', N'बांधकाम चालू ', N'N', N'N', 1, NULL, NULL, N'U', 1, 0),
+(N'SPK', N'स्टील पार्किंग ', N'R', N'R', 1, NULL, NULL, N'S', 5, 1),
+(N'N', N'मनपा मालमत्ता', N'N', N'N', 1, NULL, NULL, N'N', 1, 1),
+(N'EG', N'शैक्षणिक शासकीय ', N'C', N'C', 1, NULL, NULL, N'E', 3, 0),
+(N'GO', N'गोडाऊन', N'C', N'C', 1, NULL, NULL, N'G', 3, 0),
+(N'GR', N'शासकीय निवासी', N'R', N'R', 1, NULL, NULL, N'G', 4, 0),
+(N'HO', N'खाजगी वसतिगृह', N'R', N'R', 1, NULL, NULL, N'H', 4, 0),
+(N'LB', N'वाचनालय/लायब्ररी ', N'C', N'C', 1, NULL, NULL, N'L', 2, 1),
+(N'UCC', N'बांधकाम चालु-अनिवासी ', N'N', N'N', 1, NULL, NULL, N'U', 1, 0),
+(N'MTR', N'टॉवर जागा', N'C', N'C', 1, NULL, NULL, N'W', 9, 0),
+(N'FF', N'स्वातंत्र्य सैनिक', N'R', N'R', 1, NULL, NULL, N'F', 1, 0),
+(N'WGC', N'WGC-व्हरांडा  शासकीय अनिवासी', N'C', N'C', 1, NULL, NULL, N'G', 2, 0),
+(N'WEG', N'WEG-व्हरांडा शैक्षणीक शासकीय', N'C', N'C', 1, NULL, NULL, N'E', 4, 0),
+(N'WEP', N'WEP-व्हरांडा खाजगी शैक्षणीक ', N'C', N'C', 1, NULL, NULL, N'E', 2, 0),
+(N'WGR', N'WGR-व्हरांडा शासकीय निवासी', N'R', N'R', 1, NULL, NULL, N'G', 4, 0),
+(N'PC', N'पार्किंग अनिवासी', N'N', N'N', 1, NULL, NULL, N'P', NULL, 0),
+(N'S', N'दुकान', N'C', N'C', 1, NULL, NULL, N'S', 1, 0),
+(N'D', N'दवाखाना', N'C', N'C', 1, NULL, NULL, N'D', 1, 0),
+(N'B', N'बँक', N'C', N'C', 1, NULL, NULL, N'B', 1, 0),
+(N'SW', N'जलतरण तलाव', N'C', N'C', 1, NULL, NULL, N'S', 4, 0),
+(N'I', N'कारखाना', N'I', N'I', 1, NULL, NULL, N'I', 1, 0),
+(N'EP', N'खाजगी शैक्षणिक', N'C', N'C', NULL, NULL, NULL, N'E', 1, 0),
+(N'WR', N'WR-व्हरांडा निवासी', N'R', N'R', NULL, NULL, NULL, N'R', 2, 0),
+(N'WC', N'WC-व्हरांडा अनिवासी', N'C', N'C', NULL, NULL, NULL, N'S', 2, 0),
+(N'CC', N'कोचिंग क्लासेस', N'C', N'C', NULL, NULL, NULL, N'C', 2, 0),
+(N'CG', N'केंद्र शासकीय मालमत्ता', N'C', N'C', NULL, NULL, NULL, N'', NULL, 0),
+(N'CR', N'केंद्र शासकीय मालमत्ता निवासी', N'R', N'R', NULL, NULL, NULL, N'', NULL, 0),
+(N'OPR', N'खुला भूखंड निवासी', N'C', N'C', NULL, NULL, NULL, N'', NULL, 0),
+(N'OPC', N'खुला भूखंड अनिवासी', N'C', N'C', NULL, NULL, NULL, N'', NULL, 0),
+(N'PTR', N'पेट्रोल पंप', N'C', N'C', NULL, NULL, NULL, N'P', 1, 0),
+(N'GC', N'शासकीय अनिवासी', N'C', N'C', NULL, NULL, NULL, N'', NULL, 0),
+(N'O', N'ऑफिस', N'C', N'C', NULL, NULL, NULL, N'O', 1, 0),
+(N'M', N'मंगल कार्यालय', N'C', N'C', NULL, NULL, NULL, N'M', 1, 0),
+(N'KT', N'मल्टीप्लेक्स', N'C', N'C', NULL, NULL, NULL, N'T', 2, 0),
+(N'H', N'हॉटेल', N'C', N'C', NULL, NULL, NULL, N'H', 1, 0),
+(N'OPK', N'ओपन पार्किंग', N'R', N'R', NULL, NULL, NULL, NULL, NULL, 1),
+(N'WI', N'WI-व्हरांडा औद्योगिक', N'I', N'I', 1, NULL, NULL, N'I', 2, 0),
+(N'OP', N'खुला भूखंड', N'R', N'R', 1, 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), N'', 0, 0),
+(N'WCGR', N'WCGR-केंद्र शासकीय मालमत्ता', N'R', N'R', NULL, NULL, NULL, N'', NULL, 0),
+(N'WCGC', N'WCGC-केंद्र शासकीय मालमत्ता', N'C', N'C', NULL, NULL, NULL, N'', NULL, 0),
+(N'CH', N'सामाजिक सभागृह', N'C', N'C', NULL, NULL, NULL, N'', NULL, 0),
+(N'L', N'लॉज', N'C', N'C', NULL, NULL, NULL, N'', NULL, 0),
+(N'AG', N'शेती', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
+(N'ACH', N'क्लब हाऊस ', N'C', N'C', NULL, NULL, NULL, N'', NULL, 1),
+(N'AGM', N'सोसायटी जिम', N'C', N'C', NULL, NULL, NULL, N'', NULL, 1),
+(N'AH', N'कॉमन हॉल', N'C', N'C', NULL, NULL, NULL, N'', NULL, 1),
+(N'AMH', N'मल्टीपर्पज हॉल', N'C', N'C', NULL, NULL, NULL, N'', NULL, 1),
+(N'AO', N'सोसायटी ऑफीस ', N'C', N'C', NULL, NULL, NULL, N'', NULL, 1),
+(N'APG', N'खेळाचे मैदान', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
+(N'ASW', N'सोसायटी स्विमिंग पूल', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
+(N'AWC', N'वॉचमन कॅबिन', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
+(N'CCO', N'C-कॉरिडॉर', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
+(N'CCR', N'CCR-ट्युशन क्लासेस ', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
+(N'CGC', N'केंद्र शासन वाणिज्य मालमत्ता', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
+(N'ENCC', N'ENCC', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
+(N'ENCEG', N'ENCEG', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
+(N'ENCEP', N'ENCEP', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
+(N'ENCI', N'ENCI', N'I', N'I', NULL, NULL, NULL, N'', NULL, NULL),
+(N'ENCR', N'ENCR', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
+(N'GM', N'व्यायाम शाळा ', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
+(N'GMR', N'GMR-व्यायाम शाळा', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
+(N'KTR', N'KTR-टॉकीज/चित्रपट गृह', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
+(N'NPD', N'न.प.दुकान गाळे', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
+(N'OBR', N'OBR', N'N', N'N', NULL, NULL, NULL, N'', NULL, NULL),
+(N'OPKC', N'ओपन पार्किंग अनिवासी', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
+(N'RCO', N'R-कॉरिडॉर', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
+(N'RGN', N'जनरेटर रूम/मिटर रूम', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
+(N'SPKC', N'स्टील पार्किंग अनिवासी', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
+(N'WT', N'R-टॉवर', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
+(N'PG', N'पेयिंग गेस्ट', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
+(N'GA', N'गार्डन', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
+(N'RFG', N'रिफ्युज एरिया', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
+(N'PH', N'पंप हाऊस रूम', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
+(N'SR', N' स्टोअर रूम', N'R', N'R', NULL, NULL, NULL, N'', NULL, 1),
+(N'WAT', N' वॉटर टॅंक', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
+(N'ISR', N'इनडोअर स्पोर्ट रूम ', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
+(N'EHO', N'शैक्षणिक संस्था-वसतिगृह', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
+(N'PF', N'पोल्ट्रीफार्म', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
+(N'NR', N'सर्व्हेक्षण निवासी', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
+(N'NC', N'सर्व्हेक्षण अनिवासी', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
+(N'NI', N'सर्व्हेक्षण औद्योगिक', N'I', N'I', NULL, NULL, NULL, N'', NULL, NULL),
+(N'ICR', N'अनधिकृत बांधकाम निवासी', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
+(N'ICC', N'अनधिकृत बांधकाम अनिवासी ', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
+(N'ICI', N'अनधिकृत बांधकाम औद्योगिक', N'I', N'I', NULL, NULL, NULL, N'', NULL, NULL),
+(N'ICRT', N'निवासी शास्तीस पात्र अनधिकृत बांधकाम ', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
+(N'ICCT', N'अनिवासी शास्तीस पात्र अनधिकृत बांधकाम ', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
+(N'ICIT', N'औद्योगिक शास्तीस पात्र अनधिकृत बांधकाम ', N'I', N'I', NULL, NULL, NULL, N'', NULL, NULL),
+(N'ICHT', N'हॉटेल शास्तीस पात्र अनधिकृत बांधकाम', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
+(N'ICH', N'हॉटेल अनधिकृत बांधकाम', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
+(N'ICP', N'अनधिकृत बांधकाम निवासी पार्किंग', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
+(N'ICPRT', N'निवासी पार्किंग शास्तीस पात्र अनधिकृत बांधकाम', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
+(N'OAH', N'वृद्धाश्रम', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
+(N'ABLC', N'टेरेस-बाल्कनी अनिवासी', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
+(N'ABLOP', N'ओपन टेरेस', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
+(N'ABLR', N'टेरेस-बाल्कनी ', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
+(N'ACHC', N'क्लब हाऊस C', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
+(N'ASWC', N'सोसायटी स्विमिंग पूल C', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
+(N'AWA', N'वेटिंग एरिया', N'R', N'R', NULL, NULL, NULL, N'', NULL, 1),
+(N'FCR', N'फायर कंट्रोल रूम', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL);
+
+
+
+INSERT INTO [PTIS].[TypeOfUseMaster]
+([TypeOfUseID], [Description], [Type], [TypeOfUseGroupId],
+ [CreatedBy], [UpdatedBy], [UpdatedDate], [SearchKey], [SearchSequence], [IsSociety])
+VALUES
+(N'FIRR', N'फायर रूम', N'R', N'R', NULL, NULL, NULL, N'', NULL, 1),
+(N'GRR',  N'गारबेज रूम', N'R', N'R', NULL, NULL, NULL, N'', NULL, 1),
+(N'IT',   N'माहिती व तंत्रज्ञान उद्योग', N'I', N'I', NULL, NULL, NULL, N'', NULL, NULL),
+(N'LR',   N'लिफ्ट रूम', N'R', N'R', NULL, NULL, NULL, N'', NULL, 1),
+(N'MR',   N'Mail रूम', N'R', N'R', NULL, NULL, NULL, N'', NULL, 1),
+(N'OL',   N'ओपनिंग लॉबी', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
+(N'OWC',  N'सेंद्रिय कचरा कन्व्हर्टर रूम', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
+(N'SI',   N'सामाजिक संस्था', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
+(N'TL',   N'टेरेस लिफ्ट', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
+(N'OPKI', N'ओपन पार्किंग औदयोगिक', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
+(N'SPKI', N'स्टील पार्किंग औदयोगिक', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL);
 
 
 INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('A', N'सिमेंट कॉक्रिट संरचना', NULL, N'7', 0, 0, 56, NULL);
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('B', N'सिमेंट/चुना/दगड/विटांची भिंत व स्लॅब', NULL, NULL, NULL, NULL, 56, '2022-06-17T12:43:04');
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('C', N'सिमेंट/चुना/दगड/विटांची भिंत व टिनाचे छत', NULL, NULL, NULL, NULL, 56, '2022-06-17T12:43:20');
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('D', N'कुडाचे लाकडी फाट्याचे कच्चेघर', NULL, NULL, NULL, NULL, 56, '2022-06-17T12:43:31');
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('E', N'कुडाचे', NULL, NULL, NULL, NULL, 56, '2022-06-17T12:43:41');
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('AR', N'A-R RCC Structure', NULL, NULL, NULL, NULL, 56, '2022-03-17T18:55:50');
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('BR', N'BR Load Bearing', NULL, NULL, NULL, NULL, 56, '2022-06-17T12:44:32');
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('CR', N'CR Tin & Cement', NULL, NULL, NULL, NULL, 56, '2022-06-17T12:44:46');
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('DR', N'DR Kavelu', NULL, NULL, NULL, NULL, 56, '2022-06-17T12:44:53');
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('ER', N'ER Kudache', NULL, NULL, NULL, NULL, 56, '2022-06-17T12:45:04');
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('op', N'open plot', NULL, NULL, NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('OPR', N'Rented Plot', NULL, NULL, NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('WA', N'सिमेंट कॉक्रिट संरचना-व्हरांडा', NULL, NULL, NULL, NULL, 56, '2022-04-09T18:04:48');
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('WB', N'व्हरांडा-सिमेंट/चुना/दगड/विटांची भिंत व स्लॅब', NULL, NULL, NULL, NULL, 56, '2022-06-17T12:45:28');
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('WC', N'व्हरांडा-सिमेंट/चुना/दगड/विटांची भिंत व टिनाचे छत', NULL, NULL, NULL, NULL, 56, '2022-06-17T12:45:39');
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('WD', N'व्हरांडा-कुडाचे लाकडी फाट्याचे कच्चेघर', NULL, NULL, NULL, NULL, 56, '2022-06-17T12:45:51');
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('WE', N'व्हरांडा-कुडाचे', NULL, NULL, NULL, NULL, 56, '2022-06-17T12:46:01');
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('A1', N'आरामदायी आरसीसी इमारत ', NULL, N'', NULL, 56, 56, '2022-04-09T17:52:40');
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('B1', N'उच्च दर्जाचे एल.बी.एस. इमारत', NULL, N'', NULL, 56, 56, '2022-06-17T12:46:25');
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('C1', N'उच्च दर्जाचे विटा सीमेंट च्या भिंती व टिन कवेलूचे छत असलेले इमारत ', NULL, N'', NULL, 56, 56, '2022-06-17T12:46:37');
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('WA1', N'आरामदायी RCC-व्हरांडा', NULL, N'', NULL, 56, NULL, NULL);
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('WB1', N'उच्च दर्जाचे LBS व्हरांडा ', NULL, N'', NULL, 56, 56, '2022-06-17T12:46:51');
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('WC1', N'उच्च दर्जाचे विटा सीमेंट च्या भिंती व टिन कवेलूचे छत व्हरांडा', NULL, N'', NULL, 56, 56, '2022-06-17T12:46:59');
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('STEEL', N'Steel Structure', NULL, N'S', 2, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('BRICK', N'Brick Masonry', NULL, N'B', 3, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [DescriptionEnglish], [KeyboardShortCutKey], [KeyWiseSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('WOOD', N'Wooden Structure', NULL, N'W', 4, NULL, NULL, NULL);
--- [PTIS].[CategoryMaster]
+([ConstructionId], [Description], [SearchKey], [SearchSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
+VALUES
+('A',   N'सिमेंट कॉक्रिट संरचना', N'7', 0, 0, 56, NULL),
+('B',   N'सिमेंट/चुना/दगड/विटांची भिंत व स्लॅब', NULL, NULL, NULL, 56, '2022-06-17T12:43:04'),
+('C',   N'सिमेंट/चुना/दगड/विटांची भिंत व टिनाचे छत', NULL, NULL, NULL, 56, '2022-06-17T12:43:20'),
+('D',   N'कुडाचे लाकडी फाट्याचे कच्चेघर', NULL, NULL, NULL, 56, '2022-06-17T12:43:31'),
+('E',   N'कुडाचे', NULL, NULL, NULL, 56, '2022-06-17T12:43:41'),
+('AR',  N'A-R RCC Structure', NULL, NULL, NULL, 56, '2022-03-17T18:55:50'),
+('BR',  N'BR Load Bearing', NULL, NULL, NULL, 56, '2022-06-17T12:44:32'),
+('CR',  N'CR Tin & Cement', NULL, NULL, NULL, 56, '2022-06-17T12:44:46'),
+('DR',  N'DR Kavelu', NULL, NULL, NULL, 56, '2022-06-17T12:44:53'),
+('ER',  N'ER Kudache', NULL, NULL, NULL, 56, '2022-06-17T12:45:04'),
+('op',  N'open plot', NULL, NULL, NULL, NULL, NULL),
+('OPR', N'Rented Plot', NULL, NULL, NULL, NULL, NULL),
+('WA',  N'सिमेंट कॉक्रिट संरचना-व्हरांडा', NULL, NULL, NULL, 56, '2022-04-09T18:04:48'),
+('WB',  N'व्हरांडा-सिमेंट/चुना/दगड/विटांची भिंत व स्लॅब', NULL, NULL, NULL, 56, '2022-06-17T12:45:28'),
+('WC',  N'व्हरांडा-सिमेंट/चुना/दगड/विटांची भिंत व टिनाचे छत', NULL, NULL, NULL, 56, '2022-06-17T12:45:39'),
+('WD',  N'व्हरांडा-कुडाचे लाकडी फाट्याचे कच्चेघर', NULL, NULL, NULL, 56, '2022-06-17T12:45:51'),
+('WE',  N'व्हरांडा-कुडाचे', NULL, NULL, NULL, 56, '2022-06-17T12:46:01'),
+('A1',  N'आरामदायी आरसीसी इमारत ', N'', NULL, 56, 56, '2022-04-09T17:52:40'),
+('B1',  N'उच्च दर्जाचे एल.बी.एस. इमारत', N'', NULL, 56, 56, '2022-06-17T12:46:25'),
+('C1',  N'उच्च दर्जाचे विटा सीमेंट च्या भिंती व टिन कवेलूचे छत असलेले इमारत ', N'', NULL, 56, 56, '2022-06-17T12:46:37'),
+('WA1', N'आरामदायी RCC-व्हरांडा', N'', NULL, 56, NULL, NULL),
+('WB1', N'उच्च दर्जाचे LBS व्हरांडा ', N'', NULL, 56, 56, '2022-06-17T12:46:51'),
+('WC1', N'उच्च दर्जाचे विटा सीमेंट च्या भिंती व टिन कवेलूचे छत व्हरांडा', N'', NULL, 56, 56, '2022-06-17T12:46:59'),
+('STEEL', N'Steel Structure', N'S', 2, NULL, NULL, NULL),
+('BRICK', N'Brick Masonry', N'B', 3, NULL, NULL, NULL),
+('WOOD',  N'Wooden Structure', N'W', 4, NULL, NULL, NULL);
 
 
-
-INSERT INTO [PTIS].[CategoryMaster] (  [Category]) VALUES ('Apartment');
-INSERT INTO [PTIS].[CategoryMaster] (  [Category]) VALUES ('Individual');
-INSERT INTO [PTIS].[CategoryMaster] (  [Category]) VALUES ('Individual Partition');
-INSERT INTO [PTIS].[CategoryMaster] ( [Category]) VALUES ('Industry');
-INSERT INTO [PTIS].[CategoryMaster] ( [Category]) VALUES ('IndustryL');
-INSERT INTO [PTIS].[CategoryMaster] ( [Category]) VALUES ('Plot');
-INSERT INTO [PTIS].[CategoryMaster] ( [Category]) VALUES ('Government Property');
-INSERT INTO [PTIS].[CategoryMaster] ( [Category]) VALUES ('Multi Commercial Apartment');
-INSERT INTO [PTIS].[CategoryMaster] ( [Category]) VALUES ('Individual Chal');
+SET IDENTITY_INSERT [PTIS].[CategoryMaster] ON;
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (1,'Apartment',N'Apartment_10');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (2,'Apartment',N'Apartment_10P');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (3,'Apartment',N'Apartment_C1');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (4,'Apartment',N'Apartment_C2');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (5,'Apartment',N'Apartment');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (6,'Apartment',N'Apartment_10C1');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (7,'Apartment',N'Apartment_10C2');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (8,'Apartment',N'Apartment_10PC1');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (9,'Apartment',N'Apartment_10PC2');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (10,'Apartment',N'Apartment_20C1');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (11,'Apartment',N'Apartment_20C2');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (12,'Individual','Individual');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (13,'Individual','Individual With Lift');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName]) VALUES (14,'Individual Partition');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName]) VALUES (15,'Industry');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName]) VALUES (16,'IndustryL');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName]) VALUES (17,'Plot');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName]) VALUES (18,'Government Property');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName]) VALUES (19,'Multi Commercial Apartment');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName]) VALUES (20,'Individual Chal');
+SET IDENTITY_INSERT [PTIS].[CategoryMaster] OFF;
 -- [PTIS].[SubCategory]
 
 
+SET IDENTITY_INSERT [PTIS].[SubZoneDetailsForCV] ON;
+-- [PTIS].[SubZoneDetailsForCV]
 
-
-INSERT [PTIS].[SubCategory] ([SubCategory], [SubCategoryType]) VALUES
-  ( N'Individual', N'Individual'),
-  ( N'Individual With Lift', N'Individual'),
-  ( N'Apartment_10', N'Apartment'),
-  ( N'Apartment_10P', N'Apartment'),
-  ( N'Apartment_20', N'Apartment'),
-  ( N'Apartment_C1', N'Apartment'),
-  ( N'Apartment_C2', N'Apartment'),
-  ( N'Apartment', N'Apartment'),
-  ( N'Apartment_10C1', N'Apartment'),
-  ( N'Apartment_10C2', N'Apartment'),
-  ( N'Apartment_10PC1', N'Apartment'),
-  ( N'Apartment_10PC2', N'Apartment'),
-  ( N'Apartment_20C1', N'Apartment'),
-  ( N'Apartment_20C2', N'Apartment');
-
---SET IDENTITY_INSERT [PTIS].[SubCategory] OFF
-
-
-SET IDENTITY_INSERT [PTIS].[SubZoneSectionDetails] ON;
--- [PTIS].[SubZoneSectionDetails]
-
-INSERT INTO [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId], [TaxZoneNo], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('1', 'Z1', '98/440 ', N' भूभाग :- उत्तरेस हार्बर रेल्वे लाईन, पूर्वेस पूर्व द्रुतगती महामार्ग व पश्चिमेस वॉर्ड हद्द यामधील मिळकती', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId], [TaxZoneNo], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('2', 'Z1', '98/440A ', N' भुभाग: हार्बर रेल्वे लाईनच्या उत्तरेकडील टिळकनगर मध्ये दर्शविलेल्या मिळकती.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId], [TaxZoneNo], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('3', 'Z1', '98/441 ', N'भुभाग: द्रुतगती मार्ग, महात्मा गांधी मार्ग व वॉर्ड हद्द यांनी वेढलेला भाग.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId], [TaxZoneNo], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('4', 'Z1', '98/442', N'भुभाग: द्रुतगती मार्ग, रामकृष्ण चेंबूरकर मार्ग व व्ही एन. पूरब मार्ग यांनी वेढलेला भूभाग.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId], [TaxZoneNo], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('5', 'Z1', '98/442A', N'भुभाग - उत्तरेस पुर्व दुतगती महामार्ग, दक्षिणेस मुल्यदर विभाग क्र. 98/443 चा भाग, व पुर्वेस मुल्यदर विभाग क्र. 98/442 चा भाग.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId], [TaxZoneNo], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('6', 'Z1', '98/443', N'भुभाग: उत्तरेस व्ही. एन. पूरब मार्ग, पूर्वेस रामकृष्ण चेंबूरकर मार्ग व दक्षिणेस गाव हद्द, पश्चिमेस गुडस् रेल्वे लाईन', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId], [TaxZoneNo], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('7', 'Z1', '98/444 ', N' भुभाग: उत्तरेस व पूर्वेस गाव हद्द, पश्चिमेस पूर्व द्रुतगती महामार्ग व दक्षिणेस नकाशा मध्ये दर्शविल्यानुसार गाव हद्द', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId], [TaxZoneNo], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('8', 'Z1', '98/444A ', N' भूभाग - दक्षिणेस हार्बर रेल्वे लाईन व उत्तरेस नकाशात दर्शविलेल्याप्रमाणे हद्द यामधील मिळकती.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId], [TaxZoneNo], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('9', 'Z1', '98/445', N'भुभाग: उत्तरेस रेल्वे, पुर्वेस गाव हद्द, दक्षिणेस व्ही. एन. पुरव मार्ग व पश्चिमेस रामकृष्ण चेंबूरकर मार्ग.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId], [TaxZoneNo], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('10', 'Z1', '98/445A ', N' भुभाग सुभाष नगर म्हाडा संकुला मधील समाविष्ट मिळकती.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId], [TaxZoneNo], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('11', 'Z1', '98/446 ', N'भुभाग: व्ही.एन.पुरव मार्गाच्या दक्षिणेकडील भाग, गाव सीमा व रामकृष्ण चेंबूरकर मार्ग यांनी वेढलेला भाग.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId], [TaxZoneNo], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('12', 'Z1', '98/447 ', N'भुभाग: वॉर्ड हद्द, मालवाहतूक रेल्व मार्ग व गाव सीमा यांनी वेढलेला भाग.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId], [TaxZoneNo], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('13', 'Z1', '98/448', N'रस्ता: व्ही.एन.पुरव मार्ग- सुमननगर ते शिवाजी महाराज चौक.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId], [TaxZoneNo], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('14', 'Z1', '98/449 ', N'रस्ता: आचार्य उद्यान (डायमंड गार्डन) सर्कल ते चेंबूर रेल्वे स्टेशन जोडणारा सेंट्रल अँव्हेन्यू रोड (स्टेशन रोड)', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId], [TaxZoneNo], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('15', 'Z1', '98/450', N'रस्ता: चेंबूर रेल्वे स्टेशन ते बोरला गाव जोडणारा एन. जी. आचार्य मार्ग.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId], [TaxZoneNo], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('16', 'Z1', '98/451', N'रस्ता: चोईतराम गिडवानी मार्ग.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId], [TaxZoneNo], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('17', 'Z1', '98/452', N'रस्ता : रामकृष्ण चेंबूरकर मार्ग.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId], [TaxZoneNo], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('18', 'Z1', '98/453 ', N'भुभाग: उत्तरेस गावाची हद्द, पूर्वेस वॉर्ड सीमा, दक्षिणस स.गो.बर्वे मार्ग, पश्चिमेस गाव हद्द.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId], [TaxZoneNo], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('19', 'Z1', '98/454 ', N'भुभाग: उत्तरेस, स.गो.बर्वे मार्ग, दक्षिणेस व पश्चिमेस गाव सीमा, पूर्वे वॉर्ड हद्द.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId], [TaxZoneNo], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('20', 'Z1', '98/455', N'रस्ता : स.गो.बर्वे मार्ग.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId], [TaxZoneNo], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('21', 'Z1', '98/456 ', N'भुभाग: चेंबूर गावातील "एन" वॉर्डातील मिळकती.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId], [TaxZoneNo], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('22', 'Z1', '98/445/1 ', N' भुभाग: चेंबूर गावठाण क्षेत्रा मधील मिळकती.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneSectionDetails] ([SubZoneSectionId], [TaxZoneNo], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('23', 'Z1', '98/446/1 ', N' भुभाग: चेंबूर चरई गावठाण क्षेत्रा मधील मिळकती.', NULL, NULL, NULL);
-SET IDENTITY_INSERT [PTIS].[SubZoneSectionDetails] OFF;
+INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('1', 'Z1', '98/440 ', N' भूभाग :- उत्तरेस हार्बर रेल्वे लाईन, पूर्वेस पूर्व द्रुतगती महामार्ग व पश्चिमेस वॉर्ड हद्द यामधील मिळकती', NULL, NULL, NULL);
+INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('2', 'Z1', '98/440A ', N' भुभाग: हार्बर रेल्वे लाईनच्या उत्तरेकडील टिळकनगर मध्ये दर्शविलेल्या मिळकती.', NULL, NULL, NULL);
+INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('3', 'Z1', '98/441 ', N'भुभाग: द्रुतगती मार्ग, महात्मा गांधी मार्ग व वॉर्ड हद्द यांनी वेढलेला भाग.', NULL, NULL, NULL);
+INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('4', 'Z1', '98/442', N'भुभाग: द्रुतगती मार्ग, रामकृष्ण चेंबूरकर मार्ग व व्ही एन. पूरब मार्ग यांनी वेढलेला भूभाग.', NULL, NULL, NULL);
+INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('5', 'Z1', '98/442A', N'भुभाग - उत्तरेस पुर्व दुतगती महामार्ग, दक्षिणेस मुल्यदर विभाग क्र. 98/443 चा भाग, व पुर्वेस मुल्यदर विभाग क्र. 98/442 चा भाग.', NULL, NULL, NULL);
+INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('6', 'Z1', '98/443', N'भुभाग: उत्तरेस व्ही. एन. पूरब मार्ग, पूर्वेस रामकृष्ण चेंबूरकर मार्ग व दक्षिणेस गाव हद्द, पश्चिमेस गुडस् रेल्वे लाईन', NULL, NULL, NULL);
+INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('7', 'Z1', '98/444 ', N' भुभाग: उत्तरेस व पूर्वेस गाव हद्द, पश्चिमेस पूर्व द्रुतगती महामार्ग व दक्षिणेस नकाशा मध्ये दर्शविल्यानुसार गाव हद्द', NULL, NULL, NULL);
+INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('8', 'Z1', '98/444A ', N' भूभाग - दक्षिणेस हार्बर रेल्वे लाईन व उत्तरेस नकाशात दर्शविलेल्याप्रमाणे हद्द यामधील मिळकती.', NULL, NULL, NULL);
+INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('9', 'Z1', '98/445', N'भुभाग: उत्तरेस रेल्वे, पुर्वेस गाव हद्द, दक्षिणेस व्ही. एन. पुरव मार्ग व पश्चिमेस रामकृष्ण चेंबूरकर मार्ग.', NULL, NULL, NULL);
+INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('10', 'Z1', '98/445A ', N' भुभाग सुभाष नगर म्हाडा संकुला मधील समाविष्ट मिळकती.', NULL, NULL, NULL);
+INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('11', 'Z1', '98/446 ', N'भुभाग: व्ही.एन.पुरव मार्गाच्या दक्षिणेकडील भाग, गाव सीमा व रामकृष्ण चेंबूरकर मार्ग यांनी वेढलेला भाग.', NULL, NULL, NULL);
+INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('12', 'Z1', '98/447 ', N'भुभाग: वॉर्ड हद्द, मालवाहतूक रेल्व मार्ग व गाव सीमा यांनी वेढलेला भाग.', NULL, NULL, NULL);
+INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('13', 'Z1', '98/448', N'रस्ता: व्ही.एन.पुरव मार्ग- सुमननगर ते शिवाजी महाराज चौक.', NULL, NULL, NULL);
+INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('14', 'Z1', '98/449 ', N'रस्ता: आचार्य उद्यान (डायमंड गार्डन) सर्कल ते चेंबूर रेल्वे स्टेशन जोडणारा सेंट्रल अँव्हेन्यू रोड (स्टेशन रोड)', NULL, NULL, NULL);
+INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('15', 'Z1', '98/450', N'रस्ता: चेंबूर रेल्वे स्टेशन ते बोरला गाव जोडणारा एन. जी. आचार्य मार्ग.', NULL, NULL, NULL);
+INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('16', 'Z1', '98/451', N'रस्ता: चोईतराम गिडवानी मार्ग.', NULL, NULL, NULL);
+INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('17', 'Z1', '98/452', N'रस्ता : रामकृष्ण चेंबूरकर मार्ग.', NULL, NULL, NULL);
+INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('18', 'Z1', '98/453 ', N'भुभाग: उत्तरेस गावाची हद्द, पूर्वेस वॉर्ड सीमा, दक्षिणस स.गो.बर्वे मार्ग, पश्चिमेस गाव हद्द.', NULL, NULL, NULL);
+INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('19', 'Z1', '98/454 ', N'भुभाग: उत्तरेस, स.गो.बर्वे मार्ग, दक्षिणेस व पश्चिमेस गाव सीमा, पूर्वे वॉर्ड हद्द.', NULL, NULL, NULL);
+INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('20', 'Z1', '98/455', N'रस्ता : स.गो.बर्वे मार्ग.', NULL, NULL, NULL);
+INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('21', 'Z1', '98/456 ', N'भुभाग: चेंबूर गावातील "एन" वॉर्डातील मिळकती.', NULL, NULL, NULL);
+INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('22', 'Z1', '98/445/1 ', N' भुभाग: चेंबूर गावठाण क्षेत्रा मधील मिळकती.', NULL, NULL, NULL);
+INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('23', 'Z1', '98/446/1 ', N' भुभाग: चेंबूर चरई गावठाण क्षेत्रा मधील मिळकती.', NULL, NULL, NULL);
+SET IDENTITY_INSERT [PTIS].[SubZoneDetailsForCV] OFF;
 -- [PTIS].[CitySurveyNoMaster]
-
-
-
-SET IDENTITY_INSERT [PTIS].[CitySurveyNoMaster] ON;
-INSERT INTO [PTIS].[CitySurveyNoMaster] ([ID], [SubZoneID], [CSN], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('311', '1', '1 , 45 , 49 , 50 , 51 , 52 , 53 , 54 , 55 , 56 , 57 , 58 , 59 , 59G , 60 , 61 , 62 , 63 , 64 , 65 , 66 , 67 , 68 , 69 , 70 , 71 , 72 , 73 , 74 , 75 , 76 , 77 , 78 , 79 , 80 , 81 , 82 , 83 , 84 , 85 , 93PT , 93 , 94 , 94PT , 95PT , 95 , 100 , 101 , 109 , 116 , 117 , 118 , 120 , 121 , 122 , 122PT , 123 , 183PT , 362 , 438 , 439 , 492 , 493 , 494 , 495 , 496 , 498 , 499 , 61/1 , 61/2 , 61/3 , 61/4 , 61/5 , 61/6 , 61/7 , 61/8 , 61/9 , 1828S , 1834 , 1835 , 61/10 , 61/11 , 61/12 , 61/13 , 61/14 , 61/15 , 61/16 , 61/17 , 61/18 , 61/19 , 61/20 , 61/21 , 61/22 , 61/23 , 61/24 , 61/25 , 61/26 , 61/27 , 61/28 , 61/29 , 61/30 , 61/31 , 61/32 , 61/33 , 61/34 , 61/35 , 61/36 , 61/37 , 61/38 , 61/39 , 61/40 , 61/41 , 61/42 , 61/43 , 61/44 , 61/45 , 61/46 , 61/47 , 61/48 , 61/49 , 61/50 , 61/51 , 61/52 , 61/53 , 61/54 , 61/55 , 61/56 , 61/57 , 61/58 , 61/59 , 61/60 , 61/61 , 61/62 , 61/63 , 61/64 , 61/65 , 61/66 , 61/67 , 61/68 , 61/69 , 61/70 , 61/71 , 61/72 , 61/73 , 61/74 , 61/75 , 61/76 , 61/77 , 61/78 , 61/79 , 61/80 , 61/81 , 61/82 , 61/83 , 61/84 , 61/85 , 61/86 , 61/87 , 61/88 , 61/89 , 61/90 , 61/91 , 61/92 , 61/93 , 61/94 , 61/95 , 61/96 , 61/97 , 61/98 , 61/99 , 61/100 , 61/101 , 61/102 , 61/103 , 61/104 , 61/105 , 61/107 ', NULL, NULL, NULL);
-INSERT INTO [PTIS].[CitySurveyNoMaster] ([ID], [SubZoneID], [CSN], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('312', '2', '1PT , 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10 , 11PT , 11 , 12 , 13 , 14 , 14PT , 15 , 16 , 17 , 18 , 19 , 20 , 20A , 21 , 22 , 23 , 24 , 25 , 26 , 27 , 28 , 29 , 31 , 32 , 35PT , 36 , 37 , 38 , 39 , 40 , 41 , 42 , 43 , 44 , 45 , 45PT , 46B , 46 , 46A , 557 , 558 , 559 , 1828 , 1831 , 1832 , 1833 , 32/16 , 32/17 , 32/18 , 32/19 , 32/20 , 32/21 , 32/22 , 32/23 , 32/24 , 32/25 , 32/26 , 32/27 , 32/40 , 32/41 , 32/42 , 32/43 , 32/44 , 32/45 , 32/46 , 32/47 , 32/48 , 32/49 , 32/50 , 32/51 , 6/106', NULL, NULL, NULL);
-INSERT INTO [PTIS].[CitySurveyNoMaster] ([ID], [SubZoneID], [CSN], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('313', '3', '60 , 86 , 87 , 88 , 89 , 90 , 91 , 92 , 93PT , 94PT , 95PT , 96 , 97 , 98 , 99 , 102 , 103 , 104 , 560 , 561 , 562 , 563 , 564 , 565 , 566 , 567 , 568 , 569 , 570 , 571 , 572 , 573 , 574 , 575 , 576 , 577 , 578 , 579 , 580 , 581 , 582 , 583 , 584 , 585 , 586 , 587 , 588 , 589 , 590 , 591 , 592 , 593 , 594 , 595 , 596 , 597 , 598 , 599 , 600 , 601 , 602 , 603 , 604 , 605 , 606 , 607 , 608 , 609 , 610 , 611 , 612 , 613 , 614 , 615 , 616 , 617 , 618 , 619 , 620 , 621 , 622 , 623 , 624 , 625 , 626 , 627 , 628 , 629 , 630 , 631 , 633 , 634 , 635 , 636 , 637 , 638 , 639 , 640 , 641 , 642 , 643 , 644 , 645 , 646 , 647 , 648 , 649 , 650 , 651 , 652 , 653 , 654 , 655 , 656 , 657 , 658 , 659 , 1816 , 1817 , 1818 , 1819 , 1820 , 1821 , 1822 , 1823 , 1824 , 1825 , 1826 , 1827 , 1829 , 1830 , 1837 , 1838 , 1849 , 1850 , 1851 , 1852 , 1886 , 2816 ', NULL, NULL, NULL);
-INSERT INTO [PTIS].[CitySurveyNoMaster] ([ID], [SubZoneID], [CSN], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('314', '4', '30 , 363 , 364 , 365 , 366 , 369 , 370 , 371 , 372 , 373 , 374 , 375 , 379 , 380 , 381 , 383 , 384 , 385A , 409 , 451 , 452 , 453 , 454 , 455 , 456 , 457 , 464 , 465 , 467 , 469 , 470 , 471 , 472 , 473 , 474 , 475 , 476 , 477 , 479 , 480 , 481 , 482 , 483 , 484 , 485 , 486 , 487 , 488 , 489 , 490 , 491 , 497 , 500 , 501 , 502 , 503 , 504 , 505 , 506 , 507 , 508 , 509 , 510 , 511 , 512 , 513 , 514 , 515 , 516 , 517 , 518 , 519 , 520 , 521 , 522 , 523 , 527 , 528 , 529 , 530 , 531 , 532 , 533 , 534 , 535 , 536 , 537 , 538 , 539 , 540 , 541 , 542 , 543 , 544 , 545 , 546 , 547 , 548 , 549 , 550 , 551 , 552 , 553 , 554 , 555 , 556 , 366/1 , 366/2 , 366/3 , 366/4 , 366/5 , 366/6 , 366/7 , 366/8 , 366/9 , 336/15 , 366/10 , 366/11 , 366/12 , 366/13 , 366/14 , 366/15 , 366/16 , 366/17 , 366/18 , 366/19 , 366/20 , 366/21 , 366/22 , 366/23 , 366/24 , 366/25 , 366/26 , 366/27 , 366/28 , 366/29 , 366/30 , 366/31 , 366/32 , 366/33 , 366/34 , 366/35 , 366/36 , 366/37 , 366/38 , 366/39 , 366/40 , 366/41 , 366/42 , 366/43 , 366/44 , 366/45 , 366/46 , 366/47 , 366/48 , 366/49 , 366/50 , 366/51 , 366/52 , 366/53 , 366/54 ', NULL, NULL, NULL);
-INSERT INTO [PTIS].[CitySurveyNoMaster] ([ID], [SubZoneID], [CSN], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('315', '5', '352 , 361 , 361/1 , 361/2 ', NULL, NULL, NULL);
-INSERT INTO [PTIS].[CitySurveyNoMaster] ([ID], [SubZoneID], [CSN], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('316', '6', '127 , 128 , 129 , 130 , 131 , 132 , 133 , 134 , 135 , 136 , 137 , 138 , 139 , 140 , 141 , 142 , 146 , 152 , 153 , 154 , 155 , 156 , 157 , 158 , 159 , 160 , 161 , 162 , 163 , 164 , 165 , 166 , 167 , 168 , 169 , 170 , 173 , 177A , 177B , 178 , 179 , 180 , 181 , 182 , 183PT , 184 , 185 , 186 , 187 , 188 , 189 , 190 , 191 , 192 , 193 , 194 , 195 , 196 , 197 , 198 , 199 , 200 , 201 , 202 , 203 , 204 , 205 , 206 , 207 , 208 , 209 , 210 , 211 , 212 , 213 , 214 , 215 , 216 , 217 , 218 , 219 , 220 , 221 , 222 , 223 , 224 , 225 , 226 , 227 , 228 , 229 , 230 , 231 , 232 , 233 , 234 , 235 , 236 , 237 , 238 , 239 , 240 , 241 , 242 , 243 , 244 , 245 , 246 , 247 , 248 , 249 , 250 , 251 , 252 , 253 , 254 , 255 , 256 , 257 , 258 , 259 , 260 , 261 , 262 , 263 , 264 , 265 , 266 , 267 , 268 , 269 , 270 , 271 , 272 , 273 , 274 , 275 , 276 , 277 , 278 , 279 , 280 , 281 , 282 , 283 , 284 , 285 , 286 , 287 , 288 , 289 , 290 , 291 , 292 , 293 , 294 , 295 , 296 , 297 , 298 , 299 , 300 , 301 , 302 , 303 , 304 , 305 , 306 , 307 , 308 , 309 , 310 , 311 , 312 , 313 , 314 , 315 , 316 , 317 , 318 , 319 , 320 , 321 , 322 , 323 , 324 , 325 , 326 , 327 , 328 , 329 , 330 , 331 , 335 , 336 , 338 , 339 , 340 , 341 , 342 , 343 , 344 , 350 , 390 , 391 , 392 , 393 , 394 , 396 , 397 , 398 , 399 , 400 , 401 , 402 , 403 , 404 , 405 , 406 , 407 , 408 , 410 , 411 , 414 , 435 , 436 , 437 , 440 , 441 , 442 , 443 , 444 , 445 , 446 , 128B/1 , 128B/2 , 128A/3 , 128B/3 , 128B/4 , 128B/5 , 128B/6 , 128B/7 , 128B/8 , 128B/9 , 339/1 , 339/2 , 339/3 , 339/4 , 339/5 , 128B/10 , 128B/11 , 128B/12 , 128B/13 , 128B/14 , 128B/15 , 128B/16 , 128B/17 , 128B/18 , 128B/19 , 128B/20 , 128B/21 ', NULL, NULL, NULL);
-INSERT INTO [PTIS].[CitySurveyNoMaster] ([ID], [SubZoneID], [CSN], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('317', '7', '660 , 661 , 662 , 663 , 664 , 758 , 791 , 792A , 792 , 823 , 776B/2 ', NULL, NULL, NULL);
-INSERT INTO [PTIS].[CitySurveyNoMaster] ([ID], [SubZoneID], [CSN], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('318', '8', '211 , 215 , 216 , 222 , 228 , 229 , 234 , 235 , 632 , 663 , 665 , 666 , 667 , 668 , 669 , 670 , 671 , 672 , 673 , 674 , 675 , 676 , 677 , 678 , 679 , 680 , 681 , 682 , 683 , 684 , 685 , 686 , 687 , 688 , 689 , 690 , 691 , 692 , 693 , 694 , 695 , 696 , 697 , 698 , 699 , 700 , 701 , 702 , 703 , 704 , 705 , 706 , 707 , 708 , 709 , 710 , 711 , 712 , 713 , 714 , 715 , 716 , 717 , 718 , 719 , 720 , 721 , 722 , 723 , 724 , 725 , 726 , 727 , 728 , 729 , 730 , 731 , 732 , 733 , 734 , 735 , 736 , 737 , 738 , 739 , 740 , 741 , 742 , 743 , 744 , 745 , 746 , 747 , 748 , 749 , 750 , 751 , 752 , 753 , 754 , 755 , 756 , 757 , 760 , 761 , 762 , 763 , 764 , 765 , 766 , 767 , 768 , 770 , 771 , 772 , 773 , 774 , 775 , 776A , 777 , 778 , 779 , 780 , 781 , 782 , 784 , 786 , 787 , 788 , 789 , 790 , 793 , 794 , 795 , 796 , 663/1 , 663/2 , 663/3 , 663/4 , 663/5 , 663/10 , 663/11 , 663/12 , 663/13 , 663/14 , 663/16 , 663/17 , 663/18 , 663/19 , 663/20 , 663/21 ', NULL, NULL, NULL);
-INSERT INTO [PTIS].[CitySurveyNoMaster] ([ID], [SubZoneID], [CSN], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('319', '9', '119 , 834 , 838 , 840 , 841 , 842 , 843 , 844 , 847 , 848 , 849 , 850 , 851 , 852 , 853 , 867 , 871 , 872 , 873 , 874 , 875 , 876 , 877 , 878 , 880 , 881 , 882 , 886 , 887 , 888 , 889 , 890 , 891 , 892 , 893 , 894 , 895 , 896 , 897 , 898 , 899 , 900 , 901 , 902 , 903 , 904 , 905 , 906 , 907 , 908 , 909 , 910 , 911 , 912 , 913 , 914 , 915 , 916 , 917 , 918 , 919 , 920 , 921 , 922 , 923 , 924 , 925 , 926 , 927 , 928 , 931 , 932 , 933 , 934 , 935 , 936 , 937 , 938 , 939 , 940 , 941 , 942 , 943 , 944 , 945 , 946 , 947 , 948 , 949 , 950 , 951 , 952 , 953 , 954 , 955 , 956 , 957 , 958 , 959 , 960 , 961 , 962 , 963 , 964 , 965 , 966 , 967 , 968 , 970 , 973 , 974 , 975 , 980 , 981 , 982 , 983 , 984 , 987 , 988 , 989 , 990 , 991 , 992 , 993 , 994 , 995 , 996 , 997 , 998 , 999 , 1000 , 1001 , 1002 , 1003 , 1004 , 1005 , 1006 , 1007 , 1009 , 1016 , 1017 , 1018 , 1019 , 1020 , 1021 , 1022 , 1023 , 1024 , 1025 , 1026 , 1027 , 1028 , 1029 , 1030 , 1031 , 1032 , 1033 , 1034 , 1035 , 1036 , 1037 , 1038 , 1039 , 1042 , 1043 , 1047 , 1048 , 1051 , 1052A , 1053 , 1054 , 1055 , 1056 , 1057 , 1058 , 1059 , 1060 , 1061 , 1062 , 1063 , 1064 , 1065 , 1066 , 1067 , 1068 , 1069 , 1070 , 1071 , 1072 , 1073 , 1074 , 1075 , 1076 , 1077 , 1078 , 1079 , 1080 , 1081 , 1082 , 1083 , 1084 , 1085 , 1086 , 1087 , 1088 , 1089 , 1090 , 1091 , 1092 , 1093 , 1094 , 1095 , 1096 , 1097 , 1098 , 1099 , 1100 , 1105 , 1106 , 1110 , 1131 , 1136 , 1189 , 1190 , 1191 , 1192 , 1193 , 1194 , 1195 , 1196 , 1197 , 1198 , 1208 , 1209 , 1210 , 1211 , 1228 , 1253 , 1270 , 1271 , 1272 , 1273 , 1274 , 1275 , 1276 , 1277 , 1278 , 1279 , 1280 , 1281 , 1282 , 1283 , 1284 , 1285 , 1286 , 1287 , 1288 , 1289 , 1290 , 1291 , 1292 , 1293 , 1294 , 1295 , 1296 , 1297 , 1298 , 1299 , 1300 , 1301 , 1302 , 1303 , 1304 , 1305 , 1306 , 1312 , 1313 , 1314 , 1315 , 1316 , 1317 , 1318 , 1319 , 1320 , 1321 , 1322 , 1323 , 1324 , 1325 , 1326 , 1327 , 1328 , 1329 , 1330 , 1331 , 1332 , 1333 , 1334 , 1335 , 1336 , 1337 , 1338 , 1339 , 1340 , 1341 , 1342 , 1343 , 1344 , 1345 , 1346 , 1347 , 1348 , 1349 , 1350 , 1351 , 1352 , 1353 , 1354 , 1356 , 1360 , 1361 , 1365 , 1366 , 1370 , 1371 , 1372 , 1378 , 1385 , 1386 , 1387 , 1388 , 1389 , 1390 , 1391 , 1392 , 1393 , 1394 , 1395 , 1396 , 1397 , 1398 , 1399 , 1400 , 1401 , 1402 , 1403 , 1404 , 1405 , 1406 , 1407 , 1408 , 1409 , 1410 , 1411 , 1412 , 1413 , 1414 , 1415 , 1416 , 1417 , 1418 , 1419 , 1420 , 1421 , 1422 , 1423 , 1425 , 1426 , 1427 , 1428 , 1429 , 1430 , 1431 , 1432 , 1433 , 1434 , 1435 , 1436 , 1437 , 1438 , 1439 , 1440 , 1441 , 1442 , 1443 , 1444 , 1445 , 1446 , 1447 , 1448 , 1449 , 1450 , 1451 , 1452 , 1453 , 1454 , 1455 , 1456 , 1457 , 1458 , 1459 , 1460 , 1461 , 1462 , 1463 , 1464 , 1465 , 1466 , 1467 , 1468 , 1469 , 1470 , 1471 , 1472 , 1473 , 1474 , 1475 , 1476 , 1477 , 1478 , 1479 , 1480 , 1481 , 1482 , 1483 , 1484 , 1485 , 1486 , 1487 , 1488 , 1489 , 1490 , 1491 , 1492 , 1493 , 1494 , 1495 , 1496 , 1497 , 1498 , 1499 , 1500 , 1501 , 1502 , 1503 , 1504 , 1505 , 1506 , 1507 , 1508 , 1509 , 1510 , 1511 , 1512 , 1513 , 1514 , 1515 , 1516 , 1517 , 1518 , 1519 , 1520 , 1521 , 1522 , 1523 , 1524 , 1525 , 1526 , 1527 , 1528 , 1529 , 1530 , 1531 , 1532 , 1533 , 1534 , 1535 , 1536 , 1537 , 1538 , 1539 , 1540 , 1541 , 1542 , 1543 , 1544 , 1545 , 1546 , 1547 , 1548 , 1549 , 1550 , 1551 , 1552 , 1553 , 1554 , 1555 , 1556 , 1557 , 1558 , 1559 , 1560 , 1561 , 1562 , 1563 , 1564 , 1565 , 1566 , 1567 , 1568 , 1569 , 1570 , 1571 , 1572 , 1573 , 1574 , 1575 , 1576 , 1577 , 1578 , 1579 , 1580 , 1581 , 1582 , 1583 , 1584 , 1585 , 1588 , 1589 , 1592 , 1595 , 1596 , 1597 , 1598 , 1599 , 1600 , 1601 , 1602 , 1603 , 1604 , 1605 , 1606 , 1609 , 1612 , 1613 , 1619 , 1620 , 1621 , 1622 , 1625 , 1626 , 1627 , 1628 , 1630 , 1747 , 1748 , 1749 , 1751 , 1755 , 1756 , 1762 , 1764 , 1766 , 1767 , 1770 , 1777 , 1778 , 1779 , 1780 , 1781 , 1782 , 1783 , 1784 , 1836 , 2567 , 2595 , 1255/1 , 1255/2 , 1255/3 , 1255/4 , 1255/5 , 1255/6 , 1399/1 , 1399/2 , 1399/3 , 1399/4 ', NULL, NULL, NULL);
-INSERT INTO [PTIS].[CitySurveyNoMaster] ([ID], [SubZoneID], [CSN], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('320', '10', '824 , 825 , 826 , 827 , 828 , 829 , 830 , 831 , 832 , 833 , 835 , 836 , 985 , 986 , 1424 ', NULL, NULL, NULL);
-INSERT INTO [PTIS].[CitySurveyNoMaster] ([ID], [SubZoneID], [CSN], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('321', '11', '724 , 744 , 795 , 876 , 894 , 1001 , 1019 , 1100 , 1113 , 1114 , 1115 , 1132 , 1179 , 1180 , 1210 , 1211 , 1212 , 1216 , 1217 , 1218 , 1219 , 1220 , 1221 , 1222 , 1223 , 1224 , 1225 , 1226 , 1227 , 1228 , 1229 , 1230 , 1231 , 1233 , 1234 , 1235 , 1236 , 1237 , 1238 , 1239 , 1240 , 1241 , 1242 , 1243 , 1244 , 1245 , 1246 , 1247 , 1248 , 1249 , 1250 , 1251 , 1252 , 1253 , 1254 , 1256 , 1257 , 1258 , 1259 , 1260 , 1261 , 1262 , 1263 , 1264 , 1265 , 1266 , 1267 , 1268 , 1269 , 1270 , 1271 , 1272 , 1273 , 1274 , 1275 , 1276 , 1277 , 1278 , 1279 , 1280 , 1281 , 1282 , 1283 , 1284 , 1285 , 1286 , 1287 , 1288 , 1289 , 1290 , 1291 , 1292 , 1293 , 1294 , 1295 , 1296 , 1297 , 1298 , 1299 , 1300 , 1301 , 1302 , 1303 , 1304 , 1305 , 1306 , 1312 , 1313 , 1314 , 1315 , 1316 , 1317 , 1318 , 1319 , 1320 , 1321 , 1322 , 1323 , 1390 , 1391 , 1392 , 1393 , 1394 , 1395 , 1396 , 1397 , 1398 , 1400 , 1401 , 1402 , 1403 , 1404 , 1405 , 1406 , 1407 , 1408 , 1409 , 1410 , 1411 , 1412 , 1413 , 1414 , 1415 , 1416 , 1417 , 1418 , 1431 , 1433 , 1434 , 1435 , 1436 , 1437 , 1438 , 1439 , 1440 , 1441 , 1445 , 1484 , 1511 , 1551 , 1552 , 1553 , 1554 , 1555 , 1556 , 1557 , 1564 , 1565 , 1566 , 1567 , 1568 , 1569 , 1570 , 1576 , 1577 , 1578 , 1579 , 1580 , 1581 , 1582 , 1583 , 1584 , 1585 , 1588 , 1589 , 1590 , 1592 , 1595 , 1596 , 1597 , 1598 , 1599 , 1600 , 1601 , 1602 , 1603 , 1604 , 1605 , 1606 , 1609 , 1612 , 1613 , 1619 , 1620 , 1621 , 1622 , 1626 , 1635 , 1636 , 1637 , 1638 , 1639 , 1640 , 1642 , 1643 , 1644 , 1645 , 1646 , 1647 , 1648 , 1649 , 1651 , 1652 , 1653 , 1654 , 1675 , 1679 , 1688 , 1698 , 1710 , 1711 , 1712 , 1714 , 1715 , 1717 , 1719 , 1727 , 1728 , 1730 , 1735 , 1737 , 1740 , 1741 , 1742 , 1743 , 1773 , 1774A , 1775A , 1776 , 1786 , 1787 , 1788 , 1789 , 1790 , 1790A , 1791 , 1792 , 1793 , 1794 , 1795 , 1796 , 1797 , 1798 , 1799 , 1800 , 1801 , 1802 , 1803 , 1804 , 1805 , 1806 , 1807 , 1808 , 1809 , 1810 , 1811 , 1812 , 1813 , 1814 , 1815 , 1993 , 2787 , 1744/2 , 1744/4 , 1744/7(PT) , 1746/2 , 1746/3 , 1746/4 , 1746/6 , 17/46/6 , 1746/9 , 1790A/1 , 1790A/2 , 1746/10 , 1746/11 , 1746/13 , 1746/14 , 1746/15 , 1746/16 , 1746/17 , 1746/18 , 1746/19 , 1746/20 , 1746/21 ', NULL, NULL, NULL);
-INSERT INTO [PTIS].[CitySurveyNoMaster] ([ID], [SubZoneID], [CSN], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('322', '12', '127', NULL, NULL, NULL);
-INSERT INTO [PTIS].[CitySurveyNoMaster] ([ID], [SubZoneID], [CSN], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('323', '13', '332 , 333 , 334 , 337 , 345 , 346 , 347 , 348 , 349 , 351 , 353 , 354 , 355 , 356 , 357 , 358 , 359 , 360B , 360A , 360 , 367 , 368 , 376 , 377 , 378 , 382 , 385 , 386B , 386A , 387 , 388 , 389 , 395 , 420 , 421 , 422 , 423 , 424 , 425 , 426 , 427 , 428 , 429 , 430 , 431 , 432 , 433 , 434 , 447 , 448 , 449 , 450 , 458 , 459 , 460 , 461 , 478 , 1307 , 1308 , 1309 , 1310 , 1311 , 1615 , 1616B , 1617 , 1618 , 1623 , 1624 , 1628 , 1629 , 1631 , 1632 , 1633 , 1634 , 1641 , 1650 , 1655 , 1656 , 1657 , 1658 , 1659 , 1660 , 1662 , 1663 , 1664 , 1665 , 1732 , 1733 , 1734 , 1736 , 1738 , 1739 , 1746 , 1750 , 1752 , 1753 , 1754 , 1757 , 1758 , 1759 , 1760 , 1761 , 1763 , 1765 , 1768 , 1769 , 1771 , 1772 , 1774B , 1775B , 1785 , 1790A , 1848 , 333/1 , 333/2 , 333/3 , 333/4 , 333/5 , 339/6 , 345/1 , 353/1 , 1744/1 , 1746/1 , 1790A/3 ', NULL, NULL, NULL);
-INSERT INTO [PTIS].[CitySurveyNoMaster] ([ID], [SubZoneID], [CSN], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('324', '14', '839 , 855 , 856 , 857 , 858 , 859 , 860 , 861 , 862 , 863 , 864 , 865 , 866 , 868 , 869 , 870 , 879 , 883 , 884 , 885 , 969 , 971 , 972 , 976 , 977 , 978 , 979 , 1008 , 1010 , 1011 , 1012 , 1013 , 1014 , 1015 , 1040 , 1041 , 1044 , 1045 , 1046 , 1049 , 1050 , 1052C , 1052 , 1052B , 1355 , 1357 , 1358 , 1359 , 1362 , 1363 , 1364 , 1367 , 1368 , 1369 , 1373 , 1374 , 1375 , 1376 , 1377 , 1379 , 1380 , 1381 , 1382 , 1383 , 1384 , 1586 , 1587 , 1591 , 1593 , 1594 , 1607 , 1608 , 1610 , 1611 , 1614 , 1616 , 1745 , 1839 , 1840 , 1841 , 1842 , 1843 , 1844 , 1845 , 1846 , 1847 ', NULL, NULL, NULL);
-INSERT INTO [PTIS].[CitySurveyNoMaster] ([ID], [SubZoneID], [CSN], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('325', '15', '119 , 758 , 759 , 769 , 783 , 785 , 797 , 798 , 799 , 800 , 801 , 802 , 803 , 804 , 805 , 806 , 807 , 808 , 809 , 810 , 811 , 812 , 813 , 814 , 815 , 816 , 817 , 818 , 819 , 820 , 821 , 822 , 837 , 845 , 846 , 854 , 855 , 776B/1 ', NULL, NULL, NULL);
-INSERT INTO [PTIS].[CitySurveyNoMaster] ([ID], [SubZoneID], [CSN], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('326', '16', '1729 , 1731 ', NULL, NULL, NULL);
-INSERT INTO [PTIS].[CitySurveyNoMaster] ([ID], [SubZoneID], [CSN], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('327', '17', '143 , 144 , 145 , 147 , 148 , 149 , 150 , 151 , 171 , 172 , 174 , 175 , 176 , 412 , 413 , 415 , 416 , 417 , 418 , 419 , 420 , 421 , 422/A , 460 , 461 , 462 , 463 , 466 , 468 , 524 , 525 , 526 , 929 , 930 , 1107 , 1108 , 1109 , 1661 , 1666 , 1667 , 1668 , 1696 , 1703 , 1704 , 1705 , 1713 , 1716 , 1718 , 1720 , 1721 , 1722 , 1723 , 1724 , 1725 , 1726 , 1107/1 , 1107/2 , 1107/3 , 1107/4 , 1107/5 , 1107/6 , 1107/7 , 1107/8 , 1108/1 , 1108/2 , 1108/3 , 1108/4 , 1108/5 , 1108/6 , 1108/7 , 1108/8 , 1109/1 , 1109/2 , 1109/3 , 1109/4 , 1109/5 , 1109/6 , 1109/7 , 1109/8 , 1109/9 , 1109/10 , 1109/11 , 1109/12 , 1109/13 ', NULL, NULL, NULL);
-INSERT INTO [PTIS].[CitySurveyNoMaster] ([ID], [SubZoneID], [CSN], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('328', '18', '47 , 48 , 105 , 107 , 108 , 109 ', NULL, NULL, NULL);
-INSERT INTO [PTIS].[CitySurveyNoMaster] ([ID], [SubZoneID], [CSN], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('329', '19', '111 , 112 , 113 , 124 , 125 , 126 , 776 ', NULL, NULL, NULL);
-INSERT INTO [PTIS].[CitySurveyNoMaster] ([ID], [SubZoneID], [CSN], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('330', '20', '106 , 110 ,   111A , 111B , 114 , 115 ', NULL, NULL, NULL);
-INSERT INTO [PTIS].[CitySurveyNoMaster] ([ID], [SubZoneID], [CSN], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('331', '21', '2', NULL, NULL, NULL);
-INSERT INTO [PTIS].[CitySurveyNoMaster] ([ID], [SubZoneID], [CSN], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('332', '22', '1101 , 1102 , 1103 , 1104 , 1111 , 1112 , 1113 , 1114 , 1115 , 1116 , 1117 , 1118 , 1119 , 1120 , 1121 , 1122 , 1123 , 1124 , 1125 , 1126 , 1127 , 1128 , 1129 , 1130 , 1132 , 1133 , 1134 , 1135 , 1137 , 1138 , 1139 , 1140 , 1141 , 1142 , 1143 , 1144 , 1145 , 1146 , 1147 , 1148 , 1149 , 1150 , 1151 , 1152 , 1153 , 1154 , 1155 , 1156 , 1157 , 1158 , 1159 , 1160 , 1161 , 1162 , 1163 , 1164 , 1165 , 1166 , 1167 , 1168 , 1169 , 1170 , 1171 , 1172 , 1173 , 1174 , 1175 , 1176 , 1177 , 1178 , 1179 , 1180 , 1181 , 1182 , 1183 , 1184 , 1185 , 1186 , 1187 , 1188 , 1199 , 1200 , 1201 , 1202 , 1203 , 1204 , 1205 , 1206 , 1207 , 1207B , 1212 , 1213 , 1214 , 1215 , 1216 , 1217 , 1218 , 1219 , 1220 , 1221 , 1222 , 1223 , 1224 , 1225 , 1226 , 1227 , 1229 , 1230 , 1231 , 1232 , 1233 , 1234 , 1235 , 1236 , 1237 , 1238 , 1239 , 1240 , 1241 , 1242 , 1243 , 1244 , 1245 , 1246 , 1247B , 1247A , 1247 , 1248 , 1249 , 1250 , 1251 , 1252 , 1254 , 1255 , 1256 , 1257 , 1258 , 1259 , 1260 , 1261 , 1262 , 1263 , 1264 , 1265 , 1266 , 1267 , 1268 , 1269 ', NULL, NULL, NULL);
-INSERT INTO [PTIS].[CitySurveyNoMaster] ([ID], [SubZoneID], [CSN], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('333', '23', '1669 , 1670 , 1671 , 1672 , 1673 , 1674 , 1676 , 1677 , 1678 , 1679 , 1680 , 1681 , 1682 , 1683 , 1684 , 1685 , 1686 , 1687 , 1688 , 1689 , 1690 , 1691 , 1692 , 1693 , 1694 , 1695 , 1697 , 1698 , 1699 , 1700 , 1701 , 1702 , 1703 , 1704 , 1706 , 1707 , 1708 , 1709 ', NULL, NULL, NULL);
-SET IDENTITY_INSERT [PTIS].[CitySurveyNoMaster] OFF;
-
 
 
 
 
 SET IDENTITY_INSERT [PTIS].[SubTypeOfUseMaster] ON;
-INSERT [PTIS].[SubTypeOfUseMaster] ([SubTypeOfUseId], [Description], [TypeOfUseID], [CreatedBy], [UpdatedBy], [UpdatedDate], [KeyboardShortCutKey], [KeyWiseSequence]) VALUES
+INSERT [PTIS].[SubTypeOfUseMaster] ([SubTypeOfUseId], [Description], [TypeOfUseID], [CreatedBy], [UpdatedBy], [UpdatedDate], [SearchKey], [SearchSequence]) VALUES
  (186, N'मंदिर', N'T', 1, 67, CAST(N'2023-02-09T17:38:44.260' AS DateTime), N'M', 1),
   (187, N'मस्जीद', N'T', 1, NULL, NULL, N'M', 2),
   (188, N'इदगाह', N'T', 1, NULL, NULL, N'E', 3),
@@ -1457,7 +1360,7 @@ INSERT [PTIS].[SubTypeOfUseMaster] ([SubTypeOfUseId], [Description], [TypeOfUseI
   (1520, N'बुक स्टोर', N'S', NULL, NULL, NULL, N'', 0),
   (1521, N'बँक/वित्तीय व संस्था कार्यालय ', N'S', NULL, NULL, NULL, N'', 0);
 
-INSERT [PTIS].[SubTypeOfUseMaster] ([SubTypeOfUseId], [Description], [TypeOfUseID], [CreatedBy], [UpdatedBy], [UpdatedDate], [KeyboardShortCutKey], [KeyWiseSequence]) VALUES
+INSERT [PTIS].[SubTypeOfUseMaster] ([SubTypeOfUseId], [Description], [TypeOfUseID], [CreatedBy], [UpdatedBy], [UpdatedDate], [SearchKey], [SearchSequence]) VALUES
  (1522, N'बँक/वित्तीय संस्था', N'S', NULL, NULL, NULL, N'', 0),
   (1523, N'फुट वेअर शॉप', N'S', NULL, NULL, NULL, N'', 0),
   (1524, N'फूटवेअर', N'S', NULL, NULL, NULL, N'', 0),
@@ -1798,8 +1701,8 @@ INSERT [PTIS].[SubTypeOfUseMaster] ([SubTypeOfUseId], [Description], [TypeOfUseI
  SET IDENTITY_INSERT [PTIS].[SubTypeOfUseMaster] OFF;
 
 
-SET IDENTITY_INSERT [PTIS].[ApplyTaxesMasterPrime] ON
-INSERT [PTIS].[ApplyTaxesMasterPrime] ([ID], [TypeOfUseId], [Type], [GeneralTax], [StateEducationTax], [StateEmploymentTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [Interest], [UpdatedBy], [CreatedBy], [UpdatedDate]) VALUES
+SET IDENTITY_INSERT [PTIS].[ApplyTaxesMasterPrime] ON;
+INSERT [PTIS].[ApplyTaxesMasterPrime] ([Id], [TypeOfUseId], [Type], [GeneralTax], [StateEducationTax], [StateEmploymentTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [Interest], [UpdatedBy], [CreatedBy], [UpdatedDate]) VALUES
   (1, N'C', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:11:21.870' AS DateTime)),
   (2, N'T', N'N', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, CAST(N'2023-12-16T15:02:14.000' AS DateTime)),
   (3, N'V', N'N', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, CAST(N'2023-12-16T15:02:14.000' AS DateTime)),
@@ -1915,19 +1818,17 @@ INSERT [PTIS].[ApplyTaxesMasterPrime] ([ID], [TypeOfUseId], [Type], [GeneralTax]
 SET IDENTITY_INSERT [PTIS].[ApplyTaxesMasterPrime] OFF
 
 
-INSERT INTO [PTIS].[OwnerTypeMaster] ([OwnerType], [OwnerTypeEnglish]) VALUES ('Self', '');
--- [PTIS].[OwnerTypeMaster]
-
-INSERT INTO [PTIS].[OwnerTypeMaster] ([OwnerType], [OwnerTypeEnglish]) VALUES ('Women', '');
-INSERT INTO [PTIS].[OwnerTypeMaster] ([OwnerType], [OwnerTypeEnglish]) VALUES ('Soldier', '');
-INSERT INTO [PTIS].[OwnerTypeMaster] ([OwnerType], [OwnerTypeEnglish]) VALUES ('Ex. Militry Soldier', '');
-INSERT INTO [PTIS].[OwnerTypeMaster] ([OwnerType], [OwnerTypeEnglish]) VALUES ('Martyr Soldier', '');
-INSERT INTO [PTIS].[OwnerTypeMaster] ([OwnerType], [OwnerTypeEnglish]) VALUES ('Martyr Soldier Wife', '');
-INSERT INTO [PTIS].[OwnerTypeMaster] ([OwnerType], [OwnerTypeEnglish]) VALUES ('Joined', '');
-INSERT INTO [PTIS].[OwnerTypeMaster] ([OwnerType], [OwnerTypeEnglish]) VALUES ('Company / Industrial', '');
-INSERT INTO [PTIS].[OwnerTypeMaster] ([OwnerType], [OwnerTypeEnglish]) VALUES ('Physical Disability', '');
--- [PTIS].[AgeFactorCVMaster]
-
+INSERT INTO [PTIS].[OwnerTypeMaster] ([OwnerType])
+VALUES
+('Self'),
+('Women'),
+('Soldier'),
+('Ex. Militry Soldier'),
+('Martyr Soldier'),
+('Martyr Soldier Wife'),
+('Joined'),
+('Company / Industrial'),
+('Physical Disability');
 
 
 INSERT INTO [PTIS].[AgeFactorCVMaster]
@@ -2047,113 +1948,112 @@ SET IDENTITY_INSERT [PTIS].[PropertyTypeCategoryMaster] OFF;
 -- [PTIS].[PropertyTypeMaster]
 
 
-
-
 SET IDENTITY_INSERT [PTIS].[PropertyTypeMaster] ON;
 
 INSERT INTO [PTIS].[PropertyTypeMaster]
-([PropertyTypeID], [PropertyDescription], [PropertyDescriptionEnglish], [Type], [isActive], [PropertyTypeGroup], [KeyboardShortCutKey], [KeyWiseSequence], [PropertyTypeCategoryID], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (1, N'खाजगी शाळा', NULL, 'C', 1, N'बिगर निवासी', N'E', 1, NULL, NULL, NULL, NULL),
-  (2, N'म.न.पा.शाळा', NULL, 'N', 1, N'नगरपरिषद मालमत्ता', N'N', 1, NULL, NULL, NULL, NULL),
-  (5, N'खाजगी रुग्णालय', NULL, 'C', 1, N'बिगर निवासी', N'D', 1, NULL, NULL, NULL, NULL),
-  (6, N'शासकीय रुग्णालय', NULL, 'C', 1, N'बिगर निवासी', N'G', 2, NULL, NULL, NULL, NULL),
-  (8, N'म.न.पा.चे रुग्णालय', NULL, 'N', 1, N'नगरपरिषद मालमत्ता', N'D', 4, NULL, NULL, NULL, NULL),
-  (10, N'बँक व वित्तीय संस्था', NULL, 'C', 1, N'बिगर निवासी', N'B', 1, NULL, NULL, NULL, NULL),
-  (11, N'धार्मिक स्थळ', NULL, 'R', 1, N'धार्मीक', N'T', 1, NULL, NULL, NULL, NULL),
-  (12, N'निवासी', NULL, 'R', 1, N'निवासी', N'R', 1, 2, NULL, NULL, NULL),
-  (13, N'दुकान', NULL, 'C', 1, N'बिगर निवासी', N'S', 1, NULL, NULL, NULL, NULL),
-  (14, N'रेस्टॉरंट आणि बार', NULL, 'C', 1, N'बिगर निवासी', N'H', 1, NULL, NULL, NULL, NULL),
-  (16, N'म.न.पा.चे.कार्यालय', NULL, 'N', 1, N'नगरपरिषद मालमत्ता', N'N', 2, NULL, NULL, NULL, NULL),
-  (17, N'शासकीय कार्यालय', NULL, 'C', 1, N'बिगर निवासी', N'G', 3, NULL, NULL, NULL, NULL),
-  (21, N'म.न.पा. व इतर मालमत्ता', NULL, 'N', 1, N'नगरपरिषद मालमत्ता', N'N', 2, NULL, NULL, NULL, NULL),
-  (22, N'प्लॉट', NULL, 'R', 1, N'प्लॉट', N'O', 1, NULL, NULL, NULL, NULL),
-  (23, N'निवासी व दुकान', NULL, 'R-C', 1, N'मिश्र', N'R', 2, NULL, NULL, NULL, NULL),
-  (24, N'अतिक्रमण', NULL, 'R', 1, N'निवासी', N'R', 3, NULL, NULL, NULL, NULL),
-  (25, N'मा शासकीय मालमत्ता', NULL, 'C', 1, N'बिगर निवासी', N'G', 4, NULL, NULL, NULL, NULL),
-  (27, N'मोबाईल टॉवर', NULL, 'C', 1, N'बिगर निवासी', N'T', 2, NULL, NULL, NULL, NULL),
-  (28, N'पेट्रोल पंप', NULL, 'C', 1, N'बिगर निवासी', N'P', 1, NULL, NULL, NULL, NULL),
-  (29, N'हॉटेल', NULL, 'C', 1, N'बिगर निवासी', N'H', 2, NULL, NULL, NULL, NULL),
-  (30, N'लॉज', NULL, 'C', 1, N'बिगर निवासी', N'L', 1, NULL, NULL, NULL, NULL),
-  (31, N'निवासी व हॉटेल', NULL, 'R-C', 1, N'मिश्र', N'R', 4, NULL, NULL, NULL, NULL),
-  (32, N'गोडाऊन', NULL, 'C', 1, N'बिगर निवासी', N'S', 2, NULL, NULL, NULL, NULL),
-  (33, N'चालू बांधकाम', NULL, 'R', 1, N'निवासी', N'U', 1, NULL, NULL, NULL, NULL),
-  (34, N'गोठा', NULL, 'R', 1, N'निवासी', N'R', 5, NULL, NULL, NULL, NULL),
-  (35, N'पडीत', NULL, 'R', 1, N'निवासी', N'R', 6, NULL, NULL, NULL, NULL),
-  (36, N'कार्यालय', NULL, 'C', 1, N'बिगर निवासी', N'O', 2, NULL, NULL, NULL, NULL),
-  (37, N'म.न.पा.दुकान गाळे', NULL, 'N', 1, N'नगरपरिषद मालमत्ता', N'N', 4, NULL, NULL, NULL, NULL),
-  (38, N'वसतिगृह', NULL, 'C', 1, N'बिगर निवासी', N'H', 2, NULL, NULL, NULL, NULL),
-  (39, N'व्यायाम शाळा', NULL, 'C', 1, N'बिगर निवासी', N'G', 5, NULL, NULL, NULL, NULL),
-  (41, N'पार्किंग', NULL, 'C', 1, N'बिगर निवासी', N'P', 2, NULL, NULL, NULL, NULL),
-  (42, N'निवासी व कार्यालय', NULL, 'R-C', 1, N'मिश्र', N'R', 8, NULL, NULL, NULL, NULL),
-  (44, N'वाचनालय', NULL, 'C', 1, N'बिगर निवासी', N'L', 2, NULL, NULL, NULL, NULL),
-  (45, N'केंद्र शासकीय मालमत्ता', NULL, 'C', 1, N'बिगर निवासी', N'C', 1, NULL, NULL, NULL, NULL),
-  (46, N'खाजगी रुग्णालय व निवासी', NULL, 'R-C', 1, N'मिश्र', N'D', 5, NULL, NULL, NULL, NULL),
-  (47, N'धार्मिक स्थळ व अनिवासी', NULL, 'R-C', 1, N'मिश्र', N'T', 3, NULL, NULL, NULL, NULL),
-  (48, N'शासकीय वसतिगृह', NULL, 'C', 1, N'बिगर निवासी', N'G', 7, NULL, NULL, NULL, NULL),
-  (49, N'लॉंन', NULL, 'C', 1, N'बिगर निवासी', N'L', 3, NULL, NULL, NULL, NULL),
-  (50, N'चित्रपटगृह', NULL, 'C', 1, N'बिगर निवासी', N'T', 4, NULL, NULL, NULL, NULL),
-  (51, N'शोरूम', NULL, 'C', 1, N'बिगर निवासी', N'S', 4, NULL, NULL, NULL, NULL),
-  (52, N'कोचिंग क्लासेस', NULL, 'C', 1, N'बिगर निवासी', N'C', 2, NULL, NULL, NULL, NULL),
-  (53, N'खाजगी रुग्णालय व दुकान', NULL, 'C', 1, N'बिगर निवासी', N'D', 7, NULL, NULL, NULL, NULL),
-  (54, N'मंगल कार्यालय व निवासी', NULL, 'R-C', 1, N'मिश्र', N'M', 2, NULL, NULL, NULL, NULL),
-  (55, N'निवासी व औद्योगिक', NULL, 'R-C', 1, N'औद्योगिक', N'I', 2, NULL, NULL, NULL, NULL),
-  (57, N'दुकान व पडीत', NULL, 'R-C', 1, N'मिश्र', N'S', 5, NULL, NULL, NULL, NULL),
-  (58, N'निवासी व पडीत', NULL, 'R', 1, N'निवासी', N'R', 10, NULL, NULL, NULL, NULL),
-  (59, N'निवासी  व बँक', NULL, 'R-C', 1, N'मिश्र', N'B', 2, NULL, NULL, NULL, NULL),
-  (63, N'खाजगी शाळा व निवासी', NULL, 'R-C', 1, N'मिश्र', N'E', 2, NULL, NULL, NULL, NULL),
-  (64, N'दुकान व मंगल कार्यालय', NULL, 'C', 1, N'बिगर निवासी', N'S', 6, NULL, NULL, NULL, NULL),
-  (66, N'दुकान व कार्यालय', NULL, 'C', 1, N'बिगर निवासी', N'S', 3, NULL, NULL, NULL, NULL),
-  (69, N'निवासी व अनिवासी', NULL, 'R-C', 1, N'मिश्र', N'C', 6, NULL, NULL, NULL, NULL),
-  (70, N'कारखाना व कार्यालय', NULL, 'C', 1, N'बिगर निवासी', N'I', 3, NULL, NULL, NULL, NULL),
-  (77, N'दवाखाना व हॉटेल', NULL, 'C', 1, N'बिगर निवासी', N'D', 10, NULL, NULL, NULL, NULL),
-  (78, N'बँक व अनिवासी', NULL, 'C', 1, N'बिगर निवासी', N'B', 6, NULL, NULL, NULL, NULL),
-  (79, N'हॉटेल व दुकान', NULL, 'C', 1, N'बिगर निवासी', N'H', 6, NULL, NULL, NULL, NULL),
-  (80, N'निवासी,गोडाउन,दुकान', NULL, 'R-C', 1, N'मिश्र', N'C', 8, NULL, NULL, NULL, NULL),
-  (82, N'अनिवासी', NULL, 'C', 1, N'बिगर निवासी', N'C', 2, NULL, NULL, NULL, NULL),
-  (83, N'कारखाना व गोडाउन', NULL, 'C', 1, N'बिगर निवासी', N'I', 4, NULL, NULL, NULL, NULL),
-  (88, N'शैक्षणिक शासकीय', NULL, 'C', 1, N'बिगर निवासी', N'E', 4, NULL, NULL, NULL, NULL),
-  (92, N'औद्योगिक', NULL, 'I', 1, N'औद्योगिक', N'I', 1, NULL, NULL, NULL, NULL),
-  (94, N'मॉल', NULL, 'C', 1, N'बिगर निवासी', N'M', 3, NULL, NULL, NULL, NULL),
-  (108, N'शासकीय मालमत्ता', NULL, 'C', 1, N'बिगर निवासी', N'', NULL, NULL, NULL, NULL, NULL),
-  (110, N'धार्मिक स्थळ व निवासी', NULL, 'R', 1, N'निवासी', N'', NULL, NULL, NULL, NULL, NULL),
-  (111, N'निवासी व गोडावून', NULL, 'R-C', 1, N'मिश्र', N'', NULL, NULL, NULL, NULL, NULL),
-  (113, N'मंगल कार्यालय', NULL, 'C', 1, N'बिगर निवासी', N'', NULL, NULL, NULL, NULL, NULL),
-  (115, N'निवासी व कोचिंग क्लासेस', NULL, 'R-C', 1, N'मिश्र', N'', NULL, NULL, NULL, NULL, NULL),
-  (118, N'अंगणवाडी', NULL, 'C', 1, N'बिगर निवासी', N'', NULL, NULL, NULL, NULL, NULL),
-  (119, N'निवासी व अंगणवाडी', NULL, 'R-C', 1, N'मिश्र', N'', NULL, NULL, NULL, NULL, NULL),
-  (127, N'गोडावून व दुकान', NULL, 'C', 1, N'बिगर निवासी', N'', NULL, NULL, NULL, NULL, NULL),
-  (132, N'शेती', NULL, 'R', 1, N'प्लॉट', N'', NULL, NULL, NULL, NULL, NULL),
-  (133, N'मोबाईल टॉवर व निवासी', NULL, 'R-C', 1, N'मिश्र', N'', NULL, NULL, NULL, NULL, NULL),
-  (134, N'सामाजिक सभागृह', NULL, 'C', 1, N'बिगर निवासी', N'', NULL, NULL, NULL, NULL, NULL),
-  (135, N'मनपा गार्डन/ओपनस्पेस', NULL, 'C', 1, N'R', N'', NULL, NULL, NULL, NULL, NULL),
-  (136, N'मनपा इतर भूखंड', NULL, 'R', 1, N'R', N'', NULL, NULL, NULL, NULL, NULL),
-  (137, N'नर्सरी', NULL, 'C', 1, N'बिगर निवासी', N'', NULL, NULL, NULL, NULL, NULL),
-  (138, N'पेयिंग गेस्ट', NULL, 'R', 1, N'निवासी', N'', NULL, NULL, NULL, NULL, NULL),
-  (139, N'पॅथॉलॉजी लॅब', NULL, 'C', 1, N'बिगर निवासी', N'', NULL, NULL, NULL, NULL, NULL),
-  (140, N'अॅमिनीटी', NULL, 'R', 1, N'निवासी', N'', NULL, NULL, NULL, NULL, NULL),
-  (141, N'रिफ्युज एरिया', NULL, 'N', 1, N'R', N'', NULL, NULL, NULL, NULL, NULL),
-  (142, N'निवासी व चालू बांधकाम', NULL, 'R', 1, N'निवासी', N'', NULL, NULL, NULL, NULL, NULL),
-  (144, N'पोल्ट्रीफार्म', NULL, 'C', 1, N'बिगर निवासी', N'', NULL, NULL, NULL, NULL, NULL),
-  (145, N'अनिवासी व चालू बांधकाम', NULL, 'R-C', 1, N'बिगर निवासी', N'', NULL, NULL, NULL, NULL, NULL),
-  (146, N'निवासी व गोठा', NULL, 'R', 1, N'निवासी', N'', NULL, NULL, NULL, NULL, NULL),
-  (147, N'प्लॉट व अनिवासी', NULL, 'C', 1, N'R-C', N'', NULL, NULL, NULL, NULL, NULL),
-  (148, N'निवासी व खुला भूखंड', NULL, 'R', 1, N'निवासी', N'', NULL, NULL, NULL, NULL, NULL),
-  (149, N'अनिवासी व खुला भूखंड', NULL, 'C', 1, N'अनिवासी', N'', NULL, NULL, NULL, NULL, NULL),
-  (151, N'औद्योगिक व अनिवासी', NULL, 'I-C', 1, N'औद्योगिक व अनिवासी', N'', NULL, NULL, NULL, NULL, NULL),
-  (152, N'औद्योगिक व मिश्र', NULL, 'R-C', 1, N'औद्योगिक व मिश्र', N'', NULL, NULL, NULL, NULL, NULL),
-  (153, N'निवासी , औद्यागिक , अनिवासी', NULL, 'R-C', 1, N'R-C', N'', NULL, NULL, NULL, NULL, NULL),
-  (154, N'निवासी व वाचनालय', NULL, 'R-C', 1, N'R-C', N'', NULL, NULL, NULL, NULL, NULL),
-  (155, N'बांधकाम पूर्ण मा. वापरात नाही', NULL, 'R-C', 1, N'R-C', N'', NULL, NULL, NULL, NULL, NULL),
-  (156, N'शेती व अनिवासी', NULL, 'R-C', 1, N'R-C', N'', NULL, NULL, NULL, NULL, NULL),
-  (157, N'क्लिनिक', NULL, 'C', 1, N'अनिवासी', N'', NULL, NULL, NULL, NULL, NULL),
-  (158, N'उपहारगृह', NULL, 'C', 1, N'अनिवासी', N'', NULL, NULL, NULL, NULL, NULL),
-  (159, N'धार्मिक स्थळ,निवासी व अनिवासी', NULL, 'R-C', 1, N'R-C', N'', NULL, NULL, NULL, NULL, NULL),
-  (160, N'माहिती व तंत्रज्ञान उद्योग', NULL, 'I', 1, N'I', N'', NULL, NULL, NULL, NULL, NULL),
-  (161, N'सामाजिक संस्था', NULL, 'R', 1, N'R', N'', NULL, NULL, NULL, NULL, NULL);
+([PropertyTypeID], [PropertyDescription], [Type], [isActive], [PropertyTypeGroup],
+ [SearchKey], [SearchSequence], [PropertyTypeCategoryID],
+ [CreatedBy], [UpdatedBy], [UpdatedDate])
+VALUES
+(1,  N'खाजगी शाळा', 'C', 1, N'बिगर निवासी', N'E', 1, NULL, NULL, NULL, NULL),
+(2,  N'म.न.पा.शाळा', 'N', 1, N'नगरपरिषद मालमत्ता', N'N', 1, NULL, NULL, NULL, NULL),
+(5,  N'खाजगी रुग्णालय', 'C', 1, N'बिगर निवासी', N'D', 1, NULL, NULL, NULL, NULL),
+(6,  N'शासकीय रुग्णालय', 'C', 1, N'बिगर निवासी', N'G', 2, NULL, NULL, NULL, NULL),
+(8,  N'म.न.पा.चे रुग्णालय', 'N', 1, N'नगरपरिषद मालमत्ता', N'D', 4, NULL, NULL, NULL, NULL),
+(10, N'बँक व वित्तीय संस्था', 'C', 1, N'बिगर निवासी', N'B', 1, NULL, NULL, NULL, NULL),
+(11, N'धार्मिक स्थळ', 'R', 1, N'धार्मीक', N'T', 1, NULL, NULL, NULL, NULL),
+(12, N'निवासी', 'R', 1, N'निवासी', N'R', 1, 2, NULL, NULL, NULL),
+(13, N'दुकान', 'C', 1, N'बिगर निवासी', N'S', 1, NULL, NULL, NULL, NULL),
+(14, N'रेस्टॉरंट आणि बार', 'C', 1, N'बिगर निवासी', N'H', 1, NULL, NULL, NULL, NULL),
+(16, N'म.न.पा.चे.कार्यालय', 'N', 1, N'नगरपरिषद मालमत्ता', N'N', 2, NULL, NULL, NULL, NULL),
+(17, N'शासकीय कार्यालय', 'C', 1, N'बिगर निवासी', N'G', 3, NULL, NULL, NULL, NULL),
+(21, N'म.न.पा. व इतर मालमत्ता', 'N', 1, N'नगरपरिषद मालमत्ता', N'N', 2, NULL, NULL, NULL, NULL),
+(22, N'प्लॉट', 'R', 1, N'प्लॉट', N'O', 1, NULL, NULL, NULL, NULL),
+(23, N'निवासी व दुकान', 'R-C', 1, N'मिश्र', N'R', 2, NULL, NULL, NULL, NULL),
+(24, N'अतिक्रमण', 'R', 1, N'निवासी', N'R', 3, NULL, NULL, NULL, NULL),
+(25, N'मा शासकीय मालमत्ता', 'C', 1, N'बिगर निवासी', N'G', 4, NULL, NULL, NULL, NULL),
+(27, N'मोबाईल टॉवर', 'C', 1, N'बिगर निवासी', N'T', 2, NULL, NULL, NULL, NULL),
+(28, N'पेट्रोल पंप', 'C', 1, N'बिगर निवासी', N'P', 1, NULL, NULL, NULL, NULL),
+(29, N'हॉटेल', 'C', 1, N'बिगर निवासी', N'H', 2, NULL, NULL, NULL, NULL),
+(30, N'लॉज', 'C', 1, N'बिगर निवासी', N'L', 1, NULL, NULL, NULL, NULL),
+(31, N'निवासी व हॉटेल', 'R-C', 1, N'मिश्र', N'R', 4, NULL, NULL, NULL, NULL),
+(32, N'गोडाऊन', 'C', 1, N'बिगर निवासी', N'S', 2, NULL, NULL, NULL, NULL),
+(33, N'चालू बांधकाम', 'R', 1, N'निवासी', N'U', 1, NULL, NULL, NULL, NULL),
+(34, N'गोठा', 'R', 1, N'निवासी', N'R', 5, NULL, NULL, NULL, NULL),
+(35, N'पडीत', 'R', 1, N'निवासी', N'R', 6, NULL, NULL, NULL, NULL),
+(36, N'कार्यालय', 'C', 1, N'बिगर निवासी', N'O', 2, NULL, NULL, NULL, NULL),
+(37, N'म.न.पा.दुकान गाळे', 'N', 1, N'नगरपरिषद मालमत्ता', N'N', 4, NULL, NULL, NULL, NULL),
+(38, N'वसतिगृह', 'C', 1, N'बिगर निवासी', N'H', 2, NULL, NULL, NULL, NULL),
+(39, N'व्यायाम शाळा', 'C', 1, N'बिगर निवासी', N'G', 5, NULL, NULL, NULL, NULL),
+(41, N'पार्किंग', 'C', 1, N'बिगर निवासी', N'P', 2, NULL, NULL, NULL, NULL),
+(42, N'निवासी व कार्यालय', 'R-C', 1, N'मिश्र', N'R', 8, NULL, NULL, NULL, NULL),
+(44, N'वाचनालय', 'C', 1, N'बिगर निवासी', N'L', 2, NULL, NULL, NULL, NULL),
+(45, N'केंद्र शासकीय मालमत्ता', 'C', 1, N'बिगर निवासी', N'C', 1, NULL, NULL, NULL, NULL),
+(46, N'खाजगी रुग्णालय व निवासी', 'R-C', 1, N'मिश्र', N'D', 5, NULL, NULL, NULL, NULL),
+(47, N'धार्मिक स्थळ व अनिवासी', 'R-C', 1, N'मिश्र', N'T', 3, NULL, NULL, NULL, NULL),
+(48, N'शासकीय वसतिगृह', 'C', 1, N'बिगर निवासी', N'G', 7, NULL, NULL, NULL, NULL),
+(49, N'लॉंन', 'C', 1, N'बिगर निवासी', N'L', 3, NULL, NULL, NULL, NULL),
+(50, N'चित्रपटगृह', 'C', 1, N'बिगर निवासी', N'T', 4, NULL, NULL, NULL, NULL),
+(51, N'शोरूम', 'C', 1, N'बिगर निवासी', N'S', 4, NULL, NULL, NULL, NULL),
+(52, N'कोचिंग क्लासेस', 'C', 1, N'बिगर निवासी', N'C', 2, NULL, NULL, NULL, NULL),
+(53, N'खाजगी रुग्णालय व दुकान', 'C', 1, N'बिगर निवासी', N'D', 7, NULL, NULL, NULL, NULL),
+(54, N'मंगल कार्यालय व निवासी', 'R-C', 1, N'मिश्र', N'M', 2, NULL, NULL, NULL, NULL),
+(55, N'निवासी व औद्योगिक', 'R-C', 1, N'औद्योगिक', N'I', 2, NULL, NULL, NULL, NULL),
+(57, N'दुकान व पडीत', 'R-C', 1, N'मिश्र', N'S', 5, NULL, NULL, NULL, NULL),
+(58, N'निवासी व पडीत', 'R', 1, N'निवासी', N'R', 10, NULL, NULL, NULL, NULL),
+(59, N'निवासी  व बँक', 'R-C', 1, N'मिश्र', N'B', 2, NULL, NULL, NULL, NULL),
+(63, N'खाजगी शाळा व निवासी', 'R-C', 1, N'मिश्र', N'E', 2, NULL, NULL, NULL, NULL),
+(64, N'दुकान व मंगल कार्यालय', 'C', 1, N'बिगर निवासी', N'S', 6, NULL, NULL, NULL, NULL),
+(66, N'दुकान व कार्यालय', 'C', 1, N'बिगर निवासी', N'S', 3, NULL, NULL, NULL, NULL),
+(69, N'निवासी व अनिवासी', 'R-C', 1, N'मिश्र', N'C', 6, NULL, NULL, NULL, NULL),
+(70, N'कारखाना व कार्यालय', 'C', 1, N'बिगर निवासी', N'I', 3, NULL, NULL, NULL, NULL),
+(77, N'दवाखाना व हॉटेल', 'C', 1, N'बिगर निवासी', N'D', 10, NULL, NULL, NULL, NULL),
+(78, N'बँक व अनिवासी', 'C', 1, N'बिगर निवासी', N'B', 6, NULL, NULL, NULL, NULL),
+(79, N'हॉटेल व दुकान', 'C', 1, N'बिगर निवासी', N'H', 6, NULL, NULL, NULL, NULL),
+(80, N'निवासी,गोडाउन,दुकान', 'R-C', 1, N'मिश्र', N'C', 8, NULL, NULL, NULL, NULL),
+(82, N'अनिवासी', 'C', 1, N'बिगर निवासी', N'C', 2, NULL, NULL, NULL, NULL),
+(83, N'कारखाना व गोडाउन', 'C', 1, N'बिगर निवासी', N'I', 4, NULL, NULL, NULL, NULL),
+(88, N'शैक्षणिक शासकीय', 'C', 1, N'बिगर निवासी', N'E', 4, NULL, NULL, NULL, NULL),
+(92, N'औद्योगिक', 'I', 1, N'औद्योगिक', N'I', 1, NULL, NULL, NULL, NULL),
+(94, N'मॉल', 'C', 1, N'बिगर निवासी', N'M', 3, NULL, NULL, NULL, NULL),
+(108, N'शासकीय मालमत्ता', 'C', 1, N'बिगर निवासी', N'n',5, NULL, NULL, NULL, NULL),
+(110, N'धार्मिक स्थळ व निवासी', 'R', 1, N'निवासी', N'',1,  NULL, NULL, NULL, NULL),
+(111, N'निवासी व गोडावून', 'R-C', 1, N'मिश्र', N'',1,  NULL, NULL, NULL, NULL),
+(113, N'मंगल कार्यालय', 'C', 1, N'बिगर निवासी', N'',1,  NULL, NULL, NULL, NULL),
+(115, N'निवासी व कोचिंग क्लासेस', 'R-C', 1, N'मिश्र', N'',1,  NULL, NULL, NULL, NULL),
+(118, N'अंगणवाडी', 'C', 1, N'बिगर निवासी', N'',1,  NULL, NULL, NULL, NULL),
+(119, N'निवासी व अंगणवाडी', 'R-C', 1, N'मिश्र', N'',1,  NULL, NULL, NULL, NULL),
+(127, N'गोडावून व दुकान', 'C', 1, N'बिगर निवासी', N'',1,  NULL, NULL, NULL, NULL),
+(132, N'शेती', 'R', 1, N'प्लॉट', N'',1,  NULL, NULL, NULL, NULL),
+(133, N'मोबाईल टॉवर व निवासी', 'R-C', 1, N'मिश्र', N'',1,  NULL, NULL, NULL, NULL),
+(134, N'सामाजिक सभागृह', 'C', 1, N'बिगर निवासी', N'',1,  NULL, NULL, NULL, NULL),
+(135, N'मनपा गार्डन/ओपनस्पेस', 'C', 1, N'R', N'',1,  NULL, NULL, NULL, NULL),
+(136, N'मनपा इतर भूखंड', 'R', 1, N'R', N'',1,  NULL, NULL, NULL, NULL),
+(137, N'नर्सरी', 'C', 1, N'बिगर निवासी', N'',1,  NULL, NULL, NULL, NULL),
+(138, N'पेयिंग गेस्ट', 'R', 1, N'निवासी', N'',1,  NULL, NULL, NULL, NULL),
+(139, N'पॅथॉलॉजी लॅब', 'C', 1, N'बिगर निवासी', N'',1,  NULL, NULL, NULL, NULL),
+(140, N'अॅमिनीटी', 'R', 1, N'निवासी', N'',1,  NULL, NULL, NULL, NULL),
+(141, N'रिफ्युज एरिया', 'N', 1, N'R', N'',1,  NULL, NULL, NULL, NULL),
+(142, N'निवासी व चालू बांधकाम', 'R', 1, N'निवासी', N'',1,  NULL, NULL, NULL, NULL),
+(144, N'पोल्ट्रीफार्म', 'C', 1, N'बिगर निवासी', N'',1,  NULL, NULL, NULL, NULL),
+(145, N'अनिवासी व चालू बांधकाम', 'R-C', 1, N'बिगर निवासी', N'',1,  NULL, NULL, NULL, NULL),
+(146, N'निवासी व गोठा', 'R', 1, N'निवासी', N'',1,  NULL, NULL, NULL, NULL),
+(147, N'प्लॉट व अनिवासी', 'C', 1, N'R-C', N'',1,  NULL, NULL, NULL, NULL),
+(148, N'निवासी व खुला भूखंड', 'R', 1, N'निवासी', N'',1,  NULL, NULL, NULL, NULL),
+(149, N'अनिवासी व खुला भूखंड', 'C', 1, N'अनिवासी', N'',1,  NULL, NULL, NULL, NULL),
+(151, N'औद्योगिक व अनिवासी', 'I-C', 1, N'औद्योगिक व अनिवासी', N'',1,  NULL, NULL, NULL, NULL),
+(152, N'औद्योगिक व मिश्र', 'R-C', 1, N'औद्योगिक व मिश्र', N'',1,  NULL, NULL, NULL, NULL),
+(153, N'निवासी , औद्यागिक , अनिवासी', 'R-C', 1, N'R-C', N'',1,  NULL, NULL, NULL, NULL),
+(154, N'निवासी व वाचनालय', 'R-C', 1, N'R-C', N'',1,  NULL, NULL, NULL, NULL),
+(155, N'बांधकाम पूर्ण मा. वापरात नाही', 'R-C', 1, N'R-C', N'',1,  NULL, NULL, NULL, NULL),
+(156, N'शेती व अनिवासी', 'R-C', 1, N'R-C', N'',1,  NULL, NULL, NULL, NULL),
+(157, N'क्लिनिक', 'C', 1, N'अनिवासी', N'',1,  NULL, NULL, NULL, NULL),
+(158, N'उपहारगृह', 'C', 1, N'अनिवासी', N'',1,  NULL, NULL, NULL, NULL),
+(159, N'धार्मिक स्थळ,निवासी व अनिवासी', 'R-C', 1, N'R-C', N'',1,  NULL, NULL, NULL, NULL),
+(160, N'माहिती व तंत्रज्ञान उद्योग', 'I', 1, N'I', N'',1,  NULL, NULL, NULL, NULL),
+(161, N'सामाजिक संस्था', 'R', 1, N'R', N'',1,  NULL, NULL, NULL, NULL);
 
 SET IDENTITY_INSERT [PTIS].[PropertyTypeMaster] OFF;
--- [PTIS].[AssessmentMaster]
-
 
 
 
@@ -2165,377 +2065,375 @@ INSERT [PTIS].[AssessmentMaster] ([AssessmentID], [FromYear], [ToYear], [MaxYear
 SET IDENTITY_INSERT [PTIS].[AssessmentMaster] OFF;
 
 
---SET IDENTITY_INSERT [PTIS].[FloorMaster] ON
-INSERT [PTIS].[FloorMaster] ([FloorID], [Description], [DescriptionEnglish], [SequenceNo], [MaxFloorNo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
-  (N'1', N'पहिला मजला', N'First Floor', 12, 13, NULL, NULL, NULL),
-  (N'10', N'दहावा मजला', N'Tenth Floor', 21, 22, NULL, NULL, NULL),
-  (N'11', N'अकरावा मजला', N'Eleventh Floor', 22, 23, NULL, NULL, NULL),
-  (N'12', N'बारावा मजला', N'Twelfth Floor', 23, 24, NULL, NULL, NULL),
-  (N'13', N'तेरावा मजला', N'Thirteenth Floor', 24, 25, NULL, NULL, NULL),
-  (N'14', N'चोदावा मजला', N'Fourteenth Floor', 25, 26, NULL, NULL, NULL),
-  (N'15', N'पंधरावा मजला ', N'Fifteenth Floor', 26, 27, NULL, NULL, NULL),
-  (N'16', N'सोळावा मजला ', N'Sixteenth Floor', 27, 28, NULL, NULL, NULL),
-  (N'17', N'सतरावा मजला ', N'Seventeenth Floor', 28, 29, NULL, NULL, NULL),
-  (N'18', N'अठरावा मजला', N'Eighteenth Floor', 29, 30, NULL, NULL, NULL),
-  (N'19', N'एकोणिसावा मजला', N'Nineteenth Floor', 30, 31, NULL, NULL, NULL),
-  (N'2', N'दुसरा मजला', N'Second Floor', 13, 14, NULL, NULL, NULL),
-  (N'20', N'विसांवा मजला ', N'Twentieth Floor', 31, 32, NULL, NULL, NULL),
-  (N'21', N'एकविसांवा मजला', N'Twenty-First Floor', 32, 33, NULL, NULL, NULL),
-  (N'22', N'बाविसांवा मजला ', N'Twenty-Second Floor', 33, 34, NULL, NULL, NULL),
-  (N'23', N'तेवीसांवा मजला ', N'Twenty-Third Floor', 34, 35, NULL, NULL, NULL),
-  (N'24', N'चोवीसांवा मजला', N'Twenty-Fourth Floor', 35, 36, NULL, NULL, NULL),
-  (N'25', N'पंचवीसांवा मजला ', N'Twenty-Fifth Floor', 36, 37, NULL, NULL, NULL),
-  (N'26', N'सव्वीसांवा मजला ', N'Twenty-Sixth Floor', 37, 38, NULL, NULL, NULL),
-  (N'27', N'सत्तावीसांवा मजला ', N'Twenty-Seventh Floor', 38, 39, NULL, NULL, NULL),
-  (N'28', N'अठावीसांवा मजला', N'Twenty-Eighth Floor', 39, 40, NULL, NULL, NULL),
-  (N'29', N'एकोणतिसांवा मजला ', N'Twenty-Ninth Floor', 40, 41, NULL, NULL, NULL),
-  (N'3', N'तिसरा मजला', N'Third Floor', 14, 15, NULL, NULL, NULL),
-  (N'30', N'तिसांवा मजला ', N'Thirtieth Floor', 41, 42, NULL, NULL, NULL),
-  (N'31', N'एकतीसांवा मजला', N'Thirty-First Floor', 42, 43, NULL, NULL, NULL),
-  (N'32', N'बत्तीसांवा मजला', N'Thirty-Second Floor', 43, 44, NULL, NULL, NULL),
-  (N'33', N'तेत्तीसावा मजला', N'Thirty-Third Floor', 44, 45, NULL, NULL, NULL),
-  (N'34', N'चोत्तीसावा मजला', N'Thirty-Fourth Floor', 45, 46, NULL, NULL, NULL),
-  (N'35', N'पस्तीसावा मजला', N'Thirty-Fifth Floor', 46, 47, NULL, NULL, NULL),
-  (N'36', N'छत्तिसावा मजला', N'Thirty-Sixth Floor', 47, 48, NULL, NULL, NULL),
-  (N'37', N'सदतिसावा मजला', N'Thirty-Seventh Floor', 48, 49, NULL, NULL, NULL),
-  (N'38', N'अडतिसावा मजला', N'Thirty-Eighth Floor', 49, 50, NULL, NULL, NULL),
-  (N'39', N'एकोणचाळिसावा मजला', N'Thirty-Ninth Floor', 50, 51, NULL, NULL, NULL),
-  (N'4', N'चौथा मजला', N'Fourth Floor', 15, 16, NULL, NULL, NULL),
-  (N'40', N'चाळिसावा मजला', N'Fortieth Floor', 51, 52, NULL, NULL, NULL),
-  (N'41', N'एकेचाळिसावा मजला ', N'Forty-First Floor', 52, 53, NULL, NULL, NULL),
-  (N'42', N'बेचाळीसवा  मजला', N'Forty-Second Floor', 53, 54, NULL, NULL, NULL),
-  (N'44', N'चौचाळीसवा  मजला', N'Forty-Fourth Floor', 55, 56, NULL, NULL, NULL),
-  (N'48', N'अठ्ठेचाळीसवा  मजला', N'Forty-Eighth Floor', 59, 60, NULL, NULL, NULL),
-  (N'5', N'पाचवा मजला', N'Fifth Floor', 16, 17, NULL, NULL, NULL),
-  (N'50', N'पन्नासवा  मजला ', N'Fiftieth Floor', 61, 62, NULL, NULL, NULL),
-  (N'51', N'एकावन्नवा मजला', N'Fifty-First Floor', 62, 63, NULL, NULL, NULL),
-  (N'52', N'बाव्वन्नवा मजला', N'Fifty-Second Floor', 63, 64, NULL, NULL, NULL),
-  (N'53', N'त्रेपन्नवा मजला', N'Fifty-Third Floor', 64, 65, NULL, NULL, NULL),
-  (N'54', N'चौपन्नवा मजला', N'Fifty-Fourth Floor', 65, 66, NULL, NULL, NULL),
-  (N'55', N'पंचावन्नवा मजला', N'Fifty-Fifth Floor', 66, 67, NULL, NULL, NULL),
-  (N'56', N'छप्पनवा मजला', N'Fifty-Sixth Floor', 67, 68, NULL, NULL, NULL),
-  (N'57', N'सत्तावन्नवा मजला', N'Fifty-Seventh Floor', 68, 69, NULL, NULL, NULL),
-  (N'58', N'अठ्ठावन्नवा मजला', N'Fifty-Eighth Floor', 69, 70, NULL, NULL, NULL),
-  (N'59', N'एकोणसाठवा मजला', N'Fifty-Ninth Floor', 70, 71, NULL, NULL, NULL),
-  (N'6', N'सहावा मजला', N'Sixth Floor', 17, 18, NULL, NULL, NULL),
-  (N'60', N'साठवा मजला', N'Sixtieth Floor', 71, 72, NULL, NULL, NULL),
-  (N'61', N'एकसष्टवा मजला', N'Sixty-First Floor', 72, 73, NULL, NULL, NULL),
-  (N'63', N'त्रेसष्टवा मजला', N'Sixty-Third Floor', 73, 75, NULL, NULL, NULL),
-  (N'64', N'चौसष्टवा मजला', N'Sixty-Fourth Floor', 74, 76, NULL, NULL, NULL),
-  (N'65', N'पासष्टवा मजला', N'Sixty-Fifth Floor', 75, 77, NULL, NULL, NULL),
-  (N'66', N'सहासष्ठवा मजला', N'Sixty-Sixth Floor', 76, 78, NULL, NULL, NULL),
-  (N'67', N'सदुसष्टवा मजला', N'Sixty-Seventh Floor', 77, 79, NULL, NULL, NULL),
-  (N'68', N'अडुसष्ठवा मजला', N'Sixty-Eighth Floor', 78, 80, NULL, NULL, NULL),
-  (N'69', N'एकोणसत्तरवा मजला', N'Sixty-Ninth Floor', 79, 81, NULL, NULL, NULL),
-  (N'7', N'सातवा मजला', N'Seventh Floor', 18, 19, NULL, NULL, NULL),
-  (N'70', N'सत्तरवा मजला', N'Seventieth Floor', 80, 82, NULL, NULL, NULL),
-  (N'8', N'आठवा मजला', N'Eighth Floor', 19, 20, NULL, NULL, NULL),
-  (N'9', N'नववा मजला', N'Ninth Floor', 20, 21, NULL, NULL, NULL),
-  (N'B', N'तळघर', N'Basement', 1, 1, NULL, NULL, NULL),
-  (N'G', N'तळमजला', N'Ground ', 3, 2, NULL, NULL, NULL),
-  (N'L', N'लोअर तळमजला', N'Lower Ground', 2, 3, NULL, NULL, NULL),
-  (N'M', N'पॉटमाळा', N'Mezzanine', 0, 4, NULL, NULL, NULL),
-  (N'OP', N'Open Plot', N'Open Plot', 0, 0, NULL, NULL, NULL),
-  (N'P1', N'पोडियम1', N'Podium 1', 6, 5, NULL, NULL, NULL),
-  (N'P2', N'पोडियम2', N'Podium 2', 7, 6, NULL, NULL, NULL),
-  (N'P3', N'पोडियम3', N'Podium 3', 8, 7, NULL, NULL, NULL),
-  (N'P4', N'पोडियम4', N'Podium 4', 9, 8, NULL, NULL, NULL),
-  (N'P5', N'पोडियम5', N'Podium 5', 10, 9, NULL, NULL, NULL),
-  (N'P6', N'पोडियम6', N'Podium 6', 11, 10, NULL, NULL, NULL),
-  (N'U1', N'अप्पर ग्राऊंड पहिला ', N'Upper Ground 1', 4, 11, NULL, NULL, NULL),
-  (N'U2', N'अप्पर ग्राऊंड दुसरा', N'Upper Ground 2', 5, 12, NULL, NULL, NULL);
-
---SET IDENTITY_INSERT [PTIS].[FloorMaster] OFF
-SET IDENTITY_INSERT [PTIS].[FloorFactorCVMaster] ON;
--- [PTIS].[FloorFactorCVMaster]
+INSERT INTO [PTIS].[FloorMaster]
+([FloorID], [Description], [SequenceNo], [MaxFloorNo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+VALUES
+(N'1',  N'पहिला मजला', 12, 13, NULL, NULL, NULL),
+(N'2',  N'दुसरा मजला', 13, 14, NULL, NULL, NULL),
+(N'3',  N'तिसरा मजला', 14, 15, NULL, NULL, NULL),
+(N'4',  N'चौथा मजला', 15, 16, NULL, NULL, NULL),
+(N'5',  N'पाचवा मजला', 16, 17, NULL, NULL, NULL),
+(N'6',  N'सहावा मजला', 17, 18, NULL, NULL, NULL),
+(N'7',  N'सातवा मजला', 18, 19, NULL, NULL, NULL),
+(N'8',  N'आठवा मजला', 19, 20, NULL, NULL, NULL),
+(N'9',  N'नववा मजला', 20, 21, NULL, NULL, NULL),
+(N'10', N'दहावा मजला', 21, 22, NULL, NULL, NULL),
+(N'11', N'अकरावा मजला', 22, 23, NULL, NULL, NULL),
+(N'12', N'बारावा मजला', 23, 24, NULL, NULL, NULL),
+(N'13', N'तेरावा मजला', 24, 25, NULL, NULL, NULL),
+(N'14', N'चोदावा मजला', 25, 26, NULL, NULL, NULL),
+(N'15', N'पंधरावा मजला', 26, 27, NULL, NULL, NULL),
+(N'16', N'सोळावा मजला', 27, 28, NULL, NULL, NULL),
+(N'17', N'सतरावा मजला', 28, 29, NULL, NULL, NULL),
+(N'18', N'अठरावा मजला', 29, 30, NULL, NULL, NULL),
+(N'19', N'एकोणिसावा मजला', 30, 31, NULL, NULL, NULL),
+(N'20', N'विसांवा मजला', 31, 32, NULL, NULL, NULL),
+(N'21', N'एकविसांवा मजला', 32, 33, NULL, NULL, NULL),
+(N'22', N'बाविसांवा मजला', 33, 34, NULL, NULL, NULL),
+(N'23', N'तेवीसांवा मजला', 34, 35, NULL, NULL, NULL),
+(N'24', N'चोवीसांवा मजला', 35, 36, NULL, NULL, NULL),
+(N'25', N'पंचवीसांवा मजला', 36, 37, NULL, NULL, NULL),
+(N'26', N'सव्वीसांवा मजला', 37, 38, NULL, NULL, NULL),
+(N'27', N'सत्तावीसांवा मजला', 38, 39, NULL, NULL, NULL),
+(N'28', N'अठावीसांवा मजला', 39, 40, NULL, NULL, NULL),
+(N'29', N'एकोणतिसांवा मजला', 40, 41, NULL, NULL, NULL),
+(N'30', N'तिसांवा मजला', 41, 42, NULL, NULL, NULL),
+(N'31', N'एकतीसांवा मजला', 42, 43, NULL, NULL, NULL),
+(N'32', N'बत्तीसांवा मजला', 43, 44, NULL, NULL, NULL),
+(N'33', N'तेत्तीसावा मजला', 44, 45, NULL, NULL, NULL),
+(N'34', N'चोत्तीसावा मजला', 45, 46, NULL, NULL, NULL),
+(N'35', N'पस्तीसावा मजला', 46, 47, NULL, NULL, NULL),
+(N'36', N'छत्तिसावा मजला', 47, 48, NULL, NULL, NULL),
+(N'37', N'सदतिसावा मजला', 48, 49, NULL, NULL, NULL),
+(N'38', N'अडतिसावा मजला', 49, 50, NULL, NULL, NULL),
+(N'39', N'एकोणचाळिसावा मजला', 50, 51, NULL, NULL, NULL),
+(N'40', N'चाळिसावा मजला', 51, 52, NULL, NULL, NULL),
+(N'41', N'एकेचाळिसावा मजला', 52, 53, NULL, NULL, NULL),
+(N'42', N'बेचाळीसवा मजला', 53, 54, NULL, NULL, NULL),
+(N'44', N'चौचाळीसवा मजला', 55, 56, NULL, NULL, NULL),
+(N'48', N'अठ्ठेचाळीसवा मजला', 59, 60, NULL, NULL, NULL),
+(N'50', N'पन्नासवा मजला', 61, 62, NULL, NULL, NULL),
+(N'51', N'एकावन्नवा मजला', 62, 63, NULL, NULL, NULL),
+(N'52', N'बाव्वन्नवा मजला', 63, 64, NULL, NULL, NULL),
+(N'53', N'त्रेपन्नवा मजला', 64, 65, NULL, NULL, NULL),
+(N'54', N'चौपन्नवा मजला', 65, 66, NULL, NULL, NULL),
+(N'55', N'पंचावन्नवा मजला', 66, 67, NULL, NULL, NULL),
+(N'56', N'छप्पनवा मजला', 67, 68, NULL, NULL, NULL),
+(N'57', N'सत्तावन्नवा मजला', 68, 69, NULL, NULL, NULL),
+(N'58', N'अठ्ठावन्नवा मजला', 69, 70, NULL, NULL, NULL),
+(N'59', N'एकोणसाठवा मजला', 70, 71, NULL, NULL, NULL),
+(N'60', N'साठवा मजला', 71, 72, NULL, NULL, NULL),
+(N'61', N'एकसष्टवा मजला', 72, 73, NULL, NULL, NULL),
+(N'63', N'त्रेसष्टवा मजला', 73, 75, NULL, NULL, NULL),
+(N'64', N'चौसष्टवा मजला', 74, 76, NULL, NULL, NULL),
+(N'65', N'पासष्टवा मजला', 75, 77, NULL, NULL, NULL),
+(N'66', N'सहासष्ठवा मजला', 76, 78, NULL, NULL, NULL),
+(N'67', N'सदुसष्टवा मजला', 77, 79, NULL, NULL, NULL),
+(N'68', N'अडुसष्ठवा मजला', 78, 80, NULL, NULL, NULL),
+(N'69', N'एकोणसत्तरवा मजला', 79, 81, NULL, NULL, NULL),
+(N'70', N'सत्तरवा मजला', 80, 82, NULL, NULL, NULL),
+(N'B',  N'तळघर', 1, 1, NULL, NULL, NULL),
+(N'L',  N'लोअर तळमजला', 2, 3, NULL, NULL, NULL),
+(N'G',  N'तळमजला', 3, 2, NULL, NULL, NULL),
+(N'U1', N'अप्पर ग्राऊंड पहिला', 4, 11, NULL, NULL, NULL),
+(N'U2', N'अप्पर ग्राऊंड दुसरा', 5, 12, NULL, NULL, NULL),
+(N'P1', N'पोडियम1', 6, 5, NULL, NULL, NULL),
+(N'P2', N'पोडियम2', 7, 6, NULL, NULL, NULL),
+(N'P3', N'पोडियम3', 8, 7, NULL, NULL, NULL),
+(N'P4', N'पोडियम4', 9, 8, NULL, NULL, NULL),
+(N'P5', N'पोडियम5', 10, 9, NULL, NULL, NULL),
+(N'P6', N'पोडियम6', 11, 10, NULL, NULL, NULL),
+(N'M',  N'पॉटमाळा', 0, 4, NULL, NULL, NULL),
+(N'OP', N'Open Plot', 0, 0, NULL, NULL, NULL);
 
 
 
+set identity_insert [PTIS].[FloorFactorCVMaster] on;
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('1', 'G', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('2', '1', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('3', '2', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('4', '3', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('5', '4', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('6', '5', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('7', '6', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('8', '7', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('9', '8', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('10', 'B', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('11', '9', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('12', '10', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('13', '11', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('14', '12', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('15', '13', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('16', '14', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('17', 'M', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('18', '15', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('19', '16', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('20', '17', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('21', '18', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('22', '19', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('23', '20', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('24', '21', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('25', '22', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('26', '23', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('27', '24', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('28', '25', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('29', '26', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('30', '27', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('31', '28', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('32', '29', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('33', '30', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('34', '31', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('35', '32', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('36', 'OP', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('37', '33', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('38', '34', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('39', '35', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('40', '36', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('41', '37', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('42', '38', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('43', '39', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[FloorFactorCVMaster]
-([ID], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('44', '40', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
 SET IDENTITY_INSERT [PTIS].[FloorFactorCVMaster] OFF;
--- [PTIS].[FloorSubmissionRoomNoDetail]
+-- [PTIS].[RoomNoCountMaster]
 
 
 
 
 
-SET IDENTITY_INSERT [PTIS].[FloorSubmissionRoomNoDetail] ON;
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('704','1');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('705','2');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('706','3');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('707','4');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('708','5');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('709','6');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('710','7');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('711','8');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('712','9');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('713','10');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('714','11');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('715','12');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('716','13');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('717','14');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('718','15');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('719','16');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('720','17');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('721','18');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('722','19');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('723','20');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('724','21');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('725','22');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('726','23');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('727','24');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('728','25');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('729','26');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('730','27');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('731','28');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('732','29');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('733','30');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('734','31');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('735','32');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('736','33');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('737','34');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('738','35');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('739','36');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('740','37');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('741','38');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('742','39');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('743','40');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('744','41');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('745','42');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('746','43');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('747','44');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('748','45');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('749','46');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('750','47');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('751','48');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('752','49');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('753','50');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('754','51');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('755','52');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('756','53');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('757','54');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('758','55');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('759','56');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('760','57');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('761','58');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('762','59');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('763','60');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('764','61');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('765','62');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('766','63');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('767','64');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('768','65');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('769','66');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('770','67');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('771','68');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('772','69');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('773','70');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('774','71');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('775','72');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('776','73');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('777','74');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('778','75');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('779','76');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('780','77');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('781','78');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('782','79');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('783','80');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('784','81');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('785','82');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('786','83');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('787','84');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('788','85');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('789','86');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('790','87');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('791','88');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('792','89');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('793','90');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('794','91');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('795','92');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('796','93');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('797','94');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('798','95');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('799','96');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('800','97');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('801','98');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('802','99');
-INSERT INTO [PTIS].[FloorSubmissionRoomNoDetail] ([ID], [RoomNo]) VALUES ('803','100');
-SET IDENTITY_INSERT [PTIS].[FloorSubmissionRoomNoDetail] OFF;
+SET IDENTITY_INSERT [PTIS].[RoomNoCountMaster] ON;
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('704','1');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('705','2');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('706','3');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('707','4');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('708','5');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('709','6');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('710','7');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('711','8');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('712','9');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('713','10');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('714','11');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('715','12');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('716','13');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('717','14');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('718','15');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('719','16');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('720','17');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('721','18');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('722','19');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('723','20');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('724','21');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('725','22');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('726','23');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('727','24');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('728','25');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('729','26');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('730','27');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('731','28');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('732','29');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('733','30');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('734','31');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('735','32');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('736','33');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('737','34');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('738','35');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('739','36');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('740','37');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('741','38');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('742','39');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('743','40');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('744','41');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('745','42');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('746','43');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('747','44');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('748','45');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('749','46');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('750','47');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('751','48');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('752','49');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('753','50');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('754','51');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('755','52');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('756','53');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('757','54');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('758','55');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('759','56');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('760','57');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('761','58');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('762','59');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('763','60');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('764','61');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('765','62');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('766','63');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('767','64');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('768','65');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('769','66');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('770','67');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('771','68');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('772','69');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('773','70');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('774','71');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('775','72');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('776','73');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('777','74');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('778','75');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('779','76');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('780','77');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('781','78');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('782','79');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('783','80');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('784','81');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('785','82');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('786','83');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('787','84');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('788','85');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('789','86');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('790','87');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('791','88');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('792','89');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('793','90');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('794','91');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('795','92');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('796','93');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('797','94');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('798','95');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('799','96');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('800','97');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('801','98');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('802','99');
+INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('803','100');
+SET IDENTITY_INSERT [PTIS].[RoomNoCountMaster] OFF;
 -- [PTIS].[NatureFactorCVMaster]
 
 
@@ -2543,91 +2441,91 @@ SET IDENTITY_INSERT [PTIS].[NatureFactorCVMaster] ON;
 
 
 INSERT INTO [PTIS].[NatureFactorCVMaster]
-([ID], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('1', 'A', '1.00', '2024-04-01', '2025-03-31', NULL, NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[NatureFactorCVMaster]
-([ID], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('2', 'B', '0.80', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[NatureFactorCVMaster]
-([ID], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('3', 'C', '0.70', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[NatureFactorCVMaster]
-([ID], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('4', 'D', '0.60', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[NatureFactorCVMaster]
-([ID], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('5', 'E', '0.60', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[NatureFactorCVMaster]
-([ID], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('6', 'AR', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[NatureFactorCVMaster]
-([ID], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('7', 'BR', '0.80', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[NatureFactorCVMaster]
-([ID], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('8', 'CR', '0.70', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[NatureFactorCVMaster]
-([ID], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('9', 'DR', '0.60', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[NatureFactorCVMaster]
-([ID], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('10', 'ER', '0.60', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[NatureFactorCVMaster]
-([ID], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('11', 'WA', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[NatureFactorCVMaster]
-([ID], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('12', 'WB', '0.80', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[NatureFactorCVMaster]
-([ID], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('13', 'WC', '0.70', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[NatureFactorCVMaster]
-([ID], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('14', 'WD', '0.60', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[NatureFactorCVMaster]
-([ID], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('15', 'WE', '0.60', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[NatureFactorCVMaster]
-([ID], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('16', 'A1', '1.50', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[NatureFactorCVMaster]
-([ID], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('17', 'B1', '1.30', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[NatureFactorCVMaster]
-([ID], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('18', 'C1', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[NatureFactorCVMaster]
-([ID], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('19', 'WA1', '1.50', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[NatureFactorCVMaster]
-([ID], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('20', 'WB1', '1.30', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[NatureFactorCVMaster]
-([ID], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('21', 'WC1', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
 
 INSERT INTO [PTIS].[NatureFactorCVMaster]
-([ID], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES ('25', 'A', '1.50', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
 
 SET IDENTITY_INSERT [PTIS].[NatureFactorCVMaster] OFF;
@@ -2637,12 +2535,12 @@ SET IDENTITY_INSERT [PTIS].[NatureFactorCVMaster] OFF;
 
 
 SET IDENTITY_INSERT [PTIS].[ParkingTypeMaster] ON;
-INSERT INTO [PTIS].[ParkingTypeMaster] ([ID], [TypeOfUseId], [Active], [Type], [Description]) VALUES ('1','OPK','1','R',N'ओपन पार्किंग');
-INSERT INTO [PTIS].[ParkingTypeMaster] ([ID], [TypeOfUseId], [Active], [Type], [Description]) VALUES ('2','SPK','1','R',N'स्टील पार्किंग');
-INSERT INTO [PTIS].[ParkingTypeMaster] ([ID], [TypeOfUseId], [Active], [Type], [Description]) VALUES ('3','OPKC','1','C',N'ओपन पार्किंग अनिवासी');
-INSERT INTO [PTIS].[ParkingTypeMaster] ([ID], [TypeOfUseId], [Active], [Type], [Description]) VALUES ('4','SPKC','1','C',N'स्टील पार्किंग अनिवासी');
-INSERT INTO [PTIS].[ParkingTypeMaster] ([ID], [TypeOfUseId], [Active], [Type], [Description]) VALUES ('5','OPKI','1','I',N'ओपन पार्किंग औदयोगिक');
-INSERT INTO [PTIS].[ParkingTypeMaster] ([ID], [TypeOfUseId], [Active], [Type], [Description]) VALUES ('6','SPKI','1','I',N'स्टील पार्किंग औदयोगिक');
+INSERT INTO [PTIS].[ParkingTypeMaster] ([Id], [TypeOfUseId], [Active], [Type], [Description]) VALUES ('1','OPK','1','R',N'ओपन पार्किंग');
+INSERT INTO [PTIS].[ParkingTypeMaster] ([Id], [TypeOfUseId], [Active], [Type], [Description]) VALUES ('2','SPK','1','R',N'स्टील पार्किंग');
+INSERT INTO [PTIS].[ParkingTypeMaster] ([Id], [TypeOfUseId], [Active], [Type], [Description]) VALUES ('3','OPKC','1','C',N'ओपन पार्किंग अनिवासी');
+INSERT INTO [PTIS].[ParkingTypeMaster] ([Id], [TypeOfUseId], [Active], [Type], [Description]) VALUES ('4','SPKC','1','C',N'स्टील पार्किंग अनिवासी');
+INSERT INTO [PTIS].[ParkingTypeMaster] ([Id], [TypeOfUseId], [Active], [Type], [Description]) VALUES ('5','OPKI','1','I',N'ओपन पार्किंग औदयोगिक');
+INSERT INTO [PTIS].[ParkingTypeMaster] ([Id], [TypeOfUseId], [Active], [Type], [Description]) VALUES ('6','SPKI','1','I',N'स्टील पार्किंग औदयोगिक');
 SET IDENTITY_INSERT [PTIS].[ParkingTypeMaster] OFF;
 -- [PTIS].[PartTypeMaster]
 
@@ -2662,109 +2560,6 @@ INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeID], [PartType]) VALUES ('10','RH'
 INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeID], [PartType]) VALUES ('11','utilsub');
 INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeID], [PartType]) VALUES ('13','Apartment');
 SET IDENTITY_INSERT [PTIS].[PartTypeMaster] OFF;
-
-
-
-SET IDENTITY_INSERT [PTIS].[PropertyDescriptionAndTypeOfUseValidation] ON
-INSERT [PTIS].[PropertyDescriptionAndTypeOfUseValidation] ([ID], [PropertyTypeID], [PropertyDescription], [Type], [TypeDescription], [First], [Second], [Third], [Fourth], [Fifth], [Sixth], [Seventh], [Eighth], [Ninth], [Tenth], [Eleventh], [Twelfth], [Thirteenth], [Fourteenth], [Fifteenth], [Sixteenth], [Seventeenth], [Eighteenth], [Nineteenth], [Twentieth], [TwentyFirst], [TwentySecond], [TwentyThird], [TwentyFourth], [TwentyFifth]) VALUES
-  (10, 1, N'खाजगी शाळा', N'C', N'बिगर निवासी', N'EP', N'WEP', N'V', N'OPK', N'SPK', N'N', N'C', N'S', N'HO', N'WR', N'SPKC', N'OPKC', N'NC', N'OPC', N'ICCT', N'ICC', N'ABLC', N'RGN', N'LR', NULL, NULL, NULL, NULL, NULL, NULL),
-  (11, 2, N'म.न.पा.शाळा', N'N', N'नगरपरिषद मालमत्ता', N'N', N'V', N'ICCT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (12, 5, N'खाजगी रुग्णालय', N'C', N'बिगर निवासी', N'D', N'WC', N'V', N'PR', N'C', N'S', N'SPK', N'OPK', N'SPKC', N'OPKC', N'NC', N'ICCT', N'ICHT', N'ICH', N'ABLC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (13, 6, N'शासकीय रुग्णालय', N'C', N'बिगर निवासी', N'GC', N'WGC', N'GR', N'WGR', N'SPK', N'OPK', N'NC', N'ICCT', N'ICC', N'ICHT', N'ICH', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (14, 8, N'म.न.पा.चे रुग्णालय', N'N', N'नगरपरिषद मालमत्ता', N'N', N'V', N'SPK', N'OPK', N'ICCT', N'ICHT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (15, 10, N'बँक व वित्तीय संस्था', N'C', N'बिगर निवासी', N'B', N'WC', N'V', N'N', N'C', N'R', N'WR', N'O', N'PR', N'SPK', N'OPK', N'SPKC', N'OPKC', N'NC', N'ICCT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (16, 11, N'धार्मिक स्थळ', N'R', N'धार्मीक', N'T', N'V', N'UC', N'CH', N'S', N'N', N'PR', N'SPK', N'OPK', N'OP', N'ICCT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (17, 12, N'निवासी', N'R', N'निवासी', N'R', N'WR', N'V', N'RC', N'T', N'OPK', N'SPK', N'N', N'SR', N'OPR', N'OP', N'SPKR', N'ABLRC', N'RFG', N'ICRT', N'ICP', N'ICPRT', N'ABLR', N'OWC', N'SW', N'ABLC', N'ABLR', N'TL', N'ABLOP', NULL),
-  (18, 13, N'दुकान', N'C', N'बिगर निवासी', N'S', N'WC', N'V', N'C', N'T', N'UCC', N'UC', N'MTR', N'SPK', N'OPK', N'N', N'AG', N'OP', N'OPR', N'OPKC', N'SPKC', N'RCC', N'ICC', N'ICCT', N'ABLC', NULL, NULL, NULL, NULL, NULL),
-  (19, 14, N'रेस्टॉरंट आणि बार', N'C', N'बिगर निवासी', N'H', N'WC', N'V', N'S', N'GO', N'UC', N'R', N'OBC', N'SPK', N'OPK', N'OPKC', N'SPKC', N'NC', N'ICCT', N'ICHT', N'L', N'M', N'ICH', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (20, 16, N'म.न.पा.चे.कार्यालय', N'N', N'नगरपरिषद मालमत्ता', N'N', N'V', N'SPK', N'OPK', N'NC', N'ICCT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (21, 17, N'शासकीय कार्यालय', N'C', N'बिगर निवासी', N'GC', N'WGC', N'GR', N'WGR', N'R', N'WR', N'PR', N'N', N'T', N'SPK', N'OPK', N'NC', N'ICCT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (22, 21, N'म.न.पा. व इतर मालमत्ता', N'N', N'नगरपरिषद मालमत्ता', N'N', N'V', N'T', N'PR', N'O', N'PC', N'C', N'SPK', N'OPK', N'WAT', N'ICCT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (23, 22, N'प्लॉट', N'R', N'प्लॉट', N'ASW', N'OP', N'PR', N'SPK', N'OPK', N'ICCT', N'ICR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (24, 23, N'निवासी व दुकान', N'R-C', N'मिश्र', N'R', N'WR', N'O', N'WC', N'GO', N'OPKC', N'C', N'ABLR', N'S', N'ICP', N'ICC', N'N', N'SPK', N'OPK', N'OP', N'NC', N'NR', N'SPKC', N'ICR', N'ICRT', NULL, NULL, NULL, NULL, NULL),
-  (25, 24, N'अतिक्रमण', N'R', N'निवासी', N'R', N'WR', N'V', N'S', N'WC', N'SPK', N'OPK', N'NC', N'NR', N'ICCT', N'ICR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (26, 25, N'मा शासकीय मालमत्ता', N'C', N'बिगर निवासी', N'GC', N'WGC', N'GR', N'WGR', N'V', N'R', N'S', N'PR', N'SPK', N'OPK', N'NC', N'NR', N'ICCT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (27, 27, N'मोबाईल टॉवर', N'C', N'बिगर निवासी', N'MTR', N'N', N'T', N'WC', N'GO', N'O', N'SPK', N'OPK', N'RGN', N'ICCT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (28, 28, N'पेट्रोल पंप', N'C', N'बिगर निवासी', N'S', N'WC', N'PTR', N'O', N'B', N'V', N'N', N'SPK', N'OPK', N'NC', N'ICCT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (29, 29, N'हॉटेल', N'C', N'बिगर निवासी', N'H', N'WC', N'S', N'PC', N'C', N'UC', N'GO', N'O', N'OBC', N'SPK', N'OPK', N'RFG', N'N', N'OPKC', N'SPKC', N'ICH', N'NC', N'ICCT', N'ICC', N'ICHT', NULL, NULL, NULL, NULL, NULL),
-  (30, 30, N'लॉज', N'C', N'बिगर निवासी', N'S', N'WC', N'L', N'C', N'PR', N'GY', N'O', N'OBC', N'SPK', N'OPK', N'H', N'SPKC', N'NC', N'ICCT', N'N', N'ICC', N'ICHT', N'ICH', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (31, 31, N'निवासी व हॉटेल', N'R-C', N'मिश्र', N'H', N'WC', N'R', N'WR', N'S', N'C', N'GO', N'OBC', N'SPK', N'OPK', N'NR', N'NC', N'ICCT', N'ICR', N'OPKC', N'SPKC', N'N', N'ICHT', N'ICH', N'AG', NULL, NULL, NULL, NULL, NULL),
-  (32, 32, N'गोडाऊन', N'C', N'बिगर निवासी', N'S', N'WC', N'GO', N'C', N'V', N'O', N'T', N'UC', N'PC', N'SPKC', N'N', N'SPK', N'OPK', N'OPKC', N'AG', N'OP', N'NC', N'ICCT', N'ICC', NULL, NULL, NULL, NULL, NULL, NULL),
-  (33, 33, N'चालू बांधकाम', N'R', N'निवासी', N'UC', N'WR', N'V', N'R', N'UCC', N'WC', N'S', N'PR', N'N', N'GO', N'T', N'OPK', N'OP', N'NC', N'NR', N'ICCT', N'C', N'OPR', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (34, 34, N'गोठा', N'R', N'निवासी', N'R', N'WR', N'V', N'SPK', N'OPK', N'AG', N'OP', N'OPR', N'NR', N'ICR', N'O', N'ICP', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (35, 35, N'पडीत', N'R', N'निवासी', N'V', N'R', N'WR', N'GR', N'SPK', N'OPK', N'OP', N'T', N'N', N'ICR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (36, 36, N'कार्यालय', N'C', N'बिगर निवासी', N'O', N'V', N'C', N'WC', N'S', N'UC', N'N', N'GO', N'PR', N'SPK', N'OPK', N'OPKC', N'SPKC', N'OP', N'RCC', N'ICCT', N'ICC', N'ICP', N'ICPRT', N'ABLC', NULL, NULL, NULL, NULL, NULL),
-  (37, 37, N'म.न.पा.दुकान गाळे', N'N', N'नगरपरिषद मालमत्ता', N'S', N'V', N'N', N'H', N'D', N'O', N'GO', N'PC', N'SPK', N'OPK', N'WC', N'NC', N'ICCT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (38, 38, N'वसतिगृह', N'C', N'बिगर निवासी', N'HO', N'WC', N'C', N'V', N'WR', N'LB', N'UC', N'PR', N'GY', N'T', N'SPK', N'OPK', N'NR', N'ICCT', N'ICR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (39, 39, N'व्यायाम शाळा', N'C', N'बिगर निवासी', N'S', N'WC', N'GM', N'C', N'O', N'V', N'GY', N'MTR', N'UC', N'SPK', N'OPK', N'OPKC', N'SPKC', N'NC', N'ICCT', N'ICC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (40, 41, N'पार्किंग', N'C', N'बिगर निवासी', N'SPK', N'PC', N'PR', N'OPK', N'OPKC', N'SPKC', N'WR', N'O', N'N', N'ICCT', N'ICR', N'ICP', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (41, 42, N'निवासी व कार्यालय', N'R-C', N'मिश्र', N'O', N'WC', N'R', N'WR', N'S', N'C', N'V', N'SPKC', N'PR', N'MTR', N'GO', N'UC', N'SPK', N'ICC', N'N', N'OP', N'NC', N'NR', N'ICCT', N'ICR', NULL, NULL, NULL, NULL, NULL),
-  (42, 44, N'वाचनालय', N'C', N'बिगर निवासी', N'LB', N'WC', N'V', N'C', N'O', N'R', N'WR', N'T', N'SPK', N'NR', N'ICCT', N'S', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (43, 45, N'केंद्र शासकीय मालमत्ता', N'C', N'बिगर निवासी', N'CG', N'WCG', N'V', N'CR', N'N', N'PR', N'WCGC', N'WCGR', N'SPK', N'OPK', N'NR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (44, 46, N'खाजगी रुग्णालय व निवासी', N'R-C', N'मिश्र', N'D', N'WC', N'R', N'WR', N'C', N'V', N'T', N'O', N'UC', N'S', N'GO', N'PC', N'PR', N'SPK', N'OPK', N'N', N'NC', N'NR', N'ICCT', N'ICR', NULL, NULL, NULL, NULL, NULL),
-  (45, 47, N'धार्मिक स्थळ व अनिवासी', N'R-C', N'मिश्र', N'T', N'S', N'WC', N'O', N'C', N'V', N'UC', N'EP', N'GY', N'LB', N'GO', N'MTR', N'N', N'SPK', N'OPK', N'GA', N'GM', N'WEP', N'NC', N'ICCT', NULL, NULL, NULL, NULL, NULL),
-  (46, 48, N'शासकीय वसतिगृह', N'C', N'बिगर निवासी', N'GR', N'WGR', N'V', N'O', N'N', N'SPK', N'OPK', N'NR', N'ICCT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (47, 49, N'लॉंन', N'C', N'बिगर निवासी', N'OP', N'WC', N'M', N'GO', N'O', N'UC', N'C', N'SPK', N'OPK', N'NC', N'ICCT', N'ICHT', N'ICH', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (48, 50, N'चित्रपटगृह', N'C', N'बिगर निवासी', N'KT', N'WC', N'V', N'C', N'O', N'PC', N'SPK', N'OPK', N'NC', N'OPKC', N'SPKC', N'ICCT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (49, 51, N'शोरूम', N'C', N'बिगर निवासी', N'S', N'WC', N'C', N'GO', N'O', N'R', N'WR', N'N', N'SPK', N'OPK', N'SPKC', N'OPKC', N'OPC', N'NC', N'ICCT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (50, 52, N'कोचिंग क्लासेस', N'C', N'बिगर निवासी', N'CC', N'WC', N'C', N'O', N'LB', N'S', N'PR', N'SPK', N'OPK', N'OPKC', N'SPKC', N'NC', N'ICCT', N'ABLC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (51, 53, N'खाजगी रुग्णालय व दुकान', N'C', N'बिगर निवासी', N'D', N'S', N'WC', N'V', N'C', N'O', N'GO', N'SPK', N'OPK', N'NC', N'ICCT', N'ICHT', N'SPKC', N'ICH', N'ICC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (52, 54, N'मंगल कार्यालय व निवासी', N'R-C', N'मिश्र', N'B', N'V', N'R', N'WR', N'M', N'WC', N'OP', N'C', N'O', N'N', N'T', N'UC', N'OPK', N'NC', N'NR', N'ICCT', N'ICR', N'ICHT', N'ICH', N'ICP', NULL, NULL, NULL, NULL, NULL),
-  (53, 55, N'निवासी व औद्योगिक', N'R-C', N'औद्योगिक', N'OPK', N'I', N'UC', N'N', N'WI', N'R', N'WR', N'ICH', N'S', N'SPK', N'T', N'C', N'NI', N'NR', N'ICR', N'ICIT', N'ICI', N'ICC', N'ICRT', N'ICP', NULL, NULL, NULL, NULL, NULL),
-  (54, 57, N'दुकान व पडीत', N'R-C', N'मिश्र', N'S', N'R', N'WC', N'WR', N'V', N'OP', N'SPK', N'OPK', N'NC', N'NR', N'ICCT', N'ICR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (55, 58, N'निवासी व पडीत', N'R', N'निवासी', N'R', N'WR', N'V', N'OP', N'SPK', N'OPK', N'NR', N'ICR', N'N', N'ICP', N'ICPT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (56, 59, N'निवासी  व बँक', N'R-C', N'मिश्र', N'WR', N'WC', N'R', N'B', N'V', N'N', N'S', N'O', N'UC', N'T', N'SPK', N'OPK', N'NR', N'NC', N'ICCT', N'ICR', N'ICP', N'ICPT', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (57, 63, N'खाजगी शाळा व निवासी', N'R-C', N'मिश्र', N'R', N'EP', N'WEP', N'WR', N'V', N'O', N'S', N'HO', N'SPK', N'OPK', N'N', N'NR', N'NC', N'ICCT', N'ICR', N'WC', N'T', N'ICP', N'ICPT', N'ICC', NULL, NULL, NULL, NULL, NULL),
-  (58, 64, N'दुकान व मंगल कार्यालय', N'C', N'बिगर निवासी', N'S', N'M', N'WC', N'OP', N'V', N'O', N'SPK', N'OPK', N'NC', N'ICCT', N'ICHT', N'ICH', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (59, 66, N'दुकान व कार्यालय', N'C', N'बिगर निवासी', N'HO', N'WC', N'C', N'V', N'WR', N'S', N'N', N'O', N'SPKC', N'GO', N'PR', N'D', N'OPK', N'OPKC', N'NC', N'ICCT', N'ICC', N'ABLR', N'ABLC', NULL, N'ABLC', NULL, NULL, NULL, NULL),
-  (60, 69, N'निवासी व अनिवासी', N'R-C', N'मिश्र', N'S', N'O', N'WC', N'C', N'R', N'PG', N'SPK', N'ICC', N'I', N'GO', N'H', N'GM', N'ABLR', N'ICR', N'B', N'CC', N'D', N'EP', N'WR', N'ICH', NULL, NULL, NULL, NULL, NULL),
-  (61, 70, N'कारखाना व कार्यालय', N'C', N'बिगर निवासी', N'I', N'WC', N'WI', N'O', N'GO', N'V', N'R', N'WR', N'SPK', N'OPK', N'NI', N'ICCT', N'ICIT', N'OPKC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (62, 77, N'दवाखाना व हॉटेल', N'C', N'बिगर निवासी', N'D', N'H', N'WC', N'C', N'V', N'S', N'SPK', N'OPK', N'N', N'NC', N'ICCT', N'ICHT', N'ICH', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (63, 78, N'बँक व अनिवासी', N'C', N'बिगर निवासी', N'B', N'S', N'WC', N'N', N'V', N'C', N'D', N'R', N'T', N'SPK', N'OPK', N'NC', N'ICCT', N'O', N'GO', N'GM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (64, 79, N'हॉटेल व दुकान', N'C', N'बिगर निवासी', N'H', N'WC', N'S', N'V', N'GO', N'O', N'OBC', N'SPK', N'OPK', N'SPKC', N'NC', N'ICCT', N'ICHT', N'ICH', N'ICC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (65, 80, N'निवासी,गोडाउन,दुकान', N'R-C', N'मिश्र', N'R', N'GO', N'S', N'WC', N'T', N'WR', N'C', N'O', N'PR', N'SPK', N'OPK', N'NR', N'NC', N'ICCT', N'ICR', N'CH', N'ICP', N'ICPT', N'ICC', NULL, NULL, NULL, NULL, NULL, NULL),
-  (66, 82, N'अनिवासी', N'C', N'बिगर निवासी', N'C', N'WC', N'GO', N'S', N'CC', N'O', N'M', N'GM', N'H', N'D', N'RCC', N'ABLCC', N'N', N'EP', N'WEP', N'SPKC', N'OPKC', N'MTR', N'OPC', N'ABLC', NULL, NULL, NULL, NULL, NULL),
-  (67, 83, N'कारखाना व गोडाउन', N'C', N'बिगर निवासी', N'I', N'GO', N'WC', N'WI', N'C', N'OP', N'SPK', N'OPK', N'NC', N'ICCT', N'ICIT', N'ICC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (68, 88, N'शैक्षणिक शासकीय', N'C', N'बिगर निवासी', N'EG', N'WEG', N'V', N'PR', N'S', N'SPK', N'OPK', N'NC', N'ICCT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (69, 92, N'औद्योगिक', N'I', N'औद्योगिक', N'I', N'WI', N'N', N'UC', N'V', N'OPK', N'SPK', N'S', N'T', N'WC', N'OPC', N'SPKC', N'NI', N'OPKC', N'ICIT', N'ICI', N'ABLR', N'ABLC', N'ABLRC', N'ABLCC', NULL, NULL, NULL, NULL, NULL),
-  (70, 94, N'मॉल', N'C', N'बिगर निवासी', N'S', N'C', N'WC', N'PR', N'V', N'OP', N'GO', N'KT', N'HO', N'PC', N'H', N'SPKC', N'OPKC', N'NC', N'N', N'ICCT', N'ICI', N'ICIT', N'ICHT', N'ICH', NULL, NULL, NULL, NULL, NULL),
-  (71, 108, N'शासकीय मालमत्ता', N'C', N'बिगर निवासी', N'GC', N'WGC', N'GR', N'WGR', N'V', N'N', N'T', N'PR', N'SPK', N'NC', N'ICCT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (72, 110, N'धार्मिक स्थळ व निवासी', N'R', N'निवासी', N'R', N'T', N'WR', N'V', N'S', N'O', N'UC', N'CH', N'SPK', N'OPK', N'NR', N'ICCT', N'ICR', N'N', N'ICP', N'ICPT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (73, 111, N'निवासी व गोडावून', N'R-C', N'मिश्र', N'R', N'GO', N'WC', N'WR', N'V', N'O', N'PR', N'UC', N'T', N'N', N'SPK', N'OPK', N'OP', N'NR', N'NC', N'ICCT', N'ICR', N'ICC', N'SPKC', N'ICP', NULL, NULL, NULL, NULL, NULL),
-  (74, 113, N'मंगल कार्यालय', N'C', N'बिगर निवासी', N'M', N'WC', N'C', N'V', N'PC', N'UC', N'CH', N'S', N'T', N'L', N'KT', N'SPK', N'SPKC', N'N', N'OPKC', N'NC', N'ICCT', N'ICHT', N'ICH', NULL, NULL, NULL, NULL, NULL, NULL),
-  (75, 115, N'निवासी व कोचिंग क्लासेस', N'R-C', N'मिश्र', N'R', N'CC', N'WR', N'WC', N'V', N'S', N'SPK', N'OPK', N'NR', N'NC', N'ICCT', N'ICR', N'ICP', N'ICPT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (76, 118, N'अंगणवाडी', N'C', N'बिगर निवासी', N'EP', N'WEP', N'WEG', N'SPK', N'OPK', N'NC', N'ICCT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (77, 119, N'निवासी व अंगणवाडी', N'R-C', N'मिश्र', N'R', N'EP', N'EG', N'WEG', N'WEP', N'WR', N'SPK', N'NC', N'ICCT', N'ICR', N'ICP', N'ICPT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (78, 127, N'गोडावून व दुकान', N'C', N'बिगर निवासी', N'GO', N'S', N'WC', N'C', N'UC', N'N', N'O', N'OPK', N'NC', N'SPKC', N'ICCT', N'ICC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (79, 132, N'शेती', N'R', N'प्लॉट', N'AG', N'SPK', N'OPK', N'R', N'WR', N'GO', N'N', N'ICR', N'ICC', N'PF', N'C', N'S', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (80, 133, N'मोबाईल टॉवर व निवासी', N'R-C', N'मिश्र', N'R', N'WR', N'MTR', N'N', N'V', N'PR', N'C', N'SPK', N'OPK', N'NR', N'NC', N'ICCT', N'ICR', N'ICP', N'ICPT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (81, 134, N'सामाजिक सभागृह', N'C', N'बिगर निवासी', N'CH', N'WC', N'R', N'GY', N'UC', N'T', N'PR', N'N', N'SPK', N'NR', N'ICCT', N'ACH', N'AMH', N'WR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (82, 135, N'मनपा गार्डन/ओपनस्पेस', N'C', N'R', N'OP', N'N', N'SPK', N'OPK', N'ICCT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (83, 136, N'मनपा इतर भूखंड', N'R', N'R', N'OP', N'N', N'SPK', N'OPK', N'ICCT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (84, 137, N'नर्सरी', N'C', N'बिगर निवासी', N'PG', N'SPK', N'OPK', N'OPC', N'C', N'NC', N'ICCT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (85, 138, N'पेयिंग गेस्ट', N'R', N'निवासी', N'PG', N'R', N'WR', N'V', N'SPK', N'OPK', N'O', N'NR', N'ICRT', N'ICR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (86, 139, N'पॅथॉलॉजी लॅब', N'C', N'बिगर निवासी', N'C', N'WC', N'V', N'SPK', N'OPK', N'NC', N'ICCT', N'ICHT', N'ICH', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (87, 140, N'अॅमिनीटी', N'R', N'निवासी', N'AWC', N'AO', N'AGM', N'MR', N'ACHC', N'SR', N'ASWC', N'OWC', N'APG', N'ACH', N'RGN', N'LR', N'FCR', N'AWA', N'OPK', N'SPK', N'N', N'ASW', N'AMH', N'AG', NULL, NULL, NULL, NULL, NULL),
-  (88, 141, N'रिफ्युज एरिया', N'N', N'R', N'NR', N'RFG', N'N', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (89, 142, N'निवासी व चालू बांधकाम', N'R', N'निवासी', N'R', N'UC', N'N', N'WR', N'T', N'V', N'OPK', N'SPK', N'OP', N'NR', N'ICR', N'C', N'ICP', N'ICPRT', N'ICRT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (90, 144, N'पोल्ट्रीफार्म', N'C', N'बिगर निवासी', N'PF', N'NC', N'ICCT', N'WC', N'S', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (91, 145, N'अनिवासी व चालू बांधकाम', N'R-C', N'बिगर निवासी', N'S', N'R', N'O', N'SPKC', N'SPK', N'ICR', N'N', N'WC', N'EP', N'WEP', N'C', N'H', N'L', N'D', N'GO', N'OP', N'NC', N'NR', N'ICCT', N'B', NULL, NULL, NULL, NULL, NULL),
-  (92, 146, N'निवासी व गोठा', N'R', N'निवासी', N'R', N'V', N'WR', N'SPK', N'OPK', N'AG', N'UC', N'T', N'SR', N'OPR', N'NC', N'ICR', N'GO', N'ICP', N'ICPT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (93, 147, N'प्लॉट व अनिवासी', N'C', N'R-C', N'R', N'OP', N'OPC', N'S', N'O', N'H', N'NC', N'ICCT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (94, 148, N'निवासी व खुला भूखंड', N'R', N'निवासी', N'R', N'WR', N'V', N'UC', N'T', N'OPK', N'SPK', N'N', N'SR', N'OPR', N'OP', N'NR', N'ICR', N'C', N'OPC', N'ICP', N'ICPT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (95, 149, N'अनिवासी व खुला भूखंड', N'C', N'अनिवासी', N'C', N'WC', N'GO', N'S', N'R', N'O', N'WR', N'GM', N'H', N'D', N'PC', N'I', N'SPKC', N'EP', N'WEP', N'ICC', N'OP', N'ICR', N'OPC', N'NC', NULL, NULL, NULL, NULL, NULL),
-  (96, 151, N'औद्योगिक व अनिवासी', N'I-C', N'औद्योगिक व अनिवासी', N'I', N'GO', N'S', N'O', N'WR', N'WC', N'N', N'SPK', N'OPK', N'NC', N'NI', N'ICCT', N'ICR', N'ICIT', N'ICI', N'ICC', N'ICH', N'C', N'OPKC', NULL, NULL, NULL, NULL, NULL, NULL),
-  (97, 152, N'औद्योगिक व मिश्र', N'R-C', N'औद्योगिक व मिश्र', N'I', N'GO', N'R', N'O', N'S', N'WR', N'WC', N'N', N'SPK', N'OPK', N'WI', N'T', N'UC', N'NI', N'NC', N'ICCT', N'ICIT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (98, 153, N'निवासी , औद्यागिक , अनिवासी', N'R-C', N'R-C', N'R', N'WR', N'C', N'WC', N'EP', N'O', N'WEP', N'H', N'GO', N'N', N'I', N'WI', N'S', N'SPK', N'OPK', N'NC', N'NI', N'NR', N'ICCT', N'ICR', NULL, NULL, NULL, NULL, NULL),
-  (99, 154, N'निवासी व वाचनालय', N'R-C', N'R-C', N'R', N'WR', N'N', N'LB', N'WC', N'ICP', N'ICPT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (100, 155, N'बांधकाम पूर्ण मा. वापरात नाही', N'R-C', N'R-C', N'R', N'WR', N'C', N'WC', N'OPK', N'OPKC', N'SPK', N'SPKC', N'ICP', N'ICPT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (101, 156, N'शेती व अनिवासी', N'R-C', N'R-C', N'C', N'AG', N'S', N'R', N'WC', N'WR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (102, 157, N'क्लिनिक', N'C', N'अनिवासी', N'D', N'WC', N'SPKC', N'ABLC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (103, 158, N'उपहारगृह', N'C', N'अनिवासी', N'H', N'WC', N'SPKC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (104, 159, N'धार्मिक स्थळ,निवासी व अनिवासी', N'R-C', N'R-C', N'R', N'WR', N'O', N'WC', N'T', N'V', N'C', N'S', N'ICC', N'ICR', N'OP', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-  (105, 160, N'माहिती व तंत्रज्ञान उद्योग', N'I', N'Iremo', N'N', N'IT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-
-SET IDENTITY_INSERT [PTIS].[PropertyDescriptionAndTypeOfUseValidation] OFF
 
 
 
@@ -2819,15 +2614,15 @@ INSERT [PTIS].[UsageCategoryMaster] ([UsageCategoryID], [Description], [CreatedB
 
 
 SET IDENTITY_INSERT [PTIS].[PropertyTaxSlabWiseMaster] ON;
-INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [ID], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('R', '2023', '1.00', '12,001.00', '24.00', '1', NULL, NULL, NULL);
-INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [ID], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('R', '2023', '12,001.00', '30,001.00', '27.00', '2', NULL, NULL, NULL);
-INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [ID], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('R', '2023', '30,001.00', '999,999,999.00', '35.00', '3', NULL, NULL, NULL);
-INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [ID], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('C', '2023', '1.00', '12,001.00', '27.00', '4', NULL, NULL, NULL);
-INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [ID], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('C', '2023', '12,001.00', '30,001.00', '30.00', '5', NULL, NULL, NULL);
-INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [ID], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('C', '2023', '30,001.00', '999,999,999.00', '37.00', '6', NULL, NULL, NULL);
-INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [ID], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('I', '2023', '1.00', '12,001.00', '27.00', '7', NULL, NULL, NULL);
-INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [ID], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('I', '2023', '12,001.00', '30,001.00', '30.00', '8', NULL, NULL, NULL);
-INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [ID], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('I', '2023', '30,001.00', '999,999,999.00', '37.00', '9', NULL, NULL, NULL);
+INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [Id], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('R', '2023', '1.00', '12,001.00', '24.00', '1', NULL, NULL, NULL);
+INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [Id], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('R', '2023', '12,001.00', '30,001.00', '27.00', '2', NULL, NULL, NULL);
+INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [Id], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('R', '2023', '30,001.00', '999,999,999.00', '35.00', '3', NULL, NULL, NULL);
+INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [Id], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('C', '2023', '1.00', '12,001.00', '27.00', '4', NULL, NULL, NULL);
+INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [Id], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('C', '2023', '12,001.00', '30,001.00', '30.00', '5', NULL, NULL, NULL);
+INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [Id], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('C', '2023', '30,001.00', '999,999,999.00', '37.00', '6', NULL, NULL, NULL);
+INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [Id], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('I', '2023', '1.00', '12,001.00', '27.00', '7', NULL, NULL, NULL);
+INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [Id], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('I', '2023', '12,001.00', '30,001.00', '30.00', '8', NULL, NULL, NULL);
+INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [Id], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('I', '2023', '30,001.00', '999,999,999.00', '37.00', '9', NULL, NULL, NULL);
 SET IDENTITY_INSERT [PTIS].[PropertyTaxSlabWiseMaster] OFF;
 -- [PTIS].[TaxZoneMaster]
 
@@ -2868,17 +2663,8 @@ INSERT INTO [PTIS].[RateSectionMaster] ([RateSectionNo], [Description]) VALUES (
 
 
 
-
-
-INSERT INTO [PTIS].[TypeOfUseGroupMaster]
-    ([TypeOfUseGroupID], [GroupName], [GroupNameEnglish], GroupIcon, [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('R', N'निवासी', 'Residential', 'home', NULL, NULL, NULL),
-  ('C', N'व्यावसायिक', 'Commercial', 'home', NULL, NULL, NULL),
-  ('I', N'औद्योगिक', 'Industrial', 'home', NULL, NULL, NULL),
-  ('OP', N'प्लॉट', 'Vacant Land', 'home', NULL, NULL, NULL);
-
-SET IDENTITY_INSERT [PTIS].[RateMaster] ON
-INSERT [PTIS].[RateMaster] ([Year], [TaxZoneNo], [ConstructionID], [TypeOfUseGroupID], [RateSquareMeter], [RateSquareFeet], [FloorID], [CreatedBy], [UpdatedBy], [UpdatedDate], [RateRemark], [MinYear], [MaxYear], [RateSectionNo], [ID]) VALUES
+SET IDENTITY_INSERT [PTIS].[RateMaster] ON;
+INSERT [PTIS].[RateMaster] ([Year], [TaxZoneNo], [ConstructionID], [TypeOfUseGroupID], [RateSquareMeter], [RateSquareFeet], [FloorID], [CreatedBy], [UpdatedBy], [UpdatedDate], [RateRemark], [MinYear], [MaxYear], [RateSectionNo], [Id]) VALUES
 (2025, N'1', N'A', N'R', 167.9200, 1807.4909, N'G', NULL, NULL, NULL, N'YearWise Rate', 2005, 2015, N'12', 2824357),
 (2025, N'1', N'B', N'R', 142.0800, 1529.3491, N'G', NULL, NULL, NULL, N'YearWise Rate', 1998, 1998, N'1', 2824358),
 (2025, N'1', N'A', N'C', 1020.4300, 10983.9085, N'G', NULL, NULL, NULL, N'YearWise Rate', 2016, 2025, N'12', 2824359),
@@ -3880,7 +3666,7 @@ INSERT [PTIS].[RateMaster] ([Year], [TaxZoneNo], [ConstructionID], [TypeOfUseGro
 (2025, N'1', N'B', N'R', 116.2500, 1251.3150, N'G', NULL, NULL, NULL, N'YearWise Rate', 1998, 1998, N'12', 2825431),
 (2025, N'1', N'C', N'R', 103.3300, 1112.2441, N'G', NULL, NULL, NULL, N'YearWise Rate', 2005, 2015, N'4', 2825432);
 GO
-INSERT [PTIS].[RateMaster] ([Year], [TaxZoneNo], [ConstructionID], [TypeOfUseGroupID], [RateSquareMeter], [RateSquareFeet], [FloorID], [CreatedBy], [UpdatedBy], [UpdatedDate], [RateRemark], [MinYear], [MaxYear], [RateSectionNo], [ID]) VALUES
+INSERT [PTIS].[RateMaster] ([Year], [TaxZoneNo], [ConstructionID], [TypeOfUseGroupID], [RateSquareMeter], [RateSquareFeet], [FloorID], [CreatedBy], [UpdatedBy], [UpdatedDate], [RateRemark], [MinYear], [MaxYear], [RateSectionNo], [Id]) VALUES
 (2025, N'1', N'E', N'R', 83.9600, 903.7454, N'G', NULL, NULL, NULL, N'YearWise Rate', 1998, 1998, N'12', 2825433),
 (2025, N'1', N'D', N'R', 90.4200, 973.2809, N'G', NULL, NULL, NULL, N'YearWise Rate', 2005, 2015, N'4', 2825434),
 (2025, N'1', N'E', N'R', 90.4200, 973.2809, N'G', NULL, NULL, NULL, N'YearWise Rate', 2005, 2015, N'4', 2825435),
@@ -4108,148 +3894,51 @@ INSERT [PTIS].[RateMaster] ([Year], [TaxZoneNo], [ConstructionID], [TypeOfUseGro
 
 SET IDENTITY_INSERT [PTIS].[RateMaster] OFF
 
-
 SET IDENTITY_INSERT [PTIS].[ActiveTaxesMaster] ON;
--- [PTIS].[ActiveTaxesMaster]
+GO
 
+INSERT [PTIS].[ActiveTaxesMaster]
+(
+    [TaxNameID], [TaxName], [TaxNameAlias], [DisplayOrder],
+    [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]
+)
+VALUES
+(1,  N'GeneralTax',           N'सामान्य कर रु.',                    1,  1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(2,  N'StateEducationTax',    N'शिक्षण कर रु.',                      2,  1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(3,  N'StateEmploymentTax',   N'रोजगार हमी कर रु.',                  3,  1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(4,  N'SpEducationTax',       N'शिक्षण उपकर रु.',                    4,  1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(5,  N'DrainCess',            N'घ.क शु. रु.',                       5,  1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(6,  N'RoadCess',             N'रस्ता कर रु.',                       6,  1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(7,  N'TreeCess',             N'वृक्ष उपकर रु.',                     7,  1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(8,  N'SewageDisposalCess',   N'मलप्रवाह सुविधा लाभ कर रु.',         8,  1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(9,  N'SanitationCess',       N'प्रशासकीय सेवा शुल्क रु.',           9,  1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(10, N'WaterBenefitCess',     N'पाणीपुरवठा लाभ कर रु.',             10, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(11, N'SpWaterCess',          N'मल निस्सा रण लाभ रु.',              11, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(12, N'WaterBill',            N'मागणी नोटीस फी रु.',                12, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(13, N'FireCess',             N'अग्नि. कर रु.',                      13, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(14, N'Penalty',              N'थकीत शास्ती रु.',                    14, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(15, N'BigBuilding',          N'मोठी इमारत कर रु.',                  15, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(16, N'LightCess',            N'विशेष साफसफाई कर रु.',              16, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(17, N'ServiceTax',           N' ',                                  17, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(19, N'IllegalConstPenalty',  N'अनधिकृत बांध काम शास्ती रु. ',      18, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(20, N'Tax1',                 N'कर १ रु.',                           19, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(21, N'Tax2',                 N'कर २ रु.',                           20, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(22, N'Tax3',                 N'कर ४ रु..',                          21, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(23, N'Tax4',                 N'कर ४ रु.',                           22, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(24, N'Tax5',                 N'कर ५ रु.',                           23, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(25, N'Tax6',                 N'कर ५ रु.',                           24, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(26, N'Tax7',                 N'कर ६ रु.',                           25, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(27, N'Tax8',                 N'कर ७ रु.',                           26, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(28, N'Tax9',                 N'कर ९ रु.',                           27, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(29, N'Tax10',                N'कर १० रु.',                          28, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(30, N'Interest',             N'चालू मा.कर शास्ती रु.',              29, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(31, N'Discount',             N'विशेष सूट रु.',                      30, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(32, N'TaxTotal',             N'एकूण कर रु.',                         31, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(33, N'NetTotal',             N'निव्वळ एकूण कर रु.',                  32, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL);
 
-
-
-
-
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (1, N'GeneralTax', N'सामान्य कर रु.', 2, 1, 1, 0, NULL, 1, 2, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (2, N'StateEducationTax', N'शिक्षण कर रु.', 8, 1, 1, 0, NULL, 6, 8, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (3, N'StateEmploymentTax', N'रोजगार हमी कर रु.', 9, 1, 1, 0, NULL, 10, 9, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (4, N'SpEducationTax', N'शिक्षण उपकर रु.', 10, 1, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (5, N'DrainCess', N'घ.क शु. रु.', 17, 1, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (6, N'RoadCess', N'रस्ता कर रु.', 6, 1, 1, 0, NULL, 38, 6, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (7, N'TreeCess', N'वृक्ष उपकर रु.', 3, 1, 1, 0, NULL, 8, 3, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (8, N'SewageDisposalCess', N'मलप्रवाह सुविधा लाभ कर रु.', 4, 1, 1, 0, NULL, 21, 4, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (9, N'SanitationCess', N'प्रशासकीय सेवा शुल्क रु.', 1, 1, 1, 0, NULL, 14, 1, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (10, N'WaterBenefitCess', N'पाणीपुरवठा लाभ कर रु.', 5, 1, 1, 0, NULL, 36, 5, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (11, N'SpWaterCess', N'मल निस्सा रण लाभ रु.', 5, 1, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (12, N'WaterBill', N'मागणी नोटीस फी रु.', 12, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (13, N'FireCess', N'अग्नि. कर रु.', 9, 1, 1, 0, NULL, 3, NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (14, N'Penalty', N'थकीत शास्ती रु.', 13, 1, 1, 1, NULL, NULL, 12, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (15, N'BigBuilding', N'मोठी इमारत कर रु.', 13, 1, 1, 1, NULL, NULL, 12, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (16, N'LightCess', N'विशेष साफसफाई कर रु.', 7, 1, 1, 0, NULL, 7, 7, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (17, N'ServiceTax', N' ', 8, 1, 1, 0, NULL, 6, 8, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (19, N'IllegalConstPenalty', N'अनधिकृत बांध काम शास्ती रु. ', 10, 1, 1, 0, NULL, 5, 10, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (20, N'Tax1', N'कर १ रु.', 16, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (21, N'Tax2', N'कर २ रु.', 16, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (22, N'Tax3', N'कर ४ रु..', 11, 0, 1, 0, NULL, NULL, 11, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (23, N'Tax4', N'कर ४ रु.', 88, 0, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (24, N'Tax5', N'कर ५ रु.', 88, 0, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (25, N'Tax6', N'कर ५ रु.', 88, 0, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (26, N'Tax7', N'कर ६ रु.', 88, 0, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (27, N'Tax8', N'कर ७ रु.', 88, 0, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (28, N'Tax9', N'कर ९ रु.', 88, 0, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (29, N'Tax10', N'कर १० रु.', 88, 0, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (30, N'Interest', N'चालू मा.कर शास्ती रु.', 14, 0, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (31, N'Discount', N'विशेष सूट रु.', 19, 1, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (32, N'TaxTotal', N'एकूण कर रु.', 18, 0, 0, 0, NULL, NULL, 13, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[ActiveTaxesMaster]
-([TaxNameID], [TaxName], [TaxNameAlias], [TaxNameOrder], [ActiveTaxHeadsOnly], [FixedStanderdTax], [PartialPayOrderWise], [ReportSequenceNo], [TaxID], [DisplayOrder], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES (33, N'NetTotal', N'निव्वळ एकूण कर रु.', 20, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL);
-
+GO
 SET IDENTITY_INSERT [PTIS].[ActiveTaxesMaster] OFF;
--- [PTIS].[RateSectionDetails]
-
-
+GO
 
 
 
@@ -4447,253 +4136,544 @@ INSERT INTO [PTIS].[YearMaster] (  [Year], [IsActive]) VALUES ( '2025','1');
 
 
 
+-- SET IDENTITY_INSERT [PTIS].[TaxPercentageMasterCV] ON
+-- INSERT [PTIS].[TaxPercentageMasterCV] ([Id], [TypeOfUseId], [Description], [Type],[FromYear],[ToYear], [GeneralTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
+--   (1, N'C', N'अनिवासी', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL);
+-- -- [PTIS].[TaxPercentageMasterCV]
 
 
-SET IDENTITY_INSERT [PTIS].[TaxPercentageMasterCV] ON
-INSERT [PTIS].[TaxPercentageMasterCV] ([Id], [TypeOfUseId], [Description], [Type], [GeneralTax], [StateEducationTax], [StateEmploymentTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
-  (1, N'C', N'अनिवासी', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL);
--- [PTIS].[TaxPercentageMasterCV]
+-- INSERT [PTIS].[TaxPercentageMasterCV] ([Id], [TypeOfUseId], [Description], [Type],[FromYear],[ToYear], [GeneralTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES
+--   (2, N'T', N'धार्मिक स्थळ', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '','',NULL,Getdate(),NULL,NULL);
+
+-- INSERT [PTIS].[TaxPercentageMasterCV] ([Id], [TypeOfUseId], [Description], [Type],[FromYear],[ToYear], [GeneralTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
+--   (3, N'V', N'V-व्हरांडा टॉयल॓ट बाथ', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (4, N'R', N'निवासी', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (5, N'UC', N'बांधकाम चालू ', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (6, N'SPK', N'स्टील पार्किंग ', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (7, N'N', N'मनपा मालमत्ता', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (8, N'EG', N'शैक्षणिक शासकीय ', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (9, N'GO', N'गोडाऊन', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (10, N'GR', N'शासकीय निवासी', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (11, N'HO', N'खाजगी वसतिगृह', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (12, N'LB', N'वाचनालय/लायब्ररी ', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (13, N'UCC', N'बांधकाम चालु-अनिवासी ', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (14, N'MTR', N'टॉवर जागा', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (15, N'FF', N'स्वातंत्र्य सैनिक', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (16, N'WGC', N'WGC-व्हरांडा  शासकीय अनिवासी', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (17, N'WEG', N'WEG-व्हरांडा शैक्षणीक शासकीय', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (18, N'WEP', N'WEP-व्हरांडा खाजगी शैक्षणीक ', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (19, N'WGR', N'WGR-व्हरांडा शासकीय निवासी', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (20, N'PC', N'पार्किंग अनिवासी', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (21, N'S', N'दुकान', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (22, N'D', N'दवाखाना', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (23, N'B', N'बँक', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (24, N'SW', N'जलतरण तलाव', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (25, N'I', N'कारखाना', N'I',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (26, N'EP', N'खाजगी शैक्षणिक', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (27, N'WR', N'WR-व्हरांडा निवासी', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (28, N'WC', N'WC-व्हरांडा अनिवासी', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (29, N'CC', N'कोचिंग क्लासेस', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (30, N'CG', N'केंद्र शासकीय मालमत्ता', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (31, N'CR', N'केंद्र शासकीय मालमत्ता निवासी', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (32, N'OPR', N'खुला भूखंड निवासी', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (33, N'OPC', N'खुला भूखंड अनिवासी', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (34, N'PTR', N'पेट्रोल पंप', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (35, N'GC', N'शासकीय अनिवासी', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (36, N'O', N'ऑफिस', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (37, N'M', N'मंगल कार्यालय', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (38, N'KT', N'मल्टीप्लेक्स', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (39, N'H', N'हॉटेल', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (40, N'OPK', N'ओपन पार्किंग', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (41, N'WI', N'WI-व्हरांडा औद्योगिक', N'I',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (42, N'OP', N'खुला भूखंड', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (43, N'WCGR', N'WCGR-केंद्र शासकीय मालमत्ता', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (44, N'WCGC', N'WCGC-केंद्र शासकीय मालमत्ता', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (45, N'CH', N'सामाजिक सभागृह', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (46, N'L', N'लॉज', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (47, N'AG', N'शेती', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (48, N'ACH', N'क्लब हाऊस ', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (49, N'AGM', N'सोसायटी जिम', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (50, N'AH', N'कॉमन हॉल', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (51, N'AMH', N'मल्टीपर्पज हॉल', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (52, N'AO', N'सोसायटी ऑफीस ', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (53, N'APG', N'खेळाचे मैदान', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (54, N'ASW', N'सोसायटी स्विमिंग पूल', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (55, N'AWC', N'वॉचमन कॅबिन', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (56, N'CCO', N'C-कॉरिडॉर', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (57, N'CCR', N'CCR-ट्युशन क्लासेस ', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (58, N'CGC', N'केंद्र शासन वाणिज्य मालमत्ता', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (59, N'ENCC', N'ENCC', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (60, N'ENCEG', N'ENCEG', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (61, N'ENCEP', N'ENCEP', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (62, N'ENCI', N'ENCI', N'I',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (63, N'ENCR', N'ENCR', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (64, N'GM', N'व्यायाम शाळा ', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (65, N'GMR', N'GMR-व्यायाम शाळा', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (66, N'KTR', N'KTR-टॉकीज/चित्रपट गृह', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (67, N'NPD', N'न.प.दुकान गाळे', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (68, N'OBR', N'OBR', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (69, N'OPKC', N'ओपन पार्किंग अनिवासी', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (70, N'RCO', N'R-कॉरिडॉर', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (71, N'RGN', N'जनरेटर रूम/मिटर रूम', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (72, N'SPKC', N'स्टील पार्किंग अनिवासी', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (73, N'WT', N'R-टॉवर', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (74, N'PG', N'पेयिंग गेस्ट', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (75, N'GA', N'गार्डन', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (76, N'RFG', N'रिफ्युज एरिया', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (77, N'PH', N'पंप हाऊस रूम', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (78, N'SR', N' स्टोअर रूम', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (79, N'WAT', N' वॉटर टॅंक', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (80, N'ISR', N'इनडोअर स्पोर्ट रूम ', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (81, N'EHO', N'शैक्षणिक संस्था-वसतिगृह', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (82, N'PF', N'पोल्ट्रीफार्म', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (83, N'NR', N'सर्व्हेक्षण निवासी', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (84, N'NC', N'सर्व्हेक्षण अनिवासी', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (85, N'NI', N'सर्व्हेक्षण औद्योगिक', N'I',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (86, N'ICR', N'अनधिकृत बांधकाम निवासी', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (87, N'ICC', N'अनधिकृत बांधकाम अनिवासी ', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (88, N'ICI', N'अनधिकृत बांधकाम औद्योगिक', N'I',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (89, N'ICRT', N'निवासी शास्तीस पात्र अनधिकृत बांधकाम ', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (90, N'ICCT', N'अनिवासी शास्तीस पात्र अनधिकृत बांधकाम ', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (91, N'ICIT', N'औद्योगिक शास्तीस पात्र अनधिकृत बांधकाम ', N'I',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (92, N'ICHT', N'हॉटेल शास्तीस पात्र अनधिकृत बांधकाम', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (93, N'ICH', N'हॉटेल अनधिकृत बांधकाम', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (94, N'ICP', N'अनधिकृत बांधकाम निवासी पार्किंग', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (95, N'ICPRT', N'निवासी पार्किंग शास्तीस पात्र अनधिकृत बांधकाम', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (96, N'OAH', N'वृद्धाश्रम', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (97, N'ABLC', N'टेरेस-बाल्कनी अनिवासी', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (98, N'ABLOP', N'ओपन टेरेस', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (99, N'ABLR', N'टेरेस-बाल्कनी ', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (100, N'ACHC', N'क्लब हाऊस C', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (101, N'ASWC', N'सोसायटी स्विमिंग पूल C', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (102, N'AWA', N'वेटिंग एरिया', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (103, N'FCR', N'फायर कंट्रोल रूम', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL);
+
+-- INSERT [PTIS].[TaxPercentageMasterCV] ([Id], [TypeOfUseId], [Description], [Type],[FromYear],[ToYear], [GeneralTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES (104, N'FIRR', N'फायर रूम
+-- ', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL)
+-- INSERT [PTIS].[TaxPercentageMasterCV] ([Id], [TypeOfUseId], [Description], [Type],[FromYear],[ToYear], [GeneralTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES (105, N'GRR', N'गारबेज रूम
+-- ', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL)
+-- INSERT [PTIS].[TaxPercentageMasterCV] ([Id], [TypeOfUseId], [Description], [Type],[FromYear],[ToYear], [GeneralTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
+--   (106, N'IT', N'माहिती व तंत्रज्ञान उद्योग', N'I',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (107, N'LR', N'लिफ्ट रूम', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (108, N'MR', N'Mail रूम', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (109, N'OL', N'ओपनिंग लॉबी', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (110, N'OWC', N'सेंद्रिय कचरा कन्व्हर्टर रूम', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (111, N'SI', N'सामाजिक संस्था', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+--   (112, N'TL', N'टेरेस लिफ्ट', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL);
+
+-- SET IDENTITY_INSERT [PTIS].[TaxPercentageMasterCV] OFF
 
 
-INSERT [PTIS].[TaxPercentageMasterCV] ([Id], [TypeOfUseId], [Description], [Type], [GeneralTax], [StateEducationTax], [StateEmploymentTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES
-  (2, N'T', N'धार्मिक स्थळ', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '','',NULL,Getdate(),NULL,NULL);
-
-INSERT [PTIS].[TaxPercentageMasterCV] ([Id], [TypeOfUseId], [Description], [Type], [GeneralTax], [StateEducationTax], [StateEmploymentTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
-  (3, N'V', N'V-व्हरांडा टॉयल॓ट बाथ', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (4, N'R', N'निवासी', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (5, N'UC', N'बांधकाम चालू ', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (6, N'SPK', N'स्टील पार्किंग ', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (7, N'N', N'मनपा मालमत्ता', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (8, N'EG', N'शैक्षणिक शासकीय ', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (9, N'GO', N'गोडाऊन', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (10, N'GR', N'शासकीय निवासी', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (11, N'HO', N'खाजगी वसतिगृह', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (12, N'LB', N'वाचनालय/लायब्ररी ', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (13, N'UCC', N'बांधकाम चालु-अनिवासी ', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (14, N'MTR', N'टॉवर जागा', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (15, N'FF', N'स्वातंत्र्य सैनिक', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (16, N'WGC', N'WGC-व्हरांडा  शासकीय अनिवासी', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (17, N'WEG', N'WEG-व्हरांडा शैक्षणीक शासकीय', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (18, N'WEP', N'WEP-व्हरांडा खाजगी शैक्षणीक ', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (19, N'WGR', N'WGR-व्हरांडा शासकीय निवासी', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (20, N'PC', N'पार्किंग अनिवासी', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (21, N'S', N'दुकान', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (22, N'D', N'दवाखाना', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (23, N'B', N'बँक', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (24, N'SW', N'जलतरण तलाव', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (25, N'I', N'कारखाना', N'I', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (26, N'EP', N'खाजगी शैक्षणिक', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (27, N'WR', N'WR-व्हरांडा निवासी', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (28, N'WC', N'WC-व्हरांडा अनिवासी', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (29, N'CC', N'कोचिंग क्लासेस', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (30, N'CG', N'केंद्र शासकीय मालमत्ता', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (31, N'CR', N'केंद्र शासकीय मालमत्ता निवासी', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (32, N'OPR', N'खुला भूखंड निवासी', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (33, N'OPC', N'खुला भूखंड अनिवासी', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (34, N'PTR', N'पेट्रोल पंप', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (35, N'GC', N'शासकीय अनिवासी', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (36, N'O', N'ऑफिस', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (37, N'M', N'मंगल कार्यालय', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (38, N'KT', N'मल्टीप्लेक्स', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (39, N'H', N'हॉटेल', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (40, N'OPK', N'ओपन पार्किंग', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (41, N'WI', N'WI-व्हरांडा औद्योगिक', N'I', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (42, N'OP', N'खुला भूखंड', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (43, N'WCGR', N'WCGR-केंद्र शासकीय मालमत्ता', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (44, N'WCGC', N'WCGC-केंद्र शासकीय मालमत्ता', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (45, N'CH', N'सामाजिक सभागृह', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (46, N'L', N'लॉज', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (47, N'AG', N'शेती', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (48, N'ACH', N'क्लब हाऊस ', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (49, N'AGM', N'सोसायटी जिम', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (50, N'AH', N'कॉमन हॉल', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (51, N'AMH', N'मल्टीपर्पज हॉल', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (52, N'AO', N'सोसायटी ऑफीस ', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (53, N'APG', N'खेळाचे मैदान', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (54, N'ASW', N'सोसायटी स्विमिंग पूल', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (55, N'AWC', N'वॉचमन कॅबिन', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (56, N'CCO', N'C-कॉरिडॉर', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (57, N'CCR', N'CCR-ट्युशन क्लासेस ', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (58, N'CGC', N'केंद्र शासन वाणिज्य मालमत्ता', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (59, N'ENCC', N'ENCC', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (60, N'ENCEG', N'ENCEG', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (61, N'ENCEP', N'ENCEP', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (62, N'ENCI', N'ENCI', N'I', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (63, N'ENCR', N'ENCR', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (64, N'GM', N'व्यायाम शाळा ', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (65, N'GMR', N'GMR-व्यायाम शाळा', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (66, N'KTR', N'KTR-टॉकीज/चित्रपट गृह', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (67, N'NPD', N'न.प.दुकान गाळे', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (68, N'OBR', N'OBR', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (69, N'OPKC', N'ओपन पार्किंग अनिवासी', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (70, N'RCO', N'R-कॉरिडॉर', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (71, N'RGN', N'जनरेटर रूम/मिटर रूम', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (72, N'SPKC', N'स्टील पार्किंग अनिवासी', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (73, N'WT', N'R-टॉवर', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (74, N'PG', N'पेयिंग गेस्ट', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (75, N'GA', N'गार्डन', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (76, N'RFG', N'रिफ्युज एरिया', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (77, N'PH', N'पंप हाऊस रूम', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (78, N'SR', N' स्टोअर रूम', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (79, N'WAT', N' वॉटर टॅंक', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (80, N'ISR', N'इनडोअर स्पोर्ट रूम ', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (81, N'EHO', N'शैक्षणिक संस्था-वसतिगृह', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (82, N'PF', N'पोल्ट्रीफार्म', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (83, N'NR', N'सर्व्हेक्षण निवासी', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (84, N'NC', N'सर्व्हेक्षण अनिवासी', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (85, N'NI', N'सर्व्हेक्षण औद्योगिक', N'I', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (86, N'ICR', N'अनधिकृत बांधकाम निवासी', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (87, N'ICC', N'अनधिकृत बांधकाम अनिवासी ', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (88, N'ICI', N'अनधिकृत बांधकाम औद्योगिक', N'I', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (89, N'ICRT', N'निवासी शास्तीस पात्र अनधिकृत बांधकाम ', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (90, N'ICCT', N'अनिवासी शास्तीस पात्र अनधिकृत बांधकाम ', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (91, N'ICIT', N'औद्योगिक शास्तीस पात्र अनधिकृत बांधकाम ', N'I', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (92, N'ICHT', N'हॉटेल शास्तीस पात्र अनधिकृत बांधकाम', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (93, N'ICH', N'हॉटेल अनधिकृत बांधकाम', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (94, N'ICP', N'अनधिकृत बांधकाम निवासी पार्किंग', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (95, N'ICPRT', N'निवासी पार्किंग शास्तीस पात्र अनधिकृत बांधकाम', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (96, N'OAH', N'वृद्धाश्रम', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (97, N'ABLC', N'टेरेस-बाल्कनी अनिवासी', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (98, N'ABLOP', N'ओपन टेरेस', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (99, N'ABLR', N'टेरेस-बाल्कनी ', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (100, N'ACHC', N'क्लब हाऊस C', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (101, N'ASWC', N'सोसायटी स्विमिंग पूल C', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (102, N'AWA', N'वेटिंग एरिया', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (103, N'FCR', N'फायर कंट्रोल रूम', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL);
-
-INSERT [PTIS].[TaxPercentageMasterCV] ([Id], [TypeOfUseId], [Description], [Type], [GeneralTax], [StateEducationTax], [StateEmploymentTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES (104, N'FIRR', N'फायर रूम
-', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL)
-INSERT [PTIS].[TaxPercentageMasterCV] ([Id], [TypeOfUseId], [Description], [Type], [GeneralTax], [StateEducationTax], [StateEmploymentTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES (105, N'GRR', N'गारबेज रूम
-', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL)
-INSERT [PTIS].[TaxPercentageMasterCV] ([Id], [TypeOfUseId], [Description], [Type], [GeneralTax], [StateEducationTax], [StateEmploymentTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
-  (106, N'IT', N'माहिती व तंत्रज्ञान उद्योग', N'I', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (107, N'LR', N'लिफ्ट रूम', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (108, N'MR', N'Mail रूम', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (109, N'OL', N'ओपनिंग लॉबी', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (110, N'OWC', N'सेंद्रिय कचरा कन्व्हर्टर रूम', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (111, N'SI', N'सामाजिक संस्था', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (112, N'TL', N'टेरेस लिफ्ट', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL);
-
-SET IDENTITY_INSERT [PTIS].[TaxPercentageMasterCV] OFF
 SET IDENTITY_INSERT [PTIS].[TaxPercentageMasterRV] ON
-INSERT [PTIS].[TaxPercentageMasterRV] ([Id], [TypeOfUseId], [Description], [Type], [GeneralTax], [StateEducationTax], [StateEmploymentTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
-  (1, N'C', N'अनिवासी', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (2, N'T', N'धार्मिक स्थळ', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (3, N'V', N'V-व्हरांडा टॉयल॓ट बाथ', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (4, N'R', N'निवासी', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (5, N'UC', N'बांधकाम चालू ', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (6, N'SPK', N'स्टील पार्किंग ', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (7, N'N', N'मनपा मालमत्ता', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (8, N'EG', N'शैक्षणिक शासकीय ', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (9, N'GO', N'गोडाऊन', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (10, N'GR', N'शासकीय निवासी', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (11, N'HO', N'खाजगी वसतिगृह', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (12, N'LB', N'वाचनालय/लायब्ररी ', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (13, N'UCC', N'बांधकाम चालु-अनिवासी ', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (14, N'MTR', N'टॉवर जागा', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (15, N'FF', N'स्वातंत्र्य सैनिक', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (16, N'WGC', N'WGC-व्हरांडा  शासकीय अनिवासी', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (17, N'WEG', N'WEG-व्हरांडा शैक्षणीक शासकीय', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (18, N'WEP', N'WEP-व्हरांडा खाजगी शैक्षणीक ', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (19, N'WGR', N'WGR-व्हरांडा शासकीय निवासी', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (20, N'PC', N'पार्किंग अनिवासी', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (21, N'S', N'दुकान', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (22, N'D', N'दवाखाना', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (23, N'B', N'बँक', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (24, N'SW', N'जलतरण तलाव', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (25, N'I', N'कारखाना', N'I', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (26, N'EP', N'खाजगी शैक्षणिक', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (27, N'WR', N'WR-व्हरांडा निवासी', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (28, N'WC', N'WC-व्हरांडा अनिवासी', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (29, N'CC', N'कोचिंग क्लासेस', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (30, N'CG', N'केंद्र शासकीय मालमत्ता', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (31, N'CR', N'केंद्र शासकीय मालमत्ता निवासी', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (32, N'OPR', N'खुला भूखंड निवासी', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (33, N'OPC', N'खुला भूखंड अनिवासी', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (34, N'PTR', N'पेट्रोल पंप', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (35, N'GC', N'शासकीय अनिवासी', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (36, N'O', N'ऑफिस', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (37, N'M', N'मंगल कार्यालय', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (38, N'KT', N'मल्टीप्लेक्स', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (39, N'H', N'हॉटेल', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (40, N'OPK', N'ओपन पार्किंग', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (41, N'WI', N'WI-व्हरांडा औद्योगिक', N'I', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (42, N'OP', N'खुला भूखंड', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (43, N'WCGR', N'WCGR-केंद्र शासकीय मालमत्ता', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (44, N'WCGC', N'WCGC-केंद्र शासकीय मालमत्ता', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (45, N'CH', N'सामाजिक सभागृह', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (46, N'L', N'लॉज', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (47, N'AG', N'शेती', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (48, N'ACH', N'क्लब हाऊस ', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (49, N'AGM', N'सोसायटी जिम', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (50, N'AH', N'कॉमन हॉल', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (51, N'AMH', N'मल्टीपर्पज हॉल', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (52, N'AO', N'सोसायटी ऑफीस ', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (53, N'APG', N'खेळाचे मैदान', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (54, N'ASW', N'सोसायटी स्विमिंग पूल', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (55, N'AWC', N'वॉचमन कॅबिन', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (56, N'CCO', N'C-कॉरिडॉर', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (57, N'CCR', N'CCR-ट्युशन क्लासेस ', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (58, N'CGC', N'केंद्र शासन वाणिज्य मालमत्ता', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (59, N'ENCC', N'ENCC', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (60, N'ENCEG', N'ENCEG', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (61, N'ENCEP', N'ENCEP', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (62, N'ENCI', N'ENCI', N'I', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (63, N'ENCR', N'ENCR', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (64, N'GM', N'व्यायाम शाळा ', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (65, N'GMR', N'GMR-व्यायाम शाळा', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (66, N'KTR', N'KTR-टॉकीज/चित्रपट गृह', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (67, N'NPD', N'न.प.दुकान गाळे', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (68, N'OBR', N'OBR', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (69, N'OPKC', N'ओपन पार्किंग अनिवासी', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (70, N'RCO', N'R-कॉरिडॉर', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (71, N'RGN', N'जनरेटर रूम/मिटर रूम', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (72, N'SPKC', N'स्टील पार्किंग अनिवासी', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (73, N'WT', N'R-टॉवर', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (74, N'PG', N'पेयिंग गेस्ट', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (75, N'GA', N'गार्डन', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (76, N'RFG', N'रिफ्युज एरिया', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (77, N'PH', N'पंप हाऊस रूम', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (78, N'SR', N' स्टोअर रूम', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (79, N'WAT', N' वॉटर टॅंक', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (80, N'ISR', N'इनडोअर स्पोर्ट रूम ', N'N', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (81, N'EHO', N'शैक्षणिक संस्था-वसतिगृह', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (82, N'PF', N'पोल्ट्रीफार्म', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (83, N'NR', N'सर्व्हेक्षण निवासी', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (84, N'NC', N'सर्व्हेक्षण अनिवासी', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (85, N'NI', N'सर्व्हेक्षण औद्योगिक', N'I', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (86, N'ICR', N'अनधिकृत बांधकाम निवासी', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (87, N'ICC', N'अनधिकृत बांधकाम अनिवासी ', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (88, N'ICI', N'अनधिकृत बांधकाम औद्योगिक', N'I', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (89, N'ICRT', N'निवासी शास्तीस पात्र अनधिकृत बांधकाम ', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (90, N'ICCT', N'अनिवासी शास्तीस पात्र अनधिकृत बांधकाम ', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (91, N'ICIT', N'औद्योगिक शास्तीस पात्र अनधिकृत बांधकाम ', N'I', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (92, N'ICHT', N'हॉटेल शास्तीस पात्र अनधिकृत बांधकाम', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (93, N'ICH', N'हॉटेल अनधिकृत बांधकाम', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (94, N'ICP', N'अनधिकृत बांधकाम निवासी पार्किंग', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (95, N'ICPRT', N'निवासी पार्किंग शास्तीस पात्र अनधिकृत बांधकाम', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (96, N'OAH', N'वृद्धाश्रम', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (97, N'ABLC', N'टेरेस-बाल्कनी अनिवासी', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (98, N'ABLOP', N'ओपन टेरेस', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (99, N'ABLR', N'टेरेस-बाल्कनी ', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (100, N'ACHC', N'क्लब हाऊस C', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (101, N'ASWC', N'सोसायटी स्विमिंग पूल C', N'C', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (102, N'AWA', N'वेटिंग एरिया', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (103, N'FCR', N'फायर कंट्रोल रूम', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL);
+INSERT [PTIS].[TaxPercentageMasterRV] ([Id], [TypeOfUseId], [Description], [Type],[FromYear],[ToYear], [GeneralTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
+  (1, N'C', N'अनिवासी', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (2, N'T', N'धार्मिक स्थळ', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (3, N'V', N'V-व्हरांडा टॉयल॓ट बाथ', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (4, N'R', N'निवासी', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (5, N'UC', N'बांधकाम चालू ', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (6, N'SPK', N'स्टील पार्किंग ', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (7, N'N', N'मनपा मालमत्ता', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (8, N'EG', N'शैक्षणिक शासकीय ', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (9, N'GO', N'गोडाऊन', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (10, N'GR', N'शासकीय निवासी', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (11, N'HO', N'खाजगी वसतिगृह', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (12, N'LB', N'वाचनालय/लायब्ररी ', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (13, N'UCC', N'बांधकाम चालु-अनिवासी ', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (14, N'MTR', N'टॉवर जागा', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (15, N'FF', N'स्वातंत्र्य सैनिक', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (16, N'WGC', N'WGC-व्हरांडा  शासकीय अनिवासी', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (17, N'WEG', N'WEG-व्हरांडा शैक्षणीक शासकीय', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (18, N'WEP', N'WEP-व्हरांडा खाजगी शैक्षणीक ', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (19, N'WGR', N'WGR-व्हरांडा शासकीय निवासी', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (20, N'PC', N'पार्किंग अनिवासी', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (21, N'S', N'दुकान', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (22, N'D', N'दवाखाना', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (23, N'B', N'बँक', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (24, N'SW', N'जलतरण तलाव', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (25, N'I', N'कारखाना', N'I',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (26, N'EP', N'खाजगी शैक्षणिक', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (27, N'WR', N'WR-व्हरांडा निवासी', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (28, N'WC', N'WC-व्हरांडा अनिवासी', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (29, N'CC', N'कोचिंग क्लासेस', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (30, N'CG', N'केंद्र शासकीय मालमत्ता', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (31, N'CR', N'केंद्र शासकीय मालमत्ता निवासी', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (32, N'OPR', N'खुला भूखंड निवासी', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (33, N'OPC', N'खुला भूखंड अनिवासी', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (34, N'PTR', N'पेट्रोल पंप', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (35, N'GC', N'शासकीय अनिवासी', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (36, N'O', N'ऑफिस', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (37, N'M', N'मंगल कार्यालय', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (38, N'KT', N'मल्टीप्लेक्स', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (39, N'H', N'हॉटेल', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (40, N'OPK', N'ओपन पार्किंग', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (41, N'WI', N'WI-व्हरांडा औद्योगिक', N'I',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (42, N'OP', N'खुला भूखंड', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (43, N'WCGR', N'WCGR-केंद्र शासकीय मालमत्ता', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (44, N'WCGC', N'WCGC-केंद्र शासकीय मालमत्ता', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (45, N'CH', N'सामाजिक सभागृह', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (46, N'L', N'लॉज', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (47, N'AG', N'शेती', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (48, N'ACH', N'क्लब हाऊस ', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (49, N'AGM', N'सोसायटी जिम', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (50, N'AH', N'कॉमन हॉल', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (51, N'AMH', N'मल्टीपर्पज हॉल', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (52, N'AO', N'सोसायटी ऑफीस ', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (53, N'APG', N'खेळाचे मैदान', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (54, N'ASW', N'सोसायटी स्विमिंग पूल', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (55, N'AWC', N'वॉचमन कॅबिन', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (56, N'CCO', N'C-कॉरिडॉर', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (57, N'CCR', N'CCR-ट्युशन क्लासेस ', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (58, N'CGC', N'केंद्र शासन वाणिज्य मालमत्ता', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (59, N'ENCC', N'ENCC', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (60, N'ENCEG', N'ENCEG', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (61, N'ENCEP', N'ENCEP', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (62, N'ENCI', N'ENCI', N'I',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (63, N'ENCR', N'ENCR', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (64, N'GM', N'व्यायाम शाळा ', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (65, N'GMR', N'GMR-व्यायाम शाळा', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (66, N'KTR', N'KTR-टॉकीज/चित्रपट गृह', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (67, N'NPD', N'न.प.दुकान गाळे', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (68, N'OBR', N'OBR', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (69, N'OPKC', N'ओपन पार्किंग अनिवासी', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (70, N'RCO', N'R-कॉरिडॉर', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (71, N'RGN', N'जनरेटर रूम/मिटर रूम', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (72, N'SPKC', N'स्टील पार्किंग अनिवासी', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (73, N'WT', N'R-टॉवर', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (74, N'PG', N'पेयिंग गेस्ट', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (75, N'GA', N'गार्डन', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (76, N'RFG', N'रिफ्युज एरिया', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (77, N'PH', N'पंप हाऊस रूम', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (78, N'SR', N' स्टोअर रूम', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (79, N'WAT', N' वॉटर टॅंक', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (80, N'ISR', N'इनडोअर स्पोर्ट रूम ', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (81, N'EHO', N'शैक्षणिक संस्था-वसतिगृह', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (82, N'PF', N'पोल्ट्रीफार्म', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (83, N'NR', N'सर्व्हेक्षण निवासी', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (84, N'NC', N'सर्व्हेक्षण अनिवासी', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (85, N'NI', N'सर्व्हेक्षण औद्योगिक', N'I',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (86, N'ICR', N'अनधिकृत बांधकाम निवासी', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (87, N'ICC', N'अनधिकृत बांधकाम अनिवासी ', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (88, N'ICI', N'अनधिकृत बांधकाम औद्योगिक', N'I',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (89, N'ICRT', N'निवासी शास्तीस पात्र अनधिकृत बांधकाम ', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (90, N'ICCT', N'अनिवासी शास्तीस पात्र अनधिकृत बांधकाम ', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (91, N'ICIT', N'औद्योगिक शास्तीस पात्र अनधिकृत बांधकाम ', N'I',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (92, N'ICHT', N'हॉटेल शास्तीस पात्र अनधिकृत बांधकाम', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (93, N'ICH', N'हॉटेल अनधिकृत बांधकाम', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (94, N'ICP', N'अनधिकृत बांधकाम निवासी पार्किंग', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (95, N'ICPRT', N'निवासी पार्किंग शास्तीस पात्र अनधिकृत बांधकाम', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (96, N'OAH', N'वृद्धाश्रम', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (97, N'ABLC', N'टेरेस-बाल्कनी अनिवासी', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (98, N'ABLOP', N'ओपन टेरेस', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (99, N'ABLR', N'टेरेस-बाल्कनी ', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (100, N'ACHC', N'क्लब हाऊस C', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (101, N'ASWC', N'सोसायटी स्विमिंग पूल C', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (102, N'AWA', N'वेटिंग एरिया', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (103, N'FCR', N'फायर कंट्रोल रूम', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL);
 -- [PTIS].[TaxPercentageMasterRV]
 
 
-INSERT [PTIS].[TaxPercentageMasterRV] ([Id], [TypeOfUseId], [Description], [Type], [GeneralTax], [StateEducationTax], [StateEmploymentTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES (104, N'FIRR', N'फायर रूम
-', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL)
-INSERT [PTIS].[TaxPercentageMasterRV] ([Id], [TypeOfUseId], [Description], [Type], [GeneralTax], [StateEducationTax], [StateEmploymentTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES (105, N'GRR', N'गारबेज रूम
-', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL)
-INSERT [PTIS].[TaxPercentageMasterRV] ([Id], [TypeOfUseId], [Description], [Type], [GeneralTax], [StateEducationTax], [StateEmploymentTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
-  (106, N'IT', N'माहिती व तंत्रज्ञान उद्योग', N'I', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (107, N'LR', N'लिफ्ट रूम', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (108, N'MR', N'Mail रूम', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (109, N'OL', N'ओपनिंग लॉबी', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (110, N'OWC', N'सेंद्रिय कचरा कन्व्हर्टर रूम', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (111, N'SI', N'सामाजिक संस्था', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (112, N'TL', N'टेरेस लिफ्ट', N'R', 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL);
+INSERT [PTIS].[TaxPercentageMasterRV] ([Id], [TypeOfUseId], [Description], [Type],[FromYear],[ToYear], [GeneralTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES (104, N'FIRR', N'फायर रूम
+', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL)
+INSERT [PTIS].[TaxPercentageMasterRV] ([Id], [TypeOfUseId], [Description], [Type],[FromYear],[ToYear], [GeneralTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES (105, N'GRR', N'गारबेज रूम
+', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL)
+INSERT [PTIS].[TaxPercentageMasterRV] ([Id], [TypeOfUseId], [Description], [Type],[FromYear],[ToYear], [GeneralTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
+  (106, N'IT', N'माहिती व तंत्रज्ञान उद्योग', N'I',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (107, N'LR', N'लिफ्ट रूम', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (108, N'MR', N'Mail रूम', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (109, N'OL', N'ओपनिंग लॉबी', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (110, N'OWC', N'सेंद्रिय कचरा कन्व्हर्टर रूम', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (111, N'SI', N'सामाजिक संस्था', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
+  (112, N'TL', N'टेरेस लिफ्ट', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL);
 
 SET IDENTITY_INSERT [PTIS].[TaxPercentageMasterRV] OFF
+
+
+
+---- global master data -- start----------
+
+GO
+SET IDENTITY_INSERT [PTIS].[GenderMaster] ON 
+GO
+INSERT [PTIS].[GenderMaster] ([GenderID], [GenderName]) VALUES (1, N'Female')
+GO
+INSERT [PTIS].[GenderMaster] ([GenderID], [GenderName]) VALUES (2, N'Male')
+GO
+INSERT [PTIS].[GenderMaster] ([GenderID], [GenderName]) VALUES (3, N'Transgender')
+GO
+INSERT [PTIS].[GenderMaster] ([GenderID], [GenderName]) VALUES (4,N'फर्म')
+GO
+SET IDENTITY_INSERT [PTIS].[GenderMaster] OFF
+
+
+
+SET IDENTITY_INSERT [PTIS].[DocumentMaster] ON 
+GO
+INSERT [PTIS].[DocumentMaster] ([DocID], [DocumentName], [DocPrefix]) VALUES (1, N'Aadhar Card', N'ADR')
+GO
+INSERT [PTIS].[DocumentMaster] ([DocID], [DocumentName], [DocPrefix]) VALUES (2, N'Index2', N'IND2')
+GO
+INSERT [PTIS].[DocumentMaster] ([DocID], [DocumentName], [DocPrefix]) VALUES (4, N'Satbara Utara', N'712')
+GO
+INSERT [PTIS].[DocumentMaster] ([DocID], [DocumentName], [DocPrefix]) VALUES (5, N'Kharidi Khat', N'KHAT')
+GO
+SET IDENTITY_INSERT [PTIS].[DocumentMaster] OFF
+
+
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'कायम','SurveyApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'बाल्कनी close केली','SurveyApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'बाल्कनी close  होती  Open केली','SurveyApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'क्षेत्रफळात बदल','SurveyApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'वापरात बदल','SurveyApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'अतिरिक्त बांधकाम केले','SurveyApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'BHK बदल','SurveyApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'भाडे माहिती बदल','SurveyApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'बाह्य मोजणीचे अंतर्गत मोजणी केली','SurveyApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'मालमत्ता वगळणे','SurveyApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'इतर','SurveyApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'नव्याने सर्वेक्षण पूर्ण','SurveyApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'प्लॉट वर नवीन बांधकाम केले','SurveyApp')
+
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'बिल वितरित करण्यात आले', N'Accept', N'Visited and Distributed',1,'BillApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'मालमत्ता बंद', N'Reject', N'Visited but Not Distributed',1,'BillApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'त्रुटी असल्यामुळे बिल स्वीकारू शकत नाही', N'Reject', N'Visited but Not Distributed',1,'BillApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'तक्रार केलेली आहे त्यामुळे बिल स्वीकारू शकत नाही', N'Reject', N'Visited but Not Distributed',1,'BillApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'बिल मान्य नाही त्यामुळे स्वीकारण्यात आले नाही', N'Reject', N'Visited but Not Distributed',1,'BillApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'कर धारक हजर नसल्यामुळे बिल स्वीकारण्यात आले नाही', N'Reject', N'Visited but Not Distributed',1,'BillApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'बिल सेक्रेटरीकडे सोपवली', N'Accept', N'Visited and Distributed',1,'BillApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'सोसायटीमध्ये बिल वितरित करू देण्यास नकार', N'Reject', N'Visited but Not Distributed',1,'BillApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'मालमत्ता मिळाली नाही', N'Reject', N'Not Distributed',1,'BillApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'मालमत्ता बंद (बिल चिटकवू देण्यास नकार)', N'Reject', N'Not Distributed',1,'BillApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'मालमत्ता बंद (बिल चिटकवण्यात आले )', N'Accept', N'Visited and Distributed',1,'BillApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'बिल दिले', N'Accept', N'Visited and Distributed', 1,'BillApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'मालमत्ता बंद / मालमत्तेस बिल चिटकवले', N'Accept', N'Visited and Distributed', 1,'BillApp')
+GO
+INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'बिल घेण्यास नकार', N'Reject', N'Not Distributed', 1,'BillApp')
+GO
+
+
+SET IDENTITY_INSERT [PTIS].[MobileScreenValidationMaster] ON 
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (1, N'Pilot', N'SocietyName', N'SocietyName', 1, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (2, N'Pilot', N'SecretoryName', N'SecretoryName', 2, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (3, N'Pilot', N'MobileNo', N'MobileNo', 3, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (4, N'Pilot', N'EmailID', N'EmailID', 4, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (5, N'Pilot', N'Address', N'Address', 5, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (6, N'Pilot', N'Pincode', N'Pincode', 6, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (7, N'Pilot', N'OwnerName', N'OwnerName', 7, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (8, N'Pilot', N'OccupierName', N'OccupierName', 8, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (9, N'Pilot', N'ShopName', N'ShopName', 9, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (10, N'Pilot', N'BuildingPhoto', N'BuildingPhoto', 10, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (11, N'Pilot', N'WingPhoto', N'WingPhoto', 11, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (12, N'Pilot', N'WingBoardPhoto', N'WingBoardPhoto', 12, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (13, N'SocietyCommon', N'SurveyNo', N'SurveyNo', 1, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (14, N'SocietyCommon', N'PlotNo', N'PlotNo', 2, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (15, N'SocietyCommon', N'BlockNo', N'BlockNo', 3, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (16, N'SocietyCommon', N'SocietyName', N'SocietyName', 4, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (17, N'SocietyCommon', N'SecretoryName', N'SecretoryName', 5, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (18, N'SocietyCommon', N'MobileNo', N'MobileNo', 6, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (19, N'SocietyCommon', N'EmailID', N'EmailID', 7, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (20, N'SocietyCommon', N'Address', N'Address', 8, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (21, N'SocietyCommon', N'Pincode', N'Pincode', 9, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (22, N'SocietyCommon', N'OCCertificate', N'OCCertificate', 10, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (23, N'SocietyCommon', N'OCDate', N'OCDate', 11, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (24, N'SocietyCommon', N'AminityArea', N'AminityArea', 12, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (25, N'SocietyCommon', N'BuildingPhoto', N'BuildingPhoto', 13, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (26, N'SocietyCommon', N'GreenProperty', N'GreenProperty', 14, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (27, N'SocietyCommon', N'BuildingYear', N'BuildingYear', 15, NULL, NULL, NULL, 0, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (28, N'WingCommon', N'SurveyNo', N'SurveyNo', 1, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (29, N'WingCommon', N'PlotNo', N'PlotNo', 2, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (30, N'WingCommon', N'BlockNo', N'BlockNo', 3, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (31, N'WingCommon', N'SocietyName', N'SocietyName', 4, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (32, N'WingCommon', N'SecretoryName', N'SecretoryName', 5, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (33, N'WingCommon', N'MobileNo', N'MobileNo', 6, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (34, N'WingCommon', N'EmailID', N'EmailID', 7, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (35, N'WingCommon', N'Address', N'Address', 8, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (36, N'WingCommon', N'Pincode', N'Pincode', 9, NULL, NULL, NULL, 0, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (37, N'WingCommon', N'OCCertificate', N'OCCertificate', 10, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (38, N'WingCommon', N'OCDate', N'OCDate', 11, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (39, N'WingCommon', N'AminityArea', N'AminityArea', 12, NULL, NULL, NULL, 0, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (40, N'WingCommon', N'BuildingPhoto', N'BuildingPhoto', 13, NULL, NULL, NULL, 0, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (41, N'WingCommon', N'GreenProperty', N'GreenProperty', 14, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (42, N'WingCommon', N'WingYear', N'WingYear', 15, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (43, N'WingGeneration', N'Year', N'Year', 1, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (44, N'IndividualCommon', N'SurveyNo', N'SurveyNo', 1, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (45, N'IndividualCommon', N'PlotNo', N'PlotNo', 2, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (46, N'IndividualCommon', N'MobileNo', N'MobileNo', 3, NULL, NULL, NULL, 0, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (47, N'IndividualCommon', N'EmailID', N'EmailID', 4, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (48, N'IndividualCommon', N'Address', N'Address', 5, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (49, N'IndividualCommon', N'Pincode', N'Pincode', 6, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (50, N'IndividualCommon', N'OwnerName', N'OwnerName', 7, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (51, N'IndividualCommon', N'OccupierName', N'OccupierName', 1, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (52, N'IndividualCommon', N'ShopName', N'ShopName', 9, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (53, N'IndividualCommon', N'BuildingPhoto', N'BuildingPhoto', 10, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (54, N'IndividualCommon', N'BlockNo', N'BlockNo', 11, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (55, N'IndividualCommon', N'Year', N'Year', 12, NULL, NULL, NULL, 0, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (56, N'IndividualCommon', N'TotalArea', N'TotalArea', 13, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (57, N'IndividualCommon', N'Photo', N'Photo', 14, NULL, NULL, NULL, 0, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (58, N'IndividualCommon', N'Sign', N'Sign', 15, NULL, NULL, NULL, 0, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (59, N'FlatCommon', N'OwnerName', N'OwnerName', 1, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (60, N'FlatCommon', N'OccupierName', N'OccupierName', 2, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (61, N'FlatCommon', N'ShopName', N'ShopName', 3, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (62, N'FlatCommon', N'MobileNo', N'MobileNo', 4, NULL, NULL, NULL, 0, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (63, N'FlatCommon', N'EmailID', N'EmailID', 5, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (64, N'FlatCommon', N'Photo', N'Photo', 6, NULL, NULL, NULL, 1, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (65, N'FlatCommon', N'Sign', N'Sign', 7, NULL, NULL, NULL, 0, 1)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (66, N'FlatCommon', N'FlatArea', N'FlatArea', 8, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (67, N'FlatCommon', N'AmenityDirectSubmission', N'AmenityDirectSubmission', 9, NULL, NULL, NULL, 0, 0)
+GO
+INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (68, N'IndividualCommon', N'DirectIndividualSubmission', N'DirectIndividualSubmission', 16, NULL, NULL, NULL, 0, 0)
+GO
+SET IDENTITY_INSERT [PTIS].[MobileScreenValidationMaster] OFF
+GO
+
+
+GO
+INSERT INTO [PTIS].BlockMaster (WardNo, BlockNo)
+VALUES
+('UT1', 1),
+('UT1', 2),
+('UT1', 3),
+('UT1', 4),
+('UT1', 5),
+('UT1', 6),
+('UT1', 7),
+('UT1', 8),
+('UT1', 9),
+('UT1', 10),
+('UT1', 11),
+('UT1', 12),
+('UT1', 13),
+('UT1', 14),
+('UT1', 15),
+('UT1', 16),
+('UT1', 17);
+GO
+----- global master-- end---
+
+
+INSERT INTO [PTIS].[RuleMaster]
+(RuleCode,Category,DisplayName,Description,DataType,DefaultValue,IsActive)
+VALUES
+('AppealCommittee', 'Policy', 'IsAppealCommittee', 'Appeal Committee Enabled', 'bit', NULL, 0),
+('AsPerOldApply', 'Policy', 'AsPerOldApply', 'As Per Old Policy', 'bit', NULL, 0),
+('AsPerOldForNewProperty', 'Policy', 'AsPerOldForNewProperty', 'As Per Old For New Property', 'bit', NULL, 0),
+('AssessmentCompleted', 'Workflow', 'AssessmentCompleted', 'Assessment Completed', 'bit', NULL, 0),
+('BigBuildingTaxApply', 'Calculation', 'BigBuildingTaxApply', 'Big Building Tax Applicable', 'bit', NULL, 1),
+('CalOnRenterRent', 'Calculation', 'CalOnRenterRent', 'Calc On Renter Rent', 'bit', NULL, 1),
+('CalOnSingleRenterRent', 'Calculation', 'CalOnSingleRenterRent', 'Calc On Single Renter Rent', 'bit', NULL, 1),
+('CVForPlot', 'Calculation', 'CVForPlot', 'CV With Open Plot', 'bit', NULL, 0),
+('DataEntryLock', 'Locking', 'DataEntryLock', 'Data Entry Lock', 'bit', NULL, 0),
+('EduEmpOnRV', 'Calculation', 'EduEmpOnRV', 'Edu/Emp Tax on RV', 'bit', NULL, 0),
+('EnableLanguage', 'Security', 'EnableLanguage', 'Enable Language Support', 'bit', NULL, 1),
+('HearingApply', 'Policy', 'IsHearing', 'Hearing Enabled', 'bit', NULL, 0),
+('HistoryLock', 'Locking', 'HistoryLock', 'Add History Lock', 'bit', NULL, 1),
+('MaintainanceApply', 'Calculation', 'MaintainanceApply', 'Maintenance Applied', 'bit', NULL, 1),
+('MaintainancePercentage', 'Calculation', 'MaintainancePercentage', 'MaintainancePercentage', 'int', '10', 1),
+('MinimumRVApply', 'Policy', 'MinimumRVApply', 'Use Minimum RV', 'bit', NULL, 1),
+('MixAssessmentApply', 'Policy', 'MixAssessmentApply', 'Mixed Assessment', 'bit', NULL, 0),
+('PenaltyMonthly', 'AMC', 'PenaltyMonthly', 'Penalty Monthly', 'bit', NULL, 1),
+('PlotTaxApplicable', 'Policy', 'PlotTaxApplicable', 'Plot Tax Applicable', 'bit', NULL, 1),
+('PolicyLock', 'Locking', 'PolicyLock', 'Policy Lock', 'bit', NULL, 1),
+('RetaintionPolicyApply', 'Policy', 'RetaintionPolicyApply', 'Retention (old)', 'bit', NULL, 1),
+('SectorWisePenalty', 'System', 'SectorWisePenalty', 'Sector-wise Penalty', 'bit', NULL, 0),
+('ShowPhotoAndPlan', 'System', 'ShowPhotoAndPlan', 'Show Photo And Plan', 'bit', NULL, 1),
+('TaxesOnCV', 'Calculation', 'TaxesOnCV', 'Taxes On CV', 'bit', NULL, 0),
+('TaxesOnRV', 'Calculation', 'TaxesOnRV', 'Taxes On RV', 'bit', NULL, 1),
+('TaxOnBuiltUpArea', 'Calculation', 'TaxOnBuiltUpArea', 'TaxOnBuiltUpArea', 'bit', NULL, 0),
+('TaxOnToilet', 'Calculation', 'TaxOnToilet', 'Tax On Toilet', 'bit', NULL, 0),
+('UserChargesOnPropertyType', 'Calculation', 'UserChargesOnPropertyType', 'UserChargesOnPropertyType', 'bit', NULL, 1);
+
+
+GO
