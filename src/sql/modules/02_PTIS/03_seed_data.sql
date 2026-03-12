@@ -1,150 +1,163 @@
+ INSERT PTIS.ZoneMaster ([ZoneNo], [Description], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
+   (N'UT', N'उथळसर', NULL, NULL, NULL),
+   (N'NK', N'नौपाडा - कोपरी', NULL, NULL, NULL),
+   (N'KL', N'कळवा', NULL, NULL, NULL),
+   (N'MU', N'मुंब्रा', NULL, NULL, NULL),
+   (N'DI', N'दिवा', NULL, NULL, NULL),
+   (N'WE', N'वागळे इस्टेट', NULL, NULL, NULL),
+   (N'LS', N'लोकमान्य सावरकर', NULL, NULL, NULL),
+   (N'VN', N'वर्तकनगर', NULL, NULL, NULL),
+   (N'MM', N'माजिवडा मानपाडा', NULL, NULL, NULL);
 
--- PTIS.ZoneMaster
-INSERT PTIS.ZoneMaster ([ZoneNo], [Description], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
-  (N'UT', N'उथळसर', NULL, NULL, NULL),
-  (N'NK', N'नौपाडा - कोपरी', NULL, NULL, NULL),
-  (N'KL', N'कळवा', NULL, NULL, NULL),
-  (N'MU', N'मुंब्रा', NULL, NULL, NULL),
-  (N'DI', N'दिवा', NULL, NULL, NULL),
-  (N'WE', N'वागळे इस्टेट', NULL, NULL, NULL),
-  (N'LS', N'लोकमान्य सावरकर', NULL, NULL, NULL),
-  (N'VN', N'वर्तकनगर', NULL, NULL, NULL),
-  (N'MM', N'माजिवडा मानपाडा', NULL, NULL, NULL);
-
----insert wardmaster
-
-
-
-
-INSERT PTIS.WardMaster ([ZoneNo], [WardNo], [CreatedDate]) VALUES
-  ( N'DI', N'DI1',GETDATE());
--- PTIS.WardMaster
-
-
-INSERT PTIS.WardMaster ([ZoneNo], [WardNo]) VALUES
-  (N'DI', N'DI2'),
-  (N'DI', N'DI3'),
-  (N'DI', N'DI4'),
-  (N'DI', N'DI5'),
-  (N'DI', N'DI6'),
-  (N'DI', N'DI7'),
-  (N'DI', N'DI8'),
-  (N'DI', N'DI9'),
-  (N'DI', N'DI10'),
-  (N'DI', N'DI11'),
-  (N'DI', N'DI12'),
-  (N'DI', N'DI13'),
-  (N'DI', N'DI14'),
-  (N'DI', N'DIMAJOR1'),
-  (N'DI', N'DIMAJOR2'),
-  (N'KL', N'KL1'),
-  (N'KL', N'KL2'),
-  (N'KL', N'KL3'),
-  (N'KL', N'KL4'),
-  (N'KL', N'KL5'),
-  (N'KL', N'KL6'),
-  (N'KL', N'KL7'),
-  (N'KL', N'KL8'),
-  (N'KL', N'KL9'),
-  (N'KL', N'KL10'),
-  (N'KL', N'KL11'),
-  (N'KL', N'KL12'),
-  (N'KL', N'KL13'),
-  (N'KL', N'KL14'),
-  (N'KL', N'KLMAJOR1'),
-  (N'KL', N'KLMAJOR2'),
-  (N'KL', N'KLMAJOR3'),
-  (N'LS', N'LS1'),
-  (N'LS', N'LS2'),
-  (N'LS', N'LS3'),
-  (N'LS', N'LS4'),
-  (N'LS', N'LS5'),
-  (N'LS', N'LS6'),
-  (N'LS', N'LS7'),
-  (N'LS', N'LS8'),
-  (N'LS', N'LS9'),
-  (N'LS', N'LS10'),
-  (N'LS', N'LS11'),
-  (N'LS', N'LS12'),
-  (N'LS', N'LS13'),
-  (N'LS', N'LS14'),
-  (N'LS', N'LSMAJOR1'),
-  (N'MM', N'MM1'),
-  (N'MM', N'MM2'),
-  (N'MM', N'MM3'),
-  (N'MM', N'MM4'),
-  (N'MM', N'MM5'),
-  (N'MM', N'MM6'),
-  (N'MM', N'MM7'),
-  (N'MM', N'MM8'),
-  (N'MM', N'MM9'),
-  (N'MM', N'MM10'),
-  (N'MM', N'MM11'),
-  (N'MM', N'MM12'),
-  (N'MM', N'MM13'),
-  (N'MM', N'MM14'),
-  (N'MM', N'MM15'),
-  (N'MM', N'MM16'),
-  (N'MM', N'MM17'),
-  (N'MM', N'MM18'),
-  (N'MM', N'MM19'),
-  (N'MM', N'MM20'),
-  (N'MM', N'MMMAJOR'),
-  (N'MM', N'MMMAJOR2'),
-  (N'MM', N'MMMAJOR3'),
-  (N'MM', N'MMMAJOR4'),
-  (N'MM', N'MMMAJOR5'),
-  (N'MU', N'MU1'),
-  (N'MU', N'MU2'),
-  (N'MU', N'MU3'),
-  (N'MU', N'MU4'),
-  (N'MU', N'MU5'),
-  (N'MU', N'MU6'),
-  (N'MU', N'MU7'),
-  (N'MU', N'MU8'),
-  (N'MU', N'MU9'),
-  (N'MU', N'MU10'),
-  (N'MU', N'MU11'),
-  (N'MU', N'MU12'),
-  (N'MU', N'MU13'),
-  (N'MU', N'MU14'),
-  (N'MU', N'MU15'),
-  (N'MU', N'MU16'),
-  (N'MU', N'MU17'),
-  (N'MU', N'MU18'),
-  (N'MU', N'MU19'),
-  (N'MU', N'MU20'),
-  (N'MU', N'MU21'),
-  (N'MU', N'MU22'),
-  (N'MU', N'MUMAJOR1'),
-  (N'MU', N'MUMAJOR2'),
-  (N'MU', N'MUMAJOR3'),
-  (N'MU', N'MUMAJOR4'),
-  (N'NK', N'NK1'),
-  (N'UT', N'UT1'),
-  (N'VN', N'VN1'),
-  (N'WE', N'WE1');
-
-
+;WITH WardSeed (ZoneNo, WardNo) AS
+(
+    SELECT * FROM (VALUES
+      (N'DI', N'DI1'),
+      (N'DI', N'DI2'),
+      (N'DI', N'DI3'),
+      (N'DI', N'DI4'),
+      (N'DI', N'DI5'),
+      (N'DI', N'DI6'),
+      (N'DI', N'DI7'),
+      (N'DI', N'DI8'),
+      (N'DI', N'DI9'),
+      (N'DI', N'DI10'),
+      (N'DI', N'DI11'),
+      (N'DI', N'DI12'),
+      (N'DI', N'DI13'),
+      (N'DI', N'DI14'),
+      (N'DI', N'DIMAJOR1'),
+      (N'DI', N'DIMAJOR2'),
+      (N'KL', N'KL1'),
+      (N'KL', N'KL2'),
+      (N'KL', N'KL3'),
+      (N'KL', N'KL4'),
+      (N'KL', N'KL5'),
+      (N'KL', N'KL6'),
+      (N'KL', N'KL7'),
+      (N'KL', N'KL8'),
+      (N'KL', N'KL9'),
+      (N'KL', N'KL10'),
+      (N'KL', N'KL11'),
+      (N'KL', N'KL12'),
+      (N'KL', N'KL13'),
+      (N'KL', N'KL14'),
+      (N'KL', N'KLMAJOR1'),
+      (N'KL', N'KLMAJOR2'),
+      (N'KL', N'KLMAJOR3'),
+      (N'LS', N'LS1'),
+      (N'LS', N'LS2'),
+      (N'LS', N'LS3'),
+      (N'LS', N'LS4'),
+      (N'LS', N'LS5'),
+      (N'LS', N'LS6'),
+      (N'LS', N'LS7'),
+      (N'LS', N'LS8'),
+      (N'LS', N'LS9'),
+      (N'LS', N'LS10'),
+      (N'LS', N'LS11'),
+      (N'LS', N'LS12'),
+      (N'LS', N'LS13'),
+      (N'LS', N'LS14'),
+      (N'LS', N'LSMAJOR1'),
+      (N'MM', N'MM1'),
+      (N'MM', N'MM2'),
+      (N'MM', N'MM3'),
+      (N'MM', N'MM4'),
+      (N'MM', N'MM5'),
+      (N'MM', N'MM6'),
+      (N'MM', N'MM7'),
+      (N'MM', N'MM8'),
+      (N'MM', N'MM9'),
+      (N'MM', N'MM10'),
+      (N'MM', N'MM11'),
+      (N'MM', N'MM12'),
+      (N'MM', N'MM13'),
+      (N'MM', N'MM14'),
+      (N'MM', N'MM15'),
+      (N'MM', N'MM16'),
+      (N'MM', N'MM17'),
+      (N'MM', N'MM18'),
+      (N'MM', N'MM19'),
+      (N'MM', N'MM20'),
+      (N'MM', N'MMMAJOR'),
+      (N'MM', N'MMMAJOR2'),
+      (N'MM', N'MMMAJOR3'),
+      (N'MM', N'MMMAJOR4'),
+      (N'MM', N'MMMAJOR5'),
+      (N'MU', N'MU1'),
+      (N'MU', N'MU2'),
+      (N'MU', N'MU3'),
+      (N'MU', N'MU4'),
+      (N'MU', N'MU5'),
+      (N'MU', N'MU6'),
+      (N'MU', N'MU7'),
+      (N'MU', N'MU8'),
+      (N'MU', N'MU9'),
+      (N'MU', N'MU10'),
+      (N'MU', N'MU11'),
+      (N'MU', N'MU12'),
+      (N'MU', N'MU13'),
+      (N'MU', N'MU14'),
+      (N'MU', N'MU15'),
+      (N'MU', N'MU16'),
+      (N'MU', N'MU17'),
+      (N'MU', N'MU18'),
+      (N'MU', N'MU19'),
+      (N'MU', N'MU20'),
+      (N'MU', N'MU21'),
+      (N'MU', N'MU22'),
+      (N'MU', N'MUMAJOR1'),
+      (N'MU', N'MUMAJOR2'),
+      (N'MU', N'MUMAJOR3'),
+      (N'MU', N'MUMAJOR4'),
+      (N'NK', N'NK1'),
+      (N'UT', N'UT1'),
+      (N'VN', N'VN1'),
+      (N'WE', N'WE1')
+    ) v(ZoneNo, WardNo)
+)
+INSERT PTIS.WardMaster (ZoneId, WardNo, [Description])
+SELECT z.ZoneId,
+       w.WardNo,
+       w.WardNo  
+FROM WardSeed w
+JOIN PTIS.ZoneMaster z
+  ON z.ZoneNo = w.ZoneNo;
 
 
-
-
-INSERT INTO [PTIS].[TypeOfUseGroupMaster]
-([TypeOfUseGroupID], [GroupName], [GroupIcon], [CreatedBy], [UpdatedBy], [UpdatedDate])
+  INSERT INTO PTIS.TypeOfUseGroupMaster
+(TypeOfUseGroupCode, GroupName, GroupIcon, CreatedBy, UpdatedBy, UpdatedDate)
 VALUES
-('R',  N'निवासी',   'home', NULL, NULL, NULL),
-('C',  N'व्यावसायिक', 'home', NULL, NULL, NULL),
-('I',  N'औद्योगिक',  'home', NULL, NULL, NULL),
-('N',  N'इतर',       'home', NULL, NULL, NULL),
-('OP', N'प्लॉट',    'home', NULL, NULL, NULL);
+(N'R',  N'निवासी',     N'home', NULL, NULL, NULL),
+(N'C',  N'व्यावसायिक', N'home', NULL, NULL, NULL),
+(N'I',  N'औद्योगिक',   N'home', NULL, NULL, NULL),
+(N'N',  N'इतर',        N'home', NULL, NULL, NULL),
+(N'OP', N'प्लॉट',       N'home', NULL, NULL, NULL);
 
 
 
-INSERT [PTIS].[TypeOfUseMaster]
-([TypeOfUseID], [Description], [Type], [TypeOfUseGroupId],
- [CreatedBy], [UpdatedBy], [UpdatedDate], [SearchKey], [SearchSequence], [IsSociety])
-VALUES
+
+INSERT INTO PTIS.AssessmentYearRangeMaster (FromYear, ToYear)
+values  (2005, 2015),
+      (2016, 2025),
+       (2003, 2004),
+      (1998, 1998),
+      (1700, 1997)
+
+;WITH GroupMap AS
+(
+    SELECT
+        g.TypeOfUseGroupID,      
+        g.TypeOfUseGroupCode              
+    FROM PTIS.TypeOfUseGroupMaster g
+),
+
+
+
+TypeSeed AS
+(
+    SELECT * FROM (VALUES
 
 (N'C', N'अनिवासी', N'C', N'C', 1, NULL, NULL, N'C', 1, 0),
 (N'T', N'धार्मिक स्थळ', N'N', N'N', 1, NULL, NULL, N'T', 1, 1),
@@ -248,14 +261,7 @@ VALUES
 (N'ACHC', N'क्लब हाऊस C', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
 (N'ASWC', N'सोसायटी स्विमिंग पूल C', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
 (N'AWA', N'वेटिंग एरिया', N'R', N'R', NULL, NULL, NULL, N'', NULL, 1),
-(N'FCR', N'फायर कंट्रोल रूम', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL);
-
-
-
-INSERT INTO [PTIS].[TypeOfUseMaster]
-([TypeOfUseID], [Description], [Type], [TypeOfUseGroupId],
- [CreatedBy], [UpdatedBy], [UpdatedDate], [SearchKey], [SearchSequence], [IsSociety])
-VALUES
+(N'FCR', N'फायर कंट्रोल रूम', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL) ,
 (N'FIRR', N'फायर रूम', N'R', N'R', NULL, NULL, NULL, N'', NULL, 1),
 (N'GRR',  N'गारबेज रूम', N'R', N'R', NULL, NULL, NULL, N'', NULL, 1),
 (N'IT',   N'माहिती व तंत्रज्ञान उद्योग', N'I', N'I', NULL, NULL, NULL, N'', NULL, NULL),
@@ -266,11 +272,30 @@ VALUES
 (N'SI',   N'सामाजिक संस्था', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
 (N'TL',   N'टेरेस लिफ्ट', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
 (N'OPKI', N'ओपन पार्किंग औदयोगिक', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'SPKI', N'स्टील पार्किंग औदयोगिक', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL);
+(N'SPKI', N'स्टील पार्किंग औदयोगिक', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL)
+) v(TypeOfUseCode, [Description], [Type], TypeOfUseGroupCode, CreatedBy, UpdatedBy, UpdatedDate, SearchKey, SearchSequence, IsSociety)
+)
+
+
+INSERT INTO PTIS.TypeOfUseMaster
+(TypeOfUseCode, [Description], [Type], TypeOfUseGroupId,
+ CreatedBy, UpdatedBy, UpdatedDate, SearchKey, SearchSequence)
+SELECT
+    s.TypeOfUseCode,
+    s.[Description],
+    s.[Type],
+    gm.TypeOfUseGroupId,                
+    s.CreatedBy, s.UpdatedBy, s.UpdatedDate,
+    s.SearchKey, s.SearchSequence
+FROM TypeSeed s
+JOIN GroupMap gm
+  ON gm.TypeOfUseGroupCode = s.TypeOfUseGroupCode
+
+
 
 
 INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionId], [Description], [SearchKey], [SearchSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([ConstructionCode], [Description], [SearchKey], [SearchSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES
 ('A',   N'सिमेंट कॉक्रिट संरचना', N'7', 0, 0, 56, NULL),
 ('B',   N'सिमेंट/चुना/दगड/विटांची भिंत व स्लॅब', NULL, NULL, NULL, 56, '2022-06-17T12:43:04'),
@@ -300,33 +325,36 @@ VALUES
 ('WOOD',  N'Wooden Structure', N'W', 4, NULL, NULL, NULL);
 
 
+
 SET IDENTITY_INSERT [PTIS].[CategoryMaster] ON;
-INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (1,'Apartment',N'Apartment_10');
-INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (2,'Apartment',N'Apartment_10P');
-INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (3,'Apartment',N'Apartment_C1');
-INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (4,'Apartment',N'Apartment_C2');
-INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (5,'Apartment',N'Apartment');
-INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (6,'Apartment',N'Apartment_10C1');
-INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (7,'Apartment',N'Apartment_10C2');
-INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (8,'Apartment',N'Apartment_10PC1');
-INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (9,'Apartment',N'Apartment_10PC2');
-INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (10,'Apartment',N'Apartment_20C1');
-INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (11,'Apartment',N'Apartment_20C2');
-INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (12,'Individual','Individual');
-INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName],[SubCategoryName]) VALUES (13,'Individual','Individual With Lift');
-INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName]) VALUES (14,'Individual Partition');
-INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName]) VALUES (15,'Industry');
-INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName]) VALUES (16,'IndustryL');
-INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName]) VALUES (17,'Plot');
-INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName]) VALUES (18,'Government Property');
-INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName]) VALUES (19,'Multi Commercial Apartment');
-INSERT INTO [PTIS].[CategoryMaster] ([CategoryID], [CategoryName]) VALUES (20,'Individual Chal');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryId], [CategoryCode], [SubCategoryCode]) VALUES (1,'Apartment',N'Apartment_10');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryId], [CategoryCode], [SubCategoryCode]) VALUES (2,'Apartment',N'Apartment_10P');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryId], [CategoryCode], [SubCategoryCode]) VALUES (3,'Apartment',N'Apartment_C1');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryId], [CategoryCode], [SubCategoryCode]) VALUES (4,'Apartment',N'Apartment_C2');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryId], [CategoryCode], [SubCategoryCode]) VALUES (5,'Apartment',N'Apartment');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryId], [CategoryCode], [SubCategoryCode]) VALUES (6,'Apartment',N'Apartment_10C1');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryId], [CategoryCode], [SubCategoryCode]) VALUES (7,'Apartment',N'Apartment_10C2');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryId], [CategoryCode], [SubCategoryCode]) VALUES (8,'Apartment',N'Apartment_10PC1');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryId], [CategoryCode], [SubCategoryCode]) VALUES (9,'Apartment',N'Apartment_10PC2');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryId], [CategoryCode], [SubCategoryCode]) VALUES (10,'Apartment',N'Apartment_20C1');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryId], [CategoryCode], [SubCategoryCode]) VALUES (11,'Apartment',N'Apartment_20C2');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryId], [CategoryCode], [SubCategoryCode]) VALUES (12,'Individual','Individual');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryId], [CategoryCode], [SubCategoryCode]) VALUES (13,'Individual','Individual With Lift');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryId], [CategoryCode], [SubCategoryCode]) VALUES (14,'Individual Partition','');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryId], [CategoryCode], [SubCategoryCode]) VALUES (15,'Industry','');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryId], [CategoryCode], [SubCategoryCode]) VALUES (16,'IndustryL','');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryId], [CategoryCode], [SubCategoryCode]) VALUES (17,'Plot','');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryId], [CategoryCode], [SubCategoryCode]) VALUES (18,'Government Property','');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryId], [CategoryCode], [SubCategoryCode]) VALUES (19,'Multi Commercial Apartment','');
+INSERT INTO [PTIS].[CategoryMaster] ([CategoryId], [CategoryCode], [SubCategoryCode]) VALUES (20,'Individual Chal','');
 SET IDENTITY_INSERT [PTIS].[CategoryMaster] OFF;
--- [PTIS].[SubCategory]
+
+
+
 
 
 SET IDENTITY_INSERT [PTIS].[SubZoneDetailsForCV] ON;
--- [PTIS].[SubZoneDetailsForCV]
+
 
 INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('1', 'Z1', '98/440 ', N' भूभाग :- उत्तरेस हार्बर रेल्वे लाईन, पूर्वेस पूर्व द्रुतगती महामार्ग व पश्चिमेस वॉर्ड हद्द यामधील मिळकती', NULL, NULL, NULL);
 INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('2', 'Z1', '98/440A ', N' भुभाग: हार्बर रेल्वे लाईनच्या उत्तरेकडील टिळकनगर मध्ये दर्शविलेल्या मिळकती.', NULL, NULL, NULL);
@@ -352,13 +380,18 @@ INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo],
 INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('22', 'Z1', '98/445/1 ', N' भुभाग: चेंबूर गावठाण क्षेत्रा मधील मिळकती.', NULL, NULL, NULL);
 INSERT INTO [PTIS].[SubZoneDetailsForCV] ([SubZoneId], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('23', 'Z1', '98/446/1 ', N' भुभाग: चेंबूर चरई गावठाण क्षेत्रा मधील मिळकती.', NULL, NULL, NULL);
 SET IDENTITY_INSERT [PTIS].[SubZoneDetailsForCV] OFF;
--- [PTIS].[CitySurveyNoMaster]
 
 
 
 
-SET IDENTITY_INSERT [PTIS].[SubTypeOfUseMaster] ON;
-INSERT [PTIS].[SubTypeOfUseMaster] ([SubTypeOfUseId], [Description], [TypeOfUseID], [CreatedBy], [UpdatedBy], [UpdatedDate], [SearchKey], [SearchSequence]) VALUES
+
+
+SET IDENTITY_INSERT PTIS.SubTypeOfUseMaster ON;
+
+;WITH Seed(SubTypeOfUseId, [Description], TypeOfUseCode, CreatedBy, UpdatedBy, UpdatedDate, SearchKey, SearchSequence) AS
+(
+    SELECT * FROM (VALUES
+
  (186, N'मंदिर', N'T', 1, 67, CAST(N'2023-02-09T17:38:44.260' AS DateTime), N'M', 1),
   (187, N'मस्जीद', N'T', 1, NULL, NULL, N'M', 2),
   (188, N'इदगाह', N'T', 1, NULL, NULL, N'E', 3),
@@ -1358,9 +1391,33 @@ INSERT [PTIS].[SubTypeOfUseMaster] ([SubTypeOfUseId], [Description], [TypeOfUseI
   (1518, N'बूक स्टोअर अँड श्टेशन', N'S', NULL, NULL, NULL, N'', 0),
   (1519, N'बूक स्टोअर अँड श्टेशनरी', N'S', NULL, NULL, NULL, N'', 0),
   (1520, N'बुक स्टोर', N'S', NULL, NULL, NULL, N'', 0),
-  (1521, N'बँक/वित्तीय व संस्था कार्यालय ', N'S', NULL, NULL, NULL, N'', 0);
+  (1521, N'बँक/वित्तीय व संस्था कार्यालय ', N'S', NULL, NULL, NULL, N'', 0)
+   ) v(SubTypeOfUseId, [Description], TypeOfUseCode, CreatedBy, UpdatedBy, UpdatedDate, SearchKey, SearchSequence)
+)
+INSERT PTIS.SubTypeOfUseMaster
+(SubTypeOfUseId, [Description], TypeOfUseId, CreatedBy, UpdatedBy, UpdatedDate, SearchKey, SearchSequence)
+SELECT
+    s.SubTypeOfUseId,
+    s.[Description],
+    t.TypeOfUseId,         
+    s.CreatedBy,
+    s.UpdatedBy,
+    s.UpdatedDate,
+    s.SearchKey,
+    s.SearchSequence
+FROM Seed s
+JOIN PTIS.TypeOfUseMaster t
+  ON t.TypeOfUseCode = s.TypeOfUseCode;
 
-INSERT [PTIS].[SubTypeOfUseMaster] ([SubTypeOfUseId], [Description], [TypeOfUseID], [CreatedBy], [UpdatedBy], [UpdatedDate], [SearchKey], [SearchSequence]) VALUES
+SET IDENTITY_INSERT PTIS.SubTypeOfUseMaster OFF;
+
+
+
+SET IDENTITY_INSERT PTIS.SubTypeOfUseMaster ON;
+
+;WITH Seed(SubTypeOfUseId, [Description], TypeOfUseCode, CreatedBy, UpdatedBy, UpdatedDate, SearchKey, SearchSequence) AS
+(
+    SELECT * FROM (VALUES
  (1522, N'बँक/वित्तीय संस्था', N'S', NULL, NULL, NULL, N'', 0),
   (1523, N'फुट वेअर शॉप', N'S', NULL, NULL, NULL, N'', 0),
   (1524, N'फूटवेअर', N'S', NULL, NULL, NULL, N'', 0),
@@ -1696,126 +1753,29 @@ INSERT [PTIS].[SubTypeOfUseMaster] ([SubTypeOfUseId], [Description], [TypeOfUseI
   (2078, N'ड्रायव्हर रूम', N'ACH', 56, NULL, NULL, N'', 0),
   (2080, N'गेस्ट रूम', N'ACH', 56, NULL, NULL, N'', 0),
   (2082, N'रेस्ट रूम & चेंजिंग रूम', N'ACH', 56, NULL, NULL, N'', 0),
-  (2084, N'जानिटर रूम', N'ACH', 56, NULL, NULL, N'', 0);
+  (2084, N'जानिटर रूम', N'ACH', 56, NULL, NULL, N'', 0)
 
- SET IDENTITY_INSERT [PTIS].[SubTypeOfUseMaster] OFF;
+   ) v(SubTypeOfUseId, [Description], TypeOfUseCode, CreatedBy, UpdatedBy, UpdatedDate, SearchKey, SearchSequence)
+)
+INSERT PTIS.SubTypeOfUseMaster
+(SubTypeOfUseId, [Description], TypeOfUseId, CreatedBy, UpdatedBy, UpdatedDate, SearchKey, SearchSequence)
+SELECT
+    s.SubTypeOfUseId,
+    s.[Description],
+    t.TypeOfUseId,          
+    s.CreatedBy,
+    s.UpdatedBy,
+    s.UpdatedDate,
+    s.SearchKey,
+    s.SearchSequence
+FROM Seed s
+JOIN PTIS.TypeOfUseMaster t
+  ON t.TypeOfUseCode = s.TypeOfUseCode;
+
+SET IDENTITY_INSERT PTIS.SubTypeOfUseMaster OFF;
 
 
-SET IDENTITY_INSERT [PTIS].[ApplyTaxesMasterPrime] ON;
-INSERT [PTIS].[ApplyTaxesMasterPrime] ([Id], [TypeOfUseId], [Type], [GeneralTax], [StateEducationTax], [StateEmploymentTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [Interest], [UpdatedBy], [CreatedBy], [UpdatedDate]) VALUES
-  (1, N'C', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:11:21.870' AS DateTime)),
-  (2, N'T', N'N', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, CAST(N'2023-12-16T15:02:14.000' AS DateTime)),
-  (3, N'V', N'N', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, CAST(N'2023-12-16T15:02:14.000' AS DateTime)),
-  (4, N'R', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-11-03T18:12:05.883' AS DateTime)),
-  (5, N'UC', N'N', 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 74, 0, CAST(N'2023-12-16T16:07:10.000' AS DateTime)),
-  (6, N'SPK', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:42:13.880' AS DateTime)),
-  (7, N'N', N'N', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, CAST(N'2023-12-16T15:02:14.000' AS DateTime)),
-  (8, N'EG', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:13:01.293' AS DateTime)),
-  (9, N'GO', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:16:07.720' AS DateTime)),
-  (10, N'GR', N'R', 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:16:23.870' AS DateTime)),
-  (11, N'HO', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:16:52.030' AS DateTime)),
-  (12, N'LB', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:22:33.823' AS DateTime)),
-  (13, N'UCC', N'N', 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2023-12-16T15:59:46.000' AS DateTime)),
-  (14, N'MTR', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:27:33.283' AS DateTime)),
-  (15, N'FF', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:13:55.743' AS DateTime)),
-  (16, N'WGC', N'C', 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:45:00.740' AS DateTime)),
-  (17, N'WEG', N'C', 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2023-12-16T15:55:36.000' AS DateTime)),
-  (18, N'WEP', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:44:33.077' AS DateTime)),
-  (19, N'WGR', N'R', 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:45:17.013' AS DateTime)),
-  (20, N'PC', N'N', 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 74, 0, CAST(N'2023-12-16T16:04:33.000' AS DateTime)),
-  (21, N'S', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:41:40.610' AS DateTime)),
-  (22, N'D', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:12:41.407' AS DateTime)),
-  (23, N'B', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:11:06.360' AS DateTime)),
-  (24, N'SW', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:43:32.933' AS DateTime)),
-  (25, N'I', N'I', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:17:05.750' AS DateTime)),
-  (26, N'EP', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:13:38.150' AS DateTime)),
-  (27, N'WR', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-06-24T16:25:03.120' AS DateTime)),
-  (28, N'WC', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:43:47.103' AS DateTime)),
-  (29, N'CC', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:11:35.770' AS DateTime)),
-  (30, N'CG', N'C', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 74, 0, CAST(N'2023-12-16T15:37:56.000' AS DateTime)),
-  (31, N'CR', N'R', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 74, 0, CAST(N'2023-12-16T15:38:16.000' AS DateTime)),
-  (32, N'OPR', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:29:27.737' AS DateTime)),
-  (33, N'OPC', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:28:47.710' AS DateTime)),
-  (34, N'PTR', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:41:02.927' AS DateTime)),
-  (35, N'GC', N'C', 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:14:23.620' AS DateTime)),
-  (36, N'O', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:28:14.613' AS DateTime)),
-  (37, N'M', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:22:57.470' AS DateTime)),
-  (38, N'KT', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:21:48.757' AS DateTime)),
-  (39, N'H', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:16:38.080' AS DateTime)),
-  (40, N'OPK', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:29:00.030' AS DateTime)),
-  (41, N'WI', N'I', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:45:45.680' AS DateTime)),
-  (42, N'OP', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:28:34.497' AS DateTime)),
-  (43, N'WCGR', N'R', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2023-12-16T15:55:49.000' AS DateTime)),
-  (44, N'WCGC', N'C', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2023-12-16T15:55:59.000' AS DateTime)),
-  (45, N'CH', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:12:04.450' AS DateTime)),
-  (46, N'L', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:22:19.773' AS DateTime)),
-  (47, N'AG', N'N', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, CAST(N'2023-12-16T15:02:14.000' AS DateTime)),
-  (48, N'ACH', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:06:11.403' AS DateTime)),
-  (49, N'AGM', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:07:28.743' AS DateTime)),
-  (50, N'AH', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:08:35.993' AS DateTime)),
-  (51, N'AMH', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:10:10.920' AS DateTime)),
-  (52, N'AO', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:10:39.110' AS DateTime)),
-  (53, N'APG', N'N', 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 74, 0, CAST(N'2023-12-18T13:44:02.000' AS DateTime)),
-  (54, N'ASW', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-04-29T16:03:22.850' AS DateTime)),
-  (55, N'AWC', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-13T15:53:34.723' AS DateTime)),
-  (56, N'CCO', N'N', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, CAST(N'2023-12-16T15:02:14.000' AS DateTime)),
-  (57, N'CCR', N'C', 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 74, 0, CAST(N'2023-12-16T15:31:33.000' AS DateTime)),
-  (58, N'CGC', N'C', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 74, 0, CAST(N'2023-12-16T15:38:02.000' AS DateTime)),
-  (59, N'ENCC', N'C', 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 74, 0, CAST(N'2023-12-16T15:39:16.000' AS DateTime)),
-  (60, N'ENCEG', N'R', 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 74, 0, CAST(N'2023-12-16T15:43:12.000' AS DateTime)),
-  (61, N'ENCEP', N'C', 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 74, 0, CAST(N'2023-12-16T15:42:06.000' AS DateTime)),
-  (62, N'ENCI', N'I', 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 74, 0, CAST(N'2023-12-16T15:44:55.000' AS DateTime)),
-  (63, N'ENCR', N'R', 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 74, 0, CAST(N'2023-12-16T15:45:21.000' AS DateTime)),
-  (64, N'GM', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:14:53.230' AS DateTime)),
-  (65, N'GMR', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:15:42.760' AS DateTime)),
-  (66, N'KTR', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:22:05.933' AS DateTime)),
-  (67, N'NPD', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:27:58.223' AS DateTime)),
-  (68, N'OBR', N'N', 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 74, 0, CAST(N'2023-12-16T16:02:51.000' AS DateTime)),
-  (69, N'OPKC', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:29:13.360' AS DateTime)),
-  (70, N'RCO', N'N', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, CAST(N'2023-12-16T15:02:14.000' AS DateTime)),
-  (71, N'RGN', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-13T15:50:28.373' AS DateTime)),
-  (72, N'SPKC', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:43:18.367' AS DateTime)),
-  (73, N'WT', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:49:50.967' AS DateTime)),
-  (74, N'PG', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:33:03.957' AS DateTime)),
-  (75, N'GA', N'N', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, CAST(N'2023-12-16T15:02:14.000' AS DateTime)),
-  (76, N'RFG', N'N', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, CAST(N'2023-12-16T15:02:14.000' AS DateTime)),
-  (77, N'EHO', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 55, CAST(N'2025-05-01T13:13:21.213' AS DateTime)),
-  (78, N'PF', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 66, CAST(N'2025-05-01T13:29:48.223' AS DateTime)),
-  (79, N'NR', N'R', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, NULL),
-  (80, N'NC', N'C', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, NULL),
-  (81, N'NI', N'I', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, NULL),
-  (82, N'ICR', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 74, CAST(N'2025-05-01T13:20:53.703' AS DateTime)),
-  (83, N'ICC', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 74, CAST(N'2025-05-01T13:18:20.983' AS DateTime)),
-  (84, N'ICI', N'I', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 74, CAST(N'2025-05-01T13:20:01.613' AS DateTime)),
-  (85, N'ICRT', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 66, CAST(N'2025-05-01T13:21:17.567' AS DateTime)),
-  (86, N'ICCT', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 66, CAST(N'2025-05-01T13:19:15.687' AS DateTime)),
-  (87, N'ICIT', N'I', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 66, CAST(N'2025-05-01T13:20:20.723' AS DateTime)),
-  (88, N'ICHT', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 66, CAST(N'2025-05-01T13:19:47.653' AS DateTime)),
-  (89, N'ICH', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 66, CAST(N'2025-05-01T13:19:33.150' AS DateTime)),
-  (90, N'ICP', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 66, CAST(N'2025-05-01T13:20:39.573' AS DateTime)),
-  (92, N'OAH', N'C', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, NULL),
-  (93, N'ABLR', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 55, 55, CAST(N'2025-04-28T19:57:24.817' AS DateTime)),
-  (94, N'ABLC', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 55, CAST(N'2025-05-01T13:04:55.250' AS DateTime)),
-  (95, N'IT', N'I', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 55, CAST(N'2025-05-01T13:21:32.763' AS DateTime)),
-  (96, N'LR', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 55, CAST(N'2025-05-03T15:43:43.867' AS DateTime)),
-  (97, N'MR', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 55, CAST(N'2025-05-03T15:45:33.360' AS DateTime)),
-  (98, N'AWA', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 55, CAST(N'2025-05-03T15:44:28.547' AS DateTime)),
-  (99, N'FCR', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 55, CAST(N'2025-05-03T15:36:12.807' AS DateTime)),
-  (100, N'SR', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 0, CAST(N'2025-05-01T13:11:21.870' AS DateTime)),
-  (101, N'TL', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 55, CAST(N'2025-05-13T15:22:18.713' AS DateTime)),
-  (102, N'OL', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 55, CAST(N'2025-05-13T15:23:32.153' AS DateTime)),
-  (103, N'OWC', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 55, CAST(N'2025-08-20T15:13:53.667' AS DateTime)),
-  (104, N'FIRR', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 55, CAST(N'2025-08-20T15:13:53.667' AS DateTime)),
-  (105, N'GRR', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 55, CAST(N'2025-08-20T15:13:53.667' AS DateTime)),
-  (106, N'ICPRT', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 55, CAST(N'2025-08-20T15:13:53.667' AS DateTime)),
-  (107, N'ISR', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 55, CAST(N'2025-08-20T15:13:53.667' AS DateTime)),
-  (108, N'PH', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 55, CAST(N'2025-08-20T15:13:53.667' AS DateTime)),
-  (109, N'WAT', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 55, 55, CAST(N'2025-08-20T15:13:53.667' AS DateTime)),
-  (110, N'SI', N'R', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 55, 55, CAST(N'2025-09-17T16:17:28.537' AS DateTime)),
-  (111, N'ACHC', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 91, 91, CAST(N'2025-10-01T16:36:38.753' AS DateTime)),
-  (112, N'ASWC', N'C', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 91, 91, CAST(N'2025-10-01T16:39:42.407' AS DateTime));
 
-SET IDENTITY_INSERT [PTIS].[ApplyTaxesMasterPrime] OFF
 
 
 INSERT INTO [PTIS].[OwnerTypeMaster] ([OwnerType])
@@ -1831,129 +1791,26 @@ VALUES
 ('Physical Disability');
 
 
-INSERT INTO [PTIS].[AgeFactorCVMaster]
-([ConstructionId], [AgeFrom], [AgeTo], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('WE', 61, 999, 0.15, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WD', 61, 999, 0.15, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WC1', 61, 999, 0.15, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WC', 61, 999, 0.15, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WB1', 61, 999, 0.30, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WB', 61, 999, 0.30, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WA1', 61, 999, 0.30, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WA', 61, 999, 0.30, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('OPR', 61, 999, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('op', 61, 999, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('ER', 61, 999, 0.15, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('E', 61, 999, 0.15, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('DR', 61, 999, 0.15, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('D', 61, 999, 0.15, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('CR', 61, 999, 0.15, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('C1', 61, 999, 0.15, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('C', 61, 999, 0.15, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('BR', 61, 999, 0.30, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('B1', 61, 999, 0.30, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('B', 61, 999, 0.30, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('AR', 61, 999, 0.30, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('A1', 61, 999, 0.30, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('A', 61, 999, 0.30, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WE', 51, 60, 0.20, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WD', 51, 60, 0.20, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WC1', 51, 60, 0.20, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WC', 51, 60, 0.20, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WB1', 51, 60, 0.40, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WB', 51, 60, 0.40, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WA1', 51, 60, 0.40, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WA', 51, 60, 0.40, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('OPR', 51, 60, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('op', 51, 60, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('ER', 51, 60, 0.20, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('E', 51, 60, 0.20, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('DR', 51, 60, 0.20, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('D', 51, 60, 0.20, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('CR', 51, 60, 0.20, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('C1', 51, 60, 0.20, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('C', 51, 60, 0.20, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('BR', 51, 60, 0.40, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('B1', 51, 60, 0.40, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('B', 51, 60, 0.40, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('AR', 51, 60, 0.40, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('A1', 51, 60, 0.40, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('A', 51, 60, 0.40, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WE', 41, 50, 0.30, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WD', 41, 50, 0.30, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WC1', 41, 50, 0.30, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WC', 41, 50, 0.30, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WB1', 41, 50, 0.50, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WB', 41, 50, 0.50, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WA1', 41, 50, 0.50, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WA', 41, 50, 0.50, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('OPR', 41, 50, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('op', 41, 50, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('ER', 41, 50, 0.30, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('E', 41, 50, 0.30, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('DR', 41, 50, 0.30, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('D', 41, 50, 0.30, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('CR', 41, 50, 0.30, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('C1', 41, 50, 0.30, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('C', 41, 50, 0.30, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('BR', 41, 50, 0.50, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('B1', 41, 50, 0.50, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('B', 41, 50, 0.50, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('AR', 41, 50, 0.50, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('A1', 41, 50, 0.50, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('A', 41, 50, 0.50, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WE', 31, 40, 0.45, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WD', 31, 40, 0.45, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WC1', 31, 40, 0.45, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WC', 31, 40, 0.45, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WB1', 31, 40, 0.60, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WB', 31, 40, 0.60, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WA1', 31, 40, 0.60, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WA', 31, 40, 0.60, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('OPR', 31, 40, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WD', 0, 2, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WC1', 0, 2, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WC', 0, 2, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WB1', 0, 2, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WB', 0, 2, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WA1', 0, 2, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('WA', 0, 2, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('OPR', 0, 2, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('op', 0, 2, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('ER', 0, 2, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('E', 0, 2, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('DR', 0, 2, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('D', 0, 2, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('CR', 0, 2, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('C1', 0, 2, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('C', 0, 2, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('BR', 0, 2, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('B1', 0, 2, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('B', 0, 2, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('AR', 0, 2, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('A1', 0, 2, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL),
-  ('A', 0, 2, 1.00, '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
--- [PTIS].[PropertyTypeCategoryMaster]
 
 
 
 
 SET IDENTITY_INSERT [PTIS].[PropertyTypeCategoryMaster] ON;
-INSERT INTO [PTIS].[PropertyTypeCategoryMaster] ([PropertyTypeCategoryID], [PropertyTypeCategory], [isActive]) VALUES ('2',N'निवासी','1');
-INSERT INTO [PTIS].[PropertyTypeCategoryMaster] ([PropertyTypeCategoryID], [PropertyTypeCategory], [isActive]) VALUES ('3',N'अनिवासी','1');
-INSERT INTO [PTIS].[PropertyTypeCategoryMaster] ([PropertyTypeCategoryID], [PropertyTypeCategory], [isActive]) VALUES ('4',N'शासकीय मालमत्ता','1');
-INSERT INTO [PTIS].[PropertyTypeCategoryMaster] ([PropertyTypeCategoryID], [PropertyTypeCategory], [isActive]) VALUES ('5',N'शैक्षणिक','1');
-INSERT INTO [PTIS].[PropertyTypeCategoryMaster] ([PropertyTypeCategoryID], [PropertyTypeCategory], [isActive]) VALUES ('6',N'औद्योगिक','1');
+INSERT INTO [PTIS].[PropertyTypeCategoryMaster] ([PropertyTypeCategoryId], [PropertyTypeCategory], [isActive]) VALUES ('2',N'निवासी','1');
+INSERT INTO [PTIS].[PropertyTypeCategoryMaster] ([PropertyTypeCategoryId], [PropertyTypeCategory], [isActive]) VALUES ('3',N'अनिवासी','1');
+INSERT INTO [PTIS].[PropertyTypeCategoryMaster] ([PropertyTypeCategoryId], [PropertyTypeCategory], [isActive]) VALUES ('4',N'शासकीय मालमत्ता','1');
+INSERT INTO [PTIS].[PropertyTypeCategoryMaster] ([PropertyTypeCategoryId], [PropertyTypeCategory], [isActive]) VALUES ('5',N'शैक्षणिक','1');
+INSERT INTO [PTIS].[PropertyTypeCategoryMaster] ([PropertyTypeCategoryId], [PropertyTypeCategory], [isActive]) VALUES ('6',N'औद्योगिक','1');
 SET IDENTITY_INSERT [PTIS].[PropertyTypeCategoryMaster] OFF;
--- [PTIS].[PropertyTypeMaster]
+
+
+
 
 
 SET IDENTITY_INSERT [PTIS].[PropertyTypeMaster] ON;
 
 INSERT INTO [PTIS].[PropertyTypeMaster]
-([PropertyTypeID], [PropertyDescription], [Type], [isActive], [PropertyTypeGroup],
- [SearchKey], [SearchSequence], [PropertyTypeCategoryID],
- [CreatedBy], [UpdatedBy], [UpdatedDate])
+([PropertyTypeId], [PropertyDescription], [Type], [isActive], [PropertyTypeGroup], [SearchKey], [SearchSequence], [PropertyTypeCategoryId], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES
 (1,  N'खाजगी शाळा', 'C', 1, N'बिगर निवासी', N'E', 1, NULL, NULL, NULL, NULL),
 (2,  N'म.न.पा.शाळा', 'N', 1, N'नगरपरिषद मालमत्ता', N'N', 1, NULL, NULL, NULL, NULL),
@@ -2057,16 +1914,8 @@ SET IDENTITY_INSERT [PTIS].[PropertyTypeMaster] OFF;
 
 
 
-
-SET IDENTITY_INSERT [PTIS].[AssessmentMaster] ON;
-INSERT [PTIS].[AssessmentMaster] ([AssessmentID], [FromYear], [ToYear], [MaxYear], [MinRV], [NPAddress], [ThirdPartyName], [ThirdPartyAddress], [ThirdPartyContact], [ThirdPartyWebSite], [ThirdPartyEmail], [NPRemark], [ThirdPartyRemark], [SrNo], [NPIcon], [ThirdPartyIcon], [NPImage], [ThirdPartyImage], [NPcon], [NPContactNo], [NPEmail], [NPWebsite], [ThirdPartyCopyRight], [CouncilID], [NPTitle], [NPAddressInLocal], [PartyNameInlocal], [PartyAddressInlocal], [CreatedBy], [UpdatedBy], [UpdatedDate], [NPPrefix]) VALUES
-  (1, 2023, 2027, 2024, 708, N'Thane', N'STHAPATYA CONSULTANTS I PVT LTD', N'Amrarvati', N'0123456789', N'https://sthapatyaconsultants.com', N'STHAPATYACONSULTANTS@GMAIL.COM', N'TaxInfo 13.0 Lic No SCP1/01/08', N'',  N'5512', 0x, 0x, 0x, 0x, N'', N'020-67333333', N'dmctax@tanecity.gov.in', N'https://thanecity.gov.in/', N'Copyright © 2020-2021 Sthapatya Consultants (I) Pvt Ltd', 1, N'ठाणे महानगरपालिका', N'ठाणे', N'स्थापत्य कन्सल्टंट (ई) प्रा.लि.', N'अमरावती', NULL, 55, CAST(N'2025-03-24T18:20:45.293' AS DateTime), N'TMC');
-
-SET IDENTITY_INSERT [PTIS].[AssessmentMaster] OFF;
-
-
 INSERT INTO [PTIS].[FloorMaster]
-([FloorID], [Description], [SequenceNo], [MaxFloorNo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+([FloorCode], [Description], [SequenceNo], [MaxFloorNo], [CreatedBy], [UpdatedBy], [UpdatedDate])
 VALUES
 (N'1',  N'पहिला मजला', 12, 13, NULL, NULL, NULL),
 (N'2',  N'दुसरा मजला', 13, 14, NULL, NULL, NULL),
@@ -2148,483 +1997,221 @@ VALUES
 
 
 
-set identity_insert [PTIS].[FloorFactorCVMaster] on;
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('1', 'G', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
+;WITH Seed(FloorCode, FactorWithLift, FactorWithoutLift, EffectiveFrom, EffectiveTo, CreatedBy, UpdatedBy, UpdatedDate) AS
+(
+    SELECT * FROM (VALUES
+      (N'G',  1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'1',  1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'2',  1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'3',  1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'4',  1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'5',  1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'6',  1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'7',  1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'8',  1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'B',  1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'9',  1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'10', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'11', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'12', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'13', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'14', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'M',  1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'15', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'16', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'17', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'18', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'19', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'20', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'21', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'22', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'23', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'24', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'25', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'26', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'27', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'28', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'29', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'30', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'31', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'32', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'OP', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'33', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'34', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'35', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'36', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'37', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'38', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'39', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL),
+      (N'40', 1.00, 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL)
+    ) v(FloorCode, FactorWithLift, FactorWithoutLift, EffectiveFrom, EffectiveTo, CreatedBy, UpdatedBy, UpdatedDate)
+)
+INSERT INTO PTIS.FloorFactorCVMaster
+(FloorId, FactorWithLift, FactorWithoutLift, EffectiveFrom, EffectiveTo, CreatedBy, UpdatedBy, UpdatedDate)
+SELECT
+    f.FloorId,                
+    s.FactorWithLift,
+    s.FactorWithoutLift,
+    s.EffectiveFrom,
+    s.EffectiveTo,
+    s.CreatedBy, s.UpdatedBy, s.UpdatedDate
+FROM Seed s
+JOIN PTIS.FloorMaster f        
+  ON f.FloorCode = s.FloorCode; 
+
+
+;WITH N AS
+(
+    SELECT TOP (100)
+           ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS RoomNo
+    FROM sys.all_objects
+)
+INSERT INTO PTIS.RoomNoCountMaster (RoomNo)
+SELECT n.RoomNo
+FROM N n
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM PTIS.RoomNoCountMaster x
+    WHERE x.RoomNo = n.RoomNo
+);
+
+
+;WITH Seed(ConstructionCode, Factor, EffectiveFrom, EffectiveTo, Code, CreatedBy, UpdatedBy, UpdatedDate) AS
+(
+    SELECT * FROM (VALUES
+      (N'A',   1.00, CAST('2024-04-01' AS date), CAST('2025-03-31' AS date), NULL, NULL, NULL, NULL),
+
+      (N'B',   0.80, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL, NULL),
+      (N'C',   0.70, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL, NULL),
+      (N'D',   0.60, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL, NULL),
+      (N'E',   0.60, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL, NULL),
+
+      (N'AR',  1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL, NULL),
+      (N'BR',  0.80, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL, NULL),
+      (N'CR',  0.70, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL, NULL),
+      (N'DR',  0.60, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL, NULL),
+      (N'ER',  0.60, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL, NULL),
+
+      (N'WA',  1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL, NULL),
+      (N'WB',  0.80, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL, NULL),
+      (N'WC',  0.70, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL, NULL),
+      (N'WD',  0.60, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL, NULL),
+      (N'WE',  0.60, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL, NULL),
+
+      (N'A1',  1.50, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL, NULL),
+      (N'B1',  1.30, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL, NULL),
+      (N'C1',  1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL, NULL),
+
+      (N'WA1', 1.50, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL, NULL),
+      (N'WB1', 1.30, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL, NULL),
+      (N'WC1', 1.00, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL, NULL),
+
+       (N'A',   1.50, CAST('2025-04-01' AS date), CAST('2026-03-31' AS date), NULL, NULL, NULL, NULL)
+    ) v(ConstructionCode, Factor, EffectiveFrom, EffectiveTo, Code, CreatedBy, UpdatedBy, UpdatedDate)
+)
+INSERT INTO PTIS.NatureFactorCVMaster
+(ConstructionTypeId, Factor, EffectiveFrom, EffectiveTo, Code, CreatedBy, UpdatedBy, UpdatedDate)
+SELECT
+    cm.ConstructionTypeId,               
+    s.Factor,
+    s.EffectiveFrom,
+    s.EffectiveTo,
+    s.Code, s.CreatedBy, s.UpdatedBy, s.UpdatedDate
+FROM Seed s
+JOIN PTIS.ConstructionTypeMaster cm        
+  ON cm.ConstructionCode = s.ConstructionCode;   
+
+
+
+  ;WITH Seed(TypeOfUseCode,  [Description]) AS
+(
+    SELECT * FROM (VALUES
+      (N'OPK',   N'ओपन पार्किंग'),
+      (N'SPK',  N'स्टील पार्किंग'),
+      (N'OPKC',  N'ओपन पार्किंग अनिवासी'),
+      (N'SPKC',  N'स्टील पार्किंग अनिवासी'),
+      (N'OPKI',  N'ओपन पार्किंग औदयोगिक'),
+      (N'SPKI',  N'स्टील पार्किंग औदयोगिक')
+    ) v(TypeOfUseCode,  [Description])
+)
+INSERT INTO PTIS.ParkingTypeMaster (TypeOfUseId, [Description])
+SELECT tou.TypeOfUseId,  s.[Description]
+FROM Seed s
+JOIN PTIS.TypeOfUseMaster tou
+  ON tou.TypeOfUseCode = s.TypeOfUseCode
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM PTIS.ParkingTypeMaster x
+    WHERE x.TypeOfUseId = tou.TypeOfUseId
+     
+      AND x.[Description] = s.[Description]
+);
 
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('2', '1', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
 
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('3', '2', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('4', '3', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('5', '4', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('6', '5', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('7', '6', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('8', '7', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('9', '8', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('10', 'B', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('11', '9', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('12', '10', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('13', '11', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('14', '12', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('15', '13', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('16', '14', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('17', 'M', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('18', '15', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('19', '16', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('20', '17', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('21', '18', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('22', '19', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('23', '20', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('24', '21', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('25', '22', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('26', '23', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('27', '24', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('28', '25', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('29', '26', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('30', '27', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('31', '28', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('32', '29', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('33', '30', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('34', '31', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('35', '32', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('36', 'OP', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('37', '33', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('38', '34', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('39', '35', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('40', '36', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('41', '37', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('42', '38', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('43', '39', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[FloorFactorCVMaster]
-([Id], [FloorID], [FactorWithLift], [FactorWithoutLift], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('44', '40', '1.00', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL);
-
-SET IDENTITY_INSERT [PTIS].[FloorFactorCVMaster] OFF;
--- [PTIS].[RoomNoCountMaster]
-
-
-
-
-
-SET IDENTITY_INSERT [PTIS].[RoomNoCountMaster] ON;
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('704','1');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('705','2');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('706','3');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('707','4');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('708','5');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('709','6');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('710','7');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('711','8');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('712','9');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('713','10');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('714','11');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('715','12');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('716','13');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('717','14');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('718','15');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('719','16');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('720','17');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('721','18');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('722','19');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('723','20');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('724','21');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('725','22');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('726','23');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('727','24');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('728','25');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('729','26');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('730','27');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('731','28');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('732','29');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('733','30');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('734','31');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('735','32');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('736','33');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('737','34');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('738','35');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('739','36');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('740','37');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('741','38');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('742','39');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('743','40');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('744','41');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('745','42');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('746','43');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('747','44');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('748','45');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('749','46');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('750','47');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('751','48');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('752','49');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('753','50');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('754','51');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('755','52');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('756','53');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('757','54');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('758','55');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('759','56');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('760','57');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('761','58');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('762','59');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('763','60');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('764','61');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('765','62');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('766','63');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('767','64');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('768','65');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('769','66');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('770','67');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('771','68');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('772','69');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('773','70');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('774','71');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('775','72');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('776','73');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('777','74');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('778','75');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('779','76');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('780','77');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('781','78');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('782','79');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('783','80');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('784','81');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('785','82');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('786','83');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('787','84');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('788','85');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('789','86');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('790','87');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('791','88');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('792','89');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('793','90');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('794','91');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('795','92');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('796','93');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('797','94');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('798','95');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('799','96');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('800','97');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('801','98');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('802','99');
-INSERT INTO [PTIS].[RoomNoCountMaster] ([Id], [RoomNo]) VALUES ('803','100');
-SET IDENTITY_INSERT [PTIS].[RoomNoCountMaster] OFF;
--- [PTIS].[NatureFactorCVMaster]
-
-
-SET IDENTITY_INSERT [PTIS].[NatureFactorCVMaster] ON;
-
-
-INSERT INTO [PTIS].[NatureFactorCVMaster]
-([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('1', 'A', '1.00', '2024-04-01', '2025-03-31', NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[NatureFactorCVMaster]
-([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('2', 'B', '0.80', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[NatureFactorCVMaster]
-([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('3', 'C', '0.70', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[NatureFactorCVMaster]
-([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('4', 'D', '0.60', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[NatureFactorCVMaster]
-([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('5', 'E', '0.60', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[NatureFactorCVMaster]
-([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('6', 'AR', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[NatureFactorCVMaster]
-([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('7', 'BR', '0.80', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[NatureFactorCVMaster]
-([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('8', 'CR', '0.70', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[NatureFactorCVMaster]
-([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('9', 'DR', '0.60', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[NatureFactorCVMaster]
-([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('10', 'ER', '0.60', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[NatureFactorCVMaster]
-([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('11', 'WA', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[NatureFactorCVMaster]
-([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('12', 'WB', '0.80', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[NatureFactorCVMaster]
-([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('13', 'WC', '0.70', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[NatureFactorCVMaster]
-([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('14', 'WD', '0.60', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[NatureFactorCVMaster]
-([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('15', 'WE', '0.60', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[NatureFactorCVMaster]
-([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('16', 'A1', '1.50', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[NatureFactorCVMaster]
-([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('17', 'B1', '1.30', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[NatureFactorCVMaster]
-([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('18', 'C1', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[NatureFactorCVMaster]
-([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('19', 'WA1', '1.50', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[NatureFactorCVMaster]
-([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('20', 'WB1', '1.30', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[NatureFactorCVMaster]
-([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('21', 'WC1', '1.00', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
-
-INSERT INTO [PTIS].[NatureFactorCVMaster]
-([Id], [ConstructionId], [Factor], [EffectiveFrom], [EffectiveTo], [Code], [CreatedBy], [UpdatedBy], [UpdatedDate])
-VALUES ('25', 'A', '1.50', '2025-04-01', '2026-03-31', NULL, NULL, NULL, NULL);
-
-SET IDENTITY_INSERT [PTIS].[NatureFactorCVMaster] OFF;
--- [PTIS].[ParkingTypeMaster]
-
-
-
-
-SET IDENTITY_INSERT [PTIS].[ParkingTypeMaster] ON;
-INSERT INTO [PTIS].[ParkingTypeMaster] ([Id], [TypeOfUseId], [Active], [Type], [Description]) VALUES ('1','OPK','1','R',N'ओपन पार्किंग');
-INSERT INTO [PTIS].[ParkingTypeMaster] ([Id], [TypeOfUseId], [Active], [Type], [Description]) VALUES ('2','SPK','1','R',N'स्टील पार्किंग');
-INSERT INTO [PTIS].[ParkingTypeMaster] ([Id], [TypeOfUseId], [Active], [Type], [Description]) VALUES ('3','OPKC','1','C',N'ओपन पार्किंग अनिवासी');
-INSERT INTO [PTIS].[ParkingTypeMaster] ([Id], [TypeOfUseId], [Active], [Type], [Description]) VALUES ('4','SPKC','1','C',N'स्टील पार्किंग अनिवासी');
-INSERT INTO [PTIS].[ParkingTypeMaster] ([Id], [TypeOfUseId], [Active], [Type], [Description]) VALUES ('5','OPKI','1','I',N'ओपन पार्किंग औदयोगिक');
-INSERT INTO [PTIS].[ParkingTypeMaster] ([Id], [TypeOfUseId], [Active], [Type], [Description]) VALUES ('6','SPKI','1','I',N'स्टील पार्किंग औदयोगिक');
-SET IDENTITY_INSERT [PTIS].[ParkingTypeMaster] OFF;
--- [PTIS].[PartTypeMaster]
 
 
 
 SET IDENTITY_INSERT [PTIS].[PartTypeMaster] ON;
-INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeID], [PartType]) VALUES ('1','C');
-INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeID], [PartType]) VALUES ('2','Government Property');
-INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeID], [PartType]) VALUES ('3','Individual');
-INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeID], [PartType]) VALUES ('4','Individual Chal');
-INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeID], [PartType]) VALUES ('5','Individual Partition');
-INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeID], [PartType]) VALUES ('6','Industry');
-INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeID], [PartType]) VALUES ('7','IndustryL');
-INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeID], [PartType]) VALUES ('8','Plot');
-INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeID], [PartType]) VALUES ('9','R');
-INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeID], [PartType]) VALUES ('10','RH');
-INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeID], [PartType]) VALUES ('11','utilsub');
-INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeID], [PartType]) VALUES ('13','Apartment');
+INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeId], [PartType]) VALUES ('1','C');
+INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeId], [PartType]) VALUES ('2','Government Property');
+INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeId], [PartType]) VALUES ('3','Individual');
+INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeId], [PartType]) VALUES ('4','Individual Chal');
+INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeId], [PartType]) VALUES ('5','Individual Partition');
+INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeId], [PartType]) VALUES ('6','Industry');
+INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeId], [PartType]) VALUES ('7','IndustryL');
+INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeId], [PartType]) VALUES ('8','Plot');
+INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeId], [PartType]) VALUES ('9','R');
+INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeId], [PartType]) VALUES ('10','RH');
+INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeId], [PartType]) VALUES ('11','utilsub');
+INSERT INTO [PTIS].[PartTypeMaster] ([PartTypeId], [PartType]) VALUES ('13','Apartment');
 SET IDENTITY_INSERT [PTIS].[PartTypeMaster] OFF;
 
 
 
-INSERT INTO [PTIS].[SubFloorMaster] ( [SubFloorID], [SubFloorDescription], [SubFloorPercentage]) VALUES ('Loft','LOFT','50.00');
--- [PTIS].[SubFloorMaster]
+INSERT INTO [PTIS].[SubFloorMaster] ([SubFloorCode], [Description], [SubFloorPercentage]) VALUES ('Loft','LOFT','50.00');
 
-INSERT INTO [PTIS].[SubFloorMaster] ( [SubFloorID], [SubFloorDescription], [SubFloorPercentage]) VALUES ('Attic','ATTIC','50.00');
-INSERT INTO [PTIS].[SubFloorMaster] ( [SubFloorID], [SubFloorDescription], [SubFloorPercentage]) VALUES ('Mezzanine','MEZZANINE','70.00');
--- [PTIS].[SubmissionRemarkMaster]
+INSERT INTO [PTIS].[SubFloorMaster] ([SubFloorCode], [Description], [SubFloorPercentage]) VALUES ('Attic','ATTIC','50.00');
+INSERT INTO [PTIS].[SubFloorMaster] ([SubFloorCode], [Description], [SubFloorPercentage]) VALUES ('Mezzanine','MEZZANINE','70.00');
 
 
 
 
-
-SET IDENTITY_INSERT [PTIS].[SubmissionRemarkMaster] ON;
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('1','Hall','N','1');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('2','Kit/Din','N','1');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('3','BED1','N','1');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('4','BED2','N','1');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('5','BED3','N','1');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('6','Hall Bal ENC','E','1');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('7','Kit Bal ENC','E','1');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('8','Hall Bal','O','0');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('9','Bed Bal','O','0');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('10','Kit Bal','O','0');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('11','W/C/Bath','WB','2');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('12','WC','W','2');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('13','BED1 Bal ENC','E','1');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('14','BED2 Bal ENC','E','1');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('15','BED3 Bal ENC','E','1');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('16','Bath','B','2');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('17','Shop','A','1');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('18','Passage','A','1');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('19','Office','A','1');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('20','PSG','A','1');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('21','Individual','A','1');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('26','Parking','N','3');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('27','Other','N','2');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('28','Rooms','N','4');
-INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterID], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('29','Staire','E','2');
-SET IDENTITY_INSERT [PTIS].[SubmissionRemarkMaster] OFF;
--- [PTIS].[UsageCategoryMaster]
-
+--SET IDENTITY_INSERT [PTIS].[SubmissionRemarkMaster] ON;
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('1','Hall','N','1');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('2','Kit/Din','N','1');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('3','BED1','N','1');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('4','BED2','N','1');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('5','BED3','N','1');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('6','Hall Bal ENC','E','1');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('7','Kit Bal ENC','E','1');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('8','Hall Bal','O','0');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('9','Bed Bal','O','0');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('10','Kit Bal','O','0');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('11','W/C/Bath','WB','2');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('12','WC','W','2');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('13','BED1 Bal ENC','E','1');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('14','BED2 Bal ENC','E','1');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('15','BED3 Bal ENC','E','1');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('16','Bath','B','2');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('17','Shop','A','1');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('18','Passage','A','1');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('19','Office','A','1');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('20','PSG','A','1');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('21','Individual','A','1');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('26','Parking','N','3');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('27','Other','N','2');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('28','Rooms','N','4');
+--INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('29','Staire','E','2');
+--SET IDENTITY_INSERT [PTIS].[SubmissionRemarkMaster] OFF;
+---- [PTIS].[UsageCategoryMaster]
 
 
-INSERT [PTIS].[UsageCategoryMaster] ([UsageCategoryID], [Description], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
+
+INSERT [PTIS].[UsageCategoryMaster] ([UsageCategoryId], [Description], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
   (1, N'1', NULL, NULL, NULL),
   (2, N'2', NULL, NULL, NULL),
   (3, N'3', NULL, NULL, NULL),
   (4, N'4', NULL, NULL, NULL);
--- [PTIS].[PropertyTaxSlabWiseMaster]
-
-
-SET IDENTITY_INSERT [PTIS].[PropertyTaxSlabWiseMaster] ON;
-INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [Id], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('R', '2023', '1.00', '12,001.00', '24.00', '1', NULL, NULL, NULL);
-INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [Id], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('R', '2023', '12,001.00', '30,001.00', '27.00', '2', NULL, NULL, NULL);
-INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [Id], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('R', '2023', '30,001.00', '999,999,999.00', '35.00', '3', NULL, NULL, NULL);
-INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [Id], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('C', '2023', '1.00', '12,001.00', '27.00', '4', NULL, NULL, NULL);
-INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [Id], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('C', '2023', '12,001.00', '30,001.00', '30.00', '5', NULL, NULL, NULL);
-INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [Id], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('C', '2023', '30,001.00', '999,999,999.00', '37.00', '6', NULL, NULL, NULL);
-INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [Id], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('I', '2023', '1.00', '12,001.00', '27.00', '7', NULL, NULL, NULL);
-INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [Id], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('I', '2023', '12,001.00', '30,001.00', '30.00', '8', NULL, NULL, NULL);
-INSERT INTO [PTIS].[PropertyTaxSlabWiseMaster] ([Type], [Year], [MinRV], [MaxRV], [Rate], [Id], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES ('I', '2023', '30,001.00', '999,999,999.00', '37.00', '9', NULL, NULL, NULL);
-SET IDENTITY_INSERT [PTIS].[PropertyTaxSlabWiseMaster] OFF;
--- [PTIS].[TaxZoneMaster]
 
 
 
@@ -2637,35 +2224,51 @@ INSERT [PTIS].[TaxZoneMaster] ([TaxZoneNo], [TaxZoneType], [Remark], [CreatedBy]
   (N'1U', N'1U', N'AU', NULL, NULL, NULL),
   (N'2U', N'2U', N'BU', NULL, NULL, NULL),
   (N'3U', N'3U', N'CU', NULL, NULL, NULL);
--- [PTIS].[RateSectionMaster]
-
-
-INSERT INTO [PTIS].[RateSectionMaster] ([RateSectionNo], [Description]) VALUES (N'1',  N'UTHALSAR');
-INSERT INTO [PTIS].[RateSectionMaster] ([RateSectionNo], [Description]) VALUES (N'2',  N'NAUPADA');
-INSERT INTO [PTIS].[RateSectionMaster] ([RateSectionNo], [Description]) VALUES (N'3',  N'KOPRI');
-INSERT INTO [PTIS].[RateSectionMaster] ([RateSectionNo], [Description]) VALUES (N'4',  N'KALWA');
-INSERT INTO [PTIS].[RateSectionMaster] ([RateSectionNo], [Description]) VALUES (N'5',  N'VITAVA');
-INSERT INTO [PTIS].[RateSectionMaster] ([RateSectionNo], [Description]) VALUES (N'6',  N'KHAREGAON');
-INSERT INTO [PTIS].[RateSectionMaster] ([RateSectionNo], [Description]) VALUES (N'7',  N'MUMBRA');
-INSERT INTO [PTIS].[RateSectionMaster] ([RateSectionNo], [Description]) VALUES (N'8',  N'KAUSA');
-INSERT INTO [PTIS].[RateSectionMaster] ([RateSectionNo], [Description]) VALUES (N'9',  N'SHIL');
-INSERT INTO [PTIS].[RateSectionMaster] ([RateSectionNo], [Description]) VALUES (N'10', N'DIVA');
-INSERT INTO [PTIS].[RateSectionMaster] ([RateSectionNo], [Description]) VALUES (N'11', N'WAGLE');
-INSERT INTO [PTIS].[RateSectionMaster] ([RateSectionNo], [Description]) VALUES (N'12', N'VARTAK');
-INSERT INTO [PTIS].[RateSectionMaster] ([RateSectionNo], [Description]) VALUES (N'13', N'MAJIWADA');
-INSERT INTO [PTIS].[RateSectionMaster] ([RateSectionNo], [Description]) VALUES (N'14', N'BALKUM');
-INSERT INTO [PTIS].[RateSectionMaster] ([RateSectionNo], [Description]) VALUES (N'15', N'MANPADA');
-INSERT INTO [PTIS].[RateSectionMaster] ([RateSectionNo], [Description]) VALUES (N'16', N'KOLSHET');
-INSERT INTO [PTIS].[RateSectionMaster] ([RateSectionNo], [Description]) VALUES (N'17', N'OWALA');
--- [PTIS].[TypeOfUseGroupMaster]
 
 
 
+;WITH S(RateSectionNo, [Description]) AS
+(
+  SELECT * FROM (VALUES
+   (N'1',N'UTHALSAR'),(N'2',N'NAUPADA'),(N'3',N'KOPRI'),(N'4',N'KALWA'),
+   (N'5',N'VITAVA'),(N'6',N'KHAREGAON'),(N'7',N'MUMBRA'),(N'8',N'KAUSA'),
+   (N'9',N'SHIL'),(N'10',N'DIVA'),(N'11',N'WAGLE'),(N'12',N'VARTAK'),
+   (N'13',N'MAJIWADA'),(N'14',N'BALKUM'),(N'15',N'MANPADA'),(N'16',N'KOLSHET'),
+   (N'17',N'OWALA')
+  ) v(RateSectionNo,[Description])
+)
+INSERT INTO PTIS.RateSectionMaster (RateSectionNo, [Description])
+SELECT s.RateSectionNo, s.[Description]
+FROM S s
+WHERE NOT EXISTS (
+  SELECT 1 FROM PTIS.RateSectionMaster x
+  WHERE x.RateSectionId = s.RateSectionNo
+);
 
 
-SET IDENTITY_INSERT [PTIS].[RateMaster] ON;
-INSERT [PTIS].[RateMaster] ([Year], [TaxZoneNo], [ConstructionID], [TypeOfUseGroupID], [RateSquareMeter], [RateSquareFeet], [FloorID], [CreatedBy], [UpdatedBy], [UpdatedDate], [RateRemark], [MinYear], [MaxYear], [RateSectionNo], [Id]) VALUES
-(2025, N'1', N'A', N'R', 167.9200, 1807.4909, N'G', NULL, NULL, NULL, N'YearWise Rate', 2005, 2015, N'12', 2824357),
+
+
+
+;WITH Seed AS
+(
+    SELECT
+        v.[Year],
+        v.TaxZoneNo,
+        v.ConstructionCode,
+        v.UseGroupCode,
+        v.RateSquareMeter,
+        v.RateSquareFeet,
+        v.RateRemark,
+        v.Col8,
+        v.Col9,
+        v.Col10,
+        v.RateType,       
+        v.MinYear,
+        v.MaxYear,
+        v.RateSectionCode,
+        v.OldId            
+    FROM (VALUES
+     (2025, N'1', N'A', N'R', 167.9200, 1807.4909, N'G', NULL, NULL, NULL, N'YearWise Rate', 2005, 2015, N'12', 2824357),
 (2025, N'1', N'B', N'R', 142.0800, 1529.3491, N'G', NULL, NULL, NULL, N'YearWise Rate', 1998, 1998, N'1', 2824358),
 (2025, N'1', N'A', N'C', 1020.4300, 10983.9085, N'G', NULL, NULL, NULL, N'YearWise Rate', 2016, 2025, N'12', 2824359),
 (2025, N'1', N'A', N'C', 904.1800, 9732.5935, N'G', NULL, NULL, NULL, N'YearWise Rate', 2005, 2015, N'1', 2824360),
@@ -3664,10 +3267,96 @@ INSERT [PTIS].[RateMaster] ([Year], [TaxZoneNo], [ConstructionID], [TypeOfUseGro
 (2025, N'1', N'A', N'C', 445.6300, 4796.7613, N'G', NULL, NULL, NULL, N'YearWise Rate', 2003, 2004, N'4', 2825429),
 (2025, N'1', N'B', N'R', 155.0000, 1668.4200, N'G', NULL, NULL, NULL, N'YearWise Rate', 2005, 2015, N'4', 2825430),
 (2025, N'1', N'B', N'R', 116.2500, 1251.3150, N'G', NULL, NULL, NULL, N'YearWise Rate', 1998, 1998, N'12', 2825431),
-(2025, N'1', N'C', N'R', 103.3300, 1112.2441, N'G', NULL, NULL, NULL, N'YearWise Rate', 2005, 2015, N'4', 2825432);
-GO
-INSERT [PTIS].[RateMaster] ([Year], [TaxZoneNo], [ConstructionID], [TypeOfUseGroupID], [RateSquareMeter], [RateSquareFeet], [FloorID], [CreatedBy], [UpdatedBy], [UpdatedDate], [RateRemark], [MinYear], [MaxYear], [RateSectionNo], [Id]) VALUES
-(2025, N'1', N'E', N'R', 83.9600, 903.7454, N'G', NULL, NULL, NULL, N'YearWise Rate', 1998, 1998, N'12', 2825433),
+(2025, N'1', N'C', N'R', 103.3300, 1112.2441, N'G', NULL, NULL, NULL, N'YearWise Rate', 2005, 2015, N'4', 2825432)
+    ) AS v(
+        [Year],
+        TaxZoneNo,
+        ConstructionCode,
+        UseGroupCode,
+        RateSquareMeter,
+        RateSquareFeet,
+        RateRemark,
+        Col8,
+        Col9,
+        Col10,
+        RateType,
+        MinYear,
+        MaxYear,
+        RateSectionCode,
+        OldId
+    )
+)
+
+
+
+INSERT INTO PTIS.RateMaster
+(
+    [Year],
+    TaxZoneId,
+    FloorId,
+    ConstructionTypeId,
+    TypeOfUseGroupId,
+    YearRangeId,
+    RateSquareMeter,
+    RateSquareFeet,
+    RateSectionId,
+    RateRemark,
+    CreatedBy,
+    UpdatedBy,
+    UpdatedDate
+)
+
+
+SELECT
+
+    s.[Year],
+    tz.TaxZoneId,
+    f.FloorId,
+    ct.ConstructionTypeId,
+    ug.TypeOfUseGroupId,
+    yr.YearRangeId,
+    CAST(s.RateSquareMeter AS money),
+    CAST(s.RateSquareFeet  AS money),
+    rs.RateSectionId,
+    s.RateRemark,
+    NULL, NULL, NULL
+FROM Seed s
+JOIN PTIS.TaxZoneMaster tz
+    ON tz.TaxZoneNo = s.TaxZoneNo
+JOIN PTIS.FloorMaster f
+    ON f.FloorCode = 'G'
+JOIN PTIS.ConstructionTypeMaster ct
+    ON ct.ConstructionCode = s.ConstructionCode
+JOIN PTIS.TypeOfUseGroupMaster ug
+    ON ug.TypeOfUseGroupCode = s.UseGroupCode
+JOIN PTIS.RateSectionMaster rs
+    ON rs.RateSectionId = s.RateSectionCode
+JOIN PTIS.AssessmentYearRangeMaster yr
+    ON yr.FromYear = s.MinYear AND yr.ToYear = s.MaxYear;
+
+
+
+
+	;WITH Seed AS
+(
+    SELECT
+        v.[Year],
+        v.TaxZoneNo,
+        v.ConstructionCode,
+        v.UseGroupCode,
+        v.RateSquareMeter,
+        v.RateSquareFeet,
+        v.RateRemark,
+        v.Col8,
+        v.Col9,
+        v.Col10,
+        v.RateType,      
+        v.MinYear,
+        v.MaxYear,
+        v.RateSectionId,
+        v.OldId            
+    FROM (VALUES
+    (2025, N'1', N'E', N'R', 83.9600, 903.7454, N'G', NULL, NULL, NULL, N'YearWise Rate', 1998, 1998, N'12', 2825433),
 (2025, N'1', N'D', N'R', 90.4200, 973.2809, N'G', NULL, NULL, NULL, N'YearWise Rate', 2005, 2015, N'4', 2825434),
 (2025, N'1', N'E', N'R', 90.4200, 973.2809, N'G', NULL, NULL, NULL, N'YearWise Rate', 2005, 2015, N'4', 2825435),
 (2025, N'1', N'B', N'R', 116.2500, 1251.3150, N'G', NULL, NULL, NULL, N'YearWise Rate', 2003, 2004, N'16', 2825436),
@@ -3890,18 +3579,297 @@ INSERT [PTIS].[RateMaster] ([Year], [TaxZoneNo], [ConstructionID], [TypeOfUseGro
 (2025, N'1', N'E', N'C', 226.0400, 2433.0946, N'G', NULL, NULL, NULL, N'YearWise Rate', 1999, 2002, N'12', 2825577),
 (2025, N'1', N'D', N'R', 142.0800, 1529.3491, N'G', NULL, NULL, NULL, N'YearWise Rate', 2005, 2015, N'1', 2825578),
 (2025, N'1', N'A', N'C', 322.9200, 3475.9109, N'G', NULL, NULL, NULL, N'YearWise Rate', 1700, 1997, N'4', 2825579),
-(2025, N'1', N'E', N'R', 142.0800, 1529.3491, N'G', NULL, NULL, NULL, N'YearWise Rate', 2005, 2015, N'1', 2825580);
+(2025, N'1', N'E', N'R', 142.0800, 1529.3491, N'G', NULL, NULL, NULL, N'YearWise Rate', 2005, 2015, N'1', 2825580)
+    ) AS v(
+        [Year],
+        TaxZoneNo,
+        ConstructionCode,
+        UseGroupCode,
+        RateSquareMeter,
+        RateSquareFeet,
+        RateRemark,
+        Col8,
+        Col9,
+        Col10,
+        RateType,
+        MinYear,
+        MaxYear,
+        RateSectionId,
+        OldId
+    )
+)
 
-SET IDENTITY_INSERT [PTIS].[RateMaster] OFF
+
+
+INSERT INTO PTIS.RateMaster
+(
+    [Year],
+    TaxZoneId,
+    FloorId,
+    ConstructionTypeId,
+    TypeOfUseGroupId,
+    YearRangeId,
+    RateSquareMeter,
+    RateSquareFeet,
+    RateSectionId,
+    RateRemark,
+    CreatedBy,
+    UpdatedBy,
+    UpdatedDate
+)
+
+
+SELECT
+
+    s.[Year],
+    tz.TaxZoneId,
+    f.FloorId,
+    ct.ConstructionTypeId,
+    ug.TypeOfUseGroupId,
+    yr.YearRangeId,
+    CAST(s.RateSquareMeter AS money),
+    CAST(s.RateSquareFeet  AS money),
+    rs.RateSectionId,
+    s.RateRemark,
+    NULL, NULL, NULL
+FROM Seed s
+JOIN PTIS.TaxZoneMaster tz
+    ON tz.TaxZoneNo = s.TaxZoneNo
+JOIN PTIS.FloorMaster f
+    ON f.FloorCode = 'G'
+JOIN PTIS.ConstructionTypeMaster ct
+    ON ct.ConstructionCode = s.ConstructionCode
+JOIN PTIS.TypeOfUseGroupMaster ug
+    ON ug.TypeOfUseGroupCode = s.UseGroupCode
+JOIN PTIS.RateSectionMaster rs
+    ON rs.RateSectionId = s.RateSectionId
+JOIN PTIS.AssessmentYearRangeMaster yr
+    ON yr.FromYear = s.MinYear AND yr.ToYear = s.MaxYear;
+
+
+
+
+;WITH Src AS
+(
+    SELECT v.RateSectionNo, v.WardNo
+    FROM (VALUES
+          (N'1',  N'NK10'),
+         (N'1',  N'NK11'),
+         (N'1',  N'NK12'),
+         (N'1',  N'NK131'),
+         (N'1',  N'NK132'),
+         (N'1',  N'NK133'),
+         (N'1',  N'NK134'),
+         (N'1',  N'NK135'),
+         (N'1',  N'NK136'),
+         (N'1',  N'NKMAJOR3'),
+         (N'1',  N'UT115'),
+         (N'1',  N'UT116'),
+         (N'1',  N'UT117'),
+         (N'1',  N'UT118'),
+         (N'1',  N'UT119'),
+         (N'1',  N'UT120'),
+         (N'1',  N'UT121'),
+         (N'1',  N'UT122'),
+         (N'1',  N'UT123'),
+         (N'1',  N'UT124'),
+         (N'1',  N'UT125'),
+         (N'1',  N'UT126'),
+         (N'1',  N'UT127'),
+         (N'1',  N'UT128'),
+         (N'1',  N'UT129'),
+         (N'1',  N'UT130'),
+         (N'1',  N'UTMAJOR2'),
+         (N'10', N'DI175'),
+         (N'10', N'DI176'),
+         (N'10', N'DIMAJOR1'),
+         (N'11', N'LSMAJOR1'),
+         (N'11', N'NK1'),
+         (N'11', N'NK2'),
+         (N'11', N'NK3'),
+         (N'11', N'NK33'),
+         (N'11', N'NK34'),
+         (N'11', N'NK35'),
+         (N'11', N'NK37'),
+         (N'11', N'NK40'),
+         (N'11', N'NKMAJOR4'),
+         (N'11', N'WE13'),
+         (N'11', N'WE36'),
+         (N'11', N'WE41'),
+         (N'11', N'WE42'),
+         (N'11', N'WE43'),
+         (N'11', N'WE44'),
+         (N'11', N'WE45'),
+         (N'11', N'WE46'),
+         (N'11', N'WE47'),
+         (N'11', N'WE48'),
+         (N'11', N'WE49'),
+         (N'11', N'WE50'),
+         (N'11', N'WE51'),
+         (N'11', N'WE52'),
+         (N'11', N'WE53'),
+         (N'11', N'WE54'),
+         (N'11', N'WE55'),
+         (N'11', N'WE56'),
+         (N'11', N'WE57'),
+         (N'11', N'WE58'),
+         (N'11', N'WE59'),
+         (N'11', N'WE63'),
+         (N'11', N'WE64'),
+         (N'11', N'WEMAJOR1'),
+         (N'12', N'VN112'),
+         (N'12', N'VN113'),
+         (N'12', N'VN6'),
+         (N'12', N'VN78'),
+         (N'12', N'VN8'),
+         (N'12', N'VN85'),
+         (N'12', N'VN86'),
+         (N'12', N'VN88'),
+         (N'12', N'VN89'),
+         (N'12', N'VN90'),
+         (N'12', N'VN91'),
+         (N'12', N'VN92'),
+         (N'12', N'VN93'),
+         (N'12', N'VN94'),
+         (N'12', N'VN95'),
+         (N'12', N'VNMAJOR'),
+         (N'13', N'MM111'),
+         (N'13', N'MM114'),
+         (N'13', N'MM19'),
+         (N'13', N'MM20'),
+         (N'14', N'MM106'),
+         (N'14', N'MM107'),
+         (N'14', N'MM109'),
+         (N'14', N'MM110'),
+         (N'14', N'MM15'),
+         (N'14', N'MM16'),
+         (N'14', N'MM18'),
+         (N'14', N'MMMAJOR4'),
+         (N'15', N'MM10'),
+         (N'15', N'MM101'),
+         (N'15', N'MM102'),
+         (N'15', N'MM103'),
+         (N'15', N'MM104'),
+         (N'15', N'MM105'),
+         (N'15', N'MM13'),
+         (N'15', N'MM8'),
+         (N'15', N'MMMAJOR3'),
+         (N'16', N'MM108'),
+         (N'16', N'MM11'),
+         (N'16', N'MMMAJOR2'),
+         (N'17', N'MM1'),
+         (N'17', N'MM100'),
+         (N'17', N'MM2'),
+         (N'17', N'MM3'),
+         (N'17', N'MM4'),
+         (N'17', N'MM5'),
+         (N'17', N'MM7'),
+         (N'17', N'MM96'),
+         (N'17', N'MM97'),
+         (N'17', N'MM98'),
+         (N'17', N'MM99'),
+         (N'17', N'MMMAJOR'),
+         (N'2',  N'NK13'),
+         (N'2',  N'NK14'),
+         (N'2',  N'NK15'),
+         (N'2',  N'NK16'),
+         (N'2',  N'NK17'),
+         (N'2',  N'NK18'),
+         (N'2',  N'NK19'),
+         (N'2',  N'NK20'),
+         (N'2',  N'NK25'),
+         (N'2',  N'NK26'),
+         (N'2',  N'NK27'),
+         (N'2',  N'NK28'),
+         (N'2',  N'NK29'),
+         (N'2',  N'NK30'),
+         (N'2',  N'NK31'),
+         (N'2',  N'NK32'),
+         (N'2',  N'NK8'),
+         (N'2',  N'NK9'),
+         (N'2',  N'NKMAJOR1'),
+         (N'2',  N'UTMAJOR1'),
+         (N'3',  N'NK5'),
+         (N'3',  N'NK6'),
+         (N'3',  N'NK7'),
+         (N'3',  N'NKMAJOR2'),
+         (N'4',  N'KL137'),
+         (N'4',  N'KL138'),
+         (N'4',  N'KL142'),
+         (N'4',  N'KL143'),
+         (N'4',  N'KL144'),
+         (N'4',  N'KL145'),
+         (N'4',  N'KL146'),
+         (N'4',  N'KL147'),
+         (N'4',  N'KL148'),
+         (N'4',  N'KL149'),
+         (N'4',  N'KL150'),
+         (N'4',  N'KL151'),
+         (N'4',  N'KLMAJOR2'),
+         (N'5',  N'KL139'),
+         (N'5',  N'KL140'),
+         (N'5',  N'KL141'),
+         (N'5',  N'KLMAJOR1'),
+         (N'5',  N'TEST'),
+         (N'6',  N'KL152'),
+         (N'6',  N'KL153'),
+         (N'6',  N'KL154'),
+         (N'6',  N'KL155'),
+         (N'6',  N'KL156'),
+         (N'6',  N'KLMAJOR3'),
+         (N'7',  N'MU157'),
+         (N'7',  N'MU158'),
+         (N'7',  N'MU159'),
+         (N'7',  N'MU160'),
+         (N'7',  N'MU163'),
+         (N'7',  N'MU164'),
+         (N'7',  N'MU165'),
+         (N'7',  N'MU166'),
+         (N'7',  N'MU167'),
+         (N'7',  N'MU168'),
+         (N'7',  N'MUMAJOR1'),
+         (N'8',  N'MUMAJOR2'),
+         (N'8',  N'MUMAJOR3'),
+         (N'9',  N'DI172'),
+         (N'9',  N'DI174'),
+         (N'9',  N'DIMAJOR2'),
+         (N'9',  N'MUMAJOR4')
+    ) v(RateSectionNo, WardNo)
+),
+Resolved AS
+(
+    SELECT
+        rsm.RateSectionId,
+        wm.WardId,
+        s.RateSectionNo,
+        s.WardNo
+    FROM Src s
+    INNER JOIN PTIS.RateSectionMaster rsm
+        ON rsm.RateSectionNo = TRY_CONVERT(int, s.RateSectionNo)
+    INNER JOIN PTIS.WardMaster wm
+        ON wm.WardNo = s.WardNo
+)
+INSERT INTO PTIS.RateSectionDetails (RateSectionId, WardId)
+SELECT r.RateSectionId, r.WardId
+FROM Resolved r
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM PTIS.RateSectionDetails t
+    WHERE t.RateSectionId = r.RateSectionId
+      AND t.WardId        = r.WardId
+);
+
+
+
+
+	
 
 SET IDENTITY_INSERT [PTIS].[ActiveTaxesMaster] ON;
 GO
 
 INSERT [PTIS].[ActiveTaxesMaster]
-(
-    [TaxNameID], [TaxName], [TaxNameAlias], [DisplayOrder],
-    [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]
-)
+([ActiveTaxesId], [TaxName], [TaxNameAlias], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 VALUES
 (1,  N'GeneralTax',           N'सामान्य कर रु.',                    1,  1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
 (2,  N'StateEducationTax',    N'शिक्षण कर रु.',                      2,  1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
@@ -3912,27 +3880,27 @@ VALUES
 (7,  N'TreeCess',             N'वृक्ष उपकर रु.',                     7,  1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
 (8,  N'SewageDisposalCess',   N'मलप्रवाह सुविधा लाभ कर रु.',         8,  1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
 (9,  N'SanitationCess',       N'प्रशासकीय सेवा शुल्क रु.',           9,  1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
-(10, N'WaterBenefitCess',     N'पाणीपुरवठा लाभ कर रु.',             10, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(10, N'WaterBenefitCess',     N'पाणीपुरवठा लाभ कर रु.',             10, 0, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
 (11, N'SpWaterCess',          N'मल निस्सा रण लाभ रु.',              11, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
-(12, N'WaterBill',            N'मागणी नोटीस फी रु.',                12, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(12, N'WaterBill',            N'मागणी नोटीस फी रु.',                12, 0, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
 (13, N'FireCess',             N'अग्नि. कर रु.',                      13, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
 (14, N'Penalty',              N'थकीत शास्ती रु.',                    14, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
-(15, N'BigBuilding',          N'मोठी इमारत कर रु.',                  15, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(15, N'BigBuilding',          N'मोठी इमारत कर रु.',                  15, 0, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
 (16, N'LightCess',            N'विशेष साफसफाई कर रु.',              16, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
 (17, N'ServiceTax',           N' ',                                  17, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
 (19, N'IllegalConstPenalty',  N'अनधिकृत बांध काम शास्ती रु. ',      18, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
 (20, N'Tax1',                 N'कर १ रु.',                           19, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
 (21, N'Tax2',                 N'कर २ रु.',                           20, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
 (22, N'Tax3',                 N'कर ४ रु..',                          21, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
-(23, N'Tax4',                 N'कर ४ रु.',                           22, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
-(24, N'Tax5',                 N'कर ५ रु.',                           23, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
-(25, N'Tax6',                 N'कर ५ रु.',                           24, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
-(26, N'Tax7',                 N'कर ६ रु.',                           25, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
-(27, N'Tax8',                 N'कर ७ रु.',                           26, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
-(28, N'Tax9',                 N'कर ९ रु.',                           27, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
-(29, N'Tax10',                N'कर १० रु.',                          28, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
-(30, N'Interest',             N'चालू मा.कर शास्ती रु.',              29, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
-(31, N'Discount',             N'विशेष सूट रु.',                      30, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(23, N'Tax4',                 N'कर ४ रु.',                           22, 0, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(24, N'Tax5',                 N'कर ५ रु.',                           23, 0, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(25, N'Tax6',                 N'कर ५ रु.',                           24, 0, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(26, N'Tax7',                 N'कर ६ रु.',                           25, 0, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(27, N'Tax8',                 N'कर ७ रु.',                           26, 0, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(28, N'Tax9',                 N'कर ९ रु.',                           27, 0, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(29, N'Tax10',                N'कर १० रु.',                          28, 0, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(30, N'Interest',             N'चालू मा.कर शास्ती रु.',              29, 0, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
+(31, N'Discount',             N'विशेष सूट रु.',                      30, 0, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
 (32, N'TaxTotal',             N'एकूण कर रु.',                         31, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL),
 (33, N'NetTotal',             N'निव्वळ एकूण कर रु.',                  32, 1, NULL, CAST(N'2026-01-28T15:29:24.287' AS DateTime), NULL, NULL);
 
@@ -3942,738 +3910,348 @@ GO
 
 
 
-INSERT [PTIS].[RateSectionDetails] ([RateSectionNo], [WardNo]) VALUES
-  (N'1', N'NK10'),
-  (N'1', N'NK11'),
-  (N'1', N'NK12'),
-  (N'1', N'NK131'),
-  (N'1', N'NK132'),
-  (N'1', N'NK133'),
-  (N'1', N'NK134'),
-  (N'1', N'NK135'),
-  (N'1', N'NK136'),
-  (N'1', N'NKMAJOR3'),
-  (N'1', N'UT115'),
-  (N'1', N'UT116'),
-  (N'1', N'UT117'),
-  (N'1', N'UT118'),
-  (N'1', N'UT119'),
-  (N'1', N'UT120'),
-  (N'1', N'UT121'),
-  (N'1', N'UT122'),
-  (N'1', N'UT123'),
-  (N'1', N'UT124'),
-  (N'1', N'UT125'),
-  (N'1', N'UT126'),
-  (N'1', N'UT127'),
-  (N'1', N'UT128'),
-  (N'1', N'UT129'),
-  (N'1', N'UT130'),
-  (N'1', N'UTMAJOR2'),
-  (N'10', N'DI175'),
-  (N'10', N'DI176'),
-  (N'10', N'DIMAJOR1'),
-  (N'11', N'LSMAJOR1'),
-  (N'11', N'NK1'),
-  (N'11', N'NK2'),
-  (N'11', N'NK3'),
-  (N'11', N'NK33'),
-  (N'11', N'NK34'),
-  (N'11', N'NK35'),
-  (N'11', N'NK37'),
-  (N'11', N'NK40'),
-  (N'11', N'NKMAJOR4'),
-  (N'11', N'WE13'),
-  (N'11', N'WE36'),
-  (N'11', N'WE41'),
-  (N'11', N'WE42'),
-  (N'11', N'WE43'),
-  (N'11', N'WE44'),
-  (N'11', N'WE45'),
-  (N'11', N'WE46'),
-  (N'11', N'WE47'),
-  (N'11', N'WE48'),
-  (N'11', N'WE49'),
-  (N'11', N'WE50'),
-  (N'11', N'WE51'),
-  (N'11', N'WE52'),
-  (N'11', N'WE53'),
-  (N'11', N'WE54'),
-  (N'11', N'WE55'),
-  (N'11', N'WE56'),
-  (N'11', N'WE57'),
-  (N'11', N'WE58'),
-  (N'11', N'WE59'),
-  (N'11', N'WE63'),
-  (N'11', N'WE64'),
-  (N'11', N'WEMAJOR1'),
-  (N'12', N'VN112'),
-  (N'12', N'VN113'),
-  (N'12', N'VN6'),
-  (N'12', N'VN78'),
-  (N'12', N'VN8'),
-  (N'12', N'VN85'),
-  (N'12', N'VN86'),
-  (N'12', N'VN88'),
-  (N'12', N'VN89'),
-  (N'12', N'VN90'),
-  (N'12', N'VN91'),
-  (N'12', N'VN92'),
-  (N'12', N'VN93'),
-  (N'12', N'VN94'),
-  (N'12', N'VN95'),
-  (N'12', N'VNMAJOR'),
-  (N'13', N'MM111'),
-  (N'13', N'MM114'),
-  (N'13', N'MM19'),
-  (N'13', N'MM20'),
-  (N'14', N'MM106'),
-  (N'14', N'MM107'),
-  (N'14', N'MM109'),
-  (N'14', N'MM110'),
-  (N'14', N'MM15'),
-  (N'14', N'MM16'),
-  (N'14', N'MM18'),
-  (N'14', N'MMMAJOR4'),
-  (N'15', N'MM10'),
-  (N'15', N'MM101'),
-  (N'15', N'MM102'),
-  (N'15', N'MM103'),
-  (N'15', N'MM104'),
-  (N'15', N'MM105'),
-  (N'15', N'MM13'),
-  (N'15', N'MM8'),
-  (N'15', N'MMMAJOR3'),
-  (N'16', N'MM108'),
-  (N'16', N'MM11'),
-  (N'16', N'MMMAJOR2'),
-  (N'17', N'MM1'),
-  (N'17', N'MM100'),
-  (N'17', N'MM2'),
-  (N'17', N'MM3'),
-  (N'17', N'MM4'),
-  (N'17', N'MM5'),
-  (N'17', N'MM7'),
-  (N'17', N'MM96'),
-  (N'17', N'MM97'),
-  (N'17', N'MM98'),
-  (N'17', N'MM99'),
-  (N'17', N'MMMAJOR'),
-  (N'2', N'NK13'),
-  (N'2', N'NK14'),
-  (N'2', N'NK15'),
-  (N'2', N'NK16'),
-  (N'2', N'NK17'),
-  (N'2', N'NK18'),
-  (N'2', N'NK19'),
-  (N'2', N'NK20'),
-  (N'2', N'NK25'),
-  (N'2', N'NK26'),
-  (N'2', N'NK27'),
-  (N'2', N'NK28'),
-  (N'2', N'NK29'),
-  (N'2', N'NK30'),
-  (N'2', N'NK31'),
-  (N'2', N'NK32'),
-  (N'2', N'NK8'),
-  (N'2', N'NK9'),
-  (N'2', N'NKMAJOR1'),
-  (N'2', N'UTMAJOR1'),
-  (N'3', N'NK5'),
-  (N'3', N'NK6'),
-  (N'3', N'NK7'),
-  (N'3', N'NKMAJOR2'),
-  (N'4', N'KL137'),
-  (N'4', N'KL138'),
-  (N'4', N'KL142'),
-  (N'4', N'KL143'),
-  (N'4', N'KL144'),
-  (N'4', N'KL145'),
-  (N'4', N'KL146'),
-  (N'4', N'KL147'),
-  (N'4', N'KL148'),
-  (N'4', N'KL149'),
-  (N'4', N'KL150'),
-  (N'4', N'KL151'),
-  (N'4', N'KLMAJOR2'),
-  (N'5', N'KL139'),
-  (N'5', N'KL140'),
-  (N'5', N'KL141'),
-  (N'5', N'KLMAJOR1'),
-  (N'5', N'TEST'),
-  (N'6', N'KL152'),
-  (N'6', N'KL153'),
-  (N'6', N'KL154'),
-  (N'6', N'KL155'),
-  (N'6', N'KL156'),
-  (N'6', N'KLMAJOR3'),
-  (N'7', N'MU157'),
-  (N'7', N'MU158'),
-  (N'7', N'MU159'),
-  (N'7', N'MU160'),
-  (N'7', N'MU163'),
-  (N'7', N'MU164'),
-  (N'7', N'MU165'),
-  (N'7', N'MU166'),
-  (N'7', N'MU167'),
-  (N'7', N'MU168'),
-  (N'7', N'MUMAJOR1'),
-  (N'8', N'MUMAJOR2'),
-  (N'8', N'MUMAJOR3'),
-  (N'9', N'DI172'),
-  (N'9', N'DI174'),
-  (N'9', N'DIMAJOR2'),
-  (N'9', N'MUMAJOR4');
--- [PTIS].[YearMaster]
+INSERT INTO [CORE].[YearMaster] ([Year], [IsActive]) VALUES ( '2022','0');
+INSERT INTO [CORE].[YearMaster] ([Year], [IsActive]) VALUES ( '2023','0');
+INSERT INTO [CORE].[YearMaster] ([Year], [IsActive]) VALUES ( '2024','0');
+INSERT INTO [CORE].[YearMaster] ([Year], [IsActive]) VALUES ( '2025','1');
 
 
-INSERT INTO [PTIS].[YearMaster] (  [Year], [IsActive]) VALUES ( '2022','0');
-INSERT INTO [PTIS].[YearMaster] (  [Year], [IsActive]) VALUES ( '2023','0');
-INSERT INTO [PTIS].[YearMaster] (  [Year], [IsActive]) VALUES ( '2024','0');
-INSERT INTO [PTIS].[YearMaster] (  [Year], [IsActive]) VALUES ( '2025','1');
+INSERT INTO PTIS.TaxPercentageMasterCV
+(
+     TypeOfUseId,YearRangeId,GeneralTax,TreeCess, SpWaterCess,
+    RoadCess,FireCess,LightCess,WaterBenefitCess,SewageDisposalCess,SpEducationTax,
+    SanitationCess,DrainCess,WaterBill,BigBuilding,IllegalConstPenalty,
+    UserCharges,ServiceTax, Tax1, Tax2, Tax3, Tax4, Tax5, Tax6, Tax7, Tax8, Tax9, Tax10,
+    OldPenalty,IsActive,CreatedBy,CreatedDate,UpdatedBy, UpdatedDate
+)
+SELECT
+    
+    tum.TypeOfUseId,
+    2,
+   15.0000, 1.0000, 2.0000, 5.0000, 0.0000, 0.0000, 10.0000, 8.0000, 1.0000,
+    0.0000, 1.0000, 0.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
+    1.0000, 1.0000, 0.0000, 0.0000, 10.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+    1,   
+    NULL,
+    GETDATE(),
+    NULL,
+    NULL
+FROM  PTIS.TypeOfUseMaster tum
+   
+
+SET IDENTITY_INSERT PTIS.TaxPercentageMasterCV OFF;
+
+
+
+
+INSERT INTO PTIS.TaxPercentageMasterRV
+(
+     TypeOfUseId,YearRangeId,GeneralTax,TreeCess, SpWaterCess,
+    RoadCess,FireCess,LightCess,WaterBenefitCess,SewageDisposalCess,SpEducationTax,
+    SanitationCess,DrainCess,WaterBill,BigBuilding,IllegalConstPenalty,
+    UserCharges,ServiceTax, Tax1, Tax2, Tax3, Tax4, Tax5, Tax6, Tax7, Tax8, Tax9, Tax10,
+    OldPenalty,IsActive,CreatedBy,CreatedDate,UpdatedBy, UpdatedDate
+)
+SELECT
+    
+    tum.TypeOfUseId,
+    2,
+    15.0000, 1.0000, 2.0000, 5.0000, 0.0000, 0.0000, 10.0000, 8.0000, 1.0000,
+    0.0000, 1.0000, 0.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
+    1.0000, 1.0000, 0.0000, 0.0000, 10.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
+    1,   
+    NULL,
+    GETDATE(),
+    NULL,
+    NULL
+FROM  PTIS.TypeOfUseMaster tum
+   
+
+SET IDENTITY_INSERT PTIS.TaxPercentageMasterRV OFF;
 
 
 
 
 
--- SET IDENTITY_INSERT [PTIS].[TaxPercentageMasterCV] ON
--- INSERT [PTIS].[TaxPercentageMasterCV] ([Id], [TypeOfUseId], [Description], [Type],[FromYear],[ToYear], [GeneralTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
---   (1, N'C', N'अनिवासी', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL);
--- -- [PTIS].[TaxPercentageMasterCV]
-
-
--- INSERT [PTIS].[TaxPercentageMasterCV] ([Id], [TypeOfUseId], [Description], [Type],[FromYear],[ToYear], [GeneralTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES
---   (2, N'T', N'धार्मिक स्थळ', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '','',NULL,Getdate(),NULL,NULL);
-
--- INSERT [PTIS].[TaxPercentageMasterCV] ([Id], [TypeOfUseId], [Description], [Type],[FromYear],[ToYear], [GeneralTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
---   (3, N'V', N'V-व्हरांडा टॉयल॓ट बाथ', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (4, N'R', N'निवासी', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (5, N'UC', N'बांधकाम चालू ', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (6, N'SPK', N'स्टील पार्किंग ', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (7, N'N', N'मनपा मालमत्ता', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (8, N'EG', N'शैक्षणिक शासकीय ', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (9, N'GO', N'गोडाऊन', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (10, N'GR', N'शासकीय निवासी', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (11, N'HO', N'खाजगी वसतिगृह', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (12, N'LB', N'वाचनालय/लायब्ररी ', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (13, N'UCC', N'बांधकाम चालु-अनिवासी ', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (14, N'MTR', N'टॉवर जागा', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (15, N'FF', N'स्वातंत्र्य सैनिक', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (16, N'WGC', N'WGC-व्हरांडा  शासकीय अनिवासी', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (17, N'WEG', N'WEG-व्हरांडा शैक्षणीक शासकीय', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (18, N'WEP', N'WEP-व्हरांडा खाजगी शैक्षणीक ', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (19, N'WGR', N'WGR-व्हरांडा शासकीय निवासी', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (20, N'PC', N'पार्किंग अनिवासी', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (21, N'S', N'दुकान', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (22, N'D', N'दवाखाना', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (23, N'B', N'बँक', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (24, N'SW', N'जलतरण तलाव', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (25, N'I', N'कारखाना', N'I',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (26, N'EP', N'खाजगी शैक्षणिक', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (27, N'WR', N'WR-व्हरांडा निवासी', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (28, N'WC', N'WC-व्हरांडा अनिवासी', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (29, N'CC', N'कोचिंग क्लासेस', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (30, N'CG', N'केंद्र शासकीय मालमत्ता', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (31, N'CR', N'केंद्र शासकीय मालमत्ता निवासी', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (32, N'OPR', N'खुला भूखंड निवासी', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (33, N'OPC', N'खुला भूखंड अनिवासी', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (34, N'PTR', N'पेट्रोल पंप', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (35, N'GC', N'शासकीय अनिवासी', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (36, N'O', N'ऑफिस', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (37, N'M', N'मंगल कार्यालय', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (38, N'KT', N'मल्टीप्लेक्स', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (39, N'H', N'हॉटेल', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (40, N'OPK', N'ओपन पार्किंग', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (41, N'WI', N'WI-व्हरांडा औद्योगिक', N'I',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (42, N'OP', N'खुला भूखंड', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (43, N'WCGR', N'WCGR-केंद्र शासकीय मालमत्ता', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (44, N'WCGC', N'WCGC-केंद्र शासकीय मालमत्ता', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (45, N'CH', N'सामाजिक सभागृह', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (46, N'L', N'लॉज', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (47, N'AG', N'शेती', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (48, N'ACH', N'क्लब हाऊस ', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (49, N'AGM', N'सोसायटी जिम', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (50, N'AH', N'कॉमन हॉल', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (51, N'AMH', N'मल्टीपर्पज हॉल', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (52, N'AO', N'सोसायटी ऑफीस ', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (53, N'APG', N'खेळाचे मैदान', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (54, N'ASW', N'सोसायटी स्विमिंग पूल', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (55, N'AWC', N'वॉचमन कॅबिन', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (56, N'CCO', N'C-कॉरिडॉर', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (57, N'CCR', N'CCR-ट्युशन क्लासेस ', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (58, N'CGC', N'केंद्र शासन वाणिज्य मालमत्ता', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (59, N'ENCC', N'ENCC', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (60, N'ENCEG', N'ENCEG', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (61, N'ENCEP', N'ENCEP', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (62, N'ENCI', N'ENCI', N'I',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (63, N'ENCR', N'ENCR', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (64, N'GM', N'व्यायाम शाळा ', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (65, N'GMR', N'GMR-व्यायाम शाळा', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (66, N'KTR', N'KTR-टॉकीज/चित्रपट गृह', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (67, N'NPD', N'न.प.दुकान गाळे', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (68, N'OBR', N'OBR', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (69, N'OPKC', N'ओपन पार्किंग अनिवासी', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (70, N'RCO', N'R-कॉरिडॉर', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (71, N'RGN', N'जनरेटर रूम/मिटर रूम', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (72, N'SPKC', N'स्टील पार्किंग अनिवासी', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (73, N'WT', N'R-टॉवर', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (74, N'PG', N'पेयिंग गेस्ट', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (75, N'GA', N'गार्डन', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (76, N'RFG', N'रिफ्युज एरिया', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (77, N'PH', N'पंप हाऊस रूम', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (78, N'SR', N' स्टोअर रूम', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (79, N'WAT', N' वॉटर टॅंक', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (80, N'ISR', N'इनडोअर स्पोर्ट रूम ', N'N',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (81, N'EHO', N'शैक्षणिक संस्था-वसतिगृह', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (82, N'PF', N'पोल्ट्रीफार्म', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (83, N'NR', N'सर्व्हेक्षण निवासी', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (84, N'NC', N'सर्व्हेक्षण अनिवासी', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (85, N'NI', N'सर्व्हेक्षण औद्योगिक', N'I',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (86, N'ICR', N'अनधिकृत बांधकाम निवासी', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (87, N'ICC', N'अनधिकृत बांधकाम अनिवासी ', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (88, N'ICI', N'अनधिकृत बांधकाम औद्योगिक', N'I',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (89, N'ICRT', N'निवासी शास्तीस पात्र अनधिकृत बांधकाम ', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (90, N'ICCT', N'अनिवासी शास्तीस पात्र अनधिकृत बांधकाम ', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (91, N'ICIT', N'औद्योगिक शास्तीस पात्र अनधिकृत बांधकाम ', N'I',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (92, N'ICHT', N'हॉटेल शास्तीस पात्र अनधिकृत बांधकाम', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (93, N'ICH', N'हॉटेल अनधिकृत बांधकाम', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (94, N'ICP', N'अनधिकृत बांधकाम निवासी पार्किंग', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (95, N'ICPRT', N'निवासी पार्किंग शास्तीस पात्र अनधिकृत बांधकाम', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (96, N'OAH', N'वृद्धाश्रम', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (97, N'ABLC', N'टेरेस-बाल्कनी अनिवासी', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (98, N'ABLOP', N'ओपन टेरेस', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (99, N'ABLR', N'टेरेस-बाल्कनी ', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (100, N'ACHC', N'क्लब हाऊस C', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (101, N'ASWC', N'सोसायटी स्विमिंग पूल C', N'C',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (102, N'AWA', N'वेटिंग एरिया', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (103, N'FCR', N'फायर कंट्रोल रूम', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL);
-
--- INSERT [PTIS].[TaxPercentageMasterCV] ([Id], [TypeOfUseId], [Description], [Type],[FromYear],[ToYear], [GeneralTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES (104, N'FIRR', N'फायर रूम
--- ', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL)
--- INSERT [PTIS].[TaxPercentageMasterCV] ([Id], [TypeOfUseId], [Description], [Type],[FromYear],[ToYear], [GeneralTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES (105, N'GRR', N'गारबेज रूम
--- ', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL)
--- INSERT [PTIS].[TaxPercentageMasterCV] ([Id], [TypeOfUseId], [Description], [Type],[FromYear],[ToYear], [GeneralTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
---   (106, N'IT', N'माहिती व तंत्रज्ञान उद्योग', N'I',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (107, N'LR', N'लिफ्ट रूम', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (108, N'MR', N'Mail रूम', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (109, N'OL', N'ओपनिंग लॉबी', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (110, N'OWC', N'सेंद्रिय कचरा कन्व्हर्टर रूम', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (111, N'SI', N'सामाजिक संस्था', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
---   (112, N'TL', N'टेरेस लिफ्ट', N'R',1800,2028, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL);
-
--- SET IDENTITY_INSERT [PTIS].[TaxPercentageMasterCV] OFF
-
-
-SET IDENTITY_INSERT [PTIS].[TaxPercentageMasterRV] ON
-INSERT [PTIS].[TaxPercentageMasterRV] ([Id], [TypeOfUseId], [Description], [Type],[FromYear],[ToYear], [GeneralTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
-  (1, N'C', N'अनिवासी', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (2, N'T', N'धार्मिक स्थळ', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (3, N'V', N'V-व्हरांडा टॉयल॓ट बाथ', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (4, N'R', N'निवासी', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (5, N'UC', N'बांधकाम चालू ', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (6, N'SPK', N'स्टील पार्किंग ', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (7, N'N', N'मनपा मालमत्ता', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (8, N'EG', N'शैक्षणिक शासकीय ', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (9, N'GO', N'गोडाऊन', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (10, N'GR', N'शासकीय निवासी', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (11, N'HO', N'खाजगी वसतिगृह', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (12, N'LB', N'वाचनालय/लायब्ररी ', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (13, N'UCC', N'बांधकाम चालु-अनिवासी ', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (14, N'MTR', N'टॉवर जागा', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (15, N'FF', N'स्वातंत्र्य सैनिक', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (16, N'WGC', N'WGC-व्हरांडा  शासकीय अनिवासी', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (17, N'WEG', N'WEG-व्हरांडा शैक्षणीक शासकीय', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (18, N'WEP', N'WEP-व्हरांडा खाजगी शैक्षणीक ', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (19, N'WGR', N'WGR-व्हरांडा शासकीय निवासी', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (20, N'PC', N'पार्किंग अनिवासी', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (21, N'S', N'दुकान', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (22, N'D', N'दवाखाना', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (23, N'B', N'बँक', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (24, N'SW', N'जलतरण तलाव', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (25, N'I', N'कारखाना', N'I',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (26, N'EP', N'खाजगी शैक्षणिक', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (27, N'WR', N'WR-व्हरांडा निवासी', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (28, N'WC', N'WC-व्हरांडा अनिवासी', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (29, N'CC', N'कोचिंग क्लासेस', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (30, N'CG', N'केंद्र शासकीय मालमत्ता', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (31, N'CR', N'केंद्र शासकीय मालमत्ता निवासी', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (32, N'OPR', N'खुला भूखंड निवासी', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (33, N'OPC', N'खुला भूखंड अनिवासी', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (34, N'PTR', N'पेट्रोल पंप', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (35, N'GC', N'शासकीय अनिवासी', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (36, N'O', N'ऑफिस', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (37, N'M', N'मंगल कार्यालय', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (38, N'KT', N'मल्टीप्लेक्स', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (39, N'H', N'हॉटेल', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (40, N'OPK', N'ओपन पार्किंग', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (41, N'WI', N'WI-व्हरांडा औद्योगिक', N'I',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (42, N'OP', N'खुला भूखंड', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (43, N'WCGR', N'WCGR-केंद्र शासकीय मालमत्ता', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (44, N'WCGC', N'WCGC-केंद्र शासकीय मालमत्ता', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (45, N'CH', N'सामाजिक सभागृह', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (46, N'L', N'लॉज', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (47, N'AG', N'शेती', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (48, N'ACH', N'क्लब हाऊस ', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (49, N'AGM', N'सोसायटी जिम', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (50, N'AH', N'कॉमन हॉल', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (51, N'AMH', N'मल्टीपर्पज हॉल', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (52, N'AO', N'सोसायटी ऑफीस ', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (53, N'APG', N'खेळाचे मैदान', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (54, N'ASW', N'सोसायटी स्विमिंग पूल', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (55, N'AWC', N'वॉचमन कॅबिन', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (56, N'CCO', N'C-कॉरिडॉर', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (57, N'CCR', N'CCR-ट्युशन क्लासेस ', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (58, N'CGC', N'केंद्र शासन वाणिज्य मालमत्ता', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (59, N'ENCC', N'ENCC', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (60, N'ENCEG', N'ENCEG', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (61, N'ENCEP', N'ENCEP', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (62, N'ENCI', N'ENCI', N'I',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (63, N'ENCR', N'ENCR', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (64, N'GM', N'व्यायाम शाळा ', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (65, N'GMR', N'GMR-व्यायाम शाळा', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (66, N'KTR', N'KTR-टॉकीज/चित्रपट गृह', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (67, N'NPD', N'न.प.दुकान गाळे', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (68, N'OBR', N'OBR', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (69, N'OPKC', N'ओपन पार्किंग अनिवासी', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (70, N'RCO', N'R-कॉरिडॉर', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (71, N'RGN', N'जनरेटर रूम/मिटर रूम', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (72, N'SPKC', N'स्टील पार्किंग अनिवासी', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (73, N'WT', N'R-टॉवर', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (74, N'PG', N'पेयिंग गेस्ट', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (75, N'GA', N'गार्डन', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (76, N'RFG', N'रिफ्युज एरिया', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (77, N'PH', N'पंप हाऊस रूम', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (78, N'SR', N' स्टोअर रूम', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (79, N'WAT', N' वॉटर टॅंक', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (80, N'ISR', N'इनडोअर स्पोर्ट रूम ', N'N',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (81, N'EHO', N'शैक्षणिक संस्था-वसतिगृह', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (82, N'PF', N'पोल्ट्रीफार्म', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (83, N'NR', N'सर्व्हेक्षण निवासी', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (84, N'NC', N'सर्व्हेक्षण अनिवासी', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (85, N'NI', N'सर्व्हेक्षण औद्योगिक', N'I',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (86, N'ICR', N'अनधिकृत बांधकाम निवासी', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (87, N'ICC', N'अनधिकृत बांधकाम अनिवासी ', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (88, N'ICI', N'अनधिकृत बांधकाम औद्योगिक', N'I',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (89, N'ICRT', N'निवासी शास्तीस पात्र अनधिकृत बांधकाम ', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (90, N'ICCT', N'अनिवासी शास्तीस पात्र अनधिकृत बांधकाम ', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (91, N'ICIT', N'औद्योगिक शास्तीस पात्र अनधिकृत बांधकाम ', N'I',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (92, N'ICHT', N'हॉटेल शास्तीस पात्र अनधिकृत बांधकाम', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (93, N'ICH', N'हॉटेल अनधिकृत बांधकाम', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (94, N'ICP', N'अनधिकृत बांधकाम निवासी पार्किंग', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (95, N'ICPRT', N'निवासी पार्किंग शास्तीस पात्र अनधिकृत बांधकाम', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (96, N'OAH', N'वृद्धाश्रम', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (97, N'ABLC', N'टेरेस-बाल्कनी अनिवासी', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (98, N'ABLOP', N'ओपन टेरेस', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (99, N'ABLR', N'टेरेस-बाल्कनी ', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (100, N'ACHC', N'क्लब हाऊस C', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (101, N'ASWC', N'सोसायटी स्विमिंग पूल C', N'C',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (102, N'AWA', N'वेटिंग एरिया', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (103, N'FCR', N'फायर कंट्रोल रूम', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL);
--- [PTIS].[TaxPercentageMasterRV]
-
-
-INSERT [PTIS].[TaxPercentageMasterRV] ([Id], [TypeOfUseId], [Description], [Type],[FromYear],[ToYear], [GeneralTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES (104, N'FIRR', N'फायर रूम
-', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL)
-INSERT [PTIS].[TaxPercentageMasterRV] ([Id], [TypeOfUseId], [Description], [Type],[FromYear],[ToYear], [GeneralTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES (105, N'GRR', N'गारबेज रूम
-', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL)
-INSERT [PTIS].[TaxPercentageMasterRV] ([Id], [TypeOfUseId], [Description], [Type],[FromYear],[ToYear], [GeneralTax], [TreeCess], [SpWaterCess], [RoadCess], [FireCess], [LightCess], [WaterBenefitCess], [SewageDisposalCess], [SpEducationTax], [SanitationCess], [DrainCess], [WaterBill], [BigBuilding], [IllegalConstPenalty], [UserCharges], [ServiceTax], [Tax1], [Tax2], [Tax3], [Tax4], [Tax5], [Tax6], [Tax7], [Tax8], [Tax9], [Tax10], [OldPenalty], [EffectiveFrom], [EffectiveTo], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
-  (106, N'IT', N'माहिती व तंत्रज्ञान उद्योग', N'I',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (107, N'LR', N'लिफ्ट रूम', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (108, N'MR', N'Mail रूम', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (109, N'OL', N'ओपनिंग लॉबी', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (110, N'OWC', N'सेंद्रिय कचरा कन्व्हर्टर रूम', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (111, N'SI', N'सामाजिक संस्था', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL),
-  (112, N'TL', N'टेरेस लिफ्ट', N'R',1800,2028,  1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, '', '', NULL, NULL, NULL);
-
-SET IDENTITY_INSERT [PTIS].[TaxPercentageMasterRV] OFF
 
 
 
----- global master data -- start----------
-
-GO
-SET IDENTITY_INSERT [PTIS].[GenderMaster] ON 
-GO
-INSERT [PTIS].[GenderMaster] ([GenderID], [GenderName]) VALUES (1, N'Female')
-GO
-INSERT [PTIS].[GenderMaster] ([GenderID], [GenderName]) VALUES (2, N'Male')
-GO
-INSERT [PTIS].[GenderMaster] ([GenderID], [GenderName]) VALUES (3, N'Transgender')
-GO
-INSERT [PTIS].[GenderMaster] ([GenderID], [GenderName]) VALUES (4,N'फर्म')
-GO
-SET IDENTITY_INSERT [PTIS].[GenderMaster] OFF
 
 
 
-SET IDENTITY_INSERT [PTIS].[DocumentMaster] ON 
-GO
-INSERT [PTIS].[DocumentMaster] ([DocID], [DocumentName], [DocPrefix]) VALUES (1, N'Aadhar Card', N'ADR')
-GO
-INSERT [PTIS].[DocumentMaster] ([DocID], [DocumentName], [DocPrefix]) VALUES (2, N'Index2', N'IND2')
-GO
-INSERT [PTIS].[DocumentMaster] ([DocID], [DocumentName], [DocPrefix]) VALUES (4, N'Satbara Utara', N'712')
-GO
-INSERT [PTIS].[DocumentMaster] ([DocID], [DocumentName], [DocPrefix]) VALUES (5, N'Kharidi Khat', N'KHAT')
-GO
-SET IDENTITY_INSERT [PTIS].[DocumentMaster] OFF
+
+ GO
+ SET IDENTITY_INSERT [PTIS].[GenderMaster] ON 
+ GO
+ INSERT [PTIS].[GenderMaster] ([GenderId], [GenderName]) VALUES (1, N'Female')
+ GO
+ INSERT [PTIS].[GenderMaster] ([GenderId], [GenderName]) VALUES (2, N'Male')
+ GO
+ INSERT [PTIS].[GenderMaster] ([GenderId], [GenderName]) VALUES (3, N'Transgender')
+ GO
+ INSERT [PTIS].[GenderMaster] ([GenderId], [GenderName]) VALUES (4,N'फर्म')
+ GO
+ SET IDENTITY_INSERT [PTIS].[GenderMaster] OFF
 
 
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'कायम','SurveyApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'बाल्कनी close केली','SurveyApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'बाल्कनी close  होती  Open केली','SurveyApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'क्षेत्रफळात बदल','SurveyApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'वापरात बदल','SurveyApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'अतिरिक्त बांधकाम केले','SurveyApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'BHK बदल','SurveyApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'भाडे माहिती बदल','SurveyApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'बाह्य मोजणीचे अंतर्गत मोजणी केली','SurveyApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'मालमत्ता वगळणे','SurveyApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'इतर','SurveyApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'नव्याने सर्वेक्षण पूर्ण','SurveyApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement],[Flag]) VALUES (N'प्लॉट वर नवीन बांधकाम केले','SurveyApp')
 
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'बिल वितरित करण्यात आले', N'Accept', N'Visited and Distributed',1,'BillApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'मालमत्ता बंद', N'Reject', N'Visited but Not Distributed',1,'BillApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'त्रुटी असल्यामुळे बिल स्वीकारू शकत नाही', N'Reject', N'Visited but Not Distributed',1,'BillApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'तक्रार केलेली आहे त्यामुळे बिल स्वीकारू शकत नाही', N'Reject', N'Visited but Not Distributed',1,'BillApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'बिल मान्य नाही त्यामुळे स्वीकारण्यात आले नाही', N'Reject', N'Visited but Not Distributed',1,'BillApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'कर धारक हजर नसल्यामुळे बिल स्वीकारण्यात आले नाही', N'Reject', N'Visited but Not Distributed',1,'BillApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'बिल सेक्रेटरीकडे सोपवली', N'Accept', N'Visited and Distributed',1,'BillApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'सोसायटीमध्ये बिल वितरित करू देण्यास नकार', N'Reject', N'Visited but Not Distributed',1,'BillApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'मालमत्ता मिळाली नाही', N'Reject', N'Not Distributed',1,'BillApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'मालमत्ता बंद (बिल चिटकवू देण्यास नकार)', N'Reject', N'Not Distributed',1,'BillApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'मालमत्ता बंद (बिल चिटकवण्यात आले )', N'Accept', N'Visited and Distributed',1,'BillApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'बिल दिले', N'Accept', N'Visited and Distributed', 1,'BillApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'मालमत्ता बंद / मालमत्तेस बिल चिटकवले', N'Accept', N'Visited and Distributed', 1,'BillApp')
-GO
-INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'बिल घेण्यास नकार', N'Reject', N'Not Distributed', 1,'BillApp')
-GO
+ SET IDENTITY_INSERT [PTIS].[DocumentMaster] ON 
+ GO
+ INSERT [PTIS].[DocumentMaster] ([DocumentId], [DocumentName], [DocPrefix]) VALUES (1, N'Aadhar Card', N'ADR')
+ GO
+ INSERT [PTIS].[DocumentMaster] ([DocumentId], [DocumentName], [DocPrefix]) VALUES (2, N'Index2', N'IND2')
+ GO
+ INSERT [PTIS].[DocumentMaster] ([DocumentId], [DocumentName], [DocPrefix]) VALUES (4, N'Satbara Utara', N'712')
+ GO
+ INSERT [PTIS].[DocumentMaster] ([DocumentId], [DocumentName], [DocPrefix]) VALUES (5, N'Kharidi Khat', N'KHAT')
+ GO
+ SET IDENTITY_INSERT [PTIS].[DocumentMaster] OFF
 
 
-SET IDENTITY_INSERT [PTIS].[MobileScreenValidationMaster] ON 
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (1, N'Pilot', N'SocietyName', N'SocietyName', 1, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (2, N'Pilot', N'SecretoryName', N'SecretoryName', 2, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (3, N'Pilot', N'MobileNo', N'MobileNo', 3, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (4, N'Pilot', N'EmailID', N'EmailID', 4, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (5, N'Pilot', N'Address', N'Address', 5, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (6, N'Pilot', N'Pincode', N'Pincode', 6, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (7, N'Pilot', N'OwnerName', N'OwnerName', 7, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (8, N'Pilot', N'OccupierName', N'OccupierName', 8, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (9, N'Pilot', N'ShopName', N'ShopName', 9, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (10, N'Pilot', N'BuildingPhoto', N'BuildingPhoto', 10, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (11, N'Pilot', N'WingPhoto', N'WingPhoto', 11, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (12, N'Pilot', N'WingBoardPhoto', N'WingBoardPhoto', 12, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (13, N'SocietyCommon', N'SurveyNo', N'SurveyNo', 1, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (14, N'SocietyCommon', N'PlotNo', N'PlotNo', 2, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (15, N'SocietyCommon', N'BlockNo', N'BlockNo', 3, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (16, N'SocietyCommon', N'SocietyName', N'SocietyName', 4, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (17, N'SocietyCommon', N'SecretoryName', N'SecretoryName', 5, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (18, N'SocietyCommon', N'MobileNo', N'MobileNo', 6, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (19, N'SocietyCommon', N'EmailID', N'EmailID', 7, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (20, N'SocietyCommon', N'Address', N'Address', 8, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (21, N'SocietyCommon', N'Pincode', N'Pincode', 9, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (22, N'SocietyCommon', N'OCCertificate', N'OCCertificate', 10, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (23, N'SocietyCommon', N'OCDate', N'OCDate', 11, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (24, N'SocietyCommon', N'AminityArea', N'AminityArea', 12, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (25, N'SocietyCommon', N'BuildingPhoto', N'BuildingPhoto', 13, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (26, N'SocietyCommon', N'GreenProperty', N'GreenProperty', 14, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (27, N'SocietyCommon', N'BuildingYear', N'BuildingYear', 15, NULL, NULL, NULL, 0, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (28, N'WingCommon', N'SurveyNo', N'SurveyNo', 1, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (29, N'WingCommon', N'PlotNo', N'PlotNo', 2, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (30, N'WingCommon', N'BlockNo', N'BlockNo', 3, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (31, N'WingCommon', N'SocietyName', N'SocietyName', 4, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (32, N'WingCommon', N'SecretoryName', N'SecretoryName', 5, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (33, N'WingCommon', N'MobileNo', N'MobileNo', 6, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (34, N'WingCommon', N'EmailID', N'EmailID', 7, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (35, N'WingCommon', N'Address', N'Address', 8, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (36, N'WingCommon', N'Pincode', N'Pincode', 9, NULL, NULL, NULL, 0, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (37, N'WingCommon', N'OCCertificate', N'OCCertificate', 10, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (38, N'WingCommon', N'OCDate', N'OCDate', 11, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (39, N'WingCommon', N'AminityArea', N'AminityArea', 12, NULL, NULL, NULL, 0, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (40, N'WingCommon', N'BuildingPhoto', N'BuildingPhoto', 13, NULL, NULL, NULL, 0, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (41, N'WingCommon', N'GreenProperty', N'GreenProperty', 14, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (42, N'WingCommon', N'WingYear', N'WingYear', 15, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (43, N'WingGeneration', N'Year', N'Year', 1, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (44, N'IndividualCommon', N'SurveyNo', N'SurveyNo', 1, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (45, N'IndividualCommon', N'PlotNo', N'PlotNo', 2, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (46, N'IndividualCommon', N'MobileNo', N'MobileNo', 3, NULL, NULL, NULL, 0, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (47, N'IndividualCommon', N'EmailID', N'EmailID', 4, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (48, N'IndividualCommon', N'Address', N'Address', 5, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (49, N'IndividualCommon', N'Pincode', N'Pincode', 6, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (50, N'IndividualCommon', N'OwnerName', N'OwnerName', 7, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (51, N'IndividualCommon', N'OccupierName', N'OccupierName', 1, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (52, N'IndividualCommon', N'ShopName', N'ShopName', 9, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (53, N'IndividualCommon', N'BuildingPhoto', N'BuildingPhoto', 10, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (54, N'IndividualCommon', N'BlockNo', N'BlockNo', 11, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (55, N'IndividualCommon', N'Year', N'Year', 12, NULL, NULL, NULL, 0, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (56, N'IndividualCommon', N'TotalArea', N'TotalArea', 13, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (57, N'IndividualCommon', N'Photo', N'Photo', 14, NULL, NULL, NULL, 0, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (58, N'IndividualCommon', N'Sign', N'Sign', 15, NULL, NULL, NULL, 0, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (59, N'FlatCommon', N'OwnerName', N'OwnerName', 1, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (60, N'FlatCommon', N'OccupierName', N'OccupierName', 2, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (61, N'FlatCommon', N'ShopName', N'ShopName', 3, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (62, N'FlatCommon', N'MobileNo', N'MobileNo', 4, NULL, NULL, NULL, 0, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (63, N'FlatCommon', N'EmailID', N'EmailID', 5, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (64, N'FlatCommon', N'Photo', N'Photo', 6, NULL, NULL, NULL, 1, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (65, N'FlatCommon', N'Sign', N'Sign', 7, NULL, NULL, NULL, 0, 1)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (66, N'FlatCommon', N'FlatArea', N'FlatArea', 8, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (67, N'FlatCommon', N'AmenityDirectSubmission', N'AmenityDirectSubmission', 9, NULL, NULL, NULL, 0, 0)
-GO
-INSERT [PTIS].[MobileScreenValidationMaster] ([TabScreenID], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (68, N'IndividualCommon', N'DirectIndividualSubmission', N'DirectIndividualSubmission', 16, NULL, NULL, NULL, 0, 0)
-GO
-SET IDENTITY_INSERT [PTIS].[MobileScreenValidationMaster] OFF
-GO
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [Flag]) VALUES (N'कायम','SurveyApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [Flag]) VALUES (N'बाल्कनी close केली','SurveyApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [Flag]) VALUES (N'बाल्कनी close  होती  Open केली','SurveyApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [Flag]) VALUES (N'क्षेत्रफळात बदल','SurveyApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [Flag]) VALUES (N'वापरात बदल','SurveyApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [Flag]) VALUES (N'अतिरिक्त बांधकाम केले','SurveyApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [Flag]) VALUES (N'BHK बदल','SurveyApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [Flag]) VALUES (N'भाडे माहिती बदल','SurveyApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [Flag]) VALUES (N'बाह्य मोजणीचे अंतर्गत मोजणी केली','SurveyApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [Flag]) VALUES (N'मालमत्ता वगळणे','SurveyApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [Flag]) VALUES (N'इतर','SurveyApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [Flag]) VALUES (N'नव्याने सर्वेक्षण पूर्ण','SurveyApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [Flag]) VALUES (N'प्लॉट वर नवीन बांधकाम केले','SurveyApp')
+
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'बिल वितरित करण्यात आले', N'Accept', N'Visited and Distributed',1,'BillApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'मालमत्ता बंद', N'Reject', N'Visited but Not Distributed',1,'BillApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'त्रुटी असल्यामुळे बिल स्वीकारू शकत नाही', N'Reject', N'Visited but Not Distributed',1,'BillApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'तक्रार केलेली आहे त्यामुळे बिल स्वीकारू शकत नाही', N'Reject', N'Visited but Not Distributed',1,'BillApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'बिल मान्य नाही त्यामुळे स्वीकारण्यात आले नाही', N'Reject', N'Visited but Not Distributed',1,'BillApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'कर धारक हजर नसल्यामुळे बिल स्वीकारण्यात आले नाही', N'Reject', N'Visited but Not Distributed',1,'BillApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'बिल सेक्रेटरीकडे सोपवली', N'Accept', N'Visited and Distributed',1,'BillApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'सोसायटीमध्ये बिल वितरित करू देण्यास नकार', N'Reject', N'Visited but Not Distributed',1,'BillApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'मालमत्ता मिळाली नाही', N'Reject', N'Not Distributed',1,'BillApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'मालमत्ता बंद (बिल चिटकवू देण्यास नकार)', N'Reject', N'Not Distributed',1,'BillApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'मालमत्ता बंद (बिल चिटकवण्यात आले )', N'Accept', N'Visited and Distributed',1,'BillApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'बिल दिले', N'Accept', N'Visited and Distributed', 1,'BillApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'मालमत्ता बंद / मालमत्तेस बिल चिटकवले', N'Accept', N'Visited and Distributed', 1,'BillApp')
+ GO
+ INSERT [PTIS].[PropertyVisitMeasurementMaster] ([PropertyVisitAndMeasurement], [BillAcceptStatus], [Remark], [IsActive], [Flag]) VALUES (N'बिल घेण्यास नकार', N'Reject', N'Not Distributed', 1,'BillApp')
+ GO
 
 
-GO
-INSERT INTO [PTIS].BlockMaster (WardNo, BlockNo)
-VALUES
-('UT1', 1),
-('UT1', 2),
-('UT1', 3),
-('UT1', 4),
-('UT1', 5),
-('UT1', 6),
-('UT1', 7),
-('UT1', 8),
-('UT1', 9),
-('UT1', 10),
-('UT1', 11),
-('UT1', 12),
-('UT1', 13),
-('UT1', 14),
-('UT1', 15),
-('UT1', 16),
-('UT1', 17);
-GO
------ global master-- end---
+ SET IDENTITY_INSERT [PTIS].[MobileScreenValidationMaster] ON 
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (1, N'Pilot', N'SocietyName', N'SocietyName', 1, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (2, N'Pilot', N'SecretoryName', N'SecretoryName', 2, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (3, N'Pilot', N'MobileNo', N'MobileNo', 3, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (4, N'Pilot', N'EmailID', N'EmailID', 4, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (5, N'Pilot', N'Address', N'Address', 5, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (6, N'Pilot', N'Pincode', N'Pincode', 6, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (7, N'Pilot', N'OwnerName', N'OwnerName', 7, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (8, N'Pilot', N'OccupierName', N'OccupierName', 8, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (9, N'Pilot', N'ShopName', N'ShopName', 9, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (10, N'Pilot', N'BuildingPhoto', N'BuildingPhoto', 10, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (11, N'Pilot', N'WingPhoto', N'WingPhoto', 11, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (12, N'Pilot', N'WingBoardPhoto', N'WingBoardPhoto', 12, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (13, N'SocietyCommon', N'SurveyNo', N'SurveyNo', 1, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (14, N'SocietyCommon', N'PlotNo', N'PlotNo', 2, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (15, N'SocietyCommon', N'BlockNo', N'BlockNo', 3, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (16, N'SocietyCommon', N'SocietyName', N'SocietyName', 4, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (17, N'SocietyCommon', N'SecretoryName', N'SecretoryName', 5, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (18, N'SocietyCommon', N'MobileNo', N'MobileNo', 6, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (19, N'SocietyCommon', N'EmailID', N'EmailID', 7, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (20, N'SocietyCommon', N'Address', N'Address', 8, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (21, N'SocietyCommon', N'Pincode', N'Pincode', 9, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (22, N'SocietyCommon', N'OCCertificate', N'OCCertificate', 10, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (23, N'SocietyCommon', N'OCDate', N'OCDate', 11, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (24, N'SocietyCommon', N'AminityArea', N'AminityArea', 12, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (25, N'SocietyCommon', N'BuildingPhoto', N'BuildingPhoto', 13, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (26, N'SocietyCommon', N'GreenProperty', N'GreenProperty', 14, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (27, N'SocietyCommon', N'BuildingYear', N'BuildingYear', 15, NULL, NULL, NULL, 0, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (28, N'WingCommon', N'SurveyNo', N'SurveyNo', 1, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (29, N'WingCommon', N'PlotNo', N'PlotNo', 2, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (30, N'WingCommon', N'BlockNo', N'BlockNo', 3, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (31, N'WingCommon', N'SocietyName', N'SocietyName', 4, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (32, N'WingCommon', N'SecretoryName', N'SecretoryName', 5, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (33, N'WingCommon', N'MobileNo', N'MobileNo', 6, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (34, N'WingCommon', N'EmailID', N'EmailID', 7, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (35, N'WingCommon', N'Address', N'Address', 8, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (36, N'WingCommon', N'Pincode', N'Pincode', 9, NULL, NULL, NULL, 0, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (37, N'WingCommon', N'OCCertificate', N'OCCertificate', 10, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (38, N'WingCommon', N'OCDate', N'OCDate', 11, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (39, N'WingCommon', N'AminityArea', N'AminityArea', 12, NULL, NULL, NULL, 0, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (40, N'WingCommon', N'BuildingPhoto', N'BuildingPhoto', 13, NULL, NULL, NULL, 0, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (41, N'WingCommon', N'GreenProperty', N'GreenProperty', 14, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (42, N'WingCommon', N'WingYear', N'WingYear', 15, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (43, N'WingGeneration', N'Year', N'Year', 1, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (44, N'IndividualCommon', N'SurveyNo', N'SurveyNo', 1, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (45, N'IndividualCommon', N'PlotNo', N'PlotNo', 2, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (46, N'IndividualCommon', N'MobileNo', N'MobileNo', 3, NULL, NULL, NULL, 0, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (47, N'IndividualCommon', N'EmailID', N'EmailID', 4, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (48, N'IndividualCommon', N'Address', N'Address', 5, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (49, N'IndividualCommon', N'Pincode', N'Pincode', 6, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (50, N'IndividualCommon', N'OwnerName', N'OwnerName', 7, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (51, N'IndividualCommon', N'OccupierName', N'OccupierName', 1, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (52, N'IndividualCommon', N'ShopName', N'ShopName', 9, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (53, N'IndividualCommon', N'BuildingPhoto', N'BuildingPhoto', 10, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (54, N'IndividualCommon', N'BlockNo', N'BlockNo', 11, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (55, N'IndividualCommon', N'Year', N'Year', 12, NULL, NULL, NULL, 0, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (56, N'IndividualCommon', N'TotalArea', N'TotalArea', 13, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (57, N'IndividualCommon', N'Photo', N'Photo', 14, NULL, NULL, NULL, 0, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (58, N'IndividualCommon', N'Sign', N'Sign', 15, NULL, NULL, NULL, 0, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (59, N'FlatCommon', N'OwnerName', N'OwnerName', 1, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (60, N'FlatCommon', N'OccupierName', N'OccupierName', 2, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (61, N'FlatCommon', N'ShopName', N'ShopName', 3, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (62, N'FlatCommon', N'MobileNo', N'MobileNo', 4, NULL, NULL, NULL, 0, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (63, N'FlatCommon', N'EmailID', N'EmailID', 5, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (64, N'FlatCommon', N'Photo', N'Photo', 6, NULL, NULL, NULL, 1, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (65, N'FlatCommon', N'Sign', N'Sign', 7, NULL, NULL, NULL, 0, 1)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (66, N'FlatCommon', N'FlatArea', N'FlatArea', 8, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (67, N'FlatCommon', N'AmenityDirectSubmission', N'AmenityDirectSubmission', 9, NULL, NULL, NULL, 0, 0)
+ GO
+ INSERT [PTIS].[MobileScreenValidationMaster] ([MobileScreenId], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (68, N'IndividualCommon', N'DirectIndividualSubmission', N'DirectIndividualSubmission', 16, NULL, NULL, NULL, 0, 0)
+ GO
+ SET IDENTITY_INSERT [PTIS].[MobileScreenValidationMaster] OFF
+ GO
+
+ INSERT INTO PTIS.BlockMaster (WardId, BlockNo)
+SELECT wm.WardId, v.BlockNo
+FROM (VALUES
+ ('UT1', 1), ('UT1', 2), ('UT1', 3), ('UT1', 4), ('UT1', 5),
+ ('UT1', 6), ('UT1', 7), ('UT1', 8), ('UT1', 9), ('UT1',10),
+ ('UT1',11), ('UT1',12), ('UT1',13), ('UT1',14), ('UT1',15),
+ ('UT1',16), ('UT1',17)
+) v(WardNo, BlockNo)
+JOIN PTIS.WardMaster wm
+  ON wm.WardNo = v.WardNo;
+ --- global master-- end---
 
 
-INSERT INTO [PTIS].[RuleMaster]
-(RuleCode,Category,DisplayName,Description,DataType,DefaultValue,IsActive)
-VALUES
-('AppealCommittee', 'Policy', 'IsAppealCommittee', 'Appeal Committee Enabled', 'bit', NULL, 0),
-('AsPerOldApply', 'Policy', 'AsPerOldApply', 'As Per Old Policy', 'bit', NULL, 0),
-('AsPerOldForNewProperty', 'Policy', 'AsPerOldForNewProperty', 'As Per Old For New Property', 'bit', NULL, 0),
-('AssessmentCompleted', 'Workflow', 'AssessmentCompleted', 'Assessment Completed', 'bit', NULL, 0),
-('BigBuildingTaxApply', 'Calculation', 'BigBuildingTaxApply', 'Big Building Tax Applicable', 'bit', NULL, 1),
-('CalOnRenterRent', 'Calculation', 'CalOnRenterRent', 'Calc On Renter Rent', 'bit', NULL, 1),
-('CalOnSingleRenterRent', 'Calculation', 'CalOnSingleRenterRent', 'Calc On Single Renter Rent', 'bit', NULL, 1),
-('CVForPlot', 'Calculation', 'CVForPlot', 'CV With Open Plot', 'bit', NULL, 0),
-('DataEntryLock', 'Locking', 'DataEntryLock', 'Data Entry Lock', 'bit', NULL, 0),
-('EduEmpOnRV', 'Calculation', 'EduEmpOnRV', 'Edu/Emp Tax on RV', 'bit', NULL, 0),
-('EnableLanguage', 'Security', 'EnableLanguage', 'Enable Language Support', 'bit', NULL, 1),
-('HearingApply', 'Policy', 'IsHearing', 'Hearing Enabled', 'bit', NULL, 0),
-('HistoryLock', 'Locking', 'HistoryLock', 'Add History Lock', 'bit', NULL, 1),
-('MaintainanceApply', 'Calculation', 'MaintainanceApply', 'Maintenance Applied', 'bit', NULL, 1),
-('MaintainancePercentage', 'Calculation', 'MaintainancePercentage', 'MaintainancePercentage', 'int', '10', 1),
-('MinimumRVApply', 'Policy', 'MinimumRVApply', 'Use Minimum RV', 'bit', NULL, 1),
-('MixAssessmentApply', 'Policy', 'MixAssessmentApply', 'Mixed Assessment', 'bit', NULL, 0),
-('PenaltyMonthly', 'AMC', 'PenaltyMonthly', 'Penalty Monthly', 'bit', NULL, 1),
-('PlotTaxApplicable', 'Policy', 'PlotTaxApplicable', 'Plot Tax Applicable', 'bit', NULL, 1),
-('PolicyLock', 'Locking', 'PolicyLock', 'Policy Lock', 'bit', NULL, 1),
-('RetaintionPolicyApply', 'Policy', 'RetaintionPolicyApply', 'Retention (old)', 'bit', NULL, 1),
-('SectorWisePenalty', 'System', 'SectorWisePenalty', 'Sector-wise Penalty', 'bit', NULL, 0),
-('ShowPhotoAndPlan', 'System', 'ShowPhotoAndPlan', 'Show Photo And Plan', 'bit', NULL, 1),
-('TaxesOnCV', 'Calculation', 'TaxesOnCV', 'Taxes On CV', 'bit', NULL, 0),
-('TaxesOnRV', 'Calculation', 'TaxesOnRV', 'Taxes On RV', 'bit', NULL, 1),
-('TaxOnBuiltUpArea', 'Calculation', 'TaxOnBuiltUpArea', 'TaxOnBuiltUpArea', 'bit', NULL, 0),
-('TaxOnToilet', 'Calculation', 'TaxOnToilet', 'Tax On Toilet', 'bit', NULL, 0),
-('UserChargesOnPropertyType', 'Calculation', 'UserChargesOnPropertyType', 'UserChargesOnPropertyType', 'bit', NULL, 1);
+ INSERT INTO [PTIS].[RuleMaster]
+(RuleCode, Category, DisplayName, Description, DataType, DefaultValue, IsActive)
+ VALUES
+ ('AppealCommittee', 'Policy', 'IsAppealCommittee', 'Appeal Committee Enabled', 'bit', NULL, 0),
+ ('AsPerOldApply', 'Policy', 'AsPerOldApply', 'As Per Old Policy', 'bit', NULL, 0),
+ ('AsPerOldForNewProperty', 'Policy', 'AsPerOldForNewProperty', 'As Per Old For New Property', 'bit', NULL, 0),
+ ('AssessmentCompleted', 'Workflow', 'AssessmentCompleted', 'Assessment Completed', 'bit', NULL, 0),
+ ('BigBuildingTaxApply', 'Calculation', 'BigBuildingTaxApply', 'Big Building Tax Applicable', 'bit', NULL, 1),
+ ('CalOnRenterRent', 'Calculation', 'CalOnRenterRent', 'Calc On Renter Rent', 'bit', NULL, 1),
+ ('CalOnSingleRenterRent', 'Calculation', 'CalOnSingleRenterRent', 'Calc On Single Renter Rent', 'bit', NULL, 1),
+ ('CVForPlot', 'Calculation', 'CVForPlot', 'CV With Open Plot', 'bit', NULL, 0),
+ ('DataEntryLock', 'Locking', 'DataEntryLock', 'Data Entry Lock', 'bit', NULL, 0),
+ ('EduEmpOnRV', 'Calculation', 'EduEmpOnRV', 'Edu/Emp Tax on RV', 'bit', NULL, 0),
+ ('EnableLanguage', 'Security', 'EnableLanguage', 'Enable Language Support', 'bit', NULL, 1),
+ ('HearingApply', 'Policy', 'IsHearing', 'Hearing Enabled', 'bit', NULL, 0),
+ ('HistoryLock', 'Locking', 'HistoryLock', 'Add History Lock', 'bit', NULL, 1),
+ ('MaintainanceApply', 'Calculation', 'MaintainanceApply', 'Maintenance Applied', 'bit', NULL, 1),
+ ('MaintainancePercentage', 'Calculation', 'MaintainancePercentage', 'MaintainancePercentage', 'int', '10', 1),
+ ('MinimumRVApply', 'Policy', 'MinimumRVApply', 'Use Minimum RV', 'bit', NULL, 1),
+ ('MixAssessmentApply', 'Policy', 'MixAssessmentApply', 'Mixed Assessment', 'bit', NULL, 0),
+ ('PenaltyMonthly', 'AMC', 'PenaltyMonthly', 'Penalty Monthly', 'bit', NULL, 1),
+ ('PlotTaxApplicable', 'Policy', 'PlotTaxApplicable', 'Plot Tax Applicable', 'bit', NULL, 1),
+ ('PolicyLock', 'Locking', 'PolicyLock', 'Policy Lock', 'bit', NULL, 1),
+ ('RetaintionPolicyApply', 'Policy', 'RetaintionPolicyApply', 'Retention (old)', 'bit', NULL, 1),
+ ('SectorWisePenalty', 'System', 'SectorWisePenalty', 'Sector-wise Penalty', 'bit', NULL, 0),
+ ('ShowPhotoAndPlan', 'System', 'ShowPhotoAndPlan', 'Show Photo And Plan', 'bit', NULL, 1),
+ ('TaxesOnCV', 'Calculation', 'TaxesOnCV', 'Taxes On CV', 'bit', NULL, 0),
+ ('TaxesOnRV', 'Calculation', 'TaxesOnRV', 'Taxes On RV', 'bit', NULL, 1),
+ ('TaxOnBuiltUpArea', 'Calculation', 'TaxOnBuiltUpArea', 'TaxOnBuiltUpArea', 'bit', NULL, 0),
+ ('TaxOnToilet', 'Calculation', 'TaxOnToilet', 'Tax On Toilet', 'bit', NULL, 0),
+ ('UserChargesOnPropertyType', 'Calculation', 'UserChargesOnPropertyType', 'UserChargesOnPropertyType', 'bit', NULL, 1);
 
 
-GO
+ GO
+
