@@ -1,0 +1,277 @@
+name: Package Build - NTIS Database Manager
+
+on:
+  # Composite workflow trigger from ntis-devops
+  workflow_call:
+    inputs:
+      version:
+        description: 'Release version'
+        required: true
+        type: string
+      branch:
+        description: 'Branch to build from'
+        required: false
+        type: string
+        default: 'main'
+        
+  # Independent manual trigger
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g., 1.2.3.0)'
+        required: true
+        type: string
+      branch:
+        description: 'Branch to build from'
+        required: false
+        type: choice
+        options:
+          - main
+          - qa
+          - dev
+        default: main
+env:
+  DOTNET_VERSION: '10.x'
+  RELEASE_VERSION: ${{ github.event.inputs.version || github.ref_name }}
+  TARGET_BRANCH: ${{ github.event.inputs.branch || 'main' }}
+
+jobs:
+  validate-environment:
+    name: Validate Build Environment
+    runs-on: [self-hosted, ci]
+    outputs:
+      version: ${{ steps.version-setup.outputs.version }}
+      artifact-name: ${{ steps.version-setup.outputs.artifact-name }}
+      environment: ${{ steps.version-setup.outputs.environment }}
+      branch: ${{ steps.version-setup.outputs.branch }}
+    steps:
+      - name: Checkout NTIS Database Manager
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TARGET_BRANCH }}
+      
+      - name: Setup version and validation
+        id: version-setup
+        run: |
+          $version = '${{ env.RELEASE_VERSION }}'
+          Write-Output "Using input version: $version"
+          
+          # Determine branch and environment from repository variable
+          $branch = '${{ env.TARGET_BRANCH }}'
+          $branchEnvMap = '${{ vars.BRANCH_ENV_MAP }}' | ConvertFrom-Json
+          $environment = if ($branchEnvMap.PSObject.Properties[$branch]) { 
+            $branchEnvMap.$branch 
+          } else { 
+            'production' 
+          }
+          
+          # Validate semantic version
+          if ($version -notmatch '^\d+\.\d+\.\d+\.\d+$') {
+            Write-Error "Invalid version format: $version. Expected: x.y.z.w"
+            exit 1
+          }
+          
+          $artifactName = "ntis-database-manager-$environment-v$version"
+          
+          Write-Output "version=$version" >> $env:GITHUB_OUTPUT
+          Write-Output "artifact-name=$artifactName" >> $env:GITHUB_OUTPUT
+          Write-Output "environment=$environment" >> $env:GITHUB_OUTPUT
+          Write-Output "branch=$branch" >> $env:GITHUB_OUTPUT
+          Write-Output "artifact-name=$artifactName" >> $env:GITHUB_OUTPUT
+          
+          Write-Output "🏗️ Building NTIS Database Manager v$version for production"
+          Write-Output "📦 Artifact name: $artifactName"
+        shell: pwsh
+
+  build-database-manager:
+    name: Build Database Manager
+    runs-on: [self-hosted, ci]
+    needs: validate-environment
+    steps:
+      - name: Checkout NTIS Database Manager
+        uses: actions/checkout@v4
+        
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+          
+      - name: Restore dependencies
+        working-directory: src
+        run: |
+          Write-Output "📥 Restoring NuGet packages..."
+          dotnet restore
+          Write-Output "✅ Dependencies restored successfully"
+        shell: pwsh
+        
+      - name: Build project with version
+        working-directory: src
+        run: |
+          $version = '${{ needs.validate-environment.outputs.version }}'
+          Write-Output "🔨 Building Database Manager v$version in Release configuration..."
+          
+          dotnet build `
+            --configuration Release `
+            --no-restore `
+            -p:Version=$version `
+            -p:AssemblyVersion=$version.0 `
+            -p:FileVersion=$version.0 `
+            -p:InformationalVersion=$version
+          
+          Write-Output "✅ Build completed successfully"
+        shell: pwsh
+        
+      - name: Publish Windows executable
+        working-directory: src
+        run: |
+          $version = '${{ needs.validate-environment.outputs.version }}'
+          Write-Output "📦 Publishing Database Manager v$version for Windows..."
+          
+          dotnet publish `
+            --configuration Release `
+            --output ../publish/windows `
+            --runtime win-x64 `
+            --self-contained true `
+            -p:PublishSingleFile=true `
+            -p:EnableCompressionInSingleFile=true `
+            -p:PublishTrimmed=false `
+            -p:Version=$version `
+            -p:AssemblyVersion=$version.0 `
+            -p:FileVersion=$version.0 `
+            --verbosity normal
+          
+          Write-Output "✅ Windows executable published successfully"
+        shell: pwsh
+        
+      - name: Publish Linux executable
+        working-directory: src
+        run: |
+          $version = '${{ needs.validate-environment.outputs.version }}'
+          Write-Output "📦 Publishing Database Manager v$version for Linux..."
+          
+          dotnet publish `
+            --configuration Release `
+            --output ../publish/linux `
+            --runtime linux-x64 `
+            --self-contained true `
+            -p:PublishSingleFile=true `
+            -p:EnableCompressionInSingleFile=true `
+            -p:PublishTrimmed=false `
+            -p:Version=$version `
+            -p:AssemblyVersion=$version.0 `
+            -p:FileVersion=$version.0 `
+            --verbosity normal
+          
+          Write-Output "✅ Linux executable published successfully"
+        shell: pwsh
+        
+      - name: Analyze build output
+        run: |
+          if (Test-Path 'publish/windows') {
+            $winFiles = Get-ChildItem -Path 'publish/windows' -File
+            $winSize = ($winFiles | Measure-Object -Property Length -Sum).Sum
+            $winSizeMB = [math]::Round($winSize / 1MB, 2)
+            Write-Output "📊 Windows executable size: $winSizeMB MB"
+            
+            $executable = $winFiles | Where-Object { $_.Name -eq 'DatabaseManager.exe' }
+            if ($executable) {
+              Write-Output "✅ Windows executable created: DatabaseManager.exe"
+            } else {
+              Write-Error "❌ Windows executable not found"
+              exit 1
+            }
+          }
+          
+          if (Test-Path 'publish/linux') {
+            $linuxFiles = Get-ChildItem -Path 'publish/linux' -File
+            $linuxSize = ($linuxFiles | Measure-Object -Property Length -Sum).Sum
+            $linuxSizeMB = [math]::Round($linuxSize / 1MB, 2)
+            Write-Output "📊 Linux executable size: $linuxSizeMB MB"
+            
+            $executable = $linuxFiles | Where-Object { $_.Name -eq 'DatabaseManager' }
+            if ($executable) {
+              Write-Output "✅ Linux executable created: DatabaseManager"
+            } else {
+              Write-Error "❌ Linux executable not found"
+              exit 1
+            }
+          }
+        shell: pwsh
+        
+      - name: Upload to Azure Blob Storage
+        run: |
+          $version = '${{ needs.validate-environment.outputs.version }}'
+          $environment = '${{ needs.validate-environment.outputs.environment }}'
+          $containerName = '${{ vars.PACKAGE_CONTAINER_NAME }}'
+          $connectionString = '${{ secrets.PACKAGE_CONNECTION_STRING }}'
+          
+          # Target path: {env}/{version}/database-manager/
+          $basePath = "$environment/$version/database-manager"
+          
+          Write-Output "📤 Uploading to Azure Blob Storage..."
+          Write-Output "   Container: $containerName"
+          Write-Output "   Path: $basePath"
+          
+          # Upload Windows executables and related files
+          Write-Output "📦 Uploading Windows files..."
+          Get-ChildItem -Path 'publish/windows' -Recurse -File | ForEach-Object {
+            $relativePath = $_.FullName.Replace((Resolve-Path 'publish/windows').Path, '').TrimStart('\', '/')
+            $blobName = "$basePath/windows/$relativePath".Replace('\', '/')
+            az storage blob upload `
+              --connection-string "$connectionString" `
+              --container-name "$containerName" `
+              --file $_.FullName `
+              --name $blobName `
+              --overwrite
+            Write-Output "   ✅ Uploaded: $blobName"
+          }
+          
+          # Upload Linux executables and related files
+          Write-Output "📦 Uploading Linux files..."
+          Get-ChildItem -Path 'publish/linux' -Recurse -File | ForEach-Object {
+            $relativePath = $_.FullName.Replace((Resolve-Path 'publish/linux').Path, '').TrimStart('\', '/')
+            $blobName = "$basePath/linux/$relativePath".Replace('\', '/')
+            az storage blob upload `
+              --connection-string "$connectionString" `
+              --container-name "$containerName" `
+              --file $_.FullName `
+              --name $blobName `
+              --overwrite
+            Write-Output "   ✅ Uploaded: $blobName"
+          }
+          
+          Write-Output ""
+          Write-Output "🎉 Upload complete!"
+          Write-Output "   Location: $containerName/$basePath"
+        shell: pwsh
+          
+  build-summary:
+    name: Build Summary
+    runs-on: [self-hosted, ci]
+    needs: [validate-environment, build-database-manager]
+    if: always()
+    steps:
+      - name: Summarize build results
+        run: |
+          $version = '${{ needs.validate-environment.outputs.version }}'
+          $buildStatus = '${{ needs.build-database-manager.result }}'
+          
+          Write-Output "📋 Database Manager Build Summary"
+          Write-Output "==================================="
+          Write-Output "Version: v$version"
+          Write-Output "Environment: production"
+          Write-Output "Build Tool: .NET 10 SDK"
+          Write-Output "Build Status: $buildStatus"
+          Write-Output "Artifact: ${{ needs.validate-environment.outputs.artifact-name }}"
+          Write-Output ""
+          
+          if ($buildStatus -eq 'success') {
+            Write-Output "🎉 Database Manager build completed successfully!"
+            Write-Output "📦 Production artifacts ready for deployment"
+            Write-Output "💻 Cross-platform executables built (Windows + Linux)"
+            Write-Output "🔧 Single-file self-contained executables"
+          } else {
+            Write-Warning "⚠️ Database Manager build encountered issues"
+            Write-Output "Please check the build logs for details"
+          }
+        shell: pwsh
