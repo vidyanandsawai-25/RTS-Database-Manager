@@ -36,14 +36,13 @@ env:
   TARGET_BRANCH: ${{ github.event.inputs.branch || 'main' }}
 
 jobs:
-  validate-environment:
-    name: Validate Build Environment
-    runs-on: [self-hosted, ci]
+  build-database-manager:
+    name: Build Database Manager
+    runs-on: [self-hosted, package]
     outputs:
       version: ${{ steps.version-setup.outputs.version }}
       artifact-name: ${{ steps.version-setup.outputs.artifact-name }}
       environment: ${{ steps.version-setup.outputs.environment }}
-      branch: ${{ steps.version-setup.outputs.branch }}
     steps:
       - name: Checkout NTIS Database Manager
         uses: actions/checkout@v4
@@ -76,20 +75,10 @@ jobs:
           Write-Output "version=$version" >> $env:GITHUB_OUTPUT
           Write-Output "artifact-name=$artifactName" >> $env:GITHUB_OUTPUT
           Write-Output "environment=$environment" >> $env:GITHUB_OUTPUT
-          Write-Output "branch=$branch" >> $env:GITHUB_OUTPUT
-          Write-Output "artifact-name=$artifactName" >> $env:GITHUB_OUTPUT
           
-          Write-Output "🏗️ Building NTIS Database Manager v$version for production"
+          Write-Output "🏗️ Building NTIS Database Manager v$version for $environment"
           Write-Output "📦 Artifact name: $artifactName"
         shell: pwsh
-
-  build-database-manager:
-    name: Build Database Manager
-    runs-on: [self-hosted, ci]
-    needs: validate-environment
-    steps:
-      - name: Checkout NTIS Database Manager
-        uses: actions/checkout@v4
         
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -107,101 +96,42 @@ jobs:
       - name: Build project with version
         working-directory: src
         run: |
-          $version = '${{ needs.validate-environment.outputs.version }}'
+          $version = '${{ steps.version-setup.outputs.version }}'
           Write-Output "🔨 Building Database Manager v$version in Release configuration..."
           
           dotnet build `
             --configuration Release `
             --no-restore `
             -p:Version=$version `
-            -p:AssemblyVersion=$version.0 `
-            -p:FileVersion=$version.0 `
+            -p:AssemblyVersion=$version `
+            -p:FileVersion=$version `
             -p:InformationalVersion=$version
           
           Write-Output "✅ Build completed successfully"
         shell: pwsh
         
-      - name: Publish Windows executable
-        working-directory: src
+      - name: Create zip archive
         run: |
-          $version = '${{ needs.validate-environment.outputs.version }}'
-          Write-Output "📦 Publishing Database Manager v$version for Windows..."
+          $version = '${{ steps.version-setup.outputs.version }}'
           
-          dotnet publish `
-            --configuration Release `
-            --output ../publish/windows `
-            --runtime win-x64 `
-            --self-contained true `
-            -p:PublishSingleFile=true `
-            -p:EnableCompressionInSingleFile=true `
-            -p:PublishTrimmed=false `
-            -p:Version=$version `
-            -p:AssemblyVersion=$version.0 `
-            -p:FileVersion=$version.0 `
-            --verbosity normal
+          Write-Output "📦 Creating zip archive..."
           
-          Write-Output "✅ Windows executable published successfully"
-        shell: pwsh
-        
-      - name: Publish Linux executable
-        working-directory: src
-        run: |
-          $version = '${{ needs.validate-environment.outputs.version }}'
-          Write-Output "📦 Publishing Database Manager v$version for Linux..."
+          $zipName = "DatabaseManager-v$version.zip"
+          $zipPath = Join-Path (Get-Location) $zipName
+          $buildPath = Join-Path (Get-Location) "src/bin/Release/net10.0"
           
-          dotnet publish `
-            --configuration Release `
-            --output ../publish/linux `
-            --runtime linux-x64 `
-            --self-contained true `
-            -p:PublishSingleFile=true `
-            -p:EnableCompressionInSingleFile=true `
-            -p:PublishTrimmed=false `
-            -p:Version=$version `
-            -p:AssemblyVersion=$version.0 `
-            -p:FileVersion=$version.0 `
-            --verbosity normal
+          Push-Location $buildPath
+          Compress-Archive -Path './*' -DestinationPath $zipPath -Force
+          Pop-Location
           
-          Write-Output "✅ Linux executable published successfully"
-        shell: pwsh
-        
-      - name: Analyze build output
-        run: |
-          if (Test-Path 'publish/windows') {
-            $winFiles = Get-ChildItem -Path 'publish/windows' -File
-            $winSize = ($winFiles | Measure-Object -Property Length -Sum).Sum
-            $winSizeMB = [math]::Round($winSize / 1MB, 2)
-            Write-Output "📊 Windows executable size: $winSizeMB MB"
-            
-            $executable = $winFiles | Where-Object { $_.Name -eq 'DatabaseManager.exe' }
-            if ($executable) {
-              Write-Output "✅ Windows executable created: DatabaseManager.exe"
-            } else {
-              Write-Error "❌ Windows executable not found"
-              exit 1
-            }
-          }
-          
-          if (Test-Path 'publish/linux') {
-            $linuxFiles = Get-ChildItem -Path 'publish/linux' -File
-            $linuxSize = ($linuxFiles | Measure-Object -Property Length -Sum).Sum
-            $linuxSizeMB = [math]::Round($linuxSize / 1MB, 2)
-            Write-Output "📊 Linux executable size: $linuxSizeMB MB"
-            
-            $executable = $linuxFiles | Where-Object { $_.Name -eq 'DatabaseManager' }
-            if ($executable) {
-              Write-Output "✅ Linux executable created: DatabaseManager"
-            } else {
-              Write-Error "❌ Linux executable not found"
-              exit 1
-            }
-          }
+          $zipSize = [math]::Round((Get-Item $zipPath).Length / 1MB, 2)
+          Write-Output "✅ Created $zipName ($zipSize MB)"
         shell: pwsh
         
       - name: Upload to Azure Blob Storage
         run: |
-          $version = '${{ needs.validate-environment.outputs.version }}'
-          $environment = '${{ needs.validate-environment.outputs.environment }}'
+          $version = '${{ steps.version-setup.outputs.version }}'
+          $environment = '${{ steps.version-setup.outputs.environment }}'
           $containerName = '${{ vars.PACKAGE_CONTAINER_NAME }}'
           $connectionString = '${{ secrets.PACKAGE_CONNECTION_STRING }}'
           
@@ -212,64 +142,56 @@ jobs:
           Write-Output "   Container: $containerName"
           Write-Output "   Path: $basePath"
           
-          # Upload Windows executables and related files
-          Write-Output "📦 Uploading Windows files..."
-          Get-ChildItem -Path 'publish/windows' -Recurse -File | ForEach-Object {
-            $relativePath = $_.FullName.Replace((Resolve-Path 'publish/windows').Path, '').TrimStart('\', '/')
-            $blobName = "$basePath/windows/$relativePath".Replace('\', '/')
-            az storage blob upload `
-              --connection-string "$connectionString" `
-              --container-name "$containerName" `
-              --file $_.FullName `
-              --name $blobName `
-              --overwrite
-            Write-Output "   ✅ Uploaded: $blobName"
-          }
-          
-          # Upload Linux executables and related files
-          Write-Output "📦 Uploading Linux files..."
-          Get-ChildItem -Path 'publish/linux' -Recurse -File | ForEach-Object {
-            $relativePath = $_.FullName.Replace((Resolve-Path 'publish/linux').Path, '').TrimStart('\', '/')
-            $blobName = "$basePath/linux/$relativePath".Replace('\', '/')
-            az storage blob upload `
-              --connection-string "$connectionString" `
-              --container-name "$containerName" `
-              --file $_.FullName `
-              --name $blobName `
-              --overwrite
-            Write-Output "   ✅ Uploaded: $blobName"
-          }
+          $zipName = "DatabaseManager-v$version.zip"
+          Write-Output "📦 Uploading $zipName..."
+          az storage blob upload `
+            --connection-string "$connectionString" `
+            --container-name "$containerName" `
+            --file $zipName `
+            --name "$basePath/$zipName" `
+            --overwrite
+          Write-Output "   ✅ Uploaded: $basePath/$zipName"
           
           Write-Output ""
           Write-Output "🎉 Upload complete!"
-          Write-Output "   Location: $containerName/$basePath"
+          Write-Output "   Location: $containerName/$basePath/$zipName"
+        shell: pwsh
+        
+      - name: Cleanup zip files
+        if: always()
+        run: |
+          $version = '${{ steps.version-setup.outputs.version }}'
+          $zipName = "DatabaseManager-v$version.zip"
+          
+          Write-Output "🧹 Cleaning up zip files..."
+          Remove-Item -Path $zipName -Force -ErrorAction SilentlyContinue
+          Write-Output "✅ Cleanup complete"
         shell: pwsh
           
   build-summary:
     name: Build Summary
-    runs-on: [self-hosted, ci]
-    needs: [validate-environment, build-database-manager]
+    runs-on: [self-hosted, package]
+    needs: build-database-manager
     if: always()
     steps:
       - name: Summarize build results
         run: |
-          $version = '${{ needs.validate-environment.outputs.version }}'
+          $version = '${{ needs.build-database-manager.outputs.version }}'
           $buildStatus = '${{ needs.build-database-manager.result }}'
           
           Write-Output "📋 Database Manager Build Summary"
           Write-Output "==================================="
           Write-Output "Version: v$version"
-          Write-Output "Environment: production"
+          Write-Output "Environment: ${{ needs.build-database-manager.outputs.environment }}"
           Write-Output "Build Tool: .NET 10 SDK"
           Write-Output "Build Status: $buildStatus"
-          Write-Output "Artifact: ${{ needs.validate-environment.outputs.artifact-name }}"
+          Write-Output "Artifact: ${{ needs.build-database-manager.outputs.artifact-name }}"
           Write-Output ""
           
           if ($buildStatus -eq 'success') {
             Write-Output "🎉 Database Manager build completed successfully!"
-            Write-Output "📦 Production artifacts ready for deployment"
-            Write-Output "💻 Cross-platform executables built (Windows + Linux)"
-            Write-Output "🔧 Single-file self-contained executables"
+            Write-Output "📦 Build artifacts ready for deployment"
+            Write-Output "🔧 Framework-dependent build (requires .NET 10 runtime)"
           } else {
             Write-Warning "⚠️ Database Manager build encountered issues"
             Write-Output "Please check the build logs for details"
