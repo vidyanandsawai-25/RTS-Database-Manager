@@ -69,7 +69,7 @@ runs:
         Write-Output "Artifact name: $artifactName"
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
       with:
         dotnet-version: ${{ inputs.dotnet-version }}
 
@@ -148,3 +148,4 @@ runs:
         Write-Output "Cleaning up zip files..."
         Remove-Item -Path $zipName -Force -ErrorAction SilentlyContinue
         Write-Output "Cleanup complete"
+
