@@ -1,28 +1,14 @@
-name: Package Build - NTIS Database Manager
+﻿name: Package Build - NTIS Database Manager
 
 on:
-  # Composite workflow trigger from ntis-devops
-  workflow_call:
-    inputs:
-      version:
-        description: 'Release version'
-        required: true
-        type: string
-      branch:
-        description: 'Branch to build from'
-        required: false
-        type: string
-        default: 'main'
-        
-  # Independent manual trigger
   workflow_dispatch:
     inputs:
       version:
-        description: 'Release version (e.g., 1.2.3.0)'
+        description: Release version (e.g., 1.2.3.4)
         required: true
         type: string
       branch:
-        description: 'Branch to build from'
+        description: Branch to build from
         required: false
         type: choice
         options:
@@ -30,9 +16,9 @@ on:
           - qa
           - dev
         default: main
+
 env:
-  DOTNET_VERSION: '10.x'
-  RELEASE_VERSION: ${{ github.event.inputs.version || github.ref_name }}
+  RELEASE_VERSION: ${{ github.event.inputs.version }}
   TARGET_BRANCH: ${{ github.event.inputs.branch || 'main' }}
 
 jobs:
@@ -40,134 +26,26 @@ jobs:
     name: Build Database Manager
     runs-on: [self-hosted, package]
     outputs:
-      version: ${{ steps.version-setup.outputs.version }}
-      artifact-name: ${{ steps.version-setup.outputs.artifact-name }}
-      environment: ${{ steps.version-setup.outputs.environment }}
+      version: ${{ steps.package-build.outputs.version }}
+      artifact-name: ${{ steps.package-build.outputs.artifact-name }}
+      environment: ${{ steps.package-build.outputs.environment }}
+      branch: ${{ steps.package-build.outputs.branch }}
     steps:
       - name: Checkout NTIS Database Manager
         uses: actions/checkout@v4
         with:
           ref: ${{ env.TARGET_BRANCH }}
-      
-      - name: Setup version and validation
-        id: version-setup
-        run: |
-          $version = '${{ env.RELEASE_VERSION }}'
-          Write-Output "Using input version: $version"
-          
-          # Determine branch and environment from repository variable
-          $branch = '${{ env.TARGET_BRANCH }}'
-          $branchEnvMap = '${{ vars.BRANCH_ENV_MAP }}' | ConvertFrom-Json
-          $environment = if ($branchEnvMap.PSObject.Properties[$branch]) { 
-            $branchEnvMap.$branch 
-          } else { 
-            'production' 
-          }
-          
-          # Validate semantic version
-          if ($version -notmatch '^\d+\.\d+\.\d+\.\d+$') {
-            Write-Error "Invalid version format: $version. Expected: x.y.z.w"
-            exit 1
-          }
-          
-          $artifactName = "ntis-database-manager-$environment-v$version"
-          
-          Write-Output "version=$version" >> $env:GITHUB_OUTPUT
-          Write-Output "artifact-name=$artifactName" >> $env:GITHUB_OUTPUT
-          Write-Output "environment=$environment" >> $env:GITHUB_OUTPUT
-          
-          Write-Output "🏗️ Building NTIS Database Manager v$version for $environment"
-          Write-Output "📦 Artifact name: $artifactName"
-        shell: pwsh
-        
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+
+      - name: Run package build action
+        id: package-build
+        uses: ./.github/actions/package-build
         with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-          
-      - name: Restore dependencies
-        working-directory: src
-        run: |
-          Write-Output "📥 Restoring NuGet packages..."
-          dotnet restore
-          Write-Output "✅ Dependencies restored successfully"
-        shell: pwsh
-        
-      - name: Build project with version
-        working-directory: src
-        run: |
-          $version = '${{ steps.version-setup.outputs.version }}'
-          Write-Output "🔨 Building Database Manager v$version in Release configuration..."
-          
-          dotnet build `
-            --configuration Release `
-            --no-restore `
-            -p:Version=$version `
-            -p:AssemblyVersion=$version `
-            -p:FileVersion=$version `
-            -p:InformationalVersion=$version
-          
-          Write-Output "✅ Build completed successfully"
-        shell: pwsh
-        
-      - name: Create zip archive
-        run: |
-          $version = '${{ steps.version-setup.outputs.version }}'
-          
-          Write-Output "📦 Creating zip archive..."
-          
-          $zipName = "DatabaseManager-v$version.zip"
-          $zipPath = Join-Path (Get-Location) $zipName
-          $buildPath = Join-Path (Get-Location) "src/bin/Release/net10.0"
-          
-          Push-Location $buildPath
-          Compress-Archive -Path './*' -DestinationPath $zipPath -Force
-          Pop-Location
-          
-          $zipSize = [math]::Round((Get-Item $zipPath).Length / 1MB, 2)
-          Write-Output "✅ Created $zipName ($zipSize MB)"
-        shell: pwsh
-        
-      - name: Upload to Azure Blob Storage
-        run: |
-          $version = '${{ steps.version-setup.outputs.version }}'
-          $environment = '${{ steps.version-setup.outputs.environment }}'
-          $containerName = '${{ vars.PACKAGE_CONTAINER_NAME }}'
-          $connectionString = '${{ secrets.PACKAGE_CONNECTION_STRING }}'
-          
-          # Target path: {env}/{version}/database-manager/
-          $basePath = "$environment/$version/database-manager"
-          
-          Write-Output "📤 Uploading to Azure Blob Storage..."
-          Write-Output "   Container: $containerName"
-          Write-Output "   Path: $basePath"
-          
-          $zipName = "DatabaseManager-v$version.zip"
-          Write-Output "📦 Uploading $zipName..."
-          az storage blob upload `
-            --connection-string "$connectionString" `
-            --container-name "$containerName" `
-            --file $zipName `
-            --name "$basePath/$zipName" `
-            --overwrite
-          Write-Output "   ✅ Uploaded: $basePath/$zipName"
-          
-          Write-Output ""
-          Write-Output "🎉 Upload complete!"
-          Write-Output "   Location: $containerName/$basePath/$zipName"
-        shell: pwsh
-        
-      - name: Cleanup zip files
-        if: always()
-        run: |
-          $version = '${{ steps.version-setup.outputs.version }}'
-          $zipName = "DatabaseManager-v$version.zip"
-          
-          Write-Output "🧹 Cleaning up zip files..."
-          Remove-Item -Path $zipName -Force -ErrorAction SilentlyContinue
-          Write-Output "✅ Cleanup complete"
-        shell: pwsh
-          
+          version: ${{ env.RELEASE_VERSION }}
+          branch: ${{ env.TARGET_BRANCH }}
+          branch-env-map: ${{ vars.BRANCH_ENV_MAP }}
+          package-container-name: ${{ vars.PACKAGE_CONTAINER_NAME }}
+          package-connection-string: ${{ secrets.PACKAGE_CONNECTION_STRING }}
+
   build-summary:
     name: Build Summary
     runs-on: [self-hosted, package]
@@ -175,25 +53,25 @@ jobs:
     if: always()
     steps:
       - name: Summarize build results
+        shell: pwsh
         run: |
           $version = '${{ needs.build-database-manager.outputs.version }}'
           $buildStatus = '${{ needs.build-database-manager.result }}'
-          
-          Write-Output "📋 Database Manager Build Summary"
-          Write-Output "==================================="
+
+          Write-Output "Database Manager Build Summary"
+          Write-Output "=============================="
           Write-Output "Version: v$version"
           Write-Output "Environment: ${{ needs.build-database-manager.outputs.environment }}"
           Write-Output "Build Tool: .NET 10 SDK"
           Write-Output "Build Status: $buildStatus"
           Write-Output "Artifact: ${{ needs.build-database-manager.outputs.artifact-name }}"
           Write-Output ""
-          
+
           if ($buildStatus -eq 'success') {
-            Write-Output "🎉 Database Manager build completed successfully!"
-            Write-Output "📦 Build artifacts ready for deployment"
-            Write-Output "🔧 Framework-dependent build (requires .NET 10 runtime)"
+            Write-Output "Database Manager build completed successfully"
+            Write-Output "Build artifacts ready for deployment"
+            Write-Output "Framework-dependent build (requires .NET 10 runtime)"
           } else {
-            Write-Warning "⚠️ Database Manager build encountered issues"
+            Write-Warning "Database Manager build encountered issues"
             Write-Output "Please check the build logs for details"
           }
-        shell: pwsh
