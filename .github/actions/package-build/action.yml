@@ -9,6 +9,10 @@ inputs:
     description: Branch being built.
     required: false
     default: main
+  path-mode:
+    description: Upload path mode. Use standalone for repo-local runs and orchestrated for ntis-devops runs.
+    required: false
+    default: standalone
   branch-env-map:
     description: JSON mapping of branch names to environment names.
     required: true
@@ -120,9 +124,10 @@ runs:
       run: |
         $version = '${{ steps.version_setup.outputs.version }}'
         $environment = '${{ steps.version_setup.outputs.environment }}'
+        $pathMode = '${{ inputs.path-mode }}'
         $containerName = '${{ inputs.package-container-name }}'
         $connectionString = '${{ inputs.package-connection-string }}'
-        $basePath = "$environment/$version/database-manager"
+        $basePath = if ($pathMode -eq 'orchestrated') { "$environment/$version/database-manager" } else { "database-manager/$version" }
         $zipName = "DatabaseManager-v$version.zip"
 
         Write-Output "Uploading to Azure Blob Storage..."
@@ -148,4 +153,3 @@ runs:
         Write-Output "Cleaning up zip files..."
         Remove-Item -Path $zipName -Force -ErrorAction SilentlyContinue
         Write-Output "Cleanup complete"
-
