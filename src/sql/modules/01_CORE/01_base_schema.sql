@@ -45,6 +45,41 @@ CREATE TABLE [CORE].[DepartmentMaster](
     CONSTRAINT [UQ_DepartmentMaster_DepartmentName] UNIQUE ([DepartmentName])
 );
 GO
+/* ===========================
+   [CORE].[ModuleMaster]
+=========================== */
+CREATE TABLE [CORE].[ModuleMaster](
+    [Id]                INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [DepartmentId]      INT NOT NULL,
+    [ModuleCode]        NVARCHAR(50) NOT NULL,
+    [ModuleName]        NVARCHAR(50) NOT NULL,
+    [ModuleNameLocal]   NVARCHAR(50) NULL,
+    [ModuleIcon]        NVARCHAR(50) NULL,
+    [ModuleLabel]       NVARCHAR(100) NULL,
+    [ModuleDescription] NVARCHAR(100) NULL,
+    [IsActive]          BIT NOT NULL CONSTRAINT [DF_ModuleMaster_IsActive]    DEFAULT (1),
+    [CreatedBy]         INT NULL,
+    [CreatedDate]       DATETIME NOT NULL CONSTRAINT [DF_ModuleMaster_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy]         INT NULL,
+    [UpdatedDate]       DATETIME NULL,
+
+    CONSTRAINT [PK_ModuleMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_ModuleMaster_ModuleCode] UNIQUE ([ModuleCode]),
+    CONSTRAINT [UQ_ModuleMaster_ModuleName] UNIQUE ([ModuleName])
+);
+GO
+
+    ALTER TABLE [CORE].[ModuleMaster] WITH CHECK
+    ADD CONSTRAINT [FK_ModuleMaster_DepartmentId]
+    FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id]);
+    GO
+
+    ALTER TABLE [CORE].[ModuleMaster] CHECK CONSTRAINT [FK_ModuleMaster_DepartmentId];
+    GO
+
+CREATE NONCLUSTERED INDEX [IX_ModuleMaster_DepartmentId]
+    ON [CORE].[ModuleMaster] ([DepartmentId]);
+GO
 
 /* ===========================
    [CORE].[DepartmentLicenceDetails]
@@ -298,3 +333,172 @@ CREATE TABLE [CORE].[DepartmentYearConfigMaster](
         REFERENCES [CORE].[YearMaster]([Id])
 );
 GO
+
+/* ===========================
+   [CORE].[EmployeeTypeMaster]
+=========================== */
+CREATE TABLE [CORE].[EmployeeTypeMaster](
+    [Id]    INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [EmployeeType]  NVARCHAR(100) NOT NULL,
+    [IsActive]      BIT NOT NULL CONSTRAINT [DF_EmployeeTypeMaster_IsActive] DEFAULT (1),
+    [CreatedBy]     INT NULL,
+    [CreatedDate]   DATETIME NOT NULL CONSTRAINT [DF_EmployeeTypeMaster_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy]     INT NULL,
+    [UpdatedDate]   DATETIME NULL,
+    CONSTRAINT [PK_EmployeeTypeMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_EmployeeTypeMaster_EmployeeType] UNIQUE ([EmployeeType])
+);
+GO
+
+/* ===========================
+   STEP 1: [CORE].[UserMaster]  ← must come FIRST (referenced by FKs below)
+=========================== */
+CREATE TABLE [CORE].[UserMaster](
+    [Id]                  INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [UserName]            NVARCHAR(100) NOT NULL,
+    [FirstName]           NVARCHAR(100) NULL,
+	[MiddleName]          NVARCHAR(100) NULL,
+	[LastName]            NVARCHAR(100) NULL,
+    [UserCode]            NVARCHAR(50) NULL,
+    [Address]             NVARCHAR(400) NULL,
+    [MobileNo]            varchar(13) NULL,
+    [AlternateMobileNo]   varchar(13) NULL,
+    [Email]               NVARCHAR(256) NULL,
+    [MustChangePassword]  BIT NOT NULL CONSTRAINT [DF_UserMaster_MustChangePassword] DEFAULT (0),
+    [Language]            NVARCHAR(50) NULL,
+    [IsActive]            BIT NOT NULL  CONSTRAINT [DF_UserMaster_IsActive]           DEFAULT (1),
+    [Remark]              NVARCHAR(400) NULL,
+    [LockedUntilAt]       DATETIME NULL,
+    [FailedLoginCount]    INT NOT NULL  CONSTRAINT [DF_UserMaster_FailedLoginCount]   DEFAULT (0),
+    [LastLoginAt]         DATETIME NULL,
+    [UserLocked]          BIT NOT NULL  CONSTRAINT [DF_UserMaster_UserLocked]         DEFAULT (0),
+    [EmployeeTypeId]      INT NOT NULL,
+    [PasswordHash]        NVARCHAR(255) NULL,
+    [CreatedBy]           INT NULL,
+    [CreatedDate]         DATETIME NOT NULL CONSTRAINT [DF_UserMaster_CreatedDate]    DEFAULT (GETDATE()),
+    [UpdatedBy]           INT NULL,
+    [UpdatedDate]         DATETIME NULL,
+    [MarkedForDeletion]   BIT NOT NULL  CONSTRAINT [DF_UserMaster_MarkedForDeletion]           DEFAULT (0),
+	[MarkedForDeletionDate] DATETIME NULL,
+    CONSTRAINT [PK_UserMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_UserMaster_UserName]           UNIQUE ([UserName]),
+    CONSTRAINT [FK_UserMaster_EmployeeTypeMaster]
+        FOREIGN KEY ([EmployeeTypeId]) REFERENCES [CORE].[EmployeeTypeMaster] ([Id])
+);
+GO
+
+CREATE NONCLUSTERED INDEX [IX_UserMaster_EmployeeTypeId]
+    ON [CORE].[UserMaster] ([EmployeeTypeId]);
+GO
+
+/* ===========================
+   STEP 2: [CORE].[UserDepartmentAllocation]  ← depends on UserMaster + DepartmentMaster
+=========================== */
+CREATE TABLE [CORE].[UserDepartmentAllocation](
+    [Id]           INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [UserId]       INT NOT NULL,
+    [DepartmentId] INT NOT NULL,
+    [IsActive]     BIT NOT NULL CONSTRAINT [DF_UserDepartmentAllocation_IsActive]    DEFAULT (1),
+    [CreatedBy]    INT NULL,
+    [CreatedDate]  DATETIME NOT NULL CONSTRAINT [DF_UserDepartmentAllocation_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy]    INT NULL,
+    [UpdatedDate]  DATETIME NULL,
+
+    CONSTRAINT [PK_UserDepartmentAllocation] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_UserDepartmentAllocation_DepartmentMaster]
+        FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id])
+);
+GO
+
+-- Add composite unique constraint to prevent duplicate (UserId, DepartmentId) combinations
+ALTER TABLE [CORE].[UserDepartmentAllocation]
+ADD CONSTRAINT [UQ_UserDepartmentAllocation_User_Department] UNIQUE ([UserId], [DepartmentId]);
+GO
+
+-- Add FK after both tables exist
+ALTER TABLE [CORE].[UserDepartmentAllocation] WITH CHECK
+ADD CONSTRAINT [FK_UserDepartmentAllocation_UserMaster]
+FOREIGN KEY ([UserId]) REFERENCES [CORE].[UserMaster] ([Id]);
+GO
+ALTER TABLE [CORE].[UserDepartmentAllocation] CHECK CONSTRAINT [FK_UserDepartmentAllocation_UserMaster];
+GO
+
+
+CREATE NONCLUSTERED INDEX [IX_UserDepartmentAllocation_DepartmentId]
+    ON [CORE].[UserDepartmentAllocation] ([DepartmentId]);
+GO
+
+/* ===========================
+   STEP 3: [CORE].[UserModuleAllocation]  ← depends on UserMaster + DepartmentMaster + ModuleMaster
+=========================== */
+CREATE TABLE [CORE].[UserModuleAllocation](
+    [Id]           INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [UserId]       INT NOT NULL,
+    [DepartmentId] INT NOT NULL,
+    [ModuleId]     INT NOT NULL,
+    [IsActive]     BIT NOT NULL CONSTRAINT [DF_UserModuleAllocation_IsActive]    DEFAULT (1),
+    [CreatedBy]    INT NULL,
+    [CreatedDate]  DATETIME NOT NULL CONSTRAINT [DF_UserModuleAllocation_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy]    INT NULL,
+    [UpdatedDate]  DATETIME NULL,
+
+    CONSTRAINT [PK_UserModuleAllocation] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_UserModuleAllocation_UserMaster]
+        FOREIGN KEY ([UserId]) REFERENCES [CORE].[UserMaster] ([Id]),
+    CONSTRAINT [FK_UserModuleAllocation_DepartmentMaster]
+        FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id])
+    -- Removed single-column FK to ModuleMaster(Id); composite FK will be added later
+);
+GO
+
+-- Add composite unique constraint to prevent duplicate (UserId, DepartmentId, ModuleId) combinations
+ALTER TABLE [CORE].[UserModuleAllocation]
+ADD CONSTRAINT [UQ_UserModuleAllocation_User_Department_Module] UNIQUE ([UserId], [DepartmentId], [ModuleId]);
+GO
+
+
+CREATE NONCLUSTERED INDEX [IX_UserModuleAllocation_DepartmentId]
+    ON [CORE].[UserModuleAllocation] ([DepartmentId]);
+GO
+CREATE NONCLUSTERED INDEX [IX_UserModuleAllocation_ModuleId]
+    ON [CORE].[UserModuleAllocation] ([ModuleId]);
+GO
+
+/* ===========================
+   STEP 4: [CORE].[UserRoleAllocation]  ← depends on UserMaster + DepartmentMaster + UserRoleMaster
+=========================== */
+CREATE TABLE [CORE].[UserRoleAllocation](
+    
+    [Id]           INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [UserId]       INT NOT NULL,
+    [DepartmentId] INT NOT NULL,
+    [UserRoleId]   INT NOT NULL,
+    [IsActive]     BIT NOT NULL CONSTRAINT [DF_UserRoleAllocation_IsActive]    DEFAULT (1),
+    [CreatedBy]    INT NULL,
+    [CreatedDate]  DATETIME NOT NULL CONSTRAINT [DF_UserRoleAllocation_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy]    INT NULL,
+    [UpdatedDate]  DATETIME NULL,
+
+    CONSTRAINT [PK_UserRoleAllocation] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_UserRoleAllocation_UserMaster]
+        FOREIGN KEY ([UserId]) REFERENCES [CORE].[UserMaster] ([Id]),
+    CONSTRAINT [FK_UserRoleAllocation_DepartmentMaster]
+        FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id]),
+    CONSTRAINT [FK_UserRoleAllocation_UserRoleMaster]
+        FOREIGN KEY ([UserRoleId]) REFERENCES [CORE].[UserRoleMaster] ([Id])
+);
+GO
+
+-- Add composite unique constraint to prevent duplicate (UserId, DepartmentId, UserRoleId) combinations
+ALTER TABLE [CORE].[UserRoleAllocation]
+ADD CONSTRAINT [UQ_UserRoleAllocation_User_Department_Role] UNIQUE ([UserId], [DepartmentId], [UserRoleId]);
+GO
+
+CREATE NONCLUSTERED INDEX [IX_UserRoleAllocation_DepartmentId]
+    ON [CORE].[UserRoleAllocation] ([DepartmentId]);
+GO
+CREATE NONCLUSTERED INDEX [IX_UserRoleAllocation_UserRoleId]
+    ON [CORE].[UserRoleAllocation] ([UserRoleId]);
+GO
+
+
