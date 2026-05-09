@@ -405,14 +405,10 @@ CREATE TABLE [CORE].[UserDepartmentAllocation](
     [UpdatedDate]  DATETIME NULL,
 
     CONSTRAINT [PK_UserDepartmentAllocation] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_UserDepartmentAllocation_User_Department] UNIQUE ([UserId], [DepartmentId]),
     CONSTRAINT [FK_UserDepartmentAllocation_DepartmentMaster]
         FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id])
 );
-GO
-
--- Add composite unique constraint to prevent duplicate (UserId, DepartmentId) combinations
-ALTER TABLE [CORE].[UserDepartmentAllocation]
-ADD CONSTRAINT [UQ_UserDepartmentAllocation_User_Department] UNIQUE ([UserId], [DepartmentId]);
 GO
 
 -- Add FK after both tables exist
@@ -443,17 +439,13 @@ CREATE TABLE [CORE].[UserModuleAllocation](
     [UpdatedDate]  DATETIME NULL,
 
     CONSTRAINT [PK_UserModuleAllocation] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_UserModuleAllocation_User_Department_Module] UNIQUE ([UserId], [DepartmentId], [ModuleId]),
     CONSTRAINT [FK_UserModuleAllocation_UserMaster]
         FOREIGN KEY ([UserId]) REFERENCES [CORE].[UserMaster] ([Id]),
     CONSTRAINT [FK_UserModuleAllocation_DepartmentMaster]
         FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id])
     -- Removed single-column FK to ModuleMaster(Id); composite FK will be added later
 );
-GO
-
--- Add composite unique constraint to prevent duplicate (UserId, DepartmentId, ModuleId) combinations
-ALTER TABLE [CORE].[UserModuleAllocation]
-ADD CONSTRAINT [UQ_UserModuleAllocation_User_Department_Module] UNIQUE ([UserId], [DepartmentId], [ModuleId]);
 GO
 
 
@@ -480,6 +472,7 @@ CREATE TABLE [CORE].[UserRoleAllocation](
     [UpdatedDate]  DATETIME NULL,
 
     CONSTRAINT [PK_UserRoleAllocation] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_UserRoleAllocation_User_Department_Role] UNIQUE ([UserId], [DepartmentId], [UserRoleId]),
     CONSTRAINT [FK_UserRoleAllocation_UserMaster]
         FOREIGN KEY ([UserId]) REFERENCES [CORE].[UserMaster] ([Id]),
     CONSTRAINT [FK_UserRoleAllocation_DepartmentMaster]
@@ -487,11 +480,6 @@ CREATE TABLE [CORE].[UserRoleAllocation](
     CONSTRAINT [FK_UserRoleAllocation_UserRoleMaster]
         FOREIGN KEY ([UserRoleId]) REFERENCES [CORE].[UserRoleMaster] ([Id])
 );
-GO
-
--- Add composite unique constraint to prevent duplicate (UserId, DepartmentId, UserRoleId) combinations
-ALTER TABLE [CORE].[UserRoleAllocation]
-ADD CONSTRAINT [UQ_UserRoleAllocation_User_Department_Role] UNIQUE ([UserId], [DepartmentId], [UserRoleId]);
 GO
 
 CREATE NONCLUSTERED INDEX [IX_UserRoleAllocation_DepartmentId]
@@ -502,3 +490,54 @@ CREATE NONCLUSTERED INDEX [IX_UserRoleAllocation_UserRoleId]
 GO
 
 
+/* ===========================
+   RuleEffectTypeMaster
+=========================== */
+CREATE TABLE [CORE].[RuleEffectTypeMaster](
+    [Id]           INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [EffectType]   VARCHAR(100) NOT NULL,
+    [IsActive]     BIT NOT NULL CONSTRAINT [DF_RuleEffectTypeMaster_IsActive]    DEFAULT (1),
+    [CreatedBy]    INT NULL,
+    [CreatedDate]  DATETIME NOT NULL CONSTRAINT [DF_RuleEffectTypeMaster_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy]    INT NULL,
+    [UpdatedDate]  DATETIME NULL,
+
+    CONSTRAINT [PK_RuleEffectTypeMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_RuleEffectTypeMaster_EffectType] UNIQUE ([EffectType])
+);
+GO
+
+/* ===========================
+ RuleOperatorMaster
+=========================== */
+CREATE TABLE [CORE].[RuleOperatorMaster](
+    [Id]                    INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [Operator]              VARCHAR(100) NOT NULL,
+    [OperatorDescription]   VARCHAR(100) NOT NULL,
+    [IsActive]              BIT NOT NULL CONSTRAINT [DF_RuleOperatorMaster_IsActive]    DEFAULT (1),
+    [CreatedBy]             INT NULL,
+    [CreatedDate]           DATETIME NOT NULL CONSTRAINT [DF_RuleOperatorMaster_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy]             INT NULL,
+    [UpdatedDate]           DATETIME NULL,
+
+    CONSTRAINT [PK_RuleOperatorMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_RuleOperatorMaster_Operator] UNIQUE ([Operator])
+);
+GO
+
+/* ===========================
+ RuleScopeMaster
+=========================== */
+CREATE TABLE [CORE].[RuleScopeMaster](
+    [Id]          INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [RuleScope]   VARCHAR(100) NOT NULL,
+    [IsActive]    BIT NOT NULL CONSTRAINT [DF_RuleScopeMaster_IsActive]    DEFAULT (1),
+    [CreatedBy]   INT NULL,
+    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_RuleScopeMaster_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy]   INT NULL,
+    [UpdatedDate] DATETIME NULL,
+
+    CONSTRAINT [PK_RuleScopeMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_RuleScopeMaster_RuleScope] UNIQUE ([RuleScope])
+);
+GO
