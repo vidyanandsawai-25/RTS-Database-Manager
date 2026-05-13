@@ -489,6 +489,133 @@ CREATE NONCLUSTERED INDEX [IX_UserRoleAllocation_UserRoleId]
     ON [CORE].[UserRoleAllocation] ([UserRoleId]);
 GO
 
+/* ===========================
+   [CORE].[Document]
+=========================== */
+CREATE TABLE [CORE].[Document](
+	[Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[DocumentGuid] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_Document_DocumentGuid] DEFAULT (NEWSEQUENTIALID()) CONSTRAINT [UQ_Document_DocumentGuid] UNIQUE,
+	[UploadedBy] INT NOT NULL,
+	[OwnerUserId] INT NULL,
+	[FileName] NVARCHAR(500) NOT NULL,
+	[OriginalFileName] NVARCHAR(500) NOT NULL,
+	[FileExtension] VARCHAR(50) NOT NULL,
+	[MimeType] VARCHAR(200) NOT NULL,
+	[FileSizeBytes] BIGINT NOT NULL CONSTRAINT [CK_Document_FileSizeBytes] CHECK ([FileSizeBytes] >= 0),
+	[StorageProvider] VARCHAR(50) NOT NULL,
+	[StoragePath] NVARCHAR(1000) NOT NULL,
+	[ThumbnailPath] NVARCHAR(1000) NULL,
+	[ChecksumSha256] VARCHAR(64) NULL
+		CONSTRAINT [CK_Document_ChecksumSha256_Length] CHECK ([ChecksumSha256] IS NULL OR LEN([ChecksumSha256]) = 64),
+	[ScanStatusCode] VARCHAR(50) NULL,
+	[ScanCompletedDate] DATETIME NULL,
+	[ScanDetails] NVARCHAR(4000) NULL,
+	[UploadStatusCode] VARCHAR(50) NOT NULL,
+	[DocumentTitle] NVARCHAR(500) NULL,
+	[Description] NVARCHAR(2000) NULL,
+	[DocumentType] NVARCHAR(100) NULL,
+	[DocumentCategory] NVARCHAR(100) NULL,
+	[Tags] VARCHAR(2000) NULL,
+	[Language] VARCHAR(10) NULL,
+	[Version] INT NOT NULL CONSTRAINT [CK_Document_Version_Positive] CHECK ([Version] > 0),
+	[ParentDocumentId] INT NULL,
+	[IsLatestVersion] BIT NOT NULL CONSTRAINT [DF_Document_IsLatestVersion] DEFAULT (1),
+	[ReplacedByDocumentId] INT NULL,
+	[IsPublic] BIT NOT NULL CONSTRAINT [DF_Document_IsPublic] DEFAULT (0),
+	[InheritPermissions] BIT NOT NULL CONSTRAINT [DF_Document_InheritPermissions] DEFAULT (1),
+	[ConfidentialityLevel] VARCHAR(50) NULL,
+	[ExpiryDate] DATETIME NULL,
+	[RetentionPeriodDays] INT NULL CONSTRAINT [CK_Document_RetentionPeriodDays_NonNegative] CHECK ([RetentionPeriodDays] >= (0)),
+	[PageCount] INT NULL CONSTRAINT [CK_Document_PageCount_NonNegative] CHECK ([PageCount] >= (0)),
+	[SearchableText] NVARCHAR(4000) NULL,
+	[ExtractionStatus] VARCHAR(50) NULL,
+	[EncryptionKeyId] VARCHAR(100) NULL,
+	[IsEncrypted] BIT NOT NULL CONSTRAINT [DF_Document_IsEncrypted] DEFAULT (0),
+	[DownloadCount] INT NOT NULL
+		CONSTRAINT [DF_Document_DownloadCount] DEFAULT (0)
+		CONSTRAINT [CK_Document_DownloadCount_NonNegative] CHECK ([DownloadCount] >= 0),
+	[LastAccessedDate] DATETIME NULL,
+	[LastAccessedByUserId] INT NULL,
+	[SourceSystem] VARCHAR(100) NULL,
+	[IsActive] BIT NOT NULL CONSTRAINT [DF_Document_IsActive] DEFAULT (1),
+	[MarkedForDeletion] BIT NOT NULL CONSTRAINT [DF_Document_MarkedForDeletion] DEFAULT (0),
+	[MarkedForDeletionDate] DATETIME NULL,
+	[CreatedBy] INT NULL,
+	[CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_Document_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] INT NULL,
+	[UpdatedDate] DATETIME NULL,
+	[DeletedDate] DATETIME NULL,
+	[DeletedBy] INT NULL,
+	[RowVersion] ROWVERSION NOT NULL,
+ CONSTRAINT [PK_Document] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)
+);
+GO
+
+-- Add foreign key constraints for user references
+ALTER TABLE [CORE].[Document] WITH CHECK
+ADD CONSTRAINT [FK_Document_UploadedBy]
+FOREIGN KEY ([UploadedBy]) REFERENCES [CORE].[UserMaster] ([Id]);
+GO
+
+ALTER TABLE [CORE].[Document] CHECK CONSTRAINT [FK_Document_UploadedBy];
+GO
+
+ALTER TABLE [CORE].[Document] WITH CHECK
+ADD CONSTRAINT [FK_Document_OwnerUserId]
+FOREIGN KEY ([OwnerUserId]) REFERENCES [CORE].[UserMaster] ([Id]);
+GO
+
+ALTER TABLE [CORE].[Document] CHECK CONSTRAINT [FK_Document_OwnerUserId];
+GO
+
+ALTER TABLE [CORE].[Document] WITH CHECK
+ADD CONSTRAINT [FK_Document_LastAccessedByUserId]
+FOREIGN KEY ([LastAccessedByUserId]) REFERENCES [CORE].[UserMaster] ([Id]);
+GO
+
+ALTER TABLE [CORE].[Document] CHECK CONSTRAINT [FK_Document_LastAccessedByUserId];
+GO
+
+-- Add self-referencing foreign keys for versioning
+ALTER TABLE [CORE].[Document] WITH CHECK
+ADD CONSTRAINT [FK_Document_ParentDocumentId]
+FOREIGN KEY ([ParentDocumentId]) REFERENCES [CORE].[Document] ([Id]);
+GO
+
+ALTER TABLE [CORE].[Document] CHECK CONSTRAINT [FK_Document_ParentDocumentId];
+GO
+
+ALTER TABLE [CORE].[Document] WITH CHECK
+ADD CONSTRAINT [FK_Document_ReplacedByDocumentId]
+FOREIGN KEY ([ReplacedByDocumentId]) REFERENCES [CORE].[Document] ([Id]);
+GO
+
+ALTER TABLE [CORE].[Document] CHECK CONSTRAINT [FK_Document_ReplacedByDocumentId];
+GO
+
+-- Add indexes for foreign key columns
+CREATE NONCLUSTERED INDEX [IX_Document_UploadedBy]
+    ON [CORE].[Document] ([UploadedBy]);
+GO
+
+CREATE NONCLUSTERED INDEX [IX_Document_OwnerUserId]
+    ON [CORE].[Document] ([OwnerUserId]);
+GO
+
+CREATE NONCLUSTERED INDEX [IX_Document_LastAccessedByUserId]
+    ON [CORE].[Document] ([LastAccessedByUserId]);
+GO
+
+CREATE NONCLUSTERED INDEX [IX_Document_ParentDocumentId]
+    ON [CORE].[Document] ([ParentDocumentId]);
+GO
+
+CREATE NONCLUSTERED INDEX [IX_Document_ReplacedByDocumentId]
+    ON [CORE].[Document] ([ReplacedByDocumentId]);
+GO
 
 /* ===========================
    RuleEffectTypeMaster
