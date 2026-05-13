@@ -670,8 +670,84 @@ CREATE TABLE [CORE].[RuleScopeMaster](
 GO
 
 /* ===========================
+ DocumentBinding
+ =========================== */
+CREATE TABLE [CORE].[DocumentBinding](
+	[Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[DocumentId] INT NOT NULL,
+	[ModuleCode] NVARCHAR(50) NOT NULL,
+	[ReferenceTableName] VARCHAR(100) NOT NULL,
+	[ReferenceTableId] INT NULL,
+	[ReferenceTableIdGuid] UNIQUEIDENTIFIER NULL,
+	[BindingPurpose] VARCHAR(200) NULL,
+	[DisplayOrder] INT NULL,
+	[IsPrimaryDocument] BIT NOT NULL CONSTRAINT [DF_DocumentBinding_IsPrimaryDocument] DEFAULT (0),
+	[Notes] VARCHAR(1000) NULL,
+	[AccessPermission] VARCHAR(50) NULL,
+	[ExpiryDate] DATETIME NULL,
+	[AuthModuleCode] NVARCHAR(50) NULL,
+	[AuthReferenceId] INT NULL,
+	[IsActive] BIT NOT NULL CONSTRAINT [DF_DocumentBinding_IsActive] DEFAULT (1),
+	[IsReferenceValid] BIT NOT NULL CONSTRAINT [DF_DocumentBinding_IsReferenceValid] DEFAULT (0),
+	[LastValidatedDate] DATETIME NULL,
+	[ValidationError] VARCHAR(500) NULL,
+	[CreatedBy] INT NULL,
+	[CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_DocumentBinding_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] INT NULL,
+	[UpdatedDate] DATETIME NULL,
+	[RowVersion] ROWVERSION NOT NULL,
+	CONSTRAINT [PK_DocumentBinding] PRIMARY KEY CLUSTERED
+	(
+		[Id] ASC
+	),
+	CONSTRAINT [CK_DocumentBinding_ReferenceId_XOR]
+		CHECK (
+			([ReferenceTableId] IS NOT NULL AND [ReferenceTableIdGuid] IS NULL) OR
+			([ReferenceTableId] IS NULL AND [ReferenceTableIdGuid] IS NOT NULL)
+		)
+);
+GO
+
+ALTER TABLE [CORE].[DocumentBinding] WITH CHECK
+ADD CONSTRAINT [FK_DocumentBinding_ModuleMaster]
+FOREIGN KEY ([ModuleCode]) REFERENCES [CORE].[ModuleMaster] ([ModuleCode]);
+GO
+
+ALTER TABLE [CORE].[DocumentBinding] CHECK CONSTRAINT [FK_DocumentBinding_ModuleMaster];
+GO
+
+ALTER TABLE [CORE].[DocumentBinding] WITH CHECK
+ADD CONSTRAINT [FK_DocumentBinding_AuthModuleMaster]
+FOREIGN KEY ([AuthModuleCode]) REFERENCES [CORE].[ModuleMaster] ([ModuleCode]);
+GO
+
+ALTER TABLE [CORE].[DocumentBinding] CHECK CONSTRAINT [FK_DocumentBinding_AuthModuleMaster];
+GO
+
+CREATE NONCLUSTERED INDEX [IX_DocumentBinding_DocumentId]
+ON [CORE].[DocumentBinding] ([DocumentId]);
+GO
+
+CREATE NONCLUSTERED INDEX [IX_DocumentBinding_ModuleCode]
+ON [CORE].[DocumentBinding] ([ModuleCode]);
+GO
+
+CREATE NONCLUSTERED INDEX [IX_DocumentBinding_Reference]
+ON [CORE].[DocumentBinding] ([ModuleCode], [ReferenceTableName], [ReferenceTableId])
+WHERE [ReferenceTableId] IS NOT NULL;
+GO
+
+CREATE NONCLUSTERED INDEX [IX_DocumentBinding_ReferenceGuid]
+ON [CORE].[DocumentBinding] ([ModuleCode], [ReferenceTableName], [ReferenceTableIdGuid])
+WHERE [ReferenceTableIdGuid] IS NOT NULL;
+GO
+
+CREATE NONCLUSTERED INDEX [IX_DocumentBinding_AuthModule]
+ON [CORE].[DocumentBinding] ([AuthModuleCode], [AuthReferenceId]) WHERE [AuthModuleCode] IS NOT NULL AND [AuthReferenceId] IS NOT NULL;
+ 
+ /* ===========================
  CommonRemarkTypeMaster
-=========================== */
+ =========================== */
 CREATE TABLE [CORE].[CommonRemarkTypeMaster](
         [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
         [RemarkTypeName] VARCHAR(100) NOT NULL,
@@ -687,7 +763,7 @@ GO
 
 /* ===========================
  CommunicationTypeMaster
-=========================== */
+ =========================== */
 CREATE TABLE [CORE].[CommunicationTypeMaster](
     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [TypeName] VARCHAR(100) NOT NULL,
