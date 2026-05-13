@@ -541,3 +541,36 @@ CREATE TABLE [CORE].[RuleScopeMaster](
     CONSTRAINT [UQ_RuleScopeMaster_RuleScope] UNIQUE ([RuleScope])
 );
 GO
+
+/* ===========================
+ CommonRemarkTypeMaster
+=========================== */
+CREATE TABLE [CORE].[CommonRemarkTypeMaster](
+        [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+        [RemarkTypeName] VARCHAR(100) NOT NULL,
+        [IsActive] BIT NOT NULL CONSTRAINT [DF_CommonRemarkTypeMaster_IsActive] DEFAULT ((1)),
+        [CreatedBy] INT NULL,
+        [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_CommonRemarkTypeMaster_CreatedDate] DEFAULT (GETDATE()),
+        [UpdatedBy] INT NULL,
+        [UpdatedDate] DATETIME NULL,
+        CONSTRAINT [PK_CommonRemarkTypeMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+GO
+
+
+/* ===========================
+ CommunicationTypeMaster
+=========================== */
+CREATE TABLE [CORE].[CommunicationTypeMaster](
+    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [TypeName] VARCHAR(100) NOT NULL,
+    [DepartmentId] INT NULL,
+    [IsActive] BIT NOT NULL CONSTRAINT [DF_CommunicationTypeMaster_IsActive] DEFAULT ((1)),
+    [CreatedBy] INT NULL,
+    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_CommunicationTypeMaster_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy] INT NULL,
+    [UpdatedDate] DATETIME NULL,
+    CONSTRAINT [PK_CommunicationTypeMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_CommunicationTypeMaster_DepartmentMaster] FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id])
+);
+GO

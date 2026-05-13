@@ -2314,6 +2314,45 @@ INSERT [PTIS].[SocietyDetailsMast] ([Id], [PropertyId], [WingId], [WingName], [S
   (103, 750347, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL)
 GO
 SET IDENTITY_INSERT [PTIS].[SocietyDetailsMast] OFF
+
+GO
+SET IDENTITY_INSERT [PTIS].[PropertyMapMaster] ON 
+GO
+INSERT [PTIS].[PropertyMapMaster] ([Id], [ModuleId], [ParentPropertyMapId], [VersionNo], [MappingCategory], [ChangeReason], [Remark], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1, NULL, NULL, 1, N'ONE_TO_ONE', NULL, N'One old property mapped to one new property', 1, 1, CAST(N'2026-05-07T18:58:37.810' AS DateTime), NULL, NULL)
+GO
+INSERT [PTIS].[PropertyMapMaster] ([Id], [ModuleId], [ParentPropertyMapId], [VersionNo], [MappingCategory], [ChangeReason], [Remark], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2, NULL, NULL, 1, N'SPLIT', NULL, N'One old property split into two new properties', 1, 1, CAST(N'2026-05-07T18:58:37.823' AS DateTime), NULL, NULL)
+GO
+INSERT [PTIS].[PropertyMapMaster] ([Id], [ModuleId], [ParentPropertyMapId], [VersionNo], [MappingCategory], [ChangeReason], [Remark], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (3, NULL, NULL, 1, N'MERGE', NULL, N'Two old properties merged into one new property', 1, 1, CAST(N'2026-05-07T18:58:37.823' AS DateTime), NULL, NULL)
+GO
+INSERT [PTIS].[PropertyMapMaster] ([Id], [ModuleId], [ParentPropertyMapId], [VersionNo], [MappingCategory], [ChangeReason], [Remark], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (4, NULL, 3, 2, N'ONE_TO_ONE', N'Previous merge mapping corrected', N'Corrected mapping version', 1, 1, CAST(N'2026-05-07T18:58:37.823' AS DateTime), NULL, NULL)
+GO
+INSERT [PTIS].[PropertyMapMaster] ([Id], [ModuleId], [ParentPropertyMapId], [VersionNo], [MappingCategory], [ChangeReason], [Remark], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1009, NULL, NULL, 1, N'MERGE', N'string2', N'string2', 0, 1, CAST(N'2026-05-08T13:12:56.377' AS DateTime), 1, CAST(N'2026-05-08T13:24:02.647' AS DateTime))
+GO
+SET IDENTITY_INSERT [PTIS].[PropertyMapMaster] OFF
+
+
+GO
+SET IDENTITY_INSERT [PTIS].[PropertyMapDetail] ON;
+GO
+
+INSERT INTO [PTIS].[PropertyMapDetail]
+([Id],[PropertyMapId],[PropertySide],[PropertyId],[PropertyOldId],
+[PropertyNo],[OldWardNo],[OldSocietyName],[OldAddress],[TaxSharePercent],[AreaSharePercent],[Status],[IsCurrent],
+[ChangeReason],[Remark],[Latitude],[Longitude],[Location],[IsActive],[CreatedBy],[CreatedDate],[UpdatedBy],[UpdatedDate])
+VALUES
+(1, 1, 'OLD', NULL, 7, N'OLD-101', NULL, NULL, NULL, 100.0000, 100.0000, 'MODIFIED', 1, NULL, NULL, 19.12345678, 72.88991111, N'Old Property Location', 1, 1, '2026-05-07T18:58:37.820', NULL, NULL),
+(2, 1, 'NEW', 549439, NULL, N'NEW-501', NULL, NULL, NULL, 100.0000, 100.0000, 'MODIFIED', 1, NULL, NULL, 19.12355678, 72.88992222, N'New Property Location', 1, 1, '2026-05-07T18:58:37.820', NULL, NULL),
+(3, 2, 'OLD', NULL, 6, N'OLD-102', NULL, NULL, NULL, 100.0000, 100.0000, 'MODIFIED', 1, NULL, NULL, 19.22345678, 72.98991111, N'Original Split Property', 1, 1, '2026-05-07T18:58:37.823', NULL, NULL),
+(4, 2, 'NEW', 549442, NULL, N'NEW-502', NULL, NULL, NULL, 60.0000, 60.0000, 'MODIFIED', 1, NULL, NULL, 19.22355678, 72.98992222, N'Split Property A', 1, 1, '2026-05-07T18:58:37.823', NULL, NULL),
+(5, 2, 'NEW', 599038, NULL, N'NEW-503', NULL, NULL, NULL, 40.0000, 40.0000, 'MODIFIED', 1, NULL, NULL, 19.22365678, 72.98993333, N'Split Property B', 1, 1, '2026-05-07T18:58:37.823', NULL, NULL),
+(6, 3, 'OLD', NULL, 3, N'OLD-103', NULL, NULL, NULL, 100.0000, 50.0000, 'MODIFIED', 0, N'Mapping corrected after survey review', NULL, 19.32345678, 73.08991111, N'Merged Old Property 1', 1, 1, '2026-05-07T18:58:37.823', 1, '2026-05-07T18:58:37.823'),
+(7, 3, 'OLD', NULL, 4, N'OLD-104', NULL, NULL, NULL, 100.0000, 50.0000, 'MODIFIED', 0, N'Mapping corrected after survey review', NULL, 19.32355678, 73.08992222, N'Merged Old Property 2', 1, 1, '2026-05-07T18:58:37.823', 1, '2026-05-07T18:58:37.823'),
+(8, 3, 'NEW', 579098, NULL, N'NEW-504', NULL, NULL, NULL, 100.0000, 100.0000, 'MODIFIED', 0, N'Mapping corrected after survey review', NULL, 19.32365678, 73.08993333, N'Merged New Property', 1, 1, '2026-05-07T18:58:37.823', 1, '2026-05-07T18:58:37.823'),
+(9, 4, 'OLD', NULL, 5, N'OLD-103', NULL, NULL, NULL, 100.0000, 100.0000, 'MODIFIED', 1, NULL, NULL, 19.32345678, 73.08991111, N'Corrected Old Property', 1, 1, '2026-05-07T18:58:37.823', NULL, NULL),
+(10, 4, 'NEW', 577538, NULL, N'NEW-505', NULL, NULL, NULL, 100.0000, 100.0000, 'MODIFIED', 1, NULL, NULL, 19.32375678, 73.08994444, N'Corrected New Property', 1, 1, '2026-05-07T18:58:37.823', NULL, NULL);
+
+SET IDENTITY_INSERT [PTIS].[PropertyMapDetail] OFF;
+GO
            
 
 

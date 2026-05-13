@@ -1858,6 +1858,7 @@ CREATE TABLE [PTIS].[PropertyMastOld](
 	[OldFlatOrShopNumber] [nvarchar](50) NULL,
 	[OldWing] [nvarchar](20) NULL,
 	[OldMobileNo] [varchar](13) NULL,
+	[MappedNewBuildingId] INT NULL,
 	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_PropertyMastOld_MarkedForDeletion] DEFAULT (0),
 	[MarkedForDeletionDate] [datetime] NULL,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyMastOld_IsActive] DEFAULT (1),
@@ -1865,7 +1866,8 @@ CREATE TABLE [PTIS].[PropertyMastOld](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PropertyMastOld_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_PropertyMastOld] PRIMARY KEY CLUSTERED ([Id] ASC)
+    CONSTRAINT [PK_PropertyMastOld] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT [FK_PropertyMastOld_PropertyMast_Map] FOREIGN KEY ([MappedNewBuildingId]) REFERENCES [PTIS].[PropertyMast] ([Id])
 ) ON [PRIMARY] 
 GO
 
@@ -2951,4 +2953,69 @@ CREATE TABLE [PTIS].[RuleMaster]
 	CONSTRAINT UQ_RuleMaster_RuleCode  UNIQUE ([RuleCode])
 );
 GO
+
+
+/* ===========================
+ PropertyMapMaster
+=========================== */
+CREATE TABLE [PTIS].[PropertyMapMaster](
+     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+     [ModuleId] INT NULL,
+     [ParentPropertyMapId] INT NULL,
+     [VersionNo] INT NOT NULL CONSTRAINT [DF_PropertyMapMaster_VersionNo] DEFAULT ((1)),
+     [MappingCategory] VARCHAR(30) NOT NULL,
+     [ChangeReason] NVARCHAR(500) NULL,
+     [Remark] NVARCHAR(500) NULL,
+     [IsActive] BIT NOT NULL CONSTRAINT [DF_PropertyMapMaster_IsActive] DEFAULT ((1)),
+     [CreatedBy] INT NULL,
+     [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_PropertyMapMaster_CreatedDate] DEFAULT (GETDATE()),
+     [UpdatedBy] INT NULL,
+     [UpdatedDate] DATETIME NULL,
+     CONSTRAINT [PK_PropertyMapMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+     CONSTRAINT [CK_PropertyMapMaster_MappingCategory] CHECK ([MappingCategory] IN ('ONE_TO_ONE', 'SPLIT', 'MERGE','MAP')),
+     CONSTRAINT [FK_PropertyMapMaster_ParentPropertyMapId] FOREIGN KEY ([ParentPropertyMapId]) REFERENCES [PTIS].[PropertyMapMaster] ([Id]),
+	 CONSTRAINT [FK_PropertyMapMaster_ModuleMaster] FOREIGN KEY ([ModuleId]) REFERENCES [CORE].[ModuleMaster] ([Id])
+);
+GO
+
+/* ===========================
+ PropertyMapDetail
+=========================== */
+
+CREATE TABLE [PTIS].[PropertyMapDetail](
+      [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+      [PropertyMapId] INT NOT NULL,
+      [PropertySide] VARCHAR(10) NOT NULL,
+      [PropertyId] INT NULL,
+	  [PropertyOldId] INT NULL,
+      [PropertyNo] NVARCHAR(50) NOT NULL,
+      [OldWardNo] [nvarchar](20) NULL,
+      [OldSocietyName] [nvarchar](300) NULL,
+      [OldAddress] [nvarchar](500) NULL,
+      [TaxSharePercent] DECIMAL(9,4) NULL,
+      [AreaSharePercent] DECIMAL(9,4) NULL,
+      [Status] VARCHAR(20) NOT NULL CONSTRAINT [DF_PropertyMapDetail_Status] DEFAULT ('ACTIVE'),
+      [IsCurrent] BIT NOT NULL CONSTRAINT [DF_PropertyMapDetail_IsCurrent] DEFAULT ((1)),
+      [ChangeReason] NVARCHAR(200) NULL,
+      [Remark] NVARCHAR(500) NULL,
+      [Latitude] DECIMAL(12,8) NULL,
+      [Longitude] DECIMAL(12,8) NULL,
+      [Location] NVARCHAR(500) NULL,
+      [IsActive] BIT NOT NULL CONSTRAINT [DF_PropertyMapDetail_IsActive] DEFAULT ((1)),
+      [CreatedBy] INT NULL,
+      [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_PropertyMapDetail_CreatedDate] DEFAULT (GETDATE()),
+      [UpdatedBy] INT NULL,
+      [UpdatedDate] DATETIME NULL,
+      CONSTRAINT [PK_PropertyMapDetail] PRIMARY KEY CLUSTERED ([Id] ASC),
+      CONSTRAINT [FK_PropertyMapDetail_PropertyMapMaster] FOREIGN KEY ([PropertyMapId]) REFERENCES [PTIS].[PropertyMapMaster] ([Id]),
+	  CONSTRAINT [FK_PropertyMapDetail_PropertyMast] FOREIGN KEY ([PropertyId]) REFERENCES [PTIS].[PropertyMast] ([Id]),
+	  CONSTRAINT [FK_PropertyMapDetail_PropertyMastOld] FOREIGN KEY ([PropertyOldId]) REFERENCES [PTIS].[PropertyMastOld] ([Id]),
+      CONSTRAINT [CK_PropertyMapDetail_PropertySide] CHECK ([PropertySide] IN ('OLD', 'NEW')),
+      CONSTRAINT [CK_PropertyMapDetail_Status] CHECK ([Status] IN ('ACTIVE', 'MODIFIED', 'CANCELLED','DRAFT')),
+      CONSTRAINT [UQ_PropertyMapDetail_PropertyMapId_PropertySide_PropertyId_PropertyOldId_Status_CreatedDate]
+      UNIQUE NONCLUSTERED([PropertyMapId],[PropertySide],[PropertyId],[PropertyOldId],[Status],[CreatedDate])
+);
+GO
+
+
 
