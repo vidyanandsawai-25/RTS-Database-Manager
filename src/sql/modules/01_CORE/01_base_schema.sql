@@ -7,22 +7,23 @@ GO
    [CORE].[MultilingualResource]
  =========================== */
 CREATE TABLE [CORE].[MultilingualResource](
-    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-    [Context]        NVARCHAR(256) NOT NULL,
-    [Key]            NVARCHAR(256) NOT NULL,
-    [English]        NVARCHAR(500) NOT NULL,
-    [Hindi]          NVARCHAR(500) NOT NULL,
-    [Marathi]        NVARCHAR(500) NOT NULL,
-    [IsActive]       BIT NOT NULL CONSTRAINT [DF_MultilingualResource_IsActive] DEFAULT (1),
-    [CreatedBy]      INT NULL,
-    [CreatedDate]    DATETIME NOT NULL CONSTRAINT [DF_MultilingualResource_CreatedDate] DEFAULT (GETDATE()),
-    [UpdatedBy]      INT NULL,
-    [UpdatedDate]    DATETIME NULL,
-
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Resource] [nvarchar](256) NOT NULL,
+	[Key] [nvarchar](256) NOT NULL,
+	[en_US] [nvarchar](500) NOT NULL,
+	[hi_IN] [nvarchar](500) NOT NULL,
+	[mr_IN] [nvarchar](500) NOT NULL,
+	[IsGenerated] [bit] NOT NULL ,--- Default value will be set from application code while inserting/updating records
+	[IsActive]              BIT NOT NULL CONSTRAINT [DF_MultilingualResource_IsActive] DEFAULT (1),
+    [CreatedBy]             INT NULL,
+    [CreatedDate]           DATETIME NOT NULL CONSTRAINT [DF_MultilingualResource_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy]             INT NULL,
+    [UpdatedDate]           DATETIME NULL,
     CONSTRAINT [PK_MultilingualResource] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [UQ_MultilingualResource_Context_Key] UNIQUE ([Context], [Key])
-);
+    CONSTRAINT UQ_MultilingualResource_Resource_Key  UNIQUE ([Resource], [Key])
+)ON [PRIMARY]
 GO
+
 
 /* ===========================
    [CORE].[DepartmentMaster]
@@ -617,6 +618,64 @@ CREATE NONCLUSTERED INDEX [IX_Document_ReplacedByDocumentId]
     ON [CORE].[Document] ([ReplacedByDocumentId]);
 GO
 
+
+/* ===========================
+ screen master
+=========================== */
+
+CREATE TABLE [CORE].[ScreenMaster](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[ScreenGroupId] [int] NOT NULL,
+	[ModuleId] [int] NOT NULL,
+	[ScreenCode] [varchar](200) NOT NULL,
+	[ScreenName] [varchar](200) NOT NULL,
+	[ScreenNameLocal] [nvarchar](200) NULL,
+	[ScreenIcon] [nvarchar](100) NULL,
+	[RoutePath] [nvarchar](300) NULL,
+	[IsMenu] [bit] NULL,
+	[IsAuthenticationRequired] [bit] NULL,
+	[DisplayOrder] [int] NULL,
+	[IsActive]     BIT NOT NULL CONSTRAINT DF_ScreenMaster_IsActive DEFAULT(1),
+    [CreatedBy]    INT NULL,
+    [CreatedDate]  DATETIME NOT NULL CONSTRAINT DF_ScreenMaster_CreatedDate DEFAULT(GETDATE()),
+    [UpdatedBy]    INT NULL,
+    [UpdatedDate]  DATETIME NULL,
+    CONSTRAINT [PK_ScreenMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_ScreenMaster_ScreenCode] UNIQUE ([ScreenCode]),
+    CONSTRAINT [FK_ScreenMaster_ScreenGroupMaster] FOREIGN KEY ([ScreenGroupId]) REFERENCES [CORE].[ScreenGroupMaster] ([Id]),
+    CONSTRAINT [FK_ScreenMaster_ModuleMaster] FOREIGN KEY ([ModuleId]) REFERENCES [CORE].[ModuleMaster] ([Id] ) ,
+    CONSTRAINT [CK_ScreenMaster_DisplayOrder_NonNegative] CHECK ([DisplayOrder] >= 0)   
+
+)
+GO
+
+/* ===========================
+ role wise screen access master
+=========================== */
+
+
+CREATE TABLE [CORE].[RoleWiseScreenAccessMaster](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[UserRoleId] [int] NOT NULL,
+	[ScreenId] [int] NOT NULL,
+	[CanView] [bit] NOT NULL,
+	[CanEdit] [bit] NOT NULL,
+	[CanDelete] [bit] NOT NULL,
+	[HaveFullAccess] [bit] NOT NULL,
+	[HaveNoAccess] [bit] NOT NULL,
+	[IsActive]     BIT NOT NULL CONSTRAINT DF_RoleWiseScreenAccessMaster_IsActive DEFAULT(1),
+    [CreatedBy]    INT NULL,
+    [CreatedDate]  DATETIME NOT NULL CONSTRAINT DF_RoleWiseScreenAccessMaster_CreatedDate DEFAULT(GETDATE()),
+    [UpdatedBy]    INT NULL,
+    [UpdatedDate]  DATETIME NULL,
+    CONSTRAINT [PK_RoleWiseScreenAccessMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_RoleWiseScreenAccessMaster_UserRole_Screen] UNIQUE ([UserRoleId], [ScreenId]),
+    CONSTRAINT [FK_RoleWiseScreenAccessMaster_UserRoleMaster] FOREIGN KEY ([UserRoleId]) REFERENCES [CORE].[UserRoleMaster] ([Id]),
+    CONSTRAINT [FK_RoleWiseScreenAccessMaster_ScreenMaster] FOREIGN KEY ([ScreenId]) REFERENCES [CORE].[ScreenMaster] ([Id])
+)
+
+GO
+
 /* ===========================
    RuleEffectTypeMaster
 =========================== */
@@ -669,13 +728,14 @@ CREATE TABLE [CORE].[RuleScopeMaster](
 );
 GO
 
+
 /* ===========================
  DocumentBinding
  =========================== */
 CREATE TABLE [CORE].[DocumentBinding](
 	[Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[DocumentId] INT NOT NULL,
-	[ModuleCode] NVARCHAR(50) NOT NULL,
+	[ModuleId] INT NOT NULL,
 	[ReferenceTableName] VARCHAR(100) NOT NULL,
 	[ReferenceTableId] INT NULL,
 	[ReferenceTableIdGuid] UNIQUEIDENTIFIER NULL,
@@ -685,7 +745,7 @@ CREATE TABLE [CORE].[DocumentBinding](
 	[Notes] VARCHAR(1000) NULL,
 	[AccessPermission] VARCHAR(50) NULL,
 	[ExpiryDate] DATETIME NULL,
-	[AuthModuleCode] NVARCHAR(50) NULL,
+	[AuthModuleId] INT NULL,
 	[AuthReferenceId] INT NULL,
 	[IsActive] BIT NOT NULL CONSTRAINT [DF_DocumentBinding_IsActive] DEFAULT (1),
 	[IsReferenceValid] BIT NOT NULL CONSTRAINT [DF_DocumentBinding_IsReferenceValid] DEFAULT (0),
@@ -696,10 +756,8 @@ CREATE TABLE [CORE].[DocumentBinding](
 	[UpdatedBy] INT NULL,
 	[UpdatedDate] DATETIME NULL,
 	[RowVersion] ROWVERSION NOT NULL,
-	CONSTRAINT [PK_DocumentBinding] PRIMARY KEY CLUSTERED
-	(
-		[Id] ASC
-	),
+	CONSTRAINT [PK_DocumentBinding] PRIMARY KEY CLUSTERED ([Id] ASC ),
+    CONSTRAINT [FK_DocumentBinding_Document] FOREIGN KEY ([DocumentId]) REFERENCES [CORE].[Document] ([Id]),
 	CONSTRAINT [CK_DocumentBinding_ReferenceId_XOR]
 		CHECK (
 			([ReferenceTableId] IS NOT NULL AND [ReferenceTableIdGuid] IS NULL) OR
@@ -710,7 +768,7 @@ GO
 
 ALTER TABLE [CORE].[DocumentBinding] WITH CHECK
 ADD CONSTRAINT [FK_DocumentBinding_ModuleMaster]
-FOREIGN KEY ([ModuleCode]) REFERENCES [CORE].[ModuleMaster] ([ModuleCode]);
+FOREIGN KEY ([ModuleId]) REFERENCES [CORE].[ModuleMaster] ([Id]);
 GO
 
 ALTER TABLE [CORE].[DocumentBinding] CHECK CONSTRAINT [FK_DocumentBinding_ModuleMaster];
@@ -718,7 +776,7 @@ GO
 
 ALTER TABLE [CORE].[DocumentBinding] WITH CHECK
 ADD CONSTRAINT [FK_DocumentBinding_AuthModuleMaster]
-FOREIGN KEY ([AuthModuleCode]) REFERENCES [CORE].[ModuleMaster] ([ModuleCode]);
+FOREIGN KEY ([AuthModuleId]) REFERENCES [CORE].[ModuleMaster] ([Id]);
 GO
 
 ALTER TABLE [CORE].[DocumentBinding] CHECK CONSTRAINT [FK_DocumentBinding_AuthModuleMaster];
@@ -728,39 +786,39 @@ CREATE NONCLUSTERED INDEX [IX_DocumentBinding_DocumentId]
 ON [CORE].[DocumentBinding] ([DocumentId]);
 GO
 
-CREATE NONCLUSTERED INDEX [IX_DocumentBinding_ModuleCode]
-ON [CORE].[DocumentBinding] ([ModuleCode]);
+CREATE NONCLUSTERED INDEX [IX_DocumentBinding_ModuleId]
+ON [CORE].[DocumentBinding] ([ModuleId]);
 GO
 
 CREATE NONCLUSTERED INDEX [IX_DocumentBinding_Reference]
-ON [CORE].[DocumentBinding] ([ModuleCode], [ReferenceTableName], [ReferenceTableId])
+ON [CORE].[DocumentBinding] ([ModuleId], [ReferenceTableName], [ReferenceTableId])
 WHERE [ReferenceTableId] IS NOT NULL;
 GO
 
 CREATE NONCLUSTERED INDEX [IX_DocumentBinding_ReferenceGuid]
-ON [CORE].[DocumentBinding] ([ModuleCode], [ReferenceTableName], [ReferenceTableIdGuid])
+ON [CORE].[DocumentBinding] ([ModuleId], [ReferenceTableName], [ReferenceTableIdGuid])
 WHERE [ReferenceTableIdGuid] IS NOT NULL;
 GO
 
 CREATE NONCLUSTERED INDEX [IX_DocumentBinding_AuthModule]
-ON [CORE].[DocumentBinding] ([AuthModuleCode], [AuthReferenceId]) WHERE [AuthModuleCode] IS NOT NULL AND [AuthReferenceId] IS NOT NULL;
+ON [CORE].[DocumentBinding] ([AuthModuleId], [AuthReferenceId]) WHERE [AuthModuleId] IS NOT NULL AND [AuthReferenceId] IS NOT NULL;
  
  /* ===========================
  CommonRemarkTypeMaster
  =========================== */
 CREATE TABLE [CORE].[CommonRemarkTypeMaster](
-        [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-        [RemarkTypeName] VARCHAR(100) NOT NULL,
-        [IsActive] BIT NOT NULL CONSTRAINT [DF_CommonRemarkTypeMaster_IsActive] DEFAULT ((1)),
-        [CreatedBy] INT NULL,
-        [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_CommonRemarkTypeMaster_CreatedDate] DEFAULT (GETDATE()),
-        [UpdatedBy] INT NULL,
-        [UpdatedDate] DATETIME NULL,
-        CONSTRAINT [PK_CommonRemarkTypeMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
+    [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [RemarkTypeName] VARCHAR(100) NOT NULL, -- e.g. Survey, Recovery, Notice, Mobile Remark, etc.
+   	[IsActive]     BIT NOT NULL CONSTRAINT DF_CommonRemarkTypeMaster_IsActive DEFAULT(1),
+    [CreatedBy]    INT NULL,
+    [CreatedDate]  DATETIME NOT NULL CONSTRAINT DF_CommonRemarkTypeMaster_CreatedDate DEFAULT(GETDATE()),
+    [UpdatedBy]    INT NULL,
+    [UpdatedDate]  DATETIME NULL,
+CONSTRAINT [PK_CommonRemarkTypeMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+CONSTRAINT [UQ_CommonRemarkTypeMaster_RemarkTypeName] UNIQUE ([RemarkTypeName])
 );
+
 GO
-
-
 /* ===========================
  CommunicationTypeMaster
  =========================== */

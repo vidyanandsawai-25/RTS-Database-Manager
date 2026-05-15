@@ -136,21 +136,66 @@ VALUES
 (N'OP', N'प्लॉट',       N'home', NULL, NULL, NULL);
 
 
+INSERT INTO [PTIS].[PropertyAssessmentStatusMaster] (StatusName)
+SELECT s.StatusName
+FROM (VALUES
+    ('ASSESSED'),
+    ('UNASSESSED'),
+    ('PARTIALLY_ASSESSED'),
+    ('UNDER_UNASSESSED')
+) s(StatusName)
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM [PTIS].[PropertyAssessmentStatusMaster] p
+    WHERE p.StatusName = s.StatusName
+);
+
+MERGE [PTIS].[AssessmentYearRangeMasterRV] AS T
+USING
+(
+    VALUES
+        (2016, 2026),
+        (2005, 2015),
+        (2003, 2004),
+        (1998, 1998),
+        (1700, 1997)
+) AS S (FromYear, ToYear)
+
+ON T.FromYear = S.FromYear
+
+WHEN MATCHED
+    AND T.ToYear <> S.ToYear
+THEN
+    UPDATE SET T.ToYear = S.ToYear
+
+WHEN NOT MATCHED THEN
+    INSERT (FromYear, ToYear)
+    VALUES (S.FromYear, S.ToYear);
 
 
-INSERT INTO PTIS.AssessmentYearRangeMasterRV (FromYear, ToYear)
-values  (2005, 2015),
-      (2016, 2025),
-       (2003, 2004),
-      (1998, 1998),
-      (1700, 1997)
 
-INSERT INTO PTIS.AssessmentYearRangeMasterCV (FromYear, ToYear)
-values  (2005, 2015),
-      (2016, 2025),
-       (2003, 2004),
-      (1998, 1998),
-      (1700, 1997)
+MERGE [PTIS].[AssessmentYearRangeMasterCV] AS T
+USING
+(
+    VALUES
+        (2016, 2026),
+        (2005, 2015),
+        (2003, 2004),
+        (1998, 1998),
+        (1700, 1997)
+) AS S (FromYear, ToYear)
+
+ON T.FromYear = S.FromYear
+
+WHEN MATCHED
+    AND T.ToYear <> S.ToYear
+THEN
+    UPDATE SET T.ToYear = S.ToYear
+
+WHEN NOT MATCHED THEN
+    INSERT (FromYear, ToYear)
+    VALUES (S.FromYear, S.ToYear);
+
 
 
 
@@ -161,9 +206,6 @@ values  (2005, 2015),
         g.TypeOfUseGroupCode              
     FROM PTIS.TypeOfUseGroupMaster g
 ),
-
-
-
 TypeSeed AS
 (
     SELECT * FROM (VALUES
@@ -347,35 +389,6 @@ INSERT INTO [PTIS].[PropertyCategoryMaster] ( [PropertyCategoryName]) VALUES ('I
 
 
 
-
-
-SET IDENTITY_INSERT [PTIS].[SubZoneDetailsForCV] ON;
-
-
-INSERT INTO [PTIS].[SubZoneDetailsForCV] ([Id], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('1', 'Z1', '98/440 ', N' भूभाग :- उत्तरेस हार्बर रेल्वे लाईन, पूर्वेस पूर्व द्रुतगती महामार्ग व पश्चिमेस वॉर्ड हद्द यामधील मिळकती', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneDetailsForCV] ([Id], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('2', 'Z1', '98/440A ', N' भुभाग: हार्बर रेल्वे लाईनच्या उत्तरेकडील टिळकनगर मध्ये दर्शविलेल्या मिळकती.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneDetailsForCV] ([Id], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('3', 'Z1', '98/441 ', N'भुभाग: द्रुतगती मार्ग, महात्मा गांधी मार्ग व वॉर्ड हद्द यांनी वेढलेला भाग.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneDetailsForCV] ([Id], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('4', 'Z1', '98/442', N'भुभाग: द्रुतगती मार्ग, रामकृष्ण चेंबूरकर मार्ग व व्ही एन. पूरब मार्ग यांनी वेढलेला भूभाग.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneDetailsForCV] ([Id], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('5', 'Z1', '98/442A', N'भुभाग - उत्तरेस पुर्व दुतगती महामार्ग, दक्षिणेस मुल्यदर विभाग क्र. 98/443 चा भाग, व पुर्वेस मुल्यदर विभाग क्र. 98/442 चा भाग.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneDetailsForCV] ([Id], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('6', 'Z1', '98/443', N'भुभाग: उत्तरेस व्ही. एन. पूरब मार्ग, पूर्वेस रामकृष्ण चेंबूरकर मार्ग व दक्षिणेस गाव हद्द, पश्चिमेस गुडस् रेल्वे लाईन', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneDetailsForCV] ([Id], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('7', 'Z1', '98/444 ', N' भुभाग: उत्तरेस व पूर्वेस गाव हद्द, पश्चिमेस पूर्व द्रुतगती महामार्ग व दक्षिणेस नकाशा मध्ये दर्शविल्यानुसार गाव हद्द', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneDetailsForCV] ([Id], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('8', 'Z1', '98/444A ', N' भूभाग - दक्षिणेस हार्बर रेल्वे लाईन व उत्तरेस नकाशात दर्शविलेल्याप्रमाणे हद्द यामधील मिळकती.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneDetailsForCV] ([Id], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('9', 'Z1', '98/445', N'भुभाग: उत्तरेस रेल्वे, पुर्वेस गाव हद्द, दक्षिणेस व्ही. एन. पुरव मार्ग व पश्चिमेस रामकृष्ण चेंबूरकर मार्ग.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneDetailsForCV] ([Id], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('10', 'Z1', '98/445A ', N' भुभाग सुभाष नगर म्हाडा संकुला मधील समाविष्ट मिळकती.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneDetailsForCV] ([Id], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('11', 'Z1', '98/446 ', N'भुभाग: व्ही.एन.पुरव मार्गाच्या दक्षिणेकडील भाग, गाव सीमा व रामकृष्ण चेंबूरकर मार्ग यांनी वेढलेला भाग.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneDetailsForCV] ([Id], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('12', 'Z1', '98/447 ', N'भुभाग: वॉर्ड हद्द, मालवाहतूक रेल्व मार्ग व गाव सीमा यांनी वेढलेला भाग.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneDetailsForCV] ([Id], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('13', 'Z1', '98/448', N'रस्ता: व्ही.एन.पुरव मार्ग- सुमननगर ते शिवाजी महाराज चौक.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneDetailsForCV] ([Id], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('14', 'Z1', '98/449 ', N'रस्ता: आचार्य उद्यान (डायमंड गार्डन) सर्कल ते चेंबूर रेल्वे स्टेशन जोडणारा सेंट्रल अँव्हेन्यू रोड (स्टेशन रोड)', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneDetailsForCV] ([Id], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('15', 'Z1', '98/450', N'रस्ता: चेंबूर रेल्वे स्टेशन ते बोरला गाव जोडणारा एन. जी. आचार्य मार्ग.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneDetailsForCV] ([Id], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('16', 'Z1', '98/451', N'रस्ता: चोईतराम गिडवानी मार्ग.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneDetailsForCV] ([Id], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('17', 'Z1', '98/452', N'रस्ता : रामकृष्ण चेंबूरकर मार्ग.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneDetailsForCV] ([Id], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('18', 'Z1', '98/453 ', N'भुभाग: उत्तरेस गावाची हद्द, पूर्वेस वॉर्ड सीमा, दक्षिणस स.गो.बर्वे मार्ग, पश्चिमेस गाव हद्द.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneDetailsForCV] ([Id], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('19', 'Z1', '98/454 ', N'भुभाग: उत्तरेस, स.गो.बर्वे मार्ग, दक्षिणेस व पश्चिमेस गाव सीमा, पूर्वे वॉर्ड हद्द.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneDetailsForCV] ([Id], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('20', 'Z1', '98/455', N'रस्ता : स.गो.बर्वे मार्ग.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneDetailsForCV] ([Id], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('21', 'Z1', '98/456 ', N'भुभाग: चेंबूर गावातील "एन" वॉर्डातील मिळकती.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneDetailsForCV] ([Id], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('22', 'Z1', '98/445/1 ', N' भुभाग: चेंबूर गावठाण क्षेत्रा मधील मिळकती.', NULL, NULL, NULL);
-INSERT INTO [PTIS].[SubZoneDetailsForCV] ([Id], [MoujaName], [SubZoneNo], [SubZoneName], [UpdatedBy], [UpdatedDate], [CreatedBy]) VALUES ('23', 'Z1', '98/446/1 ', N' भुभाग: चेंबूर चरई गावठाण क्षेत्रा मधील मिळकती.', NULL, NULL, NULL);
-SET IDENTITY_INSERT [PTIS].[SubZoneDetailsForCV] OFF;
 
 
 
@@ -2287,12 +2300,6 @@ INSERT INTO [PTIS].[SubFloorMaster] ([SubFloorCode], [Description], [SubFloorPer
 ---- [PTIS].[UsageCategoryMaster]
 
 
-
-INSERT [PTIS].[UsageCategoryMaster] ([Id], [Description], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
-  (1, N'1', NULL, NULL, NULL),
-  (2, N'2', NULL, NULL, NULL),
-  (3, N'3', NULL, NULL, NULL),
-  (4, N'4', NULL, NULL, NULL);
 
 
 
@@ -4414,3 +4421,139 @@ INSERT [PTIS].[WingMaster] ([Id], [WingNo], [SequenceNo], [IsActive], [CreatedBy
 (25, N'Y', 25, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
 (26, N'Z', 26, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL)
 SET IDENTITY_INSERT [PTIS].[WingMaster] OFF
+
+
+---- policy tax details - seed data----
+
+
+;WITH PropertyList AS
+(
+    SELECT top 100 Id
+    FROM PTIS.PropertyMast
+    --WHERE Id IN (101,102,103)
+      --AND IsActive = 1
+       ORDER BY Id
+),
+PolicyList AS
+(
+    SELECT 'NETTAX' AS PolicyCode, N'Annual tax assessment' AS PolicyReason
+    UNION ALL SELECT 'APPEAL', N'Appeal case'
+    UNION ALL SELECT 'HEARING', N'Hearing case'
+    UNION ALL SELECT 'COMMITTEE', N'Committee decision'
+    UNION ALL SELECT 'REMISSION', N'Remission granted'
+),
+TaxList AS
+(
+    SELECT Id AS TaxId
+    FROM PTIS.TaxMaster
+    WHERE IsActive = 1
+)
+INSERT INTO PTIS.PolicyTaxDetails
+(
+    PropertyId,
+    PolicyCode,
+    PolicyDate,
+    PolicyYear,
+    PolicyReason,
+    PolicyRVorCVvalue,
+    TaxId,
+    TaxAmount,
+    CreatedBy
+)
+SELECT
+    PR.Id AS PropertyId,
+    PL.PolicyCode,
+    GETDATE(),
+    2026,
+    PL.PolicyReason,
+    CAST(500000 + (PR.Id * 25) + (TL.TaxId * 100) AS MONEY),
+    TL.TaxId,
+    CAST(1000 + ((PR.Id * TL.TaxId) % 25000) AS MONEY),
+    1
+FROM PropertyList PR
+CROSS JOIN PolicyList PL
+CROSS JOIN TaxList TL
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM PTIS.PolicyTaxDetails D
+    WHERE D.PropertyId = PR.Id
+      AND D.PolicyYear = 2026
+      AND D.PolicyCode = PL.PolicyCode
+      AND D.TaxId = TL.TaxId
+      AND D.IsActive = 1
+      AND D.MarkedForDeletion = 0
+);
+
+
+SET IDENTITY_INSERT [PTIS].[RoomTypeMaster] ON;
+
+;WITH SeedData AS
+(
+    SELECT *
+    FROM
+    (
+        VALUES
+        (1,N'Bath',N'BATH'),
+        (2,N'Bed Bal',N'BEDBAL'),
+        (3,N'BED1',N'BED1'),
+        (4,N'BED1 Bal ENC',N'BED1BE'),
+        (5,N'BED2',N'BED2'),
+        (6,N'BED2 Bal ENC',N'BED2BE'),
+        (7,N'BED3',N'BED3'),
+        (8,N'Hall',N'HALL'),
+        (9,N'Hall Bal',N'HALBAL'),
+        (10,N'Hall Bal ENC',N'HALENC'),
+        (11,N'Individual',N'IND'),
+        (12,N'Kit Bal',N'KITBAL'),
+        (13,N'Kit Bal ENC',N'KITENC'),
+        (14,N'Kit/Din',N'KITDIN'),
+        (15,N'Office',N'OFF'),
+        (16,N'OpenPlot',N'OPENPLT'),
+        (17,N'Other',N'OTHER'),
+        (18,N'Parking',N'PARK'),
+        (19,N'Passage',N'PASS'),
+        (20,N'PSG',N'PSG'),
+        (21,N'Rooms',N'ROOMS'),
+        (22,N'Shop',N'SHOP'),
+        (23,N'Staire',N'STAIRE'),
+        (24,N'W/C/Bath',N'WCBATH'),
+        (25,N'WC',N'WC')
+    ) AS V(Id,RoomTypeName,RoomTypeCode)
+)
+
+INSERT INTO [PTIS].[RoomTypeMaster]
+(
+    [Id],
+    [RoomTypeName],
+    [RoomTypeCode],
+    [IsActive],
+    [CreatedBy],
+    [CreatedDate],
+    [UpdatedBy],
+    [UpdatedDate]
+)
+SELECT
+    S.Id,
+    S.RoomTypeName,
+    S.RoomTypeCode,
+    1,
+    NULL,
+    GETDATE(),
+    NULL,
+    NULL
+FROM SeedData S
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM [PTIS].[RoomTypeMaster] R
+    WHERE R.Id = S.Id
+)
+AND NOT EXISTS
+(
+    SELECT 1
+    FROM [PTIS].[RoomTypeMaster] R
+    WHERE R.RoomTypeName = S.RoomTypeName
+);
+
+SET IDENTITY_INSERT [PTIS].[RoomTypeMaster] OFF;
