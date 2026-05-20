@@ -364,7 +364,7 @@ CREATE TABLE [CORE].[UserMaster](
     [Address]             NVARCHAR(400) NULL,
     [MobileNo]            varchar(13) NULL,
     [AlternateMobileNo]   varchar(13) NULL,
-    [Email]               NVARCHAR(256) NULL,
+    [Email]               NVARCHAR(100) NULL,
     [MustChangePassword]  BIT NOT NULL CONSTRAINT [DF_UserMaster_MustChangePassword] DEFAULT (0),
     [Language]            NVARCHAR(50) NULL,
     [IsActive]            BIT NOT NULL  CONSTRAINT [DF_UserMaster_IsActive]           DEFAULT (1),
@@ -834,4 +834,193 @@ CREATE TABLE [CORE].[CommunicationTypeMaster](
     CONSTRAINT [PK_CommunicationTypeMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_CommunicationTypeMaster_DepartmentMaster] FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id])
 );
+GO
+
+CREATE TABLE [CORE].[UlbType](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL ,
+	[UlbTypeName] [varchar](50) NOT NULL,
+    [IsActive] BIT NOT NULL CONSTRAINT [DF_UlbType_IsActive] DEFAULT ((1)),
+ 	[CreatedBy] INT NULL,
+ 	[CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_UlbType_CreatedDate] DEFAULT (GETDATE()),
+ 	[UpdatedBy] INT NULL,
+ 	[UpdatedDate] DATETIME NULL,
+ CONSTRAINT [PK_UlbType] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+CREATE TABLE [CORE].[UlbMaster](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL ,
+	[UlbCode] [nvarchar](50) NOT NULL,
+	[UlbName] [nvarchar](200) NOT NULL,
+	[UlbNameLocal] [nvarchar](200) NULL,
+	[UlbTypeId] [int] NOT NULL,
+	[UlbLogo] [nvarchar](100) NULL,
+	[EmailId] [nvarchar](100) NULL,
+	[MobileNo] [varchar](13) NULL,
+	[AlternateMobileNo] [varchar](13) NULL,
+	[WebsiteUrl] [nvarchar](2048) NULL,
+	[ContactPersonName] [nvarchar](150) NULL,
+	[ContactPersonDesignation] [nvarchar](100) NULL,
+	[UlbAddress] [nvarchar](500) NULL,
+	[State] [varchar](50) NULL,
+	[District] [varchar](50) NULL,
+	[PinCode] [varchar](10) NULL,
+	[ProjectStartDate] [datetime] NULL,
+	[FinancialYearStartDate] [datetime] NULL,
+	[ExpectedGoLiveDate] [datetime] NULL,
+	[PartnerName] [varchar](50) NULL,
+	[PMName] [varchar](50) NULL,
+	[PMEmailId] [nvarchar](100) NULL,
+	[PMMobileNo] [varchar](13) NULL,
+	[LicenceType] [varchar](50) NULL,
+	[LicenceStartDate] [datetime] NULL,
+	[LicenceEndDate] [datetime] NULL,
+	[LicenceDuration] [varchar](50) NULL,
+	[SupportType] [varchar](50) NULL,
+	[LicenceKey] [varchar](300) NULL,
+	[IsActive] [bit] NOT NULL,
+	[CreatedDate] [datetime]  NOT NULL CONSTRAINT [DF_UlbMaster_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+ CONSTRAINT [PK_UlbMaster] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+) ON [PRIMARY],
+ CONSTRAINT [UQ_UlbMaster_UlbCode] UNIQUE NONCLUSTERED 
+(
+	[UlbCode] ASC
+) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [CORE].[UlbMaster] ADD  CONSTRAINT [DF_UlbMaster_IsActive]  DEFAULT ((1)) FOR [IsActive]
+GO
+ALTER TABLE [CORE].[UlbMaster]  WITH CHECK ADD  CONSTRAINT [FK_UlbMaster_UlbType] FOREIGN KEY([UlbTypeId])
+REFERENCES [CORE].[UlbType] ([Id])
+GO
+ALTER TABLE [CORE].[UlbMaster] CHECK CONSTRAINT [FK_UlbMaster_UlbType]
+GO
+CREATE NONCLUSTERED INDEX [IX_UlbMaster_UlbTypeId]
+ON [CORE].[UlbMaster] ([UlbTypeId]);
+GO
+CREATE TABLE [CORE].[RefreshToken](
+    [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL ,
+    [Token] [nvarchar](400) NOT NULL,
+    [UserId] [int] NOT NULL,
+    [ExpiresAt] [datetime] NOT NULL,
+    [IsRevoked] [bit] NOT NULL CONSTRAINT [DF_RefreshToken_IsRevoked] DEFAULT (0),
+    [RevokedAt] [datetime] NULL,
+    [IpAddress] [nvarchar](45) NULL,
+    [UserAgent] [nvarchar](500) NULL,
+    [IsActive] BIT NOT NULL CONSTRAINT DF_RefreshToken_IsActive DEFAULT(1),
+    [CreatedBy] INT NULL,
+    [CreatedDate] DATETIME NOT NULL CONSTRAINT DF_RefreshToken_CreatedDate DEFAULT(GETDATE()),
+    [UpdatedBy] INT NULL,
+    [UpdatedDate] DATETIME NULL,
+ CONSTRAINT [PK_RefreshToken] PRIMARY KEY CLUSTERED ([Id] ASC),
+ CONSTRAINT [UQ_RefreshToken_Token] UNIQUE ([Token])    
+);
+ 
+ALTER TABLE [CORE].[RefreshToken]  WITH CHECK ADD  CONSTRAINT [FK_RefreshToken_UserMaster] FOREIGN KEY([UserId])
+REFERENCES [CORE].[UserMaster] ([Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [CORE].[RefreshToken] CHECK CONSTRAINT [FK_RefreshToken_UserMaster];
+GO
+ 
+CREATE TABLE [CORE].[ConfigCategoryMaster](
+    [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL  ,
+    [CategoryCode] [varchar](30) NOT NULL,
+    [CategoryName] [nvarchar](100) NOT NULL,
+    [DisplayOrder] [int] NOT NULL CONSTRAINT DF_ConfigCategoryMaster_DisplayOrder DEFAULT(0),
+    [IsActive] BIT NOT NULL CONSTRAINT DF_ConfigCategoryMaster_IsActive DEFAULT(1),
+    [CreatedBy] INT NULL,
+    [CreatedDate] DATETIME NOT NULL CONSTRAINT DF_ConfigCategoryMaster_CreatedDate DEFAULT(GETDATE()),
+    [UpdatedBy] INT NULL,
+    [UpdatedDate] DATETIME NULL,
+ CONSTRAINT [PK_ConfigCategoryMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+ CONSTRAINT [UQ_ConfigCategoryMaster_CategoryCode] UNIQUE ([CategoryCode])
+) ON [PRIMARY]
+GO
+ 
+
+CREATE TABLE [CORE].[ConfigKeyMaster](
+    [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL ,
+    [CategoryId] [int] NOT NULL,
+    [ConfigCode] [varchar](60) NOT NULL,
+    [ConfigName] [nvarchar](150) NOT NULL,
+    [Description] [nvarchar](400) NULL,
+    [DataType] [varchar](20) NOT NULL,
+    [ControlType] [varchar](30) NOT NULL,
+    [DefaultValue] [nvarchar](500) NULL,
+    [IsActive] [bit] NOT NULL CONSTRAINT DF_ConfigKeyMaster_IsActive DEFAULT(1),
+    [CreatedBy] [int] NULL,
+    [CreatedDate] [datetime] NOT NULL CONSTRAINT DF_ConfigKeyMaster_CreatedDate DEFAULT(GETDATE()),
+    [UpdatedBy] [int] NULL,
+    [UpdatedDate] [datetime] NULL, 
+ CONSTRAINT [PK_ConfigKeyMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+ CONSTRAINT [UQ_ConfigKeyMaster_ConfigCode] UNIQUE ([ConfigCode])
+) ON [PRIMARY]
+GO
+ 
+ALTER TABLE [CORE].[ConfigKeyMaster] WITH CHECK ADD CONSTRAINT [FK_ConfigKeyMaster_ConfigCategoryMaster_CategoryId] FOREIGN KEY([CategoryId])
+REFERENCES [CORE].[ConfigCategoryMaster] ([Id])
+GO
+ALTER TABLE [CORE].[ConfigKeyMaster] CHECK CONSTRAINT [FK_ConfigKeyMaster_ConfigCategoryMaster_CategoryId]
+GO
+ 
+CREATE NONCLUSTERED INDEX [IX_ConfigKeyMaster_CategoryId]
+ON [CORE].[ConfigKeyMaster] ([CategoryId] ASC)
+GO
+ 
+CREATE TABLE [CORE].[ConfigValueMaster](
+    [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [ConfigKeyId] [int] NOT NULL,
+    [DepartmentId] [int] NULL,
+    [ModuleId] [int] NULL,
+    [Value] [nvarchar](500) NULL,
+    [IsActive] [bit] NOT NULL CONSTRAINT DF_ConfigValueMaster_IsActive DEFAULT(1),
+    [CreatedBy] [int] NULL,
+    [CreatedDate] [datetime] NOT NULL CONSTRAINT DF_ConfigValueMaster_CreatedDate DEFAULT(GETDATE()),
+    [UpdatedBy] [int] NULL,
+    [UpdatedDate] [datetime] NULL,
+    CONSTRAINT [PK_ConfigValueMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
+) ON [PRIMARY]
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX [UQ_ConfigValue_ConfigKeyId_Global]
+ON [CORE].[ConfigValueMaster] ([ConfigKeyId] ASC)
+WHERE [DepartmentId] IS NULL AND [ModuleId] IS NULL
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX [UQ_ConfigValue_ConfigKeyId_DepartmentId]
+ON [CORE].[ConfigValueMaster] ([ConfigKeyId] ASC, [DepartmentId] ASC)
+WHERE [DepartmentId] IS NOT NULL AND [ModuleId] IS NULL
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX [UQ_ConfigValue_ConfigKeyId_ModuleId]
+ON [CORE].[ConfigValueMaster] ([ConfigKeyId] ASC, [ModuleId] ASC)
+WHERE [DepartmentId] IS NULL AND [ModuleId] IS NOT NULL
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX [UQ_ConfigValue_ConfigKeyId_DepartmentId_ModuleId]
+ON [CORE].[ConfigValueMaster] ([ConfigKeyId] ASC, [DepartmentId] ASC, [ModuleId] ASC)
+WHERE [DepartmentId] IS NOT NULL AND [ModuleId] IS NOT NULL
+GO
+ 
+ALTER TABLE [CORE].[ConfigValueMaster] WITH CHECK ADD CONSTRAINT [FK_ConfigValueMaster_ConfigKeyMaster_ConfigKeyId]
+FOREIGN KEY([ConfigKeyId])
+REFERENCES [CORE].[ConfigKeyMaster] ([Id]);
+GO
+
+ALTER TABLE [CORE].[ConfigValueMaster] WITH CHECK ADD CONSTRAINT [FK_ConfigValueMaster_DepartmentMaster_DepartmentId]
+FOREIGN KEY([DepartmentId])
+REFERENCES [CORE].[DepartmentMaster] ([Id]);
+GO
+
+ALTER TABLE [CORE].[ConfigValueMaster] WITH CHECK ADD CONSTRAINT [FK_ConfigValueMaster_ModuleMaster_ModuleId]
+FOREIGN KEY([ModuleId])
+REFERENCES [CORE].[ModuleMaster] ([Id]);
 GO
