@@ -1644,6 +1644,154 @@ VALUES
 ('HAS_SEPTIC_TANK', 'Septic Tank', 'BIT'),
 ('HAS_STP', 'Sewage Treatment Plant', 'BIT');
 
+-- ============================================================
+-- Seed: PTIS.BulkUpdateMaster 
+-- ============================================================
+INSERT INTO [PTIS].[BulkUpdateMaster]
+([UpdateCode],[UpdateName],[UpdateNameMarathi],[IconName],[ReferenceTableName],[DisplaySequence],[ApiRoute],[Description])
+VALUES
+(N'UPDATE_ADDRESS',N'Update Address (English + Marathi)',N'पत्ता अपडेट करा (इंग्रजी + मराठी)',N'location_on',N'PTIS.PropertyMast',1,N'/api/CommonDetails/update',N'Bulk update property address in English and Marathi'),
+(N'UPDATE_OWNER_NAME',N'Owner Name (English + Marathi)',N'मालकाचे नाव (इंग्रजी + मराठी)',N'person',N'PTIS.PropertyMast',2,N'/api/CommonDetails/update',N'Bulk update property owner name and title in both languages'),
+(N'UPDATE_ROAD_WIDTH',N'Road Width',N'रस्त्याची रुंदी',N'road',N'PTIS.PropertySocialDetails',3,N'/api/CommonDetails/update',N'Bulk update road width for properties'),
+(N'UPDATE_ROAD_NUMBER',N'Road Number',N'रस्त्याचा क्रमांक',N'tag',N'PTIS.PropertySocialDetails',4,N'/api/CommonDetails/update',N'Bulk update road number for properties'),
+(N'UPDATE_PROPERTY_REMARK',N'Property Remark',N'मालमत्ता शेरा',N'comment',N'PTIS.PropertyMast',5,N'/api/CommonDetails/update',N'Bulk update property remark/notes'),
+(N'UPDATE_SOCIETY_NAME',N'Society Name (English + Marathi)',N'सोसायटीचे नाव (इंग्रजी + मराठी)',N'home',N'PTIS.SocietyDetailsMast',6,N'/api/CommonDetails/update',N'Bulk update society name in English and Marathi'),
+(N'UPDATE_WING_NAME',N'Wing Name',N'विंगचे नाव',N'apartment',N'PTIS.SocietyDetailsMast',7,N'/api/CommonDetails/update',N'Bulk update wing name for apartment properties'),
+(N'UPDATE_PARKING',N'Parking Apply – Apartment Category',N'पार्किंग लागू करा – अपार्टमेंट श्रेणी',N'local_parking',N'PTIS.PropertyDetails',8,N'/api/CommonDetails/update',N'Bulk apply parking and apartment category to properties'),
+(N'UPDATE_PLOT_NUMBER',N'Plot Number',N'भूखंड क्रमांक',N'tag',N'PTIS.PropertyMast',9,N'/api/CommonDetails/update',N'Bulk update plot number for properties'),
+(N'UPDATE_ASSESSMENT_YEAR',N'Assessment/Construction Year',N'मूल्यांकन/बांधकाम वर्ष',N'calendar_today',N'PTIS.PropertyDetails',10,N'/api/CommonDetails/update',N'Bulk update assessment and construction year'),
+(N'UPDATE_CATEGORY',N'Category + Subcategory',N'श्रेणी + उपश्रेणी',N'category',N'PTIS.PropertyDetails',11,N'/api/CommonDetails/update',N'Bulk update property category and subcategory'),
+(N'UPDATE_SUB_ZONE',N'New Sub Zone',N'नवीन उपक्षेत्र',N'map',N'PTIS.PropertyMast',12,N'/api/CommonDetails/update',N'Bulk update sub zone assignment for properties'),
+(N'UPDATE_BLOCK_NUMBER',N'Block Number',N'ब्लॉक क्रमांक',N'tag',N'PTIS.PropertyMastDetails',13,N'/api/CommonDetails/update',N'Bulk update block number for properties'),
+(N'UPDATE_PROPERTY_DESCRIPTION',N'Update Property Description',N'मालमत्ता वर्णन अपडेट करा',N'description',N'PTIS.PropertyMast',14,N'/api/CommonDetails/update',N'Bulk update full property description text'),
+(N'UPDATE_BUILDING_PERMISSION',N'Building Permission',N'इमारत परवानगी',N'business',N'PTIS.PropertyMast',15,N'/api/CommonDetails/update',N'Bulk update building permission details');
+
+
+
+-- ============================================================
+-- Seed: PTIS.BulkUpdateFieldConfig
+-- ============================================================
+
+-- UPDATE_ADDRESS (2 fields)
+INSERT INTO [PTIS].[BulkUpdateFieldConfig]
+([BulkUpdateMasterId],[FieldName],[DisplayName],[DisplayNameMarathi],[ControlType],[DataType],[Placeholder],[IsRequired],[MaxLength],[SequenceNo])
+SELECT m.Id, N'AddressEnglish', N'Address (English)', N'पत्ता (इंग्रजी)', N'textarea', N'string', N'Enter address in English', 1, 500, 1
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_ADDRESS'
+UNION ALL
+SELECT m.Id, N'Address', N'Address (Marathi)', N'पत्ता (मराठी)', N'textarea', N'string', N'मराठीत पत्ता प्रविष्ट करा', 0, 500, 2
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_ADDRESS';
+
+-- UPDATE_OWNER_NAME (4 fields)
+INSERT INTO [PTIS].[BulkUpdateFieldConfig]
+([BulkUpdateMasterId],[FieldName],[DisplayName],[DisplayNameMarathi],[ControlType],[DataType],[Placeholder],[IsRequired],[MaxLength],[SequenceNo])
+SELECT m.Id, N'OwnerTitleEnglish', N'Owner Title (English)', N'मालकाचे शीर्षक (इंग्रजी)', N'textbox', N'string', N'Enter owner title in English', 0, 50, 1
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_OWNER_NAME'
+UNION ALL
+SELECT m.Id, N'OwnerNameEnglish', N'Owner Name (English)', N'मालकाचे नाव (इंग्रजी)', N'textbox', N'string', N'Enter owner name in English', 1, 200, 2
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_OWNER_NAME'
+UNION ALL
+SELECT m.Id, N'OwnerTitle', N'Owner Title (Marathi)', N'मालकाचे शीर्षक (मराठी)', N'textbox', N'string', N'मालकाचे शीर्षक प्रविष्ट करा', 0, 50, 3
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_OWNER_NAME'
+UNION ALL
+SELECT m.Id, N'OwnerName', N'Owner Name (Marathi)', N'मालकाचे नाव (मराठी)', N'textbox', N'string', N'मालकाचे नाव प्रविष्ट करा', 0, 200, 4
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_OWNER_NAME';
+
+-- UPDATE_ROAD_WIDTH (1 field)
+INSERT INTO [PTIS].[BulkUpdateFieldConfig]
+([BulkUpdateMasterId],[FieldName],[DisplayName],[DisplayNameMarathi],[ControlType],[DataType],[Placeholder],[IsRequired],[MaxLength],[ValidationRegex],[SequenceNo])
+SELECT m.Id, N'RoadWidth', N'Road Width (meters)', N'रस्त्याची रुंदी (मीटर)', N'number', N'decimal', N'Enter road width in meters', 1, 10, N'^[0-9]+(\.[0-9]{1,2})?$', 1
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_ROAD_WIDTH';
+
+-- UPDATE_ROAD_NUMBER (1 field)
+INSERT INTO [PTIS].[BulkUpdateFieldConfig]
+([BulkUpdateMasterId],[FieldName],[DisplayName],[DisplayNameMarathi],[ControlType],[DataType],[Placeholder],[IsRequired],[MaxLength],[SequenceNo])
+SELECT m.Id, N'RoadNo', N'Road Number', N'रस्त्याचा क्रमांक', N'textbox', N'string', N'Enter road number', 1, 50, 1
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_ROAD_NUMBER';
+
+-- UPDATE_PROPERTY_REMARK (1 field)
+INSERT INTO [PTIS].[BulkUpdateFieldConfig]
+([BulkUpdateMasterId],[FieldName],[DisplayName],[DisplayNameMarathi],[ControlType],[DataType],[Placeholder],[IsRequired],[MaxLength],[SequenceNo])
+SELECT m.Id, N'PropertyRemark', N'Property Remark', N'मालमत्ता शेरा', N'textarea', N'string', N'Enter property remark', 0, 1000, 1
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_PROPERTY_REMARK';
+
+-- UPDATE_SOCIETY_NAME (2 fields)
+INSERT INTO [PTIS].[BulkUpdateFieldConfig]
+([BulkUpdateMasterId],[FieldName],[DisplayName],[DisplayNameMarathi],[ControlType],[DataType],[Placeholder],[IsRequired],[MaxLength],[SequenceNo])
+SELECT m.Id, N'SocietyNameEnglish', N'Society Name (English)', N'सोसायटीचे नाव (इंग्रजी)', N'textbox', N'string', N'Enter society name in English', 1, 300, 1
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_SOCIETY_NAME'
+UNION ALL
+SELECT m.Id, N'SocietyName', N'Society Name (Marathi)', N'सोसायटीचे नाव (मराठी)', N'textbox', N'string', N'सोसायटीचे नाव प्रविष्ट करा', 0, 300, 2
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_SOCIETY_NAME';
+
+-- UPDATE_WING_NAME (1 field)
+INSERT INTO [PTIS].[BulkUpdateFieldConfig]
+([BulkUpdateMasterId],[FieldName],[DisplayName],[DisplayNameMarathi],[ControlType],[DataType],[Placeholder],[IsRequired],[MaxLength],[SequenceNo])
+SELECT m.Id, N'WingName', N'Wing Name', N'विंगचे नाव', N'textbox', N'string', N'Enter wing name (e.g. A, B, C)', 1, 100, 1
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_WING_NAME';
+
+-- UPDATE_PARKING (2 fields)
+INSERT INTO [PTIS].[BulkUpdateFieldConfig]
+([BulkUpdateMasterId],[FieldName],[DisplayName],[DisplayNameMarathi],[ControlType],[DataType],[IsRequired],[DefaultValue],[SequenceNo])
+SELECT m.Id, N'ParkingApply', N'Parking Apply', N'पार्किंग लागू करा', N'checkbox', N'boolean', 0, N'false', 1
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_PARKING'
+UNION ALL
+SELECT m.Id, N'ApartmentCategory', N'Apartment Category', N'अपार्टमेंट श्रेणी', N'dropdown', N'string', 0, N'/api/master/apartment-categories', 2
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_PARKING';
+
+
+-- UPDATE_PLOT_NUMBER (1 field)
+INSERT INTO [PTIS].[BulkUpdateFieldConfig]
+([BulkUpdateMasterId],[FieldName],[DisplayName],[DisplayNameMarathi],[ControlType],[DataType],[Placeholder],[IsRequired],[MaxLength],[SequenceNo])
+SELECT m.Id, N'PlotNo', N'Plot Number', N'भूखंड क्रमांक', N'textbox', N'string', N'Enter plot number', 1, 50, 1
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_PLOT_NUMBER';
+
+-- UPDATE_ASSESSMENT_YEAR (2 fields)
+INSERT INTO [PTIS].[BulkUpdateFieldConfig]
+([BulkUpdateMasterId],[FieldName],[DisplayName],[DisplayNameMarathi],[ControlType],[DataType],[Placeholder],[IsRequired],[MaxLength],[ValidationRegex],[SequenceNo])
+SELECT m.Id, N'AssessmentYear', N'Assessment Year', N'मूल्यांकन वर्ष', N'year', N'number', N'Select assessment year', 1, 4, N'^[0-9]{4}$', 1
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_ASSESSMENT_YEAR'
+UNION ALL
+SELECT m.Id, N'ConstructionYear', N'Construction Year', N'बांधकाम वर्ष', N'year', N'number', N'Select construction year', 0, 4, N'^[0-9]{4}$', 2
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_ASSESSMENT_YEAR';
+
+-- UPDATE_CATEGORY (2 fields)
+INSERT INTO [PTIS].[BulkUpdateFieldConfig]
+([BulkUpdateMasterId],[FieldName],[DisplayName],[DisplayNameMarathi],[ControlType],[DataType],[Placeholder],[IsRequired],[BindApi],[SequenceNo])
+SELECT m.Id, N'CategoryId', N'Category', N'श्रेणी', N'dropdown', N'number', N'Select category', 1, N'/api/master/property-categories', 1
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_CATEGORY'
+UNION ALL
+SELECT m.Id, N'SubCategoryId', N'Subcategory', N'उपश्रेणी', N'dropdown', N'number', N'Select subcategory', 0, N'/api/master/property-subcategories?categoryId={CategoryId}', 2
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_CATEGORY';
+
+-- UPDATE_SUB_ZONE (1 field)
+INSERT INTO [PTIS].[BulkUpdateFieldConfig]
+([BulkUpdateMasterId],[FieldName],[DisplayName],[DisplayNameMarathi],[ControlType],[DataType],[Placeholder],[IsRequired],[BindApi],[SequenceNo])
+SELECT m.Id, N'NewSubZoneId', N'New Sub Zone', N'नवीन उपक्षेत्र', N'dropdown', N'number', N'Select sub zone', 1, N'/api/master/sub-zones', 1
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_SUB_ZONE';
+
+-- UPDATE_BLOCK_NUMBER (1 field)
+INSERT INTO [PTIS].[BulkUpdateFieldConfig]
+([BulkUpdateMasterId],[FieldName],[DisplayName],[DisplayNameMarathi],[ControlType],[DataType],[Placeholder],[IsRequired],[MaxLength],[SequenceNo])
+SELECT m.Id, N'BlockNo', N'Block Number', N'ब्लॉक क्रमांक', N'textbox', N'string', N'Enter block number', 1, 50, 1
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_BLOCK_NUMBER';
+
+-- UPDATE_PROPERTY_DESCRIPTION (1 field)
+INSERT INTO [PTIS].[BulkUpdateFieldConfig]
+([BulkUpdateMasterId],[FieldName],[DisplayName],[DisplayNameMarathi],[ControlType],[DataType],[Placeholder],[IsRequired],[MaxLength],[SequenceNo])
+SELECT m.Id, N'PropertyDescription', N'Property Description', N'मालमत्ता वर्णन', N'textarea', N'string', N'Enter property description', 0, 2000, 1
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_PROPERTY_DESCRIPTION';
+
+-- UPDATE_BUILDING_PERMISSION (2 fields)
+INSERT INTO [PTIS].[BulkUpdateFieldConfig]
+([BulkUpdateMasterId],[FieldName],[DisplayName],[DisplayNameMarathi],[ControlType],[DataType],[Placeholder],[IsRequired],[MaxLength],[SequenceNo])
+SELECT m.Id, N'BuildingPermissionNo', N'Building Permission No.', N'इमारत परवानगी क्रमांक', N'textbox', N'string', N'Enter building permission number', 0, 100, 1
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_BUILDING_PERMISSION'
+UNION ALL
+SELECT m.Id, N'BuildingPermissionDate', N'Permission Date', N'परवानगी तारीख', N'date', N'date', N'Select permission date', 0, NULL, 2
+FROM [PTIS].[BulkUpdateMaster] m WHERE m.UpdateCode = N'UPDATE_BUILDING_PERMISSION';
+
+
+
 INSERT INTO PTIS.SocialAttributeMaster (SocialAttributeCode, SocialAttributeName, DataType)
 VALUES
 ('HAS_GARBAGE_SEGREGATION', 'Garbage Segregation', 'BIT'),
