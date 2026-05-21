@@ -1922,6 +1922,7 @@ CREATE TABLE [PTIS].[PropertyDetailsOld](
 	[OldCarpetAreaSqFeet] [float] NULL,
 	[OldBuiltupAreaSqMeter] [float] NULL,
 	[OldBuiltupAreaSqFeet] [float] NULL,
+	[OldOCDate] [datetime] NULL,
 	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_PropertyDetailsOld_MarkedForDeletion] DEFAULT (0),
 	[MarkedForDeletionDate] [datetime]  NULL ,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyDetailsOld_IsActive] DEFAULT (1),
