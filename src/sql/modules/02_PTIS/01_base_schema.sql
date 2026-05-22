@@ -1570,62 +1570,57 @@ CREATE TABLE [PTIS].[RoomTypeMaster](
 
 /****** Object:  Table [PTIS].[RoomWiseSubmissionDetails]******/
 
-CREATE TABLE [PTIS].[RoomWiseSubmissionDetails](
-	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-	[PropertyId] [int] NULL,
-	[PropertyDetailsId] [int] NULL,
-	[LengthMtr] [float] NULL,
-	[WidthMtr] [float] NULL,
-	[AreaSqMtr] [float] NULL,
-	[HeightMtr] [float] NULL,
-	[Base1Mtr] [float] NULL,
-	[Base2Mtr] [float] NULL,
-	[NoOfRooms] [int] NULL,
-	[TotalAreaSqMtr] [float] NULL,
-	[Shape] [nvarchar](25) NULL,
-	[RoomNo] [nvarchar](100) NULL,
-	[OuterYesNo] [bit] NOT NULL CONSTRAINT [DF_RoomWiseSubmissionDetails_OuterYesNo] DEFAULT (0),
-	[RoomTypeId] [int] NULL,
-	[SubmissionType] [nvarchar](100) NULL,
-	[MinusYesNo] [bit] NOT NULL CONSTRAINT [DF_RoomWiseSubmissionDetails_MinusYesNo] DEFAULT (0),
-	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_RoomWiseSubmissionDetails_MarkedForDeletion] DEFAULT (0),
-	[MarkedForDeletionDate] [datetime] NULL ,
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RoomWiseSubmissionDetails_IsActive] DEFAULT (1),
-	[CreatedBy] [int] NULL,
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_RoomWiseSubmissionDetails_CreatedDate DEFAULT (GETDATE()),
-	[UpdatedBy] [int] NULL,
-	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_RoomWiseSubmissionDetails] PRIMARY KEY CLUSTERED ([Id] ASC)
-) ON [PRIMARY]
+ 
+
+CREATE TABLE [PTIS].[RoomWiseSubmissionDetails]
+(
+    [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [PropertyId] [int] NULL,
+    [PropertyDetailsId] [int] NULL,
+    [LengthMtr] [float] NULL,
+    [WidthMtr] [float] NULL,
+    [AreaSqMtr] [float] NULL,
+    [HeightMtr] [float] NULL,
+    [Base1Mtr] [float] NULL,
+    [Base2Mtr] [float] NULL,
+    [NoOfRooms] [int] NULL,
+    [TotalAreaSqMtr] [float] NULL,
+    [Shape] [nvarchar](25) NULL,
+    [RoomNo] [nvarchar](100) NULL,
+    [OuterYesNo] [bit] NOT NULL CONSTRAINT [DF_RoomWiseSubmissionDetails_OuterYesNo] DEFAULT (0),
+    [RoomType] [nvarchar](100) NULL,
+    [SubmissionType] [nvarchar](100) NULL,
+    [MinusYesNo] [bit] NOT NULL CONSTRAINT [DF_RoomWiseSubmissionDetails_MinusYesNo] DEFAULT (0),
+    [MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_RoomWiseSubmissionDetails_MarkedForDeletion] DEFAULT (0),
+    [MarkedForDeletionDate] [datetime] NULL,
+    [IsActive] [bit] NOT NULL CONSTRAINT [DF_RoomWiseSubmissionDetails_IsActive] DEFAULT (1),
+    [CreatedBy] [int] NULL,
+    [CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_RoomWiseSubmissionDetails_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy] [int] NULL,
+    [UpdatedDate] [datetime] NULL,
+    CONSTRAINT [PK_RoomWiseSubmissionDetails] PRIMARY KEY CLUSTERED ([Id] ASC)
+) ON [PRIMARY];
 GO
+
 ALTER TABLE [PTIS].[RoomWiseSubmissionDetails] WITH CHECK
 ADD CONSTRAINT [FK_RoomWiseSubmissionDetails_PropertyDetails]
-FOREIGN KEY([PropertyDetailsId])
+FOREIGN KEY ([PropertyDetailsId])
 REFERENCES [PTIS].[PropertyDetails] ([Id]);
 GO
+
 ALTER TABLE [PTIS].[RoomWiseSubmissionDetails]
 CHECK CONSTRAINT [FK_RoomWiseSubmissionDetails_PropertyDetails];
 GO
 
 ALTER TABLE [PTIS].[RoomWiseSubmissionDetails] WITH CHECK
 ADD CONSTRAINT [FK_RoomWiseSubmissionDetails_PropertyMast]
-FOREIGN KEY([PropertyId])
+FOREIGN KEY ([PropertyId])
 REFERENCES [PTIS].[PropertyMast] ([Id]);
 GO
+
 ALTER TABLE [PTIS].[RoomWiseSubmissionDetails]
 CHECK CONSTRAINT [FK_RoomWiseSubmissionDetails_PropertyMast];
 GO
-
-
-ALTER TABLE [PTIS].[RoomWiseSubmissionDetails] WITH CHECK
- ADD CONSTRAINT [FK_RoomWiseSubmissionDetails_RoomTypeMaster]
- FOREIGN KEY([RoomTypeId])
- REFERENCES [PTIS].[RoomTypeMaster] ([Id]);
- GO
- ALTER TABLE [PTIS].[RoomWiseSubmissionDetails]
- CHECK CONSTRAINT [FK_RoomWiseSubmissionDetails_RoomTypeMaster];
- GO
-
 
 -- ALTER TABLE [PTIS].[RoomWiseSubmissionDetails] WITH NOCHECK
 -- ADD CONSTRAINT [FK_RoomWiseSubmissionDetails_ConstructionTypeMaster]
