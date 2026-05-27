@@ -1588,7 +1588,7 @@ CREATE TABLE [PTIS].[RoomWiseSubmissionDetails]
     [Shape] [nvarchar](25) NULL,
     [RoomNo] [nvarchar](100) NULL,
     [OuterYesNo] [bit] NOT NULL CONSTRAINT [DF_RoomWiseSubmissionDetails_OuterYesNo] DEFAULT (0),
-    [RoomType] [nvarchar](100) NULL,
+    [RoomTypeId] [int] NULL,
     [SubmissionType] [nvarchar](100) NULL,
     [MinusYesNo] [bit] NOT NULL CONSTRAINT [DF_RoomWiseSubmissionDetails_MinusYesNo] DEFAULT (0),
     [MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_RoomWiseSubmissionDetails_MarkedForDeletion] DEFAULT (0),
@@ -1620,6 +1620,15 @@ GO
 
 ALTER TABLE [PTIS].[RoomWiseSubmissionDetails]
 CHECK CONSTRAINT [FK_RoomWiseSubmissionDetails_PropertyMast];
+GO
+
+ALTER TABLE [PTIS].[RoomWiseSubmissionDetails]  WITH CHECK 
+ADD  CONSTRAINT [FK_RoomWiseSubmissionDetails_RoomTypeMaster_RoomTypeId] 
+FOREIGN KEY([RoomTypeId])
+REFERENCES [PTIS].[RoomTypeMaster] ([Id]);
+GO
+ALTER TABLE [PTIS].[RoomWiseSubmissionDetails]
+CHECK CONSTRAINT [FK_RoomWiseSubmissionDetails_RoomTypeMaster_RoomTypeId]
 GO
 
 -- ALTER TABLE [PTIS].[RoomWiseSubmissionDetails] WITH NOCHECK
