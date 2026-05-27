@@ -345,7 +345,7 @@ CREATE TABLE [PTIS].[PropertyMastOld](
 	[OldFlatOrShopNumber] [nvarchar](50) NULL,
 	[OldWing] [nvarchar](20) NULL,
 	[OldMobileNo] [varchar](13) NULL,
-	[MappedNewBuildingNo] [nvarchar](50) NULL,
+	[MappedNewPropertyId] INT NULL,
 	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_PropertyMastOld_MarkedForDeletion] DEFAULT (0),
 	[MarkedForDeletionDate] [datetime] NULL,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyMastOld_IsActive] DEFAULT (1),
@@ -476,19 +476,6 @@ GO
 ALTER TABLE	[PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_PropertyAssessmentStatusMaster]
 GO
 
-ALTER TABLE [PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_MobileNoRemarkMaster] FOREIGN KEY([MobileNoRemarkId])		
-REFERENCES [CORE].[CommonRemarkTypeMaster] ([Id])
-GO
-ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_MobileNoRemarkMaster]
-GO
-
-
-ALTER TABLE [PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_OccupierMobileNoRemarkMaster] FOREIGN KEY([OccupierMobileNoRemarkId])
-REFERENCES [CORE].[CommonRemarkTypeMaster] ([Id])
-GO
-ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_OccupierMobileNoRemarkMaster]
-GO
-
 CREATE UNIQUE NONCLUSTERED INDEX [UX_PropertyMast_UPICID_NotNull]
 ON [PTIS].[PropertyMast]([UPICId] ASC)
 WHERE [UPICId] IS NOT NULL;
@@ -504,6 +491,10 @@ ON [PTIS].[PropertyMast]
 INCLUDE ([CategoryId])
 GO
 
+ /****** Add this constraint here because [PTIS].[PropertyMast] must be created before it, to avoid an execution error. ******/
+ALTER TABLE [PTIS].[PropertyMastOld] WITH CHECK ADD CONSTRAINT [FK_PropertyMastOld_PropertyMast]
+FOREIGN KEY([MappedNewPropertyId]) REFERENCES [PTIS].[PropertyMast]([Id])
+GO
 
 /****** Object:  Table [PTIS].[FloorGroupMaster]    Script Date: 5/7/2026 1:08:27 PM ******/
 SET ANSI_NULLS ON
@@ -3467,7 +3458,7 @@ CREATE TABLE [PTIS].[PropertyMapDetail]
 [PropertyNo] NVARCHAR(50) NOT NULL,
 [TaxSharePercent] DECIMAL(9,4) NULL CONSTRAINT CK_PropertyMapDetail_TaxSharePercent CHECK (TaxSharePercent IS NULL OR TaxSharePercent BETWEEN 0 AND 100),
 [AreaSharePercent] DECIMAL(9,4) NULL,
-[Status] VARCHAR(20) NOT NULL DEFAULT 'ACTIVE'  CONSTRAINT [CK_PropertyMapDetail_Status]   CHECK ([Status] IN ('ACTIVE', 'MODIFIED', 'CANCELLED')),
+[Status] VARCHAR(20) NOT NULL DEFAULT 'ACTIVE'  CONSTRAINT [CK_PropertyMapDetail_Status]   CHECK ([Status] IN ('ACTIVE', 'MODIFIED', 'CANCELLED','DRAFT')),
 [IsCurrent] BIT NOT NULL DEFAULT 1,
 [ChangeReason] NVARCHAR(300) NULL,
 [Remark] NVARCHAR(500) NULL,
@@ -3481,17 +3472,7 @@ CREATE TABLE [PTIS].[PropertyMapDetail]
 [UpdatedDate] DATETIME NULL, 
 CONSTRAINT [PK_PropertyMapDetail] PRIMARY KEY CLUSTERED ([Id] ASC),
 CONSTRAINT [FK_PropertyMapDetail_PropertyMapMaster] FOREIGN KEY ([PropertyMapId]) REFERENCES [PTIS].[PropertyMapMaster]([Id]),
-CONSTRAINT UQ_PropertyMapDetail_PropertyMapId_PropertySide_PropertyId UNIQUE (PropertyMapId, PropertySide, PropertyIdNew, PropertyIdOld),
-CONSTRAINT [CK_PropertyMapDetail_PropertyReference]
-CHECK (
-    ([PropertySide] = 'NEW' AND [PropertyIdNew] IS NOT NULL AND [PropertyIdOld] IS NULL)
-    OR
-    ([PropertySide] = 'OLD' AND [PropertyIdOld] IS NOT NULL AND [PropertyIdNew] IS NULL)
-),
-
-CONSTRAINT [FK_PropertyMapDetail_NewProperty] FOREIGN KEY ([PropertyIdNew]) REFERENCES [PTIS].[PropertyMast]([Id]),
-CONSTRAINT [FK_PropertyMapDetail_OldProperty] FOREIGN KEY ([PropertyIdOld]) REFERENCES [PTIS].[PropertyMastOld]([Id])
-
+CONSTRAINT UQ_PropertyMapDetail_PropertyMapId_PropertySide_PropertyId_Status UNIQUE (PropertyMapId, PropertySide, PropertyIdNew, PropertyIdOld,Status)
 );
 GO
 

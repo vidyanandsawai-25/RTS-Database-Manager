@@ -42,3 +42,15 @@ CREATE TABLE [GSMS].[CommonRemarkDetails](
         CONSTRAINT [FK_CommonRemarkDetails_CommonRemarkTypeMaster] FOREIGN KEY ([RemarkTypeId]) REFERENCES [CORE].[CommonRemarkTypeMaster] ([Id])
 );
 GO
+ /****** Added here because [GSMS].[CommonRemarkDetails] is created after [PTIS].[PropertyMast], which avoids an execution error. ******/
+ALTER TABLE [PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_MobileNoRemarkMaster] FOREIGN KEY([MobileNoRemarkId])		
+REFERENCES [GSMS].[CommonRemarkDetails] ([Id])
+GO
+ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_MobileNoRemarkMaster]
+GO
+
+ALTER TABLE [PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_OccupierMobileNoRemarkMaster] FOREIGN KEY([OccupierMobileNoRemarkId])
+REFERENCES [GSMS].[CommonRemarkDetails] ([Id])
+GO
+ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_OccupierMobileNoRemarkMaster]
+GO
