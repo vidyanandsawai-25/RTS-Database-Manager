@@ -3222,6 +3222,7 @@ CREATE TABLE [PTIS].[RoomWiseMinusData](
 	[Base1Mtr] [float] NULL,
 	[Base2Mtr] [float] NULL,
 	[Shape] [nvarchar](25) NULL,
+	[IsOffset] [bit] NOT NULL CONSTRAINT [DF_RoomWiseMinusData_IsOffset] DEFAULT (0),
 	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_RoomWiseMinusData_MarkedForDeletion] DEFAULT (0),
 	[MarkedForDeletionDate] [datetime] NULL,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RoomWiseMinusData_IsActive] DEFAULT (1),
