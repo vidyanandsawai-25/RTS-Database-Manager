@@ -3735,3 +3735,33 @@ ON PTIS.WaterConnectionDetails
     FinanceYearId
 );
 
+/****** Object:  Table [PTIS].[CombinePropertyHistory] ******/
+  
+CREATE TABLE [PTIS].[CombinePropertyHistory] (
+    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [SourcePropertyId] INT NOT NULL,
+    [CombinedPropertyId] INT NOT NULL,
+    [CombineReason] NVARCHAR(500) NOT NULL,
+    [IsActive] BIT NOT NULL CONSTRAINT [DF_CombinePropertyHistory_IsActive] DEFAULT (1),
+    [CreatedBy] INT NULL,
+    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_CombinePropertyHistory_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy] INT NULL,
+    [UpdatedDate] DATETIME NULL,
+    CONSTRAINT [PK_CombinePropertyHistory]  PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_CombinePropertyHistory_SourceProperty] FOREIGN KEY ([SourcePropertyId]) REFERENCES [PTIS].[PropertyMast]([Id]),
+    CONSTRAINT [FK_CombinePropertyHistory_CombinedProperty] FOREIGN KEY ([CombinedPropertyId]) REFERENCES [PTIS].[PropertyMast]([Id]),
+    CONSTRAINT [CK_CombinePropertyHistory_DifferentProperties] CHECK ([SourcePropertyId] <> [CombinedPropertyId])
+) ON [PRIMARY];
+GO
+
+CREATE NONCLUSTERED INDEX [IX_CombinePropertyHistory_SourcePropertyId]
+ON [PTIS].[CombinePropertyHistory] ([SourcePropertyId] ASC);
+GO
+
+CREATE NONCLUSTERED INDEX [IX_CombinePropertyHistory_CombinedPropertyId]
+ON [PTIS].[CombinePropertyHistory] ([CombinedPropertyId] ASC);
+GO
+
+
+
+ 
