@@ -2221,43 +2221,215 @@ CHECK (
 -- );
 -- GO
 
--- /****** Object:  Table [PTIS].[PropertyCertificateTypeMaster]******/
+/* ============================================================================
+   [PTIS].[PropertyCertificateTypeMaster]
+   Master/lookup table that defines the kinds of certificates a property can
+   have (e.g. Sale Deed, Mutation, NOC). Used by [PTIS].[PropertyCertificates]
+   to classify each certificate row.
 
+   Naming/typing rules:
+     - VARCHAR  : codes, ASCII-only short values
+     - NVARCHAR : user-entered text (names, descriptions)
+     - No NVARCHAR(MAX) / VARCHAR(MAX); bounded lengths only
+
+   RowVersion: NOT added. This is a low-churn master/lookup table edited
+               only by admins; concurrency token not warranted.
+============================================================================ */
 CREATE TABLE [PTIS].[PropertyCertificateTypeMaster](
-	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-	[CertificateTypeName] NVARCHAR(100) NOT NULL,
-	[DisplayOrder] INT NOT NULL CONSTRAINT [DF_PropertyCertificateTypeMaster_DisplayOrder] DEFAULT (0),
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyCertificateTypeMaster_IsActive] DEFAULT (1),
-	[CreatedBy] [int] NULL,
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PropertyCertificateTypeMaster_CreatedDate DEFAULT (GETDATE()),
-	[UpdatedBy] [int] NULL,
-	[UpdatedDate] [datetime] NULL,
-PRIMARY KEY CLUSTERED ([Id] ASC),
- CONSTRAINT UQ_PropertyCertificateTypeMaster_FieldName UNIQUE (CertificateTypeName)
-) ON [PRIMARY]
+
+    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+        -- Internal surrogate primary key. Used as FK by PropertyCertificates.
+        -- Example: 5
+
+    [CertificateTypeCode] VARCHAR(50) NOT NULL,
+        -- Short stable code used by APIs / app config (ASCII only).
+        -- Easier than passing names around in code.
+        -- Example: 'SALE_DEED', 'MUTATION', 'NOC', 'TAX_RECEIPT'
+
+    [CertificateTypeName] NVARCHAR(100) NOT NULL,
+        -- Display name shown in UI. May contain non-ASCII (multilingual).
+        -- Example: 'Sale Deed', 'मालमत्ता हस्तांतरण प्रमाणपत्र'
+
+    [Description] NVARCHAR(500) NULL,
+        -- Optional longer description of this certificate type.
+        -- Example: 'Legal document proving transfer of property ownership'
+
+    [DisplayOrder] INT NOT NULL
+        CONSTRAINT [DF_PropertyCertificateTypeMaster_DisplayOrder] DEFAULT (0),
+        -- Sort order for UI dropdowns/lists. Lower = shown first.
+        -- Example: 10
+
+    [IsActive] BIT NOT NULL
+        CONSTRAINT [DF_PropertyCertificateTypeMaster_IsActive] DEFAULT (1),
+        -- 1 = type is selectable in UI; 0 = hidden (soft-disabled).
+        -- Example: 1
+
+    [CreatedBy] INT NULL,
+        -- UserMaster.Id of creator. Nullable for seed/system rows.
+        -- Example: 42
+
+    [CreatedDate] DATETIME NOT NULL
+        CONSTRAINT [DF_PropertyCertificateTypeMaster_CreatedDate] DEFAULT (GETDATE()),
+        -- Row creation timestamp.
+        -- Example: '2026-04-20 18:30:00'
+
+    [UpdatedBy] INT NULL,
+        -- UserMaster.Id of last updater.
+        -- Example: 42
+
+    [UpdatedDate] DATETIME NULL,
+        -- Last update timestamp.
+        -- Example: '2026-04-22 09:05:00'
+
+    CONSTRAINT [PK_PropertyCertificateTypeMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+
+    CONSTRAINT [UQ_PropertyCertificateTypeMaster_Code]
+        UNIQUE ([CertificateTypeCode]),
+
+    CONSTRAINT [UQ_PropertyCertificateTypeMaster_Name]
+        UNIQUE ([CertificateTypeName])
+) ON [PRIMARY];
 GO
 
--- /****** Object:  Table [PTIS].[PropertyCertificates]******/
 
-CREATE TABLE [PTIS].[PropertyCertificates]( 
-    [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-    [PropertyId] [int] NOT NULL,
-    [CertificateTypeId] [int] NOT NULL,
-    [CertificateNo] [nvarchar](100) NULL,
-    [CertificateDate] [date] NULL,
-	[DocumentId] [int] NOT NULL,
-   	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_PropertyCertificates_MarkedForDeletion] DEFAULT (0),
-	[MarkedForDeletionDate] [datetime] NULL ,
-    [IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyCertificates_IsActive] DEFAULT (1),
-    [CreatedBy] [int] NULL,
-    [CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_PropertyCertificates_CreatedDate] DEFAULT (GETDATE()),
-    [UpdatedBy] [int] NULL,
-    [UpdatedDate] [datetime] NULL,
-	CONSTRAINT [PK_PropertyCertificates] PRIMARY KEY CLUSTERED ([Id] ASC),
-	CONSTRAINT [FK_PropertyCertificates_PropertyMast] FOREIGN KEY([PropertyId]) REFERENCES [PTIS].[PropertyMast] ([Id]),
-	CONSTRAINT [FK_PropertyCertificates_PropertyCertificateTypeMaster] FOREIGN KEY([CertificateTypeId]) REFERENCES [PTIS].[PropertyCertificateTypeMaster] ([Id]),
-	CONSTRAINT [FK_PropertyCertificates_Document] FOREIGN KEY([DocumentId]) REFERENCES [CORE].[Document] ([Id])
-);
+/* ============================================================================
+   [PTIS].[PropertyCertificates]
+   Business table storing certificates issued/recorded against a Property.
+   Holds ONLY business data (number, date, type). The actual file lives in
+   [CORE].[Document] and is linked through [CORE].[DocumentBinding].
+
+   Design alignment :
+     - Business row does NOT FK directly to CORE.Document.
+     - It FKs to CORE.DocumentBinding, which carries module/auth metadata.
+     - Renamed CertificateDate -> CertificateIssueDate (confirmed earlier).
+	 - For a typical insert flow (given Identity PKs + reference FK constraints):
+		 1. Insert PTIS.PropertyCertificates with DocumentBindingId = NULL and capture the new Id.
+		 2. Insert CORE.Document (file metadata).
+		 3. Insert CORE.DocumentBinding referencing the new PropertyCertificates.Id
+			  (DepartmentId/ModuleId/ReferenceTableName/ReferenceTableId/ReferencePropertyName,
+			   AuthDepartmentId = PTIS dept,
+			   AuthReferenceId = PropertyId).
+		 4. Update PTIS.PropertyCertificates.DocumentBindingId with the new binding Id.
+
+   On delete (per earlier discussion):
+     - Mark PropertyCertificates.MarkedForDeletion = 1.
+     - Optionally clear DocumentBindingId or mark binding inactive too.
+
+   RowVersion: Kept. This is an editable business record; concurrent edits by
+               surveyors / data-entry operators are realistic.
+============================================================================ */
+CREATE TABLE [PTIS].[PropertyCertificates](
+
+    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+        -- Internal surrogate primary key.
+        -- Example: 50231
+
+    [PropertyId] INT NOT NULL,
+        -- FK to PTIS.PropertyMast. The property this certificate belongs to.
+        -- Also used as AuthReferenceId in the related DocumentBinding row
+        -- (property-level authorization).
+        -- Example: 1001
+
+    [CertificateTypeId] INT NOT NULL,
+        -- FK to PTIS.PropertyCertificateTypeMaster. What kind of certificate.
+        -- Example: 5  (e.g. 'SALE_DEED')
+
+    [CertificateNo] NVARCHAR(100) NULL,
+        -- Government-issued certificate / document number as printed.
+        -- NVARCHAR because some states issue mixed-script numbers.
+        -- Example: 'MH/PUNE/2025/SD/00231'
+
+    [CertificateIssueDate] DATE NULL,
+        -- Date the certificate was issued by the authority
+        -- (renamed from CertificateDate per Nilesh L. sir's instruction).
+        -- Example: '2025-08-14'
+
+    [DocumentBindingId] INT NULL,
+        -- FK to CORE.DocumentBinding. Links this business row to the uploaded
+        -- file through the generic binding layer (NOT directly to CORE.Document).
+        -- Nullable so a certificate record can exist without an uploaded file yet
+        -- (data-entry-first workflow), and so the binding can be cleared on
+        -- document removal without losing the business row.
+        -- Example: 7001
+
+    [MarkedForDeletion] BIT NOT NULL
+        CONSTRAINT [DF_PropertyCertificates_MarkedForDeletion] DEFAULT (0),
+        -- Soft-delete flag. Picked up by cleanup job later.
+        -- Example: 0
+
+    [MarkedForDeletionDate] DATETIME NULL,
+        -- Timestamp when MarkedForDeletion was set to 1.
+        -- Example: '2026-05-01 10:15:00'
+
+    [IsActive] BIT NOT NULL
+        CONSTRAINT [DF_PropertyCertificates_IsActive] DEFAULT (1),
+        -- 1 = active and visible to APIs; 0 = hidden.
+        -- Example: 1
+
+    [CreatedBy] INT NULL,
+        -- UserMaster.Id of creator (surveyor / data-entry / system).
+        -- Example: 42
+
+    [CreatedDate] DATETIME NOT NULL
+        CONSTRAINT [DF_PropertyCertificates_CreatedDate] DEFAULT (GETDATE()),
+        -- Row creation timestamp.
+        -- Example: '2026-04-20 18:31:00'
+
+    [UpdatedBy] INT NULL,
+        -- UserMaster.Id of last updater.
+        -- Example: 42
+
+    [UpdatedDate] DATETIME NULL,
+        -- Last update timestamp.
+        -- Example: '2026-04-22 09:06:00'
+
+    [RowVersion] ROWVERSION NOT NULL,
+        -- Optimistic concurrency token (auto-maintained by SQL Server).
+        -- Needed: business row is edited by multiple operators.
+
+    CONSTRAINT [PK_PropertyCertificates] PRIMARY KEY CLUSTERED ([Id] ASC),
+
+    CONSTRAINT [FK_PropertyCertificates_PropertyMast]
+        FOREIGN KEY ([PropertyId]) REFERENCES [PTIS].[PropertyMast] ([Id]),
+
+    CONSTRAINT [FK_PropertyCertificates_PropertyCertificateTypeMaster]
+        FOREIGN KEY ([CertificateTypeId])
+        REFERENCES [PTIS].[PropertyCertificateTypeMaster] ([Id]),
+
+    CONSTRAINT [FK_PropertyCertificates_DocumentBinding]
+        FOREIGN KEY ([DocumentBindingId])
+        REFERENCES [CORE].[DocumentBinding] ([Id])
+) ON [PRIMARY];
+GO
+
+/* ---------------------------------------------------------------------------
+   Intentionally NOT added in this phase (decisions audit):
+     - Direct FK to CORE.Document : Replaced by DocumentBindingId, so this
+                                    business row goes through the generic
+                                    binding layer (module-agnostic design).
+     - ExpiryDate                 : Not needed now.
+     - Remarks/Notes column       : Can be added later if business needs it.
+--------------------------------------------------------------------------- */
+
+-- Indexes
+CREATE NONCLUSTERED INDEX [IX_PropertyCertificates_PropertyId]
+    ON [PTIS].[PropertyCertificates] ([PropertyId]);
+GO
+
+CREATE NONCLUSTERED INDEX [IX_PropertyCertificates_CertificateTypeId]
+    ON [PTIS].[PropertyCertificates] ([CertificateTypeId]);
+GO
+
+CREATE NONCLUSTERED INDEX [IX_PropertyCertificates_DocumentBindingId]
+    ON [PTIS].[PropertyCertificates] ([DocumentBindingId])
+    WHERE [DocumentBindingId] IS NOT NULL;
+GO
+
+-- Most lookups will be "all active certificates for a property".
+CREATE NONCLUSTERED INDEX [IX_PropertyCertificates_Property_Active]
+    ON [PTIS].[PropertyCertificates] ([PropertyId], [IsActive], [MarkedForDeletion])
+    INCLUDE ([CertificateTypeId], [CertificateNo], [CertificateIssueDate], [DocumentBindingId]);
+GO
 
 
 -- /****** Object:  Table [PTIS].[PropertySocialDetails]******/

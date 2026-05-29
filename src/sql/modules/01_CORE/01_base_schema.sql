@@ -66,7 +66,8 @@ CREATE TABLE [CORE].[ModuleMaster](
 
     CONSTRAINT [PK_ModuleMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [UQ_ModuleMaster_ModuleCode] UNIQUE ([ModuleCode]),
-    CONSTRAINT [UQ_ModuleMaster_ModuleName] UNIQUE ([ModuleName])
+    CONSTRAINT [UQ_ModuleMaster_ModuleName] UNIQUE ([ModuleName]),
+    CONSTRAINT [UQ_ModuleMaster_DepartmentId_Id] UNIQUE ([DepartmentId], [Id])
 );
 GO
 
@@ -493,94 +494,270 @@ GO
 /* ===========================
    [CORE].[Document]
 =========================== */
+
+/* ============================================================================
+   [CORE].[Document]
+   Generic, module-agnostic document metadata table.
+   Module-specific linkage (Property, WaterConnection, etc.) is handled via
+   [CORE].[DocumentBinding]. This table holds ONLY file metadata + lifecycle.
+
+   Naming/typing rules followed:
+     - VARCHAR  : codes, mime/extensions, checksums, English-only values
+     - NVARCHAR : user-entered text (titles, descriptions, file names, tags)
+                  AND file paths (StoragePath/ThumbnailPath) which may contain
+                  non-ASCII characters depending on OS/filesystem
+     - No NVARCHAR(MAX) / VARCHAR(MAX); bounded lengths only
+     - RowVersion: kept here because document metadata (title, scan status,
+                   version bumps, soft-delete) is realistically edited by
+                   concurrent flows.
+============================================================================ */
 CREATE TABLE [CORE].[Document](
-	[Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-	[DocumentGuid] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_Document_DocumentGuid] DEFAULT (NEWSEQUENTIALID()) CONSTRAINT [UQ_Document_DocumentGuid] UNIQUE,
-	[UploadedBy] INT NOT NULL,
-	[OwnerUserId] INT NULL,
-	[FileName] NVARCHAR(500) NOT NULL,
-	[OriginalFileName] NVARCHAR(500) NOT NULL,
-	[FileExtension] VARCHAR(50) NOT NULL,
-	[MimeType] VARCHAR(200) NOT NULL,
-	[FileSizeBytes] BIGINT NOT NULL CONSTRAINT [CK_Document_FileSizeBytes] CHECK ([FileSizeBytes] >= 0),
-	[StorageProvider] VARCHAR(50) NOT NULL,
-	[StoragePath] NVARCHAR(1000) NOT NULL,
-	[ThumbnailPath] NVARCHAR(1000) NULL,
-	[ChecksumSha256] VARCHAR(64) NULL
-		CONSTRAINT [CK_Document_ChecksumSha256_Length] CHECK ([ChecksumSha256] IS NULL OR LEN([ChecksumSha256]) = 64),
-	[ScanStatusCode] VARCHAR(50) NULL,
-	[ScanCompletedDate] DATETIME NULL,
-	[ScanDetails] NVARCHAR(4000) NULL,
-	[UploadStatusCode] VARCHAR(50) NOT NULL,
-	[DocumentTitle] NVARCHAR(500) NULL,
-	[Description] NVARCHAR(2000) NULL,
-	[DocumentType] NVARCHAR(100) NULL,
-	[DocumentCategory] NVARCHAR(100) NULL,
-	[Tags] VARCHAR(2000) NULL,
-	[Language] VARCHAR(10) NULL,
-	[Version] INT NOT NULL CONSTRAINT [CK_Document_Version_Positive] CHECK ([Version] > 0),
-	[ParentDocumentId] INT NULL,
-	[IsLatestVersion] BIT NOT NULL CONSTRAINT [DF_Document_IsLatestVersion] DEFAULT (1),
-	[ReplacedByDocumentId] INT NULL,
-	[IsPublic] BIT NOT NULL CONSTRAINT [DF_Document_IsPublic] DEFAULT (0),
-	[InheritPermissions] BIT NOT NULL CONSTRAINT [DF_Document_InheritPermissions] DEFAULT (1),
-	[ConfidentialityLevel] VARCHAR(50) NULL,
-	[ExpiryDate] DATETIME NULL,
-	[RetentionPeriodDays] INT NULL CONSTRAINT [CK_Document_RetentionPeriodDays_NonNegative] CHECK ([RetentionPeriodDays] >= (0)),
-	[PageCount] INT NULL CONSTRAINT [CK_Document_PageCount_NonNegative] CHECK ([PageCount] >= (0)),
-	[SearchableText] NVARCHAR(4000) NULL,
-	[ExtractionStatus] VARCHAR(50) NULL,
-	[EncryptionKeyId] VARCHAR(100) NULL,
-	[IsEncrypted] BIT NOT NULL CONSTRAINT [DF_Document_IsEncrypted] DEFAULT (0),
-	[DownloadCount] INT NOT NULL
-		CONSTRAINT [DF_Document_DownloadCount] DEFAULT (0)
-		CONSTRAINT [CK_Document_DownloadCount_NonNegative] CHECK ([DownloadCount] >= 0),
-	[LastAccessedDate] DATETIME NULL,
-	[LastAccessedByUserId] INT NULL,
-	[SourceSystem] VARCHAR(100) NULL,
-	[IsActive] BIT NOT NULL CONSTRAINT [DF_Document_IsActive] DEFAULT (1),
-	[MarkedForDeletion] BIT NOT NULL CONSTRAINT [DF_Document_MarkedForDeletion] DEFAULT (0),
-	[MarkedForDeletionDate] DATETIME NULL,
-	[CreatedBy] INT NULL,
-	[CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_Document_CreatedDate] DEFAULT (GETDATE()),
-	[UpdatedBy] INT NULL,
-	[UpdatedDate] DATETIME NULL,
-	[DeletedDate] DATETIME NULL,
-	[DeletedBy] INT NULL,
-	[RowVersion] ROWVERSION NOT NULL,
- CONSTRAINT [PK_Document] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)
+
+    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+        -- Internal surrogate primary key. Used for FK relationships only.
+        -- Example: 1001
+
+    [DocumentGuid] UNIQUEIDENTIFIER NOT NULL
+        CONSTRAINT [DF_Document_DocumentGuid] DEFAULT (NEWSEQUENTIALID())
+        CONSTRAINT [UQ_Document_DocumentGuid] UNIQUE,
+        -- Public identifier exposed via APIs (never expose internal Id).
+        -- API will use this id.
+        -- Example: 'A1B2C3D4-E5F6-7890-ABCD-EF1234567890'
+
+    [DepartmentId] INT NULL,
+        -- FK to CORE.DepartmentMaster(Id). Identifies which department this document belongs to.
+        -- Required for correct filtering when combined with DepartmentEntityId.
+        -- Example: 3   (DepartmentMaster.Id for 'PTIS')
+
+    [DepartmentEntityId] INT NULL,
+        -- Department-specific primary business id this document logically belongs to.
+        -- The value's meaning depends on the owning department (identified by DepartmentId):
+        --   When DepartmentId=PTIS  -> PropertyId
+        --   When DepartmentId=WTIS  -> ConsumerId
+        --   When DepartmentId=ASSET -> AssetId  (and so on)
+        -- Nullable for cases where no department-level entity applies yet.
+        -- MUST be filtered together with DepartmentId to prevent ID collision across departments.
+        -- Authoritative module/auth linkage still lives in CORE.DocumentBinding;
+        -- this column pair is a convenience back-pointer for quick filtering.
+        -- Example: DepartmentId=3, DepartmentEntityId=1001  (PTIS PropertyId)
+
+    [FileName] NVARCHAR(500) NOT NULL,
+        -- Stored/normalized file name on disk (after sanitization, GUID rename, etc.).
+        -- May contain non-ASCII if user kept original characters.
+        -- Example: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890.pdf'
+
+    [OriginalFileName] NVARCHAR(500) NOT NULL,
+        -- File name as uploaded by the user. Shown back in UI as-is.
+        -- Example: 'Owner Aadhaar Proof.pdf', 'मालमत्ता_प्रमाणपत्र.pdf'
+
+    [FileExtension] VARCHAR(50) NOT NULL,
+        -- Lowercased extension without leading dot. ASCII-only.
+        -- Example: 'pdf', 'jpg', 'docx'
+
+    [MimeType] VARCHAR(200) NOT NULL,
+        -- IANA media type detected/declared at upload.
+        -- Example: 'application/pdf', 'image/jpeg'
+
+    [FileSizeBytes] BIGINT NOT NULL
+        CONSTRAINT [CK_Document_FileSizeBytes] CHECK ([FileSizeBytes] >= 0),
+        -- Size of stored file in bytes. Used for quota/limits/UI display.
+        -- Example: 245678
+
+    [StorageProvider] VARCHAR(50) NOT NULL,
+        -- Backend where the binary lives. Only 'FOLDER' for now;
+        -- future values like 'AWS_S3', 'AZURE_BLOB' will reuse this column.
+        -- Example: 'FOLDER'
+
+    [StoragePath] NVARCHAR(1000) NOT NULL,
+        -- Relative path under the configured root for the chosen provider.
+        -- this will have relative path of the folder.
+        -- Example: 'ptis/property/2026/04/a1b2c3d4-e5f6-7890-abcd-ef1234567890.pdf'
+
+    [ThumbnailPath] NVARCHAR(1000) NULL,
+        -- Relative path to generated thumbnail. NULL until thumbnail generation
+        -- is implemented (future scope).
+        -- Example: 'ptis/property/2026/04/thumb/a1b2c3d4-...-thumb.jpg'
+
+    [ChecksumSha256] VARCHAR(64) NULL
+        CONSTRAINT [CK_Document_ChecksumSha256_Length]
+            CHECK ([ChecksumSha256] IS NULL OR LEN([ChecksumSha256]) = 64),
+        -- SHA-256 hex digest of the stored file. Used for integrity + dedupe.
+        -- Kept as VARCHAR(64) (hex) per readability over BINARY(32).
+        -- Example: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
+
+    [ScanStatusCode] VARCHAR(50) NULL,
+        -- Status of virus/malware scan. Nullable for now (scan is future scope).
+        -- Future values: 'PENDING', 'CLEAN', 'INFECTED', 'FAILED'.
+        -- Example: NULL  (today)  /  'CLEAN'  (future)
+
+    [ScanCompletedDate] DATETIME NULL,
+        -- When the scan finished. NULL until scanning is implemented.
+        -- Example: '2026-04-20 18:32:15'
+
+    [ScanDetails] NVARCHAR(4000) NULL,
+        -- Free-text scanner output (engine name, signature, error message).
+        -- Example: 'ClamAV 1.2.0 - No threats detected'
+
+    [UploadStatusCode] VARCHAR(50) NOT NULL,
+        -- Lifecycle of the upload itself.
+        -- Values: 'PENDING', 'UPLOADING', 'COMPLETED', 'FAILED', 'ACTIVE'.
+        -- Example: 'COMPLETED'
+
+    [DocumentTitle] NVARCHAR(500) NULL,
+        -- Human-friendly title shown in UI. May be set by uploader.
+        -- Example: 'Owner Aadhaar - Mr. Sharma'
+
+    [Description] NVARCHAR(2000) NULL,
+        -- Optional longer description / remarks.
+        -- Example: 'Aadhaar copy collected during 2026 property survey'
+
+    [DocumentType] NVARCHAR(100) NULL,
+        -- High-level document type. Free text / enum for now
+        -- (confirmed master table is future scope).
+        -- Example: 'Certificate', 'Invoice', 'Contract', 'Report'
+
+    [DocumentCategory] NVARCHAR(100) NULL,
+        -- Optional finer grouping within a DocumentType.
+        -- Example: 'OwnershipProof', 'IdentityProof', 'TaxReceipt'
+
+    [Tags] NVARCHAR(2000) NULL,
+        -- Comma-separated user tags for search/filter. NVARCHAR (multilingual).
+        -- Example: 'aadhaar,owner,kyc,2026'
+
+    [Language] VARCHAR(10) NULL,
+        -- BCP-47 language code of document content.
+        -- Example: 'en', 'mr', 'hi-IN'
+
+    [Version] INT NOT NULL
+        CONSTRAINT [CK_Document_Version_Positive] CHECK ([Version] > 0),
+        -- Version number of this document row. Starts at 1.
+        -- Example: 1, 2, 3
+
+    [ParentDocumentId] INT NULL,
+        -- Self-FK to original document when this row is a newer version.
+        -- NULL for the first/original version.
+        -- Example: NULL (v1)  /  1001 (v2 of doc 1001)
+
+    [IsLatestVersion] BIT NOT NULL
+        CONSTRAINT [DF_Document_IsLatestVersion] DEFAULT (1),
+        -- 1 if this row is the current/latest version in its version chain.
+        -- Example: 1
+
+    [IsPublic] BIT NOT NULL
+        CONSTRAINT [DF_Document_IsPublic] DEFAULT (0),
+        -- Future-use access flag. 1 = anyone can read; 0 = governed by binding/auth.
+        -- this may need in future.
+        -- Example: 0
+
+    [InheritPermissions] BIT NOT NULL
+        CONSTRAINT [DF_Document_InheritPermissions] DEFAULT (1),
+        -- Future-use. 1 = inherit permissions from parent entity (via DocumentBinding).
+        -- this may need in future.
+        -- Example: 1
+
+    [ConfidentialityLevel] VARCHAR(50) NULL,
+        -- Future-use classification label.
+        -- Values (future): 'Public', 'Internal', 'Confidential', 'Secret'.
+        -- Example: NULL today  /  'Internal' later
+
+    [PageCount] INT NULL
+        CONSTRAINT [CK_Document_PageCount_NonNegative] CHECK ([PageCount] >= 0),
+        -- Number of pages (for PDFs, multi-page TIFFs, etc.).
+        -- Example: 4
+
+    [SearchableText] NVARCHAR(4000) NULL,
+        -- Extracted text for search indexing (truncated to 4000).
+        -- Populated by OCR/extraction pipeline (future scope).
+        -- Example: 'Property Tax Receipt FY 2025-26 Owner: ...'
+
+    [ExtractionStatus] VARCHAR(50) NULL,
+        -- Status of text-extraction pipeline.
+        -- Values: 'PENDING', 'COMPLETED', 'FAILED', 'NOT_APPLICABLE'.
+        -- Example: NULL today  /  'COMPLETED' later
+
+    [EncryptionKeyId] VARCHAR(100) NULL,
+        -- Identifier of the KMS/HSM key used to encrypt the file at rest.
+        -- NULL when IsEncrypted = 0.
+        -- Example: 'kms-key-ptis-prod-001'
+
+    [IsEncrypted] BIT NOT NULL
+        CONSTRAINT [DF_Document_IsEncrypted] DEFAULT (0),
+        -- 1 if the stored file is encrypted at rest.
+        -- Example: 0
+
+    [DownloadCount] INT NOT NULL
+        CONSTRAINT [DF_Document_DownloadCount] DEFAULT (0)
+        CONSTRAINT [CK_Document_DownloadCount_NonNegative] CHECK ([DownloadCount] >= 0),
+        -- Running counter of successful downloads.
+        -- Example: 7
+
+    [SourceSystem] VARCHAR(100) NULL,
+        -- Originating system/channel for this document.
+        -- Example: 'PTIS_BACKOFFICE', 'CITIZEN_PORTAL', 'SURVEY_APP'
+
+    [IsActive] BIT NOT NULL
+        CONSTRAINT [DF_Document_IsActive] DEFAULT (1),
+        -- 1 = active and visible to APIs; 0 = hidden (soft-disabled).
+        -- Example: 1
+
+    [MarkedForDeletion] BIT NOT NULL
+        CONSTRAINT [DF_Document_MarkedForDeletion] DEFAULT (0),
+        -- Soft-delete flag. Picked up by background cleanup job later.
+        -- Example: 0
+
+    [MarkedForDeletionDate] DATETIME NULL,
+        -- Timestamp when MarkedForDeletion was set to 1.
+        -- Example: '2026-05-01 10:15:00'
+
+    [CreatedBy] INT NULL,
+        -- UserMaster.Id of creator. Nullable for system-created rows.
+        -- Example: 42
+
+    [CreatedDate] DATETIME NOT NULL
+        CONSTRAINT [DF_Document_CreatedDate] DEFAULT (GETDATE()),
+        -- Row creation timestamp.
+        -- Example: '2026-04-20 18:30:00'
+
+    [UpdatedBy] INT NULL,
+        -- UserMaster.Id of last updater.
+        -- Example: 42
+
+    [UpdatedDate] DATETIME NULL,
+        -- Last update timestamp.
+        -- Example: '2026-04-22 09:05:00'
+
+    [RowVersion] ROWVERSION NOT NULL,
+        -- Optimistic concurrency token (auto-maintained by SQL Server).
+        -- Needed: metadata edited by concurrent flows (scan job, user edit, etc.).
+
+    CONSTRAINT [PK_Document] PRIMARY KEY CLUSTERED ([Id] ASC),
+
+    -- Table-level CHECK: DepartmentEntityId requires DepartmentId to be set
+    -- (prevents orphan entity IDs without department context)
+    CONSTRAINT [CK_Document_DepartmentEntityId_RequiresDepartmentId]
+        CHECK ([DepartmentEntityId] IS NULL OR [DepartmentId] IS NOT NULL)
 );
 GO
 
--- Add foreign key constraints for user references
-ALTER TABLE [CORE].[Document] WITH CHECK
-ADD CONSTRAINT [FK_Document_UploadedBy]
-FOREIGN KEY ([UploadedBy]) REFERENCES [CORE].[UserMaster] ([Id]);
-GO
+/* ---------------------------------------------------------------------------
+   Intentionally NOT added in this phase (kept here as decisions audit):
+     - PropertyId            : Removed. Module linkage belongs in DocumentBinding
+                               (module-agnostic design per Nilesh sir).
+                               Replaced by DepartmentId + DepartmentEntityId for generic
+                               department-level back-pointer (prevents cross-department ID collision).
+     - UploadedBy            : Skipped now to avoid access-control complexity;
+                               can be added later.
+     - ReplacedByDocumentId  : Skipped; ParentDocumentId + IsLatestVersion cover
+                               current versioning needs.
+     - ExpiryDate            : Not needed now.
+     - RetentionPeriodDays   : Not needed now.
+     - LastAccessedDate/By   : View/download tracking deferred to an audit table (future scope).
+     - DeletedDate / DeletedBy : Deletion audit deferred to a future "DocumentAccessAudit" (or similar)
+                                table; until then MarkedForDeletion + MarkedForDeletionDate
+                                cover soft-delete here.
+--------------------------------------------------------------------------- */
 
-ALTER TABLE [CORE].[Document] CHECK CONSTRAINT [FK_Document_UploadedBy];
-GO
-
-ALTER TABLE [CORE].[Document] WITH CHECK
-ADD CONSTRAINT [FK_Document_OwnerUserId]
-FOREIGN KEY ([OwnerUserId]) REFERENCES [CORE].[UserMaster] ([Id]);
-GO
-
-ALTER TABLE [CORE].[Document] CHECK CONSTRAINT [FK_Document_OwnerUserId];
-GO
-
-ALTER TABLE [CORE].[Document] WITH CHECK
-ADD CONSTRAINT [FK_Document_LastAccessedByUserId]
-FOREIGN KEY ([LastAccessedByUserId]) REFERENCES [CORE].[UserMaster] ([Id]);
-GO
-
-ALTER TABLE [CORE].[Document] CHECK CONSTRAINT [FK_Document_LastAccessedByUserId];
-GO
-
--- Add self-referencing foreign keys for versioning
+-- Self-referencing FK for versioning
 ALTER TABLE [CORE].[Document] WITH CHECK
 ADD CONSTRAINT [FK_Document_ParentDocumentId]
 FOREIGN KEY ([ParentDocumentId]) REFERENCES [CORE].[Document] ([Id]);
@@ -589,33 +766,29 @@ GO
 ALTER TABLE [CORE].[Document] CHECK CONSTRAINT [FK_Document_ParentDocumentId];
 GO
 
+-- FK: DepartmentId -> DepartmentMaster
 ALTER TABLE [CORE].[Document] WITH CHECK
-ADD CONSTRAINT [FK_Document_ReplacedByDocumentId]
-FOREIGN KEY ([ReplacedByDocumentId]) REFERENCES [CORE].[Document] ([Id]);
+ADD CONSTRAINT [FK_Document_DepartmentMaster]
+FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id]);
 GO
 
-ALTER TABLE [CORE].[Document] CHECK CONSTRAINT [FK_Document_ReplacedByDocumentId];
+ALTER TABLE [CORE].[Document] CHECK CONSTRAINT [FK_Document_DepartmentMaster];
 GO
 
--- Add indexes for foreign key columns
-CREATE NONCLUSTERED INDEX [IX_Document_UploadedBy]
-    ON [CORE].[Document] ([UploadedBy]);
-GO
-
-CREATE NONCLUSTERED INDEX [IX_Document_OwnerUserId]
-    ON [CORE].[Document] ([OwnerUserId]);
-GO
-
-CREATE NONCLUSTERED INDEX [IX_Document_LastAccessedByUserId]
-    ON [CORE].[Document] ([LastAccessedByUserId]);
-GO
-
+-- Indexes
 CREATE NONCLUSTERED INDEX [IX_Document_ParentDocumentId]
     ON [CORE].[Document] ([ParentDocumentId]);
 GO
 
-CREATE NONCLUSTERED INDEX [IX_Document_ReplacedByDocumentId]
-    ON [CORE].[Document] ([ReplacedByDocumentId]);
+CREATE NONCLUSTERED INDEX [IX_Document_DepartmentId]
+    ON [CORE].[Document] ([DepartmentId])
+    WHERE [DepartmentId] IS NOT NULL;
+GO
+
+-- Composite index for department-specific entity filtering (prevents ID collision)
+CREATE NONCLUSTERED INDEX [IX_Document_Department_Entity]
+    ON [CORE].[Document] ([DepartmentId], [DepartmentEntityId])
+    WHERE [DepartmentId] IS NOT NULL AND [DepartmentEntityId] IS NOT NULL;
 GO
 
 
@@ -732,77 +905,232 @@ GO
 /* ===========================
  DocumentBinding
  =========================== */
+
+ /* ============================================================================
+   [CORE].[DocumentBinding]
+   Generic, module-agnostic binding between a document and ANY module's entity.
+
+   Design (per Nilesh sir):
+     - One Document can be bound to multiple business records via this table.
+     - Reference is generic: DepartmentId + ModuleId + ReferenceTableName +
+       (ReferenceTableId XOR ReferenceTableIdGuid) + ReferencePropertyName.
+     - Authorization is resolved at the parent entity level via
+       AuthDepartmentId + AuthReferenceId.
+
+   FK mapping (as confirmed):
+     - DocumentId         -> CORE.Document(Id)
+     - DepartmentId       -> CORE.DepartmentMaster(Id)   (top-level department)
+     - ModuleId           -> CORE.ModuleMaster(Id)       (module under department)
+     - AuthDepartmentId   -> CORE.DepartmentMaster(Id)   (auth at department level)
+
+   RowVersion: Kept. Binding rows are usually insert/delete, but metadata like Notes,
+              IsActive / MarkedForDeletion may be updated; RowVersion supports
+              optimistic concurrency if multiple operators/processes update the same row.
+============================================================================ */
 CREATE TABLE [CORE].[DocumentBinding](
-	[Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-	[DocumentId] INT NOT NULL,
-	[ModuleId] INT NOT NULL,
-	[ReferenceTableName] VARCHAR(100) NOT NULL,
-	[ReferenceTableId] INT NULL,
-	[ReferenceTableIdGuid] UNIQUEIDENTIFIER NULL,
-	[BindingPurpose] VARCHAR(200) NULL,
-	[DisplayOrder] INT NULL,
-	[IsPrimaryDocument] BIT NOT NULL CONSTRAINT [DF_DocumentBinding_IsPrimaryDocument] DEFAULT (0),
-	[Notes] VARCHAR(1000) NULL,
-	[AccessPermission] VARCHAR(50) NULL,
-	[ExpiryDate] DATETIME NULL,
-	[AuthModuleId] INT NULL,
-	[AuthReferenceId] INT NULL,
-	[IsActive] BIT NOT NULL CONSTRAINT [DF_DocumentBinding_IsActive] DEFAULT (1),
-	[IsReferenceValid] BIT NOT NULL CONSTRAINT [DF_DocumentBinding_IsReferenceValid] DEFAULT (0),
-	[LastValidatedDate] DATETIME NULL,
-	[ValidationError] VARCHAR(500) NULL,
-	[CreatedBy] INT NULL,
-	[CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_DocumentBinding_CreatedDate] DEFAULT (GETDATE()),
-	[UpdatedBy] INT NULL,
-	[UpdatedDate] DATETIME NULL,
-	[RowVersion] ROWVERSION NOT NULL,
-	CONSTRAINT [PK_DocumentBinding] PRIMARY KEY CLUSTERED ([Id] ASC ),
-    CONSTRAINT [FK_DocumentBinding_Document] FOREIGN KEY ([DocumentId]) REFERENCES [CORE].[Document] ([Id]),
-	CONSTRAINT [CK_DocumentBinding_ReferenceId_XOR]
-		CHECK (
-			([ReferenceTableId] IS NOT NULL AND [ReferenceTableIdGuid] IS NULL) OR
-			([ReferenceTableId] IS NULL AND [ReferenceTableIdGuid] IS NOT NULL)
-		)
+
+    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+        -- Internal surrogate primary key.
+        -- Example: 7001
+
+    [DocumentId] INT NOT NULL,
+        -- FK to CORE.Document. The file being bound.
+        -- Example: 1001
+
+    [DepartmentId] INT NOT NULL,
+        -- FK to CORE.DepartmentMaster(Id). Top-level grouping (e.g. PTIS, Water).
+        -- Example: 3   (DepartmentMaster.Id for 'PTIS')
+
+    [ModuleId] INT NOT NULL,
+        -- FK to CORE.ModuleMaster(Id). Specific module under the department.
+        -- Example: 12  (ModuleMaster.Id for 'PropertyCertificate')
+
+    [ReferenceTableName] VARCHAR(100) NOT NULL,
+        -- Name of the business table this document is attached to.
+        -- ASCII only (DB object name), so VARCHAR.
+        -- Example: 'PropertyCertificates', 'WaterConnection', 'PropertyMast'
+
+    [ReferenceTableId] INT NULL,
+        -- INT primary key value of the row in [ReferenceTableName].
+        -- Used when the target table has an INT PK.
+        -- Exactly one of ReferenceTableId / ReferenceTableIdGuid must be set
+        -- (enforced by CK_DocumentBinding_ReferenceId_XOR).
+        -- Example: 50231  (PropertyCertificates.Id)
+
+    [ReferenceTableIdGuid] UNIQUEIDENTIFIER NULL,
+        -- GUID primary key value of the row in [ReferenceTableName].
+        -- Used when the target table has a GUID PK.
+        -- Example: 'A1B2C3D4-E5F6-7890-ABCD-EF1234567890'
+
+    [ReferencePropertyName] VARCHAR(100) NOT NULL,
+        -- Name of the column in [ReferenceTableName] that holds the PK value.
+        -- Lets generic code build joins/links without hardcoding per module.
+        -- Example: 'Id', 'PropertyCertificateId', 'WaterConnectionId'
+
+    [BindingPurpose] VARCHAR(200) NULL,
+        -- What this binding represents in business workflow / UI.
+        -- Free text for now; can be standardized later.
+        -- Example: 'MainCertificate', 'OwnerProof', 'TaxReceipt'
+
+    [IsPrimaryDocument] BIT NOT NULL
+        CONSTRAINT [DF_DocumentBinding_IsPrimaryDocument] DEFAULT (0),
+        -- 1 if this is the primary/main document for that business record.
+        -- Example: 1
+
+    [Notes] NVARCHAR(1000) NULL,
+        -- Free-text remarks entered by user about this binding.
+        -- NVARCHAR because users may type in local languages.
+        -- Example: 'Replaced earlier scan with clearer copy'
+
+    [AccessPermission] VARCHAR(50) NULL,
+        -- Future-use access tag for this specific binding.
+        -- Values (future): 'READ', 'READ_WRITE', 'OWNER_ONLY'.
+        -- Example: NULL today  /  'READ_WRITE' later
+
+    [AuthDepartmentId] INT NULL,
+        -- FK to CORE.DepartmentMaster(Id). Department against which authorization
+        -- is resolved (parent-entity authorization model).
+        -- Example: 3   (DepartmentMaster.Id for 'PTIS')
+
+    [AuthReferenceId] INT NULL,
+        -- PK of the row in the auth module that grants access.
+        -- Together with AuthDepartmentId, answers "who owns this for permission checks".
+        -- Example: 1001  (Property.Id used for property-level auth)
+
+    CONSTRAINT [CK_DocumentBinding_AuthPair_Complete]
+        CHECK (
+            ([AuthDepartmentId] IS NULL AND [AuthReferenceId] IS NULL) OR
+            ([AuthDepartmentId] IS NOT NULL AND [AuthReferenceId] IS NOT NULL)
+        ),
+
+    [IsReferenceValid] BIT NOT NULL
+        CONSTRAINT [DF_DocumentBinding_IsReferenceValid] DEFAULT (0),
+        -- 1 if the referenced row was confirmed to exist at last validation.
+        -- A background job / runtime check can set this.
+        -- Example: 1
+
+    [IsActive] BIT NOT NULL
+        CONSTRAINT [DF_DocumentBinding_IsActive] DEFAULT (1),
+        -- 1 = binding is live and visible to APIs.
+        -- Example: 1
+
+    [MarkedForDeletion] BIT NOT NULL
+        CONSTRAINT [DF_DocumentBinding_MarkedForDeletion] DEFAULT (0),
+        -- Soft-delete flag. Picked up by cleanup job later.
+        -- Example: 0
+
+    [MarkedForDeletionDate] DATETIME NULL,
+        -- Timestamp when MarkedForDeletion was set to 1.
+        -- Example: '2026-05-01 10:15:00'
+
+    [CreatedBy] INT NULL,
+        -- UserMaster.Id of creator.
+        -- Example: 42
+
+    [CreatedDate] DATETIME NOT NULL
+        CONSTRAINT [DF_DocumentBinding_CreatedDate] DEFAULT (GETDATE()),
+        -- Row creation timestamp.
+        -- Example: '2026-04-20 18:31:00'
+
+    [UpdatedBy] INT NULL,
+        -- UserMaster.Id of last updater.
+        -- Example: 42
+
+    [UpdatedDate] DATETIME NULL,
+        -- Last update timestamp.
+        -- Example: '2026-04-22 09:06:00'
+
+    [RowVersion] ROWVERSION NOT NULL,
+        -- Optimistic concurrency token (auto-maintained by SQL Server).
+        -- Needed: binding metadata can be updated by multiple operators/processes.
+
+    CONSTRAINT [PK_DocumentBinding] PRIMARY KEY CLUSTERED ([Id] ASC),
+
+    CONSTRAINT [FK_DocumentBinding_Document]
+        FOREIGN KEY ([DocumentId]) REFERENCES [CORE].[Document] ([Id]),
+
+    -- Exactly one of ReferenceTableId / ReferenceTableIdGuid must be populated.
+    CONSTRAINT [CK_DocumentBinding_ReferenceId_XOR]
+        CHECK (
+            ([ReferenceTableId] IS NOT NULL AND [ReferenceTableIdGuid] IS NULL) OR
+            ([ReferenceTableId] IS NULL     AND [ReferenceTableIdGuid] IS NOT NULL)
+        )
 );
 GO
 
+/* ---------------------------------------------------------------------------
+   Intentionally NOT added in this phase (decisions audit):
+     - ModuleCode / SubModuleCode : Replaced by DepartmentId / ModuleId FKs
+                                    (normalized, per Nilesh sir's confirmation).
+     - DisplayOrder                : Not needed now.
+     - ExpiryDate                  : Not needed now.
+     - LastValidatedDate           : Not needed now; IsReferenceValid is enough.
+     - ValidationError             : Not needed now.
+     - RowVersion                  : Kept. Allows optimistic concurrency when
+                                    binding metadata (Notes/IsActive/MarkedForDeletion)
+                                    is updated by concurrent flows.
+--------------------------------------------------------------------------- */
+
+-- FK: DepartmentId -> DepartmentMaster
 ALTER TABLE [CORE].[DocumentBinding] WITH CHECK
-ADD CONSTRAINT [FK_DocumentBinding_ModuleMaster]
-FOREIGN KEY ([ModuleId]) REFERENCES [CORE].[ModuleMaster] ([Id]);
+ADD CONSTRAINT [FK_DocumentBinding_DepartmentMaster]
+FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id]);
 GO
 
-ALTER TABLE [CORE].[DocumentBinding] CHECK CONSTRAINT [FK_DocumentBinding_ModuleMaster];
+ALTER TABLE [CORE].[DocumentBinding] CHECK CONSTRAINT [FK_DocumentBinding_DepartmentMaster];
 GO
 
+-- Composite FK: (DepartmentId, ModuleId) -> ModuleMaster(DepartmentId, Id)
+-- Enforces both:
+--   1. ModuleId exists in ModuleMaster
+--   2. ModuleId belongs to the specified DepartmentId (prevents mismatched bindings)
+-- Single-column FK on ModuleId is redundant and removed to avoid maintenance overhead.
 ALTER TABLE [CORE].[DocumentBinding] WITH CHECK
-ADD CONSTRAINT [FK_DocumentBinding_AuthModuleMaster]
-FOREIGN KEY ([AuthModuleId]) REFERENCES [CORE].[ModuleMaster] ([Id]);
+ADD CONSTRAINT [FK_DocumentBinding_DepartmentModule]
+FOREIGN KEY ([DepartmentId], [ModuleId]) REFERENCES [CORE].[ModuleMaster] ([DepartmentId], [Id]);
 GO
 
-ALTER TABLE [CORE].[DocumentBinding] CHECK CONSTRAINT [FK_DocumentBinding_AuthModuleMaster];
+ALTER TABLE [CORE].[DocumentBinding] CHECK CONSTRAINT [FK_DocumentBinding_DepartmentModule];
 GO
 
+-- FK: AuthDepartmentId -> DepartmentMaster
+ALTER TABLE [CORE].[DocumentBinding] WITH CHECK
+ADD CONSTRAINT [FK_DocumentBinding_AuthDepartmentMaster]
+FOREIGN KEY ([AuthDepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id]);
+GO
+
+ALTER TABLE [CORE].[DocumentBinding] CHECK CONSTRAINT [FK_DocumentBinding_AuthDepartmentMaster];
+GO
+
+-- Indexes
 CREATE NONCLUSTERED INDEX [IX_DocumentBinding_DocumentId]
-ON [CORE].[DocumentBinding] ([DocumentId]);
+    ON [CORE].[DocumentBinding] ([DocumentId]);
+GO
+
+CREATE NONCLUSTERED INDEX [IX_DocumentBinding_DepartmentId]
+    ON [CORE].[DocumentBinding] ([DepartmentId]);
 GO
 
 CREATE NONCLUSTERED INDEX [IX_DocumentBinding_ModuleId]
-ON [CORE].[DocumentBinding] ([ModuleId]);
+    ON [CORE].[DocumentBinding] ([ModuleId]);
 GO
 
 CREATE NONCLUSTERED INDEX [IX_DocumentBinding_Reference]
-ON [CORE].[DocumentBinding] ([ModuleId], [ReferenceTableName], [ReferenceTableId])
-WHERE [ReferenceTableId] IS NOT NULL;
+    ON [CORE].[DocumentBinding] ([DepartmentId], [ModuleId], [ReferenceTableName], [ReferenceTableId])
+    WHERE [ReferenceTableId] IS NOT NULL;
 GO
 
 CREATE NONCLUSTERED INDEX [IX_DocumentBinding_ReferenceGuid]
-ON [CORE].[DocumentBinding] ([ModuleId], [ReferenceTableName], [ReferenceTableIdGuid])
-WHERE [ReferenceTableIdGuid] IS NOT NULL;
+    ON [CORE].[DocumentBinding] ([DepartmentId], [ModuleId], [ReferenceTableName], [ReferenceTableIdGuid])
+    WHERE [ReferenceTableIdGuid] IS NOT NULL;
 GO
 
-CREATE NONCLUSTERED INDEX [IX_DocumentBinding_AuthModule]
-ON [CORE].[DocumentBinding] ([AuthModuleId], [AuthReferenceId]) WHERE [AuthModuleId] IS NOT NULL AND [AuthReferenceId] IS NOT NULL;
- 
+CREATE NONCLUSTERED INDEX [IX_DocumentBinding_AuthDepartment]
+    ON [CORE].[DocumentBinding] ([AuthDepartmentId], [AuthReferenceId])
+    WHERE [AuthDepartmentId] IS NOT NULL AND [AuthReferenceId] IS NOT NULL;
+GO
+
+
  /* ===========================
  CommonRemarkTypeMaster
  =========================== */
