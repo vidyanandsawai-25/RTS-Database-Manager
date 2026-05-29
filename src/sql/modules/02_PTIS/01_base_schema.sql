@@ -2106,9 +2106,10 @@ CREATE TABLE [PTIS].[PropertySocialDetails](
     [BitValue] BIT NULL,
     [IntValue] INT NULL,
     [DecimalValue] DECIMAL(18,2) NULL,
-    [TextValue] NVARCHAR(500) NULL,
-    [DateValue] DATE NULL,
-    [Remark] NVARCHAR(500) NULL,
+	[TextValue] NVARCHAR(500) NULL,
+	[DateValue] DATE NULL,
+	[DocumentBindingId] INT  NULL,                 -- FK → CORE.DocumentBinding.Id (binding contains DocumentId) | e.g. 6601
+	[Remark] NVARCHAR(500) NULL,
    	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertySocialDetails_IsActive] DEFAULT (1),
     [CreatedBy] [int] NULL,
     [CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_PropertySocialDetails_CreatedDate] DEFAULT (GETDATE()),
@@ -2116,10 +2117,19 @@ CREATE TABLE [PTIS].[PropertySocialDetails](
     [UpdatedDate] [datetime] NULL,
     CONSTRAINT PK_PropertySocialDetails   PRIMARY KEY ([Id]),
     CONSTRAINT FK_PropertySocialDetails_Property FOREIGN KEY ([PropertyId]) REFERENCES [PTIS].[PropertyMast]([Id]),
-    CONSTRAINT FK_PropertySocialDetails_SocialAttribute FOREIGN KEY ([SocialAttributeId]) REFERENCES [PTIS].[SocialAttributeMaster]([Id]),
-    CONSTRAINT UQ_PropertySocialDetails  UNIQUE ([PropertyId], [SocialAttributeId])
+	CONSTRAINT FK_PropertySocialDetails_SocialAttribute FOREIGN KEY ([SocialAttributeId]) REFERENCES [PTIS].[SocialAttributeMaster]([Id]),
+	CONSTRAINT FK_PropertySocialDetails_DocumentBinding FOREIGN KEY ([DocumentBindingId]) REFERENCES [CORE].[DocumentBinding]([Id]),
+	CONSTRAINT UQ_PropertySocialDetails  UNIQUE ([PropertyId], [SocialAttributeId])
 );
+GO
 
+CREATE NONCLUSTERED INDEX [IX_PropertySocialDetails_DocumentBindingId]
+	ON [PTIS].[PropertySocialDetails]([DocumentBindingId])
+	WHERE [DocumentBindingId] IS NOT NULL;
+
+-- Note: No additional index on (PropertyId, SocialAttributeId) needed
+-- The UNIQUE constraint UQ_PropertySocialDetails already creates an index on these columns
+-- and efficiently serves lookups and joins on this key combination.
 
 
 
