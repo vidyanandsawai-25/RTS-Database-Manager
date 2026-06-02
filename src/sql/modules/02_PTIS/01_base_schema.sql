@@ -574,7 +574,25 @@ CREATE TABLE [PTIS].[TypeOfUseGroupMaster](
 
 GO
 
+/****** Object:  Table [PTIS].[TypeOfUseGroupMasterCV]******/
 
+CREATE TABLE [PTIS].[TypeOfUseGroupMasterCV](
+	[Id]  [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[TypeOfUseGroupCVCode]  [varchar](10) NOT NULL,
+	[GroupName] [nvarchar](50) NOT NULL,
+    [GroupIcon] [nvarchar](50) NOT NULL,
+    [IsFloorWiseRateApplicable] [bit] NOT NULL CONSTRAINT [DF_TypeOfUseGroupMasterCV_IsFloorWiseRateApplicable] DEFAULT (0),
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_TypeOfUseGroupMasterCV_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime]  NOT NULL CONSTRAINT DF_TypeOfUseGroupMasterCV_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_TypeOfUseGroupMasterCV] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT [UQ_TypeOfUseGroupMasterCV_TypeOfUseGroupCVCode] UNIQUE ([TypeOfUseGroupCVCode]),
+    CONSTRAINT [UQ_TypeOfUseGroupMasterCV_GroupName] UNIQUE ([GroupName])
+  )
+
+GO
 /****** Object:  Table [PTIS].[TypeOfUseMaster]******/
 
 CREATE TABLE [PTIS].[TypeOfUseMaster](
@@ -583,6 +601,7 @@ CREATE TABLE [PTIS].[TypeOfUseMaster](
 	[Description] [nvarchar](100) NULL,
 	[Type] [varchar](5) NULL,
 	[TypeOfUseGroupId] int NOT NULL,
+	[TypeOfUseGroupCVId] int NOT NULL,
 	[SearchSequence] [int] NULL,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_TypeOfUseMaster_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
@@ -600,7 +619,11 @@ GO
 ALTER TABLE [PTIS].[TypeOfUseMaster] CHECK CONSTRAINT [FK_TypeOfUseMaster_TypeOfUseGroupMaster]
 GO
 
-
+alter table [PTIS].[TypeOfUseMaster]  WITH CHECK ADD  CONSTRAINT [FK_TypeOfUseMaster_TypeOfUseGroupMasterCV] FOREIGN KEY([TypeOfUseGroupCVId])	
+REFERENCES [PTIS].[TypeOfUseGroupMasterCV] ([Id])
+GO
+ALTER TABLE [PTIS].[TypeOfUseMaster] CHECK CONSTRAINT [FK_TypeOfUseMaster_TypeOfUseGroupMasterCV]
+GO
 
 /****** Object:  Table [PTIS].[SubTypeOfUseMaster]******/
 
@@ -2608,36 +2631,70 @@ GO
 ALTER TABLE [PTIS].[UseFactorCVMaster] CHECK CONSTRAINT [FK_UseFactorCVMaster_AssessmentYearRangeCVMaster]
 GO
 
----****** Object:  Table [PTIS].[PropertyTaxCalculationCVResults]******/
-CREATE TABLE [PTIS].[PropertyTaxCalculationCVResults](
-    [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-    [PropertyDetailsId] [int] NOT NULL,
-    [SDRR] [float] NULL,
-    [BaseValue] [float] NULL,
-    [FloorFactorId] [int] NULL,
-    [AgeFactorId] [int] NULL,
-    [NatureFactorId] [int] NULL,
-    [UseFactorId] [int] NULL,
-    [CapitalValue] [money] NULL,
-    [TaxId] [int] NOT NULL,
-    [TaxPercentage] [money] NULL,
-    [TaxAmount] [money] NULL,
-    [IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyTaxCalculationCVResults_IsActive] DEFAULT (1),
-    [CreatedBy] [int] NULL,
-    [CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_PropertyTaxCalculationCVResults_CreatedDate] DEFAULT (GETDATE()),
-    [UpdatedBy] [int] NULL,
-    [UpdatedDate] [datetime] NULL,
 
-    CONSTRAINT [PK_PropertyTaxCalculationCVResults] PRIMARY KEY CLUSTERED ([Id] ASC),
-    -- CONSTRAINT [FK_PropertyTaxCalculationCVResults_PropertyMast] FOREIGN KEY([PropertyId]) REFERENCES [PTIS].[PropertyMast] ([Id]),
-    CONSTRAINT [FK_PropertyTaxCalculationCVResults_PropertyDetails] FOREIGN KEY ([PropertyDetailsId]) REFERENCES [PTIS].[PropertyDetails] ([Id]),
-    CONSTRAINT [FK_PropertyTaxCalculationCVResults_TaxMaster] FOREIGN KEY ([TaxId]) REFERENCES [PTIS].[TaxMaster] ([Id]),	
-	CONSTRAINT [Fk_PropertyTaxCalculationCVResults_FloorFactorMaster] FOREIGN KEY ([FloorFactorId]) REFERENCES [PTIS].[FloorFactorCVMaster] ([Id]),
-	CONSTRAINT [Fk_PropertyTaxCalculationCVResults_AgeFactorMaster] FOREIGN KEY ([AgeFactorId]) REFERENCES [PTIS].[AgeFactorCVMaster] ([Id]),
-	CONSTRAINT [Fk_PropertyTaxCalculationCVResults_NatureFactorMaster] FOREIGN KEY ([NatureFactorId]) REFERENCES [PTIS].[NatureFactorCVMaster] ([Id]),
-	CONSTRAINT [Fk_PropertyTaxCalculationCVResults_UseFactorMaster] FOREIGN KEY ([UseFactorId]) REFERENCES [PTIS].[UseFactorCVMaster] ([Id])	
+/****** Object:  Table [PTIS].[RateCVMaster]******/
+
+CREATE TABLE [PTIS].[RateCVMaster](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[SubZoneId] [int] NOT NULL,
+	[TypeOfUseGroupCVId] [int] NULL,
+	[FloorGroupId] [int] NULL,
+	[AssessmentYearRangeId] [int] NOT NULL,
+	[RateAmount] [decimal](18, 2) NOT NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RateCVMaster_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_RateCVMaster_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+ CONSTRAINT [PK_RateCVMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+ CONSTRAINT UQ_RateCVMaster_SubZone_TypeOfUseGroupCV_FloorGroup_AssessmentYearRange UNIQUE (SubZoneId, TypeOfUseGroupCVId, FloorGroupId, AssessmentYearRangeId),
+ CONSTRAINT FK_RateCVMaster_TypeOfUseGroupMasterCV FOREIGN KEY (TypeOfUseGroupCVId) REFERENCES [PTIS].[TypeOfUseGroupMasterCV]([Id]),
+ CONSTRAINT FK_RateCVMaster_FloorGroupMaster FOREIGN KEY (FloorGroupId) REFERENCES [PTIS].[FloorGroupMaster]([Id]),
+ CONSTRAINT FK_RateCVMaster_AssessmentYearRangeMasterCV FOREIGN KEY (AssessmentYearRangeId) REFERENCES [PTIS].[AssessmentYearRangeMasterCV]([Id])
+) ON [PRIMARY]
+GO
+
+
+/****** Object:  Table [PTIS].[PropertyTaxCalculationCVResults]******/
+CREATE TABLE [PTIS].[PropertyTaxCalculationCVResults](
+	[Id] [bigint] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[PropertyDetailsId] [int] NOT NULL,
+	[PropertyId] [int] NOT NULL,
+	[RateCVMasterId] [int] NOT NULL,
+	[TaxId] [int] NOT NULL,
+	[BaseValue] [float] NULL,
+	[FloorFactorCVId] [int] NULL,
+	[AgeFactorCVId] [int] NULL,
+	[NatureFactorCVId] [int] NULL,
+	[UseFactorCVId] [int] NULL,
+	[CapitalValue] [money] NULL,
+	[TaxPercentage] [money] NULL,
+	[TaxAmount] [money] NULL,
+	[CVInputHash] [nvarchar](100) NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyTaxCalculationCVResults_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_PropertyTaxCalculationCVResults_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_PropertyTaxCalculationCVResults_MarkedForDeletion] DEFAULT (0),
+	[MarkedForDeletionDate] [datetime] NULL,
+	CONSTRAINT [PK_PropertyTaxCalculationCVResults] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT [FK_PropertyTaxCalculationCVResults_PropertyMast] FOREIGN KEY([PropertyId]) REFERENCES [PTIS].[PropertyMast] ([Id]),
+	CONSTRAINT [FK_PropertyTaxCalculationCVResults_PropertyDetails] FOREIGN KEY ([PropertyDetailsId]) REFERENCES [PTIS].[PropertyDetails] ([Id]),
+	CONSTRAINT [FK_PropertyTaxCalculationCVResults_TaxMaster] FOREIGN KEY ([TaxId]) REFERENCES [PTIS].[TaxMaster] ([Id]),	
+	CONSTRAINT [Fk_PropertyTaxCalculationCVResults_FloorFactorMaster] FOREIGN KEY ([FloorFactorCVId]) REFERENCES [PTIS].[FloorFactorCVMaster] ([Id]),
+	CONSTRAINT [Fk_PropertyTaxCalculationCVResults_AgeFactorMaster] FOREIGN KEY ([AgeFactorCVId]) REFERENCES [PTIS].[AgeFactorCVMaster] ([Id]),
+	CONSTRAINT [Fk_PropertyTaxCalculationCVResults_NatureFactorMaster] FOREIGN KEY ([NatureFactorCVId]) REFERENCES [PTIS].[NatureFactorCVMaster] ([Id]),
+	CONSTRAINT [Fk_PropertyTaxCalculationCVResults_UseFactorMaster] FOREIGN KEY ([UseFactorCVId]) REFERENCES [PTIS].[UseFactorCVMaster] ([Id])	
 	) ON [PRIMARY]
 GO
+-- Add FK constraint for PropertyTaxCalculationCVResults.RateCVMasterId
+ALTER TABLE [PTIS].[PropertyTaxCalculationCVResults] WITH CHECK ADD CONSTRAINT [FK_PropertyTaxCalculationCVResults_RateCVMaster] 
+FOREIGN KEY([RateCVMasterId]) REFERENCES [PTIS].[RateCVMaster] ([Id]);
+GO
+ALTER TABLE [PTIS].[PropertyTaxCalculationCVResults] CHECK CONSTRAINT [FK_PropertyTaxCalculationCVResults_RateCVMaster];
+GO
+
 
 CREATE UNIQUE NONCLUSTERED INDEX [UX_PropertyTaxCalculationCVResults_PropertyDetails_TaxId]
 ON [PTIS].[PropertyTaxCalculationCVResults]([PropertyDetailsId], [TaxId])
@@ -2847,24 +2904,7 @@ GO
 
 
 
-/****** Object:  Table [PTIS].[TypeOfUseGroupMaster]******/
 
-CREATE TABLE [PTIS].[TypeOfUseGroupMasterCV](
-	[Id]  [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-	[TypeOfUseGroupCVCode]  [varchar](10) NOT NULL,
-	[GroupName] [nvarchar](50) NOT NULL,
-    [GroupIcon] [nvarchar](50) NOT NULL,
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_TypeOfUseGroupMasterCV_IsActive] DEFAULT (1),
-	[CreatedBy] [int] NULL,
-	[CreatedDate] [datetime]  NOT NULL CONSTRAINT DF_TypeOfUseGroupMasterCV_CreatedDate DEFAULT (GETDATE()),
-	[UpdatedBy] [int] NULL,
-	[UpdatedDate] [datetime] NULL,
-	CONSTRAINT [PK_TypeOfUseGroupMasterCV] PRIMARY KEY CLUSTERED ([Id] ASC),
-	CONSTRAINT [UQ_TypeOfUseGroupMasterCV_TypeOfUseGroupCVCode] UNIQUE ([TypeOfUseGroupCVCode]),
-    CONSTRAINT [UQ_TypeOfUseGroupMasterCV_GroupName] UNIQUE ([GroupName])
-  )
-
-GO
 
 
 
@@ -2885,29 +2925,15 @@ CONSTRAINT FK_SubZoneDetailsForCV_MoujaMaster FOREIGN KEY (MoujaId) REFERENCES P
 )
 GO
 
-
-/****** Object:  Table [PTIS].[RateMasterCV]******/
-
-CREATE TABLE [PTIS].[RateMasterCV](
-	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-	[SubZoneId] [int] NOT NULL,
-	[TypeOfUseGroupCVId] [int] NULL,
-	[FloorGroupId] [int] NULL,
-	[AssessmentYearRangeId] [int] NOT NULL,
-	[RateAmount] [decimal](18, 2) NOT NULL,
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RateMasterCV_IsActive] DEFAULT (1),
-	[CreatedBy] [int] NULL,
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_RateMasterCV_CreatedDate] DEFAULT (GETDATE()),
-	[UpdatedBy] [int] NULL,
-	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_RateMasterCV] PRIMARY KEY CLUSTERED ([Id] ASC),
- CONSTRAINT UQ_RateMasterCV_SubZone_TypeOfUseGroupCV_FloorGroup_AssessmentYearRange UNIQUE (SubZoneId, TypeOfUseGroupCVId, FloorGroupId, AssessmentYearRangeId),
- CONSTRAINT FK_RateMasterCV_SubZoneDetailsForCV FOREIGN KEY (SubZoneId) REFERENCES [PTIS].[SubZoneDetailsForCV]([Id]),
- CONSTRAINT FK_RateMasterCV_TypeOfUseGroupMasterCV FOREIGN KEY (TypeOfUseGroupCVId) REFERENCES [PTIS].[TypeOfUseGroupMasterCV]([Id]),
- CONSTRAINT FK_RateMasterCV_FloorGroupMaster FOREIGN KEY (FloorGroupId) REFERENCES [PTIS].[FloorGroupMaster]([Id]),
- CONSTRAINT FK_RateMasterCV_AssessmentYearRangeMasterCV FOREIGN KEY (AssessmentYearRangeId) REFERENCES [PTIS].[AssessmentYearRangeMasterCV]([Id])
-) ON [PRIMARY]
+-- Add FK constraint for RateCVMaster.SubZoneId (deferred because SubZoneDetailsForCV is defined after RateCVMaster)
+ALTER TABLE [PTIS].[RateCVMaster] WITH CHECK ADD CONSTRAINT [FK_RateCVMaster_SubZoneDetailsForCV] 
+FOREIGN KEY([SubZoneId]) REFERENCES [PTIS].[SubZoneDetailsForCV] ([Id]);
 GO
+ALTER TABLE [PTIS].[RateCVMaster] CHECK CONSTRAINT [FK_RateCVMaster_SubZoneDetailsForCV];
+GO
+
+
+
 
 
 
@@ -2916,7 +2942,7 @@ GO
  
 CREATE TABLE [PTIS].[CSNDetails](
 	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-	[RateMasterCVId] [int] NOT NULL,
+	[RateCVMasterId] [int] NOT NULL,
 	[CSN] [nvarchar](50) NOT NULL,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_CSNDetails_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
@@ -2924,14 +2950,14 @@ CREATE TABLE [PTIS].[CSNDetails](
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
 	CONSTRAINT [PK_CSNDetails] PRIMARY KEY CLUSTERED ([Id] ASC),
-	CONSTRAINT [UQ_CSNDetails_CSN] UNIQUE ([RateMasterCVId], [CSN])
+	CONSTRAINT [UQ_CSNDetails_CSN] UNIQUE ([RateCVMasterId], [CSN])
 
 ) ON [PRIMARY]
 Go 
-ALTER TABLE [PTIS].[CSNDetails]  WITH CHECK ADD  CONSTRAINT [FK_CSNDetails_RateMasterCV] FOREIGN KEY([RateMasterCVId])
-REFERENCES [PTIS].[RateMasterCV] ([Id])
+ALTER TABLE [PTIS].[CSNDetails]  WITH CHECK ADD  CONSTRAINT [FK_CSNDetails_RateCVMaster] FOREIGN KEY([RateCVMasterId])
+REFERENCES [PTIS].[RateCVMaster] ([Id])
 Go
-ALTER TABLE [PTIS].[CSNDetails] CHECK CONSTRAINT [FK_CSNDetails_RateMasterCV]
+ALTER TABLE [PTIS].[CSNDetails] CHECK CONSTRAINT [FK_CSNDetails_RateCVMaster]
 Go
 
 
@@ -3584,25 +3610,49 @@ GO
 
 
 
-CREATE TABLE [PTIS].[RuleMaster]
+CREATE TABLE [PTIS].[PolicyConfiguration]
 (
     [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-	[RuleCode] NVARCHAR(50) NOT NULL,
+	[PolicyCode] NVARCHAR(50) NOT NULL,
     [Category] NVARCHAR(50) NOT NULL,
     [DisplayName] NVARCHAR(100) NOT NULL,
     [Description] NVARCHAR(500) NULL,
-    [DataType] NVARCHAR(20) NOT NULL CONSTRAINT [DF_RuleMaster_DataType] DEFAULT (N'bit'),
-    [DefaultValue] NVARCHAR(50) NULL, 
-    [IsActive] BIT NOT NULL CONSTRAINT [DF_RuleMaster_IsActive] DEFAULT (1),
+    [DataType] NVARCHAR(20) NOT NULL CONSTRAINT [DF_PolicyConfiguration_DataType] DEFAULT (N'bit'),
+	[PolicyValue] NVARCHAR(500) NULL,
+    [DefaultValue] NVARCHAR(500) NULL, 
+	[Unit] VARCHAR(30) NULL,  
+	[EffectiveFrom] DATETIME NULL,
+    [EffectiveTo] DATETIME NULL,
+	[IsActive] BIT NOT NULL CONSTRAINT [DF_PolicyConfiguration_IsActive] DEFAULT (1),
     [CreatedBy] INT NULL, 
-    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_RuleMaster_CreatedDate] DEFAULT (GETDATE()),
+    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_PolicyConfiguration_CreatedDate] DEFAULT (GETDATE()),
     [UpdatedBy] INT NULL,
     [UpdatedDate] DATETIME NULL,  
-    CONSTRAINT [PK_RuleMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
-	CONSTRAINT UQ_RuleMaster_RuleCode  UNIQUE ([RuleCode])
+    CONSTRAINT [PK_PolicyConfiguration] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT UQ_PolicyConfiguration_PolicyCode  UNIQUE ([PolicyCode]),
+	CONSTRAINT [CK_PolicyConfiguration_DataType]
+    CHECK ([DataType] IN ('BIT','INT','DECIMAL','VARCHAR','DATE','TIME','URL'))
 );
-GO
 
+CREATE TABLE [PTIS].[PolicyConfigurationHistory]
+(
+    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [PolicyConfigurationId] INT NOT NULL,
+    [PolicyCode] VARCHAR(150) NOT NULL,
+    [OldPolicyValue] NVARCHAR(1000) NULL,
+    [NewPolicyValue] NVARCHAR(1000) NULL,
+    [OldIsActive] BIT NULL,
+    [NewIsActive] BIT NULL,
+    [ChangeReason] NVARCHAR(1000) NULL,
+    [Remark] NVARCHAR(1000) NULL,
+    [ChangedBy] INT NULL,
+    [ChangedDate] DATETIME NOT NULL CONSTRAINT [DF_PolicyConfigurationHistory_ChangedDate] DEFAULT(GETDATE()),
+    CONSTRAINT [PK_PolicyConfigurationHistory]
+        PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_PolicyConfigurationHistory_PolicyConfiguration]
+        FOREIGN KEY ([PolicyConfigurationId])
+        REFERENCES [PTIS].[PolicyConfiguration]([Id])
+);
 
 /* ===========================
  PropertyMapMaster

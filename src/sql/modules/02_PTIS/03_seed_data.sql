@@ -136,6 +136,16 @@ VALUES
 (N'OP', N'प्लॉट',       N'home', NULL, NULL, NULL);
 
 
+INSERT INTO PTIS.TypeOfUseGroupMasterCV
+(TypeOfUseGroupCVCode, GroupName, GroupIcon, IsFloorWiseRateApplicable, CreatedBy, UpdatedBy, UpdatedDate)
+VALUES
+(N'R',  N'निवासी CV',     N'home', 0, NULL, NULL, NULL),
+(N'C',  N'व्यावसायिक CV', N'home', 1, NULL, NULL, NULL),
+(N'I',  N'औद्योगिक CV',   N'home', 0, NULL, NULL, NULL),
+(N'N',  N'इतर CV',        N'home', 0, NULL, NULL, NULL),
+(N'OP', N'प्लॉट CV',       N'home', 0, NULL, NULL, NULL);
+
+
 INSERT INTO [PTIS].[PropertyAssessmentStatusMaster] (StatusName)
 SELECT s.StatusName
 FROM (VALUES
@@ -206,6 +216,13 @@ WHEN NOT MATCHED THEN
         g.TypeOfUseGroupCode              
     FROM PTIS.TypeOfUseGroupMaster g
 ),
+GroupMapCV AS
+(
+    SELECT
+        gcv.Id AS TypeOfUseGroupCVId,      
+        gcv.TypeOfUseGroupCVCode              
+    FROM PTIS.TypeOfUseGroupMasterCV gcv
+),
 TypeSeed AS
 (
     SELECT * FROM (VALUES
@@ -235,112 +252,115 @@ TypeSeed AS
 (N'B', N'बँक', N'C', N'C', 1, NULL, NULL, N'B', 1, 0),
 (N'SW', N'जलतरण तलाव', N'C', N'C', 1, NULL, NULL, N'S', 4, 0),
 (N'I', N'कारखाना', N'I', N'I', 1, NULL, NULL, N'I', 1, 0),
-(N'EP', N'खाजगी शैक्षणिक', N'C', N'C', NULL, NULL, NULL, N'E', 1, 0),
-(N'WR', N'WR-व्हरांडा निवासी', N'R', N'R', NULL, NULL, NULL, N'R', 2, 0),
-(N'WC', N'WC-व्हरांडा अनिवासी', N'C', N'C', NULL, NULL, NULL, N'S', 2, 0),
-(N'CC', N'कोचिंग क्लासेस', N'C', N'C', NULL, NULL, NULL, N'C', 2, 0),
-(N'CG', N'केंद्र शासकीय मालमत्ता', N'C', N'C', NULL, NULL, NULL, N'', NULL, 0),
-(N'CR', N'केंद्र शासकीय मालमत्ता निवासी', N'R', N'R', NULL, NULL, NULL, N'', NULL, 0),
-(N'OPR', N'खुला भूखंड निवासी', N'C', N'C', NULL, NULL, NULL, N'', NULL, 0),
-(N'OPC', N'खुला भूखंड अनिवासी', N'C', N'C', NULL, NULL, NULL, N'', NULL, 0),
-(N'PTR', N'पेट्रोल पंप', N'C', N'C', NULL, NULL, NULL, N'P', 1, 0),
-(N'GC', N'शासकीय अनिवासी', N'C', N'C', NULL, NULL, NULL, N'', NULL, 0),
-(N'O', N'ऑफिस', N'C', N'C', NULL, NULL, NULL, N'O', 1, 0),
-(N'M', N'मंगल कार्यालय', N'C', N'C', NULL, NULL, NULL, N'M', 1, 0),
-(N'KT', N'मल्टीप्लेक्स', N'C', N'C', NULL, NULL, NULL, N'T', 2, 0),
-(N'H', N'हॉटेल', N'C', N'C', NULL, NULL, NULL, N'H', 1, 0),
-(N'OPK', N'ओपन पार्किंग', N'R', N'R', NULL, NULL, NULL, NULL, NULL, 1),
+(N'EP', N'खाजगी शैक्षणिक', N'C', N'C', 1, NULL, NULL, N'E', 1, 0),
+(N'WR', N'WR-व्हरांडा निवासी', N'R', N'R', 1, NULL, NULL, N'R', 2, 0),
+(N'WC', N'WC-व्हरांडा अनिवासी', N'C', N'C', 1, NULL, NULL, N'S', 2, 0),
+(N'CC', N'कोचिंग क्लासेस', N'C', N'C', 1, NULL, NULL, N'C', 2, 0),
+(N'CG', N'केंद्र शासकीय मालमत्ता', N'C', N'C', 1, NULL, NULL, N'C', NULL, 0),
+(N'CR', N'केंद्र शासकीय मालमत्ता निवासी', N'R', N'R', 1, NULL, NULL, N'R', NULL, 0),
+(N'OPR', N'खुला भूखंड निवासी', N'C', N'C', 1, NULL, NULL, N'C', NULL, 0),
+(N'OPC', N'खुला भूखंड अनिवासी', N'C', N'C', 1, NULL, NULL, N'C', NULL, 0),
+(N'PTR', N'पेट्रोल पंप', N'C', N'C', 1, NULL, NULL, N'P', 1, 0),
+(N'GC', N'शासकीय अनिवासी', N'C', N'C', 1, NULL, NULL, N'C', NULL, 0),
+(N'O', N'ऑफिस', N'C', N'C', 1, NULL, NULL, N'O', 1, 0),
+(N'M', N'मंगल कार्यालय', N'C', N'C', 1, NULL, NULL, N'M', 1, 0),
+(N'KT', N'मल्टीप्लेक्स', N'C', N'C', 1, NULL, NULL, N'T', 2, 0),
+(N'H', N'हॉटेल', N'C', N'C', 1, NULL, NULL, N'H', 1, 0),
+(N'OPK', N'ओपन पार्किंग', N'R', N'R', 1, NULL, NULL, N'R', NULL, 1),
 (N'WI', N'WI-व्हरांडा औद्योगिक', N'I', N'I', 1, NULL, NULL, N'I', 2, 0),
-(N'OP', N'खुला भूखंड', N'R', N'R', 1, 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), N'', 0, 0),
-(N'WCGR', N'WCGR-केंद्र शासकीय मालमत्ता', N'R', N'R', NULL, NULL, NULL, N'', NULL, 0),
-(N'WCGC', N'WCGC-केंद्र शासकीय मालमत्ता', N'C', N'C', NULL, NULL, NULL, N'', NULL, 0),
-(N'CH', N'सामाजिक सभागृह', N'C', N'C', NULL, NULL, NULL, N'', NULL, 0),
-(N'L', N'लॉज', N'C', N'C', NULL, NULL, NULL, N'', NULL, 0),
-(N'AG', N'शेती', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
-(N'ACH', N'क्लब हाऊस ', N'C', N'C', NULL, NULL, NULL, N'', NULL, 1),
-(N'AGM', N'सोसायटी जिम', N'C', N'C', NULL, NULL, NULL, N'', NULL, 1),
-(N'AH', N'कॉमन हॉल', N'C', N'C', NULL, NULL, NULL, N'', NULL, 1),
-(N'AMH', N'मल्टीपर्पज हॉल', N'C', N'C', NULL, NULL, NULL, N'', NULL, 1),
-(N'AO', N'सोसायटी ऑफीस ', N'C', N'C', NULL, NULL, NULL, N'', NULL, 1),
-(N'APG', N'खेळाचे मैदान', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
-(N'ASW', N'सोसायटी स्विमिंग पूल', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
-(N'AWC', N'वॉचमन कॅबिन', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
-(N'CCO', N'C-कॉरिडॉर', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
-(N'CCR', N'CCR-ट्युशन क्लासेस ', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'CGC', N'केंद्र शासन वाणिज्य मालमत्ता', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'ENCC', N'ENCC', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'ENCEG', N'ENCEG', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
-(N'ENCEP', N'ENCEP', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'ENCI', N'ENCI', N'I', N'I', NULL, NULL, NULL, N'', NULL, NULL),
-(N'ENCR', N'ENCR', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
-(N'GM', N'व्यायाम शाळा ', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'GMR', N'GMR-व्यायाम शाळा', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'KTR', N'KTR-टॉकीज/चित्रपट गृह', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'NPD', N'न.प.दुकान गाळे', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'OBR', N'OBR', N'N', N'N', NULL, NULL, NULL, N'', NULL, NULL),
-(N'OPKC', N'ओपन पार्किंग अनिवासी', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'RCO', N'R-कॉरिडॉर', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
-(N'RGN', N'जनरेटर रूम/मिटर रूम', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
-(N'SPKC', N'स्टील पार्किंग अनिवासी', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'WT', N'R-टॉवर', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'PG', N'पेयिंग गेस्ट', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
-(N'GA', N'गार्डन', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
-(N'RFG', N'रिफ्युज एरिया', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
-(N'PH', N'पंप हाऊस रूम', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
-(N'SR', N' स्टोअर रूम', N'R', N'R', NULL, NULL, NULL, N'', NULL, 1),
-(N'WAT', N' वॉटर टॅंक', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
-(N'ISR', N'इनडोअर स्पोर्ट रूम ', N'N', N'N', NULL, NULL, NULL, N'', NULL, 1),
-(N'EHO', N'शैक्षणिक संस्था-वसतिगृह', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'PF', N'पोल्ट्रीफार्म', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'NR', N'सर्व्हेक्षण निवासी', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
-(N'NC', N'सर्व्हेक्षण अनिवासी', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'NI', N'सर्व्हेक्षण औद्योगिक', N'I', N'I', NULL, NULL, NULL, N'', NULL, NULL),
-(N'ICR', N'अनधिकृत बांधकाम निवासी', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
-(N'ICC', N'अनधिकृत बांधकाम अनिवासी ', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'ICI', N'अनधिकृत बांधकाम औद्योगिक', N'I', N'I', NULL, NULL, NULL, N'', NULL, NULL),
-(N'ICRT', N'निवासी शास्तीस पात्र अनधिकृत बांधकाम ', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
-(N'ICCT', N'अनिवासी शास्तीस पात्र अनधिकृत बांधकाम ', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'ICIT', N'औद्योगिक शास्तीस पात्र अनधिकृत बांधकाम ', N'I', N'I', NULL, NULL, NULL, N'', NULL, NULL),
-(N'ICHT', N'हॉटेल शास्तीस पात्र अनधिकृत बांधकाम', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'ICH', N'हॉटेल अनधिकृत बांधकाम', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'ICP', N'अनधिकृत बांधकाम निवासी पार्किंग', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
-(N'ICPRT', N'निवासी पार्किंग शास्तीस पात्र अनधिकृत बांधकाम', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
-(N'OAH', N'वृद्धाश्रम', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'ABLC', N'टेरेस-बाल्कनी अनिवासी', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'ABLOP', N'ओपन टेरेस', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
-(N'ABLR', N'टेरेस-बाल्कनी ', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
-(N'ACHC', N'क्लब हाऊस C', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'ASWC', N'सोसायटी स्विमिंग पूल C', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'AWA', N'वेटिंग एरिया', N'R', N'R', NULL, NULL, NULL, N'', NULL, 1),
-(N'FCR', N'फायर कंट्रोल रूम', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL) ,
-(N'FIRR', N'फायर रूम', N'R', N'R', NULL, NULL, NULL, N'', NULL, 1),
-(N'GRR',  N'गारबेज रूम', N'R', N'R', NULL, NULL, NULL, N'', NULL, 1),
-(N'IT',   N'माहिती व तंत्रज्ञान उद्योग', N'I', N'I', NULL, NULL, NULL, N'', NULL, NULL),
-(N'LR',   N'लिफ्ट रूम', N'R', N'R', NULL, NULL, NULL, N'', NULL, 1),
-(N'MR',   N'Mail रूम', N'R', N'R', NULL, NULL, NULL, N'', NULL, 1),
-(N'OL',   N'ओपनिंग लॉबी', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
-(N'OWC',  N'सेंद्रिय कचरा कन्व्हर्टर रूम', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
-(N'SI',   N'सामाजिक संस्था', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
-(N'TL',   N'टेरेस लिफ्ट', N'R', N'R', NULL, NULL, NULL, N'', NULL, NULL),
-(N'OPKI', N'ओपन पार्किंग औदयोगिक', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL),
-(N'SPKI', N'स्टील पार्किंग औदयोगिक', N'C', N'C', NULL, NULL, NULL, N'', NULL, NULL)
-) v(TypeOfUseCode, [Description], [Type], TypeOfUseGroupCode, CreatedBy, UpdatedBy, UpdatedDate, SearchKey, SearchSequence, IsSociety)
+(N'OP', N'खुला भूखंड', N'R', N'R', 1, 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), N'R', 0, 0),
+(N'WCGR', N'WCGR-केंद्र शासकीय मालमत्ता', N'R', N'R', 1, NULL, NULL, N'R', NULL, 0),
+(N'WCGC', N'WCGC-केंद्र शासकीय मालमत्ता', N'C', N'C', 1, NULL, NULL, N'C', NULL, 0),
+(N'CH', N'सामाजिक सभागृह', N'C', N'C', 1, NULL, NULL, N'C', NULL, 0),
+(N'L', N'लॉज', N'C', N'C', 1, NULL, NULL, N'C', NULL, 0),
+(N'AG', N'शेती', N'N', N'N', 1, NULL, NULL, N'N', NULL, 1),
+(N'ACH', N'क्लब हाऊस ', N'C', N'C', 1, NULL, NULL, N'C', NULL, 1),
+(N'AGM', N'सोसायटी जिम', N'C', N'C', 1, NULL, NULL, N'C', NULL, 1),
+(N'AH', N'कॉमन हॉल', N'C', N'C', 1, NULL, NULL, N'C', NULL, 1),
+(N'AMH', N'मल्टीपर्पज हॉल', N'C', N'C', 1, NULL, NULL, N'C', NULL, 1),
+(N'AO', N'सोसायटी ऑफीस ', N'C', N'C', 1, NULL, NULL, N'C', NULL, 1),
+(N'APG', N'खेळाचे मैदान', N'N', N'N', 1, NULL, NULL, N'N', NULL, 1),
+(N'ASW', N'सोसायटी स्विमिंग पूल', N'N', N'N', 1, NULL, NULL, N'N', NULL, 1),
+(N'AWC', N'वॉचमन कॅबिन', N'N', N'N', 1, NULL, NULL, N'N', NULL, 1),
+(N'CCO', N'C-कॉरिडॉर', N'N', N'N', 1, NULL, NULL, N'N', NULL, 1),
+(N'CCR', N'CCR-ट्युशन क्लासेस ', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL),
+(N'CGC', N'केंद्र शासन वाणिज्य मालमत्ता', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL),
+(N'ENCC', N'ENCC', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL),
+(N'ENCEG', N'ENCEG', N'R', N'R', 1, NULL, NULL, N'R', NULL, NULL),
+(N'ENCEP', N'ENCEP', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL),
+(N'ENCI', N'ENCI', N'I', N'I', 1, NULL, NULL, N'I', NULL, NULL),
+(N'ENCR', N'ENCR', N'R', N'R', 1, NULL, NULL, N'R', NULL, NULL),
+(N'GM', N'व्यायाम शाळा ', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL),
+(N'GMR', N'GMR-व्यायाम शाळा', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL),
+(N'KTR', N'KTR-टॉकीज/चित्रपट गृह', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL),
+(N'NPD', N'न.प.दुकान गाळे', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL),
+(N'OBR', N'OBR', N'N', N'N', 1, NULL, NULL, N'N', NULL, NULL),
+(N'OPKC', N'ओपन पार्किंग अनिवासी', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL),
+(N'RCO', N'R-कॉरिडॉर', N'N', N'N', 1, NULL, NULL, N'N', NULL, 1),
+(N'RGN', N'जनरेटर रूम/मिटर रूम', N'N', N'N', 1, NULL, NULL, N'N', NULL, 1),
+(N'SPKC', N'स्टील पार्किंग अनिवासी', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL),
+(N'WT', N'R-टॉवर', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL),
+(N'PG', N'पेयिंग गेस्ट', N'R', N'R', 1, NULL, NULL, N'R', NULL, NULL),
+(N'GA', N'गार्डन', N'N', N'N', 1, NULL, NULL, N'N', NULL, 1),
+(N'RFG', N'रिफ्युज एरिया', N'N', N'N', 1, NULL, NULL, N'N', NULL, 1),
+(N'PH', N'पंप हाऊस रूम', N'N', N'N', 1, NULL, NULL, N'N', NULL, 1),
+(N'SR', N' स्टोअर रूम', N'R', N'R', 1, NULL, NULL, N'R', NULL, 1),
+(N'WAT', N' वॉटर टॅंक', N'N', N'N', 1, NULL, NULL, N'N', NULL, 1),
+(N'ISR', N'इनडोअर स्पोर्ट रूम ', N'N', N'N', 1, NULL, NULL, N'N', NULL, 1),
+(N'EHO', N'शैक्षणिक संस्था-वसतिगृह', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL),
+(N'PF', N'पोल्ट्रीफार्म', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL),
+(N'NR', N'सर्व्हेक्षण निवासी', N'R', N'R', 1, NULL, NULL, N'R', NULL, NULL),
+(N'NC', N'सर्व्हेक्षण अनिवासी', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL),
+(N'NI', N'सर्व्हेक्षण औद्योगिक', N'I', N'I', 1, NULL, NULL, N'I', NULL, NULL),
+(N'ICR', N'अनधिकृत बांधकाम निवासी', N'R', N'R', 1, NULL, NULL, N'R', NULL, NULL),
+(N'ICC', N'अनधिकृत बांधकाम अनिवासी ', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL),
+(N'ICI', N'अनधिकृत बांधकाम औद्योगिक', N'I', N'I', 1, NULL, NULL, N'I', NULL, NULL),
+(N'ICRT', N'निवासी शास्तीस पात्र अनधिकृत बांधकाम ', N'R', N'R', 1, NULL, NULL, N'R', NULL, NULL),
+(N'ICCT', N'अनिवासी शास्तीस पात्र अनधिकृत बांधकाम ', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL),
+(N'ICIT', N'औद्योगिक शास्तीस पात्र अनधिकृत बांधकाम ', N'I', N'I', 1, NULL, NULL, N'I', NULL, NULL),
+(N'ICHT', N'हॉटेल शास्तीस पात्र अनधिकृत बांधकाम', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL),
+(N'ICH', N'हॉटेल अनधिकृत बांधकाम', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL),
+(N'ICP', N'अनधिकृत बांधकाम निवासी पार्किंग', N'R', N'R', 1, NULL, NULL, N'R', NULL, NULL),
+(N'ICPRT', N'निवासी पार्किंग शास्तीस पात्र अनधिकृत बांधकाम', N'R', N'R', 1, NULL, NULL, N'R', NULL, NULL),
+(N'OAH', N'वृद्धाश्रम', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL),
+(N'ABLC', N'टेरेस-बाल्कनी अनिवासी', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL),
+(N'ABLOP', N'ओपन टेरेस', N'R', N'R', 1, NULL, NULL, N'R', NULL, NULL),
+(N'ABLR', N'टेरेस-बाल्कनी ', N'R', N'R', 1, NULL, NULL, N'R', NULL, NULL),
+(N'ACHC', N'क्लब हाऊस C', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL),
+(N'ASWC', N'सोसायटी स्विमिंग पूल C', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL),
+(N'AWA', N'वेटिंग एरिया', N'R', N'R', 1, NULL, NULL, N'R', NULL, 1),
+(N'FCR', N'फायर कंट्रोल रूम', N'R', N'R', 1, NULL, NULL, N'R', NULL, NULL) ,
+(N'FIRR', N'फायर रूम', N'R', N'R', 1, NULL, NULL, N'R', NULL, 1),
+(N'GRR',  N'गारबेज रूम', N'R', N'R', 1, NULL, NULL, N'R', NULL, 1),
+(N'IT',   N'माहिती व तंत्रज्ञान उद्योग', N'I', N'I', 1, NULL, NULL, N'I', NULL, NULL),
+(N'LR',   N'लिफ्ट रूम', N'R', N'R', 1, NULL, NULL, N'R', NULL, 1),
+(N'MR',   N'Mail रूम', N'R', N'R', 1, NULL, NULL, N'R', NULL, 1),
+(N'OL',   N'ओपनिंग लॉबी', N'R', N'R', 1, NULL, NULL, N'R', NULL, NULL),
+(N'OWC',  N'सेंद्रिय कचरा कन्व्हर्टर रूम', N'R', N'R', 1, NULL, NULL, N'R', NULL, NULL),
+(N'SI',   N'सामाजिक संस्था', N'R', N'R', 1, NULL, NULL, N'R', NULL, NULL),
+(N'TL',   N'टेरेस लिफ्ट', N'R', N'R', 1, NULL, NULL, N'R', NULL, NULL),
+(N'OPKI', N'ओपन पार्किंग औदयोगिक', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL),
+(N'SPKI', N'स्टील पार्किंग औदयोगिक', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL)
+) v(TypeOfUseCode, [Description], [Type], TypeOfUseGroupCode, CreatedBy, UpdatedBy, UpdatedDate, TypeOfUseGroupCVCode, SearchSequence, IsSociety)
 )
 
 
 INSERT INTO PTIS.TypeOfUseMaster
-(TypeOfUseCode, [Description], [Type], TypeOfUseGroupId,
+(TypeOfUseCode, [Description], [Type], TypeOfUseGroupId, TypeOfUseGroupCVId,
  CreatedBy, UpdatedBy, UpdatedDate, SearchSequence)
 SELECT
     s.TypeOfUseCode,
     s.[Description],
     s.[Type],
-    gm.TypeOfUseGroupId,                
+    gm.TypeOfUseGroupId,
+    gcv.TypeOfUseGroupCVId,
     s.CreatedBy, s.UpdatedBy, s.UpdatedDate,
     s.SearchSequence
 FROM TypeSeed s
 JOIN GroupMap gm
   ON gm.TypeOfUseGroupCode = s.TypeOfUseGroupCode
+JOIN GroupMapCV gcv
+  ON gcv.TypeOfUseGroupCVCode = s.TypeOfUseGroupCode
 
 
 
@@ -4303,44 +4323,52 @@ FROM (VALUES
 JOIN PTIS.WardMaster wm
   ON wm.WardNo = v.WardNo;
  --- global master-- end---
+ 
 
-
- INSERT INTO [PTIS].[RuleMaster]
-(RuleCode, Category, DisplayName, Description, DataType, DefaultValue, IsActive)
- VALUES
- ('AppealCommittee', 'Policy', 'IsAppealCommittee', 'Appeal Committee Enabled', 'bit', NULL, 0),
- ('AsPerOldApply', 'Policy', 'AsPerOldApply', 'As Per Old Policy', 'bit', NULL, 0),
- ('AsPerOldForNewProperty', 'Policy', 'AsPerOldForNewProperty', 'As Per Old For New Property', 'bit', NULL, 0),
- ('AssessmentCompleted', 'Workflow', 'AssessmentCompleted', 'Assessment Completed', 'bit', NULL, 0),
- ('BigBuildingTaxApply', 'Calculation', 'BigBuildingTaxApply', 'Big Building Tax Applicable', 'bit', NULL, 1),
- ('CalOnRenterRent', 'Calculation', 'CalOnRenterRent', 'Calc On Renter Rent', 'bit', NULL, 1),
- ('CalOnSingleRenterRent', 'Calculation', 'CalOnSingleRenterRent', 'Calc On Single Renter Rent', 'bit', NULL, 1),
- ('CVForPlot', 'Calculation', 'CVForPlot', 'CV With Open Plot', 'bit', NULL, 0),
- ('DataEntryLock', 'Locking', 'DataEntryLock', 'Data Entry Lock', 'bit', NULL, 0),
- ('EduEmpOnRV', 'Calculation', 'EduEmpOnRV', 'Edu/Emp Tax on RV', 'bit', NULL, 0),
- ('EnableLanguage', 'Security', 'EnableLanguage', 'Enable Language Support', 'bit', NULL, 1),
- ('HearingApply', 'Policy', 'IsHearing', 'Hearing Enabled', 'bit', NULL, 0),
- ('HistoryLock', 'Locking', 'HistoryLock', 'Add History Lock', 'bit', NULL, 1),
- ('MaintainanceApply', 'Calculation', 'MaintainanceApply', 'Maintenance Applied', 'bit', NULL, 1),
- ('MaintainancePercentage', 'Calculation', 'MaintainancePercentage', 'MaintainancePercentage', 'int', '10', 1),
- ('MinimumRVApply', 'Policy', 'MinimumRVApply', 'Use Minimum RV', 'bit', NULL, 1),
- ('MixAssessmentApply', 'Policy', 'MixAssessmentApply', 'Mixed Assessment', 'bit', NULL, 0),
- ('PenaltyMonthly', 'AMC', 'PenaltyMonthly', 'Penalty Monthly', 'bit', NULL, 1),
- ('PlotTaxApplicable', 'Policy', 'PlotTaxApplicable', 'Plot Tax Applicable', 'bit', NULL, 1),
- ('PolicyLock', 'Locking', 'PolicyLock', 'Policy Lock', 'bit', NULL, 1),
- ('RetaintionPolicyApply', 'Policy', 'RetaintionPolicyApply', 'Retention (old)', 'bit', NULL, 1),
- ('SectorWisePenalty', 'System', 'SectorWisePenalty', 'Sector-wise Penalty', 'bit', NULL, 0),
- ('ShowPhotoAndPlan', 'System', 'ShowPhotoAndPlan', 'Show Photo And Plan', 'bit', NULL, 1),
- ('TaxesOnCV', 'Calculation', 'TaxesOnCV', 'Taxes On CV', 'bit', NULL, 0),
- ('TaxesOnRV', 'Calculation', 'TaxesOnRV', 'Taxes On RV', 'bit', NULL, 1),
- ('TaxOnBuiltUpArea', 'Calculation', 'TaxOnBuiltUpArea', 'TaxOnBuiltUpArea', 'bit', NULL, 0),
- ('TaxOnToilet', 'Calculation', 'TaxOnToilet', 'Tax On Toilet', 'bit', NULL, 0),
- ('UserChargesOnPropertyType', 'Calculation', 'UserChargesOnPropertyType', 'UserChargesOnPropertyType', 'bit', NULL, 1);
-
-
- GO
-
-
+ INSERT INTO [PTIS].[PolicyConfiguration]
+(
+    PolicyCode, Category, DisplayName, Description,
+    DataType, PolicyValue, DefaultValue,
+    IsActive, Unit,CreatedDate
+)
+ SELECT
+     v.PolicyCode, v.Category, v.DisplayName, v.Description,
+     v.DataType, v.PolicyValue, v.DefaultValue,
+     v.IsActive, v.Unit, v.CreatedDate
+ FROM (VALUES
+     (N'AssessmentYear', N'General', N'Assessment Base Year',
+      N'Assessment base year for policy configuration.',
+      N'INT', N'2010', N'2010', 1, NULL, GETDATE()),
+     (N'TaxesOnCV', N'Calculation', N'Taxes On CV',
+      N'Apply tax calculation based on Capital Value (CV).',
+      N'BIT', 1, N'0', 1, NULL, GETDATE()),
+     (N'TaxesOnRV', N'Calculation', N'Taxes On RV',
+      N'Apply tax calculation based on Rateable Value (RV).',
+      N'BIT', 1, N'1', 1, NULL, GETDATE()),
+     (N'TaxOnBuiltUpArea', N'Calculation', N'Tax On Built Up Area',
+      N'Apply tax calculation based on Built Up Area.',
+      N'BIT', 0, N'0', 1, NULL, GETDATE()),
+     (N'EducationEmploymentTaxOnRV', N'Calculation',
+      N'Education / Employment Tax On RV',
+      N'Apply Education Tax and Employment Tax based on Rateable Value (RV).',
+      N'BIT', 0, N'0', 1, NULL, GETDATE()),
+     (N'ApplyMaintenance', N'Calculation', N'Apply Maintenance',
+      N'Apply maintenance deduction during annual rental value or rateable value calculation.',
+      N'BIT', 1, N'1', 1, NULL, GETDATE()),
+     (N'MaintenancePercentage', N'Calculation', N'Maintenance Percentage',
+      N'Percentage of maintenance deduction applied during annual rental value or rateable value calculation.',
+      N'DECIMAL', N'10', N'10', 1, N'PERCENT', GETDATE())
+ ) v
+ (
+     PolicyCode, Category, DisplayName, Description,
+     DataType, PolicyValue, DefaultValue,
+     IsActive, Unit, CreatedDate
+ )
+ WHERE NOT EXISTS (
+     SELECT 1
+     FROM [PTIS].[PolicyConfiguration] pc
+     WHERE pc.PolicyCode = v.PolicyCode
+ );
 ------------------------tax configuration-----------------------
 
 INSERT INTO PTIS.TaxCategoryMaster (CategoryCode, CategoryName, IsActive, CreatedBy)
