@@ -3994,6 +3994,66 @@ CREATE NONCLUSTERED INDEX [IX_CombinePropertyHistory_CombinedPropertyId]
 ON [PTIS].[CombinePropertyHistory] ([CombinedPropertyId] ASC);
 GO
 
+/****** Object:  Table [PTIS].[PropertyPhotoType] ******/
 
+CREATE TABLE [PTIS].[PropertyPhotoType](
+	[Id]            INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,   -- Surrogate PK | e.g. 1
+	[PhotoTypeCode] VARCHAR(50)        NOT NULL,                      -- Machine code, stable | e.g. 'FRONT'
+	[PhotoTypeName] NVARCHAR(200)      NOT NULL,                      -- UI label | e.g. 'Front View'
+	[Description]   NVARCHAR(500)      NULL,                          -- Tooltip / help text | e.g. 'Front facade of the property'
+	[DisplayOrder]  INT                NULL,                          -- UI dropdown sort | e.g. 1
+	[IsActive]      BIT                NOT NULL                       -- Soft hide flag | e.g. 1
+		CONSTRAINT [DF_PropertyPhotoType_IsActive] DEFAULT (1),
+	[CreatedBy]     INT                NULL,                          -- Audit user | e.g. 42
+	[CreatedDate]   DATETIME           NOT NULL                       -- Insert ts | e.g. 2026-05-28
+		CONSTRAINT [DF_PropertyPhotoType_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy]     INT                NULL,                          -- Audit user | e.g. NULL
+	[UpdatedDate]   DATETIME           NULL,                          -- Update ts | e.g. NULL
+	CONSTRAINT [PK_PropertyPhotoType]  PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT [UQ_PropertyPhotoType_Code] UNIQUE ([PhotoTypeCode])
+);
+GO
 
- 
+CREATE NONCLUSTERED INDEX [IX_PropertyPhotoType_IsActive]
+	ON [PTIS].[PropertyPhotoType]([IsActive]) WHERE [IsActive] = 1;
+GO
+
+/****** Object:  Table [PTIS].[PropertyPhoto] ******/
+
+CREATE TABLE [PTIS].[PropertyPhoto](
+    [Id]                    INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,  -- Surrogate PK | e.g. 5001
+    [PropertyId]            INT               NOT NULL,                      -- FK → PTIS.PropertyMast.Id | e.g. 101
+    [PhotoTypeId]           INT               NOT NULL,                      -- FK → PropertyPhotoType.Id | e.g. 1 (FRONT)
+    [DocumentBindingId]     INT               NULL,                          -- FK → CORE.DocumentBinding.Id | e.g. 7701
+    [IsLatest]              BIT               NOT NULL                       -- 1=current, 0=superseded | e.g. 1
+        CONSTRAINT [DF_PropertyPhoto_IsLatest] DEFAULT (1),
+    [DisplayOrder]          INT               NULL,                          -- Gallery sort within (PropertyId, PhotoTypeId) | e.g. 2
+    [Remarks]               NVARCHAR(500)     NULL,                          -- Surveyor notes | e.g. 'Captured at noon'
+    [MarkedForDeletion]     BIT               NOT NULL                       -- Two-phase delete flag | e.g. 0
+        CONSTRAINT [DF_PropertyPhoto_MarkedForDeletion] DEFAULT (0),
+    [MarkedForDeletionDate] DATETIME          NULL,                          -- Flagged-for-delete ts | e.g. NULL
+    [IsActive]              BIT               NOT NULL                       -- Soft delete | e.g. 1
+        CONSTRAINT [DF_PropertyPhoto_IsActive] DEFAULT (1),
+    [CreatedBy]             INT               NULL,                          -- Audit user | e.g. 42
+    [CreatedDate]           DATETIME          NOT NULL                       -- Insert ts | e.g. 2026-05-28
+        CONSTRAINT [DF_PropertyPhoto_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy]             INT               NULL,                          -- Audit user | e.g. NULL
+    [UpdatedDate]           DATETIME          NULL,                          -- Update ts | e.g. NULL
+    CONSTRAINT [PK_PropertyPhoto] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+GO
+
+ALTER TABLE [PTIS].[PropertyPhoto] WITH CHECK
+ADD CONSTRAINT [FK_PropertyPhoto_PropertyMast]    FOREIGN KEY ([PropertyId])        REFERENCES [PTIS].[PropertyMast]([Id]);
+ALTER TABLE [PTIS].[PropertyPhoto] WITH CHECK
+ADD CONSTRAINT [FK_PropertyPhoto_PhotoType]       FOREIGN KEY ([PhotoTypeId])       REFERENCES [PTIS].[PropertyPhotoType]([Id]);
+ALTER TABLE [PTIS].[PropertyPhoto] WITH CHECK
+ADD CONSTRAINT [FK_PropertyPhoto_DocumentBinding] FOREIGN KEY ([DocumentBindingId]) REFERENCES [CORE].[DocumentBinding]([Id]);
+GO
+
+-- Single unique index with INCLUDE clause - serves both uniqueness enforcement and query performance
+CREATE UNIQUE NONCLUSTERED INDEX [UX_PropertyPhoto_Latest_Per_Property_Type]
+	ON [PTIS].[PropertyPhoto]([PropertyId], [PhotoTypeId])
+	INCLUDE ([DocumentBindingId], [DisplayOrder], [IsLatest])
+	WHERE [IsLatest] = 1 AND [IsActive] = 1 AND [MarkedForDeletion] = 0;
+GO
