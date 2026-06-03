@@ -104,7 +104,6 @@ CREATE TABLE [PTIS].[PropertyTypeMaster](
 	[Id] int IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[PropertyDescription] [nvarchar](100) NOT NULL,
 	[Type] [varchar](5) NOT NULL,
-	[PropertyTypeGroup] [nvarchar](50) NULL,
 	[SearchSequence] [int] NULL,
 	[PropertyTypeCategoryId] [int] NULL,
 	[PartType] [nvarchar](20)  NULL,
@@ -304,6 +303,64 @@ CREATE TABLE [PTIS].[MoujaMaster](
 	CONSTRAINT [UQ_MoujaMaster_MoujaName] UNIQUE ([MoujaName] ASC)
 )
 
+/****** Object:  Table [PTIS].[FloorGroupMaster]    Script Date: 5/7/2026 1:08:27 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [PTIS].[FloorGroupMaster](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[FloorGroup] [varchar](30) NOT NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_FloorGroupMaster_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_FloorGroupMaster_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	 CONSTRAINT [PK_FloorGroupMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+	 CONSTRAINT [UQ_FloorGroupMaster_FloorGroup] UNIQUE ([FloorGroup] ASC)
+
+)
+/****** Object:  Table [PTIS].[FloorMaster]******/
+
+CREATE TABLE [PTIS].[FloorMaster](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[FloorCode] nvarchar(5) NOT NULL,
+	[Description] [nvarchar](100) NOT NULL,
+	[SequenceNo] [int] NULL,
+	[MaxFloorNo] [int] NULL,
+	[FloorGroupId] [int] NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_FloorMaster_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_FloorMaster_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+  CONSTRAINT [PK_FloorMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+  CONSTRAINT [UQ_FloorMaster_Code] UNIQUE ([FloorCode]),
+  CONSTRAINT [UQ_FloorMaster_Description] UNIQUE ([Description]),
+  CONSTRAINT [FK_FloorMaster_FloorGroupMaster] FOREIGN KEY ([FloorGroupId]) REFERENCES [PTIS].[FloorGroupMaster]([Id])
+);
+
+GO
+
+
+/****** Object:  Table [PTIS].[SubFloorMaster]******/
+
+CREATE TABLE [PTIS].[SubFloorMaster](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[SubFloorCode] [nvarchar](10) NOT NULL,
+	[Description] [nvarchar](200) NULL,
+	[SubFloorPercentage] [money] NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_SubFloorMaster_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_SubFloorMaster_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+  CONSTRAINT [PK_SubFloorMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+  CONSTRAINT [UQ_SubFloorMaster_SubFloorCode] UNIQUE ([SubFloorCode]),
+  CONSTRAINT [UQ_SubFloorMaster_Description] UNIQUE ([Description])
+)
+GO
+
 
 
 /****** Object:  Table [PTIS].[PropertyMastOld]******/
@@ -416,6 +473,7 @@ CREATE TABLE [PTIS].[PropertyMast](
 	[LocationEnglish] [nvarchar](200) NULL,
 	[PropertyAssessmentStatusId] [int] NULL,
 	[PropertyMastOldId] [int] NULL,
+	[PropertyFloorId] [int] NULL,
 	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_PropertyMast_MarkedForDeletion] DEFAULT (0),
     [MarkedForDeletionDate] [datetime] NULL  ,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyMast_IsActive] DEFAULT (1),
@@ -470,6 +528,17 @@ GO
 ALTER TABLE	 [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_PropertyMastOld]
 GO
 
+
+
+
+ALTER TABLE [PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_FloorMaster] FOREIGN KEY([PropertyFloorId])
+REFERENCES [PTIS].[FloorMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_FloorMaster]
+GO
+
+
+
 ALTER TABLE	[PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_PropertyAssessmentStatusMaster] FOREIGN KEY([PropertyAssessmentStatusId])	
 REFERENCES [PTIS].[PropertyAssessmentStatusMaster] ([Id])	
 GO	
@@ -496,44 +565,6 @@ ALTER TABLE [PTIS].[PropertyMastOld] WITH CHECK ADD CONSTRAINT [FK_PropertyMastO
 FOREIGN KEY([MappedNewPropertyId]) REFERENCES [PTIS].[PropertyMast]([Id])
 GO
 
-/****** Object:  Table [PTIS].[FloorGroupMaster]    Script Date: 5/7/2026 1:08:27 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [PTIS].[FloorGroupMaster](
-	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-	[FloorGroup] [varchar](30) NOT NULL,
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_FloorGroupMaster_IsActive] DEFAULT (1),
-	[CreatedBy] [int] NULL,
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_FloorGroupMaster_CreatedDate] DEFAULT (GETDATE()),
-	[UpdatedBy] [int] NULL,
-	[UpdatedDate] [datetime] NULL,
-	 CONSTRAINT [PK_FloorGroupMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
-	 CONSTRAINT [UQ_FloorGroupMaster_FloorGroup] UNIQUE ([FloorGroup] ASC)
-
-)
-/****** Object:  Table [PTIS].[FloorMaster]******/
-
-CREATE TABLE [PTIS].[FloorMaster](
-	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-	[FloorCode] nvarchar(5) NOT NULL,
-	[Description] [nvarchar](100) NOT NULL,
-	[SequenceNo] [int] NULL,
-	[MaxFloorNo] [int] NULL,
-	[FloorGroupId] [int] NULL,
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_FloorMaster_IsActive] DEFAULT (1),
-	[CreatedBy] [int] NULL,
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_FloorMaster_CreatedDate DEFAULT (GETDATE()),
-	[UpdatedBy] [int] NULL,
-	[UpdatedDate] [datetime] NULL,
-  CONSTRAINT [PK_FloorMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
-  CONSTRAINT [UQ_FloorMaster_Code] UNIQUE ([FloorCode]),
-  CONSTRAINT [UQ_FloorMaster_Description] UNIQUE ([Description]),
-  CONSTRAINT [FK_FloorMaster_FloorGroupMaster] FOREIGN KEY ([FloorGroupId]) REFERENCES [PTIS].[FloorGroupMaster]([Id])
-);
-
-GO
 
 /****** Object:  Table [PTIS].[ConstructionTypeMaster]******/
 
@@ -666,23 +697,6 @@ GO
 
 
 
-/****** Object:  Table [PTIS].[SubFloorMaster]******/
-
-CREATE TABLE [PTIS].[SubFloorMaster](
-	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-	[SubFloorCode] [nvarchar](10) NOT NULL,
-	[Description] [nvarchar](200) NULL,
-	[SubFloorPercentage] [money] NULL,
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_SubFloorMaster_IsActive] DEFAULT (1),
-	[CreatedBy] [int] NULL,
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_SubFloorMaster_CreatedDate DEFAULT (GETDATE()),
-	[UpdatedBy] [int] NULL,
-	[UpdatedDate] [datetime] NULL,
-  CONSTRAINT [PK_SubFloorMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
-  CONSTRAINT [UQ_SubFloorMaster_SubFloorCode] UNIQUE ([SubFloorCode]),
-  CONSTRAINT [UQ_SubFloorMaster_Description] UNIQUE ([Description])
-)
-GO
 
 -- /****** Object:  Table [PTIS].[YearMaster]******/
 
