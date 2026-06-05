@@ -2951,33 +2951,30 @@ GO
 ALTER TABLE [PTIS].[RateCVMaster] CHECK CONSTRAINT [FK_RateCVMaster_SubZoneDetailsForCV];
 GO
 
-
-
-
-
-
-
 /****** Object:  Table [PTIS].[CSNDetails]   ******/
  
 CREATE TABLE [PTIS].[CSNDetails](
-	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[RateCVMasterId] [int] NOT NULL,
 	[CSN] [nvarchar](50) NOT NULL,
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_CSNDetails_IsActive] DEFAULT (1),
+	[MoujaId] [int] NULL,
 	[CreatedBy] [int] NULL,
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_CSNDetails_CreatedDate] DEFAULT (GETDATE()),
+	[CreatedDate] [datetime] NULL,
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
-	CONSTRAINT [PK_CSNDetails] PRIMARY KEY CLUSTERED ([Id] ASC),
-	CONSTRAINT [UQ_CSNDetails_CSN] UNIQUE ([RateCVMasterId], [CSN])
-
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_CSNDetails_IsActive] DEFAULT (1),
+	CONSTRAINT [PK_CSNDetails] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
-Go 
+GO
+ALTER TABLE [PTIS].[CSNDetails] ADD  DEFAULT (getdate()) FOR [CreatedDate]
+ALTER TABLE [PTIS].[CSNDetails]  WITH CHECK ADD  CONSTRAINT [FK_csndetails_MoujaMaster] FOREIGN KEY([MoujaId])
+REFERENCES [PTIS].[MoujaMaster] ([Id])
+ALTER TABLE [PTIS].[CSNDetails] CHECK CONSTRAINT [FK_csndetails_MoujaMaster]
 ALTER TABLE [PTIS].[CSNDetails]  WITH CHECK ADD  CONSTRAINT [FK_CSNDetails_RateCVMaster] FOREIGN KEY([RateCVMasterId])
 REFERENCES [PTIS].[RateCVMaster] ([Id])
-Go
 ALTER TABLE [PTIS].[CSNDetails] CHECK CONSTRAINT [FK_CSNDetails_RateCVMaster]
-Go
+
+
 
 
 
