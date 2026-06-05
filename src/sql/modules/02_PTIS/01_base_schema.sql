@@ -198,6 +198,8 @@ CREATE TABLE [PTIS].[SocietyDetailsMast](
 	[SocietyEmailId] [nvarchar](100) NULL,
 	[SecretaryEmailId] [nvarchar](100) NULL,
 	[ManagerEmailId] [nvarchar](100) NULL,
+	[WingPhotoDocumentIds] VARCHAR(1000) NULL,
+	[BoardPhotoDocumentIds] VARCHAR(1000) NULL,
 	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_SocietyDetailsMaster_MarkedForDeletion] DEFAULT (0),
     [MarkedForDeletionDate] [datetime] NULL ,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_SocietyDetailsMaster_IsActive] DEFAULT (1),
@@ -2117,6 +2119,7 @@ ALTER TABLE [PTIS].[PropertyMastDetails] CHECK CONSTRAINT [FK_PropertyMastDetail
 
 CREATE TABLE [PTIS].[SocialAttributeMaster](
    	[Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[PhotoTypeId] INT NULL,
     [SocialAttributeCode] NVARCHAR(100) NOT NULL UNIQUE,
     [SocialAttributeName] NVARCHAR(200) NOT NULL,
     [DataType] NVARCHAR(30) NOT NULL  CONSTRAINT CK_SocialAttributeMaster_DataType  CHECK ([DataType] IN ('BIT', 'INT', 'DECIMAL', 'TEXT', 'DATE')),
@@ -2127,6 +2130,8 @@ CREATE TABLE [PTIS].[SocialAttributeMaster](
     [IsRequiredWhenParentTrue] BIT NOT NULL DEFAULT 0,
     [IsDiscountApplicable] BIT NOT NULL DEFAULT 0,
     [IsActive] [bit] NOT NULL CONSTRAINT [DF_SocialAttributeMaster_IsActive] DEFAULT (1),
+	[IsPhotoRequired] BIT NOT NULL CONSTRAINT [DF_SocialAttributeMaster_IsPhotoRequired] DEFAULT (0),
+    [IsDocumentRequired] BIT NOT NULL CONSTRAINT [DF_SocialAttributeMaster_IsDocumentRequired] DEFAULT (0),
     [CreatedBy] [int] NULL,
     [CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_SocialAttributeMaster_CreatedDate] DEFAULT (GETDATE()),
     [UpdatedBy] [int] NULL,
@@ -4070,4 +4075,8 @@ CREATE UNIQUE NONCLUSTERED INDEX [UX_PropertyPhoto_Latest_Per_Property_Type]
 	ON [PTIS].[PropertyPhoto]([PropertyId], [PhotoTypeId])
 	INCLUDE ([DocumentBindingId], [DisplayOrder], [IsLatest])
 	WHERE [IsLatest] = 1 AND [IsActive] = 1 AND [MarkedForDeletion] = 0;
+GO
+
+ALTER TABLE [PTIS].[SocialAttributeMaster] WITH CHECK ADD CONSTRAINT [FK_SocialAttributeMaster_PhotoType]
+FOREIGN KEY([PhotoTypeId]) REFERENCES [PTIS].[PropertyPhotoType]([Id]);
 GO

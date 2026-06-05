@@ -55,7 +55,41 @@ GO
 ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_OccupierMobileNoRemarkMaster]
 GO
 
+CREATE TABLE [GSMS].[SocietyWingDetails]
+(
+    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [SocietyDetailId] INT NULL,
+    [PropertyId] INT NULL,
+    [WingId] INT NULL,
+    [FromFloor] NVARCHAR(50) NULL,
+    [ToFloor] NVARCHAR(50) NULL,
+    [OldWingName] NVARCHAR(MAX) NULL,
+    [NewWingName] NVARCHAR(500) NULL,
+    [NoOfFlat] INT NULL,
+    [NoOfShop] INT NULL,
+    [NoOfRowHouse] INT NULL,
+    [WingPhoto] INT NULL,
+    [BoardPhoto] INT NULL,
+    [IsActive] BIT NOT NULL CONSTRAINT [DF_SocietyWingDetails_IsActive] DEFAULT ((1)),
+    [CreatedBy] INT NULL,
+    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_SocietyWingDetails_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy] INT NULL,
+    [UpdatedDate] DATETIME NULL,
 
+    CONSTRAINT [PK_GSMS_SocietyWingDetails]
+        PRIMARY KEY CLUSTERED ([Id] ASC),
+
+    CONSTRAINT [FK_SocietyWingDetails_SocietyDetailsMast] 
+        FOREIGN KEY ([SocietyDetailId]) REFERENCES [PTIS].[SocietyDetailsMast] ([Id]),
+
+    CONSTRAINT [FK_SocietyWingDetails_PropertyMast]
+        FOREIGN KEY ([PropertyId])REFERENCES [PTIS].[PropertyMast] ([Id]),
+
+    CONSTRAINT [FK_SocietyWingDetails_WingMaster]
+        FOREIGN KEY ([WingId])REFERENCES [PTIS].[WingMaster] ([Id])
+);
+
+GO
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
