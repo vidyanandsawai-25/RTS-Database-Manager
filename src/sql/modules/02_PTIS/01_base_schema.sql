@@ -3839,6 +3839,63 @@ ON [PTIS].[BulkUpdateHistory] ([PropertyId] ASC);
 GO
 
 
+-- ============================================================
+-- PropertyScreenLock ( One row per (PropertyId, LockableScreenId), where
+-- LockableScreenId references [CORE].[ScreenMaster]. IsLocked
+-- flips on toggle so the same row carries the most-recent lock/unlock audit
+-- trail; the row is never deleted. )
+-- ============================================================
+CREATE TABLE [PTIS].[PropertyScreenLock](
+    [Id]                    INT      IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [PropertyId]            INT      NOT NULL,
+    [LockableScreenId]      INT      NOT NULL,
+    [IsLocked]              BIT      NOT NULL CONSTRAINT [DF_PropertyScreenLock_IsLocked]            DEFAULT (0),
+    [LockedBy]              INT      NULL,
+    [LockedDate]            DATETIME NULL,
+    [UnlockedBy]            INT      NULL,
+    [UnlockedDate]          DATETIME NULL,
+    [MarkedForDeletion]     BIT      NOT NULL CONSTRAINT [DF_PropertyScreenLock_MarkedForDeletion]   DEFAULT (0),
+    [MarkedForDeletionDate] DATETIME NULL,
+    [IsActive]              BIT      NOT NULL CONSTRAINT [DF_PropertyScreenLock_IsActive]            DEFAULT (1),
+    [CreatedBy]             INT      NULL,
+    [CreatedDate]           DATETIME NOT NULL CONSTRAINT [DF_PropertyScreenLock_CreatedDate]         DEFAULT (GETDATE()),
+    [UpdatedBy]             INT      NULL,
+    [UpdatedDate]           DATETIME NULL,
+    CONSTRAINT [PK_PropertyScreenLock]                 PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_PropertyScreenLock_Property_Screen] UNIQUE ([PropertyId], [LockableScreenId])
+);
+GO
+
+-- Supporting index for the LockableScreenId FK. The PropertyId FK is already
+-- supported by the leading column of UQ_PropertyScreenLock_Property_Screen.
+CREATE NONCLUSTERED INDEX [IX_PropertyScreenLock_LockableScreenId]
+    ON [PTIS].[PropertyScreenLock] ([LockableScreenId] ASC);
+GO
+
+ALTER TABLE [PTIS].[PropertyScreenLock] WITH CHECK
+    ADD CONSTRAINT [FK_PropertyScreenLock_PropertyMast]
+    FOREIGN KEY ([PropertyId]) REFERENCES [PTIS].[PropertyMast]([Id]);
+GO
+ALTER TABLE [PTIS].[PropertyScreenLock]
+    CHECK CONSTRAINT [FK_PropertyScreenLock_PropertyMast];
+GO
+
+ALTER TABLE [PTIS].[PropertyScreenLock] WITH CHECK
+    ADD CONSTRAINT [FK_PropertyScreenLock_ScreenMaster]
+    FOREIGN KEY ([LockableScreenId]) REFERENCES [CORE].[ScreenMaster]([Id]);
+GO
+ALTER TABLE [PTIS].[PropertyScreenLock]
+    CHECK CONSTRAINT [FK_PropertyScreenLock_ScreenMaster];
+
+ALTER TABLE [PTIS].[PropertyScreenLock] WITH CHECK
+ ADD CONSTRAINT [CK_PropertyScreenLock_Audit]
+ CHECK (
+     ([IsLocked] = 1 AND [LockedBy] IS NOT NULL AND [LockedDate] IS NOT NULL)
+  OR ([IsLocked] = 0 AND [UnlockedBy] IS NOT NULL AND [UnlockedDate] IS NOT NULL)
+ );
+GO
+
+
 -------------- water connection----------------
 
 CREATE TABLE [PTIS].[WaterConnectionTypeMaster]

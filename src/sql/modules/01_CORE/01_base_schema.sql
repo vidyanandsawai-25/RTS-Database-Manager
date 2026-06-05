@@ -807,6 +807,7 @@ CREATE TABLE [CORE].[ScreenMaster](
 	[RoutePath] [nvarchar](300) NULL,
 	[IsMenu] [bit] NULL,
 	[IsAuthenticationRequired] [bit] NULL,
+    [IsPropertyLockable] [bit] NULL,
 	[DisplayOrder] [int] NULL,
 	[IsActive]     BIT NOT NULL CONSTRAINT DF_ScreenMaster_IsActive DEFAULT(1),
     [CreatedBy]    INT NULL,
