@@ -3739,6 +3739,8 @@ CREATE TABLE [PTIS].[BulkUpdateMaster](
     [DisplaySequence]     INT           NOT NULL CONSTRAINT [DF_BulkUpdateMaster_DisplaySequence] DEFAULT (0),
     [ApiRoute]            VARCHAR(300)  NULL,
     [Description]         NVARCHAR(500) NULL,
+	[Category]            VARCHAR(100)  NULL,
+	[IsApprovalRequired]  BIT           NOT NULL CONSTRAINT [DF_BulkUpdateMaster_IsApprovalRequired]    DEFAULT (0),
     [IsActive]            BIT           NOT NULL CONSTRAINT [DF_BulkUpdateMaster_IsActive]    DEFAULT (1),
     [CreatedBy]           INT           NULL,
     [CreatedDate]         DATETIME      NOT NULL CONSTRAINT [DF_BulkUpdateMaster_CreatedDate] DEFAULT (GETDATE()),
