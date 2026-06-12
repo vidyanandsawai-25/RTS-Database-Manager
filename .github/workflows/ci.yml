@@ -5,54 +5,64 @@ on:
     branches:
       - 'main*'
 
+  workflow_dispatch:
+
 jobs:
   build-and-test:
     runs-on: [self-hosted, Windows, X64, ci]
 
     env:
-      DB_CONNECTION_STRING: "Data Source=(LocalDB)\\MSSQLLocalDB;Integrated Security=True;TrustServerCertificate=True"
+      DB_CONNECTION_STRING: "Server=localhost;Database=master;Integrated Security=True;TrustServerCertificate=True"
       DB_NAME: "MyAppDb"
       DB_NAME_UPGRADE: "MyAppDbUpgrade"
 
-    
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v5
-    
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: '10.0.x'
-    
-    - name: Restore dependencies
-      run: dotnet restore src/DatabaseManager.sln
-    
-    - name: Build solution
-      run: dotnet build src/DatabaseManager.sln --configuration Release --no-restore
-    
-    - name: Setup LocalDB
-      run: |
-        SqlLocalDB create MSSQLLocalDB
-        SqlLocalDB start MSSQLLocalDB
-        SqlLocalDB info MSSQLLocalDB
-    
-    - name: Create test database
-      run: |
-        cd src
-        dotnet run --project DatabaseManager.csproj -- C --connection-string "$env:DB_CONNECTION_STRING" --database "$env:DB_NAME" --version "1.0.0"
-      env:
-        DOTNET_ENVIRONMENT: Development
+      - name: Checkout code
+        uses: actions/checkout@v5
 
-    - name: Create test database for upgrade
-      run: |
-        cd src
-        dotnet run --project DatabaseManager.csproj -- C --connection-string "$env:DB_CONNECTION_STRING" --database "$env:DB_NAME_UPGRADE" --version "1.0.0"
-      env:
-        DOTNET_ENVIRONMENT: Development
-    
-    - name: Verify upgrade execution
-      run: |
-        cd src
-        dotnet run --project DatabaseManager.csproj -- U --connection-string "$env:DB_CONNECTION_STRING" --database "$env:DB_NAME_UPGRADE" --version "1.0.0"
-      env:
-        DOTNET_ENVIRONMENT: Development
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Verify .NET
+        run: dotnet --version
+
+      - name: Restore dependencies
+        run: dotnet restore src/DatabaseManager.sln
+
+      - name: Build solution
+        run: dotnet build src/DatabaseManager.sln --configuration Release --no-restore
+
+      - name: Create test database
+        shell: powershell
+        run: |
+          cd src
+          dotnet run --project DatabaseManager.csproj -- C `
+            --connection-string "$env:DB_CONNECTION_STRING" `
+            --database "$env:DB_NAME" `
+            --version "1.0.0"
+        env:
+          DOTNET_ENVIRONMENT: Development
+
+      - name: Create upgrade database
+        shell: powershell
+        run: |
+          cd src
+          dotnet run --project DatabaseManager.csproj -- C `
+            --connection-string "$env:DB_CONNECTION_STRING" `
+            --database "$env:DB_NAME_UPGRADE" `
+            --version "1.0.0"
+        env:
+          DOTNET_ENVIRONMENT: Development
+
+      - name: Verify upgrade execution
+        shell: powershell
+        run: |
+          cd src
+          dotnet run --project DatabaseManager.csproj -- U `
+            --connection-string "$env:DB_CONNECTION_STRING" `
+            --database "$env:DB_NAME_UPGRADE" `
+            --version "1.0.0"
+        env:
+          DOTNET_ENVIRONMENT: Development
