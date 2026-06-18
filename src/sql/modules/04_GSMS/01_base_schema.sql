@@ -55,6 +55,9 @@ GO
 ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_OccupierMobileNoRemarkMaster]
 GO
 
+ALTER TABLE [GSMS].[CommonRemarkDetails] ADD CONSTRAINT [UQ_CommonRemarkDetails_RemarkTypeId_Remark] UNIQUE ([RemarkTypeId],[Remark])
+GO
+
 CREATE TABLE [GSMS].[SocietyWingDetails]
 (
     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,

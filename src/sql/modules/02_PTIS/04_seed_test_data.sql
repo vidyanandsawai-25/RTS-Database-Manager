@@ -1582,7 +1582,7 @@ INSERT [PTIS].[PropertyMapMaster] ([Id], [ModuleId], [ParentPropertyMapId], [Ver
 GO
 INSERT [PTIS].[PropertyMapMaster] ([Id], [ModuleId], [ParentPropertyMapId], [VersionNo], [MappingCategory], [ChangeReason], [Remark], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (4, NULL, 3, 2, N'ONE_TO_ONE', N'Previous merge mapping corrected', N'Corrected mapping version', 1, 1, CAST(N'2026-05-07T18:58:37.823' AS DateTime), NULL, NULL)
 GO
-INSERT [PTIS].[PropertyMapMaster] ([Id], [ModuleId], [ParentPropertyMapId], [VersionNo], [MappingCategory], [ChangeReason], [Remark], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1009, NULL, NULL, 1, N'MERGE', N'string2', N'string2', 0, 1, CAST(N'2026-05-08T13:12:56.377' AS DateTime), 1, CAST(N'2026-05-08T13:24:02.647' AS DateTime))
+INSERT [PTIS].[PropertyMapMaster] ([Id], [ModuleId], [ParentPropertyMapId], [VersionNo], [MappingCategory], [ChangeReason], [Remark], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1009, NULL, 3, 1, N'MERGE', N'string2', N'string2', 0, 1, CAST(N'2026-05-08T13:12:56.377' AS DateTime), 1, CAST(N'2026-05-08T13:24:02.647' AS DateTime))
 GO
 SET IDENTITY_INSERT [PTIS].[PropertyMapMaster] OFF
 

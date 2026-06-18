@@ -3693,6 +3693,9 @@ CREATE TABLE [PTIS].[PropertyMapMaster](
 );
 GO
 
+ALTER TABLE [PTIS].[PropertyMapMaster] ADD CONSTRAINT [UQ_PropertyMapMaster_ModuleId_ParentPropertyMapId_MappingCategory] UNIQUE ([ModuleId],[ParentPropertyMapId],[MappingCategory])
+GO
+
 /* ===========================
  PropertyMapDetail
 ===========================*/
