@@ -626,6 +626,23 @@ CREATE TABLE [PTIS].[TypeOfUseGroupMasterCV](
   )
 
 GO
+
+/****** Object:  Table [PTIS].[TypeOfUseCategoryMaster]******/
+CREATE TABLE [PTIS].[TypeOfUseCategoryMaster]
+(
+    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [CategoryCode] VARCHAR(50) NOT NULL,
+    [Description] NVARCHAR(500) NULL,
+    [IsActive] BIT NOT NULL CONSTRAINT [DF_TypeOfUseCategoryMaster_IsActive] DEFAULT ((1)),
+    [CreatedBy] INT NULL,
+	[CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_TypeOfUseCategoryMaster_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy] INT NULL,
+    [UpdatedDate] DATETIME NULL CONSTRAINT [DF_TypeOfUseCategoryMaster_UpdatedDate] DEFAULT (NULL),
+    CONSTRAINT [PK_TypeOfUseCategoryMaster] PRIMARY KEY CLUSTERED ([Id]),
+    CONSTRAINT [UK_TypeOfUseCategoryMaster_CategoryCode] UNIQUE ([CategoryCode])
+);
+GO
+
 /****** Object:  Table [PTIS].[TypeOfUseMaster]******/
 
 CREATE TABLE [PTIS].[TypeOfUseMaster](
@@ -636,6 +653,7 @@ CREATE TABLE [PTIS].[TypeOfUseMaster](
 	[TypeOfUseGroupId] int NOT NULL,
 	[TypeOfUseGroupCVId] int NOT NULL,
 	[SearchSequence] [int] NULL,
+	[TypeOfUseCategoryId] INT NULL CONSTRAINT FK_TypeOfUseMaster_TypeOfUseCategoryMaster  FOREIGN KEY REFERENCES ptis.TypeOfUseCategoryMaster(Id),
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_TypeOfUseMaster_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_TypeOfUseMaster_CreatedDate DEFAULT (GETDATE()),
@@ -665,6 +683,7 @@ CREATE TABLE [PTIS].[SubTypeOfUseMaster](
 	[Description] [nvarchar](80) NULL,
 	[TypeOfUseId] [int] NOT NULL,
 	[SearchSequence] [int] NULL,
+	[TypeOfUseCategoryId] [int] NULL CONSTRAINT [FK_SubTypeOfUseMaster_TypeOfUseCategoryMaster] FOREIGN KEY REFERENCES [PTIS].[TypeOfUseCategoryMaster]([Id]),
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_SubTypeOfUseMaster_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_SubTypeOfUseMaster_CreatedDate DEFAULT (GETDATE()),
@@ -676,7 +695,6 @@ CONSTRAINT [UQ_SubTypeOfUseMaster_Type_Desc]  UNIQUE ([Description])
 )
 
 GO
-
 
 /****** Object:  Table [PTIS].[RateSectionMaster]******/
 
@@ -3737,10 +3755,8 @@ CREATE TABLE [PTIS].[BulkUpdateMaster](
     [UpdateCode]          VARCHAR(100)  NOT NULL,
     [UpdateName]          NVARCHAR(200) NOT NULL,
     [UpdateNameMarathi]   NVARCHAR(200) NULL,
-    [IconName]            VARCHAR(100)  NULL,
     [ReferenceTableName]  VARCHAR(200)  NULL,
     [DisplaySequence]     INT           NOT NULL CONSTRAINT [DF_BulkUpdateMaster_DisplaySequence] DEFAULT (0),
-    [ApiRoute]            VARCHAR(300)  NULL,
     [Description]         NVARCHAR(500) NULL,
 	[Category]            VARCHAR(100)  NULL,
 	[IsApprovalRequired]  BIT           NOT NULL CONSTRAINT [DF_BulkUpdateMaster_IsApprovalRequired]    DEFAULT (0),
@@ -4138,4 +4154,26 @@ GO
 
 ALTER TABLE [PTIS].[SocialAttributeMaster] WITH CHECK ADD CONSTRAINT [FK_SocialAttributeMaster_PhotoType]
 FOREIGN KEY([PhotoTypeId]) REFERENCES [PTIS].[PropertyPhotoType]([Id]);
+GO
+
+
+/****** Object:  Table [PTIS].[BuildingPlanType] ******/
+CREATE TABLE [PTIS].[BuildingPlanType]
+(
+    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [WardId] INT NOT NULL,
+    [PropertyNo] NVARCHAR(10) NULL,
+    [Type] VARCHAR(5) NULL,
+    [DocumentBindingId] INT NULL,
+    [IsActive] BIT NOT NULL	CONSTRAINT [DF_BuildingPlanType_IsActive] DEFAULT ((1)),
+    [MarkedForDeletion] BIT NOT NULL CONSTRAINT [DF_BuildingPlanType_MarkedForDeletion] DEFAULT ((0)),
+    [CreatedBy] INT NULL,
+    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_BuildingPlanType_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy] INT NULL,
+    [UpdatedDate] DATETIME NULL CONSTRAINT [DF_BuildingPlanType_UpdatedDate] DEFAULT (NULL),
+    CONSTRAINT [PK_BuildingPlanType] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+GO
+
+ALTER TABLE [PTIS].[BuildingPlanType] ADD CONSTRAINT [FK_BuildingPlanType_DocumentBinding] FOREIGN KEY ([DocumentBindingId]) REFERENCES [CORE].[DocumentBinding]([Id]);
 GO
