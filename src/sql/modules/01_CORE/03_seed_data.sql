@@ -1,4 +1,17 @@
 
+-- Seed default ULB types
+IF NOT EXISTS (SELECT 1 FROM [CORE].[UlbType] WHERE [Id] = 1)
+BEGIN
+    SET IDENTITY_INSERT [CORE].[UlbType] ON;
+    INSERT INTO [CORE].[UlbType] ([Id], [UlbTypeName], [IsActive])
+    VALUES 
+        (1, 'Corporation', 1),
+        (2, 'Council', 1),
+        (3, 'Nagar Panchayat', 1);
+    SET IDENTITY_INSERT [CORE].[UlbType] OFF;
+    PRINT 'UlbType seeded successfully in core.';
+END
+
 SET IDENTITY_INSERT [CORE].[DepartmentMaster] ON;
 
 INSERT INTO [CORE].[DepartmentMaster]

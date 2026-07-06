@@ -3,19 +3,6 @@
 
 GO
 
--- Seed default ULB types first to avoid foreign key constraint conflict
-IF NOT EXISTS (SELECT 1 FROM [CORE].[UlbType] WHERE [Id] = 1)
-BEGIN
-    SET IDENTITY_INSERT [CORE].[UlbType] ON;
-    INSERT INTO [CORE].[UlbType] ([Id], [UlbTypeName], [IsActive])
-    VALUES 
-        (1, 'Corporation', 1),
-        (2, 'Council', 1),
-        (3, 'Nagar Panchayat', 1);
-    SET IDENTITY_INSERT [CORE].[UlbType] OFF;
-    PRINT 'UlbType seeded successfully.';
-END
-
 -- Update default ULB Master record to Akola Municipal Corporation
 IF EXISTS (SELECT 1 FROM [CORE].[UlbMaster] WHERE [Id] = 1)
 BEGIN
@@ -51,7 +38,5 @@ BEGIN
     SET IDENTITY_INSERT [CORE].[UlbMaster] OFF;
     PRINT 'UlbMaster Akola Municipal Corporation record inserted successfully.';
 END
-
-GO
 
 GO
