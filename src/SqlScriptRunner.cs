@@ -113,7 +113,9 @@ END
         }
 
         // Check for modules subfolder and process each module alphabetically
-        var modulesPath = Path.Combine(folderPath, "..", "modules");
+        var modulesPath = Directory.Exists(Path.Combine(folderPath, "modules"))
+            ? Path.Combine(folderPath, "modules")
+            : Path.Combine(folderPath, "..", "modules");
         if (Directory.Exists(modulesPath))
         {
             var moduleDirectories = Directory.GetDirectories(modulesPath).OrderBy(d => d).ToList();
