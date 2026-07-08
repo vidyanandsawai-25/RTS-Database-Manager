@@ -1,4 +1,4 @@
-﻿SET ANSI_NULLS ON
+SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
@@ -477,94 +477,103 @@ CREATE TABLE [PTIS].[PropertyMast](
 	[PropertyMastOldId] [int] NULL,
 	[PropertyFloorId] [int] NULL,
 	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_PropertyMast_MarkedForDeletion] DEFAULT (0),
-    [MarkedForDeletionDate] [datetime] NULL  ,
+        [MarkedForDeletionDate] [datetime] NULL,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyMast_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PropertyMast_CreatedDate DEFAULT (GETDATE()),
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_PropertyMast_CreatedDate] DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
 	
- CONSTRAINT [PK_PropertyMast] PRIMARY KEY CLUSTERED ([Id] ASC)
-) ON [PRIMARY] 
+    CONSTRAINT [PK_PropertyMast] PRIMARY KEY CLUSTERED ([Id] ASC)
+) ON [PRIMARY]
 GO
+
 ALTER TABLE [PTIS].[PropertyMast] WITH CHECK ADD CONSTRAINT [FK_PropertyMast_PropertyTypeMaster]
 FOREIGN KEY([PropertyTypeId]) REFERENCES [PTIS].[PropertyTypeMaster]([Id]);
 GO
+
 ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_PropertyTypeMaster];
 GO
 
 ALTER TABLE [PTIS].[PropertyMast] WITH CHECK ADD CONSTRAINT [FK_PropertyMast_TaxZoneMaster_TaxZoneId]
 FOREIGN KEY([TaxZoneId]) REFERENCES [PTIS].[TaxZoneMaster]([Id]);
 GO
+
 ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_TaxZoneMaster_TaxZoneId];
 GO
 
-ALTER TABLE [PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_PropertyCategoryMaster] FOREIGN KEY([CategoryId])
-REFERENCES [PTIS].[PropertyCategoryMaster] ([Id])
-GO	
-ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_PropertyCategoryMaster]
+ALTER TABLE [PTIS].[PropertyMast] WITH CHECK ADD CONSTRAINT [FK_PropertyMast_PropertyCategoryMaster] FOREIGN KEY([CategoryId]) 
+REFERENCES [PTIS].[PropertyCategoryMaster] ([Id]);
 GO
 
-ALTER TABLE [PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_WardMaster] FOREIGN KEY([WardId])
-REFERENCES [PTIS].[WardMaster] ([Id])
-GO
-ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_WardMaster]
+ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_PropertyCategoryMaster];
 GO
 
-
-ALTER TABLE [PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_SocietyDetailsMast] FOREIGN KEY([SocietyDetailId])
-REFERENCES [PTIS].[SocietyDetailsMast] ([Id])
-GO
-ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_SocietyDetailsMast]
+ALTER TABLE [PTIS].[PropertyMast] WITH CHECK ADD CONSTRAINT [FK_PropertyMast_WardMaster] FOREIGN KEY([WardId]) 
+REFERENCES [PTIS].[WardMaster] ([Id]);
 GO
 
-ALTER TABLE [PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_MoujaMaster] FOREIGN KEY([MoujaId])
-REFERENCES [PTIS].[MoujaMaster] ([Id])
-GO
-ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_MoujaMaster]
+ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_WardMaster];
 GO
 
-ALTER TABLE	 [PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_PropertyMastOld] FOREIGN KEY([PropertyMastOldId])	
-REFERENCES [PTIS].[PropertyMastOld] ([Id])
-GO
-ALTER TABLE	 [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_PropertyMastOld]
+ALTER TABLE [PTIS].[PropertyMast] WITH CHECK ADD CONSTRAINT [FK_PropertyMast_SocietyDetailsMast] FOREIGN KEY([SocietyDetailId])
+ REFERENCES [PTIS].[SocietyDetailsMast] ([Id]);
 GO
 
-
-
-
-ALTER TABLE [PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_FloorMaster] FOREIGN KEY([PropertyFloorId])
-REFERENCES [PTIS].[FloorMaster] ([Id])
-GO
-ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_FloorMaster]
+ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_SocietyDetailsMast];
 GO
 
-
-
-ALTER TABLE	[PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_PropertyAssessmentStatusMaster] FOREIGN KEY([PropertyAssessmentStatusId])	
-REFERENCES [PTIS].[PropertyAssessmentStatusMaster] ([Id])	
-GO	
-ALTER TABLE	[PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_PropertyAssessmentStatusMaster]
+ALTER TABLE [PTIS].[PropertyMast] WITH CHECK ADD CONSTRAINT [FK_PropertyMast_MoujaMaster] FOREIGN KEY([MoujaId])
+ REFERENCES [PTIS].[MoujaMaster] ([Id]);
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX [UX_PropertyMast_UPICID_NotNull]
-ON [PTIS].[PropertyMast]([UPICId] ASC)
-WHERE [UPICId] IS NOT NULL;
-
+ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_MoujaMaster];
 GO
-CREATE NONCLUSTERED INDEX [Ind_Category] 
+
+ALTER TABLE [PTIS].[PropertyMast] WITH CHECK ADD CONSTRAINT [FK_PropertyMast_PropertyMastOld] FOREIGN KEY([PropertyMastOldId])
+ REFERENCES [PTIS].[PropertyMastOld] ([Id]);
+GO
+
+ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_PropertyMastOld];
+GO
+
+ALTER TABLE [PTIS].[PropertyMast] WITH CHECK ADD CONSTRAINT [FK_PropertyMast_FloorMaster] FOREIGN KEY([PropertyFloorId])
+ REFERENCES [PTIS].[FloorMaster] ([Id]);
+GO
+
+ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_FloorMaster];
+GO
+
+ALTER TABLE [PTIS].[PropertyMast] WITH CHECK ADD CONSTRAINT [FK_PropertyMast_PropertyAssessmentStatusMaster] FOREIGN KEY([PropertyAssessmentStatusId])
+ REFERENCES [PTIS].[PropertyAssessmentStatusMaster] ([Id]);
+GO
+
+ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_PropertyAssessmentStatusMaster];
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX [UX_PropertyMast_ActiveProperty] ON PTIS.PropertyMast(WardId,PropertyNo,PartitionNo) WHERE [MarkedForDeletion] = 0;
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX [UX_PropertyMast_UPICID_NotNull] ON PTIS.PropertyMast ([UPICId] ASC) WHERE [UPICId] IS NOT NULL AND [MarkedForDeletion] = 0
+WITH( PAD_INDEX = OFF,STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF,IGNORE_DUP_KEY = OFF,DROP_EXISTING = OFF,ONLINE = OFF,ALLOW_ROW_LOCKS = ON,ALLOW_PAGE_LOCKS = ON,OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY];
+GO
+
+CREATE NONCLUSTERED INDEX [Ind_Category]
 ON [PTIS].[PropertyMast]
 (
     [WardId] ASC,
     [PropertyNo] ASC,
     [PartitionNo] ASC
 )
-INCLUDE ([CategoryId])
+INCLUDE ([CategoryId]);
 GO
 
- /****** Add this constraint here because [PTIS].[PropertyMast] must be created before it, to avoid an execution error. ******/
+/****** Add this constraint here because [PTIS].[PropertyMast] must be created before it, to avoid an execution error. ******/
 ALTER TABLE [PTIS].[PropertyMastOld] WITH CHECK ADD CONSTRAINT [FK_PropertyMastOld_PropertyMast]
-FOREIGN KEY([MappedNewPropertyId]) REFERENCES [PTIS].[PropertyMast]([Id])
+FOREIGN KEY([MappedNewPropertyId]) REFERENCES [PTIS].[PropertyMast]([Id]);
 GO
 
 
@@ -3129,13 +3138,14 @@ CREATE TABLE PTIS.TaxPendingDetails (
     [PendingYearId] INT NOT NULL,
     [TaxId] INT NOT NULL,
     [PendingAmount] DECIMAL(18,2) NOT NULL CONSTRAINT [DF_TaxPendingDetails_PendingAmount] DEFAULT (0),
-  	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetails_MarkedForDeletion] DEFAULT (0),
-	[MarkedForDeletionDate] [datetime] NULL,
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetails_IsActive] DEFAULT (1),
-	[CreatedBy] [int] NULL,
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_TaxPendingDetails_CreatedDate] DEFAULT (GETDATE()),
-	[UpdatedBy] [int] NULL,
-	[UpdatedDate] [datetime] NULL,
+    [PendingFixed] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetails_PendingFixed] DEFAULT (0),
+    [MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetails_MarkedForDeletion] DEFAULT (0),
+    [MarkedForDeletionDate] [datetime] NULL,
+    [IsActive] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetails_IsActive] DEFAULT (1),
+    [CreatedBy] [int] NULL,
+    [CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_TaxPendingDetails_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy] [int] NULL,
+    [UpdatedDate] [datetime] NULL,
 
     CONSTRAINT [PK_TaxPendingDetails] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_TaxPendingDetails_TaxMaster] FOREIGN KEY ([TaxId]) REFERENCES PTIS.TaxMaster([Id]),
@@ -3145,13 +3155,13 @@ CREATE TABLE PTIS.TaxPendingDetails (
 
 /****** Object:  Table [PTIS].[TaxPendingDetailsArchive]******/
 
-
 CREATE TABLE  [PTIS].[TaxPendingDetailsArchive](
     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [PropertyId] INT NOT NULL,
     [PendingYearId] INT NOT NULL,
     [TaxId] INT NOT NULL,
     [PendingAmount] DECIMAL(18,2) NOT NULL CONSTRAINT [DF_TaxPendingDetailsArchive_ArrearsAmount] DEFAULT (0),
+    [PendingFixed] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsArchive_PendingFixed] DEFAULT (0),
     [MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsArchive_MarkedForDeletion] DEFAULT (0),
     [MarkedForDeletionDate] [datetime] NULL,
     [IsActive] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsArchive_IsActive] DEFAULT (1),
@@ -3423,7 +3433,6 @@ ALTER TABLE PTIS.TransMastRV ADD CONSTRAINT [UQ_TransMastRV_Property_Year_Tax] U
 CREATE NONCLUSTERED INDEX IX_TransMastRV_PropertyYear ON PTIS.TransMastRV(PropertyId, FinanceYearId)  INCLUDE (TaxId, TaxAmount);
 CREATE NONCLUSTERED INDEX IX_TransMastRV_TaxId ON PTIS.TransMastRV(TaxId);
 
-
 /****** Object:  Table [PTIS].[TypeOfUsePrimeMaster]******/
 
 CREATE TABLE [PTIS].[TypeOfUsePrimeMaster](
@@ -3657,6 +3666,7 @@ CREATE TABLE [PTIS].[PolicyConfiguration]
 	[Unit] VARCHAR(30) NULL,  
 	[EffectiveFrom] DATETIME NULL,
     [EffectiveTo] DATETIME NULL,
+    [AllowedValues] NVARCHAR(500) NULL,
 	[IsActive] BIT NOT NULL CONSTRAINT [DF_PolicyConfiguration_IsActive] DEFAULT (1),
     [CreatedBy] INT NULL, 
     [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_PolicyConfiguration_CreatedDate] DEFAULT (GETDATE()),
@@ -4156,6 +4166,110 @@ ALTER TABLE [PTIS].[SocialAttributeMaster] WITH CHECK ADD CONSTRAINT [FK_SocialA
 FOREIGN KEY([PhotoTypeId]) REFERENCES [PTIS].[PropertyPhotoType]([Id]);
 GO
 
+
+
+/****** Object:  Table [PTIS].[PropertyTaxJob] ******/
+
+CREATE TABLE [PTIS].[PropertyTaxJob]
+(
+    [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [JobCode] [varchar](30) NOT NULL,
+    [Operation] [varchar](30) NOT NULL,
+    [FinanceYearId] [int] NOT NULL,
+    [ScopeType] [varchar](20) NOT NULL,
+    [ScopeParamsJson] [nvarchar](max) NULL,
+    [ScopeDescription] [nvarchar](500) NULL,
+    [StartedByUserId] [int] NOT NULL,
+    [StartedByUserName] [nvarchar](200) NULL,
+    [UserRole] [nvarchar](100) NULL,
+    [StartTime] [datetime] NOT NULL,
+    [CompleteTime] [datetime] NULL,
+    [DurationMs] [bigint] NULL,
+    [RecordsSelected] [int] NOT NULL CONSTRAINT [DF_PropertyTaxJob_RecordsSelected] DEFAULT (0),
+    [RecordsProcessed] [int] NOT NULL CONSTRAINT [DF_PropertyTaxJob_RecordsProcessed] DEFAULT (0),
+    [SuccessCount] [int] NOT NULL CONSTRAINT [DF_PropertyTaxJob_SuccessCount] DEFAULT (0),
+    [SkippedCount] [int] NOT NULL CONSTRAINT [DF_PropertyTaxJob_SkippedCount] DEFAULT (0),
+    [FailedCount] [int] NOT NULL CONSTRAINT [DF_PropertyTaxJob_FailedCount] DEFAULT (0),
+    [Status] [varchar](20) NOT NULL,
+    [ErrorMessage] [nvarchar](2000) NULL,
+    [Remarks] [nvarchar](1000) NULL,
+    [MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_PropertyTaxJob_MarkedForDeletion] DEFAULT (0),
+    [MarkedForDeletionDate] [datetime] NULL,
+    [IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyTaxJob_IsActive] DEFAULT (1),
+    [CreatedBy] [int] NULL,
+    [CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_PropertyTaxJob_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy] [int] NULL,
+    [UpdatedDate] [datetime] NULL,
+
+    CONSTRAINT [PK_PropertyTaxJob] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_PropertyTaxJob_YearMaster] FOREIGN KEY ([FinanceYearId]) REFERENCES [CORE].[YearMaster]([Id]),
+    CONSTRAINT [CK_PropertyTaxJob_Operation] CHECK
+    (
+        [Operation] IN ('AddTax', 'QuarterlyAdd')
+    ),
+    CONSTRAINT [CK_PropertyTaxJob_Status] CHECK
+    (
+        [Status] IN ('Scheduled', 'Pending', 'InProgress', 'Completed', 'Failed')
+    )
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX [UX_PropertyTaxJob_JobCode_Active]
+ON [PTIS].[PropertyTaxJob]([JobCode] ASC)
+WHERE [IsActive] = 1 AND [MarkedForDeletion] = 0;
+GO
+
+
+
+/****** Object:  Table [PTIS].[PropertyTaxJobDetail] ******/
+
+CREATE TABLE [PTIS].[PropertyTaxJobDetail]
+(
+    [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [JobId] [int] NOT NULL,
+    [PropertyId] [int] NOT NULL,
+    [PropertyNo] [nvarchar](10) NULL,
+    [TaxHead] [nvarchar](500) NULL,
+    [Amount] [money] NULL,
+    [ExecutionStartTime] [datetime] NULL,
+    [ExecutionEndTime] [datetime] NULL,
+    [Status] [varchar](20) NOT NULL,
+    [SkipReason] [varchar](50) NULL,
+    [Message] [nvarchar](2000) NULL,
+    [MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_PropertyTaxJobDetail_MarkedForDeletion] DEFAULT (0),
+    [MarkedForDeletionDate] [datetime] NULL,
+    [IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyTaxJobDetail_IsActive] DEFAULT (1),
+    [CreatedBy] [int] NULL,
+    [CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_PropertyTaxJobDetail_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy] [int] NULL,
+    [UpdatedDate] [datetime] NULL,
+
+    CONSTRAINT [PK_PropertyTaxJobDetail] PRIMARY KEY CLUSTERED ([Id] ASC),
+
+    CONSTRAINT [FK_PropertyTaxJobDetail_PropertyMast] FOREIGN KEY ([PropertyId]) REFERENCES [PTIS].[PropertyMast] ([Id]),
+
+    CONSTRAINT [FK_PropertyTaxJobDetail_PropertyTaxJob] FOREIGN KEY ([JobId]) REFERENCES [PTIS].[PropertyTaxJob] ([Id]),
+
+    CONSTRAINT [CK_PropertyTaxJobDetail_SkipReason]
+    CHECK
+    (
+        [SkipReason] IS NULL
+        OR [SkipReason] IN
+        (
+            'ApprovalRequired','PermissionRestricted','InvalidScope','PendingVerification','PropertyLocked','AlreadyProcessed'
+        )
+    ),
+
+    CONSTRAINT [CK_PropertyTaxJobDetail_Status]
+    CHECK
+    (
+        [Status] IN
+        (
+		 'Pending','Processing','Added','Failed','Completed','Paused','Skipped'
+        )
+    )
+) ON [PRIMARY]
+GO
 
 /****** Object:  Table [PTIS].[BuildingPlanType] ******/
 CREATE TABLE [PTIS].[BuildingPlanType]

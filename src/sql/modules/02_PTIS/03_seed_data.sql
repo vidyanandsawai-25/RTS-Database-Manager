@@ -4331,51 +4331,59 @@ JOIN PTIS.WardMaster wm
   ON wm.WardNo = v.WardNo;
  --- global master-- end---
  
-
  INSERT INTO [PTIS].[PolicyConfiguration]
 (
     PolicyCode, Category, DisplayName, Description,
     DataType, PolicyValue, DefaultValue,
-    IsActive, Unit,CreatedDate
+    IsActive, Unit, AllowedValues, CreatedDate
 )
  SELECT
      v.PolicyCode, v.Category, v.DisplayName, v.Description,
      v.DataType, v.PolicyValue, v.DefaultValue,
-     v.IsActive, v.Unit, v.CreatedDate
+     v.IsActive, v.Unit, v.AllowedValues, v.CreatedDate
  FROM (VALUES
      (N'AssessmentYear', N'General', N'Assessment Base Year',
       N'Assessment base year for policy configuration.',
-      N'INT', N'2010', N'2010', 1, NULL, GETDATE()),
+      N'INT', N'2010', N'2010', 1, NULL, NULL, GETDATE()),
      (N'TaxesOnCV', N'Calculation', N'Taxes On CV',
       N'Apply tax calculation based on Capital Value (CV).',
-      N'BIT', 1, N'0', 1, NULL, GETDATE()),
+      N'BIT', N'1', N'0', 1, NULL, NULL, GETDATE()),
      (N'TaxesOnRV', N'Calculation', N'Taxes On RV',
       N'Apply tax calculation based on Rateable Value (RV).',
-      N'BIT', 1, N'1', 1, NULL, GETDATE()),
+      N'BIT', N'1', N'1', 1, NULL, NULL, GETDATE()),
      (N'TaxOnBuiltUpArea', N'Calculation', N'Tax On Built Up Area',
       N'Apply tax calculation based on Built Up Area.',
-      N'BIT', 0, N'0', 1, NULL, GETDATE()),
+      N'BIT', N'0', N'0', 1, NULL, NULL, GETDATE()),
      (N'EducationEmploymentTaxOnRV', N'Calculation',
       N'Education / Employment Tax On RV',
       N'Apply Education Tax and Employment Tax based on Rateable Value (RV).',
-      N'BIT', 0, N'0', 1, NULL, GETDATE()),
+      N'BIT', N'0', N'0', 1, NULL, NULL, GETDATE()),
      (N'ApplyMaintenance', N'Calculation', N'Apply Maintenance',
       N'Apply maintenance deduction during annual rental value or rateable value calculation.',
-      N'BIT', 1, N'1', 1, NULL, GETDATE()),
+      N'BIT', N'1', N'1', 1, NULL, NULL, GETDATE()),
      (N'MaintenancePercentage', N'Calculation', N'Maintenance Percentage',
       N'Percentage of maintenance deduction applied during annual rental value or rateable value calculation.',
-      N'DECIMAL', N'10', N'10', 1, N'PERCENT', GETDATE())
- ) v
- (
-     PolicyCode, Category, DisplayName, Description,
-     DataType, PolicyValue, DefaultValue,
-     IsActive, Unit, CreatedDate
- )
- WHERE NOT EXISTS (
-     SELECT 1
-     FROM [PTIS].[PolicyConfiguration] pc
-     WHERE pc.PolicyCode = v.PolicyCode
- );
+      N'DECIMAL', N'10', N'10', 1, N'PERCENT', NULL, GETDATE()),
+     (N'RateMasterAreaUnit', N'Calculation', N'Rate Master Area Unit',
+      N'Purpose: Defines whether Rate Master rates are entered per SqMeter or per SqFeet. PolicyValue: SqMeter or SqFeet. Example: SqMeter.',
+      N'VARCHAR', N'SqMeter', N'SqMeter', 1, NULL, N'SqMeter,SqFeet', GETDATE()),
+     (N'RateMonthlyOrYearly', N'Calculation', N'Rate Monthly Or Yearly',
+      N'Purpose: Determines whether Rate Master rates are monthly or yearly. PolicyValue: Monthly or Yearly. Example: Yearly.',
+      N'VARCHAR', N'Yearly', N'Monthly', 1, NULL, N'Monthly,Yearly', GETDATE()),
+     (N'TaxCalculationMethod', N'Calculation', N'Tax Calculation Method',
+      N'Purpose: Specifies which tax calculation method should be used. PolicyValue: RV=Rateable Value, CV=Capital Value. Example: RV.',
+      N'VARCHAR', N'RV', N'RV', 1, NULL, N'RV,CV', GETDATE())
+  ) v
+  (
+      PolicyCode, Category, DisplayName, Description,
+      DataType, PolicyValue, DefaultValue,
+      IsActive, Unit, AllowedValues, CreatedDate
+  )
+  WHERE NOT EXISTS (
+      SELECT 1
+      FROM [PTIS].[PolicyConfiguration] pc
+      WHERE pc.PolicyCode = v.PolicyCode
+  );
 ------------------------tax configuration-----------------------
 
 INSERT INTO PTIS.TaxCategoryMaster (CategoryCode, CategoryName, IsActive, CreatedBy)
