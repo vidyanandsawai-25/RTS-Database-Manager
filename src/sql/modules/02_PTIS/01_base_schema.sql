@@ -2338,6 +2338,16 @@ CREATE TABLE [PTIS].[PropertyCertificateTypeMaster](
         -- Sort order for UI dropdowns/lists. Lower = shown first.
         -- Example: 10
 
+    [IsProtected] BIT NOT NULL
+    CONSTRAINT [DF_PropertyCertificateTypeMaster_IsProtected] DEFAULT (1),
+    -- 1 = protected/system certificate type, cannot be deleted or modified normally.
+    -- Example: 1
+
+    [IsRequired] BIT NOT NULL
+    CONSTRAINT [DF_PropertyCertificateTypeMaster_IsRequired] DEFAULT (1),
+    -- 1 = certificate type is mandatory; 0 = optional.
+    -- Example: 1
+
     [IsActive] BIT NOT NULL
         CONSTRAINT [DF_PropertyCertificateTypeMaster_IsActive] DEFAULT (1),
         -- 1 = type is selectable in UI; 0 = hidden (soft-disabled).
@@ -2408,6 +2418,11 @@ CREATE TABLE [PTIS].[PropertyCertificates](
         -- Also used as AuthReferenceId in the related DocumentBinding row
         -- (property-level authorization).
         -- Example: 1001
+    
+	[PropertyDetailsId] INT NULL,
+    -- FK to PTIS.PropertyDetails. Links certificate with specific property detail/unit/floor record.
+    -- Nullable because some certificates may be property-level only.
+    -- Example: 2501
 
     [CertificateTypeId] INT NOT NULL,
         -- FK to PTIS.PropertyCertificateTypeMaster. What kind of certificate.
@@ -2471,6 +2486,10 @@ CREATE TABLE [PTIS].[PropertyCertificates](
     CONSTRAINT [FK_PropertyCertificates_PropertyMast]
         FOREIGN KEY ([PropertyId]) REFERENCES [PTIS].[PropertyMast] ([Id]),
 
+    CONSTRAINT [FK_PropertyCertificates_PropertyDetails]
+        FOREIGN KEY ([PropertyDetailsId])
+        REFERENCES [PTIS].[PropertyDetails] ([Id]),
+
     CONSTRAINT [FK_PropertyCertificates_PropertyCertificateTypeMaster]
         FOREIGN KEY ([CertificateTypeId])
         REFERENCES [PTIS].[PropertyCertificateTypeMaster] ([Id]),
@@ -2479,6 +2498,7 @@ CREATE TABLE [PTIS].[PropertyCertificates](
         FOREIGN KEY ([DocumentBindingId])
         REFERENCES [CORE].[DocumentBinding] ([Id])
 ) ON [PRIMARY];
+
 GO
 
 /* ---------------------------------------------------------------------------
