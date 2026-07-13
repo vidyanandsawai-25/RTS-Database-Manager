@@ -8,21 +8,21 @@ GO
 -- =========================================================
 ;WITH SeedDepartments AS (
     SELECT * FROM (VALUES
-        (N'Birth & Death'),
-        (N'Education'),
-        (N'Health'),
-        (N'Marriage Certificate'),
-        (N'NOC'),
-        (N'Property Tax'),
-        (N'Town Planning'),
-        (N'Trade License'),
-        (N'Tree'),
-        (N'Sanitation'),
-        (N'Water Connection')
-    ) AS V (DepartmentName)
+        (N'Property Tax',          N'मालमत्ता कर',                         N'Home',           1),
+        (N'Water Connection',      N'पाणी पुरवठा',                         N'Droplets',       2),
+        (N'Trade License',         N'व्यवसाय परवाना',                       N'Briefcase',      3),
+        (N'Town Planning',         N'नगर रचना',                             N'Map',            4),
+        (N'Birth & Death',         N'जन्म आणि मृत्यू',                      N'HeartPulse',     5),
+        (N'Education',             N'शिक्षण',                               N'GraduationCap',  6),
+        (N'Health',                N'आरोग्य',                               N'Activity',       7),
+        (N'NOC',                   N'ना हरकत प्रमाणपत्र (NOC)',             N'ShieldCheck',    8),
+        (N'Marriage Certificate',  N'लग्न नोंदणी प्रमाणपत्र',              N'Heart',          9),
+        (N'Tree',                  N'वृक्ष प्राधिकरण',                      N'TreePine',       10),
+        (N'Sanitation',            N'स्वच्छता विभाग',                       N'Trash2',         11)
+    ) AS V (DepartmentName, DepartmentNameLocal, DepartmentIcon, DisplayOrder)
 )
-INSERT INTO [RTS].[DepartmentMaster] ([DepartmentName], [DeptIcon], [IsActive], [CreatedBy], [CreatedDate])
-SELECT S.DepartmentName, NULL, 1, 0, GETDATE()
+INSERT INTO [RTS].[DepartmentMaster] ([DepartmentName], [DepartmentNameLocal], [DepartmentIcon], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate])
+SELECT S.DepartmentName, S.DepartmentNameLocal, S.DepartmentIcon, S.DisplayOrder, 1, 0, GETDATE()
 FROM SeedDepartments S
 WHERE NOT EXISTS (
     SELECT 1 FROM [RTS].[DepartmentMaster] D WHERE D.DepartmentName = S.DepartmentName
@@ -30,81 +30,90 @@ WHERE NOT EXISTS (
 GO
 
 -- =========================================================
--- RTS Services Seed Data
--- =========================================================
+-- RTS ServiceMaster Seed Data
+-- =========================================================  
 ;WITH SeedServices AS (
     SELECT * FROM (VALUES
-        (N'Birth & Death', 7204, N'Birth Certificate', NULL),
-        (N'Birth & Death', 7205, N'Death Certificate', NULL),
-        (N'Education', 8273, N'School Leaving / Duplicate Certificate', NULL),
-        (N'Health', 8270, N'New Nursing Home License', NULL),
-        (N'Health', 8271, N'Renew Nursing Home License', NULL),
-        (N'Health', 8272, N'Update Licensee / Partner Name', NULL),
-        (N'Marriage Certificate', 7121, N'Marriage Registration Certificate', NULL),
-        (N'NOC', 7200, N'Trade / Business Non-Revocation NOC', NULL),
-        (N'NOC', 7201, N'Mandap No-Damage Certificate', NULL),
-        (N'NOC', 7202, N'Fire Extinguisher Certificate', NULL),
-        (N'NOC', 7203, N'Final Fire Exemption Certificate', NULL),
-        (N'Property Tax', 7176, N'New Taxation', NULL),
-        (N'Property Tax', 7177, N'Re-Taxation', NULL),
-        (N'Property Tax', 7178, N'Preparation of Tax Demand Letter', NULL),
-        (N'Property Tax', 7271, N'Issuance of Property Tax Assessment Copy', NULL),
-        (N'Property Tax', 7179, N'Avail Tax Exemption', NULL),
-        (N'Property Tax', 7180, N'Tax Exemption for Non-Resident Properties', NULL),
-        (N'Property Tax', 7182, N'Registration of Objection', NULL),
-        (N'Property Tax', 7184, N'Property Demolition', NULL),
-        (N'Property Tax', 7186, N'No Dues Certificate', NULL),
-        (N'Property Tax', 7187, N'Transfer of Property Certificate', NULL),
-        (N'Town Planning', 7207, N'Issuance of Zone Certificate', NULL),
-        (N'Town Planning', 7208, N'Giving Part Map', NULL),
-        (N'Town Planning', 7209, N'Issuance of Construction Permit', NULL),
-        (N'Town Planning', 7210, N'Tillage Certificate', NULL),
-        (N'Town Planning', 7211, N'Issuance of Occupancy Certificate', NULL),
-        (N'Town Planning', 8277, N'Underground OFC Cable Permission', NULL),
-        (N'Town Planning', 9001, N'Filling Potholes on City Roads', NULL),
-        (N'Town Planning', 9002, N'Maintaining & Securing Sewer Covers', NULL),
-        (N'Town Planning', 9003, N'Road Cutting Permission', NULL),
-        (N'Town Planning', 8279, N'Mobile Tower Permission', NULL),
-        (N'Trade License', 7190, N'New Trade License', NULL),
-        (N'Trade License', 7191, N'Renew License', NULL),
-        (N'Trade License', 7192, N'License Transfer', NULL),
-        (N'Trade License', 7193, N'Secondary Copy of License', NULL),
-        (N'Trade License', 7194, N'Change of Business Name', NULL),
-        (N'Trade License', 7195, N'Changing Occupations', NULL),
-        (N'Trade License', 7197, N'Change in Number of Partners', NULL),
-        (N'Trade License', 7198, N'Cancellation of License', NULL),
-        (N'Trade License', 7199, N'Auto Renewal Of Trade License', NULL),
-        (N'Trade License', 8266, N'Licensing of Lodging Houses', NULL),
-        (N'Trade License', 8267, N'Renew Lodging House License', NULL),
-        (N'Trade License', 8268, N'Licensing of Mangal Office / Auditorium', NULL),
-        (N'Trade License', 8269, N'Renew Mangal Office / Hall License', NULL),
-        (N'Trade License', 8278, N'Hawker Registration Certificate', NULL),
-        (N'Trade License', 7167, N'Plumbers license', NULL),
-        (N'Trade License', 7168, N'Plumber License Renewal', NULL),
-        (N'Trade License', 7169, N'Trade License Type Change Request', NULL),
-        (N'Trade License', 7601, N'Movie Shooting License New and Renewal', NULL),
-        (N'Tree', 8276, N'Tree Felling Permission (Sec 8)', NULL),
-        (N'Sanitation', 8255, N'Maintaining Manhole / Sewer Covers', NULL),
-        (N'Sanitation', 7175, N'Providing drainage connections', NULL),
-        (N'Water Connection', 7162, N'Changing the connection size', NULL),
-        (N'Water Connection', 7163, N'Temporary / permanent disconnection', NULL),
-        (N'Water Connection', 7164, N'To Reconnect', NULL),
-        (N'Water Connection', 7165, N'Change in use', NULL),
-        (N'Water Connection', 7166, N'Preparation of water bill', NULL),
-        (N'Water Connection', 7155, N'Certificate of no arrears', NULL),
-        (N'Water Connection', 7170, N'Reporting faulty meters', NULL),
-        (N'Water Connection', 7171, N'Reporting unauthorized tap connections', NULL),
-        (N'Water Connection', 7172, N'Water pressure capacity complaint', NULL),
-        (N'Water Connection', 7173, N'Water quality complaint', NULL),
-        (N'Water Connection', 7174, N'To provide a connection', NULL)
-    ) AS V (DeptName, RTSServiceId, ServiceName, ServiceUrl)
+        -- Birth & Death (dept order 5)
+        (N'Birth & Death', 7204, N'Birth Certificate',                          N'जन्माचा दाखला',                               NULL, N'Baby',          1),
+        (N'Birth & Death', 7205, N'Death Certificate',                          N'मृत्यूचा दाखला',                              NULL, N'HeartOff',       2),
+        -- Education (dept order 6)
+        (N'Education',     8273, N'School Leaving / Duplicate Certificate',     N'शाळा सोडल्याचे / दुय्यम प्रमाणपत्र',         NULL, N'FileText',       1),
+        -- Health (dept order 7)
+        (N'Health',        8270, N'New Nursing Home License',                   N'नवीन नर्सिंग होम परवाना',                     NULL, N'PlusSquare',     1),
+        (N'Health',        8271, N'Renew Nursing Home License',                 N'नर्सिंग होम परवाना नूतनीकरण',                 NULL, N'PlusSquare',     2),
+        (N'Health',        8272, N'Update Licensee / Partner Name',             N'परवानाधारक / भागीदार नाव अद्ययावत करणे',     NULL, N'UserPlus',       3),
+        -- Marriage Certificate (dept order 9)
+        (N'Marriage Certificate', 7121, N'Marriage Registration Certificate',   N'विवाह नोंदणी प्रमाणपत्र',                     NULL, N'Heart',          1),
+        -- NOC (dept order 8)
+        (N'NOC',           7200, N'Trade / Business Non-Revocation NOC',        N'व्यवसाय / व्यापार ना-हरकत प्रमाणपत्र',       NULL, N'ShieldCheck',    1),
+        (N'NOC',           7201, N'Mandap No-Damage Certificate',               N'मंडप नुकसान न केल्याचे प्रमाणपत्र',          NULL, N'Building2',      2),
+        (N'NOC',           7202, N'Fire Extinguisher Certificate',              N'अग्निशामक परवाना',                            NULL, N'Flame',          3),
+        (N'NOC',           7203, N'Final Fire Exemption Certificate',           N'अंतिम अग्निशामक सूट प्रमाणपत्र',             NULL, N'Flame',          4),
+        -- Property Tax (dept order 1)
+        (N'Property Tax',  7176, N'New Taxation',                               N'नवीन कर आकारणी',                              NULL, N'Home',           1),
+        (N'Property Tax',  7177, N'Re-Taxation',                                N'पुनर्कर आकारणी',                              NULL, N'Home',           2),
+        (N'Property Tax',  7178, N'Preparation of Tax Demand Letter',           N'कर मागणी पत्र तयार करणे',                     NULL, N'FileText',       3),
+        (N'Property Tax',  7271, N'Issuance of Property Tax Assessment Copy',   N'मालमत्ता कर आकारणी उतारा (८ अ) देणे',        NULL, N'FileText',       4),
+        (N'Property Tax',  7179, N'Avail Tax Exemption',                        N'कर सवलत मिळवणे',                              NULL, N'Receipt',        5),
+        (N'Property Tax',  7180, N'Tax Exemption for Non-Resident Properties',  N'अनिवासी मालमत्तेसाठी कर सवलत',               NULL, N'Receipt',        6),
+        (N'Property Tax',  7182, N'Registration of Objection',                  N'हरकत नोंदणी',                                 NULL, N'AlertTriangle',  7),
+        (N'Property Tax',  7184, N'Property Demolition',                        N'मालमत्ता पाडणे',                              NULL, N'Hammer',         8),
+        (N'Property Tax',  7186, N'No Dues Certificate',                        N'थकबाकी नसल्याचे प्रमाणपत्र (ना-हरकत)',       NULL, N'FileCheck',      9),
+        (N'Property Tax',  7187, N'Transfer of Property Certificate',           N'मालमत्ता हस्तांतरण प्रमाणपत्र',               NULL, N'UserCheck',      10),
+        -- Town Planning (dept order 4)
+        (N'Town Planning', 7207, N'Issuance of Zone Certificate',               N'झोन दाखला देणे',                              NULL, N'Map',            1),
+        (N'Town Planning', 7208, N'Giving Part Map',                            N'भाग नकाशा देणे',                              NULL, N'Map',            2),
+        (N'Town Planning', 7209, N'Issuance of Construction Permit',            N'बांधकाम परवानगी देणे',                        NULL, N'HardHat',        3),
+        (N'Town Planning', 7210, N'Tillage Certificate',                        N'जमीन मोजणी दाखला',                            NULL, N'MapPin',         4),
+        (N'Town Planning', 7211, N'Issuance of Occupancy Certificate',          N'भोगवटा प्रमाणपत्र देणे',                      NULL, N'Key',            5),
+        (N'Town Planning', 8277, N'Underground OFC Cable Permission',           N'भूमिगत ओएफसी केबल परवानगी',                   NULL, N'Cable',          6),
+        (N'Town Planning', 9001, N'Filling Potholes on City Roads',             N'शहरातील रस्त्यांवरील खड्डे भरणे',             NULL, N'Wrench',         7),
+        (N'Town Planning', 9002, N'Maintaining & Securing Sewer Covers',        N'गटार झाकणांची देखभाल आणि सुरक्षा',           NULL, N'Shield',         8),
+        (N'Town Planning', 9003, N'Road Cutting Permission',                    N'रस्ता खोदाई परवानगी',                         NULL, N'Wrench',         9),
+        (N'Town Planning', 8279, N'Mobile Tower Permission',                    N'मोबाईल टॉवर उभारणी परवानगी',                  NULL, N'Radio',          10),
+        -- Trade License (dept order 3)
+        (N'Trade License', 7190, N'New Trade License',                          N'नवीन व्यवसाय परवाना',                         NULL, N'Briefcase',      1),
+        (N'Trade License', 7191, N'Renew License',                              N'परवाना नूतनीकरण',                             NULL, N'Briefcase',      2),
+        (N'Trade License', 7192, N'License Transfer',                           N'परवाना हस्तांतरण',                            NULL, N'Briefcase',      3),
+        (N'Trade License', 7193, N'Secondary Copy of License',                  N'परवान्याची दुय्यम प्रत देणे',                 NULL, N'Briefcase',      4),
+        (N'Trade License', 7194, N'Change of Business Name',                    N'व्यवसायाच्या नावात बदल करणे',                 NULL, N'Briefcase',      5),
+        (N'Trade License', 7195, N'Changing Occupations',                       N'व्यवसाय बदल करणे',                            NULL, N'Briefcase',      6),
+        (N'Trade License', 7197, N'Change in Number of Partners',               N'भागीदारांच्या संख्येत बदल करणे',              NULL, N'Briefcase',      7),
+        (N'Trade License', 7198, N'Cancellation of License',                    N'परवाना रद्द करणे',                            NULL, N'Briefcase',      8),
+        (N'Trade License', 7199, N'Auto Renewal Of Trade License',              N'व्यवसाय परवान्याचे स्वयंचलित नूतनीकरण',      NULL, N'Briefcase',      9),
+        (N'Trade License', 8266, N'Licensing of Lodging Houses',                N'लॉजिंग हाऊससाठी परवाना देणे',                 NULL, N'Hotel',          10),
+        (N'Trade License', 8267, N'Renew Lodging House License',                N'लॉजिंग हाऊस परवाना नूतनीकरण',                 NULL, N'Hotel',          11),
+        (N'Trade License', 8268, N'Licensing of Mangal Office / Auditorium',    N'मंगल कार्यालय / सभागृह परवाना',               NULL, N'Building2',      12),
+        (N'Trade License', 8269, N'Renew Mangal Office / Hall License',         N'मंगल कार्यालय / सभागृह परवाना नूतनीकरण',     NULL, N'Building2',      13),
+        (N'Trade License', 8278, N'Hawker Registration Certificate',            N'फेरीवाला नोंदणी प्रमाणपत्र',                  NULL, N'Store',          14),
+        (N'Trade License', 7167, N'Plumbers license',                           N'प्लंबर परवाना देणे',                          NULL, N'Wrench',         15),
+        (N'Trade License', 7168, N'Plumber License Renewal',                    N'प्लंबर परवाना नूतनीकरण',                      NULL, N'Wrench',         16),
+        (N'Trade License', 7169, N'Trade License Type Change Request',          N'व्यवसाय परवाना प्रकार बदलण्याची विनंती',     NULL, N'Briefcase',      17),
+        (N'Trade License', 7601, N'Movie Shooting License New and Renewal',     N'चित्रपट चित्रीकरण परवाना देणे व नूतनीकरण',   NULL, N'Camera',         18),
+        -- Tree (dept order 10)
+        (N'Tree',          8276, N'Tree Felling Permission (Sec 8)',             N'झाड तोडण्याची परवानगी देणे',                  NULL, N'TreePine',       1),
+        -- Sanitation (dept order 11)
+        (N'Sanitation',    8255, N'Maintaining Manhole / Sewer Covers',         N'मॅनहोल / गटार झाकणांची दुरुस्ती',             NULL, N'Trash2',         1),
+        (N'Sanitation',    7175, N'Providing drainage connections',             N'ड्रेनेज जोडणी देणे',                          NULL, N'Droplet',        2),
+        -- Water Connection (dept order 2)
+        (N'Water Connection', 7174, N'To provide a connection',                 N'नवीन नळ जोडणी देणे',                          NULL, N'Droplets',       1),
+        (N'Water Connection', 7162, N'Changing the connection size',            N'नळ जोडणीचा आकार बदलणे',                       NULL, N'Droplets',       2),
+        (N'Water Connection', 7163, N'Temporary / permanent disconnection',     N'तात्पुरती / कायमची नळ जोडणी खंडित करणे',     NULL, N'Droplets',       3),
+        (N'Water Connection', 7164, N'To Reconnect',                            N'नळ जोडणी पुन्हा जोडणे',                       NULL, N'Droplets',       4),
+        (N'Water Connection', 7155, N'Certificate of no arrears',               N'पाणीपट्टी थकबाकी नसल्याचा दाखला',             NULL, N'FileCheck',      5),
+        (N'Water Connection', 7170, N'Reporting faulty meters',                 N'सदोष मीटरबद्दल तक्रार नोंदवणे',               NULL, N'AlertTriangle',  6),
+        (N'Water Connection', 7171, N'Reporting unauthorized tap connections',  N'अनधिकृत नळ जोडण्यांबद्दल तक्रार नोंदवणे',   NULL, N'AlertTriangle',  7),
+        (N'Water Connection', 7172, N'Water pressure capacity complaint',       N'पाण्याच्या दाबाबाबत तक्रार नोंदवणे',          NULL, N'AlertTriangle',  8),
+        (N'Water Connection', 7173, N'Water quality complaint',                 N'पाण्याच्या गुणवत्तेबद्दल तक्रार नोंदवणे',    NULL, N'AlertTriangle',  9)
+    ) AS V (DeptName, GovtServiceCode, ServiceName, ServiceNameLocal, ServiceUrl, ServiceIcon, DisplayOrder)
 )
-INSERT INTO [RTS].[Services] ([DepartmentId], [RTSServiceId], [ServiceName], [ServiceUrl], [IsActive], [CreatedBy], [CreatedDate])
-SELECT D.Id, S.RTSServiceId, S.ServiceName, S.ServiceUrl, 1, 0, GETDATE()
+INSERT INTO [RTS].[ServiceMaster] ([DepartmentId], [GovtServiceCode], [ServiceName], [ServiceNameLocal], [ServiceUrl], [ServiceIcon], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate])
+SELECT D.Id, S.GovtServiceCode, S.ServiceName, S.ServiceNameLocal, S.ServiceUrl, S.ServiceIcon, S.DisplayOrder, 1, 0, GETDATE()
 FROM SeedServices S
 INNER JOIN [RTS].[DepartmentMaster] D ON D.DepartmentName = S.DeptName
 WHERE NOT EXISTS (
-    SELECT 1 FROM [RTS].[Services] X WHERE X.DepartmentId = D.Id AND X.ServiceName = S.ServiceName
+    SELECT 1 FROM [RTS].[ServiceMaster] X WHERE X.DepartmentId = D.Id AND X.ServiceName = S.ServiceName
 );
 GO
 
@@ -216,16 +225,16 @@ GO
     ) AS V (DeptName, SvcName, FieldCode, FieldName, FieldLabel, FieldType, FieldGroup, OptionsJson, IsRequired, DisplayOrder, MaxLength, ValidationRules)
 )
 INSERT INTO [RTS].[FieldDefinition] (
-    [DepartmentId], [ServiceId], [FieldCode], [FieldName], [FieldLabel], [FieldType], [FieldGroup], 
+    [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldType], [FieldGroup], 
     [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], 
     [MaxLength], [IsActive], [MarkedForDeletion], [CreatedBy], [CreatedDate]
 )
-SELECT D.Id, Svc.Id, S.FieldCode, S.FieldName, S.FieldLabel, S.FieldType, S.FieldGroup, 
+SELECT D.Id, Svc.Id, S.FieldCode, S.FieldLabel, S.FieldType, S.FieldGroup, 
        S.OptionsJson, NULL, S.ValidationRules, S.IsRequired, S.DisplayOrder, 
        S.MaxLength, 1, 0, 0, GETDATE()
 FROM SeedFieldDefinitions S
 INNER JOIN [RTS].[DepartmentMaster] D ON D.DepartmentName = S.DeptName
-INNER JOIN [RTS].[Services] Svc ON Svc.DepartmentId = D.Id AND Svc.ServiceName = S.SvcName
+INNER JOIN [RTS].[ServiceMaster] Svc ON Svc.DepartmentId = D.Id AND Svc.ServiceName = S.SvcName
 WHERE NOT EXISTS (
     SELECT 1 FROM [RTS].[FieldDefinition] X 
     WHERE X.DepartmentId = D.Id AND X.ServiceId = Svc.Id AND X.FieldCode = S.FieldCode
@@ -337,16 +346,16 @@ GO
     ) AS V (DeptName, SvcName, FieldCode, FieldName, FieldLabel, FieldType, FieldGroup, OptionsJson, IsRequired, DisplayOrder, MaxLength, ValidationRules)
 )
 INSERT INTO [RTS].[FieldDefinition] (
-    [DepartmentId], [ServiceId], [FieldCode], [FieldName], [FieldLabel], [FieldType], [FieldGroup], 
+    [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldType], [FieldGroup], 
     [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], 
     [MaxLength], [IsActive], [MarkedForDeletion], [CreatedBy], [CreatedDate]
 )
-SELECT D.Id, Svc.Id, S.FieldCode, S.FieldName, S.FieldLabel, S.FieldType, S.FieldGroup, 
+SELECT D.Id, Svc.Id, S.FieldCode, S.FieldLabel, S.FieldType, S.FieldGroup, 
        S.OptionsJson, NULL, S.ValidationRules, S.IsRequired, S.DisplayOrder, 
        S.MaxLength, 1, 0, 0, GETDATE()
 FROM SeedFieldDefinitions S
 INNER JOIN [RTS].[DepartmentMaster] D ON D.DepartmentName = S.DeptName
-INNER JOIN [RTS].[Services] Svc ON Svc.DepartmentId = D.Id AND Svc.ServiceName = S.SvcName
+INNER JOIN [RTS].[ServiceMaster] Svc ON Svc.DepartmentId = D.Id AND Svc.ServiceName = S.SvcName
 WHERE NOT EXISTS (
     SELECT 1 FROM [RTS].[FieldDefinition] X 
     WHERE X.DepartmentId = D.Id AND X.ServiceId = Svc.Id AND X.FieldCode = S.FieldCode
@@ -458,16 +467,16 @@ GO
     ) AS V (DeptName, SvcName, FieldCode, FieldName, FieldLabel, FieldType, FieldGroup, OptionsJson, IsRequired, DisplayOrder, MaxLength, ValidationRules)
 )
 INSERT INTO [RTS].[FieldDefinition] (
-    [DepartmentId], [ServiceId], [FieldCode], [FieldName], [FieldLabel], [FieldType], [FieldGroup], 
+    [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldType], [FieldGroup], 
     [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], 
     [MaxLength], [IsActive], [MarkedForDeletion], [CreatedBy], [CreatedDate]
 )
-SELECT D.Id, Svc.Id, S.FieldCode, S.FieldName, S.FieldLabel, S.FieldType, S.FieldGroup, 
+SELECT D.Id, Svc.Id, S.FieldCode, S.FieldLabel, S.FieldType, S.FieldGroup, 
        S.OptionsJson, NULL, S.ValidationRules, S.IsRequired, S.DisplayOrder, 
        S.MaxLength, 1, 0, 0, GETDATE()
 FROM SeedFieldDefinitions S
 INNER JOIN [RTS].[DepartmentMaster] D ON D.DepartmentName = S.DeptName
-INNER JOIN [RTS].[Services] Svc ON Svc.DepartmentId = D.Id AND Svc.ServiceName = S.SvcName
+INNER JOIN [RTS].[ServiceMaster] Svc ON Svc.DepartmentId = D.Id AND Svc.ServiceName = S.SvcName
 WHERE NOT EXISTS (
     SELECT 1 FROM [RTS].[FieldDefinition] X 
     WHERE X.DepartmentId = D.Id AND X.ServiceId = Svc.Id AND X.FieldCode = S.FieldCode
@@ -579,16 +588,16 @@ GO
     ) AS V (DeptName, SvcName, FieldCode, FieldName, FieldLabel, FieldType, FieldGroup, OptionsJson, IsRequired, DisplayOrder, MaxLength, ValidationRules)
 )
 INSERT INTO [RTS].[FieldDefinition] (
-    [DepartmentId], [ServiceId], [FieldCode], [FieldName], [FieldLabel], [FieldType], [FieldGroup], 
+    [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldType], [FieldGroup], 
     [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], 
     [MaxLength], [IsActive], [MarkedForDeletion], [CreatedBy], [CreatedDate]
 )
-SELECT D.Id, Svc.Id, S.FieldCode, S.FieldName, S.FieldLabel, S.FieldType, S.FieldGroup, 
+SELECT D.Id, Svc.Id, S.FieldCode, S.FieldLabel, S.FieldType, S.FieldGroup, 
        S.OptionsJson, NULL, S.ValidationRules, S.IsRequired, S.DisplayOrder, 
        S.MaxLength, 1, 0, 0, GETDATE()
 FROM SeedFieldDefinitions S
 INNER JOIN [RTS].[DepartmentMaster] D ON D.DepartmentName = S.DeptName
-INNER JOIN [RTS].[Services] Svc ON Svc.DepartmentId = D.Id AND Svc.ServiceName = S.SvcName
+INNER JOIN [RTS].[ServiceMaster] Svc ON Svc.DepartmentId = D.Id AND Svc.ServiceName = S.SvcName
 WHERE NOT EXISTS (
     SELECT 1 FROM [RTS].[FieldDefinition] X 
     WHERE X.DepartmentId = D.Id AND X.ServiceId = Svc.Id AND X.FieldCode = S.FieldCode
@@ -700,16 +709,16 @@ GO
     ) AS V (DeptName, SvcName, FieldCode, FieldName, FieldLabel, FieldType, FieldGroup, OptionsJson, IsRequired, DisplayOrder, MaxLength, ValidationRules)
 )
 INSERT INTO [RTS].[FieldDefinition] (
-    [DepartmentId], [ServiceId], [FieldCode], [FieldName], [FieldLabel], [FieldType], [FieldGroup], 
+    [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldType], [FieldGroup], 
     [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], 
     [MaxLength], [IsActive], [MarkedForDeletion], [CreatedBy], [CreatedDate]
 )
-SELECT D.Id, Svc.Id, S.FieldCode, S.FieldName, S.FieldLabel, S.FieldType, S.FieldGroup, 
+SELECT D.Id, Svc.Id, S.FieldCode, S.FieldLabel, S.FieldType, S.FieldGroup, 
        S.OptionsJson, NULL, S.ValidationRules, S.IsRequired, S.DisplayOrder, 
        S.MaxLength, 1, 0, 0, GETDATE()
 FROM SeedFieldDefinitions S
 INNER JOIN [RTS].[DepartmentMaster] D ON D.DepartmentName = S.DeptName
-INNER JOIN [RTS].[Services] Svc ON Svc.DepartmentId = D.Id AND Svc.ServiceName = S.SvcName
+INNER JOIN [RTS].[ServiceMaster] Svc ON Svc.DepartmentId = D.Id AND Svc.ServiceName = S.SvcName
 WHERE NOT EXISTS (
     SELECT 1 FROM [RTS].[FieldDefinition] X 
     WHERE X.DepartmentId = D.Id AND X.ServiceId = Svc.Id AND X.FieldCode = S.FieldCode
@@ -817,19 +826,152 @@ GO
     ) AS V (DeptName, SvcName, FieldCode, FieldName, FieldLabel, FieldType, FieldGroup, OptionsJson, IsRequired, DisplayOrder, MaxLength, ValidationRules)
 )
 INSERT INTO [RTS].[FieldDefinition] (
-    [DepartmentId], [ServiceId], [FieldCode], [FieldName], [FieldLabel], [FieldType], [FieldGroup], 
+    [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldType], [FieldGroup], 
     [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], 
     [MaxLength], [IsActive], [MarkedForDeletion], [CreatedBy], [CreatedDate]
 )
-SELECT D.Id, Svc.Id, S.FieldCode, S.FieldName, S.FieldLabel, S.FieldType, S.FieldGroup, 
+SELECT D.Id, Svc.Id, S.FieldCode, S.FieldLabel, S.FieldType, S.FieldGroup, 
        S.OptionsJson, NULL, S.ValidationRules, S.IsRequired, S.DisplayOrder, 
        S.MaxLength, 1, 0, 0, GETDATE()
 FROM SeedFieldDefinitions S
 INNER JOIN [RTS].[DepartmentMaster] D ON D.DepartmentName = S.DeptName
-INNER JOIN [RTS].[Services] Svc ON Svc.DepartmentId = D.Id AND Svc.ServiceName = S.SvcName
+INNER JOIN [RTS].[ServiceMaster] Svc ON Svc.DepartmentId = D.Id AND Svc.ServiceName = S.SvcName
 WHERE NOT EXISTS (
     SELECT 1 FROM [RTS].[FieldDefinition] X 
     WHERE X.DepartmentId = D.Id AND X.ServiceId = Svc.Id AND X.FieldCode = S.FieldCode
 );
 GO
+
+-- =========================================================
+-- RTS Document Upload Fields Seed Data (file inputs)
+-- =========================================================
+;WITH SeedDocumentFields AS (
+    SELECT * FROM (VALUES
+        -- Marriage Registration Certificate Document Uploads
+        (N'Marriage Certificate', N'Marriage Registration Certificate', N'groomAgeProofDoc', N'Groom Age Proof Document', N'file', N'Document Uploads', 1, 50),
+        (N'Marriage Certificate', N'Marriage Registration Certificate', N'brideAgeProofDoc', N'Bride Age Proof Document', N'file', N'Document Uploads', 1, 51),
+        (N'Marriage Certificate', N'Marriage Registration Certificate', N'weddingInvitationDoc', N'Wedding Invitation Card', N'file', N'Document Uploads', 0, 52),
+        (N'Marriage Certificate', N'Marriage Registration Certificate', N'witness1IdProofDoc', N'Witness 1 ID Proof', N'file', N'Document Uploads', 1, 53),
+        (N'Marriage Certificate', N'Marriage Registration Certificate', N'witness2IdProofDoc', N'Witness 2 ID Proof', N'file', N'Document Uploads', 1, 54),
+        -- Birth Certificate Document Uploads
+        (N'Birth & Death',        N'Birth Certificate',                 N'dischargeCardDoc', N'Hospital Discharge Card', N'file', N'Document Uploads', 1, 56),
+        (N'Birth & Death',        N'Birth Certificate',                 N'informantIdDoc', N'Informant ID Proof', N'file', N'Document Uploads', 1, 57),
+        -- Death Certificate Document Uploads
+        (N'Birth & Death',        N'Death Certificate',                 N'doctorCertificateDoc', N'Doctor Certificate of Cause of Death', N'file', N'Document Uploads', 1, 58),
+        (N'Birth & Death',        N'Death Certificate',                 N'cremationCertificateDoc', N'Cremation / Burial Ground Certificate', N'file', N'Document Uploads', 1, 59),
+        -- Drainage/Sanitation Connection Document Uploads
+        (N'Sanitation',           N'Providing drainage connections',    N'idProofDoc', N'Applicant ID Proof Document', N'file', N'Document Uploads', 1, 23),
+        (N'Sanitation',           N'Providing drainage connections',    N'propertyTaxReceiptDoc', N'Property Tax Receipt Document', N'file', N'Document Uploads', 1, 24),
+        (N'Sanitation',           N'Providing drainage connections',    N'premisesMapDoc', N'Premises Layout Map', N'file', N'Document Uploads', 0, 25)
+    ) AS V (DeptName, SvcName, FieldCode, FieldLabel, FieldType, FieldGroup, IsRequired, DisplayOrder)
+)
+INSERT INTO [RTS].[FieldDefinition] (
+    [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldType], [FieldGroup], 
+    [IsRequired], [DisplayOrder], [IsActive], [MarkedForDeletion], [CreatedBy], [CreatedDate]
+)
+SELECT D.Id, Svc.Id, S.FieldCode, S.FieldLabel, S.FieldType, S.FieldGroup, 
+       S.IsRequired, S.DisplayOrder, 1, 0, 0, GETDATE()
+FROM SeedDocumentFields S
+INNER JOIN [RTS].[DepartmentMaster] D ON D.DepartmentName = S.DeptName
+INNER JOIN [RTS].[ServiceMaster] Svc ON Svc.DepartmentId = D.Id AND Svc.ServiceName = S.SvcName
+WHERE NOT EXISTS (
+    SELECT 1 FROM [RTS].[FieldDefinition] X 
+    WHERE X.DepartmentId = D.Id AND X.ServiceId = Svc.Id AND X.FieldCode = S.FieldCode
+);
+GO
+
+
+-- =========================================================
+-- RTS FieldDefinition Localized Labels Translations (Marathi)
+-- =========================================================
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'पहिले नाव' WHERE [FieldLabel] = 'First Name';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'मधले नाव' WHERE [FieldLabel] = 'Middle Name';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'आडनाव' WHERE [FieldLabel] = 'Last Name';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'पूर्ण नाव' WHERE [FieldLabel] = 'Full Name';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'मोबाईल नंबर' WHERE [FieldLabel] = 'Mobile Number';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'ईमेल' WHERE [FieldLabel] = 'Email' OR [FieldLabel] = 'Email (optional)' OR [FieldLabel] = 'Owner Email';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'आधार कार्ड क्रमांक' WHERE [FieldLabel] = 'Aadhar Card No' OR [FieldLabel] = 'Aadhaar Number' OR [FieldLabel] = 'Owner Aadhaar Number';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'वय' WHERE [FieldLabel] = 'Age';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'जन्मतारीख' WHERE [FieldLabel] = 'Date of Birth';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'वडिलांचे पहिले नाव' WHERE [FieldLabel] = 'Father''s First Name';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'वडिलांचे मधले नाव' WHERE [FieldLabel] = 'Father''s Middle Name';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'वडिलांचे आडनाव' WHERE [FieldLabel] = 'Father''s Last Name';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'आईचे पहिले नाव' WHERE [FieldLabel] = 'Mother''s First Name';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'आईचे मधले नाव' WHERE [FieldLabel] = 'Mother''s Middle Name';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'आईचे आडनाव' WHERE [FieldLabel] = 'Mother''s Last Name';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'पत्ता' WHERE [FieldLabel] = 'Residential Address' OR [FieldLabel] = 'Business Address' OR [FieldLabel] = 'Property Address (Auto)';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'व्यवसाय' WHERE [FieldLabel] = 'Occupation';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'धर्म' WHERE [FieldLabel] = 'Religion';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'लग्न तारीख' WHERE [FieldLabel] = 'Date of Marriage';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'लग्न ठिकाण' WHERE [FieldLabel] = 'Place of Marriage';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'साक्षीदार १ पहिले नाव' WHERE [FieldLabel] = 'Witness 1 First Name';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'साक्षीदार १ मधले नाव' WHERE [FieldLabel] = 'Witness 1 Middle Name';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'साक्षीदार १ आडनाव' WHERE [FieldLabel] = 'Witness 1 Last Name';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'साक्षीदार २ पहिले नाव' WHERE [FieldLabel] = 'Witness 2 First Name';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'साक्षीदार २ मधले नाव' WHERE [FieldLabel] = 'Witness 2 Middle Name';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'साक्षीदार २ आडनाव' WHERE [FieldLabel] = 'Witness 2 Last Name';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'घोषणापत्र / मी सहमत आहे' WHERE [FieldLabel] = 'I hereby declare that the information provided is true and correct.';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'ओळखपत्राचा प्रकार' WHERE [FieldLabel] = 'ID Proof Type';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'ओळखपत्र क्रमांक' WHERE [FieldLabel] = 'ID Proof Number';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'मालमत्ता क्रमांक / युपीआयसी निवडा' WHERE [FieldLabel] = 'Select Property No / UPIC';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'प्रभाग क्रमांक (प्रणालीद्वारे)' WHERE [FieldLabel] = 'Ward (Auto)';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'झोन (प्रणालीद्वारे)' WHERE [FieldLabel] = 'Zone (Auto)';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'मालकाचे नाव (प्रणालीद्वारे)' WHERE [FieldLabel] = 'Owner Name (Auto)';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'जागेचा प्रकार' WHERE [FieldLabel] = 'Premises Type';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'जोडणीचा प्रकार' WHERE [FieldLabel] = 'Connection Type';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'वापराचा प्रकार' WHERE [FieldLabel] = 'Use Type';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'युनिट्सची संख्या (पर्यायी)' WHERE [FieldLabel] = 'No. of Units (optional)';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'सांडपाण्याची सध्याची व्यवस्था' WHERE [FieldLabel] = 'Current Wastewater Arrangement';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'जवळच्या गटार लाईनपासून अंदाजे अंतर (मीटरमध्ये)' WHERE [FieldLabel] = 'Approx. distance to nearest sewer line (meters) (optional)';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'रस्ता खोदाई आवश्यक आहे का?' WHERE [FieldLabel] = 'Road Cutting Required?';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'रस्ता खोदाईचे तपशील (पर्यायी)' WHERE [FieldLabel] = 'Road Cutting Details (optional)';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'जुना जोडणी संदर्भ क्रमांक (पर्यायी)' WHERE [FieldLabel] = 'Old Connection Ref No (optional)';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'व्यवसाय परवाना क्रमांक (पर्यायी)' WHERE [FieldLabel] = 'Trade License No (optional)';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'व्यवसाय / व्यापाराचे नाव' WHERE [FieldLabel] = 'Business / Trade Name';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'कर्मचाऱ्यांची संख्या' WHERE [FieldLabel] = 'Number of Employees';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'मालमत्ता कर आकारणी उतारा क्रमांक' WHERE [FieldLabel] = 'Property Tax Assessment Number';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'मालमत्ता कर पावती क्रमांक' WHERE [FieldLabel] = 'Property Tax Receipt Number';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'व्यवसायाचा प्रकार' WHERE [FieldLabel] = 'Type of Activity';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'परवाना वर्ग' WHERE [FieldLabel] = 'Licensing Category';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'नवीन व्यवसाय परवाना प्रस्ताव?' WHERE [FieldLabel] = 'New Business Proposal?';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'कामाच्या वेळा' WHERE [FieldLabel] = 'Working Hours';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'FSSAI परवाना क्रमांक (अन्न व्यापारासाठी)' WHERE [FieldLabel] = 'FSSAI License No. (For Food Trade)';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'साठवलेल्या मालाचे प्रकार' WHERE [FieldLabel] = 'Nature of Goods Stored / Traded';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'ज्वलनशील / स्फोटक माल आहे का?' WHERE [FieldLabel] = 'Flammable/Explosive Goods?';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'ज्वलनशील मालाचे तपशील' WHERE [FieldLabel] = 'Flammable Material Details';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'अग्निशामक परवाना अद्ययावत आहे का?' WHERE [FieldLabel] = 'Fire NOC Up-to-date?';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'पोलीस परवाना सादर केला आहे का?' WHERE [FieldLabel] = 'Police NOC Submitted?';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'भाग / परिसर' WHERE [FieldLabel] = 'Area / Locality';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'लँडमार्क (जवळचे ठिकाण)' WHERE [FieldLabel] = 'Landmark';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'एकूण लांबी (मीटरमध्ये)' WHERE [FieldLabel] = 'Total Length (meters)';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'गूगल मॅप लिंक (पर्यायी)' WHERE [FieldLabel] = 'Google Map Link (optional)';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'खोदकाम पद्धत' WHERE [FieldLabel] = 'Method';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'पृष्ठभाग प्रकार' WHERE [FieldLabel] = 'Surface Type';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'खोदाई रुंदी (सेमी)' WHERE [FieldLabel] = 'Cutting Width (cm)';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'खोदाई खोली (सेमी)' WHERE [FieldLabel] = 'Cutting Depth (cm)';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'रस्ता ओलांडण्याची संख्या (पर्यायी)' WHERE [FieldLabel] = 'No. of Road Crossings (optional)';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'अपेक्षित सुरू तारीख' WHERE [FieldLabel] = 'Expected Start Date';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'अपेक्षित अंतिम तारीख' WHERE [FieldLabel] = 'Expected End Date';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'रहदारी व्यवस्थापन आवश्यक आहे का?' WHERE [FieldLabel] = 'Traffic Management Required?';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'बॅरिकेडिंग आणि सुरक्षा व्यवस्था' WHERE [FieldLabel] = 'Barricading & Safety Arrangement';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'पुनर्स्थापना जबाबदारी' WHERE [FieldLabel] = 'Restoration Responsibility';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'पुनर्स्थापना प्रकार' WHERE [FieldLabel] = 'Restoration Type';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'हमीपत्र / स्वीकृती पत्र' WHERE [FieldLabel] = 'Undertaking / Indemnity Consent';
+
+-- Document Upload translations
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'नवरदेवाच्या वयाचा पुरावा' WHERE [FieldLabel] = 'Groom Age Proof Document';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'नवरीच्या वयाचा पुरावा' WHERE [FieldLabel] = 'Bride Age Proof Document';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'लग्नपत्रिका' WHERE [FieldLabel] = 'Wedding Invitation Card';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'साक्षीदार १ ओळख पुरावा' WHERE [FieldLabel] = 'Witness 1 ID Proof';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'साक्षीदार २ ओळख पुरावा' WHERE [FieldLabel] = 'Witness 2 ID Proof';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'रुग्णालयाचा डिस्चार्ज कार्ड दाखला' WHERE [FieldLabel] = 'Hospital Discharge Card';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'माहिती देणाऱ्याचा ओळख पुरावा' WHERE [FieldLabel] = 'Informant ID Proof';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'मृत्यूचे कारण दर्शविणारा डॉक्टरांचा दाखला' WHERE [FieldLabel] = 'Doctor Certificate of Cause of Death';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'स्मशानभूमी किंवा दफनभूमीचा दाखला' WHERE [FieldLabel] = 'Cremation / Burial Ground Certificate';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'अर्जदाराच्या ओळखपत्राचा पुरावा' WHERE [FieldLabel] = 'Applicant ID Proof Document';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'मालमत्ता कराची पावती' WHERE [FieldLabel] = 'Property Tax Receipt Document';
+UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'जागेचा नकाशा / आराखडा' WHERE [FieldLabel] = 'Premises Layout Map';
+GO
+
+
 
