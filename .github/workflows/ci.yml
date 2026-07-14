@@ -35,7 +35,7 @@ jobs:
         run: dotnet build src/DatabaseManager.sln --configuration Release --no-restore
 
       - name: Create test database
-        shell: powershell
+        shell: powershell -ExecutionPolicy Bypass -NoProfile -NonInteractive -Command {0}
         run: |
           cd src
           dotnet run --project DatabaseManager.csproj -- C `
@@ -46,7 +46,7 @@ jobs:
           DOTNET_ENVIRONMENT: Development
 
       - name: Create upgrade database
-        shell: powershell
+        shell: powershell -ExecutionPolicy Bypass -NoProfile -NonInteractive -Command {0}
         run: |
           cd src
           dotnet run --project DatabaseManager.csproj -- C `
@@ -57,7 +57,7 @@ jobs:
           DOTNET_ENVIRONMENT: Development
 
       - name: Verify upgrade execution
-        shell: powershell
+        shell: powershell -ExecutionPolicy Bypass -NoProfile -NonInteractive -Command {0}
         run: |
           cd src
           dotnet run --project DatabaseManager.csproj -- U `
