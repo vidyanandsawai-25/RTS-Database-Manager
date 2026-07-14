@@ -851,59 +851,6 @@ CREATE TABLE [CORE].[RoleWiseScreenAccessMaster](
 GO
 
 /* ===========================
-   RuleEffectTypeMaster
-=========================== */
-CREATE TABLE [CORE].[RuleEffectTypeMaster](
-    [Id]           INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-    [EffectType]   VARCHAR(100) NOT NULL,
-    [IsActive]     BIT NOT NULL CONSTRAINT [DF_RuleEffectTypeMaster_IsActive]    DEFAULT (1),
-    [CreatedBy]    INT NULL,
-    [CreatedDate]  DATETIME NOT NULL CONSTRAINT [DF_RuleEffectTypeMaster_CreatedDate] DEFAULT (GETDATE()),
-    [UpdatedBy]    INT NULL,
-    [UpdatedDate]  DATETIME NULL,
-
-    CONSTRAINT [PK_RuleEffectTypeMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [UQ_RuleEffectTypeMaster_EffectType] UNIQUE ([EffectType])
-);
-GO
-
-/* ===========================
- RuleOperatorMaster
-=========================== */
-CREATE TABLE [CORE].[RuleOperatorMaster](
-    [Id]                    INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-    [Operator]              VARCHAR(100) NOT NULL,
-    [OperatorDescription]   VARCHAR(100) NOT NULL,
-    [IsActive]              BIT NOT NULL CONSTRAINT [DF_RuleOperatorMaster_IsActive]    DEFAULT (1),
-    [CreatedBy]             INT NULL,
-    [CreatedDate]           DATETIME NOT NULL CONSTRAINT [DF_RuleOperatorMaster_CreatedDate] DEFAULT (GETDATE()),
-    [UpdatedBy]             INT NULL,
-    [UpdatedDate]           DATETIME NULL,
-
-    CONSTRAINT [PK_RuleOperatorMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [UQ_RuleOperatorMaster_Operator] UNIQUE ([Operator])
-);
-GO
-
-/* ===========================
- RuleScopeMaster
-=========================== */
-CREATE TABLE [CORE].[RuleScopeMaster](
-    [Id]          INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-    [RuleScope]   VARCHAR(100) NOT NULL,
-    [IsActive]    BIT NOT NULL CONSTRAINT [DF_RuleScopeMaster_IsActive]    DEFAULT (1),
-    [CreatedBy]   INT NULL,
-    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_RuleScopeMaster_CreatedDate] DEFAULT (GETDATE()),
-    [UpdatedBy]   INT NULL,
-    [UpdatedDate] DATETIME NULL,
-
-    CONSTRAINT [PK_RuleScopeMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [UQ_RuleScopeMaster_RuleScope] UNIQUE ([RuleScope])
-);
-GO
-
-
-/* ===========================
  DocumentBinding
  =========================== */
 
