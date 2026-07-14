@@ -4231,7 +4231,7 @@ CREATE TABLE [PTIS].[PropertyTaxJob]
     (
         [Status] IN ('Scheduled', 'Pending', 'InProgress', 'Completed', 'Failed')
     )
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+) ON [PRIMARY] 
 GO
 
 CREATE UNIQUE NONCLUSTERED INDEX [UX_PropertyTaxJob_JobCode_Active]
@@ -4311,3 +4311,279 @@ GO
 
 ALTER TABLE [PTIS].[BuildingPlanType] ADD CONSTRAINT [FK_BuildingPlanType_DocumentBinding] FOREIGN KEY ([DocumentBindingId]) REFERENCES [CORE].[DocumentBinding]([Id]);
 GO
+
+/****** Object:  Table [PTIS].[RuleEffectTypeMaster] ******/
+CREATE TABLE [PTIS].[RuleEffectTypeMaster](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[EffectType] [varchar](100) NOT NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RuleEffectTypeMaster_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_RuleEffectTypeMaster_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_RuleEffectTypeMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT [UQ_RuleEffectTypeMaster_EffectType] UNIQUE NONCLUSTERED ([EffectType] ASC)
+) ON [PRIMARY]
+GO
+
+/****** Object:  Table [PTIS].[EffectTypeConfiguration] ******/
+CREATE TABLE [PTIS].[EffectTypeConfiguration](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[EffectTypeId] [int] NOT NULL,
+	[DataType] [nvarchar](50) NOT NULL,
+	[InputType] [nvarchar](50) NOT NULL,
+	[HasApiSource] [bit] NOT NULL CONSTRAINT [DF_EffectTypeConfiguration_HasApiSource] DEFAULT (0),
+	[ApiEndpoint] [nvarchar](500) NULL,
+	[ApiMethod] [nvarchar](10) NULL,
+	[ApiParameters] [nvarchar](max) NULL,
+	[HasStaticValues] [bit] NOT NULL CONSTRAINT [DF_EffectTypeConfiguration_HasStaticValues] DEFAULT (0),
+	[StaticValuesJson] [nvarchar](max) NULL,
+	[IsRequired] [bit] NOT NULL CONSTRAINT [DF_EffectTypeConfiguration_IsRequired] DEFAULT (0),
+	[DefaultValue] [nvarchar](255) NULL,
+	[ValidationRegex] [nvarchar](500) NULL,
+	[MinValue] [decimal](18, 4) NULL,
+	[MaxValue] [decimal](18, 4) NULL,
+	[MinLength] [int] NULL,
+	[MaxLength] [int] NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_EffectTypeConfiguration_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_EffectTypeConfiguration_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	[ExpressionTemplate] [nvarchar](500) NULL,
+	[StaticApiEndpoint] [nvarchar](500) NULL,
+	[StaticApiInputType] [nvarchar](500) NULL,
+	[StaticApiMethod] [nvarchar](500) NULL,
+	[StaticApiParamter] [nvarchar](500) NULL,
+	[StaticApiResponseMapping] [nvarchar](500) NULL,
+	CONSTRAINT [PK_EffectTypeConfiguration] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT [UQ_EffectTypeConfiguration_EffectTypeId] UNIQUE NONCLUSTERED ([EffectTypeId] ASC),
+	CONSTRAINT [FK_EffectTypeConfiguration_RuleEffectTypeMaster] FOREIGN KEY([EffectTypeId]) REFERENCES [PTIS].[RuleEffectTypeMaster] ([Id])
+) ON [PRIMARY]
+GO
+
+/****** Object:  Table [PTIS].[RulesFieldMaster] ******/
+CREATE TABLE [PTIS].[RulesFieldMaster](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[FieldName] [varchar](100) NOT NULL,
+	[FieldType] [nvarchar](50) NOT NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RulesFieldMaster_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_RulesFieldMaster_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	[DatabaseColumnName] [nvarchar](100) NULL,
+	CONSTRAINT [PK_RulesFieldMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT [UQ_RulesFieldMaster_FieldName] UNIQUE NONCLUSTERED ([FieldName] ASC)
+) ON [PRIMARY]
+GO
+
+/****** Object:  Table [PTIS].[FieldConfiguration] ******/
+CREATE TABLE [PTIS].[FieldConfiguration](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[RulesFieldId] [int] NOT NULL,
+	[DataType] [nvarchar](50) NOT NULL,
+	[InputType] [nvarchar](50) NOT NULL,
+	[HasApiSource] [bit] NOT NULL CONSTRAINT [DF_FieldConfiguration_HasApiSource] DEFAULT (0),
+	[ApiEndpoint] [nvarchar](500) NULL,
+	[ApiMethod] [nvarchar](10) NULL,
+	[ApiParameters] [nvarchar](max) NULL,
+	[HasStaticValues] [bit] NOT NULL CONSTRAINT [DF_FieldConfiguration_HasStaticValues] DEFAULT (0),
+	[StaticValuesJson] [nvarchar](max) NULL,
+	[IsRequired] [bit] NOT NULL CONSTRAINT [DF_FieldConfiguration_IsRequired] DEFAULT (0),
+	[DefaultValue] [nvarchar](255) NULL,
+	[ValidationRegex] [nvarchar](500) NULL,
+	[MinValue] [decimal](18, 4) NULL,
+	[MaxValue] [decimal](18, 4) NULL,
+	[MinLength] [int] NULL,
+	[MaxLength] [int] NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_FieldConfiguration_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_FieldConfiguration_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	[ApiResponseMapping] [nvarchar](max) NULL,
+	CONSTRAINT [PK_FieldConfiguration] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT [UQ_FieldConfiguration_FieldId] UNIQUE NONCLUSTERED ([RulesFieldId] ASC),
+	CONSTRAINT [FK_FieldConfiguration_RulesFieldMaster] FOREIGN KEY([RulesFieldId]) REFERENCES [PTIS].[RulesFieldMaster] ([Id])
+) ON [PRIMARY] 
+GO
+
+/****** Object:  Table [PTIS].[PropertyRuleApplicationLog] ******/
+CREATE TABLE [PTIS].[PropertyRuleApplicationLog](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[PropertyId] [int] NOT NULL,
+	[PropertyDetailsId] [int] NOT NULL,
+	[FinanceYear] [int] NOT NULL,
+	[RuleCategory] [nvarchar](50) NOT NULL,
+	[RuleCode] [nvarchar](100) NOT NULL,
+	[RuleName] [nvarchar](200) NOT NULL,
+	[EffectType] [nvarchar](100) NOT NULL,
+	[EffectValue] [decimal](18, 4) NOT NULL,
+	[BaseValue] [decimal](18, 4) NOT NULL,
+	[ComputedValue] [decimal](18, 4) NOT NULL,
+	[CumulativeValue] [decimal](18, 4) NOT NULL,
+	[ApplyOrder] [int] NOT NULL,
+	[StopProcessing] [bit] NOT NULL,
+	[AppliedAt] [datetime] NOT NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PropertyRuleApplicationLog_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedDate] [datetime] NULL,
+	[CreatedBy] [int] NULL,
+	[UpdatedBy] [int] NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyRuleApplicationLog_IsActive] DEFAULT (1),
+	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_PropertyRuleApplicationLog_MarkedForDeletion] DEFAULT (0),
+	[MarkedForDeletionDate] [datetime] NULL,
+	[ApplyRate] [decimal](18, 4) NOT NULL CONSTRAINT [DF_PropertyRuleApplicationLog_ApplyRate] DEFAULT (0),
+	[RuleScopeId] [int] NULL,
+	[RuleScopeName] [nvarchar](200) NULL,
+	[Name] [nvarchar](200) NULL,
+	CONSTRAINT [PK_PropertyRuleApplicationLog] PRIMARY KEY CLUSTERED ([Id] ASC)
+) ON [PRIMARY]
+GO
+
+/****** Object:  Table [PTIS].[RuleCategoryMaster] ******/
+CREATE TABLE [PTIS].[RuleCategoryMaster](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[CategoryCode] [nvarchar](50) NOT NULL,
+	[CategoryName] [nvarchar](200) NOT NULL,
+	[Description] [nvarchar](500) NULL,
+	[SortOrder] [int] NOT NULL CONSTRAINT [DF_RuleCategoryMaster_SortOrder] DEFAULT (0),
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RuleCategoryMaster_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_RuleCategoryMaster_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_RuleCategoryMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT [UQ_RuleCategoryMaster_CategoryCode] UNIQUE NONCLUSTERED ([CategoryCode] ASC)
+) ON [PRIMARY]
+GO
+
+
+
+/****** Object:  Table [PTIS].[RuleEngineMaster] ******/
+CREATE TABLE [PTIS].[RuleEngineMaster](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[RuleCode] [nvarchar](50) NOT NULL,
+	[RuleName] [nvarchar](200) NOT NULL,
+	[Description] [nvarchar](1000) NULL,
+	[RuleCategory] [nvarchar](100) NULL,
+	[RuleJson] [nvarchar](max) NOT NULL,
+	[Priority] [int] NOT NULL,
+	[IsEnabled] [bit] NOT NULL CONSTRAINT [DF_RuleEngineMaster_IsEnabled] DEFAULT (1),
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RuleEngineMaster_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_RuleEngineMaster_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	[ConditionsJson] [nvarchar](max) NULL,
+	[EffectJson] [nvarchar](max) NULL,
+	[TargetFiltersJson] [nvarchar](max) NULL,
+	[StopProcessing] [bit] NOT NULL CONSTRAINT [DF_RuleEngineMaster_StopProcessing] DEFAULT (0),
+	[RuleScopeId] [int] NULL,
+	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_RuleEngineMaster_MarkedForDeletion] DEFAULT (0),
+	[MarkedForDeletionDate] [datetime] NULL,
+	CONSTRAINT [PK_RuleEngineMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
+) ON [PRIMARY] 
+GO
+
+/****** Object:  Table [PTIS].[RuleOperatorMaster] ******/
+CREATE TABLE [PTIS].[RuleOperatorMaster](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[Operator] [varchar](100) NOT NULL,
+	[OperatorDescription] [varchar](100) NOT NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RuleOperatorMaster_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_RuleOperatorMaster_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_RuleOperatorMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT [UQ_RuleOperatorMaster_Operator] UNIQUE NONCLUSTERED ([Operator] ASC)
+) ON [PRIMARY]
+GO
+
+/****** Object:  Table [PTIS].[RuleScopeFieldMapping] ******/
+CREATE TABLE [PTIS].[RuleScopeFieldMapping](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[RuleScopeId] [int] NOT NULL,
+	[RulesFieldId] [int] NOT NULL,
+	[DisplayOrder] [int] NOT NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RuleScopeFieldMapping_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_RuleScopeFieldMapping_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_RuleScopeFieldMapping] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT [UK_RuleScopeFieldMapping] UNIQUE NONCLUSTERED ([RuleScopeId] ASC, [RulesFieldId] ASC)
+) ON [PRIMARY]
+GO
+
+/****** Object:  Table [PTIS].[RuleScopeMaster] ******/
+CREATE TABLE [PTIS].[RuleScopeMaster](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[RuleScope] [varchar](100) NOT NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RuleScopeMaster_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_RuleScopeMaster_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_RuleScopeMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT [UQ_RuleScopeMaster_RuleScope] UNIQUE NONCLUSTERED ([RuleScope] ASC)
+) ON [PRIMARY]
+GO
+
+
+
+/****** Object:  Table [PTIS].[RuleVersionHistory] ******/
+CREATE TABLE [PTIS].[RuleVersionHistory](
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[RuleId] [int] NOT NULL,
+	[RuleCode] [nvarchar](50) NOT NULL,
+	[Version] [int] NOT NULL,
+	[RuleName] [nvarchar](200) NOT NULL,
+	[Description] [nvarchar](1000) NULL,
+	[RuleJson] [nvarchar](max) NOT NULL,
+	[Priority] [int] NOT NULL,
+	[IsEnabled] [bit] NOT NULL,
+	[ChangeType] [nvarchar](50) NOT NULL,
+	[ChangeReason] [nvarchar](500) NULL,
+	[ChangedBy] [int] NOT NULL,
+	[ChangedDate] [datetime] NOT NULL CONSTRAINT DF_RuleVersionHistory_ChangedDate DEFAULT (GETDATE()),
+	[ChangeSummary] [nvarchar](max) NULL,
+	CONSTRAINT [PK_RuleVersionHistory] PRIMARY KEY CLUSTERED ([Id] ASC)
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [PTIS].[RuleVersionHistory] WITH CHECK ADD CONSTRAINT [FK_RuleVersionHistory_RuleEngineMaster] FOREIGN KEY([RuleId]) REFERENCES [PTIS].[RuleEngineMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[RuleVersionHistory] CHECK CONSTRAINT [FK_RuleVersionHistory_RuleEngineMaster]
+GO
+
+ALTER TABLE [PTIS].[PropertyRuleApplicationLog] WITH CHECK ADD CONSTRAINT [FK_PropertyRuleApplicationLog_PropertyDetails] FOREIGN KEY([PropertyDetailsId]) REFERENCES [PTIS].[PropertyDetails] ([Id])
+GO
+ALTER TABLE [PTIS].[PropertyRuleApplicationLog] CHECK CONSTRAINT [FK_PropertyRuleApplicationLog_PropertyDetails]
+GO
+
+ALTER TABLE [PTIS].[PropertyRuleApplicationLog] WITH CHECK ADD CONSTRAINT [FK_PropertyRuleApplicationLog_PropertyMast] FOREIGN KEY([PropertyId]) REFERENCES [PTIS].[PropertyMast] ([Id])
+GO
+ALTER TABLE [PTIS].[PropertyRuleApplicationLog] CHECK CONSTRAINT [FK_PropertyRuleApplicationLog_PropertyMast]
+GO
+
+ALTER TABLE [PTIS].[RuleEngineMaster] WITH CHECK ADD CONSTRAINT [FK_RuleEngineMaster_RuleScopeMaster] FOREIGN KEY([RuleScopeId]) REFERENCES [PTIS].[RuleScopeMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[RuleEngineMaster] CHECK CONSTRAINT [FK_RuleEngineMaster_RuleScopeMaster]
+GO
+
+ALTER TABLE [PTIS].[RuleScopeFieldMapping] WITH CHECK ADD CONSTRAINT [FK_RuleScopeFieldMapping_RuleScopeMaster] FOREIGN KEY([RuleScopeId]) REFERENCES [PTIS].[RuleScopeMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[RuleScopeFieldMapping] CHECK CONSTRAINT [FK_RuleScopeFieldMapping_RuleScopeMaster]
+GO
+
+ALTER TABLE [PTIS].[RuleScopeFieldMapping] WITH CHECK ADD CONSTRAINT [FK_RuleScopeFieldMapping_RulesFieldMaster] FOREIGN KEY([RulesFieldId]) REFERENCES [PTIS].[RulesFieldMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[RuleScopeFieldMapping] CHECK CONSTRAINT [FK_RuleScopeFieldMapping_RulesFieldMaster]
+GO
+
+
+
+
+

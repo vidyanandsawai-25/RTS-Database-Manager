@@ -4597,3 +4597,328 @@ AND NOT EXISTS
 );
 
 SET IDENTITY_INSERT [PTIS].[RoomTypeMaster] OFF;
+
+GO
+
+-- ==========================================
+-- Rules Engine Configuration Seed Data
+-- ==========================================
+
+SET IDENTITY_INSERT [PTIS].[RuleScopeMaster] ON 
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeMaster] WHERE [RuleScope] = N'Property Level')
+    INSERT [PTIS].[RuleScopeMaster] ([Id], [RuleScope], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1, N'Property Level', 1, 1, CAST(N'2026-05-04T15:43:57.587' AS DateTime), 0, CAST(N'2026-05-04T15:44:33.573' AS DateTime))
+GO
+SET IDENTITY_INSERT [PTIS].[RuleScopeMaster] OFF
+GO
+
+SET IDENTITY_INSERT [PTIS].[RulesFieldMaster] ON 
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Floor')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (1, N'Floor', N'Int', 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL, N'FloorId')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Type')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (2, N'Type', N'String', 1, 1, CAST(N'2026-05-18T11:30:10.320' AS DateTime), 1, CAST(N'2026-05-27T17:35:26.497' AS DateTime), N'TypeOfUseGroupId')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Construction Type')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (3, N'Construction Type', N'String', 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL, N'ConstructionTypeId')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Zone')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (4, N'Zone', N'String', 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL, N'TaxZoneId')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Ward')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (5, N'Ward', N'String', 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL, N'WardId')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Year Range')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (6, N'Year Range', N'Int', 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL, N'AssessmentYear')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Area Sq.Mt')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (7, N'Area Sq.Mt', N'Double', 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Rented')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (8, N'Rented', N'Boolean', 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL, N'IsRenter')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Owner Type')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (9, N'Owner Type', N'String', 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL, N'OwnerTypeId')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Property Type')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (10, N'Property Type', N'String', 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL, N'PropertyTypeId')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Sub Floor')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (11, N'Sub Floor', N'String', 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL, N'SubFloorId')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Occupancy Certificate')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (13, N'Occupancy Certificate', N'Boolean', 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL, N'OccupancyCertificate')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Commencement Certificate')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (14, N'Commencement Certificate', N'Boolean', 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL, N'CommencementCertificate')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Carpet Area SqMeter')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (15, N'Carpet Area SqMeter', N'Double', 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL, N'CarpetAreaSqMeter')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Builtup Area SqMeter')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (16, N'Builtup Area SqMeter', N'Double', 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL, N'BuiltupAreaSqMeter')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Carpet Area SqFeet')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (17, N'Carpet Area SqFeet', N'Double', 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL, N'CarpetAreaSqFeet')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Builtup Area SqFeet')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (18, N'Builtup Area SqFeet', N'Double', 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL, N'BuiltupAreaSqFeet')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Type Of Use')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (19, N'Type Of Use', N'Int', 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL, N'TypeOfUseId')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Amenity')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (1011, N'Amenity', N'String', 1, 1, CAST(N'2026-06-09T12:42:27.143' AS DateTime), NULL, NULL, N'SocialAttributeId')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Category')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (1013, N'Category', N'String', 1, 1, CAST(N'2026-06-17T15:16:02.797' AS DateTime), NULL, NULL, N'CategoryId')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Total Floors')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (2013, N'Total Floors', N'Int', 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL, N'BuildingMaxFloorSequence')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Tax Liability')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (3013, N'Tax Liability', N'String', 1, 1, CAST(N'2026-07-06T12:31:02.063' AS DateTime), NULL, NULL, N'TaxLiability')
+GO
+SET IDENTITY_INSERT [PTIS].[RulesFieldMaster] OFF
+GO
+
+SET IDENTITY_INSERT [PTIS].[RuleCategoryMaster] ON 
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleCategoryMaster] WHERE [CategoryCode] = N'RV')
+    INSERT [PTIS].[RuleCategoryMaster] ([Id], [CategoryCode], [CategoryName], [Description], [SortOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1, N'RV', N'RV (Rateable Value)', N'Rules applicable to Rateable Value method', 1, 1, 1, CAST(N'2026-05-28T14:31:42.670' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleCategoryMaster] WHERE [CategoryCode] = N'CV')
+    INSERT [PTIS].[RuleCategoryMaster] ([Id], [CategoryCode], [CategoryName], [Description], [SortOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2, N'CV', N'CV (Capital Value)', N'Rules applicable to Capital Value method', 2, 1, 1, CAST(N'2026-05-28T14:31:42.670' AS DateTime), NULL, NULL)
+GO
+SET IDENTITY_INSERT [PTIS].[RuleCategoryMaster] OFF
+GO
+
+SET IDENTITY_INSERT [PTIS].[RuleEffectTypeMaster] ON 
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleEffectTypeMaster] WHERE [EffectType] = N'Increase %')
+    INSERT [PTIS].[RuleEffectTypeMaster] ([Id], [EffectType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1, N'Increase %', 1, 1, CAST(N'2026-05-05T19:03:44.857' AS DateTime), 1, CAST(N'2026-05-05T19:04:14.420' AS DateTime))
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleEffectTypeMaster] WHERE [EffectType] = N'Decrease %')
+    INSERT [PTIS].[RuleEffectTypeMaster] ([Id], [EffectType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2, N'Decrease %', 1, 1, CAST(N'2026-05-18T14:22:05.493' AS DateTime), NULL, NULL)
+GO
+SET IDENTITY_INSERT [PTIS].[RuleEffectTypeMaster] OFF
+GO
+
+SET IDENTITY_INSERT [PTIS].[RuleOperatorMaster] ON 
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleOperatorMaster] WHERE [Operator] = N'=')
+    INSERT [PTIS].[RuleOperatorMaster] ([Id], [Operator], [OperatorDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1, N'=', N'Equal To', 1, 1, CAST(N'2026-05-07T12:40:19.087' AS DateTime), 0, CAST(N'2026-05-07T12:40:54.183' AS DateTime))
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleOperatorMaster] WHERE [Operator] = N'!=')
+    INSERT [PTIS].[RuleOperatorMaster] ([Id], [Operator], [OperatorDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2, N'!=', N'Not Equal To', 1, 1, CAST(N'2026-05-18T14:32:23.880' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleOperatorMaster] WHERE [Operator] = N'>')
+    INSERT [PTIS].[RuleOperatorMaster] ([Id], [Operator], [OperatorDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (3, N'>', N'Greater Than', 1, 1, CAST(N'2026-05-18T14:32:23.880' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleOperatorMaster] WHERE [Operator] = N'<')
+    INSERT [PTIS].[RuleOperatorMaster] ([Id], [Operator], [OperatorDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (4, N'<', N'Less Than', 1, 1, CAST(N'2026-05-18T14:32:23.880' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleOperatorMaster] WHERE [Operator] = N'>=')
+    INSERT [PTIS].[RuleOperatorMaster] ([Id], [Operator], [OperatorDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (5, N'>=', N'Greater Than Or Equal To', 1, 1, CAST(N'2026-05-18T14:32:23.880' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleOperatorMaster] WHERE [Operator] = N'<=')
+    INSERT [PTIS].[RuleOperatorMaster] ([Id], [Operator], [OperatorDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (6, N'<=', N'Less Than Or Equal To', 1, 1, CAST(N'2026-05-18T14:32:23.880' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleOperatorMaster] WHERE [Operator] = N'In')
+    INSERT [PTIS].[RuleOperatorMaster] ([Id], [Operator], [OperatorDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (7, N'In', N'Value exists in list', 1, 1, CAST(N'2026-05-18T14:32:23.880' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleOperatorMaster] WHERE [Operator] = N'Not In')
+    INSERT [PTIS].[RuleOperatorMaster] ([Id], [Operator], [OperatorDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (8, N'Not In', N'Value does not exist in list', 1, 1, CAST(N'2026-05-18T14:32:23.880' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleOperatorMaster] WHERE [Operator] = N'Contains Any')
+    INSERT [PTIS].[RuleOperatorMaster] ([Id], [Operator], [OperatorDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (9, N'Contains Any', N'Contains any matching value', 1, 1, CAST(N'2026-05-18T14:32:23.880' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleOperatorMaster] WHERE [Operator] = N'Contains All')
+    INSERT [PTIS].[RuleOperatorMaster] ([Id], [Operator], [OperatorDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (10, N'Contains All', N'Contains all matching values', 1, 1, CAST(N'2026-05-18T14:32:23.880' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleOperatorMaster] WHERE [Operator] = N'Between')
+    INSERT [PTIS].[RuleOperatorMaster] ([Id], [Operator], [OperatorDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (11, N'Between', N'Value Between Range', 1, 1, CAST(N'2026-05-18T14:32:23.880' AS DateTime), NULL, NULL)
+GO
+SET IDENTITY_INSERT [PTIS].[RuleOperatorMaster] OFF
+GO
+
+SET IDENTITY_INSERT [PTIS].[EffectTypeConfiguration] ON 
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[EffectTypeConfiguration] WHERE [EffectTypeId] = 1)
+    INSERT [PTIS].[EffectTypeConfiguration] ([Id], [EffectTypeId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ExpressionTemplate], [StaticApiEndpoint], [StaticApiInputType], [StaticApiMethod], [StaticApiParamter], [StaticApiResponseMapping]) VALUES (1, 1, N'String', N'TextBox', 0, N'', N'', N'', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-27T16:36:11.117' AS DateTime), NULL, NULL, NULL, N'PropertyRuleEvaluationMaster', N'dropdown', N'GET', N'{"PageSize":"-1"}', N'{"responsePath":"data","valuePath":"id","labelPath":"parameterName","displayTemplate":"{parameterCode} - {parameterName}","additionalFields":{"parameterCode":"parameterCode"}}')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[EffectTypeConfiguration] WHERE [EffectTypeId] = 2)
+    INSERT [PTIS].[EffectTypeConfiguration] ([Id], [EffectTypeId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ExpressionTemplate], [StaticApiEndpoint], [StaticApiInputType], [StaticApiMethod], [StaticApiParamter], [StaticApiResponseMapping]) VALUES (2, 2, N'String', N'TextBox', 0, N'', N'', N'', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-27T16:36:11.117' AS DateTime), NULL, NULL, NULL, N'PropertyRuleEvaluationMaster', N'dropdown', N'GET', N'{"PageSize":"-1"}', N'{"responsePath":"data","valuePath":"id","labelPath":"parameterName","displayTemplate":"{parameterCode} - {parameterName}","additionalFields":{"parameterCode":"parameterCode"}}')
+GO
+SET IDENTITY_INSERT [PTIS].[EffectTypeConfiguration] OFF
+GO
+
+SET IDENTITY_INSERT [PTIS].[FieldConfiguration] ON 
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 1)
+    INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (3, 1, N'Int', N'Dropdown', 1, N'Floor', N'Get', N'{"PageSize":"-1"}', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-21T11:51:26.163' AS DateTime), NULL, NULL, N'{"responsePath":"items","valuePath":"id","labelPath":"description","displayTemplate":"{floorCode} - {description}","additionalFields":{"floorCode":"floorCode","sequenceNo":"sequenceNo"}}')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 2)
+    INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (4, 2, N'String', N'Dropdown', 1, N'TypeOfUseGroup', N'GET', N'{"PageSize":"-1"}', 0, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, CAST(N'2026-05-21T11:51:26.163' AS DateTime), 1, CAST(N'2026-05-27T17:35:26.500' AS DateTime), N'{"responsePath":"items","valuePath":"id","labelPath":"groupName","displayTemplate":"{typeOfUseGroupCode} - {groupName}","additionalFields":{"constructionCode":"constructionCode"}}')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 3)
+    INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (5, 3, N'String', N'Dropdown', 1, N'ConstructionType', N'Get', N'{"PageSize":"-1"}', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-27T16:14:23.820' AS DateTime), NULL, NULL, N'{"responsePath":"items","valuePath":"id","labelPath":"description","displayTemplate":"{constructionCode} - {description}","additionalFields":{"constructionCode":"constructionCode"}}')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 4)
+    INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (6, 4, N'String', N'Dropdown', 1, N'TaxZone', N'Get', N'{"PageSize":"-1"}', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-27T16:14:23.820' AS DateTime), NULL, NULL, N'{"responsePath":"items","valuePath":"id","labelPath":"remark","displayTemplate":"{remark}"}')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 5)
+    INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (7, 5, N'String', N'Dropdown', 1, N'Ward', N'Get', N'{"PageSize":"-1"}', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-27T16:14:23.820' AS DateTime), NULL, NULL, N'{"responsePath":"items","valuePath":"id","labelPath":"wardNo","displayTemplate":"{description}"}')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 6)
+    INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (8, 6, N'Int', N'Dropdown', 1, N'AssessmentYearRange', N'Get', N'{"PageSize":"-1"}', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-27T16:14:23.820' AS DateTime), NULL, NULL, N'{"responsePath":"items","valuePath":"id","labelPath":"fromYear","displayTemplate":"{fromYear} - {toYear}"}')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 7)
+    INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (9, 7, N'Double', N'TextBox', 0, N'', N'', N'{"PageSize":"-1"}', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-27T16:14:23.820' AS DateTime), NULL, NULL, N'')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 8)
+    INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (10, 8, N'Boolean', N'Dropdown', 0, N'', N'', N'{"PageSize":"-1"}', 1, N'[
+  {
+    "label": "True",
+    "value": true
+  },
+  {
+    "label": "False",
+    "value": false
+  }
+]', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-27T16:14:23.820' AS DateTime), NULL, NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 9)
+    INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (11, 9, N'String', N'Dropdown', 1, N'OwnerType', N'Get', N'{"PageSize":"-1"}', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-27T16:14:23.820' AS DateTime), NULL, NULL, N'{"responsePath":"items","valuePath":"id","labelPath":"ownerType","displayTemplate":"{ownerType}"}')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 10)
+    INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (12, 10, N'String', N'Dropdown', 1, N'PropertyTypeMaster', N'Get', N'{"PageSize":"-1"}', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-27T16:14:23.820' AS DateTime), NULL, NULL, N'{"responsePath":"items","valuePath":"id","labelPath":"propertyDescription","displayTemplate":"{type} - {propertyDescription}","additionalFields":{"type":"type"}}')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 11)
+    INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (13, 11, N'String', N'Dropdown', 1, N'SubFloor', N'Get', N'{"PageSize":"-1"}', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-21T11:51:26.163' AS DateTime), NULL, NULL, N'{"responsePath":"items","valuePath":"id","labelPath":"description","displayTemplate":"{subFloorCode} - {description}","additionalFields":{"subFloorCode":"subFloorCode","sequenceNo":"sequenceNo"}}')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 13)
+    INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (15, 13, N'Boolean', N'Dropdown', 0, N'', N'', N'{"PageSize":"-1"}', 1, N'[
+  {
+    "label": "True",
+    "value": true
+  },
+  {
+    "label": "False",
+    "value": false
+  }
+]', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-27T16:14:23.820' AS DateTime), NULL, NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 14)
+    INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (16, 14, N'Boolean', N'Dropdown', 0, N'', N'', N'{"PageSize":"-1"}', 1, N'[
+  {
+    "label": "True",
+    "value": true
+  },
+  {
+    "label": "False",
+    "value": false
+  }
+]', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-27T16:14:23.820' AS DateTime), NULL, NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 15)
+    INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (17, 15, N'Double', N'TextBox', 0, N'', N'', N'', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-27T16:14:23.820' AS DateTime), NULL, NULL, N'')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 16)
+    INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (18, 16, N'Double', N'TextBox', 0, N'', N'', N'', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-27T16:14:23.820' AS DateTime), NULL, NULL, N'')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 17)
+    INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (19, 17, N'Double', N'TextBox', 0, N'', N'', N'', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-27T16:14:23.820' AS DateTime), NULL, NULL, N'')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 18)
+    INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (20, 18, N'Double', N'TextBox', 0, N'', N'', N'', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-27T16:14:23.820' AS DateTime), NULL, NULL, N'')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 19)
+    INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (22, 19, N'Int', N'Dropdown', 1, N'TypeOfUse', N'Get', N'{"PageSize":"-1"}', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-21T11:51:26.163' AS DateTime), NULL, NULL, N'{"responsePath":"items","valuePath":"id","labelPath":"description","displayTemplate":"{typeOfUseCode} - {description}","additionalFields":{"typeOfUseCode":"typeOfUseCode","sequenceNo":"sequenceNo"}}')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 1011)
+    INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (1013, 1011, N'String', N'Dropdown', 1, N'SocialAttribute', N'Get', N'{"PageSize":"-1"}', 0, N'', 1, NULL, NULL, CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-06-09T12:50:33.540' AS DateTime), NULL, NULL, N'{"responsePath":"items","valuePath":"id","labelPath":"socialAttributeName","displayTemplate":"{socialAttributeName}"}')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 1013)
+    INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (1015, 1013, N'String', N'Dropdown', 1, N'PropertyCategory', N'Get', N'{"PageSize":"-1"}', 0, N'', 1, NULL, NULL, CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-06-09T12:50:33.540' AS DateTime), NULL, NULL, N'{"responsePath":"items","valuePath":"id","labelPath":"propertyCategoryName","displayTemplate":"{propertyCategoryName}"}')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 2013)
+    INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (2015, 2013, N'Int', N'Dropdown', 1, N'Floor', N'Get', N'{"PageSize":"-1"}', 0, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, CAST(N'2026-05-21T11:51:26.163' AS DateTime), NULL, NULL, N'{"responsePath":"items","valuePath":"sequenceNo","labelPath":"description","displayTemplate":"{floorCode} - {description}","additionalFields":{"floorCode":"floorCode","sequenceNo":"sequenceNo"}}')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 3013)
+    INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (3015, 3013, N'String', N'Dropdown', 0, N'', N'', N'', 1, N'[{"label": "Self","value": "Self"},{"label": "Renter","value": "Renter"}]', 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, CAST(N'2026-07-06T12:43:17.200' AS DateTime), NULL, NULL, NULL)
+GO
+SET IDENTITY_INSERT [PTIS].[FieldConfiguration] OFF
+GO
+
+SET IDENTITY_INSERT [PTIS].[RuleScopeFieldMapping] ON 
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 1)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1035, 1, 1, 1, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 2)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1036, 1, 2, 2, 1, 1, CAST(N'2026-05-18T11:30:10.320' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 3)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1037, 1, 3, 3, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 4)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1038, 1, 4, 4, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 5)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1039, 1, 5, 5, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 6)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1040, 1, 6, 6, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 7)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1041, 1, 7, 7, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 8)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1042, 1, 8, 8, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 9)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1043, 1, 9, 9, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 10)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1044, 1, 10, 10, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 11)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1045, 1, 11, 11, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 13)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1047, 1, 13, 13, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 14)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1048, 1, 14, 14, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 15)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1049, 1, 15, 15, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 16)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1050, 1, 16, 16, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 17)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1051, 1, 17, 17, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 18)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1052, 1, 18, 18, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 19)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1053, 1, 19, 19, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 1011)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1054, 1, 1011, 1011, 1, 1, CAST(N'2026-06-09T12:42:27.143' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 1013)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2035, 1, 1013, 1013, 1, 1, CAST(N'2026-06-17T15:24:15.270' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 2013)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (3035, 1, 2013, 2013, 1, 1, CAST(N'2026-06-19T18:41:24.770' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 3013)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (4037, 1, 3013, 3013, 1, 1, CAST(N'2026-07-06T12:33:19.597' AS DateTime), NULL, NULL)
+GO
+SET IDENTITY_INSERT [PTIS].[RuleScopeFieldMapping] OFF
+GO

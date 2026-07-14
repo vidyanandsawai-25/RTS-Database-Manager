@@ -36,7 +36,7 @@ internal class Program
         {
             appSettings.DatabaseName = dbNameArg;
         }
-        
+
         if (!string.IsNullOrEmpty(versionArg))
         {
             appSettings.TargetVersion = versionArg;
@@ -49,8 +49,8 @@ internal class Program
         }
 
         // Get connection string from command-line, ConnectionStrings section, or build from Database properties
-        var connectionString = connectionStringArg 
-            ?? Configuration.GetConnectionString("Default") 
+        var connectionString = connectionStringArg
+            ?? Configuration.GetConnectionString("Default")
             ?? appSettings.GetConnectionString();
         var runner = new SqlScriptRunner(connectionString);
         var versionManager = new DatabaseVersionManager(connectionString);
@@ -168,10 +168,10 @@ internal class Program
 
                 case "U":
                     Console.WriteLine($"Upgrading database to version {appSettings.TargetVersion}...");
-                    
+
                     // Ensure version tracking table exists
                     await versionManager.EnsureSchemaVersionsTableAsync(appSettings.DatabaseName);
-                    
+
                     // Get current database version
                     var currentVersion = await versionManager.GetCurrentDatabaseVersionAsync(appSettings.DatabaseName);
                     Console.WriteLine($"Current database version: {currentVersion}");
@@ -227,7 +227,7 @@ internal class Program
                     {
                         // Execute post-deployment script
                         await runner.ExecutePostDeploymentAsync(appSettings.DatabaseName);
-                        
+
                         var finalVersion = await versionManager.GetCurrentDatabaseVersionAsync(appSettings.DatabaseName);
                         Console.WriteLine($"\nUpgrade completed. Database is now at version {finalVersion}");
                     }
