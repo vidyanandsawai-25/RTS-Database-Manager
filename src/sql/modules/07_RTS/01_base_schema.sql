@@ -40,6 +40,9 @@ CREATE TABLE [RTS].[ServiceMaster]
     [ServiceUrl]        NVARCHAR(500) NULL,
     [ServiceIcon]       NVARCHAR(100) NULL,
     [DisplayOrder]      INT NOT NULL CONSTRAINT [DF_ServiceMaster_DisplayOrder] DEFAULT (0),
+    [Sla]               NVARCHAR(50) NULL,
+    [Fees]              DECIMAL(18,2) NULL,
+    [FeesRequired]      BIT NOT NULL CONSTRAINT [DF_ServiceMaster_FeesRequired] DEFAULT (0),
 
     [IsActive]          BIT NOT NULL CONSTRAINT [DF_ServiceMaster_IsActive] DEFAULT (1),
 

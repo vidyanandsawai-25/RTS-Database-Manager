@@ -108,8 +108,30 @@ GO
         (N'Water Connection', 7173, N'Water quality complaint',                 N'पाण्याच्या गुणवत्तेबद्दल तक्रार नोंदवणे',    NULL, N'AlertTriangle',  9)
     ) AS V (DeptName, GovtServiceCode, ServiceName, ServiceNameLocal, ServiceUrl, ServiceIcon, DisplayOrder)
 )
-INSERT INTO [RTS].[ServiceMaster] ([DepartmentId], [GovtServiceCode], [ServiceName], [ServiceNameLocal], [ServiceUrl], [ServiceIcon], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate])
-SELECT D.Id, S.GovtServiceCode, S.ServiceName, S.ServiceNameLocal, S.ServiceUrl, S.ServiceIcon, S.DisplayOrder, 1, 0, GETDATE()
+INSERT INTO [RTS].[ServiceMaster] ([DepartmentId], [GovtServiceCode], [ServiceName], [ServiceNameLocal], [ServiceUrl], [ServiceIcon], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [Sla], [Fees], [FeesRequired])
+SELECT D.Id, S.GovtServiceCode, S.ServiceName, S.ServiceNameLocal, S.ServiceUrl, S.ServiceIcon, S.DisplayOrder, 1, 0, GETDATE(),
+    CASE 
+        WHEN S.GovtServiceCode = 7204 THEN N'7 Days'
+        WHEN S.GovtServiceCode = 7205 THEN N'7 Days'
+        WHEN S.GovtServiceCode = 7121 THEN N'15 Days'
+        WHEN S.GovtServiceCode = 7176 THEN N'30 Days'
+        WHEN S.GovtServiceCode = 7190 THEN N'30 Days'
+        WHEN S.GovtServiceCode = 7174 THEN N'15 Days'
+        ELSE N'7 Days'
+    END,
+    CASE 
+        WHEN S.GovtServiceCode = 7204 THEN 50.00
+        WHEN S.GovtServiceCode = 7205 THEN 0.00
+        WHEN S.GovtServiceCode = 7121 THEN 100.00
+        WHEN S.GovtServiceCode = 7176 THEN 200.00
+        WHEN S.GovtServiceCode = 7190 THEN 500.00
+        WHEN S.GovtServiceCode = 7174 THEN 150.00
+        ELSE 0.00
+    END,
+    CASE 
+        WHEN S.GovtServiceCode IN (7205) THEN 0
+        ELSE 1
+    END
 FROM SeedServices S
 INNER JOIN [RTS].[DepartmentMaster] D ON D.DepartmentName = S.DeptName
 WHERE NOT EXISTS (

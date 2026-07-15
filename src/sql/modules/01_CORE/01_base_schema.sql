@@ -1178,9 +1178,21 @@ REFERENCES [CORE].[UlbType] ([Id])
 GO
 ALTER TABLE [CORE].[UlbMaster] CHECK CONSTRAINT [FK_UlbMaster_UlbType]
 GO
-CREATE NONCLUSTERED INDEX [IX_UlbMaster_UlbTypeId]
-ON [CORE].[UlbMaster] ([UlbTypeId]);
+CREATE NONCLUSTERED INDEX [IX_UlbMaster_UlbTypeId] ON [CORE].[UlbMaster] ([UlbTypeId]);
 GO
+CREATE TABLE [CORE].[UlbImageMaster](
+    [Id] [int] IDENTITY(1,1) NOT NULL,
+    [ImageType] [nvarchar](50) NULL,
+    [ImageId] [int] NULL,
+    [IsActive] [bit] NOT NULL CONSTRAINT [DF_UlbImageMaster_IsActive] DEFAULT ((1)),
+    [CreatedBy] [int] NULL,
+    [CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_UlbImageMaster_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy] [int] NULL,
+    [UpdatedDate] [datetime] NULL,
+ CONSTRAINT [PK_UlbImageMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+GO
+
 CREATE TABLE [CORE].[RefreshToken](
     [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL ,
     [Token] [nvarchar](400) NOT NULL,
