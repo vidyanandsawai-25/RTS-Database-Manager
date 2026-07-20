@@ -4463,67 +4463,11 @@ INSERT [PTIS].[WingMaster] ([Id], [WingNo], [SequenceNo], [IsActive], [CreatedBy
 SET IDENTITY_INSERT [PTIS].[WingMaster] OFF
 
 
----- policy tax details - seed data----
-
-
-;WITH PropertyList AS
-(
-    SELECT top 100 Id
-    FROM PTIS.PropertyMast
-    --WHERE Id IN (101,102,103)
-      --AND IsActive = 1
-       ORDER BY Id
-),
-PolicyList AS
-(
-    SELECT 'NETTAX' AS PolicyCode, N'Annual tax assessment' AS PolicyReason
-    UNION ALL SELECT 'APPEAL', N'Appeal case'
-    UNION ALL SELECT 'HEARING', N'Hearing case'
-    UNION ALL SELECT 'COMMITTEE', N'Committee decision'
-    UNION ALL SELECT 'REMISSION', N'Remission granted'
-),
-TaxList AS
-(
-    SELECT Id AS TaxId
-    FROM PTIS.TaxMaster
-    WHERE IsActive = 1
-)
-INSERT INTO PTIS.PolicyTaxDetails
-(
-    PropertyId,
-    PolicyCode,
-    PolicyDate,
-    PolicyYear,
-    PolicyReason,
-    PolicyRVorCVvalue,
-    TaxId,
-    TaxAmount,
-    CreatedBy
-)
-SELECT
-    PR.Id AS PropertyId,
-    PL.PolicyCode,
-    GETDATE(),
-    2026,
-    PL.PolicyReason,
-    CAST(500000 + (PR.Id * 25) + (TL.TaxId * 100) AS MONEY),
-    TL.TaxId,
-    CAST(1000 + ((PR.Id * TL.TaxId) % 25000) AS MONEY),
-    1
-FROM PropertyList PR
-CROSS JOIN PolicyList PL
-CROSS JOIN TaxList TL
-WHERE NOT EXISTS
-(
-    SELECT 1
-    FROM PTIS.PolicyTaxDetails D
-    WHERE D.PropertyId = PR.Id
-      AND D.PolicyYear = 2026
-      AND D.PolicyCode = PL.PolicyCode
-      AND D.TaxId = TL.TaxId
-      AND D.IsActive = 1
-      AND D.MarkedForDeletion = 0
-);
+---- policy tax details - seed data ----
+-- No default seed data. PTIS.PolicyTaxDetails is the RV/CV pipeline's
+-- own property-wise tax transaction table (PropertyId, PolicyCodeId,
+-- PolicyYear, TaxId) -- populated by that pipeline against real
+-- properties/taxes, not by synthetic demo rows here.
 
 
 SET IDENTITY_INSERT [PTIS].[RoomTypeMaster] ON;
@@ -4922,3 +4866,589 @@ IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] 
 GO
 SET IDENTITY_INSERT [PTIS].[RuleScopeFieldMapping] OFF
 GO
+
+
+/* ============================================================================
+   1. Seed PTIS.PolicyCodeMaster
+   DBA-provided final policy code list and NextPolicyCodeId workflow
+   chains (OC_PARTIAL -> OC, CC_PARTIAL -> CC, ELECTRIC_PARTIAL ->
+   ELECTRIC_BILL, SECTION_129 staged chain). Runs once against a fresh
+   table, so it is not wrapped in a WHERE NOT EXISTS -- guarded by
+   IsSeeded check below instead.
+============================================================================ */
+
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[PolicyCodeMaster])
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        ------------------------------------------------------------
+        -- Insert policy codes
+        ------------------------------------------------------------
+        INSERT INTO [PTIS].[PolicyCodeMaster]
+        (
+            [PolicyCode],
+            [PolicyName],
+            [Description],
+            [PolicyType],
+            [NextPolicyCodeId],
+            [IsFinalStage],
+            [IsExclusive],
+            [RequiresStageTracking],
+            [DisplayOrder],
+            [IsActive],
+            [CreatedBy]
+        )
+        VALUES
+        ------------------------------------------------------------
+        -- Normal policies
+        ------------------------------------------------------------
+        (
+            'NETTAX',
+            N'Net Tax',
+            N'Normal final calculated property tax',
+            'NORMAL',
+            NULL,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1
+        ),
+        (
+            'AS_PER_OLD',
+            N'As Per Old',
+            N'Old ULB tax is considered as the final applicable tax',
+            'NORMAL',
+            NULL,
+            1,
+            1,
+            0,
+            2,
+            1,
+            1
+        ),
+        (
+            'MIN_RV',
+            N'Minimum RV',
+            N'Minimum rateable value policy is applied',
+            'NORMAL',
+            NULL,
+            1,
+            1,
+            0,
+            3,
+            1,
+            1
+        ),
+        (
+            'RETENTION',
+            N'Retention',
+            N'Previous tax or rateable value is retained',
+            'NORMAL',
+            NULL,
+            1,
+            1,
+            0,
+            4,
+            1,
+            1
+        ),
+
+        ------------------------------------------------------------
+        -- Occupancy Certificate policies
+        ------------------------------------------------------------
+        (
+            'OC_PARTIAL',
+            N'Partial Occupancy Certificate',
+            N'Prorated OC tax for the remaining days of the current financial year',
+            'DATE_BASED',
+            NULL,
+            0,
+            1,
+            1,
+            5,
+            1,
+            1
+        ),
+        (
+            'OC',
+            N'Occupancy Certificate',
+            N'Full-year tax based on the occupancy certificate',
+            'DATE_BASED',
+            NULL,
+            1,
+            1,
+            0,
+            6,
+            1,
+            1
+        ),
+
+        ------------------------------------------------------------
+        -- Completion Certificate policies
+        ------------------------------------------------------------
+        (
+            'CC_PARTIAL',
+            N'Partial Completion Certificate',
+            N'Prorated CC tax for the remaining days of the current financial year',
+            'DATE_BASED',
+            NULL,
+            0,
+            1,
+            1,
+            7,
+            1,
+            1
+        ),
+        (
+            'CC',
+            N'Completion Certificate',
+            N'Full-year tax based on the completion certificate',
+            'DATE_BASED',
+            NULL,
+            1,
+            1,
+            0,
+            8,
+            1,
+            1
+        ),
+
+        ------------------------------------------------------------
+        -- Electricity Bill policies
+        ------------------------------------------------------------
+        (
+            'ELECTRIC_PARTIAL',
+            N'Partial Electricity Bill',
+            N'Prorated electricity-bill tax for the remaining days of the current financial year',
+            'DATE_BASED',
+            NULL,
+            0,
+            1,
+            1,
+            9,
+            1,
+            1
+        ),
+        (
+            'ELECTRIC_BILL',
+            N'Electricity Bill',
+            N'Full-year tax based on the electricity bill date',
+            'DATE_BASED',
+            NULL,
+            1,
+            1,
+            0,
+            10,
+            1,
+            1
+        ),
+
+        ------------------------------------------------------------
+        -- Section 129 policies
+        ------------------------------------------------------------
+        (
+            'SECTION_129_OLD_1',
+            N'Section 129 - Old Tax Year 1',
+            N'First financial year tax is equal to old ULB tax',
+            'STAGE_BASED',
+            NULL,
+            0,
+            1,
+            1,
+            11,
+            1,
+            1
+        ),
+        (
+            'SECTION_129_OLD_2',
+            N'Section 129 - Old Tax Year 2',
+            N'Second financial year tax is equal to old ULB tax',
+            'STAGE_BASED',
+            NULL,
+            0,
+            1,
+            1,
+            12,
+            1,
+            1
+        ),
+        (
+            'SECTION_129_20',
+            N'Section 129 - 20 Percent',
+            N'Section 129 twenty-percent stage',
+            'STAGE_BASED',
+            NULL,
+            0,
+            1,
+            1,
+            13,
+            1,
+            1
+        ),
+        (
+            'SECTION_129_40',
+            N'Section 129 - 40 Percent',
+            N'Section 129 forty-percent stage',
+            'STAGE_BASED',
+            NULL,
+            0,
+            1,
+            1,
+            14,
+            1,
+            1
+        ),
+        (
+            'SECTION_129_60',
+            N'Section 129 - 60 Percent',
+            N'Section 129 sixty-percent stage',
+            'STAGE_BASED',
+            NULL,
+            0,
+            1,
+            1,
+            15,
+            1,
+            1
+        ),
+        (
+            'SECTION_129_80',
+            N'Section 129 - 80 Percent',
+            N'Section 129 eighty-percent stage',
+            'STAGE_BASED',
+            NULL,
+            0,
+            1,
+            1,
+            16,
+            1,
+            1
+        ),
+        (
+            'SECTION_129_100',
+            N'Section 129 - 100 Percent',
+            N'Final Section 129 stage with full new assessment tax',
+            'STAGE_BASED',
+            NULL,
+            1,
+            1,
+            1,
+            17,
+            1,
+            1
+        ),
+
+        ------------------------------------------------------------
+        -- Decision policies
+        ------------------------------------------------------------
+        (
+            'HEARING',
+            N'Hearing',
+            N'Final tax decided during hearing',
+            'DECISION',
+            NULL,
+            1,
+            1,
+            0,
+            18,
+            1,
+            1
+        ),
+        (
+            'APPEAL_COMMITTEE',
+            N'Appeal Committee',
+            N'Final tax decided by the appeal committee',
+            'DECISION',
+            NULL,
+            1,
+            1,
+            0,
+            19,
+            1,
+            1
+        ),
+        (
+            'REMISSION',
+            N'Remission',
+            N'Final tax decided after remission',
+            'DECISION',
+            NULL,
+            1,
+            1,
+            0,
+            20,
+            1,
+            1
+        );
+
+        ------------------------------------------------------------
+        -- Configure OC_PARTIAL -> OC
+        ------------------------------------------------------------
+        UPDATE currentPolicy
+        SET
+            currentPolicy.[NextPolicyCodeId] = nextPolicy.[Id],
+            currentPolicy.[UpdatedBy] = 1,
+            currentPolicy.[UpdatedDate] = GETDATE()
+        FROM [PTIS].[PolicyCodeMaster] AS currentPolicy
+        INNER JOIN [PTIS].[PolicyCodeMaster] AS nextPolicy
+            ON nextPolicy.[PolicyCode] = 'OC'
+        WHERE currentPolicy.[PolicyCode] = 'OC_PARTIAL';
+
+        ------------------------------------------------------------
+        -- Configure CC_PARTIAL -> CC
+        ------------------------------------------------------------
+        UPDATE currentPolicy
+        SET
+            currentPolicy.[NextPolicyCodeId] = nextPolicy.[Id],
+            currentPolicy.[UpdatedBy] = 1,
+            currentPolicy.[UpdatedDate] = GETDATE()
+        FROM [PTIS].[PolicyCodeMaster] AS currentPolicy
+        INNER JOIN [PTIS].[PolicyCodeMaster] AS nextPolicy
+            ON nextPolicy.[PolicyCode] = 'CC'
+        WHERE currentPolicy.[PolicyCode] = 'CC_PARTIAL';
+
+        ------------------------------------------------------------
+        -- Configure ELECTRIC_PARTIAL -> ELECTRIC_BILL
+        ------------------------------------------------------------
+        UPDATE currentPolicy
+        SET
+            currentPolicy.[NextPolicyCodeId] = nextPolicy.[Id],
+            currentPolicy.[UpdatedBy] = 1,
+            currentPolicy.[UpdatedDate] = GETDATE()
+        FROM [PTIS].[PolicyCodeMaster] AS currentPolicy
+        INNER JOIN [PTIS].[PolicyCodeMaster] AS nextPolicy
+            ON nextPolicy.[PolicyCode] = 'ELECTRIC_BILL'
+        WHERE currentPolicy.[PolicyCode] = 'ELECTRIC_PARTIAL';
+
+        ------------------------------------------------------------
+        -- Configure Section 129 workflow
+        ------------------------------------------------------------
+        ;WITH [PolicyFlow] AS
+        (
+            SELECT
+                CAST('SECTION_129_OLD_1' AS VARCHAR(30))
+                    AS [CurrentPolicyCode],
+                CAST('SECTION_129_OLD_2' AS VARCHAR(30))
+                    AS [NextPolicyCode]
+
+            UNION ALL
+
+            SELECT
+                'SECTION_129_OLD_2',
+                'SECTION_129_20'
+
+            UNION ALL
+
+            SELECT
+                'SECTION_129_20',
+                'SECTION_129_40'
+
+            UNION ALL
+
+            SELECT
+                'SECTION_129_40',
+                'SECTION_129_60'
+
+            UNION ALL
+
+            SELECT
+                'SECTION_129_60',
+                'SECTION_129_80'
+
+            UNION ALL
+
+            SELECT
+                'SECTION_129_80',
+                'SECTION_129_100'
+        )
+        UPDATE currentPolicy
+        SET
+            currentPolicy.[NextPolicyCodeId] = nextPolicy.[Id],
+            currentPolicy.[UpdatedBy] = 1,
+            currentPolicy.[UpdatedDate] = GETDATE()
+        FROM [PTIS].[PolicyCodeMaster] AS currentPolicy
+        INNER JOIN [PolicyFlow] AS policyFlow
+            ON policyFlow.[CurrentPolicyCode]
+               = currentPolicy.[PolicyCode]
+        INNER JOIN [PTIS].[PolicyCodeMaster] AS nextPolicy
+            ON nextPolicy.[PolicyCode]
+               = policyFlow.[NextPolicyCode];
+
+        COMMIT TRANSACTION;
+
+        PRINT 'PTIS.PolicyCodeMaster seeded successfully.';
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+            ROLLBACK TRANSACTION;
+
+        THROW;
+    END CATCH;
+END
+GO
+
+------------------------------------------------------------
+-- Indexes to support the NextPolicyCodeId chain and common lookups
+------------------------------------------------------------
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_PolicyCodeMaster_NextPolicyCodeId')
+    CREATE INDEX [IX_PolicyCodeMaster_NextPolicyCodeId]
+    ON [PTIS].[PolicyCodeMaster]
+    (
+        [NextPolicyCodeId]
+    );
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_PolicyCodeMaster_PolicyType_IsActive')
+    CREATE INDEX [IX_PolicyCodeMaster_PolicyType_IsActive]
+    ON [PTIS].[PolicyCodeMaster]
+    (
+        [PolicyType],
+        [IsActive]
+    )
+    INCLUDE
+    (
+        [PolicyCode],
+        [PolicyName],
+        [IsFinalStage],
+        [IsExclusive],
+        [RequiresStageTracking]
+    );
+GO
+/* ============================================================================
+   2. Seed PTIS.CertificateTaxGuideline
+   Row-wise defaults, one row per individual setting. Admin can add,
+   edit or deactivate rows from the Guideline Master UI without any
+   schema change.
+============================================================================ */
+
+INSERT INTO PTIS.CertificateTaxGuideline
+(
+    GuidelineCode,
+    GuidelineName,
+    Description,
+    GuidelineGroup,
+    DisplayOrder,
+    DataType,
+    GuidelineValue,
+    AllowedValues
+)
+SELECT
+    v.GuidelineCode,
+    v.GuidelineName,
+    v.Description,
+    v.GuidelineGroup,
+    v.DisplayOrder,
+    v.DataType,
+    v.GuidelineValue,
+    v.AllowedValues
+FROM (VALUES
+    ('ENABLE_CERTIFICATE_BASED_TAX',   N'Enable certificate-based tax',       N'Master switch for CC/OC/Electric Bill certificate-based tax calculation.',                                   'GENERAL',       1, 'BIT',     '1',                    NULL),
+    ('APPLY_ONLY_PROTECTED_CERT_TYPES', N'Apply only protected certificate types', N'Only IsProtected certificate types participate in tax calculation.',                                  'GENERAL',       2, 'BIT',     '1',                    NULL),
+    ('FINANCIAL_YEAR_START_MONTH',     N'Financial year start month',         N'Month the financial year starts.',                                                                           'GENERAL',       3, 'INT',     '4',                    '1-12'),
+    ('FINANCIAL_YEAR_START_DAY',       N'Financial year start day',           N'Day of month the financial year starts.',                                                                    'GENERAL',       4, 'INT',     '1',                    '1-31'),
+
+    ('DATE_PRIORITY_1',                N'Certificate date priority 1',        N'Highest-priority certificate date source when multiple dates exist for a property.',                        'DATE_PRIORITY', 1, 'VARCHAR', 'OC',                   'RETROSPECTIVE,ELECTRIC_BILL,CC,OC'),
+    ('DATE_PRIORITY_2',                N'Certificate date priority 2',        N'Second-priority certificate date source.',                                                                   'DATE_PRIORITY', 2, 'VARCHAR', 'CC',                   'RETROSPECTIVE,ELECTRIC_BILL,CC,OC'),
+    ('DATE_PRIORITY_3',                N'Certificate date priority 3',        N'Third-priority certificate date source.',                                                                    'DATE_PRIORITY', 3, 'VARCHAR', 'ELECTRIC_BILL',        'RETROSPECTIVE,ELECTRIC_BILL,CC,OC'),
+    ('DATE_PRIORITY_4',                N'Certificate date priority 4',        N'Lowest-priority / fallback certificate date source.',                                                        'DATE_PRIORITY', 4, 'VARCHAR', 'RETROSPECTIVE',        'RETROSPECTIVE,ELECTRIC_BILL,CC,OC'),
+
+    ('ENABLE_CC_TO_OC_SPLIT',          N'Enable CC to OC split',              N'Whether CC-period and OC-period tax are calculated as separate spans.',                                     'CC_OC',         1, 'BIT',     '1',                    NULL),
+    ('IGNORE_CC_TO_OC_WITHIN_VALUE',   N'Ignore CC to OC gap within value',   N'If the CC-to-OC gap is within this value (see IGNORE_CC_TO_OC_WITHIN_TYPE), the split is ignored.',           'CC_OC',         2, 'INT',     '6',                    NULL),
+    ('IGNORE_CC_TO_OC_WITHIN_TYPE',    N'Ignore CC to OC gap within type',    N'Unit for IGNORE_CC_TO_OC_WITHIN_VALUE.',                                                                     'CC_OC',         3, 'VARCHAR', 'MONTHS',               'YEARS,MONTHS,DAYS'),
+    ('CC_PERIOD_MULTIPLIER',           N'CC period multiplier',               N'CC-period tax is calculated at this multiple of the normal rate.',                                          'CC',            1, 'DECIMAL', '1.5000',               NULL),
+    ('OC_PERIOD_MULTIPLIER',           N'OC period multiplier',               N'OC-period tax multiplier. OC retrospective tax is day-wise and uncapped for this ULB -- NO_DATE_LOOKBACK_YEARS does not apply to the OC path.', 'OC', 1, 'DECIMAL', '1.0000', NULL),
+
+    ('ELECTRIC_BILL_DATE_RULE',        N'Electric Bill date rule',            N'How the electric-bill date is used to backdate unauthorized-property tax. Never backdated before FY 2016 (fixed floor, enforced by app logic).', 'ELECTRIC_BILL', 1, 'VARCHAR', 'EXACT_DATE',       'NO_TAX,ADD_MONTHS,FROM_FY_START,EXACT_DATE'),
+    ('ELECTRIC_BILL_ADD_MONTHS',       N'Electric Bill add months',           N'Months added to the electric-bill date when ELECTRIC_BILL_DATE_RULE = ADD_MONTHS.',                          'ELECTRIC_BILL', 2, 'INT',     '0',                    NULL),
+    ('ELECTRIC_BILL_MULTIPLIER',       N'Electric Bill multiplier',           N'Electric-Bill-based tax multiplier for unauthorized properties.',                                             'ELECTRIC_BILL', 3, 'DECIMAL', '1.0000',               NULL),
+
+    ('NO_DATE_RULE',                   N'No-date fallback rule',              N'How tax is calculated when no certificate date exists at all.',                                             'NO_DATE',       1, 'VARCHAR', 'DEFAULT_RETROSPECTIVE', 'ASSESSMENT_YEAR,CONSTRUCTION_YEAR,NO_TAX,DEFAULT_RETROSPECTIVE'),
+    ('NO_DATE_LOOKBACK_YEARS',         N'No-date lookback years',             N'Retrospective lookback cap, in years, for the NO_DATE_RULE fallback only.',                                  'NO_DATE',       2, 'INT',     '5',                    NULL),
+    ('NO_DATE_RETROSPECTIVE_MULTIPLIER', N'No-date retrospective multiplier', N'Tax multiplier applied under the NO_DATE_RULE fallback.',                                                   'NO_DATE',       3, 'DECIMAL', '1.0000',               NULL),
+
+    ('FLOOR_CERTIFICATE_PRIORITY',     N'Floor certificate priority',         N'Whether a property-wise or floor-wise certificate takes priority when both exist.',                          'FLOOR',         1, 'VARCHAR', 'PROPERTY_OVERRIDES_FLOOR', 'PROPERTY_OVERRIDES_FLOOR,FLOOR_OVERRIDES_PROPERTY'),
+
+    ('ENABLE_CURRENT_YEAR_PRORATION',  N'Enable current year proration',      N'Whether the current financial year''s tax is prorated from the certificate date.',                           'PRORATION',     1, 'BIT',     '1',                    NULL),
+    ('PRORATION_METHOD',               N'Proration method',                   N'Method used to prorate the current financial year''s tax.',                                                 'PRORATION',     2, 'VARCHAR', 'DAILY',                'FULL_YEAR,MONTHLY,DAILY'),
+    ('TAX_PERSISTENCE_MODE',           N'Tax persistence mode',               N'Whether calculated tax is persisted per-floor or aggregated at the property level.',                         'PRORATION',     3, 'VARCHAR', 'PROPERTY_AGGREGATED',  'FLOOR_LEDGER,PROPERTY_AGGREGATED')
+) v
+(
+    GuidelineCode,
+    GuidelineName,
+    Description,
+    GuidelineGroup,
+    DisplayOrder,
+    DataType,
+    GuidelineValue,
+    AllowedValues
+)
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM PTIS.CertificateTaxGuideline g
+    WHERE g.GuidelineCode = v.GuidelineCode
+);
+GO
+/* ============================================================================
+   3. Seed PTIS.PropertyCertificateTypeMaster
+============================================================================ */
+
+INSERT INTO PTIS.PropertyCertificateTypeMaster
+(
+    CertificateTypeCode,
+    CertificateTypeName,
+    Description,
+    DisplayOrder,
+    IsTaxable,
+    IsProtected,
+    IsRequired,
+    IsActive
+)
+SELECT
+    v.CertificateTypeCode,
+    v.CertificateTypeName,
+    v.Description,
+    v.DisplayOrder,
+    v.IsTaxable,
+    v.IsProtected,
+    v.IsRequired,
+    1
+FROM (VALUES
+    ('CC',                      N'Completion Certificate',   N'Completion Certificate used for CC based occupation tax calculation.',                      1,  1, 1, 1),
+    ('OC',                      N'Occupancy Certificate',    N'Occupancy Certificate used for OC based occupation tax calculation.',                       2,  1, 1, 1),
+    ('EleBillDt',               N'Electric Bill Date',       N'Electric Bill Date used as fallback certificate date for occupation tax calculation.',       3,  1, 1, 0),
+    ('POSSESSION_CERTIFICATE',  N'Possession Certificate',   N'Possession Certificate for document record purpose. Tax calculation disabled by default.',   4,  0, 0, 0),
+    ('INDEX_2',                 N'Index 2',                  N'Index 2 document for property record purpose. Tax calculation disabled by default.',         5,  0, 0, 0),
+    ('AGREEMENT',               N'Agreement',                N'Agreement document for property record purpose. Tax calculation disabled by default.',        6,  0, 0, 0),
+    ('SALE_DEED',               N'Sale Deed',                N'Sale Deed document for property record purpose. Tax calculation disabled by default.',        7,  0, 0, 0),
+    ('TAX_RECEIPT',             N'Tax Receipt',              N'Tax Receipt document for property record purpose. Tax calculation disabled by default.',      8,  0, 0, 0),
+    ('OTHER',                   N'Other',                    N'Other certificate or supporting document.',                                                 99, 0, 0, 0)
+) v
+(
+    CertificateTypeCode,
+    CertificateTypeName,
+    Description,
+    DisplayOrder,
+    IsTaxable,
+    IsProtected,
+    IsRequired
+)
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM PTIS.PropertyCertificateTypeMaster c
+    WHERE c.CertificateTypeCode = v.CertificateTypeCode
+);
+GO
+/* ============================================================================
+   4. Seed PTIS.PropertyCertificates
+   No default seed data required.
+
+   Reason:
+   This is a transaction table.
+   Records must be inserted from Building Permission / Certificate Upload API
+   against real PropertyId, PropertyDetailsId and DocumentBindingId.
+============================================================================ */

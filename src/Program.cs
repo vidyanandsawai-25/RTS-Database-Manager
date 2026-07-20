@@ -12,6 +12,7 @@ internal class Program
     {
         // Parse command-line arguments
         bool dryRun = args.Contains("--dry-run", StringComparer.OrdinalIgnoreCase);
+        bool force = args.Contains("--force", StringComparer.OrdinalIgnoreCase) || args.Contains("--yes", StringComparer.OrdinalIgnoreCase);
         string? dbNameArg = GetArgValue(args, "--database");
         string? versionArg = GetArgValue(args, "--version");
         string? connectionStringArg = GetArgValue(args, "--connection-string");
@@ -128,9 +129,20 @@ internal class Program
         // If user chose Create and the DB already exists, require confirmation and drop DB first
         if (command == "C" && dbExists)
         {
-            Console.Write($"Database '{appSettings.DatabaseName}' already exists. This will DROP the database and recreate it. Are you sure? (y/N): ");
-            var conf = Console.ReadLine()?.Trim().ToUpperInvariant();
-            if (conf == "Y" || conf == "YES")
+            bool confirmed;
+            if (force)
+            {
+                Console.WriteLine($"Database '{appSettings.DatabaseName}' already exists. --force specified, dropping and recreating without prompting.");
+                confirmed = true;
+            }
+            else
+            {
+                Console.Write($"Database '{appSettings.DatabaseName}' already exists. This will DROP the database and recreate it. Are you sure? (y/N): ");
+                var conf = Console.ReadLine()?.Trim().ToUpperInvariant();
+                confirmed = conf == "Y" || conf == "YES";
+            }
+
+            if (confirmed)
             {
                 Console.WriteLine("Dropping existing database...");
                 await runner.DropDatabaseAsync(appSettings.DatabaseName);
