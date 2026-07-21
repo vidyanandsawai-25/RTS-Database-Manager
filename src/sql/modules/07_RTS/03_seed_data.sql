@@ -995,5 +995,184 @@ UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'मालमत्त�
 UPDATE [RTS].[FieldDefinition] SET [FieldLabelLocal] = N'जागेचा नकाशा / आराखडा' WHERE [FieldLabel] = 'Premises Layout Map';
 GO
 
+-- =========================================================
+-- RTS ApprovalFlowMaster Seed Data
+-- Only for services with no redirect URL (internal RTS flow)
+-- =========================================================
+;WITH SeedApprovalFlows AS (
+    SELECT * FROM (VALUES
+        -- Dept 4: Town Planning
+        (N'Town Planning',     N'Issuance of Zone Certificate',                          N'Zone Certificate Approval Flow'),
+        (N'Town Planning',     N'Giving Part Map',                                       N'Part Map Issuance Flow'),
+        (N'Town Planning',     N'Issuance of Construction Permit',                       N'Construction Permit Approval Flow'),
+        (N'Town Planning',     N'Issuance of plinth certificate',                        N'Plinth Certificate Approval Flow'),
+        (N'Town Planning',     N'Issuance of Occupancy Certificate',                     N'Occupancy Certificate Approval Flow'),
+        (N'Town Planning',     N'Underground OFC Cable Permission',                      N'OFC Cable Permission Flow'),
+        (N'Town Planning',     N'Filling Potholes on City Roads',                        N'Pothole Repair Request Flow'),
+        (N'Town Planning',     N'Maintaining & Securing Sewer Covers',                   N'Sewer Cover Maintenance Request Flow'),
+        (N'Town Planning',     N'Road Cutting Permission',                               N'Road Cutting Permission Flow'),
+        (N'Town Planning',     N'Mobile Tower Permission',                               N'Mobile Tower Permission Flow'),
+        -- Dept 5: Birth & Death
+        (N'Birth & Death',     N'Birth Certificate',                                     N'Birth Certificate Issuance Flow'),
+        (N'Birth & Death',     N'Death Certificate',                                     N'Death Certificate Issuance Flow'),
+        -- Dept 6: Education
+        (N'Education',         N'School Leaving / Duplicate Certificate',                N'School Leaving Certificate Flow'),
+        (N'Education',         N'Issuance of transfer certificate',                      N'Transfer Certificate Issuance Flow'),
+        (N'Education',         N'Issuance of duplicate mark sheet',                      N'Duplicate Mark Sheet Issuance Flow'),
+        -- Dept 7: Health
+        (N'Health',            N'Nursing home license under Registration Act, 1949',     N'Nursing Home License Approval Flow'),
+        (N'Health',            N'Renewal of nursing home license',                       N'Nursing Home License Renewal Flow'),
+        (N'Health',            N'Change of nursing home license holder / partner name',  N'Nursing Home License Holder Change Flow'),
+        -- Dept 8: NOC
+        (N'NOC',               N'Trade / Business Non-Revocation NOC',                   N'Trade NOC Approval Flow'),
+        (N'NOC',               N'Mandap No-Damage Certificate',                          N'Mandap No-Damage Certificate Flow'),
+        (N'NOC',               N'Fire Extinguisher Certificate',                         N'Fire Extinguisher Certificate Flow'),
+        (N'NOC',               N'Final Fire Exemption Certificate',                      N'Fire Exemption Certificate Flow'),
+        -- Dept 9: Marriage Certificate
+        (N'Marriage Certificate', N'Marriage Registration Certificate',                  N'Marriage Registration Certificate Flow'),
+        -- Dept 10: Tree
+        (N'Tree',              N'Tree Felling Permission (Sec 8)',                        N'Tree Felling Permission Flow'),
+        -- Dept 11: Sanitation
+        (N'Sanitation',        N'Maintaining Manhole / Sewer Covers',                    N'Manhole Maintenance Request Flow'),
+        (N'Sanitation',        N'Maintaining cleanliness',                               N'Cleanliness Complaint Flow'),
+        (N'Sanitation',        N'Providing drainage connections',                        N'Drainage Connection Approval Flow')
+    ) AS V (DeptName, SvcName, FlowName)
+)
+INSERT INTO [RTS].[ApprovalFlowMaster] ([ServiceId], [ApprovalFlowName], [IsActive], [CreatedBy], [CreatedDate])
+SELECT Svc.Id, S.FlowName, 1, 0, GETDATE()
+FROM SeedApprovalFlows S
+INNER JOIN [RTS].[DepartmentMaster] D  ON D.DepartmentName = S.DeptName
+INNER JOIN [RTS].[ServiceMaster]    Svc ON Svc.DepartmentId = D.Id AND Svc.ServiceName = S.SvcName
+WHERE NOT EXISTS (
+    SELECT 1 FROM [RTS].[ApprovalFlowMaster] F
+    WHERE F.ServiceId = Svc.Id AND F.IsActive = 1
+);
+GO
 
-
+-- =========================================================
+-- RTS ApprovalFlowStageMaster Seed Data
+-- Inserts stages per flow using service name lookup
+-- =========================================================
+;WITH SeedStages AS (
+    SELECT * FROM (VALUES
+        -- Town Planning: Zone Certificate (3 stages)
+        (N'Town Planning', N'Issuance of Zone Certificate',                         1, N'Document Verification (Clerk)',          1, 2, 1,0,0,1,0,0),
+        (N'Town Planning', N'Issuance of Zone Certificate',                         2, N'Technical Review (Junior Officer)',      2, 3, 1,0,0,1,0,0),
+        (N'Town Planning', N'Issuance of Zone Certificate',                         3, N'Final Approval (Senior Officer)',        3, 2, 0,1,1,1,0,1),
+        -- Town Planning: Giving Part Map (3 stages)
+        (N'Town Planning', N'Giving Part Map',                                      1, N'Application Verification (Clerk)',       1, 2, 1,0,0,1,0,0),
+        (N'Town Planning', N'Giving Part Map',                                      2, N'Survey Verification (Junior Officer)',   2, 5, 1,0,0,1,0,0),
+        (N'Town Planning', N'Giving Part Map',                                      3, N'Final Approval (Senior Officer)',        3, 3, 0,1,1,1,0,1),
+        -- Town Planning: Construction Permit (3 stages)
+        (N'Town Planning', N'Issuance of Construction Permit',                      1, N'Document Verification (Clerk)',          1, 2, 1,0,0,1,0,0),
+        (N'Town Planning', N'Issuance of Construction Permit',                      2, N'Site Inspection (Junior Officer)',       2, 7, 1,0,0,1,0,0),
+        (N'Town Planning', N'Issuance of Construction Permit',                      3, N'Final Approval (Senior Officer)',        3, 3, 0,1,1,1,0,1),
+        -- Town Planning: Plinth Certificate (3 stages)
+        (N'Town Planning', N'Issuance of plinth certificate',                       1, N'Application Verification (Clerk)',       1, 2, 1,0,0,1,0,0),
+        (N'Town Planning', N'Issuance of plinth certificate',                       2, N'Site Inspection (Junior Officer)',       2, 5, 1,0,0,1,0,0),
+        (N'Town Planning', N'Issuance of plinth certificate',                       3, N'Plinth Approval (Senior Officer)',       3, 2, 0,1,1,1,0,1),
+        -- Town Planning: Occupancy Certificate (3 stages)
+        (N'Town Planning', N'Issuance of Occupancy Certificate',                    1, N'Document Verification (Clerk)',          1, 2, 1,0,0,1,0,0),
+        (N'Town Planning', N'Issuance of Occupancy Certificate',                    2, N'Structural Inspection (Junior Officer)', 2, 7, 1,0,0,1,0,0),
+        (N'Town Planning', N'Issuance of Occupancy Certificate',                    3, N'Occupancy Approval (Senior Officer)',    3, 3, 0,1,1,1,0,1),
+        -- Town Planning: OFC Cable (3 stages)
+        (N'Town Planning', N'Underground OFC Cable Permission',                     1, N'Application Review (Clerk)',             1, 2, 1,0,0,1,0,0),
+        (N'Town Planning', N'Underground OFC Cable Permission',                     2, N'Technical Review (Junior Officer)',      2, 5, 1,0,0,1,0,0),
+        (N'Town Planning', N'Underground OFC Cable Permission',                     3, N'Final Approval (Senior Officer)',        3, 2, 0,1,1,1,0,1),
+        -- Town Planning: Potholes (2 stages)
+        (N'Town Planning', N'Filling Potholes on City Roads',                       1, N'Complaint Registration (Clerk)',         1, 1, 0,0,0,0,0,0),
+        (N'Town Planning', N'Filling Potholes on City Roads',                       2, N'Field Inspection (Junior Officer)',      2, 3, 0,1,1,0,0,1),
+        -- Town Planning: Sewer Covers (2 stages)
+        (N'Town Planning', N'Maintaining & Securing Sewer Covers',                  1, N'Request Registration (Clerk)',           1, 1, 0,0,0,0,0,0),
+        (N'Town Planning', N'Maintaining & Securing Sewer Covers',                  2, N'Field Verification (Junior Officer)',    2, 3, 0,1,1,0,0,1),
+        -- Town Planning: Road Cutting (3 stages)
+        (N'Town Planning', N'Road Cutting Permission',                              1, N'Application Verification (Clerk)',       1, 2, 1,0,0,1,0,0),
+        (N'Town Planning', N'Road Cutting Permission',                              2, N'Site Inspection (Junior Officer)',       2, 5, 1,0,0,1,0,0),
+        (N'Town Planning', N'Road Cutting Permission',                              3, N'Permission Grant (Senior Officer)',      3, 2, 0,1,1,1,0,1),
+        -- Town Planning: Mobile Tower (3 stages)
+        (N'Town Planning', N'Mobile Tower Permission',                              1, N'Document Verification (Clerk)',          1, 2, 1,0,0,1,0,0),
+        (N'Town Planning', N'Mobile Tower Permission',                              2, N'Technical Review (Junior Officer)',      2, 7, 1,0,0,1,0,0),
+        (N'Town Planning', N'Mobile Tower Permission',                              3, N'Final Approval (Senior Officer)',        3, 5, 0,1,1,1,0,1),
+        -- Birth & Death: Birth Certificate (2 stages)
+        (N'Birth & Death', N'Birth Certificate',                                    1, N'Application Verification (Clerk)',       1, 1, 1,0,0,1,0,0),
+        (N'Birth & Death', N'Birth Certificate',                                    2, N'Registrar Approval',                    2, 2, 0,1,1,1,0,1),
+        -- Birth & Death: Death Certificate (2 stages)
+        (N'Birth & Death', N'Death Certificate',                                    1, N'Application Verification (Clerk)',       1, 1, 1,0,0,1,0,0),
+        (N'Birth & Death', N'Death Certificate',                                    2, N'Registrar Approval',                    2, 2, 0,1,1,1,0,1),
+        -- Education: School Leaving Certificate (2 stages)
+        (N'Education',     N'School Leaving / Duplicate Certificate',               1, N'Application Verification (Clerk)',       1, 1, 1,0,0,1,0,0),
+        (N'Education',     N'School Leaving / Duplicate Certificate',               2, N'Head Teacher Approval',                 2, 2, 0,1,1,1,0,1),
+        -- Education: Transfer Certificate (2 stages)
+        (N'Education',     N'Issuance of transfer certificate',                     1, N'Application Verification (Clerk)',       1, 1, 1,0,0,1,0,0),
+        (N'Education',     N'Issuance of transfer certificate',                     2, N'Head Teacher Approval',                 2, 2, 0,1,1,1,0,1),
+        -- Education: Duplicate Mark Sheet (2 stages)
+        (N'Education',     N'Issuance of duplicate mark sheet',                     1, N'Application Verification (Clerk)',       1, 1, 1,0,0,1,0,0),
+        (N'Education',     N'Issuance of duplicate mark sheet',                     2, N'Head Teacher Approval',                 2, 2, 0,1,1,1,0,1),
+        -- Health: Nursing Home License (3 stages)
+        (N'Health',        N'Nursing home license under Registration Act, 1949',    1, N'Document Verification (Clerk)',          1, 3, 1,0,0,1,0,0),
+        (N'Health',        N'Nursing home license under Registration Act, 1949',    2, N'Health Inspection (Junior Officer)',     2, 7, 1,0,0,1,0,0),
+        (N'Health',        N'Nursing home license under Registration Act, 1949',    3, N'License Grant (Senior Officer)',         3, 5, 0,1,1,1,0,1),
+        -- Health: Nursing Home Renewal (2 stages)
+        (N'Health',        N'Renewal of nursing home license',                      1, N'Document Verification (Clerk)',          1, 2, 1,0,0,1,0,0),
+        (N'Health',        N'Renewal of nursing home license',                      2, N'Renewal Approval (Senior Officer)',      3, 3, 0,1,1,1,0,1),
+        -- Health: Nursing Home Holder Change (2 stages)
+        (N'Health',        N'Change of nursing home license holder / partner name', 1, N'Document Verification (Clerk)',          1, 2, 1,0,0,1,0,0),
+        (N'Health',        N'Change of nursing home license holder / partner name', 2, N'Change Approval (Senior Officer)',       3, 3, 0,1,1,1,0,1),
+        -- NOC: Trade NOC (2 stages)
+        (N'NOC',           N'Trade / Business Non-Revocation NOC',                  1, N'Document Verification (Clerk)',          1, 2, 1,0,0,1,0,0),
+        (N'NOC',           N'Trade / Business Non-Revocation NOC',                  2, N'NOC Approval (Senior Officer)',          3, 3, 0,1,1,1,0,1),
+        -- NOC: Mandap No-Damage (2 stages)
+        (N'NOC',           N'Mandap No-Damage Certificate',                         1, N'Application Verification (Clerk)',       1, 1, 1,0,0,1,0,0),
+        (N'NOC',           N'Mandap No-Damage Certificate',                         2, N'Certificate Approval (Senior Officer)', 3, 2, 0,1,1,1,0,1),
+        -- NOC: Fire Extinguisher Certificate (3 stages)
+        (N'NOC',           N'Fire Extinguisher Certificate',                        1, N'Document Verification (Clerk)',          1, 2, 1,0,0,1,0,0),
+        (N'NOC',           N'Fire Extinguisher Certificate',                        2, N'Fire Inspection (Junior Officer)',       2, 3, 1,0,0,1,0,0),
+        (N'NOC',           N'Fire Extinguisher Certificate',                        3, N'Certificate Approval (Senior Officer)', 3, 2, 0,1,1,1,0,1),
+        -- NOC: Final Fire Exemption (3 stages)
+        (N'NOC',           N'Final Fire Exemption Certificate',                     1, N'Application Verification (Clerk)',       1, 2, 1,0,0,1,0,0),
+        (N'NOC',           N'Final Fire Exemption Certificate',                     2, N'Fire Safety Inspection (Junior Officer)',2, 5, 1,0,0,1,0,0),
+        (N'NOC',           N'Final Fire Exemption Certificate',                     3, N'Exemption Approval (Senior Officer)',   3, 3, 0,1,1,1,0,1),
+        -- Marriage Certificate (2 stages)
+        (N'Marriage Certificate', N'Marriage Registration Certificate',             1, N'Document Verification (Clerk)',          1, 2, 1,0,0,1,0,0),
+        (N'Marriage Certificate', N'Marriage Registration Certificate',             2, N'Registrar Approval',                    2, 3, 0,1,1,1,0,1),
+        -- Tree: Tree Felling (3 stages)
+        (N'Tree',          N'Tree Felling Permission (Sec 8)',                      1, N'Application Verification (Clerk)',       1, 2, 1,0,0,1,0,0),
+        (N'Tree',          N'Tree Felling Permission (Sec 8)',                      2, N'Site Inspection (Junior Officer)',       2, 7, 1,0,0,1,0,0),
+        (N'Tree',          N'Tree Felling Permission (Sec 8)',                      3, N'Permission Approval (Senior Officer)',   3, 3, 0,1,1,1,0,1),
+        -- Sanitation: Manhole (2 stages)
+        (N'Sanitation',    N'Maintaining Manhole / Sewer Covers',                   1, N'Complaint Registration (Clerk)',         1, 1, 0,0,0,0,0,0),
+        (N'Sanitation',    N'Maintaining Manhole / Sewer Covers',                   2, N'Field Verification (Junior Officer)',    2, 3, 0,1,1,0,0,1),
+        -- Sanitation: Cleanliness (2 stages)
+        (N'Sanitation',    N'Maintaining cleanliness',                              1, N'Complaint Registration (Clerk)',         1, 1, 0,0,0,0,0,0),
+        (N'Sanitation',    N'Maintaining cleanliness',                              2, N'Field Verification (Junior Officer)',    2, 2, 0,1,1,0,0,1),
+        -- Sanitation: Drainage (3 stages)
+        (N'Sanitation',    N'Providing drainage connections',                       1, N'Application Verification (Clerk)',       1, 2, 1,0,0,1,0,0),
+        (N'Sanitation',    N'Providing drainage connections',                       2, N'Site Inspection (Junior Officer)',       2, 5, 1,0,0,1,0,0),
+        (N'Sanitation',    N'Providing drainage connections',                       3, N'Connection Approval (Senior Officer)',   3, 3, 0,1,1,1,0,1)
+    ) AS V (DeptName, SvcName, StageOrder, StageName, EmployeeTypeId, SLADays,
+            CanVerifyDocument, CanApprove, CanReject, CanReturn, CanPay, IsFinalStage)
+)
+INSERT INTO [RTS].[ApprovalFlowStageMaster]
+    ([ApprovalFlowId], [StageOrder], [StageName], [EmployeeTypeId], [SLADays],
+     [CanVerifyDocument], [CanApprove], [CanReject], [CanReturn], [CanPay], [IsFinalStage])
+SELECT
+    F.Id,
+    S.StageOrder,
+    S.StageName,
+    S.EmployeeTypeId,
+    S.SLADays,
+    S.CanVerifyDocument,
+    S.CanApprove,
+    S.CanReject,
+    S.CanReturn,
+    S.CanPay,
+    S.IsFinalStage
+FROM SeedStages S
+INNER JOIN [RTS].[DepartmentMaster] D   ON D.DepartmentName = S.DeptName
+INNER JOIN [RTS].[ServiceMaster]    Svc ON Svc.DepartmentId = D.Id AND Svc.ServiceName = S.SvcName
+INNER JOIN [RTS].[ApprovalFlowMaster] F ON F.ServiceId = Svc.Id AND F.IsActive = 1
+WHERE NOT EXISTS (
+    SELECT 1 FROM [RTS].[ApprovalFlowStageMaster] ST
+    WHERE ST.ApprovalFlowId = F.Id AND ST.StageOrder = S.StageOrder
+);
+GO
