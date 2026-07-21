@@ -255,3 +255,63 @@ ALTER TABLE [RTS].[FieldValue] WITH CHECK
 GO
 ALTER TABLE [RTS].[FieldValue] CHECK CONSTRAINT [FK_FieldValue_FieldDefinition];
 GO
+
+/****** Object: Table [RTS].[ApprovalFlowMaster] ******/
+-- Stores the approval workflow configuration for each RTS service.
+-- One active flow per service (IsActive = 1).
+CREATE TABLE [RTS].[ApprovalFlowMaster]
+(
+    [Id]                INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [ServiceId]         INT NOT NULL,
+    [ApprovalFlowName]  NVARCHAR(200) NOT NULL,
+    [IsActive]          BIT NOT NULL CONSTRAINT [DF_ApprovalFlowMaster_IsActive] DEFAULT (1),
+
+    [CreatedBy]         INT NULL,
+    [CreatedDate]       DATETIME NOT NULL CONSTRAINT [DF_ApprovalFlowMaster_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy]         INT NULL,
+    [UpdatedDate]       DATETIME NULL,
+
+    CONSTRAINT [PK_ApprovalFlowMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+GO
+
+ALTER TABLE [RTS].[ApprovalFlowMaster] WITH CHECK
+    ADD CONSTRAINT [FK_ApprovalFlowMaster_ServiceMaster]
+    FOREIGN KEY ([ServiceId])
+    REFERENCES [RTS].[ServiceMaster] ([Id]);
+GO
+ALTER TABLE [RTS].[ApprovalFlowMaster] CHECK CONSTRAINT [FK_ApprovalFlowMaster_ServiceMaster];
+GO
+
+/****** Object: Table [RTS].[ApprovalFlowStageMaster] ******/
+-- Stores the ordered stages for each approval workflow.
+-- EmployeeTypeId refers to the employee/role type allowed to act at this stage.
+CREATE TABLE [RTS].[ApprovalFlowStageMaster]
+(
+    [Id]                INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [ApprovalFlowId]    INT NOT NULL,
+    [StageOrder]        INT NOT NULL,
+    [StageName]         NVARCHAR(200) NOT NULL,
+    [EmployeeTypeId]    INT NOT NULL,
+    [SLADays]           INT NOT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_SLADays] DEFAULT (3),
+
+    -- Capability flags: what actions are allowed at this stage
+    [CanVerifyDocument] BIT NOT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_CanVerifyDocument] DEFAULT (0),
+    [CanApprove]        BIT NOT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_CanApprove]        DEFAULT (0),
+    [CanReject]         BIT NOT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_CanReject]         DEFAULT (0),
+    [CanReturn]         BIT NOT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_CanReturn]         DEFAULT (0),
+    [CanPay]            BIT NOT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_CanPay]            DEFAULT (0),
+    [IsFinalStage]      BIT NOT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_IsFinalStage]      DEFAULT (0),
+
+    CONSTRAINT [PK_ApprovalFlowStageMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_ApprovalFlowStageMaster_FlowStage] UNIQUE NONCLUSTERED ([ApprovalFlowId] ASC, [StageOrder] ASC)
+);
+GO
+
+ALTER TABLE [RTS].[ApprovalFlowStageMaster] WITH CHECK
+    ADD CONSTRAINT [FK_ApprovalFlowStageMaster_ApprovalFlowMaster]
+    FOREIGN KEY ([ApprovalFlowId])
+    REFERENCES [RTS].[ApprovalFlowMaster] ([Id]);
+GO
+ALTER TABLE [RTS].[ApprovalFlowStageMaster] CHECK CONSTRAINT [FK_ApprovalFlowStageMaster_ApprovalFlowMaster];
+GO
