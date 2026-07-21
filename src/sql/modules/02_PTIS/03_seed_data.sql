@@ -4463,11 +4463,78 @@ INSERT [PTIS].[WingMaster] ([Id], [WingNo], [SequenceNo], [IsActive], [CreatedBy
 SET IDENTITY_INSERT [PTIS].[WingMaster] OFF
 
 
----- policy tax details - seed data ----
--- No default seed data. PTIS.PolicyTaxDetails is the RV/CV pipeline's
--- own property-wise tax transaction table (PropertyId, PolicyCodeId,
--- PolicyYear, TaxId) -- populated by that pipeline against real
--- properties/taxes, not by synthetic demo rows here.
+---- policy code master - seed data----
+
+INSERT INTO PTIS.PolicyCodeMaster (PolicyCode, PolicyName, Description, PolicyType, CreatedBy)
+SELECT v.PolicyCode, v.PolicyName, v.Description, v.PolicyType, 1
+FROM (VALUES
+    (N'NETTAX', N'Net Tax', N'Annual tax assessment', N'NORMAL'),
+    (N'HEARING', N'Hearing', N'Hearing case', N'DECISION'),
+    (N'APPEAL_COMMITTEE', N'Appeal Committee', N'Appeal/committee decision', N'DECISION'),
+    (N'REMISSION', N'Remission', N'Remission granted', N'DECISION')
+) v(PolicyCode, PolicyName, Description, PolicyType)
+WHERE NOT EXISTS (
+    SELECT 1 FROM PTIS.PolicyCodeMaster pcm WHERE pcm.PolicyCode = v.PolicyCode
+);
+
+
+---- policy tax details - seed data----
+
+
+;WITH PropertyList AS
+(
+    SELECT top 100 Id
+    FROM PTIS.PropertyMast
+    --WHERE Id IN (101,102,103)
+      --AND IsActive = 1
+       ORDER BY Id
+),
+PolicyList AS
+(
+    SELECT pcm.Id AS PolicyCodeId, pcm.PolicyCode, pcm.Description AS PolicyReason
+    FROM PTIS.PolicyCodeMaster pcm
+    WHERE pcm.PolicyCode IN (N'NETTAX', N'HEARING', N'APPEAL_COMMITTEE', N'REMISSION')
+),
+TaxList AS
+(
+    SELECT Id AS TaxId
+    FROM PTIS.TaxMaster
+    WHERE IsActive = 1
+)
+INSERT INTO PTIS.PolicyTaxDetails
+(
+    PropertyId,
+    PolicyCodeId,
+    PolicyYear,
+    PolicyReason,
+    CalculationValue,
+    TaxId,
+    TaxAmount,
+    CreatedBy
+)
+SELECT
+    PR.Id AS PropertyId,
+    PL.PolicyCodeId,
+    2026,
+    PL.PolicyReason,
+    CAST(500000 + (PR.Id * 25) + (TL.TaxId * 100) AS MONEY),
+    TL.TaxId,
+    CAST(1000 + ((PR.Id * TL.TaxId) % 25000) AS MONEY),
+    1
+FROM PropertyList PR
+CROSS JOIN PolicyList PL
+CROSS JOIN TaxList TL
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM PTIS.PolicyTaxDetails D
+    WHERE D.PropertyId = PR.Id
+      AND D.PolicyYear = 2026
+      AND D.PolicyCodeId = PL.PolicyCodeId
+      AND D.TaxId = TL.TaxId
+      AND D.IsActive = 1
+      AND D.MarkedForDeletion = 0
+);
 
 
 SET IDENTITY_INSERT [PTIS].[RoomTypeMaster] ON;

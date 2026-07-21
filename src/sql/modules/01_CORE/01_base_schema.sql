@@ -281,6 +281,7 @@ GO
 CREATE TABLE [CORE].[UserRoleMaster](
     [Id]            INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [UserRoleName]  NVARCHAR(100) NOT NULL,
+    [DepartmentId]  INT NOT NULL,
     [IsActive]      BIT NOT NULL CONSTRAINT [DF_UserRoleMaster_IsActive] DEFAULT (1),
     [CreatedBy]     INT NULL,
     [CreatedDate]   DATETIME NOT NULL CONSTRAINT [DF_UserRoleMaster_CreatedDate] DEFAULT (GETDATE()),
@@ -288,7 +289,9 @@ CREATE TABLE [CORE].[UserRoleMaster](
     [UpdatedDate]   DATETIME NULL,
 
     CONSTRAINT [PK_UserRoleMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [UQ_UserRoleMaster_UserRoleName] UNIQUE ([UserRoleName])
+    CONSTRAINT [UQ_UserRoleMaster_UserRoleName] UNIQUE ([UserRoleName]),
+    CONSTRAINT [FK_UserRoleMaster_DepartmentMaster]
+        FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id])
 );
 GO
 

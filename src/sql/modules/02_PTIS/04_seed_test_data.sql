@@ -3,12 +3,14 @@ SET IDENTITY_INSERT [PTIS].[PropertyMast] ON;
 GO
 
 INSERT [PTIS].[PropertyMast](
-    [Id], [TaxZoneId], [WardId], [PropertyNo], [PartitionNo],[PropertyTypeId], [UPICId], [OpenPlot], [CSN], [SubZoneNo],[PlotNo], [CategoryId], [Type],  [OwnerTitle],[OwnerName], [OccupierTitle], [OccupierName], [FlatOrShopNo],[FlatOrShopName], [Address], [Location], [MobileNo], [EmailId],[SocietyDetailId], [OwnerTitleEnglish], [OwnerNameEnglish],[OccupierTitleEnglish], [OccupierNameEnglish],[FlatOrShopNoEnglish], [FlatOrShopNameEnglish],[AddressEnglish], [LocationEnglish], [MarkedForDeletion],[IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate] )
-SELECT 
+    [Id], [TaxZoneId], [WardId], [PropertyNo], [PartitionNo], [PropertySeqNo],[PropertyTypeId], [UPICId], [OpenPlot], [CSN], [SubZoneNo],[PlotNo], [CategoryId], [Type],  [OwnerTitle],[OwnerName], [OccupierTitle], [OccupierName], [FlatOrShopNo],[FlatOrShopName], [Address], [Location], [MobileNo], [EmailId],[SocietyDetailId], [OwnerTitleEnglish], [OwnerNameEnglish],[OccupierTitleEnglish], [OccupierNameEnglish],[FlatOrShopNoEnglish], [FlatOrShopNameEnglish],[AddressEnglish], [LocationEnglish], [MarkedForDeletion],[IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate] )
+SELECT
     pd.PropertyId,
     tz.Id,
     wm.Id,
-    pd.PropertyNo, pd.PartitionNo, pd.PropertyTypeId, pd.UPICId, pd.OpenPlot, pd.CSN, pd.SubZoneNo,
+    pd.PropertyNo, pd.PartitionNo,
+    ROW_NUMBER() OVER (PARTITION BY wm.Id, pd.PropertyNo, pd.PartitionNo ORDER BY pd.PropertyId),
+    pd.PropertyTypeId, pd.UPICId, pd.OpenPlot, pd.CSN, pd.SubZoneNo,
     pd.PlotNo, pd.CategoryId, pd.Type,  pd.OwnerTitle,
     pd.OwnerName, pd.OccupierTitle, pd.OccupierName, pd.FlatOrShopNo,
     pd.FlatOrShopName, pd.Address, pd.Location, pd.MobileNo, pd.EmailId,
@@ -855,8 +857,8 @@ INSERT INTO PTIS.TransMast
 (
     PropertyId,
     FinanceYearId,
-    RVorCV,
-    RVorCVValue,
+    CalculationType,
+    CalculationValue,
     TaxId,
     TaxAmount,
     CreatedBy
@@ -889,74 +891,74 @@ AND NOT EXISTS
 
 
 
-INSERT INTO PTIS.TransMastCV
-(
-    PropertyId,
-    FinanceYearId,
-    CapitalValue,
-    TaxId,
-    TaxAmount,
-    CreatedBy
-)
-SELECT 
-    p.Id,
-    1,
-    v.RVValue,
-    t.Id,
-    round(CAST(v.RVValue * ((t.Id % 10) + 1) / 67890.0 AS DECIMAL(18,2)),00),
-    1
-FROM PTIS.PropertyMast p
-CROSS JOIN PTIS.TaxMaster t
-CROSS APPLY
-(
-    SELECT CAST(5972 + (p.Id * 25) AS DECIMAL(18,2)) AS RVValue
-) v
-WHERE p.IsActive = 1
-AND t.IsActive = 1
-AND NOT EXISTS
-(
-    SELECT 1
-    FROM PTIS.TransMastCV tm
-    WHERE tm.PropertyId = p.Id
-      AND tm.TaxId = t.Id
-      AND tm.FinanceYearId = 1
-);
+-- INSERT INTO PTIS.TransMastCV
+-- (
+--     PropertyId,
+--     FinanceYearId,
+--     CapitalValue,
+--     TaxId,
+--     TaxAmount,
+--     CreatedBy
+-- )
+-- SELECT 
+--     p.Id,
+--     1,
+--     v.RVValue,
+--     t.Id,
+--     round(CAST(v.RVValue * ((t.Id % 10) + 1) / 67890.0 AS DECIMAL(18,2)),00),
+--     1
+-- FROM PTIS.PropertyMast p
+-- CROSS JOIN PTIS.TaxMaster t
+-- CROSS APPLY
+-- (
+--     SELECT CAST(5972 + (p.Id * 25) AS DECIMAL(18,2)) AS RVValue
+-- ) v
+-- WHERE p.IsActive = 1
+-- AND t.IsActive = 1
+-- AND NOT EXISTS
+-- (
+--     SELECT 1
+--     FROM PTIS.TransMastCV tm
+--     WHERE tm.PropertyId = p.Id
+--       AND tm.TaxId = t.Id
+--       AND tm.FinanceYearId = 1
+-- );
 
 
 
 
-INSERT INTO PTIS.TransMastRV
-(
-    PropertyId,
-    FinanceYearId,
-    RateableValue,
-    TaxId,
-    TaxAmount,
-    CreatedBy
-)
-SELECT 
-    p.Id,
-    1,
-    v.RVValue,
-    t.Id,
-    round(CAST(v.RVValue * ((t.Id % 10) + 1) / 25978.0 AS DECIMAL(18,2)),00),
-    1
-FROM PTIS.PropertyMast p
-CROSS JOIN PTIS.TaxMaster t
-CROSS APPLY
-(
-    SELECT CAST(2469 + (p.Id * 25) AS DECIMAL(18,2)) AS RVValue
-) v
-WHERE p.IsActive = 1
-AND t.IsActive = 1
-AND NOT EXISTS
-(
-    SELECT 1
-    FROM PTIS.TransMastRV tm
-    WHERE tm.PropertyId = p.Id
-      AND tm.TaxId = t.Id
-      AND tm.FinanceYearId = 1
-);
+-- INSERT INTO PTIS.TransMastRV
+-- (
+--     PropertyId,
+--     FinanceYearId,
+--     RateableValue,
+--     TaxId,
+--     TaxAmount,
+--     CreatedBy
+-- )
+-- SELECT 
+--     p.Id,
+--     1,
+--     v.RVValue,
+--     t.Id,
+--     round(CAST(v.RVValue * ((t.Id % 10) + 1) / 25978.0 AS DECIMAL(18,2)),00),
+--     1
+-- FROM PTIS.PropertyMast p
+-- CROSS JOIN PTIS.TaxMaster t
+-- CROSS APPLY
+-- (
+--     SELECT CAST(2469 + (p.Id * 25) AS DECIMAL(18,2)) AS RVValue
+-- ) v
+-- WHERE p.IsActive = 1
+-- AND t.IsActive = 1
+-- AND NOT EXISTS
+-- (
+--     SELECT 1
+--     FROM PTIS.TransMastRV tm
+--     WHERE tm.PropertyId = p.Id
+--       AND tm.TaxId = t.Id
+--       AND tm.FinanceYearId = 1
+-- );
 
 
 
@@ -1103,7 +1105,6 @@ INSERT INTO [PTIS].[PropertyMastOld](
     [OldFlatOrShopNumber],
     [OldWing],
     [OldMobileNo],
-    [MappedNewPropertyId],
     [MarkedForDeletion],
     [MarkedForDeletionDate],
     [IsActive],
@@ -1149,7 +1150,6 @@ SELECT
     LEFT(CAST(pd.FlatOrShopNo AS nvarchar(50)), 50) AS [OldFlatOrShopNumber],
     CAST(NULL AS nvarchar(20)) AS [OldWing],
     LEFT(CAST(pd.MobileNo AS varchar(13)), 13) AS [OldMobileNo],
-    CAST(NULL AS int) AS [MappedNewPropertyId],
     pd.MarkedForDeletion AS [MarkedForDeletion],
     CAST(NULL AS datetime) AS [MarkedForDeletionDate],
     pd.IsActive AS [IsActive],
