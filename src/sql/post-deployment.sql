@@ -1,4 +1,4 @@
--- Post-Deployment Script
+﻿-- Post-Deployment Script
 -- This script runs ALWAYS after base schema creation or upgrades are complete
 -- Use this for:
 --   - Reference data that needs to be refreshed on every deployment

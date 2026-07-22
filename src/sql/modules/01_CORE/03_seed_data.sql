@@ -1,4 +1,4 @@
-
+﻿
 -- Seed default ULB types
 IF NOT EXISTS (SELECT 1 FROM [CORE].[UlbType] WHERE [Id] = 1)
 BEGIN

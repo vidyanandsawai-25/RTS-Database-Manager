@@ -1,4 +1,4 @@
-
+﻿
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35,7 +35,7 @@ CREATE TABLE [RTS].[ServiceMaster]
     [DepartmentId]      INT NOT NULL,
     [GovtServiceCode]   INT NULL,
     [ServiceName]       NVARCHAR(200) NOT NULL,
-    [ServiceNameLocal]  NVARCHAR(300) NULL,
+    [ServiceNameLocal]  NVARCHAR(MAX) NULL,
     [Description]       NVARCHAR(500) NULL,
     [ServiceUrl]        NVARCHAR(500) NULL,
     [ServiceIcon]       NVARCHAR(100) NULL,

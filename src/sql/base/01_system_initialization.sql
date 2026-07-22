@@ -1,4 +1,4 @@
--- System Initialization
+﻿-- System Initialization
 -- This file creates infrastructure tables needed for database version tracking
 -- Schema version tracking table
 IF NOT EXISTS (SELECT 1 FROM sys.tables WHERE name = 'SchemaVersions' AND SCHEMA_NAME(schema_id) = 'dbo')

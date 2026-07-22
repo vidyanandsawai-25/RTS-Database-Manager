@@ -1,4 +1,4 @@
-SET ANSI_NULLS ON
+﻿SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
@@ -34,109 +34,96 @@ GO
 -- =========================================================  
 ;WITH SeedServices AS (
     SELECT * FROM (VALUES
-        -- Birth & Death (dept order 5)
-        (N'Birth & Death', 7204, N'Birth Certificate',                          N'जन्माचा दाखला',                               NULL, N'Baby',          1),
-        (N'Birth & Death', 7205, N'Death Certificate',                          N'मृत्यूचा दाखला',                              NULL, N'HeartOff',       2),
-        -- Education (dept order 6)
-        (N'Education',     8273, N'School Leaving / Duplicate Certificate',     N'शाळा सोडल्याचे / दुय्यम प्रमाणपत्र',         NULL, N'FileText',       1),
-        -- Health (dept order 7)
-        (N'Health',        8270, N'New Nursing Home License',                   N'नवीन नर्सिंग होम परवाना',                     NULL, N'PlusSquare',     1),
-        (N'Health',        8271, N'Renew Nursing Home License',                 N'नर्सिंग होम परवाना नूतनीकरण',                 NULL, N'PlusSquare',     2),
-        (N'Health',        8272, N'Update Licensee / Partner Name',             N'परवानाधारक / भागीदार नाव अद्ययावत करणे',     NULL, N'UserPlus',       3),
-        -- Marriage Certificate (dept order 9)
-        (N'Marriage Certificate', 7121, N'Marriage Registration Certificate',   N'विवाह नोंदणी प्रमाणपत्र',                     NULL, N'Heart',          1),
-        -- NOC (dept order 8)
-        (N'NOC',           7200, N'Trade / Business Non-Revocation NOC',        N'व्यवसाय / व्यापार ना-हरकत प्रमाणपत्र',       NULL, N'ShieldCheck',    1),
-        (N'NOC',           7201, N'Mandap No-Damage Certificate',               N'मंडप नुकसान न केल्याचे प्रमाणपत्र',          NULL, N'Building2',      2),
-        (N'NOC',           7202, N'Fire Extinguisher Certificate',              N'अग्निशामक परवाना',                            NULL, N'Flame',          3),
-        (N'NOC',           7203, N'Final Fire Exemption Certificate',           N'अंतिम अग्निशामक सूट प्रमाणपत्र',             NULL, N'Flame',          4),
-        -- Property Tax (dept order 1)
-        (N'Property Tax',  7176, N'New Taxation',                               N'नवीन कर आकारणी',                              NULL, N'Home',           1),
-        (N'Property Tax',  7177, N'Re-Taxation',                                N'पुनर्कर आकारणी',                              NULL, N'Home',           2),
-        (N'Property Tax',  7178, N'Preparation of Tax Demand Letter',           N'कर मागणी पत्र तयार करणे',                     NULL, N'FileText',       3),
-        (N'Property Tax',  7271, N'Issuance of Property Tax Assessment Copy',   N'मालमत्ता कर आकारणी उतारा (८ अ) देणे',        NULL, N'FileText',       4),
-        (N'Property Tax',  7179, N'Avail Tax Exemption',                        N'कर सवलत मिळवणे',                              NULL, N'Receipt',        5),
-        (N'Property Tax',  7180, N'Tax Exemption for Non-Resident Properties',  N'अनिवासी मालमत्तेसाठी कर सवलत',               NULL, N'Receipt',        6),
-        (N'Property Tax',  7182, N'Registration of Objection',                  N'हरकत नोंदणी',                                 NULL, N'AlertTriangle',  7),
-        (N'Property Tax',  7184, N'Property Demolition',                        N'मालमत्ता पाडणे',                              NULL, N'Hammer',         8),
-        (N'Property Tax',  7186, N'No Dues Certificate',                        N'थकबाकी नसल्याचे प्रमाणपत्र (ना-हरकत)',       NULL, N'FileCheck',      9),
-        (N'Property Tax',  7187, N'Transfer of Property Certificate',           N'मालमत्ता हस्तांतरण प्रमाणपत्र',               NULL, N'UserCheck',      10),
-        -- Town Planning (dept order 4)
-        (N'Town Planning', 7207, N'Issuance of Zone Certificate',               N'झोन दाखला देणे',                              NULL, N'Map',            1),
-        (N'Town Planning', 7208, N'Giving Part Map',                            N'भाग नकाशा देणे',                              NULL, N'Map',            2),
-        (N'Town Planning', 7209, N'Issuance of Construction Permit',            N'बांधकाम परवानगी देणे',                        NULL, N'HardHat',        3),
-        (N'Town Planning', 7210, N'Tillage Certificate',                        N'जमीन मोजणी दाखला',                            NULL, N'MapPin',         4),
-        (N'Town Planning', 7211, N'Issuance of Occupancy Certificate',          N'भोगवटा प्रमाणपत्र देणे',                      NULL, N'Key',            5),
-        (N'Town Planning', 8277, N'Underground OFC Cable Permission',           N'भूमिगत ओएफसी केबल परवानगी',                   NULL, N'Cable',          6),
-        (N'Town Planning', 9001, N'Filling Potholes on City Roads',             N'शहरातील रस्त्यांवरील खड्डे भरणे',             NULL, N'Wrench',         7),
-        (N'Town Planning', 9002, N'Maintaining & Securing Sewer Covers',        N'गटार झाकणांची देखभाल आणि सुरक्षा',           NULL, N'Shield',         8),
-        (N'Town Planning', 9003, N'Road Cutting Permission',                    N'रस्ता खोदाई परवानगी',                         NULL, N'Wrench',         9),
-        (N'Town Planning', 8279, N'Mobile Tower Permission',                    N'मोबाईल टॉवर उभारणी परवानगी',                  NULL, N'Radio',          10),
-        -- Trade License (dept order 3)
-        (N'Trade License', 7190, N'New Trade License',                          N'नवीन व्यवसाय परवाना',                         NULL, N'Briefcase',      1),
-        (N'Trade License', 7191, N'Renew License',                              N'परवाना नूतनीकरण',                             NULL, N'Briefcase',      2),
-        (N'Trade License', 7192, N'License Transfer',                           N'परवाना हस्तांतरण',                            NULL, N'Briefcase',      3),
-        (N'Trade License', 7193, N'Secondary Copy of License',                  N'परवान्याची दुय्यम प्रत देणे',                 NULL, N'Briefcase',      4),
-        (N'Trade License', 7194, N'Change of Business Name',                    N'व्यवसायाच्या नावात बदल करणे',                 NULL, N'Briefcase',      5),
-        (N'Trade License', 7195, N'Changing Occupations',                       N'व्यवसाय बदल करणे',                            NULL, N'Briefcase',      6),
-        (N'Trade License', 7197, N'Change in Number of Partners',               N'भागीदारांच्या संख्येत बदल करणे',              NULL, N'Briefcase',      7),
-        (N'Trade License', 7198, N'Cancellation of License',                    N'परवाना रद्द करणे',                            NULL, N'Briefcase',      8),
-        (N'Trade License', 7199, N'Auto Renewal Of Trade License',              N'व्यवसाय परवान्याचे स्वयंचलित नूतनीकरण',      NULL, N'Briefcase',      9),
-        (N'Trade License', 8266, N'Licensing of Lodging Houses',                N'लॉजिंग हाऊससाठी परवाना देणे',                 NULL, N'Hotel',          10),
-        (N'Trade License', 8267, N'Renew Lodging House License',                N'लॉजिंग हाऊस परवाना नूतनीकरण',                 NULL, N'Hotel',          11),
-        (N'Trade License', 8268, N'Licensing of Mangal Office / Auditorium',    N'मंगल कार्यालय / सभागृह परवाना',               NULL, N'Building2',      12),
-        (N'Trade License', 8269, N'Renew Mangal Office / Hall License',         N'मंगल कार्यालय / सभागृह परवाना नूतनीकरण',     NULL, N'Building2',      13),
-        (N'Trade License', 8278, N'Hawker Registration Certificate',            N'फेरीवाला नोंदणी प्रमाणपत्र',                  NULL, N'Store',          14),
-        (N'Trade License', 7167, N'Plumbers license',                           N'प्लंबर परवाना देणे',                          NULL, N'Wrench',         15),
-        (N'Trade License', 7168, N'Plumber License Renewal',                    N'प्लंबर परवाना नूतनीकरण',                      NULL, N'Wrench',         16),
-        (N'Trade License', 7169, N'Trade License Type Change Request',          N'व्यवसाय परवाना प्रकार बदलण्याची विनंती',     NULL, N'Briefcase',      17),
-        (N'Trade License', 7601, N'Movie Shooting License New and Renewal',     N'चित्रपट चित्रीकरण परवाना देणे व नूतनीकरण',   NULL, N'Camera',         18),
-        -- Tree (dept order 10)
-        (N'Tree',          8276, N'Tree Felling Permission (Sec 8)',             N'झाड तोडण्याची परवानगी देणे',                  NULL, N'TreePine',       1),
-        -- Sanitation (dept order 11)
-        (N'Sanitation',    8255, N'Maintaining Manhole / Sewer Covers',         N'मॅनहोल / गटार झाकणांची दुरुस्ती',             NULL, N'Trash2',         1),
-        (N'Sanitation',    7175, N'Providing drainage connections',             N'ड्रेनेज जोडणी देणे',                          NULL, N'Droplet',        2),
-        -- Water Connection (dept order 2)
-        (N'Water Connection', 7174, N'To provide a connection',                 N'नवीन नळ जोडणी देणे',                          NULL, N'Droplets',       1),
-        (N'Water Connection', 7162, N'Changing the connection size',            N'नळ जोडणीचा आकार बदलणे',                       NULL, N'Droplets',       2),
-        (N'Water Connection', 7163, N'Temporary / permanent disconnection',     N'तात्पुरती / कायमची नळ जोडणी खंडित करणे',     NULL, N'Droplets',       3),
-        (N'Water Connection', 7164, N'To Reconnect',                            N'नळ जोडणी पुन्हा जोडणे',                       NULL, N'Droplets',       4),
-        (N'Water Connection', 7155, N'Certificate of no arrears',               N'पाणीपट्टी थकबाकी नसल्याचा दाखला',             NULL, N'FileCheck',      5),
-        (N'Water Connection', 7170, N'Reporting faulty meters',                 N'सदोष मीटरबद्दल तक्रार नोंदवणे',               NULL, N'AlertTriangle',  6),
-        (N'Water Connection', 7171, N'Reporting unauthorized tap connections',  N'अनधिकृत नळ जोडण्यांबद्दल तक्रार नोंदवणे',   NULL, N'AlertTriangle',  7),
-        (N'Water Connection', 7172, N'Water pressure capacity complaint',       N'पाण्याच्या दाबाबाबत तक्रार नोंदवणे',          NULL, N'AlertTriangle',  8),
-        (N'Water Connection', 7173, N'Water quality complaint',                 N'पाण्याच्या गुणवत्तेबद्दल तक्रार नोंदवणे',    NULL, N'AlertTriangle',  9)
-    ) AS V (DeptName, GovtServiceCode, ServiceName, ServiceNameLocal, ServiceUrl, ServiceIcon, DisplayOrder)
+        (N'NOC', 1, N'Trade / Business / Storage Non-Revocation NOC', N'व्यापार/व्यवसाय/साठा करण्यासाठी ना-हरकत प्रमाणपत्र', NULL, N'ShieldCheck', 1, N'7 Days', 0.00, 0),
+        (N'NOC', 2, N'Mandap No-Damage Certificate', N'मंडपासाठी ना-हरकत प्रमाणपत्र', NULL, N'Building2', 2, N'7 Days', 0.00, 0),
+        (N'Town Planning', 3, N'Issuance of Zone Certificate', N'झोन दाखला देणे', NULL, N'Map', 3, N'7 Days', 0.00, 0),
+        (N'Town Planning', 4, N'Giving Part Map', N'भाग नकाशा देणे', NULL, N'Map', 4, N'7 Days', 0.00, 0),
+        (N'Town Planning', 5, N'Issuance of Construction Permit', N'बांधकाम परवाना देणे', NULL, N'HardHat', 5, N'7 Days', 0.00, 0),
+        (N'Town Planning', 6, N'Issuance of plinth certificate', N'जोते प्रमाणपत्र देणे', NULL, N'MapPin', 6, N'7 Days', 0.00, 0),
+        (N'Town Planning', 7, N'Issuance of Occupancy Certificate', N'भोगवटा प्रमाणपत्र देणे', NULL, N'Key', 7, N'7 Days', 0.00, 0),
+        (N'Trade License', 8, N'Obtaining New Trade License', N'नविन परवाना मिळणे', N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Briefcase', 8, N'30 Days', 500.00, 1),
+        (N'Trade License', 9, N'Renewal of Trade License', N'परवान्याचे नुतनीकरण', N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Briefcase', 9, N'15 Days', 300.00, 1),
+        (N'Trade License', 10, N'Transfer of Trade License', N'परवाना हस्तांतर', N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Briefcase', 10, N'15 Days', 200.00, 1),
+        (N'Trade License', 11, N'Duplicate Copy of Trade License', N'परवाना दुय्यम प्रत', N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Briefcase', 11, N'7 Days', 100.00, 1),
+        (N'Trade License', 12, N'Change of Business Name / Establishment / Address', N'व्यवसायाचे नाव बदलणे/प्रतिष्ठानात/पत्यात बदल', N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Briefcase', 12, N'7 Days', 150.00, 1),
+        (N'Trade License', 13, N'Changing Occupations / Business Type', N'व्यवसाय बदलणे', N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Briefcase', 13, N'7 Days', 150.00, 1),
+        (N'Trade License', 14, N'Change of License Holder / Partner Name', N'परवाना धारक/भागीदाराचे नाव बदलणे', N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Briefcase', 14, N'7 Days', 150.00, 1),
+        (N'Trade License', 15, N'Change in Number of Partners (Increase/Decrease)', N'भागीदाराच्या संख्येत बदल (वाढ/कमी)', N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Briefcase', 15, N'7 Days', 150.00, 1),
+        (N'Trade License', 16, N'Cancellation of License', N'परवाना रद्द करणे', N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Briefcase', 16, N'7 Days', 0.00, 0),
+        (N'Trade License', 17, N'Notice on Renewal of Expired License', N'कालबाह्य परवानासाठी नुतनीकरण सुचना', N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Briefcase', 17, N'7 Days', 0.00, 0),
+        (N'NOC', 18, N'Issuance of Fire Safety NOC', N'अग्निशमन नाहरकत दाखला देणे', NULL, N'Flame', 18, N'7 Days', 0.00, 0),
+        (N'NOC', 19, N'Issuance of Final Fire Exemption Certificate', N'अग्निशमन अंतिम नाहरकत दाखला देणे', NULL, N'Flame', 19, N'7 Days', 0.00, 0),
+        (N'Birth & Death', 20, N'Birth Certificate', N'जन्म प्रमाणपत्र देणे', NULL, N'Baby', 20, N'7 Days', 50.00, 1),
+        (N'Birth & Death', 21, N'Death Certificate', N'मृत्यु प्रमाणपत्र देणे', NULL, N'HeartOff', 21, N'7 Days', 0.00, 0),
+        (N'Marriage Certificate', 22, N'Marriage Registration Certificate', N'विवाह नोंदणी प्रमाणपत्र देणे', NULL, N'Heart', 22, N'15 Days', 100.00, 1),
+        (N'Property Tax', 23, N'New Property Tax Assessment', N'नव्याने कर आकारणी', N'https://onesolutionakola.tabamc.in/Citizens/RaiseApplication?upicNo=', N'Home', 23, N'30 Days', 200.00, 1),
+        (N'Property Tax', 24, N'Re-Assessment of Property Tax', N'पुनः कर आकारणी', N'https://onesolutionakola.tabamc.in/Citizens/RaiseApplication?upicNo=', N'Home', 24, N'30 Days', 150.00, 1),
+        (N'Property Tax', 25, N'Preparation of Tax Demand Notice', N'कराचे मागणी पत्र तयार करणे', N'https://onesolutionakola.tabamc.in/Citizens/RaiseApplication?upicNo=', N'FileText', 25, N'7 Days', 0.00, 0),
+        (N'Property Tax', 26, N'Avail Property Tax Exemption', N'कर माफी मिळणे', N'https://onesolutionakola.tabamc.in/Citizens/RaiseApplication?upicNo=', N'Receipt', 26, N'15 Days', 0.00, 0),
+        (N'Property Tax', 27, N'Tax Exemption for Non-Resident Properties', N'रहिवास नलेल्यास मालमत्तांना करात सुट मिळणे', N'https://onesolutionakola.tabamc.in/Citizens/RaiseApplication?upicNo=', N'Receipt', 27, N'15 Days', 0.00, 0),
+        (N'Property Tax', 28, N'Property Tax Self-Assessment', N'स्वयंमुल्यांकन', N'https://onesolutionakola.tabamc.in/Citizens/RaiseApplication?upicNo=', N'Calculator', 28, N'7 Days', 0.00, 0),
+        (N'Property Tax', 29, N'Registration of Objection on Tax Assessment', N'आक्षेप नोंदविणे', N'https://onesolutionakola.tabamc.in/Citizens/RaiseApplication?upicNo=', N'AlertTriangle', 29, N'15 Days', 0.00, 0),
+        (N'Property Tax', 30, N'Sub-division of Property', N'उपविभागामध्ये मालमत्ता विभाजन', N'https://onesolutionakola.tabamc.in/Citizens/RaiseApplication?upicNo=', N'GitFork', 30, N'15 Days', 100.00, 1),
+        (N'Property Tax', 31, N'Re-assessment After Demolition and Reconstruction', N'मालमत्ता पाडणे व पुनःबांधणी कर आकारणे', N'https://onesolutionakola.tabamc.in/Citizens/RaiseApplication?upicNo=', N'Hammer', 31, N'30 Days', 200.00, 1),
+        (N'Property Tax', 32, N'Issuance of Property Tax Assessment Copy (8A)', N'मालमत्ता कर उतारा देणे', N'https://onesolutionakola.tabamc.in/Citizens/RaiseApplication?upicNo=', N'FileText', 32, N'7 Days', 50.00, 1),
+        (N'Property Tax', 33, N'Issuance of No Dues Certificate', N'थकबाकी नसल्याचा दाखला देणे', N'https://onesolutionakola.tabamc.in/Citizens/RaiseApplication?upicNo=', N'FileCheck', 33, N'7 Days', 50.00, 1),
+        (N'Property Tax', 34, N'Property Transfer Registration Certificate', N'अ) दस्ताऐवजाच्या आधारे मालमत्ता हस्तांतरण नोंद प्रमाणपत्र देणे ब) वारसा हक्काने मालमत्ता हस्तांतरण नोंद प्रमाणपत्र देणे', N'https://onesolutionakola.tabamc.in/Citizens/RaiseApplication?upicNo=', N'UserCheck', 34, N'15 Days', 200.00, 1),
+        (N'Property Tax', 35, N'Change of Ownership Name', N'मालकी हक्कात बदल करणे', N'https://onesolutionakola.tabamc.in/Citizens/RaiseApplication?upicNo=', N'UserPlus', 35, N'15 Days', 200.00, 1),
+        (N'Water Connection', 36, N'Changing the Water Connection Size', N'नळ जोडणी आकारामध्ये बदल करणे', N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'Droplets', 36, N'7 Days', 100.00, 1),
+        (N'Water Connection', 37, N'Temporary / Permanent Disconnection of Water Connection', N'तात्पुरते/कायमस्वरूपी नळ जोडणी खंडीत करणे', N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'Droplets', 37, N'7 Days', 0.00, 0),
+        (N'Water Connection', 38, N'Reconnection of Water Tap', N'पुनः जोडणी करणे', N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'Droplets', 38, N'7 Days', 100.00, 1),
+        (N'Water Connection', 39, N'Change of Water Connection Usage Type', N'वापरामध्ये बदल करणे', N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'Droplets', 39, N'7 Days', 100.00, 1),
+        (N'Water Connection', 40, N'Preparation of Water Bill', N'पाणी देयक तयार करणे', N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'FileText', 40, N'7 Days', 0.00, 0),
+        (N'Water Connection', 41, N'Issuance of Plumber License', N'प्लंबर परवाना', N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'Wrench', 41, N'15 Days', 300.00, 1),
+        (N'Water Connection', 42, N'Renewal of Plumber License', N'प्लंबर परवाना नुतनीकरण करणे', N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'Wrench', 42, N'15 Days', 200.00, 1),
+        (N'Water Connection', 43, N'Water Bill No Dues Certificate', N'थकबाकी नसल्याचा दाखला', N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'FileCheck', 43, N'7 Days', 50.00, 1),
+        (N'Water Connection', 44, N'Complaint Regarding Faulty Water Meter', N'नादुरुस्त मीटर तक्रार करणे', N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'AlertTriangle', 44, N'7 Days', 0.00, 0),
+        (N'Water Connection', 45, N'Complaint Regarding Unauthorized Water Tap Connection', N'अनधिकृत नळ जोडणी तक्रार', N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'AlertTriangle', 45, N'7 Days', 0.00, 0),
+        (N'Water Connection', 46, N'Complaint Regarding Water Pressure Capacity', N'पाण्याच्या दाब क्षमता तक्रार', N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'AlertTriangle', 46, N'7 Days', 0.00, 0),
+        (N'Water Connection', 47, N'Complaint Regarding Water Quality', N'पाण्याची गुणवत्ता तक्रार', N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'AlertTriangle', 47, N'7 Days', 0.00, 0),
+        (N'Water Connection', 48, N'Provision of New Water Tap Connection', N'नळ जोडणी देणे', N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'Droplets', 48, N'15 Days', 150.00, 1),
+        (N'Sanitation', 49, N'Providing drainage connections', N'जलनिःसारण जोडणी देणे', NULL, N'Droplet', 49, N'15 Days', 100.00, 1),
+        (N'Education', 50, N'School Leaving / Duplicate Certificate', N'विद्यार्थ्याचा शाळा सोडण्याचा दाखला व व्दितीय दाखला देणे', NULL, N'GraduationCap', 50, N'7 Days', 30.00, 1),
+        (N'Education', 51, N'Issuance of transfer certificate', N'स्थलांतर दाखला देणे', NULL, N'GraduationCap', 51, N'7 Days', 0.00, 0),
+        (N'Education', 52, N'Issuance of duplicate mark sheet', N'व्दितीय गुणपत्रक देणे', NULL, N'GraduationCap', 52, N'7 Days', 30.00, 1),
+        (N'Health', 53, N'Nursing home license under Registration Act, 1949', N'महाराष्ट्र शुश्रूषा-गृह नोंदणी अधिनियम, 1949 अंतर्गत शुश्रूषा-गृह परवाना देणे', NULL, N'PlusSquare', 53, N'30 Days', 500.00, 1),
+        (N'Health', 54, N'Renewal of nursing home license', N'महाराष्ट्र शुश्रूषा-गृह नोंदणी अधिनियम, 1949 अंतर्गत शुश्रूषा-गृह परवान्याचे नुतनीकरण करणे', NULL, N'PlusSquare', 54, N'30 Days', 300.00, 1),
+        (N'Health', 55, N'Change of nursing home license holder / partner name', N'महाराष्ट्र शुश्रूषा-गृह नोंदणी अधिनियम, 1949 अंतर्गत परवान्यावर परवानाधारक/भागीदाराचे नाव बदलणे', NULL, N'UserPlus', 55, N'15 Days', 200.00, 1),
+        (N'Trade License', 56, N'Issuance of Lodging House License', N'लॉजिंग हाऊस परवाना देणे', N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Hotel', 56, N'15 Days', 500.00, 1),
+        (N'Trade License', 57, N'Renewal of Lodging House License', N'लॉजिंग हाऊस परवान्याचे नुतनीकरण करणे', N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Hotel', 57, N'15 Days', 300.00, 1),
+        (N'Trade License', 58, N'Issuance of Marriage Hall / Auditorium License', N'मंगल कार्यालय/सभागृह वगैरे परवाना देणे', N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Building2', 58, N'15 Days', 500.00, 1),
+        (N'Trade License', 59, N'Renewal of Marriage Hall / Auditorium License', N'मंगल कार्यालय/सभागृह वगैरे परवान्याचे नुतनीकरण करणे', N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Building2', 59, N'15 Days', 300.00, 1),
+        (N'Trade License', 60, N'Issuance of Hawker Registration Certificate', N'फेरीवाले नोंदणी प्रमाणपत्र देणे', N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Store', 60, N'7 Days', 100.00, 1),
+        (N'Town Planning', 61, N'Underground OFC Cable Permission', N'भुमिगत दुरसंचार वाहिनी (ऑप्टीकल फायबर केबल) टाकण्याकरीता परवानगी देणे (Permission for establishment of under-ground Cable Infrastructure - Optical Fibre Cable)', NULL, N'Cable', 61, N'7 Days', 0.00, 0),
+        (N'Tree', 62, N'Tree Felling Permission (Sec 8)', N'महाराष्ट्र (नागरी क्षेत्रे) वृक्ष संरक्षण आणि संवर्धन अधिनियम, 1975 मधील कलम 8 मधील तरतुदीनुसार वृक्षतोड परवानगी देणे', NULL, N'TreePine', 62, N'15 Days', 0.00, 0),
+        (N'Town Planning', 63, N'Filling Potholes on City Roads', N'रस्त्यांवरील खड्डे बुजविणे', NULL, N'Wrench', 63, N'7 Days', 0.00, 0),
+        (N'Town Planning', 64, N'Maintaining & Securing Sewer Covers', N'गटारांवरील झाकणे सुस्थितीत ठेवणे', NULL, N'Shield', 64, N'7 Days', 0.00, 0),
+        (N'Sanitation', 65, N'Maintaining cleanliness', N'शहरात स्वच्छता राखणे', NULL, N'Trash2', 65, N'7 Days', 0.00, 0)
+    ) AS V (DeptName, GovtServiceCode, ServiceName, ServiceNameLocal, ServiceUrl, ServiceIcon, DisplayOrder, Sla, Fees, FeesRequired)
 )
-INSERT INTO [RTS].[ServiceMaster] ([DepartmentId], [GovtServiceCode], [ServiceName], [ServiceNameLocal], [ServiceUrl], [ServiceIcon], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [Sla], [Fees], [FeesRequired])
-SELECT D.Id, S.GovtServiceCode, S.ServiceName, S.ServiceNameLocal, S.ServiceUrl, S.ServiceIcon, S.DisplayOrder, 1, 0, GETDATE(),
-    CASE 
-        WHEN S.GovtServiceCode = 7204 THEN N'7 Days'
-        WHEN S.GovtServiceCode = 7205 THEN N'7 Days'
-        WHEN S.GovtServiceCode = 7121 THEN N'15 Days'
-        WHEN S.GovtServiceCode = 7176 THEN N'30 Days'
-        WHEN S.GovtServiceCode = 7190 THEN N'30 Days'
-        WHEN S.GovtServiceCode = 7174 THEN N'15 Days'
-        ELSE N'7 Days'
-    END,
-    CASE 
-        WHEN S.GovtServiceCode = 7204 THEN 50.00
-        WHEN S.GovtServiceCode = 7205 THEN 0.00
-        WHEN S.GovtServiceCode = 7121 THEN 100.00
-        WHEN S.GovtServiceCode = 7176 THEN 200.00
-        WHEN S.GovtServiceCode = 7190 THEN 500.00
-        WHEN S.GovtServiceCode = 7174 THEN 150.00
-        ELSE 0.00
-    END,
-    CASE 
-        WHEN S.GovtServiceCode IN (7205) THEN 0
-        ELSE 1
-    END
-FROM SeedServices S
-INNER JOIN [RTS].[DepartmentMaster] D ON D.DepartmentName = S.DeptName
-WHERE NOT EXISTS (
-    SELECT 1 FROM [RTS].[ServiceMaster] X WHERE X.DepartmentId = D.Id AND X.ServiceName = S.ServiceName
-);
+MERGE [RTS].[ServiceMaster] AS Target
+USING (
+    SELECT D.Id AS DepartmentId, S.GovtServiceCode, S.ServiceName, S.ServiceNameLocal, S.ServiceUrl, S.ServiceIcon, S.DisplayOrder, S.Sla, S.Fees, S.FeesRequired
+    FROM SeedServices S
+    INNER JOIN [RTS].[DepartmentMaster] D ON D.DepartmentName = S.DeptName
+) AS Source
+ON (Target.GovtServiceCode = Source.GovtServiceCode OR (Target.DepartmentId = Source.DepartmentId AND Target.ServiceName = Source.ServiceName))
+WHEN MATCHED THEN
+    UPDATE SET 
+        Target.GovtServiceCode = Source.GovtServiceCode,
+        Target.DepartmentId = Source.DepartmentId,
+        Target.ServiceName = Source.ServiceName,
+        Target.ServiceNameLocal = Source.ServiceNameLocal,
+        Target.ServiceUrl = Source.ServiceUrl,
+        Target.ServiceIcon = Source.ServiceIcon,
+        Target.DisplayOrder = Source.DisplayOrder,
+        Target.Sla = Source.Sla,
+        Target.Fees = Source.Fees,
+        Target.FeesRequired = Source.FeesRequired,
+        Target.IsActive = 1
+WHEN NOT MATCHED THEN
+    INSERT ([DepartmentId], [GovtServiceCode], [ServiceName], [ServiceNameLocal], [ServiceUrl], [ServiceIcon], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [Sla], [Fees], [FeesRequired])
+    VALUES (Source.DepartmentId, Source.GovtServiceCode, Source.ServiceName, Source.ServiceNameLocal, Source.ServiceUrl, Source.ServiceIcon, Source.DisplayOrder, 1, 0, GETDATE(), Source.Sla, Source.Fees, Source.FeesRequired);
 GO
 
 -- =========================================================
@@ -844,7 +831,104 @@ GO
     (N'Town Planning', N'Road Cutting Permission', N'restorationResponsibility', N'restorationResponsibility', N'Restoration Responsibility', N'select', N'Safety & Restoration', N'[{"value":"applicant","label":{"en":"Applicant","hi":"आवेदक","mr":"अर्जदार"}},{"value":"contractor","label":{"en":"Contractor","hi":"कॉन्ट्रॅक्टर","mr":"कॉन्ट्रॅक्टर"}}]', 1, 27, NULL, NULL),
     (N'Town Planning', N'Road Cutting Permission', N'restorationType', N'restorationType', N'Restoration Type', N'select', N'Safety & Restoration', N'[{"value":"asphalt","label":{"en":"Asphalt","hi":"डांबर","mr":"डांबर"}},{"value":"cc_road","label":{"en":"CC Road","hi":"सीसी रस्ता","mr":"सीसी रस्ता"}},{"value":"paver_blocks","label":{"en":"Paver Blocks","hi":"पेवर ब्लॉक्स","mr":"पेवर ब्लॉक्स"}},{"value":"footpath_tiles","label":{"en":"Footpath Tiles","hi":"फुटपाथ टाईल्स","mr":"फुटपाथ टाईल्स"}},{"value":"other","label":{"en":"Other","hi":"अन्य","mr":"इतर"}}]', 1, 28, NULL, NULL),
     (N'Town Planning', N'Road Cutting Permission', N'undertakingConsent', N'undertakingConsent', N'Undertaking / Indemnity Consent', N'select', N'Safety & Restoration', N'[{"value":"yes","label":{"en":"Yes, I agree","hi":"हाँ, सहमत","mr":"होय, मी सहमत आहे"}}]', 1, 29, NULL, NULL),
-    (N'Town Planning', N'Road Cutting Permission', N'declaration', N'declaration', N'I hereby declare that the information provided is true and correct.', N'checkbox', N'Declaration', NULL, 1, 30, NULL, NULL)
+    (N'Town Planning', N'Road Cutting Permission', N'declaration', N'declaration', N'I hereby declare that the information provided is true and correct.', N'checkbox', N'Declaration', NULL, 1, 30, NULL, NULL),
+
+    -- Health: New Nursing Home License (and alternate name)
+    (N'Health', N'New Nursing Home License', N'applicantFullName', N'applicantFullName', N'Full Name', N'text', N'Applicant Details', NULL, 1, 1, NULL, NULL),
+    (N'Health', N'New Nursing Home License', N'mobileNo', N'mobileNo', N'Mobile Number', N'text', N'Applicant Details', NULL, 1, 2, 10, N'{"minLength":10,"maxLength":10}'),
+    (N'Health', N'New Nursing Home License', N'email', N'email', N'Email', N'text', N'Applicant Details', NULL, 0, 3, NULL, NULL),
+    (N'Health', N'New Nursing Home License', N'nursingHomeName', N'nursingHomeName', N'Nursing Home Name', N'text', N'Nursing Home Details', NULL, 1, 4, NULL, NULL),
+    (N'Health', N'New Nursing Home License', N'nursingHomeAddress', N'nursingHomeAddress', N'Nursing Home Address', N'textarea', N'Nursing Home Details', NULL, 1, 5, NULL, NULL),
+    (N'Health', N'New Nursing Home License', N'wardId', N'wardId', N'Ward', N'select', N'Nursing Home Details', N'[]', 1, 6, NULL, NULL),
+    (N'Health', N'New Nursing Home License', N'zoneId', N'zoneId', N'Zone', N'select', N'Nursing Home Details', N'[]', 1, 7, NULL, NULL),
+    (N'Health', N'New Nursing Home License', N'doctorName', N'doctorName', N'Chief Medical Officer / Doctor Name', N'text', N'Medical Staff Details', NULL, 1, 8, NULL, NULL),
+    (N'Health', N'New Nursing Home License', N'doctorRegNo', N'doctorRegNo', N'Doctor MMC/Medical Reg No', N'text', N'Medical Staff Details', NULL, 1, 9, NULL, NULL),
+    (N'Health', N'New Nursing Home License', N'totalBeds', N'totalBeds', N'Total Bed Capacity', N'number', N'Facility Details', NULL, 1, 10, NULL, N'{"min":1}'),
+    (N'Health', N'New Nursing Home License', N'bmwClearanceNo', N'bmwClearanceNo', N'Bio Medical Waste Clearance No', N'text', N'Compliance Details', NULL, 1, 11, NULL, NULL),
+    (N'Health', N'New Nursing Home License', N'fireNocNo', N'fireNocNo', N'Fire Safety NOC Number', N'text', N'Compliance Details', NULL, 1, 12, NULL, NULL),
+    (N'Health', N'New Nursing Home License', N'declaration', N'declaration', N'I hereby declare that the information provided is true and correct.', N'checkbox', N'Declaration', NULL, 1, 13, NULL, NULL),
+
+    (N'Health', N'Nursing home license under Registration Act, 1949', N'applicantFullName', N'applicantFullName', N'Full Name', N'text', N'Applicant Details', NULL, 1, 1, NULL, NULL),
+    (N'Health', N'Nursing home license under Registration Act, 1949', N'mobileNo', N'mobileNo', N'Mobile Number', N'text', N'Applicant Details', NULL, 1, 2, 10, N'{"minLength":10,"maxLength":10}'),
+    (N'Health', N'Nursing home license under Registration Act, 1949', N'email', N'email', N'Email', N'text', N'Applicant Details', NULL, 0, 3, NULL, NULL),
+    (N'Health', N'Nursing home license under Registration Act, 1949', N'nursingHomeName', N'nursingHomeName', N'Nursing Home Name', N'text', N'Nursing Home Details', NULL, 1, 4, NULL, NULL),
+    (N'Health', N'Nursing home license under Registration Act, 1949', N'nursingHomeAddress', N'nursingHomeAddress', N'Nursing Home Address', N'textarea', N'Nursing Home Details', NULL, 1, 5, NULL, NULL),
+    (N'Health', N'Nursing home license under Registration Act, 1949', N'wardId', N'wardId', N'Ward', N'select', N'Nursing Home Details', N'[]', 1, 6, NULL, NULL),
+    (N'Health', N'Nursing home license under Registration Act, 1949', N'zoneId', N'zoneId', N'Zone', N'select', N'Nursing Home Details', N'[]', 1, 7, NULL, NULL),
+    (N'Health', N'Nursing home license under Registration Act, 1949', N'doctorName', N'doctorName', N'Chief Medical Officer / Doctor Name', N'text', N'Medical Staff Details', NULL, 1, 8, NULL, NULL),
+    (N'Health', N'Nursing home license under Registration Act, 1949', N'doctorRegNo', N'doctorRegNo', N'Doctor MMC/Medical Reg No', N'text', N'Medical Staff Details', NULL, 1, 9, NULL, NULL),
+    (N'Health', N'Nursing home license under Registration Act, 1949', N'totalBeds', N'totalBeds', N'Total Bed Capacity', N'number', N'Facility Details', NULL, 1, 10, NULL, N'{"min":1}'),
+    (N'Health', N'Nursing home license under Registration Act, 1949', N'bmwClearanceNo', N'bmwClearanceNo', N'Bio Medical Waste Clearance No', N'text', N'Compliance Details', NULL, 1, 11, NULL, NULL),
+    (N'Health', N'Nursing home license under Registration Act, 1949', N'fireNocNo', N'fireNocNo', N'Fire Safety NOC Number', N'text', N'Compliance Details', NULL, 1, 12, NULL, NULL),
+    (N'Health', N'Nursing home license under Registration Act, 1949', N'declaration', N'declaration', N'I hereby declare that the information provided is true and correct.', N'checkbox', N'Declaration', NULL, 1, 13, NULL, NULL),
+
+    -- Health: Renew Nursing Home License (and alternate name)
+    (N'Health', N'Renew Nursing Home License', N'applicantFullName', N'applicantFullName', N'Full Name', N'text', N'Applicant Details', NULL, 1, 1, NULL, NULL),
+    (N'Health', N'Renew Nursing Home License', N'mobileNo', N'mobileNo', N'Mobile Number', N'text', N'Applicant Details', NULL, 1, 2, 10, N'{"minLength":10,"maxLength":10}'),
+    (N'Health', N'Renew Nursing Home License', N'existingLicenseNo', N'existingLicenseNo', N'Existing License Number', N'text', N'License Details', NULL, 1, 3, NULL, NULL),
+    (N'Health', N'Renew Nursing Home License', N'licenseExpiryDate', N'licenseExpiryDate', N'License Expiry Date', N'date', N'License Details', NULL, 1, 4, NULL, NULL),
+    (N'Health', N'Renew Nursing Home License', N'nursingHomeName', N'nursingHomeName', N'Nursing Home Name', N'text', N'Nursing Home Details', NULL, 1, 5, NULL, NULL),
+    (N'Health', N'Renew Nursing Home License', N'wardId', N'wardId', N'Ward', N'select', N'Nursing Home Details', N'[]', 1, 6, NULL, NULL),
+    (N'Health', N'Renew Nursing Home License', N'totalBeds', N'totalBeds', N'Total Bed Capacity', N'number', N'Facility Details', NULL, 1, 7, NULL, N'{"min":1}'),
+    (N'Health', N'Renew Nursing Home License', N'declaration', N'declaration', N'I hereby declare that the information provided is true and correct.', N'checkbox', N'Declaration', NULL, 1, 8, NULL, NULL),
+
+    (N'Health', N'Renewal of nursing home license', N'applicantFullName', N'applicantFullName', N'Full Name', N'text', N'Applicant Details', NULL, 1, 1, NULL, NULL),
+    (N'Health', N'Renewal of nursing home license', N'mobileNo', N'mobileNo', N'Mobile Number', N'text', N'Applicant Details', NULL, 1, 2, 10, N'{"minLength":10,"maxLength":10}'),
+    (N'Health', N'Renewal of nursing home license', N'existingLicenseNo', N'existingLicenseNo', N'Existing License Number', N'text', N'License Details', NULL, 1, 3, NULL, NULL),
+    (N'Health', N'Renewal of nursing home license', N'licenseExpiryDate', N'licenseExpiryDate', N'License Expiry Date', N'date', N'License Details', NULL, 1, 4, NULL, NULL),
+    (N'Health', N'Renewal of nursing home license', N'nursingHomeName', N'nursingHomeName', N'Nursing Home Name', N'text', N'Nursing Home Details', NULL, 1, 5, NULL, NULL),
+    (N'Health', N'Renewal of nursing home license', N'wardId', N'wardId', N'Ward', N'select', N'Nursing Home Details', N'[]', 1, 6, NULL, NULL),
+    (N'Health', N'Renewal of nursing home license', N'totalBeds', N'totalBeds', N'Total Bed Capacity', N'number', N'Facility Details', NULL, 1, 7, NULL, N'{"min":1}'),
+    (N'Health', N'Renewal of nursing home license', N'declaration', N'declaration', N'I hereby declare that the information provided is true and correct.', N'checkbox', N'Declaration', NULL, 1, 8, NULL, NULL),
+
+    -- Health: Update Licensee / Partner Name (and alternate name)
+    (N'Health', N'Update Licensee / Partner Name', N'applicantFullName', N'applicantFullName', N'Full Name', N'text', N'Applicant Details', NULL, 1, 1, NULL, NULL),
+    (N'Health', N'Update Licensee / Partner Name', N'mobileNo', N'mobileNo', N'Mobile Number', N'text', N'Applicant Details', NULL, 1, 2, 10, N'{"minLength":10,"maxLength":10}'),
+    (N'Health', N'Update Licensee / Partner Name', N'existingLicenseNo', N'existingLicenseNo', N'Existing License Number', N'text', N'License Details', NULL, 1, 3, NULL, NULL),
+    (N'Health', N'Update Licensee / Partner Name', N'currentHolderName', N'currentHolderName', N'Current License Holder Name', N'text', N'License Details', NULL, 1, 4, NULL, NULL),
+    (N'Health', N'Update Licensee / Partner Name', N'proposedHolderName', N'proposedHolderName', N'Proposed New Holder / Partner Name', N'text', N'Update Details', NULL, 1, 5, NULL, NULL),
+    (N'Health', N'Update Licensee / Partner Name', N'reasonForChange', N'reasonForChange', N'Reason for Change', N'select', N'Update Details', N'[{"value":"partner_add","label":{"en":"Addition of Partner","hi":"भागीदार जोडणे","mr":"भागीदार जोडणे"}},{"value":"partner_remove","label":{"en":"Removal of Partner","hi":"भागीदार काढणे","mr":"भागीदार काढणे"}},{"value":"sale","label":{"en":"Transfer / Sale","hi":"हस्तांतरण / विक्री","mr":"हस्तांतरण / विक्री"}},{"value":"inheritance","label":{"en":"Inheritance / Legal Heir","hi":"वारसा हक्क","mr":"वारसा हक्क"}}]', 1, 6, NULL, NULL),
+    (N'Health', N'Update Licensee / Partner Name', N'declaration', N'declaration', N'I hereby declare that the information provided is true and correct.', N'checkbox', N'Declaration', NULL, 1, 7, NULL, NULL),
+
+    (N'Health', N'Change of nursing home license holder / partner name', N'applicantFullName', N'applicantFullName', N'Full Name', N'text', N'Applicant Details', NULL, 1, 1, NULL, NULL),
+    (N'Health', N'Change of nursing home license holder / partner name', N'mobileNo', N'mobileNo', N'Mobile Number', N'text', N'Applicant Details', NULL, 1, 2, 10, N'{"minLength":10,"maxLength":10}'),
+    (N'Health', N'Change of nursing home license holder / partner name', N'existingLicenseNo', N'existingLicenseNo', N'Existing License Number', N'text', N'License Details', NULL, 1, 3, NULL, NULL),
+    (N'Health', N'Change of nursing home license holder / partner name', N'currentHolderName', N'currentHolderName', N'Current License Holder Name', N'text', N'License Details', NULL, 1, 4, NULL, NULL),
+    (N'Health', N'Change of nursing home license holder / partner name', N'proposedHolderName', N'proposedHolderName', N'Proposed New Holder / Partner Name', N'text', N'Update Details', NULL, 1, 5, NULL, NULL),
+    (N'Health', N'Change of nursing home license holder / partner name', N'reasonForChange', N'reasonForChange', N'Reason for Change', N'select', N'Update Details', N'[{"value":"partner_add","label":{"en":"Addition of Partner","hi":"भागीदार जोडणे","mr":"भागीदार जोडणे"}},{"value":"partner_remove","label":{"en":"Removal of Partner","hi":"भागीदार काढणे","mr":"भागीदार काढणे"}},{"value":"sale","label":{"en":"Transfer / Sale","hi":"हस्तांतरण / विक्री","mr":"हस्तांतरण / विक्री"}},{"value":"inheritance","label":{"en":"Inheritance / Legal Heir","hi":"वारसा हक्क","mr":"वारसा हक्क"}}]', 1, 6, NULL, NULL),
+    (N'Health', N'Change of nursing home license holder / partner name', N'declaration', N'declaration', N'I hereby declare that the information provided is true and correct.', N'checkbox', N'Declaration', NULL, 1, 7, NULL, NULL),
+
+    -- Town Planning: Tillage Certificate & Plinth Certificate
+    (N'Town Planning', N'Tillage Certificate', N'applicantFullName', N'applicantFullName', N'Full Name', N'text', N'Applicant Details', NULL, 1, 1, NULL, NULL),
+    (N'Town Planning', N'Tillage Certificate', N'mobileNo', N'mobileNo', N'Mobile Number', N'text', N'Applicant Details', NULL, 1, 2, 10, N'{"minLength":10,"maxLength":10}'),
+    (N'Town Planning', N'Tillage Certificate', N'propertyNo', N'propertyNo', N'Select Property No / UPIC', N'select', N'Property Details', N'[]', 1, 3, NULL, NULL),
+    (N'Town Planning', N'Tillage Certificate', N'wardId', N'wardId', N'Ward (Auto)', N'select', N'Property Details', N'[]', 0, 4, NULL, NULL),
+    (N'Town Planning', N'Tillage Certificate', N'zoneId', N'zoneId', N'Zone (Auto)', N'select', N'Property Details', N'[]', 0, 5, NULL, NULL),
+    (N'Town Planning', N'Tillage Certificate', N'surveyNo', N'surveyNo', N'Land Survey / Gut Number', N'text', N'Land Details', NULL, 1, 6, NULL, NULL),
+    (N'Town Planning', N'Tillage Certificate', N'areaInHectares', N'areaInHectares', N'Total Land Area (in Hectares/Sqm)', N'number', N'Land Details', NULL, 1, 7, NULL, N'{"min":0}'),
+    (N'Town Planning', N'Tillage Certificate', N'purpose', N'purpose', N'Purpose of Measurement', N'select', N'Request Details', N'[{"value":"boundary","label":{"en":"Boundary Fixation","hi":"सीमा निश्चिती","mr":"हद्द निश्चिती"}},{"value":"division","label":{"en":"Land Sub-division","hi":"जमीन विभागणी","mr":"जमीन तुकडेबंदी/विभागणी"}},{"value":"sale","label":{"en":"Sale / Registry","hi":"विक्री / नोंदणी","mr":"विक्री / नोंदणी"}},{"value":"other","label":{"en":"Other","hi":"अन्य","mr":"इतर"}}]', 1, 8, NULL, NULL),
+    (N'Town Planning', N'Tillage Certificate', N'declaration', N'declaration', N'I hereby declare that the information provided is true and correct.', N'checkbox', N'Declaration', NULL, 1, 9, NULL, NULL),
+
+    (N'Town Planning', N'Issuance of plinth certificate', N'applicantFullName', N'applicantFullName', N'Full Name', N'text', N'Applicant Details', NULL, 1, 1, NULL, NULL),
+    (N'Town Planning', N'Issuance of plinth certificate', N'mobileNo', N'mobileNo', N'Mobile Number', N'text', N'Applicant Details', NULL, 1, 2, 10, N'{"minLength":10,"maxLength":10}'),
+    (N'Town Planning', N'Issuance of plinth certificate', N'propertyNo', N'propertyNo', N'Select Property No / UPIC', N'select', N'Property Details', N'[]', 1, 3, NULL, NULL),
+    (N'Town Planning', N'Issuance of plinth certificate', N'wardId', N'wardId', N'Ward (Auto)', N'select', N'Property Details', N'[]', 0, 4, NULL, NULL),
+    (N'Town Planning', N'Issuance of plinth certificate', N'zoneId', N'zoneId', N'Zone (Auto)', N'select', N'Property Details', N'[]', 0, 5, NULL, NULL),
+    (N'Town Planning', N'Issuance of plinth certificate', N'buildingPermitRefNo', N'buildingPermitRefNo', N'Sanctioned Building Permit Ref No', N'text', N'Permit Details', NULL, 1, 6, NULL, NULL),
+    (N'Town Planning', N'Issuance of plinth certificate', N'architectName', N'architectName', N'Licensed Architect Name', N'text', N'Architect Details', NULL, 1, 7, NULL, NULL),
+    (N'Town Planning', N'Issuance of plinth certificate', N'declaration', N'declaration', N'I hereby declare that the information provided is true and correct.', N'checkbox', N'Declaration', NULL, 1, 8, NULL, NULL),
+
+    -- Sanitation: Maintaining cleanliness
+    (N'Sanitation', N'Maintaining cleanliness', N'complainantFullName', N'complainantFullName', N'Full Name', N'text', N'Complainant Details', NULL, 1, 1, NULL, NULL),
+    (N'Sanitation', N'Maintaining cleanliness', N'mobileNo', N'mobileNo', N'Mobile Number', N'text', N'Complainant Details', NULL, 1, 2, 10, N'{"minLength":10,"maxLength":10}'),
+    (N'Sanitation', N'Maintaining cleanliness', N'wardId', N'wardId', N'Ward', N'select', N'Location Details', N'[]', 1, 3, NULL, NULL),
+    (N'Sanitation', N'Maintaining cleanliness', N'zoneId', N'zoneId', N'Zone', N'select', N'Location Details', N'[]', 1, 4, NULL, NULL),
+    (N'Sanitation', N'Maintaining cleanliness', N'areaName', N'areaName', N'Area / Locality', N'text', N'Location Details', NULL, 1, 5, NULL, NULL),
+    (N'Sanitation', N'Maintaining cleanliness', N'landmark', N'landmark', N'Landmark', N'text', N'Location Details', NULL, 1, 6, NULL, NULL),
+    (N'Sanitation', N'Maintaining cleanliness', N'cleanlinessIssueType', N'cleanlinessIssueType', N'Cleanliness Issue Type', N'select', N'Complaint Details', N'[{"value":"garbage","label":{"en":"Garbage Accumulation","hi":"कचरा साचणे","mr":"कचरा साचणे"}},{"value":"open_dumping","label":{"en":"Open Dumping","hi":"उघड्यावर कचरा","mr":"उघड्यावर कचरा टाकणे"}},{"value":"drainage_overflow","label":{"en":"Drainage Overflow","hi":"ड्रेनेज ओव्हरफ्लो","mr":"ड्रेनेज ओव्हरफ्लो"}},{"value":"sweeping_req","label":{"en":"Street Sweeping Required","hi":"रस्ता सफाई आवश्यक","mr":"रस्ता सफाई आवश्यक"}}]', 1, 7, NULL, NULL),
+    (N'Sanitation', N'Maintaining cleanliness', N'declaration', N'declaration', N'I hereby declare that the information provided is true and correct.', N'checkbox', N'Declaration', NULL, 1, 8, NULL, NULL)
+
+
     ) AS V (DeptName, SvcName, FieldCode, FieldName, FieldLabel, FieldType, FieldGroup, OptionsJson, IsRequired, DisplayOrder, MaxLength, ValidationRules)
 )
 INSERT INTO [RTS].[FieldDefinition] (
@@ -881,6 +965,38 @@ GO
         -- Death Certificate Document Uploads
         (N'Birth & Death',        N'Death Certificate',                 N'doctorCertificateDoc', N'Doctor Certificate of Cause of Death', N'file', N'Document Uploads', 1, 58),
         (N'Birth & Death',        N'Death Certificate',                 N'cremationCertificateDoc', N'Cremation / Burial Ground Certificate', N'file', N'Document Uploads', 1, 59),
+        -- Education Document Uploads
+        (N'Education',            N'School Leaving / Duplicate Certificate', N'studentIdDoc', N'Student ID Proof / Aadhaar', N'file', N'Document Uploads', 1, 50),
+        (N'Education',            N'School Leaving / Duplicate Certificate', N'previousMarksheetDoc', N'Previous Class Marksheet', N'file', N'Document Uploads', 0, 51),
+        -- Health Document Uploads
+        (N'Health',               N'New Nursing Home License',           N'doctorDegreeDoc', N'Chief Doctor MMC / Degree Certificate', N'file', N'Document Uploads', 1, 50),
+        (N'Health',               N'New Nursing Home License',           N'fireNocDoc', N'Fire Safety NOC Document', N'file', N'Document Uploads', 1, 51),
+        (N'Health',               N'New Nursing Home License',           N'bmwAgreementDoc', N'Bio Medical Waste Disposal Agreement', N'file', N'Document Uploads', 1, 52),
+        (N'Health',               N'Renew Nursing Home License',         N'oldLicenseDoc', N'Previous Nursing Home License Copy', N'file', N'Document Uploads', 1, 50),
+        (N'Health',               N'Renew Nursing Home License',         N'fireNocDoc', N'Valid Fire Safety NOC', N'file', N'Document Uploads', 1, 51),
+        (N'Health',               N'Update Licensee / Partner Name',     N'transferAgreementDoc', N'Transfer Agreement / Partnership Deed', N'file', N'Document Uploads', 1, 50),
+        (N'Health',               N'Update Licensee / Partner Name',     N'newHolderIdDoc', N'ID Proof of New License Holder', N'file', N'Document Uploads', 1, 51),
+        -- NOC Document Uploads
+        (N'NOC',                  N'Trade / Business Non-Revocation NOC', N'applicantIdDoc', N'Applicant ID Proof', N'file', N'Document Uploads', 1, 50),
+        (N'NOC',                  N'Trade / Business Non-Revocation NOC', N'propertyTaxDoc', N'Property Tax Receipt Document', N'file', N'Document Uploads', 1, 51),
+        (N'NOC',                  N'Mandap No-Damage Certificate',       N'mandapLayoutDoc', N'Mandap Site Layout Diagram', N'file', N'Document Uploads', 1, 50),
+        (N'NOC',                  N'Fire Extinguisher Certificate',      N'equipmentInvoiceDoc', N'Fire Equipment Purchase / Inspection Receipt', N'file', N'Document Uploads', 1, 50),
+        (N'NOC',                  N'Final Fire Exemption Certificate',   N'fireSafetyBlueprintDoc', N'Approved Fire Safety Blueprint', N'file', N'Document Uploads', 1, 50),
+        -- Town Planning Document Uploads
+        (N'Town Planning',        N'Issuance of Zone Certificate',       N'ownershipDoc', N'Property 7/12 Extract / Ownership Proof', N'file', N'Document Uploads', 1, 50),
+        (N'Town Planning',        N'Giving Part Map',                    N'propertyTaxDoc', N'Latest Property Tax Receipt', N'file', N'Document Uploads', 1, 50),
+        (N'Town Planning',        N'Issuance of Construction Permit',    N'buildingPlanDoc', N'Sanctioned Building Plan Blueprint', N'file', N'Document Uploads', 1, 50),
+        (N'Town Planning',        N'Issuance of Construction Permit',    N'architectCertDoc', N'Licensed Architect Structural Certificate', N'file', N'Document Uploads', 1, 51),
+        (N'Town Planning',        N'Tillage Certificate',                N'land712Doc', N'Land 7/12 Extract / Record of Rights', N'file', N'Document Uploads', 1, 50),
+        (N'Town Planning',        N'Issuance of Occupancy Certificate',  N'architectCompletionDoc', N'Architect Completion Certificate', N'file', N'Document Uploads', 1, 50),
+        (N'Town Planning',        N'Issuance of Occupancy Certificate',  N'structuralSafetyDoc', N'Structural Stability Certificate', N'file', N'Document Uploads', 1, 51),
+        (N'Town Planning',        N'Underground OFC Cable Permission',   N'routeMapDoc', N'Proposed OFC Cable Route Diagram', N'file', N'Document Uploads', 1, 50),
+        (N'Town Planning',        N'Road Cutting Permission',            N'workSitePlanDoc', N'Road Cutting Site Diagram', N'file', N'Document Uploads', 1, 50),
+        (N'Town Planning',        N'Mobile Tower Permission',            N'structuralSafetyDoc', N'Structural Safety Certificate of Building/Tower', N'file', N'Document Uploads', 1, 50),
+        (N'Town Planning',        N'Mobile Tower Permission',            N'ownerNocDoc', N'Building Owner NOC / Rent Agreement', N'file', N'Document Uploads', 1, 51),
+        -- Tree Document Uploads
+        (N'Tree',                 N'Tree Felling Permission (Sec 8)',    N'treePhotosDoc', N'Clear Photographs of Tree(s)', N'file', N'Document Uploads', 1, 50),
+        (N'Tree',                 N'Tree Felling Permission (Sec 8)',    N'ownershipDoc', N'Property Ownership / 7-12 Extract', N'file', N'Document Uploads', 1, 51),
         -- Drainage/Sanitation Connection Document Uploads
         (N'Sanitation',           N'Providing drainage connections',    N'idProofDoc', N'Applicant ID Proof Document', N'file', N'Document Uploads', 1, 23),
         (N'Sanitation',           N'Providing drainage connections',    N'propertyTaxReceiptDoc', N'Property Tax Receipt Document', N'file', N'Document Uploads', 1, 24),
@@ -901,6 +1017,7 @@ WHERE NOT EXISTS (
     WHERE X.DepartmentId = D.Id AND X.ServiceId = Svc.Id AND X.FieldCode = S.FieldCode
 );
 GO
+
 
 
 -- =========================================================

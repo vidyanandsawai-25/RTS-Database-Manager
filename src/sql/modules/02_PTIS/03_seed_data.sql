@@ -1,4 +1,4 @@
- INSERT PTIS.ZoneMaster ([ZoneNo], [Description], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
+﻿ INSERT PTIS.ZoneMaster ([ZoneNo], [Description], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
    (N'UT', N'उथळसर', NULL, NULL, NULL),
    (N'NK', N'नौपाडा - कोपरी', NULL, NULL, NULL),
    (N'KL', N'कळवा', NULL, NULL, NULL),

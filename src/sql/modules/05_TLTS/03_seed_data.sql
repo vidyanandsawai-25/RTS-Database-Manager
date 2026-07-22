@@ -1,4 +1,4 @@
-------------------- [TLIS].[FeesStructureMaster] ---------------
+﻿------------------- [TLIS].[FeesStructureMaster] ---------------
 
 SET IDENTITY_INSERT [TLIS].[FeesStructureMaster] ON 
 GO
