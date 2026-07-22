@@ -119,6 +119,7 @@ BEGIN
     INSERT INTO CORE.UserRoleMaster
     (
         UserRoleName,
+        DepartmentId,
         IsActive,
         CreatedBy,
         CreatedDate
@@ -126,6 +127,7 @@ BEGIN
     VALUES
     (
         'Admin',
+        1,
         1,
         1,
         GETDATE()
