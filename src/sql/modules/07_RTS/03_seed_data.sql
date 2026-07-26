@@ -1,4 +1,4 @@
-﻿SET ANSI_NULLS ON
+SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
@@ -31,7 +31,7 @@ GO
 
 -- =========================================================
 -- RTS ServiceMaster Seed Data
--- =========================================================  
+-- =========================================================
 ;WITH SeedServices AS (
     SELECT * FROM (VALUES
         (N'NOC', 1, N'Trade / Business / Storage Non-Revocation NOC', N'व्यापार/व्यवसाय/साठा करण्यासाठी ना-हरकत प्रमाणपत्र', NULL, N'ShieldCheck', 1, N'7 Days', 0.00, 0),
@@ -109,7 +109,7 @@ USING (
 ) AS Source
 ON (Target.GovtServiceCode = Source.GovtServiceCode OR (Target.DepartmentId = Source.DepartmentId AND Target.ServiceName = Source.ServiceName))
 WHEN MATCHED THEN
-    UPDATE SET 
+    UPDATE SET
         Target.GovtServiceCode = Source.GovtServiceCode,
         Target.DepartmentId = Source.DepartmentId,
         Target.ServiceName = Source.ServiceName,
@@ -234,18 +234,18 @@ GO
     ) AS V (DeptName, SvcName, FieldCode, FieldName, FieldLabel, FieldType, FieldGroup, OptionsJson, IsRequired, DisplayOrder, MaxLength, ValidationRules)
 )
 INSERT INTO [RTS].[FieldDefinition] (
-    [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldType], [FieldGroup], 
-    [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], 
+    [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldType], [FieldGroup],
+    [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder],
     [MaxLength], [IsActive], [MarkedForDeletion], [CreatedBy], [CreatedDate]
 )
-SELECT D.Id, Svc.Id, S.FieldCode, S.FieldLabel, S.FieldType, S.FieldGroup, 
-       S.OptionsJson, NULL, S.ValidationRules, S.IsRequired, S.DisplayOrder, 
+SELECT D.Id, Svc.Id, S.FieldCode, S.FieldLabel, S.FieldType, S.FieldGroup,
+       S.OptionsJson, NULL, S.ValidationRules, S.IsRequired, S.DisplayOrder,
        S.MaxLength, 1, 0, 0, GETDATE()
 FROM SeedFieldDefinitions S
 INNER JOIN [RTS].[DepartmentMaster] D ON D.DepartmentName = S.DeptName
 INNER JOIN [RTS].[ServiceMaster] Svc ON Svc.DepartmentId = D.Id AND Svc.ServiceName = S.SvcName
 WHERE NOT EXISTS (
-    SELECT 1 FROM [RTS].[FieldDefinition] X 
+    SELECT 1 FROM [RTS].[FieldDefinition] X
     WHERE X.DepartmentId = D.Id AND X.ServiceId = Svc.Id AND X.FieldCode = S.FieldCode
 );
 GO
@@ -355,18 +355,18 @@ GO
     ) AS V (DeptName, SvcName, FieldCode, FieldName, FieldLabel, FieldType, FieldGroup, OptionsJson, IsRequired, DisplayOrder, MaxLength, ValidationRules)
 )
 INSERT INTO [RTS].[FieldDefinition] (
-    [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldType], [FieldGroup], 
-    [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], 
+    [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldType], [FieldGroup],
+    [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder],
     [MaxLength], [IsActive], [MarkedForDeletion], [CreatedBy], [CreatedDate]
 )
-SELECT D.Id, Svc.Id, S.FieldCode, S.FieldLabel, S.FieldType, S.FieldGroup, 
-       S.OptionsJson, NULL, S.ValidationRules, S.IsRequired, S.DisplayOrder, 
+SELECT D.Id, Svc.Id, S.FieldCode, S.FieldLabel, S.FieldType, S.FieldGroup,
+       S.OptionsJson, NULL, S.ValidationRules, S.IsRequired, S.DisplayOrder,
        S.MaxLength, 1, 0, 0, GETDATE()
 FROM SeedFieldDefinitions S
 INNER JOIN [RTS].[DepartmentMaster] D ON D.DepartmentName = S.DeptName
 INNER JOIN [RTS].[ServiceMaster] Svc ON Svc.DepartmentId = D.Id AND Svc.ServiceName = S.SvcName
 WHERE NOT EXISTS (
-    SELECT 1 FROM [RTS].[FieldDefinition] X 
+    SELECT 1 FROM [RTS].[FieldDefinition] X
     WHERE X.DepartmentId = D.Id AND X.ServiceId = Svc.Id AND X.FieldCode = S.FieldCode
 );
 GO
@@ -476,18 +476,18 @@ GO
     ) AS V (DeptName, SvcName, FieldCode, FieldName, FieldLabel, FieldType, FieldGroup, OptionsJson, IsRequired, DisplayOrder, MaxLength, ValidationRules)
 )
 INSERT INTO [RTS].[FieldDefinition] (
-    [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldType], [FieldGroup], 
-    [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], 
+    [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldType], [FieldGroup],
+    [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder],
     [MaxLength], [IsActive], [MarkedForDeletion], [CreatedBy], [CreatedDate]
 )
-SELECT D.Id, Svc.Id, S.FieldCode, S.FieldLabel, S.FieldType, S.FieldGroup, 
-       S.OptionsJson, NULL, S.ValidationRules, S.IsRequired, S.DisplayOrder, 
+SELECT D.Id, Svc.Id, S.FieldCode, S.FieldLabel, S.FieldType, S.FieldGroup,
+       S.OptionsJson, NULL, S.ValidationRules, S.IsRequired, S.DisplayOrder,
        S.MaxLength, 1, 0, 0, GETDATE()
 FROM SeedFieldDefinitions S
 INNER JOIN [RTS].[DepartmentMaster] D ON D.DepartmentName = S.DeptName
 INNER JOIN [RTS].[ServiceMaster] Svc ON Svc.DepartmentId = D.Id AND Svc.ServiceName = S.SvcName
 WHERE NOT EXISTS (
-    SELECT 1 FROM [RTS].[FieldDefinition] X 
+    SELECT 1 FROM [RTS].[FieldDefinition] X
     WHERE X.DepartmentId = D.Id AND X.ServiceId = Svc.Id AND X.FieldCode = S.FieldCode
 );
 GO
@@ -597,18 +597,18 @@ GO
     ) AS V (DeptName, SvcName, FieldCode, FieldName, FieldLabel, FieldType, FieldGroup, OptionsJson, IsRequired, DisplayOrder, MaxLength, ValidationRules)
 )
 INSERT INTO [RTS].[FieldDefinition] (
-    [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldType], [FieldGroup], 
-    [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], 
+    [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldType], [FieldGroup],
+    [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder],
     [MaxLength], [IsActive], [MarkedForDeletion], [CreatedBy], [CreatedDate]
 )
-SELECT D.Id, Svc.Id, S.FieldCode, S.FieldLabel, S.FieldType, S.FieldGroup, 
-       S.OptionsJson, NULL, S.ValidationRules, S.IsRequired, S.DisplayOrder, 
+SELECT D.Id, Svc.Id, S.FieldCode, S.FieldLabel, S.FieldType, S.FieldGroup,
+       S.OptionsJson, NULL, S.ValidationRules, S.IsRequired, S.DisplayOrder,
        S.MaxLength, 1, 0, 0, GETDATE()
 FROM SeedFieldDefinitions S
 INNER JOIN [RTS].[DepartmentMaster] D ON D.DepartmentName = S.DeptName
 INNER JOIN [RTS].[ServiceMaster] Svc ON Svc.DepartmentId = D.Id AND Svc.ServiceName = S.SvcName
 WHERE NOT EXISTS (
-    SELECT 1 FROM [RTS].[FieldDefinition] X 
+    SELECT 1 FROM [RTS].[FieldDefinition] X
     WHERE X.DepartmentId = D.Id AND X.ServiceId = Svc.Id AND X.FieldCode = S.FieldCode
 );
 GO
@@ -718,18 +718,18 @@ GO
     ) AS V (DeptName, SvcName, FieldCode, FieldName, FieldLabel, FieldType, FieldGroup, OptionsJson, IsRequired, DisplayOrder, MaxLength, ValidationRules)
 )
 INSERT INTO [RTS].[FieldDefinition] (
-    [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldType], [FieldGroup], 
-    [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], 
+    [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldType], [FieldGroup],
+    [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder],
     [MaxLength], [IsActive], [MarkedForDeletion], [CreatedBy], [CreatedDate]
 )
-SELECT D.Id, Svc.Id, S.FieldCode, S.FieldLabel, S.FieldType, S.FieldGroup, 
-       S.OptionsJson, NULL, S.ValidationRules, S.IsRequired, S.DisplayOrder, 
+SELECT D.Id, Svc.Id, S.FieldCode, S.FieldLabel, S.FieldType, S.FieldGroup,
+       S.OptionsJson, NULL, S.ValidationRules, S.IsRequired, S.DisplayOrder,
        S.MaxLength, 1, 0, 0, GETDATE()
 FROM SeedFieldDefinitions S
 INNER JOIN [RTS].[DepartmentMaster] D ON D.DepartmentName = S.DeptName
 INNER JOIN [RTS].[ServiceMaster] Svc ON Svc.DepartmentId = D.Id AND Svc.ServiceName = S.SvcName
 WHERE NOT EXISTS (
-    SELECT 1 FROM [RTS].[FieldDefinition] X 
+    SELECT 1 FROM [RTS].[FieldDefinition] X
     WHERE X.DepartmentId = D.Id AND X.ServiceId = Svc.Id AND X.FieldCode = S.FieldCode
 );
 GO
@@ -932,18 +932,18 @@ GO
     ) AS V (DeptName, SvcName, FieldCode, FieldName, FieldLabel, FieldType, FieldGroup, OptionsJson, IsRequired, DisplayOrder, MaxLength, ValidationRules)
 )
 INSERT INTO [RTS].[FieldDefinition] (
-    [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldType], [FieldGroup], 
-    [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], 
+    [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldType], [FieldGroup],
+    [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder],
     [MaxLength], [IsActive], [MarkedForDeletion], [CreatedBy], [CreatedDate]
 )
-SELECT D.Id, Svc.Id, S.FieldCode, S.FieldLabel, S.FieldType, S.FieldGroup, 
-       S.OptionsJson, NULL, S.ValidationRules, S.IsRequired, S.DisplayOrder, 
+SELECT D.Id, Svc.Id, S.FieldCode, S.FieldLabel, S.FieldType, S.FieldGroup,
+       S.OptionsJson, NULL, S.ValidationRules, S.IsRequired, S.DisplayOrder,
        S.MaxLength, 1, 0, 0, GETDATE()
 FROM SeedFieldDefinitions S
 INNER JOIN [RTS].[DepartmentMaster] D ON D.DepartmentName = S.DeptName
 INNER JOIN [RTS].[ServiceMaster] Svc ON Svc.DepartmentId = D.Id AND Svc.ServiceName = S.SvcName
 WHERE NOT EXISTS (
-    SELECT 1 FROM [RTS].[FieldDefinition] X 
+    SELECT 1 FROM [RTS].[FieldDefinition] X
     WHERE X.DepartmentId = D.Id AND X.ServiceId = Svc.Id AND X.FieldCode = S.FieldCode
 );
 GO
@@ -1004,16 +1004,16 @@ GO
     ) AS V (DeptName, SvcName, FieldCode, FieldLabel, FieldType, FieldGroup, IsRequired, DisplayOrder)
 )
 INSERT INTO [RTS].[FieldDefinition] (
-    [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldType], [FieldGroup], 
+    [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldType], [FieldGroup],
     [IsRequired], [DisplayOrder], [IsActive], [MarkedForDeletion], [CreatedBy], [CreatedDate]
 )
-SELECT D.Id, Svc.Id, S.FieldCode, S.FieldLabel, S.FieldType, S.FieldGroup, 
+SELECT D.Id, Svc.Id, S.FieldCode, S.FieldLabel, S.FieldType, S.FieldGroup,
        S.IsRequired, S.DisplayOrder, 1, 0, 0, GETDATE()
 FROM SeedDocumentFields S
 INNER JOIN [RTS].[DepartmentMaster] D ON D.DepartmentName = S.DeptName
 INNER JOIN [RTS].[ServiceMaster] Svc ON Svc.DepartmentId = D.Id AND Svc.ServiceName = S.SvcName
 WHERE NOT EXISTS (
-    SELECT 1 FROM [RTS].[FieldDefinition] X 
+    SELECT 1 FROM [RTS].[FieldDefinition] X
     WHERE X.DepartmentId = D.Id AND X.ServiceId = Svc.Id AND X.FieldCode = S.FieldCode
 );
 GO

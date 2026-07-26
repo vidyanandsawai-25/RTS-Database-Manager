@@ -1,10 +1,10 @@
-﻿
+
 -- Seed default ULB types
 IF NOT EXISTS (SELECT 1 FROM [CORE].[UlbType] WHERE [Id] = 1)
 BEGIN
     SET IDENTITY_INSERT [CORE].[UlbType] ON;
     INSERT INTO [CORE].[UlbType] ([Id], [UlbTypeName], [IsActive])
-    VALUES 
+    VALUES
         (1, 'Corporation', 1),
         (2, 'Council', 1),
         (3, 'Nagar Panchayat', 1);
@@ -16,7 +16,7 @@ END
 IF EXISTS (SELECT 1 FROM [CORE].[UlbMaster] WHERE [Id] = 1)
 BEGIN
     UPDATE [CORE].[UlbMaster]
-    SET 
+    SET
         [UlbCode] = 'AK001',
         [UlbName] = 'AKOLA MUNICIPAL CORPORATION',
         [UlbNameLocal] = N'अकोला महानगरपालिका अकोला',
@@ -34,13 +34,13 @@ ELSE
 BEGIN
     SET IDENTITY_INSERT [CORE].[UlbMaster] ON;
     INSERT INTO [CORE].[UlbMaster] (
-        [Id], [UlbCode], [UlbName], [UlbNameLocal], [UlbTypeId], 
-        [UlbLogo], [EmailId], [MobileNo], [AlternateMobileNo], [WebsiteUrl], 
+        [Id], [UlbCode], [UlbName], [UlbNameLocal], [UlbTypeId],
+        [UlbLogo], [EmailId], [MobileNo], [AlternateMobileNo], [WebsiteUrl],
         [ContactPersonName], [ContactPersonDesignation], [UlbAddress], [State], [District], [PinCode], [IsActive]
     )
     VALUES (
-        1, 'AK001', 'AKOLA MUNICIPAL CORPORATION', N'अकोला महानगरपालिका अकोला', 1, 
-        'https://akolamc.in/images/councilLogo/akola.png', 'akolamc@gmail.com', '111111', '110000', 'akolamc.in', 
+        1, 'AK001', 'AKOLA MUNICIPAL CORPORATION', N'अकोला महानगरपालिका अकोला', 1,
+        'https://akolamc.in/images/councilLogo/akola.png', 'akolamc@gmail.com', '111111', '110000', 'akolamc.in',
         'abc', '01210', 'Akola', 'MH', 'Akola', '444001', 1
     );
     SET IDENTITY_INSERT [CORE].[UlbMaster] OFF;
@@ -630,4 +630,3 @@ BEGIN
 END
 
 SET IDENTITY_INSERT [CORE].[CommonRemarkTypeMaster] OFF;
-
