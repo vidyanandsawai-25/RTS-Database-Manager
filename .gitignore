@@ -1,0 +1,13 @@
+# Local application configuration and secrets
+**/appsettings*.json
+.env*
+
+# .NET build output
+[Bb]in/
+[Oo]bj/
+
+# IDE and user-specific files
+.vs/
+.vscode/
+*.user
+*.suo
