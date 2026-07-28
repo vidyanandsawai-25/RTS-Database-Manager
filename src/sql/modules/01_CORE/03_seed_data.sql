@@ -114,6 +114,7 @@ IF NOT EXISTS
     SELECT 1
     FROM CORE.UserRoleMaster
     WHERE UserRoleName = 'Admin'
+      AND DepartmentId = 1
 )
 BEGIN
     INSERT INTO CORE.UserRoleMaster
@@ -210,6 +211,7 @@ DECLARE @AdminUserRoleId INT =
     SELECT Id
     FROM CORE.UserRoleMaster
     WHERE UserRoleName = 'Admin'
+      AND DepartmentId = 1
 );
 
 

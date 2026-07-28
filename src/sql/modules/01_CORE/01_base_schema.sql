@@ -289,7 +289,8 @@ CREATE TABLE [CORE].[UserRoleMaster](
     [UpdatedDate]   DATETIME NULL,
 
     CONSTRAINT [PK_UserRoleMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [UQ_UserRoleMaster_UserRoleName] UNIQUE ([UserRoleName]),
+    CONSTRAINT [UQ_UserRoleMaster_Department_UserRoleName]
+        UNIQUE ([DepartmentId], [UserRoleName]),
     CONSTRAINT [FK_UserRoleMaster_DepartmentMaster]
         FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id])
 );
@@ -803,6 +804,7 @@ CREATE TABLE [CORE].[ScreenMaster](
 	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[ScreenGroupId] [int] NOT NULL,
 	[ModuleId] [int] NOT NULL,
+    [DepartmentId] [int] NOT NULL CONSTRAINT [DF_ScreenMaster_DepartmentId] DEFAULT (1),
 	[ScreenCode] [varchar](200) NOT NULL,
 	[ScreenName] [varchar](200) NOT NULL,
 	[ScreenNameLocal] [nvarchar](200) NULL,
@@ -821,6 +823,7 @@ CREATE TABLE [CORE].[ScreenMaster](
     CONSTRAINT [UQ_ScreenMaster_ScreenCode] UNIQUE ([ScreenCode]),
     CONSTRAINT [FK_ScreenMaster_ScreenGroupMaster] FOREIGN KEY ([ScreenGroupId]) REFERENCES [CORE].[ScreenGroupMaster] ([Id]),
     CONSTRAINT [FK_ScreenMaster_ModuleMaster] FOREIGN KEY ([ModuleId]) REFERENCES [CORE].[ModuleMaster] ([Id] ) ,
+    CONSTRAINT [FK_ScreenMaster_DepartmentMaster] FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id]),
     CONSTRAINT [CK_ScreenMaster_DisplayOrder_NonNegative] CHECK ([DisplayOrder] >= 0)   
 
 )
