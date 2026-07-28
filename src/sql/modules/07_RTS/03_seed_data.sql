@@ -361,8 +361,8 @@ INSERT INTO @RtsScreens
     [DisplayOrder]
 )
 VALUES
-    (N'RTS_DASHBOARD',     'RTS_MIS',           'RTS MIS Dashboard',   N'आरटीएस एमआयएस डॅशबोर्ड', N'LayoutDashboard', N'/rts/dashboard',                                1),
-    (N'RTS_OPERATIONS',    'RTS_APP',           'RTS Applications',    N'आरटीएस अर्ज',             N'Files',           N'/rts/applications',                             1),
+    (N'RTS_DASHBOARD',     'RTS_MIS',           'RTS MIS Dashboard',   N'आरटीएस एमआयएस डॅशबोर्ड', N'LayoutDashboard', N'/rts/dashboard/rts-mis',                        1),
+    (N'RTS_OPERATIONS',    'RTS_APP',           'RTS Applications',    N'आरटीएस अर्ज',             N'Files',           N'/rts/dashboard/rts-applications',               1),
     (N'RTS_CONFIGURATION', 'RTS_DEPT',          'RTS Departments',     N'आरटीएस विभाग',            N'Building2',       N'/rts/departments',                              1),
     (N'RTS_CONFIGURATION', 'RTS_SERVICES',      'RTS Services',        N'आरटीएस सेवा',             N'Activity',        N'/rts/services',                                 2),
     (N'RTS_CONFIGURATION', 'RTS_FIELDS',        'RTS Fields',          N'आरटीएस फील्ड्स',          N'Sliders',         N'/rts/fields',                                   3),
