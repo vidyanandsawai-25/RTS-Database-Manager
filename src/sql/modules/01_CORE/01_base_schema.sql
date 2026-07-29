@@ -35,6 +35,7 @@ CREATE TABLE [CORE].[DepartmentMaster](
     [DepartmentNameLocal]   NVARCHAR(150) NULL,
     [DepartmentIcon]        VARCHAR(50) NULL,
     [DepartmentDescription] NVARCHAR(200) NULL,
+    [IsProtected]           BIT NOT NULL CONSTRAINT [DF_DepartmentMaster_IsProtected] DEFAULT (0),
     [IsActive]              BIT NOT NULL CONSTRAINT [DF_DepartmentMaster_IsActive] DEFAULT (1),
     [CreatedBy]             INT NULL,
     [CreatedDate]           DATETIME NOT NULL CONSTRAINT [DF_DepartmentMaster_CreatedDate] DEFAULT (GETDATE()),

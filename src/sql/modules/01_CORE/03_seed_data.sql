@@ -5,22 +5,22 @@ INSERT INTO [CORE].[DepartmentMaster]
 (
     [Id],[DepartmentCode],[DepartmentName],
     [DepartmentNameLocal],[DepartmentIcon],
-    [DepartmentDescription],[IsActive],
+    [DepartmentDescription],[IsProtected],[IsActive],
     [CreatedBy],[CreatedDate],[UpdatedBy],[UpdatedDate]
 )
 SELECT *
 FROM
 (
     VALUES
-    (1,'PTIS','Property Tax','string','string','string',1,0,GETDATE(),NULL,NULL),
-    (2,'TL','Trade License','string','string','string',1,0,GETDATE(),NULL,NULL),
-    (3,'AM','Asset Management','string','string','string',1,0,GETDATE(),NULL,NULL),
-    (4,'WT','Water Tax','string','string','string',1,0,GETDATE(),NULL,NULL)
+    (1,'PTIS','Property Tax','string','string','string',1,1,0,GETDATE(),NULL,NULL),
+    (2,'TL','Trade License','string','string','string',1,1,0,GETDATE(),NULL,NULL),
+    (3,'AM','Asset Management','string','string','string',1,1,0,GETDATE(),NULL,NULL),
+    (4,'WT','Water Tax','string','string','string',1,1,0,GETDATE(),NULL,NULL)
 ) S
 (
     Id,DepartmentCode,DepartmentName,
     DepartmentNameLocal,DepartmentIcon,
-    DepartmentDescription,IsActive,
+    DepartmentDescription,IsProtected,IsActive,
     CreatedBy,CreatedDate,UpdatedBy,UpdatedDate
 )
 WHERE NOT EXISTS
