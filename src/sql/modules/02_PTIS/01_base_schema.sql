@@ -1960,6 +1960,7 @@ CREATE TABLE [PTIS].[PropertyMastDetails](
 	-- [WingNo] [nvarchar](20) NULL,
 	[AssessmentRemark] [nvarchar](400) NULL,
 	[SurveyRemark] [nvarchar](400) NULL,
+	[OwnerSignRemarkId] INT NULL,
 	[FlatSystemRemark] [nvarchar](400) NULL,
 	[CombPropRemark] [nvarchar](400) NULL,
 	[AdharCardNo] [varchar](12) NULL,
@@ -1982,6 +1983,7 @@ CREATE TABLE [PTIS].[PropertyMastDetails](
 	[Longitude] [varchar](20) NULL,
 	[NoOfResidentialToilets] [int] NULL,
 	[NoOfCommercialToilets] [int] NULL,
+	[UnitGenerationType] [varchar](4) NULL,
 	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_PropertyMastDetails_MarkedForDeletion] DEFAULT (0),
 	[MarkedForDeletionDate] [datetime] NULL ,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyMastDetails_IsActive] DEFAULT (1),
@@ -2013,8 +2015,6 @@ ALTER TABLE [PTIS].[PropertyMastDetails] CHECK CONSTRAINT [FK_PropertyMastDetail
 -- ALTER TABLE [PTIS].[PropertyMastDetails] CHECK CONSTRAINT [FK_PropertyMastDetails_UsageCategoryMaster]	
 -- GO
 
-
-
 CREATE TABLE [PTIS].[SocialAttributeMaster](
    	[Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[PhotoTypeId] INT NULL,
@@ -2030,6 +2030,7 @@ CREATE TABLE [PTIS].[SocialAttributeMaster](
     [IsActive] [bit] NOT NULL CONSTRAINT [DF_SocialAttributeMaster_IsActive] DEFAULT (1),
 	[IsPhotoRequired] BIT NOT NULL CONSTRAINT [DF_SocialAttributeMaster_IsPhotoRequired] DEFAULT (0),
     [IsDocumentRequired] BIT NOT NULL CONSTRAINT [DF_SocialAttributeMaster_IsDocumentRequired] DEFAULT (0),
+	[AttributeCategory] VARCHAR(30) NULL,
     [CreatedBy] [int] NULL,
     [CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_SocialAttributeMaster_CreatedDate] DEFAULT (GETDATE()),
     [UpdatedBy] [int] NULL,

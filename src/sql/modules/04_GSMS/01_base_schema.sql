@@ -58,6 +58,16 @@ GO
 ALTER TABLE [GSMS].[CommonRemarkDetails] ADD CONSTRAINT [UQ_CommonRemarkDetails_RemarkTypeId_Remark] UNIQUE ([RemarkTypeId],[Remark])
 GO
 
+ALTER TABLE [PTIS].[PropertyMastDetails] WITH CHECK
+ADD CONSTRAINT [FK_PropertyMastDetails_CommonRemarkDetails_OwnerSign]
+FOREIGN KEY (OwnerSignRemarkId)
+REFERENCES [GSMS].[CommonRemarkDetails] ([Id]);
+GO
+
+ALTER TABLE [PTIS].[PropertyMastDetails]
+CHECK CONSTRAINT [FK_PropertyMastDetails_CommonRemarkDetails_OwnerSign];
+GO
+
 CREATE TABLE [GSMS].[SocietyWingDetails]
 (
     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
