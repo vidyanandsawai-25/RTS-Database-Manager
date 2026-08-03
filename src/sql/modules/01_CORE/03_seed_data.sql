@@ -296,7 +296,7 @@ SET IDENTITY_INSERT [CORE].[ModuleMaster] ON;
         VALUES
         (1, 1, N'PTIS_M', N'Property Tax', N'Property Tax', N'home', N'PTIS', N'Property Tax Module', 1, 1, GETDATE(), NULL, NULL),
         (1001, 2, N'TL_M', N'Trade License', N'Trade License', N'home', N'TL', N'Trade License Module', 1, 1, GETDATE(), NULL, NULL),
-        (1004, 3, N'AM_M', N'Asset Management', N'Asset Management', N'home', N'AM', N'Asset Management Module', 1, 1, GETDATE(), NULL, NULL)
+        (1004, 3, N'ASSET_M', N'Asset Management', N'मालमत्ता व्यवस्थापन', N'inventory_2', N'ASSET', N'Asset Management Module', 1, 1, GETDATE(), NULL, NULL)
     ) AS V
     (
         Id, DepartmentId, ModuleCode, ModuleName, ModuleNameLocal,
@@ -357,11 +357,16 @@ SET IDENTITY_INSERT [CORE].[ScreenGroupMaster] ON;
 
         (1003, N'SG004_A', N'वापरकर्ता व्यवस्थापन', N'वापरकर्ता व्यवस्थापन', N'user-icon', 5, 1, 1, CAST(N'2026-05-06T15:43:16.677' AS DATETIME), 1, CAST(N'2026-05-07T18:51:57.687' AS DATETIME)),
 
-        (1004, N'SG004_B', N'User Management', N'User_M', N'user-icon', 4, 1, 1, CAST(N'2026-05-06T16:07:02.837' AS DATETIME), NULL, NULL),
 
         (1005, N'SG004_C', N'User Management', N'User_M', N'user-icon', 4, 1, 1, CAST(N'2026-05-06T16:10:02.513' AS DATETIME), NULL, NULL),
 
-        (1006, N'SG005', N'Reports', N'अहवाल', N'report-icon', 5, 0, 1, CAST(N'2026-05-06T17:40:53.643' AS DATETIME), NULL, CAST(N'2026-05-07T16:54:29.060' AS DATETIME))
+        (1006, N'SG005', N'Reports', N'अहवाल', N'report-icon', 5, 0, 1, CAST(N'2026-05-06T17:40:53.643' AS DATETIME), NULL, CAST(N'2026-05-07T16:54:29.060' AS DATETIME)),
+
+        -- Asset Management screen groups
+        (4001, N'ASSET_DASHBOARD_GRP', N'Dashboard',            N'डॅशबोर्ड',              N'dashboard',       1, 1, 1, GETDATE(), NULL, NULL),
+        (4002, N'ASSET_MUNICIPAL_GRP', N'Municipal Assets',     N'महानगरपालिका मालमत्ता',  N'account_balance', 2, 1, 1, GETDATE(), NULL, NULL),
+        (4003, N'ASSET_REVENUE_GRP',   N'Revenue Management',   N'महसूल व्यवस्थापन',       N'payments',        3, 1, 1, GETDATE(), NULL, NULL),
+        (4004, N'ASSET_CONFIG_GRP',    N'Configure Masters',              N'कॉन्फिगर मास्टर्स',               N'settings',        4, 1, 1, GETDATE(), NULL, NULL)
     ) AS V
     (
         Id, ScreenGroupCode, ScreenGroupName, ScreenGroupNameLocal,
@@ -424,7 +429,6 @@ SET IDENTITY_INSERT [CORE].[ScreenMaster] ON;
         (8,1,1,N'TEST',N'test',N'test',N'Monitor',N'/test',1,1,0,1,8,NULL,CAST('2026-04-06T14:38:12.743' AS DATETIME),2,CAST('2026-05-05T19:33:13.623' AS DATETIME)),
         (1008,2,1001,N'SRC101',N'Screen Name 101',N'Screen Name 101',N'Monitor',N'/scr-101',1,1,0,1,9,NULL,CAST('2026-04-09T16:03:50.443' AS DATETIME),NULL,NULL),
         (1009,1,1,N'TEST1',N'test1',N'test1',N'Monitor',N'/tst1',1,1,0,1,10,NULL,CAST('2026-04-09T19:03:11.097' AS DATETIME),NULL,NULL),
-        (1010,2,1004,N'SRC103',N'Screen Name 103',N'Screen Name 103',N'Monitor',N'/scr-103',1,1,0,1,11,NULL,CAST('2026-04-09T16:03:50.443' AS DATETIME),NULL,NULL),
         (1011,1,1,N'CT_01',N'Construction Type',N'बांधकाम प्रकार',NULL,N'/construction-type',1,1,0,1,1,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
         (1012,1,1,N'FM_01',N'Floor Master',N'मजला मास्टर',NULL,N'/floor-master/floor',1,1,0,1,2,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
         (1013,1,1,N'DM_01',N'Depreciation Master',N'घसारा मास्टर',NULL,N'/depreciationmaster',1,1,0,0,3,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,CAST('2026-05-08T16:24:38.507' AS DATETIME)),
@@ -444,7 +448,31 @@ SET IDENTITY_INSERT [CORE].[ScreenMaster] ON;
         (2012,2,1,N'T1',N'TestTest',N'TestTest',N'Monitor',N'/testtest',0,1,0,1,0,2,CAST('2026-05-05T19:26:47.937' AS DATETIME),NULL,NULL),
         (3011,1,1,N'SCR_DASHBOARD',N'Dashboard',N'मुख्यपृष्ठ',N'dashboard-icon',N'/dashboard',1,1,0,1,1,1,CAST('2026-05-08T11:22:48.963' AS DATETIME),NULL,NULL),
         (3012,2,1,N'AMC_A',N'महानगरपालिका डॅशबोर्ड',N'म.न.पा. मुख्यपृष्ठ',N'AMC-icon',N'/amc',1,1,0,1,1,1,CAST('2026-05-08T12:57:11.273' AS DATETIME),NULL,NULL),
-        (3013,2,1,N'AMC_B',N'पुणे_ऑफिस-डॅशबोर्ड',N'म.न_पा',N'AMC-icon',N'/amc',1,0,0,1,1,2,CAST('2026-05-08T13:21:56.270' AS DATETIME),NULL,NULL)
+        (3013,2,1,N'AMC_B',N'पुणे_ऑफिस-डॅशबोर्ड',N'म.न_पा',N'AMC-icon',N'/amc',1,0,0,1,1,2,CAST('2026-05-08T13:21:56.270' AS DATETIME),NULL,NULL),
+
+        -- Asset Management screens (ModuleId 1004 = ASSET, groups 4001-4004)
+        (4001,4001,1004,N'ASSET_DASHBOARD',      N'Dashboard',             N'डॅशबोर्ड',                N'dashboard',       N'/assets/dashboard/master-dashboard',1,1,0,1,1,1,GETDATE(),NULL,NULL),
+        (4002,4002,1004,N'MUNICIPAL_ASSET',      N'Municipal Assets',      N'महानगरपालिका मालमत्ता',    N'account_balance', N'/assets/municipal-Asset',           1,1,0,1,1,1,GETDATE(),NULL,NULL),
+        (4003,4003,1004,N'MANAGE_RENTAL_DETAILS',N'Manage Rental Details', N'भाडे तपशील व्यवस्थापन',   N'groups',          N'/assets/revenue/manage-renters',    1,1,0,1,1,1,GETDATE(),NULL,NULL),
+        (4004,4003,1004,N'PAYMENT',              N'Payment',               N'पेमेंट',                  N'payment',         N'/assets/revenue/payment',           1,1,0,1,2,1,GETDATE(),NULL,NULL),
+        -- Old generic Configuration Master menu item: superseded by the 13 granular
+        -- master-data screens below (4006-4018), so seeded INACTIVE (IsActive = 0).
+        (4005,4004,1004,N'CONFIGURATION_MASTER', N'Configuration Master',  N'कॉन्फिगरेशन मास्टर',      N'settings',        N'/assets/configuration/master-data', 1,1,0,0,1,1,GETDATE(),NULL,NULL),
+
+        -- Asset master-data configuration screens (group 4004 = Masters, module 1004 = ASSET)
+        (4006,4004,1004,N'ASSET_MASTER_ASSET_CATEGORY',  N'Asset Category',      N'मालमत्ता श्रेणी',       N'category',        N'/assets/configuration/master-data/asset-category',     1,1,0,1,1, 1,GETDATE(),NULL,NULL),
+        (4007,4004,1004,N'ASSET_MASTER_ASSET_PHOTO_TYPE',N'Asset Photo Type',    N'मालमत्ता फोटो प्रकार',   N'photo_camera',    N'/assets/configuration/master-data/asset-photo-type',   1,1,0,1,2, 1,GETDATE(),NULL,NULL),
+        (4008,4004,1004,N'ASSET_MASTER_ASSET_ROOM_TYPE', N'Asset Room Type',     N'मालमत्ता खोली प्रकार',   N'meeting_room',    N'/assets/configuration/master-data/asset-room-type',    1,1,0,1,3, 1,GETDATE(),NULL,NULL),
+        (4009,4004,1004,N'ASSET_MASTER_ASSET_TYPE',      N'Asset Type',          N'मालमत्ता प्रकार',        N'inventory_2',     N'/assets/configuration/master-data/asset-type',         1,1,0,1,4, 1,GETDATE(),NULL,NULL),
+        (4010,4004,1004,N'ASSET_MASTER_GST',             N'GST Master',          N'जीएसटी मास्टर',          N'receipt_long',    N'/assets/configuration/master-data/gst-master',         1,1,0,1,5, 1,GETDATE(),NULL,NULL),
+        (4011,4004,1004,N'ASSET_MASTER_INVENTORY_CATEGORY',N'Inventory Category',N'इन्व्हेंटरी श्रेणी',      N'category',        N'/assets/configuration/master-data/inventory-category', 1,1,0,1,6, 1,GETDATE(),NULL,NULL),
+        (4012,4004,1004,N'ASSET_MASTER_INVENTORY_CONDITION',N'Condition Master',N'स्थिती मास्टर',    N'fact_check',      N'/assets/configuration/master-data/inventory-condition',1,1,0,1,7, 1,GETDATE(),NULL,NULL),
+        (4013,4004,1004,N'ASSET_MASTER_INVENTORY_MODEL', N'Inventory Model',     N'इन्व्हेंटरी मॉडेल',       N'view_module',     N'/assets/configuration/master-data/inventory-model',    1,1,0,1,8, 1,GETDATE(),NULL,NULL),
+        (4014,4004,1004,N'ASSET_MASTER_INVENTORY_NAME',  N'Inventory Name',      N'इन्व्हेंटरी नाव',        N'label',           N'/assets/configuration/master-data/inventory-name',     1,1,0,1,9, 1,GETDATE(),NULL,NULL),
+        (4015,4004,1004,N'ASSET_MASTER_OWNERSHIP_TYPE',  N'Ownership Type',      N'मालकी प्रकार',           N'home',            N'/assets/configuration/master-data/ownership-type',     1,1,0,1,10,1,GETDATE(),NULL,NULL),
+        (4016,4004,1004,N'ASSET_MASTER_OWNING_DEPARTMENT',N'Owning Department',  N'मालकी विभाग',            N'account_balance', N'/assets/configuration/master-data/owning-department',  1,1,0,1,11,1,GETDATE(),NULL,NULL),
+        (4017,4004,1004,N'ASSET_MASTER_PENALTY_RULE',    N'Penalty Rule Master', N'दंड नियम मास्टर',        N'rule',            N'/assets/configuration/master-data/penalty-rule-master',1,1,0,1,12,1,GETDATE(),NULL,NULL),
+        (4018,4004,1004,N'ASSET_MASTER_TYPE_OF_USE',     N'Type of Use Master',  N'वापर प्रकार मास्टर',      N'business',        N'/assets/configuration/master-data/type-of-use-master', 1,1,0,1,13,1,GETDATE(),NULL,NULL)
     ) AS V
     (
         Id,ScreenGroupId,ModuleId,ScreenCode,ScreenName,ScreenNameLocal,
@@ -516,11 +544,32 @@ SET IDENTITY_INSERT [CORE].[RoleWiseScreenAccessMaster] ON;
         (6,1,6,1,1,1,1,0,1,GETDATE(),NULL,NULL,NULL),
         (7,1,7,1,0,0,0,0,1,GETDATE(),NULL,CAST('2026-04-23T16:23:59.647' AS DATETIME),2),
         (8,1,8,1,0,0,0,0,1,CAST('2026-04-23T16:24:04.243' AS DATETIME),2,NULL,NULL),
-        (9,1,1010,1,1,1,0,0,1,CAST('2026-04-23T16:24:04.243' AS DATETIME),2,CAST('2026-05-05T17:13:17.827' AS DATETIME),2),
         (10,1,1008,1,0,0,0,0,1,CAST('2026-04-23T16:24:04.243' AS DATETIME),2,NULL,NULL),
         (11,1,1009,1,1,0,0,0,1,CAST('2026-04-23T16:24:04.243' AS DATETIME),2,NULL,NULL),
         (1008,1,1012,1,0,0,0,0,1,CAST('2026-05-05T11:45:44.033' AS DATETIME),3,NULL,NULL),
-        (1009,1,2012,1,1,0,0,0,1,CAST('2026-05-05T19:32:49.543' AS DATETIME),2,NULL,NULL)
+        (1009,1,2012,1,1,0,0,0,1,CAST('2026-05-05T19:32:49.543' AS DATETIME),2,NULL,NULL),
+
+        -- Asset Management screen access (Admin role = full access on screens 4001-4005)
+        (2001,1,4001,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
+        (2002,1,4002,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
+        (2003,1,4003,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
+        (2004,1,4004,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
+        (2005,1,4005,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
+
+        -- Admin full access to the 13 asset master-data screens (4006-4018)
+        (2006,1,4006,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
+        (2007,1,4007,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
+        (2008,1,4008,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
+        (2009,1,4009,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
+        (2010,1,4010,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
+        (2011,1,4011,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
+        (2012,1,4012,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
+        (2013,1,4013,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
+        (2014,1,4014,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
+        (2015,1,4015,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
+        (2016,1,4016,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
+        (2017,1,4017,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
+        (2018,1,4018,1,1,1,1,0,1,GETDATE(),1,NULL,NULL)
     ) AS V
     (
         Id,UserRoleId,ScreenId,
@@ -582,4 +631,5 @@ BEGIN
 END
 
 SET IDENTITY_INSERT [CORE].[CommonRemarkTypeMaster] OFF;
+
 
