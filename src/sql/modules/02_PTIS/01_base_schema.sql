@@ -3669,64 +3669,51 @@ GO
 -- ============================================================
 -- BulkUpdateMaster ( Holds one row per supported bulk-update operation type.)
 -- ============================================================
-CREATE TABLE [PTIS].[BulkUpdateMaster](
-    [Id]                  INT           IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-    [UpdateCode]          VARCHAR(100)  NOT NULL,
-    [UpdateName]          NVARCHAR(200) NOT NULL,
-    [UpdateNameMarathi]   NVARCHAR(200) NULL,
-    [ReferenceTableName]  VARCHAR(200)  NULL,
-    [DisplaySequence]     INT           NOT NULL CONSTRAINT [DF_BulkUpdateMaster_DisplaySequence] DEFAULT (0),
-    [Description]         NVARCHAR(500) NULL,
-	[Category]            VARCHAR(100)  NULL,
-	[IsApprovalRequired]  BIT           NOT NULL CONSTRAINT [DF_BulkUpdateMaster_IsApprovalRequired]    DEFAULT (0),
-    [IsActive]            BIT           NOT NULL CONSTRAINT [DF_BulkUpdateMaster_IsActive]    DEFAULT (1),
-    [CreatedBy]           INT           NULL,
-    [CreatedDate]         DATETIME      NOT NULL CONSTRAINT [DF_BulkUpdateMaster_CreatedDate] DEFAULT (GETDATE()),
-    [UpdatedBy]           INT           NULL,
-    [UpdatedDate]         DATETIME      NULL,
-    CONSTRAINT [PK_BulkUpdateMaster]          PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [UQ_BulkUpdateMaster_UpdateCode] UNIQUE ([UpdateCode])
+CREATE TABLE [PTIS].[BulkUpdateMaster] ( 
+	[Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL, 
+	[UpdateCode] VARCHAR(100) NOT NULL, 
+	[UpdateName] NVARCHAR(200) NOT NULL, 
+	[ReferenceTableName] VARCHAR(200) NULL, 
+	[IsApprovalRequired] BIT NULL, 
+	[IsActive] BIT NOT NULL CONSTRAINT [DF_BulkUpdateMaster_IsActive] DEFAULT (1), 
+	[CreatedBy] INT NULL, 
+	[CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_BulkUpdateMaster_CreatedDate] DEFAULT (GETDATE()), 
+	[UpdatedBy] INT NULL, 
+	[UpdatedDate] DATETIME NULL, 
+	CONSTRAINT [PK_BulkUpdateMaster] PRIMARY KEY CLUSTERED ([Id] ASC), 
+	CONSTRAINT [UQ_BulkUpdateMaster_UpdateCode] UNIQUE NONCLUSTERED ([UpdateCode] ASC) 
 );
 GO
 
--- ============================================================
--- BulkUpdateFieldConfig ( One row per form field for a given BulkUpdateMaster entry.)
--- ============================================================
-CREATE TABLE [PTIS].[BulkUpdateFieldConfig](
-    [Id]                  INT           IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-    [BulkUpdateMasterId]  INT           NOT NULL,
-    [FieldName]           VARCHAR(200)  NOT NULL,
-    [DisplayName]         VARCHAR(200)  NULL,
-    [DisplayNameMarathi]  NVARCHAR(200) NULL,
-    [ControlType]         VARCHAR(50)   NULL,
-    [DataType]            VARCHAR(50)   NULL,
-    [Placeholder]         NVARCHAR(500)  NULL,
-    [IsRequired]          BIT           NOT NULL CONSTRAINT [DF_BulkUpdateFieldConfig_IsRequired]  DEFAULT (0),
-    [MaxLength]           INT           NULL,
-    [ValidationRegex]     VARCHAR(500)  NULL,
-    [DefaultValue]        VARCHAR(500)  NULL,
-    [SequenceNo]          INT           NOT NULL CONSTRAINT [DF_BulkUpdateFieldConfig_SequenceNo] DEFAULT (0),
-    [IsReadonly]          BIT           NOT NULL CONSTRAINT [DF_BulkUpdateFieldConfig_IsReadonly] DEFAULT (0),
-    [BindApi]             VARCHAR(500)  NULL,
-    [IsActive]            BIT           NOT NULL CONSTRAINT [DF_BulkUpdateFieldConfig_IsActive]    DEFAULT (1),
-    [CreatedBy]           INT           NULL,
-    [CreatedDate]         DATETIME      NOT NULL CONSTRAINT [DF_BulkUpdateFieldConfig_CreatedDate] DEFAULT (GETDATE()),
-    [UpdatedBy]           INT           NULL,
-    [UpdatedDate]         DATETIME      NULL,
-    CONSTRAINT [PK_BulkUpdateFieldConfig] PRIMARY KEY CLUSTERED ([Id] ASC)
+/* ===========================
+   BulkUpdateFieldConfig
+   =========================== */
+CREATE TABLE [PTIS].[BulkUpdateFieldConfig] ( 
+	[Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL, 
+	[BulkUpdateMasterId] INT NOT NULL, 
+	[FieldName] VARCHAR(200) NOT NULL, 
+	[DisplayName] VARCHAR(200) NULL, 
+	[ControlType] VARCHAR(50) NULL, 
+	[DataType] VARCHAR(50) NULL, 
+	[Placeholder] NVARCHAR(500) NULL, 
+	[IsRequired] BIT NOT NULL CONSTRAINT [DF_BulkUpdateFieldConfig_IsRequired] DEFAULT (0), 
+	[MaxLength] INT NULL, 
+	[ValidationRegex] VARCHAR(500) NULL, 
+	[DefaultValue] VARCHAR(500) NULL, 
+	[SequenceNo] INT NOT NULL CONSTRAINT [DF_BulkUpdateFieldConfig_SequenceNo] DEFAULT (0), 
+	[BindApi] VARCHAR(500) NULL, 
+	[ApiResponse] VARCHAR(500) NULL, 
+	[IsActive] BIT NOT NULL CONSTRAINT [DF_BulkUpdateFieldConfig_IsActive] DEFAULT (1), 
+	[CreatedBy] INT NULL, 
+	[CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_BulkUpdateFieldConfig_CreatedDate] DEFAULT (GETDATE()), 
+	[UpdatedBy] INT NULL, 
+	[UpdatedDate] DATETIME NULL, 
+	CONSTRAINT [PK_BulkUpdateFieldConfig] PRIMARY KEY CLUSTERED ([Id] ASC), 
+	CONSTRAINT [FK_BulkUpdateFieldConfig_BulkUpdateMaster] FOREIGN KEY ([BulkUpdateMasterId]) REFERENCES [PTIS].[BulkUpdateMaster] ([Id]) 
 );
 GO
 
-ALTER TABLE [PTIS].[BulkUpdateFieldConfig] WITH CHECK
-    ADD CONSTRAINT [FK_BulkUpdateFieldConfig_BulkUpdateMaster]
-    FOREIGN KEY ([BulkUpdateMasterId]) REFERENCES [PTIS].[BulkUpdateMaster]([Id]);
-GO
-ALTER TABLE [PTIS].[BulkUpdateFieldConfig]
-    CHECK CONSTRAINT [FK_BulkUpdateFieldConfig_BulkUpdateMaster];
-GO
-
-CREATE NONCLUSTERED INDEX [IX_BulkUpdateFieldConfig_BulkUpdateMasterId]
-    ON [PTIS].[BulkUpdateFieldConfig] ([BulkUpdateMasterId] ASC);
+CREATE NONCLUSTERED INDEX [IX_BulkUpdateFieldConfig_BulkUpdateMasterId] ON [PTIS].[BulkUpdateFieldConfig] ([BulkUpdateMasterId]);
 GO
 
 -- ============================================================
