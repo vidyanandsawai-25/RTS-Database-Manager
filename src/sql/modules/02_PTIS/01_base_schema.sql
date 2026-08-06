@@ -3639,7 +3639,6 @@ CREATE TABLE [PTIS].[PropertyMapDetail]
 (
 [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 [PropertyMapId] INT NOT NULL,
-[PropertySide] VARCHAR(10) NOT NULL CONSTRAINT CK_PropertyMapDetail_PropertySide CHECK (PropertySide IN ('OLD', 'NEW')),
 [PropertyIdNew] INT NULL,
 [PropertyIdOld] INT NULL,
 [PropertyNoOld] NVARCHAR(50) NOT NULL,
@@ -3660,7 +3659,7 @@ CREATE TABLE [PTIS].[PropertyMapDetail]
 [UpdatedDate] DATETIME NULL, 
 CONSTRAINT [PK_PropertyMapDetail] PRIMARY KEY CLUSTERED ([Id] ASC),
 CONSTRAINT [FK_PropertyMapDetail_PropertyMapMaster] FOREIGN KEY ([PropertyMapId]) REFERENCES [PTIS].[PropertyMapMaster]([Id]),
-CONSTRAINT UQ_PropertyMapDetail_PropertyMapId_PropertySide_PropertyId_Status UNIQUE (PropertyMapId, PropertySide, PropertyIdNew, PropertyIdOld,Status)
+CONSTRAINT UQ_PropertyMapDetail_PropertyMapId_PropertyId_Status UNIQUE (PropertyMapId, PropertyIdNew, PropertyIdOld,Status)
 );
 GO
 
@@ -4686,4 +4685,42 @@ CREATE TABLE [PTIS].[CertificateTaxGuideline]
     CONSTRAINT [CK_CertificateTaxGuideline_DataType]
         CHECK ([DataType] IN ('BIT', 'INT', 'DECIMAL', 'VARCHAR', 'DATE'))
 );
+
+
 GO
+CREATE TABLE [PTIS].[PropertyWorkflowStageMaster](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[StageName] [varchar](100) NOT NULL,
+	[Description] [varchar](500) NULL,
+	[DisplayOrder] [int] NOT NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyWorkflowStageMaster_IsActive] DEFAULT ((1)),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_PropertyWorkflowStageMaster_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_PropertyWorkflowStageMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
+) ON [PRIMARY]
+GO
+
+
+CREATE TABLE [PTIS].[PropertyWorkflowDetails](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[PropertyId] [int] NOT NULL,
+	[WorkflowStageId] [int] NOT NULL,
+	[ModuleId] [int] NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyWorkflowDetails_IsActive] DEFAULT ((1)),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_PropertyWorkflowDetails_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	[CurrentStatus] [bit] NULL,
+ CONSTRAINT [PK_PropertyWorkflowDetails] PRIMARY KEY CLUSTERED ([Id] ASC)
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [PTIS].[PropertyWorkflowDetails] WITH CHECK ADD CONSTRAINT [FK_PropertyWorkflowDetails_PropertyWorkflowStageMaster] FOREIGN KEY([WorkflowStageId]) REFERENCES [PTIS].[PropertyWorkflowStageMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[PropertyWorkflowDetails] WITH CHECK ADD CONSTRAINT [FK_PropertyWorkflowDetails_PropertyMast] FOREIGN KEY([PropertyId]) REFERENCES [PTIS].[PropertyMast] ([Id])
+GO
+
+
