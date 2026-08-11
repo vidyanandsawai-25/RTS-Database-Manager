@@ -1,4 +1,4 @@
-﻿
+
 SET IDENTITY_INSERT [PTIS].[PropertyMast] ON;
 GO
 
@@ -27,196 +27,196 @@ FROM (VALUES
     (549441, N'1', N'MM11', N'16', N'', 12, N'MM1100160000', 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'The Holder', N'Smt', N'', N'', N'', N'SAI KRUPA CHAWL VARCHA GAON, KOLSHET, THANE-400607', N'6XQR+6M9, Kolshet Rd, Kolshet, Thane West, Thane, Maharashtra 400607, India ', N'8082028615', N'', NULL, N'', N'The Holder', N'', N'', N'', N'', N'', N'6XQR+6M9, Kolshet Rd, Kolshet, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-07-30T18:28:17.217' AS DateTime)),
 
    (549442, N'1', N'MM11', N'17', N'', 12, N'MM1100170000', 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'The Holder', N'Mr', N'', N'', N'', N'SAI KRUPA CHAWL VARCHA GAON, KOLSHET, THANE-400607', N'6XQR+6M9, Kolshet Rd, Kolshet, Thane West, Thane, Maharashtra 400607, India ', N'7208357449', N'', NULL, N'', N'The Holder', N'', N'', N'', N'.', N'', N'6XQR+6M9, Kolshet Rd, Kolshet, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-07-30T18:33:57.860' AS DateTime)),
- 
+
  (549445, N'1', N'MM11', N'18', N'', 12, N'MM1100180000', 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'The Holder', N'Mr', N'', N'', N'', N'SAI KRUPA CHAWL,VARCHA GAON, KOLSHET, THANE-400607', N'6XQR+6M9, Kolshet Rd, Kolshet, Thane West, Thane, Maharashtra 400607, India ', N'9833529588', N'', NULL, N'', N'The Holder', N'', N'', N'', N'', N'', N'6XQR+6M9, Kolshet Rd, Kolshet, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-07-30T18:40:21.360' AS DateTime)),
- 
+
  (549446, N'1', N'MM11', N'19', N'', 12, N'MM1100190000', 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'The Holder', N'Mr', N'PRESENT OCCUPIER :- AJAY RAMPAL ROHANDIYA', N'', N'', N'SAI KRUPA CHAWL,VARCHA GAON, KOLSHET, THANE-400607', N'6XQR+6M9, Kolshet Rd, Kolshet, Thane West, Thane, Maharashtra 400607, India ', N'9967768667', N'', NULL, N'', N'The Holder', N'', N'', N'', N'', N'', N'6XQR+6M9, Kolshet Rd, Kolshet, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-08-19T15:12:44.047' AS DateTime)),
- 
+
  (549448, N'1', N'MM11', N'20', N'', 12, N'MM1100200000', 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'The Holder', N'Mr', N'', N'', N'', N'SAI KRUPA CHAWL,VARCHA GAON, KOLSHET, THANE-400607', N'1, Gamdevi, Marol, Andheri East, Mumbai, Thane, Maharashtra 400059, India ', N'9004814808', N'', NULL, N'', N'The Holder', N'', N'', N'', N'', N'', N'1, Gamdevi, Marol, Andheri East, Mumbai, Thane, Maharashtra 400059, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 73, CAST(N'2025-08-19T16:58:57.933' AS DateTime)),
- 
+
  (549451, N'1', N'MM11', N'21', N'', 12, N'MM1100210000', 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'The Holder', N'Smt', N'', N'', N'', N'SAI KRUPA CHAWL,VARCHA GAON, KOLSHET, THANE-400607', N'1, Gamdevi, Marol, Andheri East, Mumbai, Thane, Maharashtra 400059, India ', N'9322757603', N'', NULL, N'', N'The Holder', N'', N'', N'', N'', N'', N'1, Gamdevi, Marol, Andheri East, Mumbai, Thane, Maharashtra 400059, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-08-19T15:29:45.997' AS DateTime)),
- 
+
  (549452, N'1', N'MM11', N'22', N'', 12, N'MM1100220000', 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'The Holder', N'Mr', N'', N'', N'', N'SAI KRUPA CHAWL,VARCHA GAON, KOLSHET, THANE-400607', N'1, Gamdevi, Marol, Andheri East, Mumbai, Thane, Maharashtra 400059, India ', N'7738632925', N'', NULL, N'', N'The Holder', N'', N'', N'', N'', N'', N'1, Gamdevi, Marol, Andheri East, Mumbai, Thane, Maharashtra 400059, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 73, CAST(N'2025-08-14T17:33:14.693' AS DateTime)),
- 
+
  (549453, N'1', N'MM11', N'23', N'', 12, N'MM1100230000', 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'The Holder', N'Mr', N'', N'', N'', N'SAI KRUPA CHAWL,VARCHA GAON, KOLSHET, THANE-400607', N'1, Gamdevi, Marol, Andheri East, Mumbai, Thane, Maharashtra 400059, India ', N'9869737593', N'', NULL, N'', N'The Holder', N'', N'', N'', N'', N'', N'1, Gamdevi, Marol, Andheri East, Mumbai, Thane, Maharashtra 400059, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-08-19T15:48:04.117' AS DateTime)),
- 
+
  (550296, N'1', N'MM1', N'19', N'', 5, N'MM0100190000', 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'The Holder', N'Mr', N'ABAHY BRIJBIHARI SHARMA & NISTHA ABHAY SHARMA', N'', N'Swasth Sankalpan', N'BUNGLOW NO. 3 OPP. DEV DARSHAN SOC. PHASE1, G.B. ROAD , THANE ,WEST.', N'S-1, Dongripada, Thane West, Thane, Maharashtra 400607, India ', N'9833222706', N'', NULL, N'', N'The Holder', N'', N'', N'', N'Swasth Sankalpan', N'', N'S-1, Dongripada, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (550299, N'1', N'MM1', N'22', N'', 12, N'MM0100220000', 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'The Holder', N'Mr', N'SMT.  SHILA VILAS MANIK', N'', N'Alder Care', N'Near Devdarshan Phase 1 Bilding Dongripada Ghodbunder Road. Thane West', N'Dosti Imperia, 7, Ghodbunder Rd, Manpada, Thane West, Thane, Maharashtra 400607, India ', N'8454970354', N'', NULL, N'', N'The Holder', N'', NULL, NULL, N'', N'', N'Dosti Imperia, 7, Ghodbunder Rd, Manpada, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (550300, N'1', N'MM1', N'23', N'', 1, N'MM0100230000', 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'The Holder', N'Mr', N'SHRI. AJAY TAMHANE AND SOU. JAYSHREETAMHANE', N'', N'', N'KAVESAR', N'Dosti Imperia, 7, Ghodbunder Rd, Manpada, Thane West, Thane, Maharashtra 400607, India ', N'9930593675', N'', NULL, N'', N'The Holder', N'', NULL, NULL, N'', N'', N'Dosti Imperia, 7, Ghodbunder Rd, Manpada, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (550304, N'1', N'MM1', N'24', N'', 1, N'MM0100240000', 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'The Holder', N'Mr', N'SALONA BAINS JOSHI', N'', N'Uc Kindies', N'Near Devdarshan Phase 1 Bilding Dongripada Ghodbunder Road. Thane West', N'Dosti Imperia, 7, Ghodbunder Rd, Manpada, Thane West, Thane, Maharashtra 400607, India ', N'9819156930', N'', NULL, N'', N'The Holder', N'', NULL, NULL, N'', N'', N'Dosti Imperia, 7, Ghodbunder Rd, Manpada, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (550514, N'1', N'MM1', N'41', N'', 29, N'MM0100410000', 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'THE HOLDER', N'Mr', N'THE HOLDER', N'', N'Sidhivinayak', N'NEAR HOTEL JALALA GHODBANDAR ROAD . , THANE-400607', N'Vijay Galaxy Vijay Galaxy-1, 1, Wagbil Rd, Anu Nagar, Vijay Nagari, Thane West, Thane, Maharashtra 400607, India ', N'9987631663', N'', NULL, N'', N'', N'', N'Dilip Radheshyam Chaubey', NULL, N'', N'', N'Vijay Galaxy Vijay Galaxy-1, 1, Wagbil Rd, Anu Nagar, Vijay Nagari, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (550516, N'1', N'MM1', N'42', N'', 12, N'MM0100420000', 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'The Holder', N'Mr', NULL, NULL, N'Stayl Your Spase', N' GALA NO.4, RADHESHYAM CHAWL, WAGHBIL NAKA, NR. DALAL COMPANY, G.B. ROAD, THANE', N'7X3F+73M, Wagbil Rd, Anu Nagar, Vijay Nagari, Thane West, Thane, Maharashtra 400607, India ', N'8828177466', N'', NULL, N'', N'The Holder', N'', NULL, NULL, N'', N'', N'7X3F+73M, Wagbil Rd, Anu Nagar, Vijay Nagari, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (550722, N'1', N'MM1', N'85', N'', 12, N'MM0100850000', 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'- KALLU SURAJ GAUD KALLU SURAJ GAUD ', N'', N'', N'', N'', N'Near SANGHAVI HILLS .D MART  ANAND NAGER G B ROAD THANE WEST', N'1, Ghodbunder Rd, Sanghavi Hills, Parkwoods, Thane West, Mumbai, Maharashtra 400607, India ', N'7738869965', N'', NULL, N'', N'', N'', N'', N'', N'', N'', N'1, Ghodbunder Rd, Sanghavi Hills, Parkwoods, Thane West, Mumbai, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-08-19T12:01:03.007' AS DateTime)),
- 
+
  (550726, N'1', N'MM1', N'85', N'1', 12, N'MM0100850001', 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'The Holder', N'Mr', N'The Holder', N'', N'', N'Near SANGHAVI HILLS .D MART ANAND NAGER G B ROAD THANE WEST', NULL, N'', N'', NULL, N'', N'The Holder', NULL, N'', N'', N'', N'', NULL, 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-08-19T12:13:12.973' AS DateTime)),
- 
+
  (550727, N'1', N'MM1', N'85', N'2', 12, N'MM0100850002', 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'The Holder', N'Mr', N'The Holder ', N'', N'', N'Near SANGHAVI HILLS .D MART  ANAND NAGER G B ROAD THANE WEST', NULL, N'', N'', NULL, N'', N'The Holder', NULL, N'', N'', N'', N'', NULL, 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-08-19T12:31:28.133' AS DateTime)),
- 
+
  (550728, N'1', N'MM1', N'85', N'3', 12, N'MM0100850003', 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'The Holder', N'Mr', N'The Holder', N'', N'', N'Near SANGHAVI HILLS .D MART ANAND NAGER G B ROAD THANE WEST', NULL, N'', N'', NULL, N'', N'The Holder', NULL, N'', N'', N'', N'', NULL, 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-08-19T12:31:50.063' AS DateTime)),
- 
+
  (552371, N'1', N'DIMAJOR1', N'1', N'', 69, NULL, 0, N'', NULL, N'', 6, NULL, N'Mr', N'NAGNATH APARTMENT', N'', N'THE HOLDER', N'', N'.', N'NAGNATH APARTMENT MASOBA DEVNAGAR MADHAVI BANGLA ROAD,DIVA-412421', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', N'', N'', NULL, N'', N'.', N'', N'', N'', N'.', N'', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 60, CAST(N'2025-06-26T12:55:31.150' AS DateTime)),
- 
+
  (552372, N'1', N'DIMAJOR1', N'1', N'A', 69, NULL, 0, N'', NULL, N'', 6, NULL, N'à¤¶à¥à¤°à¥€', N'NAGNATH APARTMENT', NULL, N'THE HOLDER', N'', N'.', N'WING -B, NAGNATH APARTMENT MASOBA DEVNAGAR MADHAVI BANGLA ROAD,DIVA-412421', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', N'', N'', NULL, N'Mr', N'.', NULL, N'', N'', N'', N'', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 60, CAST(N'2025-06-26T12:58:39.177' AS DateTime)),
- 
+
  (552373, N'1', N'DIMAJOR1', N'1', N'S', 69, NULL, 0, N'', NULL, N'', 6, NULL, N'', N'NAGNATH APARTMENT', NULL, N'THE HOLDER', N'', N'.', N'WING -S, NAGNATH APARTMENT MASOBA DEVNAGAR MADHAVI BANGLA ROAD,DIVA-412421', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', N'', N'', NULL, N'', N'', NULL, N'', N'', N'', N'', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 60, CAST(N'2025-06-26T12:58:05.040' AS DateTime)),
- 
+
  (552374, N'1', N'DIMAJOR1', N'1', N'A1', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'NAGNATH APARTMENT', N'', N'THE HOLDER', N'1', N'', N'WING-B, FLAT NO-1, NAGNATH APARTMENT MASOBA DEVNAGAR MADHAVI BANGLA ROAD,DIVA-412421', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', N'9004564479', N'', NULL, N'', N'The Holder', NULL, N'', N'1', N'', N'Wing-B, Flat No-1, NAGNATH APARTMENT MASOBA devnagar Madhavi Bangla Road EKVIRA APARTMENT NEAR', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 55, CAST(N'2025-06-14T15:42:57.910' AS DateTime)),
- 
+
  (552375, N'1', N'DIMAJOR1', N'1', N'A2', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'NAGNATH APARTMENT', N'Mr', N'THE HOLDER', N'101', N'', N'WING-B, FLAT NO-101, NAGNATH APARTMENT MASOBA DEVNAGAR MADHAVI BANGLA ROAD,DIVA-412421', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', N'9819482978', N'', NULL, N'', N'The Holder', NULL, N'', N'101', N'', N'Wing-B, Flat No-101, NAGNATH APARTMENT MASOBA devnagar Madhavi Bangla Road EKVIRA APARTMENT NEAR', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (552376, N'1', N'DIMAJOR1', N'1', N'A3', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'NAGNATH APARTMENT', N'Mr', N'THE HOLDER', N'201', N'', N'WING-B, FLAT NO-201, NAGNATH APARTMENT MASOBA DEVNAGAR MADHAVI BANGLA ROAD,DIVA-412421', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', N'8975378988', N'', NULL, N'', N'The Holder', NULL, N'', N'201', N'', N'Wing-B, Flat No-201, NAGNATH APARTMENT MASOBA devnagar Madhavi Bangla Road EKVIRA APARTMENT NEAR', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (552377, N'1', N'DIMAJOR1', N'1', N'A4', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'NAGNATH APARTMENT', N'Mr', N'THE HOLDER', N'301', N'', N'WING-B, FLAT NO-301, NAGNATH APARTMENT MASOBA DEVNAGAR MADHAVI BANGLA ROAD,DIVA-412421', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', N'8652579778', N'', NULL, N'', N'The Holder', NULL, N'', N'301', N'', N'Wing-B, Flat No-301, NAGNATH APARTMENT MASOBA devnagar Madhavi Bangla Road EKVIRA APARTMENT NEAR', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (552378, N'1', N'DIMAJOR1', N'1', N'A5', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'NAGNATH APARTMENT', N'Mr', N'THE HOLDER', N'401', N'', N'WING-B, FLAT NO-401, NAGNATH APARTMENT MASOBA DEVNAGAR MADHAVI BANGLA ROAD,DIVA-412421', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', N'7977590750', N'', NULL, N'', N'The Holder', NULL, N'', N'401', N'', N'Wing-B, Flat No-401, NAGNATH APARTMENT MASOBA devnagar Madhavi Bangla Road EKVIRA APARTMENT NEAR', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (552379, N'1', N'DIMAJOR1', N'1', N'A6', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'NAGNATH APARTMENT', N'Mr', N'THE HOLDER', N'2', N'', N'WING-B, FLAT NO-2, NAGNATH APARTMENT MASOBA DEVNAGAR MADHAVI BANGLA ROAD,DIVA-412421', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', N'9321443608', N'', NULL, N'', N'The Holder', NULL, N'', N'2', N'', N'WING-B, FLAT NO-2, NAGNATH APARTMENT MASOBA DEVNAGAR MADHAVI BANGLA ROAD,DIVA-412421', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (552380, N'1', N'DIMAJOR1', N'1', N'A7', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'NAGNATH APARTMENT', N'Mr', N'THE HOLDER', N'102', N'', N'WING-B, FLAT NO-102, NAGNATH APARTMENT MASOBA DEVNAGAR MADHAVI BANGLA ROAD,DIVA-412421', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', N'9769270391', N'', NULL, N'', N'The Holder', NULL, N'', N'102', N'', N'Wing-B, Flat No-102, NAGNATH APARTMENT MASOBA devnagar Madhavi Bangla Road EKVIRA APARTMENT NEAR', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (552994, N'1', N'DIMAJOR2', N'1', N'', 69, NULL, 0, N'', NULL, N'', 6, NULL, N'Mr', N'SUKHIYA APARTMENT', N'', N'THE HOLDER', N'', N'.', N'SUKHIYA APARTMENT,KALYAN PHATA DAIGHAR GAON ROAD BESIDE PG,SHIL-421204', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', N'9821201794', N'', NULL, N'', N'.', N'', N'', N'', N'.', N'', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-06-05T18:00:58.173' AS DateTime)),
- 
+
  (553033, N'1', N'DIMAJOR2', N'1', N'A', 12, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'SUKHIYA APARTMENT', NULL, N'THE HOLDER', NULL, NULL, N'WING -A, SUKHIYA APARTMENT,KALYAN PHATA DAIGHAR GAON ROAD BESIDE PG,SHIL-421204', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', N'9821201794', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, N'Wing -A, Sukhiya Apartment,Kalyan Phata Daighar Gaon Road Beside Pg,Shil', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (553034, N'1', N'DIMAJOR2', N'1', N'S', 13, NULL, 0, N'', NULL, N'', 6, NULL, N'à¤¶à¥à¤°à¥€', N'SUKHIYA APARTMENT', NULL, N'THE HOLDER', N'', N'.', N'WING -S, SUKHIYA APARTMENT,KALYAN PHATA DAIGHAR GAON ROAD BESIDE PG,SHIL-421204', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', N'9821201794', N'', NULL, N'Mr', N'.', NULL, N'', N'', N'', N'Wing -S, Sukhiya Apartment,Kalyan Phata Daighar Gaon Road Beside Pg,Shil', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 70, CAST(N'2025-09-12T16:34:09.020' AS DateTime)),
- 
+
  (553035, N'1', N'DIMAJOR2', N'1', N'A1', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'SUKHIYA APARTMENT', N'Mr', N'THE HOLDER', N'1', N'', N'WING-A, FLAT NO-1, SUKHIYA APARTMENT,KALYAN PHATA DAIGHAR GAON ROAD BESIDE PG,SHIL-421204', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', N'9224555542', N'', NULL, N'', N'The Holder', NULL, N'', N'1', N'', N'Wing-A, Flat No-1, Sukhiya Apartment,Kalyan Phata Daighar Gaon Road Beside Pg,Shil', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 90, CAST(N'2025-07-07T12:27:56.023' AS DateTime)),
- 
+
  (553036, N'1', N'DIMAJOR2', N'1', N'A2', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, N'', N'SUKHIYA APARTMENT', NULL, N'THE HOLDER', N'101', N'', N'WING-A, FLAT NO-101, SUKHIYA APARTMENT,KALYAN PHATA DAIGHAR GAON ROAD BESIDE PG,SHIL-421204', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', N'8355971319', N'', NULL, N'', N'The Holder', NULL, N'', N'101', N'', N'Wing-A, Flat No-101, Sukhiya Apartment,Kalyan Phata Daighar Gaon Road Beside Pg,Shil', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-06-12T16:10:18.877' AS DateTime)),
- 
+
  (553037, N'1', N'DIMAJOR2', N'1', N'A3', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'SUKHIYA APARTMENT', NULL, N'THE HOLDER', N'201', NULL, N'WING-A, FLAT NO-201, SUKHIYA APARTMENT,KALYAN PHATA DAIGHAR GAON ROAD BESIDE PG,SHIL-421204', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', N'9833116002', NULL, NULL, NULL, N'The Holder', NULL, NULL, N'201', NULL, N'Wing-A, Flat No-201, Sukhiya Apartment,Kalyan Phata Daighar Gaon Road Beside Pg,Shil', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (553038, N'1', N'DIMAJOR2', N'1', N'A4', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'SUKHIYA APARTMENT', NULL, N'THE HOLDER', N'301', NULL, N'WING-A, FLAT NO-301, SUKHIYA APARTMENT,KALYAN PHATA DAIGHAR GAON ROAD BESIDE PG,SHIL-421204', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', N'9821201794', NULL, NULL, NULL, N'The Holder', NULL, NULL, N'301', NULL, N'Wing-A, Flat No-301, Sukhiya Apartment,Kalyan Phata Daighar Gaon Road Beside Pg,Shil', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (553039, N'1', N'DIMAJOR2', N'1', N'A5', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'SUKHIYA APARTMENT', NULL, N'THE HOLDER', N'401', NULL, N'WING-A, FLAT NO-401, SUKHIYA APARTMENT,KALYAN PHATA DAIGHAR GAON ROAD BESIDE PG,SHIL-421204', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', N'9892039450', NULL, NULL, NULL, N'The Holder', NULL, NULL, N'401', NULL, N'Wing-A, Flat No-401, Sukhiya Apartment,Kalyan Phata Daighar Gaon Road Beside Pg,Shil', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (553040, N'1', N'DIMAJOR2', N'1', N'A6', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'SUKHIYA APARTMENT', NULL, N'THE HOLDER', N'501', NULL, N'WING-A, FLAT NO-501, SUKHIYA APARTMENT,KALYAN PHATA DAIGHAR GAON ROAD BESIDE PG,SHIL-421204', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', N'9821201794', NULL, NULL, NULL, N'The Holder', NULL, NULL, N'501', NULL, N'Wing-A, Flat No-501, Sukhiya Apartment,Kalyan Phata Daighar Gaon Road Beside Pg,Shil', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (553041, N'1', N'DIMAJOR2', N'1', N'A7', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, N'', N'SUKHIYA APARTMENT', NULL, N'THE HOLDER', N'2', N'', N'WING-A, FLAT NO-2, SUKHIYA APARTMENT,KALYAN PHATA DAIGHAR GAON ROAD BESIDE PG,SHIL-421204', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', N'9821201794', N'', NULL, N'', N'The Holder', NULL, N'', N'2', N'', N'Wing-A, Flat No-2, Sukhiya Apartment,Kalyan Phata Daighar Gaon Road Beside Pg,Shil', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-06-12T16:06:18.700' AS DateTime)),
- 
+
  (556004, N'1', N'KLMAJOR3', N'1', N'', 69, NULL, 0, N'', NULL, N'', 6, NULL, N'à¤¶à¥à¤°à¥€', N'PRADIP DATTATRAY KINI AND HANUMAN RAMCHANDRA KINI', N'', N'', N'', N'.', N'MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,KHAREGAON-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', N'', N'', NULL, N'Mr', N'.', N'', N'', N'', N'.', N'', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 55, CAST(N'2025-07-21T20:24:38.123' AS DateTime)),
- 
+
  (556008, N'1', N'KLMAJOR3', N'1', N'A', 69, NULL, 0, N'', NULL, N'', 6, NULL, N'à¤¶à¥à¤°à¥€', N'PRADIP DATTATRAY KINI AND HANUMAN RAMCHANDRA KINI', NULL, N'', N'', N'.', N'Wing -A, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK , Kharegaon-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', N'', N'', NULL, N'Mr', N'.', NULL, N'', N'', N'', N'Wing -A, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,à¤–à¤¾à¤°à¥‡à¤—à¤¾à¤µ-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 69, CAST(N'2025-07-23T18:04:54.223' AS DateTime)),
- 
+
  (556010, N'1', N'KLMAJOR3', N'1', N'A1', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'PRADIP DATTATRAY KINI AND HANUMAN RAMCHANDRA KINI', N'', N'MANDAR CONSTRUCTION AND DEVLOPERS .LLP', N'101', N'', N'Wing-A, Flat No-101, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,Kharegaon-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', N'9833187777', N'mandarkeni@yahoo.com', NULL, N'', N'.', NULL, N'', N'101', N'', N'Wing-A, Flat No-101, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,à¤–à¤¾à¤°à¥‡à¤—à¤¾à¤µ-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-08-08T13:13:55.817' AS DateTime)),
- 
+
  (556011, N'1', N'KLMAJOR3', N'1', N'A2', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'PRADIP DATTATRAY KINI AND HANUMAN RAMCHANDRA KINI', N'', N'MANDAR CONSTRUCTION AND DEVLOPERS .LLP', N'201', N'', N'Wing-A, Flat No-201, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,Kharegaon-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', N'9833187777', N'mandarkeni@yahoo.com', NULL, N'', N'.', NULL, N'', N'201', N'', N'Wing-A, Flat No-201, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,à¤–à¤¾à¤°à¥‡à¤—à¤¾à¤µ-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (556012, N'1', N'KLMAJOR3', N'1', N'A3', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'PRADIP DATTATRAY KINI AND HANUMAN RAMCHANDRA KINI', N'', N'MANDAR CONSTRUCTION AND DEVLOPERS .LLP', N'301', N'', N'Wing-A, Flat No-301, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,Kharegaon-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', N'9833187777', N'mandarkeni@yahoo.com', NULL, N'', N'.', NULL, N'', N'301', N'', N'Wing-A, Flat No-301, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,à¤–à¤¾à¤°à¥‡à¤—à¤¾à¤µ-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
  (556013, N'1', N'KLMAJOR3', N'1', N'A4', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'PRADIP DATTATRAY KINI AND HANUMAN RAMCHANDRA KINI', N'', N'MANDAR CONSTRUCTION AND DEVLOPERS .LLP', N'401', N'', N'Wing-A, Flat No-401, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,Kharegaon-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', N'9833187777', N'mandarkeni@yahoo.com', NULL, N'', N'.', NULL, N'', N'401', N'', N'Wing-A, Flat No-401, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,à¤–à¤¾à¤°à¥‡à¤—à¤¾à¤µ-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 55, CAST(N'2025-07-03T20:30:13.697' AS DateTime)),
- 
+
  (556014, N'1', N'KLMAJOR3', N'1', N'A5', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'PRADIP DATTATRAY KINI AND HANUMAN RAMCHANDRA KINI', N'', N'MANDAR CONSTRUCTION AND DEVLOPERS .LLP', N'501', N'', N'Wing-A, Flat No-501, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,Kharegaon-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', N'9833187777', N'mandarkeni@yahoo.com', NULL, N'', N'.', NULL, N'', N'501', N'', N'Wing-A, Flat No-501, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,à¤–à¤¾à¤°à¥‡à¤—à¤¾à¤µ-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (556015, N'1', N'KLMAJOR3', N'1', N'A6', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'PRADIP DATTATRAY KINI AND HANUMAN RAMCHANDRA KINI', N'Mr', N'MANDAR CONSTRUCTION AND DEVLOPERS .LLP', N'601', N'', N'Wing-A, Flat No-601, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,Kharegaon-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', N'9833187777', N'mandarkeni@yahoo.com', NULL, N'', N'.', NULL, N'', N'601', N'', N'Wing-A, Flat No-601, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,à¤–à¤¾à¤°à¥‡à¤—à¤¾à¤µ-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (556016, N'1', N'KLMAJOR3', N'1', N'A7', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'PRADIP DATTATRAY KINI AND HANUMAN RAMCHANDRA KINI', N'', N'MANDAR CONSTRUCTION AND DEVLOPERS .LLP', N'701', N'', N'Wing-A, Flat No-701, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,Kharegaon-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', N'9833187777', N'mandarkeni@yahoo.com', NULL, N'', N'.', NULL, N'', N'701', N'', N'Wing-A, Flat No-701, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,à¤–à¤¾à¤°à¥‡à¤—à¤¾à¤µ-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (556017, N'1', N'KLMAJOR3', N'1', N'A8', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'PRADIP DATTATRAY KINI AND HANUMAN RAMCHANDRA KINI', N'', N'MANDAR CONSTRUCTION AND DEVLOPERS .LLP', N'801', N'', N'Wing-A, Flat No-801, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,Kharegaon-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', N'9833187777', N'mandarkeni@yahoo.com', NULL, N'', N'.', NULL, N'', N'801', N'', N'Wing-A, Flat No-801, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,à¤–à¤¾à¤°à¥‡à¤—à¤¾à¤µ-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (560660, N'1', N'KLMAJOR1', N'3', N'A1', 12, NULL, 0, NULL, NULL, NULL, 6, NULL, NULL, N'The Holder', NULL, NULL, N'101', NULL, N'Flat No-101, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'101', NULL, N'Flat No-101, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (560661, N'1', N'KLMAJOR1', N'3', N'A2', 12, NULL, 0, NULL, NULL, NULL, 6, NULL, NULL, N'The Holder', NULL, NULL, N'201', NULL, N'Flat No-201, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'201', NULL, N'Flat No-201, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (560662, N'1', N'KLMAJOR1', N'3', N'A3', 12, NULL, 0, NULL, NULL, NULL, 6, NULL, NULL, N'The Holder', NULL, NULL, N'301', NULL, N'Flat No-301, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'301', NULL, N'Flat No-301, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (560663, N'1', N'KLMAJOR1', N'3', N'A4', 12, NULL, 0, NULL, NULL, NULL, 6, NULL, NULL, N'The Holder', NULL, NULL, N'401', NULL, N'Flat No-401, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'401', NULL, N'Flat No-401, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (560664, N'1', N'KLMAJOR1', N'3', N'A5', 12, NULL, 0, NULL, NULL, NULL, 6, NULL, NULL, N'The Holder', NULL, NULL, N'501', NULL, N'Flat No-501, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'501', NULL, N'Flat No-501, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (560665, N'1', N'KLMAJOR1', N'3', N'A6', 12, NULL, 0, NULL, NULL, NULL, 6, NULL, NULL, N'The Holder', NULL, NULL, N'601', NULL, N'Flat No-601, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'601', NULL, N'Flat No-601, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (560666, N'1', N'KLMAJOR1', N'3', N'A7', 12, NULL, 0, NULL, NULL, NULL, 6, NULL, NULL, N'The Holder', NULL, NULL, N'701', NULL, N'Flat No-701, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'701', NULL, N'Flat No-701, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (560667, N'1', N'KLMAJOR1', N'3', N'A8', 12, NULL, 0, NULL, NULL, NULL, 6, NULL, NULL, N'The Holder', NULL, NULL, N'102', NULL, N'Flat No-102, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'102', NULL, N'Flat No-102, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (560668, N'1', N'KLMAJOR1', N'3', N'A9', 12, NULL, 0, NULL, NULL, NULL, 6, NULL, NULL, N'The Holder', NULL, NULL, N'202', NULL, N'Flat No-202, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'202', NULL, N'Flat No-202, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (560669, N'1', N'KLMAJOR1', N'3', N'A10', 12, NULL, 0, NULL, NULL, NULL, 6, NULL, NULL, N'The Holder', NULL, NULL, N'302', NULL, N'Flat No-302, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'302', NULL, N'Flat No-302, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (576936, N'1', N'KLMAJOR2', N'1', N'', 69, NULL, 0, N'', NULL, N'', 6, NULL, N'à¤¶à¥à¤°à¥€', N'SHREE HARI HIGHTS', N'', N'THE HOLDER', N'', N'.', N'SHREE HARI HIGHTS, OPPOSITE AMRUT PARK SOCIETY, SHSHTRI NAGAR, KALWA(W).-400605', N'5XXQ+HG7, Shastri Nagar, Manisha Nagar, Kalwa, Thane, Maharashtra 400605, India ', N'9892805400', N'', NULL, N'Mr', N'.', N'', N'', N'', N'', N'', N'5XXQ+HG7, Shastri Nagar, Manisha Nagar, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 75, CAST(N'2025-07-14T17:36:05.770' AS DateTime)),
- 
+
  (576939, N'1', N'KLMAJOR2', N'2', N'', 69, NULL, 0, N'', NULL, N'', 6, NULL, N'à¤¶à¥à¤°à¥€', N'SAWALARAM HEIGHTS WING A&B', N'', N'THE HOLDER', N'', N'.', N'SAWALARAM HEIGHTS,MANISHA NAGAR RD, SHASTRI NAGAR, KALWA,THANE-400605', NULL, N'9867146697', N'', NULL, N'Mr', N'.', N'', N'', N'', N'.', N'', NULL, 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 74, CAST(N'2025-07-12T11:05:38.767' AS DateTime)),
- 
+
  (577185, N'1', N'KLMAJOR2', N'3', N'', 69, NULL, 0, N'', NULL, N'', 6, NULL, N'Mr', N'SALUBAI NIWAS', N'', N'THE HOLDER', N'', N'.', N'SALUBAI NIWAS, JAMA MASJIT ROAD, KALWA NAKA, KALWA (P)THANE.-400605', N'Bala Mhatre Building, Kalwa West, Budhaji Nagar, Kalwa, Thane, Maharashtra 400605, India ', N'9819824232', N'', NULL, N'', N'', N'', N'', N'', N'', N'', N'Bala Mhatre Building, Kalwa West, Budhaji Nagar, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 78, CAST(N'2025-07-09T17:09:15.410' AS DateTime)),
- 
+
  (577437, N'1', N'KLMAJOR2', N'4', N'', 69, NULL, 0, N'', NULL, N'', 6, NULL, N'Mr', N'GANESH KRUPA CO. OP. HOUSING SOCIETY', N'', N'THE HOLDER', N'', N'.', N'GANESH KRUPA, THAKUR CHAUK, MUMBAI-PUNE ROAD, KALWA, THANE-400605', N'401 Dhanalaxmi CHS, Kalwa - Kharigaon Road, Kumbhar Aali, Kalwa West, Budhaji Nagar, Kalwa, Thane, Maharashtra 400605, India ', N'7738709030', N'', NULL, N'', N'', N'', N'', N'', N'.', N'', N'401 Dhanalaxmi CHS, Kalwa - Kharigaon Road, Kumbhar Aali, Kalwa West, Budhaji Nagar, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 77, CAST(N'2025-07-15T17:12:14.963' AS DateTime)),
- 
+
  (577538, N'1', N'KLMAJOR2', N'5', N'', 69, NULL, 0, N'', NULL, N'', 6, NULL, N'Mr', N'PARVATI VILLA', N'', N'THE HOLDER', N'', N'.', N'PARVATI VILLA BUILDING, NEAR PRINCE ELECTRONICS, KUMBHAR ALI, KALWA, THANE-400605', N'9, Station Rd, Kalwa West, Budhaji Nagar, Thane East, Mumbai, Thane, Maharashtra 400605, India ', N'9833123321', N'', NULL, N'', N'', N'', N'', N'', N'', N'', N'9, Station Rd, Kalwa West, Budhaji Nagar, Thane East, Mumbai, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 75, CAST(N'2025-07-14T17:35:03.773' AS DateTime)),
- 
+
  (577957, N'1', N'KLMAJOR2', N'7', N'', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, N'Smt', N'The Holder', N'Smt', N'Sunita Ramnath Tandel', N'', N'Riddhesh Bunglow', N'Riddhesh Bunglow,Near Prince Electronics, KumbhaAli, Kalwa West,Thane.', N'5XWR+93F, Kumbhar Ln, Sudama Nagar, Budhaji Nagar, Kalwa, Thane, Maharashtra 400605, India ', N'9967488844', N'', NULL, N'', N'', N'', N'', N'', N'Riddhesh Bunglow', N'', N'5XWR+93F, Kumbhar Ln, Sudama Nagar, Budhaji Nagar, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 94, CAST(N'2025-09-04T10:19:52.800' AS DateTime)),
- 
+
  (579097, N'1', N'KLMAJOR2', N'1', N'A', 69, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'SHREE HARI HIGHTS', NULL, N'THE HOLDER', NULL, NULL, N'WING -A, SHREE HARI HIGHTS, OPPOSITE AMRUT PARK SOCIETY, SHSHTRI NAGAR, KALWA(W).-400605', N'5XXQ+HG7, Shastri Nagar, Manisha Nagar, Kalwa, Thane, Maharashtra 400605, India ', NULL, N'', NULL, NULL, NULL, NULL, NULL, NULL, NULL, N'', N'5XXQ+HG7, Shastri Nagar, Manisha Nagar, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (579098, N'1', N'KLMAJOR2', N'1', N'S', 13, NULL, 0, N'', NULL, N'', 6, NULL, N'à¤¶à¥à¤°à¥€', N'SHREE HARI HIGHTS', NULL, N'THE HOLDER', N'', N'.', N'WING -S, SHREE HARI HIGHTS, OPPOSITE AMRUT PARK SOCIETY, SHSHTRI NAGAR, KALWA(W).-400605', N'5XXQ+HG7, Shastri Nagar, Manisha Nagar, Kalwa, Thane, Maharashtra 400605, India ', N'', N'', NULL, N'Mr', N'.', NULL, N'', N'', N'', N'', N'5XXQ+HG7, Shastri Nagar, Manisha Nagar, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 70, CAST(N'2025-09-03T13:26:25.643' AS DateTime)),
- 
+
  (579099, N'1', N'KLMAJOR2', N'1', N'A1', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, N'', N'SHRI HARI HIGHTS', NULL, N'THE HOLDER', N'1', N'', N'WING-A, FLAT NO-1, SHREE HARI HIGHTS, OPPOSITE AMRUT PARK SOCIETY, SHSHTRI NAGAR, KALWA(W).-400605', N'5XXQ+HG7, Shastri Nagar, Manisha Nagar, Kalwa, Thane, Maharashtra 400605, India ', N'9867284101', N'', NULL, N'', N'The Holder', NULL, N'', N'1', N'', N'Wing-A, Flat No-1, Shree Hari Hights, Opposite Amrut Park Society, Shshtri Nagar, Kalwa(W).', N'5XXQ+HG7, Shastri Nagar, Manisha Nagar, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 65, CAST(N'2025-07-01T12:52:29.307' AS DateTime)),
- 
+
  (579100, N'1', N'KLMAJOR2', N'1', N'A2', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, N'', N'SHRI HARI HIGHTS', NULL, N'THE HOLDER', N'101', N'', N'WING-A, FLAT NO-101, SHREE HARI HIGHTS, OPPOSITE AMRUT PARK SOCIETY, SHSHTRI NAGAR, KALWA(W).-400605', N'5XXQ+HG7, Shastri Nagar, Manisha Nagar, Kalwa, Thane, Maharashtra 400605, India ', N'8828309595', N'', NULL, N'', N'The Holder', NULL, N'', N'101', N'', N'Wing-A, Flat No-101, Shree Hari Hights, Opposite Amrut Park Society, Shshtri Nagar, Kalwa(W).', N'5XXQ+HG7, Shastri Nagar, Manisha Nagar, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 65, CAST(N'2025-07-01T13:01:02.627' AS DateTime)),
- 
+
  (599038, N'1', N'MM13', N'1', N'', 152, N'MM1300010000', 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'The Holder', N'Mr', N'GROVERS PVT.LTD.', N'', N'', N'Near 3 Manorama Nagar Kolshet Road Thane West', N'3, Manorma Nagar Rd, Sambhaji Nagar, Manorama Nagar, Thane West, Mumbai, Thane, Maharashtra 400607, India ', N'9820127610', N'', NULL, N'', N'The Holder', N'', N'', N'', N'', N'', N'3, Manorma Nagar Rd, Sambhaji Nagar, Manorama Nagar, Thane West, Mumbai, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (602675, N'1', N'MM13', N'15', N'', 82, N'MM1300150000', 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'The Holder', N'Mr', N'MR. BHAVESH PRAVIN DAGHA / MR. VIRAL LAKHAMSHI CHHEDA / MR. LEERA PARBAT BANGARI', N'', N'Eye Care Optics ,mix And Mach,career point Cota', N'HOUSE NO 51 NR DEV PUJA KOLSHET ROAD BALKUM DHOKALI', N'6XHJ+5FX, Kolshet Rd, Opposite Silverline, Shree Swamikrupa Phase 2, New Ganesh Nagar, Dhokali, Thane West, Thane, Maharashtra 400607, India ', N'9820165906', N'', NULL, N'', N'The Holder', N'', N'', N'', N'Eye Care Optics ,mix And Mach,career point Cota', N'', N'6XHJ+5FX, Kolshet Rd, Opposite Silverline, Shree Swamikrupa Phase 2, New Ganesh Nagar, Dhokali, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (602680, N'1', N'MM13', N'16', N'', 92, N'MM1300160000', 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'The Holder', N'Mr', N'M/S.  S. D. PAINTS', N'', N'ESDEE PAINTS LTD', N'HOUSE NO 52 NR SUBHASH SARAP KOLSHET ROAD BALKUM DHOKALI', N'Kavyaduara Residential Complex, Kolshet Rd, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', N'9372759045', N'', NULL, N'', N'The Holder', N'', N'', N'', N'ESDEE PAINTS LTD', N'', N'Kavyaduara Residential Complex, Kolshet Rd, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 57, CAST(N'2025-10-03T17:19:32.833' AS DateTime)),
- 
+
  (604230, N'1', N'MM13', N'20', N'A', 12, N'MM130020000A', 0, N'', NULL, N'', 6, NULL, NULL, N'Riviera', NULL, NULL, NULL, NULL, N'Wing -RIVIERA A, Dhokali Manorama Nagar Kolshet Road Thane West', N'5, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Manpada, Thane, Maharashtra 400607, India ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, N'Wing -RIVIERA A, Dhokali Manorama Nagar Kolshet Road Thane West', N'5, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Manpada, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (604231, N'1', N'MM13', N'20', N'B', 12, N'MM130020000B', 0, N'', NULL, N'', 6, NULL, NULL, N'Riviera', NULL, NULL, NULL, NULL, N'Wing -B, Dhokali Manorama Nagar Kolshet Road Thane West', N'5, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Manpada, Thane, Maharashtra 400607, India ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, N'Wing -B, Dhokali Manorama Nagar Kolshet Road Thane West', N'5, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Manpada, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (604264, N'1', N'MM13', N'31', N'A1', 12, N'MM13003100A1', 0, NULL, NULL, NULL, 6, NULL, NULL, N'The Holder', NULL, N'', N'101', NULL, N'Wing-A, Flat No-101, Dhokali Manorama Nagar Kolshet Road Thane West', N'189, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', N'9869534650', NULL, NULL, NULL, N'The Holder', NULL, NULL, N'101', NULL, N'Wing-A, Flat No-101, Dhokali Manorama Nagar Kolshet Road Thane West', N'189, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (604265, N'1', N'MM13', N'31', N'A2', 12, N'MM13003100A2', 0, NULL, NULL, NULL, 6, NULL, NULL, N'The Holder', NULL, N'', N'201', NULL, N'Wing-A, Flat No-201, Dhokali Manorama Nagar Kolshet Road Thane West', N'189, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, N'', N'201', NULL, N'Wing-A, Flat No-201, Dhokali Manorama Nagar Kolshet Road Thane West', N'189, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (604266, N'1', N'MM13', N'31', N'A3', 12, N'MM13003100A3', 0, NULL, NULL, NULL, 6, NULL, NULL, N'The Holder', NULL, N'', N'301', NULL, N'Wing-A, Flat No-301, Dhokali Manorama Nagar Kolshet Road Thane West', N'189, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, N'', N'301', NULL, N'Wing-A, Flat No-301, Dhokali Manorama Nagar Kolshet Road Thane West', N'189, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (604267, N'1', N'MM13', N'31', N'A4', 12, N'MM13003100A4', 0, NULL, NULL, NULL, 6, NULL, NULL, N'The Holder', NULL, N'', N'401', NULL, N'Wing-A, Flat No-401, Dhokali Manorama Nagar Kolshet Road Thane West', N'189, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, N'', N'401', NULL, N'Wing-A, Flat No-401, Dhokali Manorama Nagar Kolshet Road Thane West', N'189, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (604268, N'1', N'MM13', N'31', N'A5', 12, N'MM13003100A5', 0, NULL, NULL, NULL, 6, NULL, NULL, N'The Holder', NULL, N'', N'501', NULL, N'Wing-A, Flat No-501, Dhokali Manorama Nagar Kolshet Road Thane West', N'189, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, N'', N'501', NULL, N'Wing-A, Flat No-501, Dhokali Manorama Nagar Kolshet Road Thane West', N'189, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (608764, N'1', N'MM10', N'1', N'', 51, N'MM1000010000', 0, N'45', N'98/440 ', N'', 6, NULL, N'Mr', N'SHRI. S. G.  KHALE HOLTIME DIRCTOR M/S. BOMBAY CHEMICALS PVT. LTD.,', N'Mr', N'THE LICENSEE: M/S. LANDMARK CAR LTD.,', N'', N'LANDMARK CARS', N'BOMBAY CHEMICALS PVT. LTD. THE LICENSEE : M/S LANDMARK CAR PVT. LTD. 275/A/2/2A, PATLIPADA, NEAR ST. XAVIER''S SCHOOL, G.B.ROAD, THANE (W.) 400607', N'5, S Vivekanand Marg, Brahmand, Manpada, Thane, Maharashtra 400607, India ', N'9869905413', N'', NULL, N'', N'à¤¶à¥à¤°à¥€. à¤à¤¸. à¤œà¥€. à¤—à¥‹à¤–à¤²à¥‡, à¤ªà¥‚à¤°à¥à¤£à¤µà¥‡à¤³ à¤¸à¤‚à¤šà¤¾à¤²à¤•, à¤®à¥‡à¤¸à¤°à¥à¤¸ à¤¬à¥‰à¤®à¥à¤¬à¥‡ à¤•à¥‡à¤®à¤¿à¤•à¤²à¥à¤¸ à¤ªà¥à¤°à¤¾à¤¯à¤µà¥à¤¹à¥‡à¤Ÿ à¤²à¤¿à¤®à¤¿à¤Ÿà¥‡à¤¡', N'', N'', N'', N'à¤²à¤à¤¡à¤®à¤¾à¤°à¥à¤• à¤•à¤¾à¤°', N'à¤¬à¥‰à¤®à¥à¤¬à¥‡ à¤•à¥‡à¤®à¤¿à¤•à¤²à¥à¤¸ à¤ªà¥à¤°à¤¾à¤¯à¤µà¥à¤¹à¥‡à¤Ÿ à¤²à¤¿à¤®à¤¿à¤Ÿà¥‡à¤¡. à¤ªà¤¾à¤Ÿà¤²à¥€à¤ªà¤¾à¤¡à¤¾, à¤¸à¥‡à¤‚à¤Ÿ à¤à¥‡à¤µà¤¿à¤¯à¤°à¥à¤¸ à¤¸à¥à¤•à¥‚à¤² à¤œà¤µà¤³, à¤œà¥€à¤¬à¥€à¤°à¥‹à¤¡, à¤ à¤¾à¤£à¥‡ (à¤µà¥‡à¤¸à¥à¤Ÿ ) à¥ªà¥¦à¥¦à¥¬à¥¦à¥­', N'5, S Vivekanand Marg, Brahmand, Manpada, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (608857, N'1', N'MM10', N'2', N'', 12, N'MM1000020000', 0, N'', NULL, N'', 6, NULL, N'Mr', N'CLOVERDALE CO-OP HOUSING SOCIETY LIMITED    ', N'', N'', N'', N'', N'BOMBAY CHEMICALS PVT. LTD. THE LICENSEE : M/S LANDMARK CAR PVT. LTD. 275/A/2/2A, PATLIPADA, NEAR ST. XAVIER''S SCHOOL, G.B.ROAD, THANE (W.) 400607', N'1303, Cloverdale, One Hiranandani Park, Brahmand, Thane West, Thane, Maharashtra 400607, India ', N'8169048567', N'', NULL, N'', N'.', N'', N'', N'', N'', N'', N'1303, Cloverdale, One Hiranandani Park, Brahmand, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 74, CAST(N'2025-09-16T12:49:15.893' AS DateTime)),
- 
+
  (608928, N'1', N'MM10', N'5', N'', 12, N'MM1000050000', 0, N'', NULL, N'', 6, NULL, N'Mr', N'HAMPTON CO-OP HOUSING SOCIETY LIMITED', N'', N'THE HOLDER', N'', N'', N'HAMPTON,ONE HIRANANDANI PARK,PATLIPADA,GB ROAD,THANE WEST-400615', N'403, Willowcrest, One Hiranandani Park, Patlipada, Thane West, Brahmand, Thane, Maharashtra 400607, India ', N'9136821218', N'', NULL, N'', N'HAMPTON CO-OP HOUSING SOCIETY LIMITED', N'', N'', N'', N'', N'', N'403, Willowcrest, One Hiranandani Park, Patlipada, Thane West, Brahmand, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 60, CAST(N'2025-08-28T15:01:57.880' AS DateTime)),
- 
+
  (608935, N'1', N'MM10', N'6', N'', 12, N'MM1000060000', 0, N'', NULL, N'', 6, NULL, N'Mr', N'EAGLETON CO-OP HOUSING SOCIETY LIMITED', N'', N'THE HOLDER', N'', N'', N'One Hiranandani Park Patlipada GB Road Thane West', N'2, S Vivekanand Marg, Brahmand, Manpada, Thane, Maharashtra 400607, India ', N'9619919019', N'', NULL, N'', N' EAGLETON CO-OP HOUSING SOCIETY .LTD   ', N'', N'', N'', N'', N'', N'2, S Vivekanand Marg, Brahmand, Manpada, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 60, CAST(N'2025-09-05T13:00:58.753' AS DateTime)),
- 
+
  (608985, N'1', N'MM10', N'7', N'', 12, N'MM1000070000', 0, N'', NULL, N'', 6, NULL, N'Mr', N'CLIFTON  CO-OPERATIVE HOUSING SOCIETY LIMITED', N'', N'THE HOLDER', N'', N'', N'CLIFTON BLDG,NEAR GHODBANDAR ROAD THANE(W)', N'2, S Vivekanand Marg, Brahmand, Manpada, Thane, Maharashtra 400607, India ', N'9819502727', N'', NULL, N'', N'CLIFTON  CO-OPERATIVE HOUSING SOCIETY LIMITED ', N'', N'', N'', N'', N'', N'2, S Vivekanand Marg, Brahmand, Manpada, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 60, CAST(N'2025-08-26T14:05:10.887' AS DateTime)),
- 
+
  (609019, N'1', N'MM10', N'8', N'', 12, N'MM1000080000', 0, N'', NULL, N'', 6, NULL, N'Mr', N'PRESTON CO-OP HOUSING SOCIETY LIMITED', N'', N'THE HOLDER', N'', N'', N'Survey No. 99/2 Preston Tower, One Hiranandani Park, Patlipada, Thane(W)', N'6XVG+MQX, Ghodbunder Service Rd, Brahmand, Thane West, Thane, Maharashtra 400607, India ', N'9821705686', N'', NULL, N'', N'.', N'', N'', N'', N'', N'', N'6XVG+MQX, Ghodbunder Service Rd, Brahmand, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 60, CAST(N'2025-08-28T18:27:09.703' AS DateTime)),
- 
+
  (609287, N'1', N'MM10', N'4', N'A1', 12, N'MM10000400A1', 0, NULL, NULL, NULL, 6, NULL, NULL, N'The Holder', NULL, NULL, N'101', NULL, N'Wing-A, Flat No-101, One Hiranandani Park Patlipada GB Road Thane West', N'Hiranandani Park Willowcrest, Brahmand, Thane West, Thane, Maharashtra, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'101', NULL, N'Wing-A, Flat No-101, One Hiranandani Park Patlipada GB Road Thane West', N'Hiranandani Park Willowcrest, Brahmand, Thane West, Thane, Maharashtra, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (609288, N'1', N'MM10', N'4', N'A2', 12, N'MM10000400A2', 0, NULL, NULL, NULL, 6, NULL, NULL, N'FLAT HOLDER:', NULL, N'WILLOWCREST, M/S ROMA BUILDERS PVT. LTD.', N'201', NULL, N'Wing-A, Flat No-201, One Hiranandani Park Patlipada GB Road Thane West', N'Hiranandani Park Willowcrest, Brahmand, Thane West, Thane, Maharashtra, India ', N'9322952476', NULL, NULL, NULL, NULL, NULL, NULL, N'201', NULL, N'Wing-A, Flat No-201, One Hiranandani Park Patlipada GB Road Thane West', N'Hiranandani Park Willowcrest, Brahmand, Thane West, Thane, Maharashtra, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (609289, N'1', N'MM10', N'4', N'A3', 12, N'MM10000400A3', 0, NULL, NULL, NULL, 6, NULL, NULL, N'FLAT HOLDER: ARCHANA MANGALAGIRI / RANJANA MANGALAGIRI   WILLOWCREST, M/S ROMA BUILDERS PVT. LTD.', NULL, N'', N'301', NULL, N'Wing-A, Flat No-301, One Hiranandani Park Patlipada GB Road Thane West', N'Hiranandani Park Willowcrest, Brahmand, Thane West, Thane, Maharashtra, India ', N'9920695522', NULL, NULL, NULL, NULL, NULL, NULL, N'301', NULL, N'Wing-A, Flat No-301, One Hiranandani Park Patlipada GB Road Thane West', N'Hiranandani Park Willowcrest, Brahmand, Thane West, Thane, Maharashtra, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (609290, N'1', N'MM10', N'4', N'A4', 12, N'MM10000400A4', 0, NULL, NULL, NULL, 6, NULL, NULL, N'FLAT HOLDER:', NULL, N'WILLOWCREST, M/S ROMA BUILDERS PVT. LTD.', N'401', NULL, N'Wing-A, Flat No-401, One Hiranandani Park Patlipada GB Road Thane West', N'Hiranandani Park Willowcrest, Brahmand, Thane West, Thane, Maharashtra, India ', N'7208489397', NULL, NULL, NULL, NULL, NULL, NULL, N'401', NULL, N'Wing-A, Flat No-401, One Hiranandani Park Patlipada GB Road Thane West', N'Hiranandani Park Willowcrest, Brahmand, Thane West, Thane, Maharashtra, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (750338, N'1', N'LSMAJOR1', N'1', N'D1', 12, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'The Holder', NULL, NULL, N'101', NULL, N'Wing-D, Flat No-101, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'101', NULL, N'Wing-D, Flat No-101, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (750339, N'1', N'LSMAJOR1', N'1', N'D2', 12, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'The Holder', NULL, NULL, N'201', NULL, N'Wing-D, Flat No-201, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'201', NULL, N'Wing-D, Flat No-201, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (750340, N'1', N'LSMAJOR1', N'1', N'D3', 12, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'The Holder', NULL, NULL, N'301', NULL, N'Wing-D, Flat No-301, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'301', NULL, N'Wing-D, Flat No-301, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (750341, N'1', N'LSMAJOR1', N'1', N'D4', 12, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'The Holder', NULL, NULL, N'401', NULL, N'Wing-D, Flat No-401, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'401', NULL, N'Wing-D, Flat No-401, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (750342, N'1', N'LSMAJOR1', N'1', N'D5', 12, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'The Holder', NULL, NULL, N'501', NULL, N'Wing-D, Flat No-501, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'501', NULL, N'Wing-D, Flat No-501, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (750343, N'1', N'LSMAJOR1', N'1', N'D6', 12, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'The Holder', NULL, NULL, N'601', NULL, N'Wing-D, Flat No-601, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'601', NULL, N'Wing-D, Flat No-601, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (750344, N'1', N'LSMAJOR1', N'1', N'D7', 12, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'The Holder', NULL, NULL, N'701', NULL, N'Wing-D, Flat No-701, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'701', NULL, N'Wing-D, Flat No-701, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (750345, N'1', N'LSMAJOR1', N'1', N'D8', 12, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'The Holder', NULL, NULL, N'801', NULL, N'Wing-D, Flat No-801, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'801', NULL, N'Wing-D, Flat No-801, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (750346, N'1', N'LSMAJOR1', N'1', N'D9', 12, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'The Holder', NULL, NULL, N'901', NULL, N'Wing-D, Flat No-901, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'901', NULL, N'Wing-D, Flat No-901, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
     (750347, N'1', N'LSMAJOR1', N'1', N'D10', 12, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'The Holder', NULL, NULL, N'1001', NULL, N'Wing-D, Flat No-1001, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'1001', NULL, N'Wing-D, Flat No-1001, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL)
 ) AS pd(PropertyId, TaxZoneId, WardId, PropertyNo, PartitionNo, PropertyTypeId, UPICId, OpenPlot, CSN, SubZoneNo, PlotNo, CategoryId, Type,  OwnerTitle, OwnerName, OccupierTitle, OccupierName, FlatOrShopNo, FlatOrShopName, Address, Location, MobileNo, EmailId, SocietyDetailId, OwnerTitleEnglish, OwnerNameEnglish, OccupierTitleEnglish, OccupierNameEnglish, FlatOrShopNoEnglish, FlatOrShopNameEnglish, AddressEnglish, LocationEnglish, MarkedForDeletion, IsActive, CreatedBy, CreatedDate, UpdatedBy, UpdatedDate)
 INNER JOIN PTIS.TaxZoneMaster tz ON pd.TaxZoneId = tz.TaxZoneNo
@@ -227,7 +227,7 @@ SET IDENTITY_INSERT [PTIS].[PropertyMast] OFF;
 GO
 
 
- 
+
 
 
 SET IDENTITY_INSERT [PTIS].[PlotDetails] ON;
@@ -687,7 +687,7 @@ FROM
    (206223, 604267, N'4', N'Attic', N'2009', NULL, N'A', N'R', 0, 0, 0, 0, 0, 0, N'', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime), NULL, NULL, 580, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime))
  ,
    (206224, 604268, N'5', N'Attic', N'2009', NULL, N'A', N'R', 0, 0, 0, 0, 0, 0, N'', N'', CAST(N'1900-01-01T00:00:00.000' AS DateTime), NULL, NULL, 580, NULL, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime))
- 
+
 ) AS pd
 (
     Id,
@@ -750,7 +750,7 @@ INSERT INTO [PTIS].[PropertyMastDetails](
     [TotalBuiltupAreaSqMeter], [Latitude], [Longitude],
     [NoOfResidentialToilets], [NoOfCommercialToilets], [CreatedBy], [CreatedDate], [UpdatedDate], [UpdatedBy]
 )
-SELECT 
+SELECT
     pmd.Id, pmd.PropertyId, otm.Id,
     pmd.AssessmentRemark, pmd.SurveyRemark, pmd.FlatSystemRemark, pmd.CombPropRemark,
     pmd.AdharCardNo, pmd.RenterMobileNo,
@@ -863,7 +863,7 @@ INSERT INTO PTIS.TransMast
     TaxAmount,
     CreatedBy
 )
-SELECT 
+SELECT
     p.Id,
     1,
     'RV',
@@ -900,7 +900,7 @@ AND NOT EXISTS
 --     TaxAmount,
 --     CreatedBy
 -- )
--- SELECT 
+-- SELECT
 --     p.Id,
 --     1,
 --     v.RVValue,
@@ -936,7 +936,7 @@ AND NOT EXISTS
 --     TaxAmount,
 --     CreatedBy
 -- )
--- SELECT 
+-- SELECT
 --     p.Id,
 --     1,
 --     v.RVValue,
@@ -1165,196 +1165,196 @@ FROM (VALUES
     (549441, N'1', N'MM11', N'16', N'', 12, N'MM1100160000', 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'The Holder', N'Smt', N'', N'', N'', N'SAI KRUPA CHAWL VARCHA GAON, KOLSHET, THANE-400607', N'6XQR+6M9, Kolshet Rd, Kolshet, Thane West, Thane, Maharashtra 400607, India ', N'8082028615', N'', NULL, N'', N'The Holder', N'', N'', N'', N'', N'', N'6XQR+6M9, Kolshet Rd, Kolshet, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-07-30T18:28:17.217' AS DateTime)),
 
    (549442, N'1', N'MM11', N'17', N'', 12, N'MM1100170000', 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'The Holder', N'Mr', N'', N'', N'', N'SAI KRUPA CHAWL VARCHA GAON, KOLSHET, THANE-400607', N'6XQR+6M9, Kolshet Rd, Kolshet, Thane West, Thane, Maharashtra 400607, India ', N'7208357449', N'', NULL, N'', N'The Holder', N'', N'', N'', N'.', N'', N'6XQR+6M9, Kolshet Rd, Kolshet, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-07-30T18:33:57.860' AS DateTime)),
- 
+
  (549445, N'1', N'MM11', N'18', N'', 12, N'MM1100180000', 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'The Holder', N'Mr', N'', N'', N'', N'SAI KRUPA CHAWL,VARCHA GAON, KOLSHET, THANE-400607', N'6XQR+6M9, Kolshet Rd, Kolshet, Thane West, Thane, Maharashtra 400607, India ', N'9833529588', N'', NULL, N'', N'The Holder', N'', N'', N'', N'', N'', N'6XQR+6M9, Kolshet Rd, Kolshet, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-07-30T18:40:21.360' AS DateTime)),
- 
+
  (549446, N'1', N'MM11', N'19', N'', 12, N'MM1100190000', 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'The Holder', N'Mr', N'PRESENT OCCUPIER :- AJAY RAMPAL ROHANDIYA', N'', N'', N'SAI KRUPA CHAWL,VARCHA GAON, KOLSHET, THANE-400607', N'6XQR+6M9, Kolshet Rd, Kolshet, Thane West, Thane, Maharashtra 400607, India ', N'9967768667', N'', NULL, N'', N'The Holder', N'', N'', N'', N'', N'', N'6XQR+6M9, Kolshet Rd, Kolshet, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-08-19T15:12:44.047' AS DateTime)),
- 
+
  (549448, N'1', N'MM11', N'20', N'', 12, N'MM1100200000', 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'The Holder', N'Mr', N'', N'', N'', N'SAI KRUPA CHAWL,VARCHA GAON, KOLSHET, THANE-400607', N'1, Gamdevi, Marol, Andheri East, Mumbai, Thane, Maharashtra 400059, India ', N'9004814808', N'', NULL, N'', N'The Holder', N'', N'', N'', N'', N'', N'1, Gamdevi, Marol, Andheri East, Mumbai, Thane, Maharashtra 400059, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 73, CAST(N'2025-08-19T16:58:57.933' AS DateTime)),
- 
+
  (549451, N'1', N'MM11', N'21', N'', 12, N'MM1100210000', 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'The Holder', N'Smt', N'', N'', N'', N'SAI KRUPA CHAWL,VARCHA GAON, KOLSHET, THANE-400607', N'1, Gamdevi, Marol, Andheri East, Mumbai, Thane, Maharashtra 400059, India ', N'9322757603', N'', NULL, N'', N'The Holder', N'', N'', N'', N'', N'', N'1, Gamdevi, Marol, Andheri East, Mumbai, Thane, Maharashtra 400059, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-08-19T15:29:45.997' AS DateTime)),
- 
+
  (549452, N'1', N'MM11', N'22', N'', 12, N'MM1100220000', 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'The Holder', N'Mr', N'', N'', N'', N'SAI KRUPA CHAWL,VARCHA GAON, KOLSHET, THANE-400607', N'1, Gamdevi, Marol, Andheri East, Mumbai, Thane, Maharashtra 400059, India ', N'7738632925', N'', NULL, N'', N'The Holder', N'', N'', N'', N'', N'', N'1, Gamdevi, Marol, Andheri East, Mumbai, Thane, Maharashtra 400059, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 73, CAST(N'2025-08-14T17:33:14.693' AS DateTime)),
- 
+
  (549453, N'1', N'MM11', N'23', N'', 12, N'MM1100230000', 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'The Holder', N'Mr', N'', N'', N'', N'SAI KRUPA CHAWL,VARCHA GAON, KOLSHET, THANE-400607', N'1, Gamdevi, Marol, Andheri East, Mumbai, Thane, Maharashtra 400059, India ', N'9869737593', N'', NULL, N'', N'The Holder', N'', N'', N'', N'', N'', N'1, Gamdevi, Marol, Andheri East, Mumbai, Thane, Maharashtra 400059, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-08-19T15:48:04.117' AS DateTime)),
- 
+
  (550296, N'1', N'MM1', N'19', N'', 5, N'MM0100190000', 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'The Holder', N'Mr', N'ABAHY BRIJBIHARI SHARMA & NISTHA ABHAY SHARMA', N'', N'Swasth Sankalpan', N'BUNGLOW NO. 3 OPP. DEV DARSHAN SOC. PHASE1, G.B. ROAD , THANE ,WEST.', N'S-1, Dongripada, Thane West, Thane, Maharashtra 400607, India ', N'9833222706', N'', NULL, N'', N'The Holder', N'', N'', N'', N'Swasth Sankalpan', N'', N'S-1, Dongripada, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (550299, N'1', N'MM1', N'22', N'', 12, N'MM0100220000', 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'The Holder', N'Mr', N'SMT.  SHILA VILAS MANIK', N'', N'Alder Care', N'Near Devdarshan Phase 1 Bilding Dongripada Ghodbunder Road. Thane West', N'Dosti Imperia, 7, Ghodbunder Rd, Manpada, Thane West, Thane, Maharashtra 400607, India ', N'8454970354', N'', NULL, N'', N'The Holder', N'', NULL, NULL, N'', N'', N'Dosti Imperia, 7, Ghodbunder Rd, Manpada, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (550300, N'1', N'MM1', N'23', N'', 1, N'MM0100230000', 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'The Holder', N'Mr', N'SHRI. AJAY TAMHANE AND SOU. JAYSHREETAMHANE', N'', N'', N'KAVESAR', N'Dosti Imperia, 7, Ghodbunder Rd, Manpada, Thane West, Thane, Maharashtra 400607, India ', N'9930593675', N'', NULL, N'', N'The Holder', N'', NULL, NULL, N'', N'', N'Dosti Imperia, 7, Ghodbunder Rd, Manpada, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (550304, N'1', N'MM1', N'24', N'', 1, N'MM0100240000', 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'The Holder', N'Mr', N'SALONA BAINS JOSHI', N'', N'Uc Kindies', N'Near Devdarshan Phase 1 Bilding Dongripada Ghodbunder Road. Thane West', N'Dosti Imperia, 7, Ghodbunder Rd, Manpada, Thane West, Thane, Maharashtra 400607, India ', N'9819156930', N'', NULL, N'', N'The Holder', N'', NULL, NULL, N'', N'', N'Dosti Imperia, 7, Ghodbunder Rd, Manpada, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (550514, N'1', N'MM1', N'41', N'', 29, N'MM0100410000', 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'THE HOLDER', N'Mr', N'THE HOLDER', N'', N'Sidhivinayak', N'NEAR HOTEL JALALA GHODBANDAR ROAD . , THANE-400607', N'Vijay Galaxy Vijay Galaxy-1, 1, Wagbil Rd, Anu Nagar, Vijay Nagari, Thane West, Thane, Maharashtra 400607, India ', N'9987631663', N'', NULL, N'', N'', N'', N'Dilip Radheshyam Chaubey', NULL, N'', N'', N'Vijay Galaxy Vijay Galaxy-1, 1, Wagbil Rd, Anu Nagar, Vijay Nagari, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (550516, N'1', N'MM1', N'42', N'', 12, N'MM0100420000', 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'The Holder', N'Mr', NULL, NULL, N'Stayl Your Spase', N' GALA NO.4, RADHESHYAM CHAWL, WAGHBIL NAKA, NR. DALAL COMPANY, G.B. ROAD, THANE', N'7X3F+73M, Wagbil Rd, Anu Nagar, Vijay Nagari, Thane West, Thane, Maharashtra 400607, India ', N'8828177466', N'', NULL, N'', N'The Holder', N'', NULL, NULL, N'', N'', N'7X3F+73M, Wagbil Rd, Anu Nagar, Vijay Nagari, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (550722, N'1', N'MM1', N'85', N'', 12, N'MM0100850000', 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'- KALLU SURAJ GAUD KALLU SURAJ GAUD ', N'', N'', N'', N'', N'Near SANGHAVI HILLS .D MART  ANAND NAGER G B ROAD THANE WEST', N'1, Ghodbunder Rd, Sanghavi Hills, Parkwoods, Thane West, Mumbai, Maharashtra 400607, India ', N'7738869965', N'', NULL, N'', N'', N'', N'', N'', N'', N'', N'1, Ghodbunder Rd, Sanghavi Hills, Parkwoods, Thane West, Mumbai, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-08-19T12:01:03.007' AS DateTime)),
- 
+
  (550726, N'1', N'MM1', N'85', N'1', 12, N'MM0100850001', 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'The Holder', N'Mr', N'The Holder', N'', N'', N'Near SANGHAVI HILLS .D MART ANAND NAGER G B ROAD THANE WEST', NULL, N'', N'', NULL, N'', N'The Holder', NULL, N'', N'', N'', N'', NULL, 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-08-19T12:13:12.973' AS DateTime)),
- 
+
  (550727, N'1', N'MM1', N'85', N'2', 12, N'MM0100850002', 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'The Holder', N'Mr', N'The Holder ', N'', N'', N'Near SANGHAVI HILLS .D MART  ANAND NAGER G B ROAD THANE WEST', NULL, N'', N'', NULL, N'', N'The Holder', NULL, N'', N'', N'', N'', NULL, 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-08-19T12:31:28.133' AS DateTime)),
- 
+
  (550728, N'1', N'MM1', N'85', N'3', 12, N'MM0100850003', 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'The Holder', N'Mr', N'The Holder', N'', N'', N'Near SANGHAVI HILLS .D MART ANAND NAGER G B ROAD THANE WEST', NULL, N'', N'', NULL, N'', N'The Holder', NULL, N'', N'', N'', N'', NULL, 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-08-19T12:31:50.063' AS DateTime)),
- 
+
  (552371, N'1', N'DIMAJOR1', N'1', N'', 69, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'Mr', N'NAGNATH APARTMENT', N'', N'THE HOLDER', N'', N'.', N'NAGNATH APARTMENT MASOBA DEVNAGAR MADHAVI BANGLA ROAD,DIVA-412421', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', N'', N'', NULL, N'', N'.', N'', N'', N'', N'.', N'', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 60, CAST(N'2025-06-26T12:55:31.150' AS DateTime)),
- 
+
  (552372, N'1', N'DIMAJOR1', N'1', N'A', 69, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'à¤¶à¥à¤°à¥€', N'NAGNATH APARTMENT', NULL, N'THE HOLDER', N'', N'.', N'WING -B, NAGNATH APARTMENT MASOBA DEVNAGAR MADHAVI BANGLA ROAD,DIVA-412421', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', N'', N'', NULL, N'Mr', N'.', NULL, N'', N'', N'', N'', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 60, CAST(N'2025-06-26T12:58:39.177' AS DateTime)),
- 
+
  (552373, N'1', N'DIMAJOR1', N'1', N'S', 69, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'', N'NAGNATH APARTMENT', NULL, N'THE HOLDER', N'', N'.', N'WING -S, NAGNATH APARTMENT MASOBA DEVNAGAR MADHAVI BANGLA ROAD,DIVA-412421', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', N'', N'', NULL, N'', N'', NULL, N'', N'', N'', N'', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 60, CAST(N'2025-06-26T12:58:05.040' AS DateTime)),
- 
+
  (552374, N'1', N'DIMAJOR1', N'1', N'A1', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'NAGNATH APARTMENT', N'', N'THE HOLDER', N'1', N'', N'WING-B, FLAT NO-1, NAGNATH APARTMENT MASOBA DEVNAGAR MADHAVI BANGLA ROAD,DIVA-412421', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', N'9004564479', N'', NULL, N'', N'The Holder', NULL, N'', N'1', N'', N'Wing-B, Flat No-1, NAGNATH APARTMENT MASOBA devnagar Madhavi Bangla Road EKVIRA APARTMENT NEAR', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 55, CAST(N'2025-06-14T15:42:57.910' AS DateTime)),
- 
+
  (552375, N'1', N'DIMAJOR1', N'1', N'A2', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'NAGNATH APARTMENT', N'Mr', N'THE HOLDER', N'101', N'', N'WING-B, FLAT NO-101, NAGNATH APARTMENT MASOBA DEVNAGAR MADHAVI BANGLA ROAD,DIVA-412421', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', N'9819482978', N'', NULL, N'', N'The Holder', NULL, N'', N'101', N'', N'Wing-B, Flat No-101, NAGNATH APARTMENT MASOBA devnagar Madhavi Bangla Road EKVIRA APARTMENT NEAR', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (552376, N'1', N'DIMAJOR1', N'1', N'A3', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'NAGNATH APARTMENT', N'Mr', N'THE HOLDER', N'201', N'', N'WING-B, FLAT NO-201, NAGNATH APARTMENT MASOBA DEVNAGAR MADHAVI BANGLA ROAD,DIVA-412421', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', N'8975378988', N'', NULL, N'', N'The Holder', NULL, N'', N'201', N'', N'Wing-B, Flat No-201, NAGNATH APARTMENT MASOBA devnagar Madhavi Bangla Road EKVIRA APARTMENT NEAR', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (552377, N'1', N'DIMAJOR1', N'1', N'A4', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'NAGNATH APARTMENT', N'Mr', N'THE HOLDER', N'301', N'', N'WING-B, FLAT NO-301, NAGNATH APARTMENT MASOBA DEVNAGAR MADHAVI BANGLA ROAD,DIVA-412421', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', N'8652579778', N'', NULL, N'', N'The Holder', NULL, N'', N'301', N'', N'Wing-B, Flat No-301, NAGNATH APARTMENT MASOBA devnagar Madhavi Bangla Road EKVIRA APARTMENT NEAR', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (552378, N'1', N'DIMAJOR1', N'1', N'A5', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'NAGNATH APARTMENT', N'Mr', N'THE HOLDER', N'401', N'', N'WING-B, FLAT NO-401, NAGNATH APARTMENT MASOBA DEVNAGAR MADHAVI BANGLA ROAD,DIVA-412421', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', N'7977590750', N'', NULL, N'', N'The Holder', NULL, N'', N'401', N'', N'Wing-B, Flat No-401, NAGNATH APARTMENT MASOBA devnagar Madhavi Bangla Road EKVIRA APARTMENT NEAR', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (552379, N'1', N'DIMAJOR1', N'1', N'A6', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'NAGNATH APARTMENT', N'Mr', N'THE HOLDER', N'2', N'', N'WING-B, FLAT NO-2, NAGNATH APARTMENT MASOBA DEVNAGAR MADHAVI BANGLA ROAD,DIVA-412421', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', N'9321443608', N'', NULL, N'', N'The Holder', NULL, N'', N'2', N'', N'WING-B, FLAT NO-2, NAGNATH APARTMENT MASOBA DEVNAGAR MADHAVI BANGLA ROAD,DIVA-412421', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (552380, N'1', N'DIMAJOR1', N'1', N'A7', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'NAGNATH APARTMENT', N'Mr', N'THE HOLDER', N'102', N'', N'WING-B, FLAT NO-102, NAGNATH APARTMENT MASOBA DEVNAGAR MADHAVI BANGLA ROAD,DIVA-412421', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', N'9769270391', N'', NULL, N'', N'The Holder', NULL, N'', N'102', N'', N'Wing-B, Flat No-102, NAGNATH APARTMENT MASOBA devnagar Madhavi Bangla Road EKVIRA APARTMENT NEAR', N'53M6+V78, Datiwali Gaon, Thane, Maharashtra 400612, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (552994, N'1', N'DIMAJOR2', N'1', N'', 69, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'Mr', N'SUKHIYA APARTMENT', N'', N'THE HOLDER', N'', N'.', N'SUKHIYA APARTMENT,KALYAN PHATA DAIGHAR GAON ROAD BESIDE PG,SHIL-421204', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', N'9821201794', N'', NULL, N'', N'.', N'', N'', N'', N'.', N'', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-06-05T18:00:58.173' AS DateTime)),
- 
+
  (553033, N'1', N'DIMAJOR2', N'1', N'A', 12, NULL, 0, N'', NULL, N'', 6, NULL, NULL, NULL, N'SUKHIYA APARTMENT', NULL, N'THE HOLDER', NULL, NULL, N'WING -A, SUKHIYA APARTMENT,KALYAN PHATA DAIGHAR GAON ROAD BESIDE PG,SHIL-421204', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', N'9821201794', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, N'Wing -A, Sukhiya Apartment,Kalyan Phata Daighar Gaon Road Beside Pg,Shil', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (553034, N'1', N'DIMAJOR2', N'1', N'S', 13, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'à¤¶à¥à¤°à¥€', N'SUKHIYA APARTMENT', NULL, N'THE HOLDER', N'', N'.', N'WING -S, SUKHIYA APARTMENT,KALYAN PHATA DAIGHAR GAON ROAD BESIDE PG,SHIL-421204', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', N'9821201794', N'', NULL, N'Mr', N'.', NULL, N'', N'', N'', N'Wing -S, Sukhiya Apartment,Kalyan Phata Daighar Gaon Road Beside Pg,Shil', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 70, CAST(N'2025-09-12T16:34:09.020' AS DateTime)),
- 
+
  (553035, N'1', N'DIMAJOR2', N'1', N'A1', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'SUKHIYA APARTMENT', N'Mr', N'THE HOLDER', N'1', N'', N'WING-A, FLAT NO-1, SUKHIYA APARTMENT,KALYAN PHATA DAIGHAR GAON ROAD BESIDE PG,SHIL-421204', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', N'9224555542', N'', NULL, N'', N'The Holder', NULL, N'', N'1', N'', N'Wing-A, Flat No-1, Sukhiya Apartment,Kalyan Phata Daighar Gaon Road Beside Pg,Shil', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 90, CAST(N'2025-07-07T12:27:56.023' AS DateTime)),
- 
+
  (553036, N'1', N'DIMAJOR2', N'1', N'A2', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'', N'SUKHIYA APARTMENT', NULL, N'THE HOLDER', N'101', N'', N'WING-A, FLAT NO-101, SUKHIYA APARTMENT,KALYAN PHATA DAIGHAR GAON ROAD BESIDE PG,SHIL-421204', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', N'8355971319', N'', NULL, N'', N'The Holder', NULL, N'', N'101', N'', N'Wing-A, Flat No-101, Sukhiya Apartment,Kalyan Phata Daighar Gaon Road Beside Pg,Shil', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-06-12T16:10:18.877' AS DateTime)),
- 
+
  (553037, N'1', N'DIMAJOR2', N'1', N'A3', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, NULL, N'SUKHIYA APARTMENT', NULL, N'THE HOLDER', N'201', NULL, N'WING-A, FLAT NO-201, SUKHIYA APARTMENT,KALYAN PHATA DAIGHAR GAON ROAD BESIDE PG,SHIL-421204', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', N'9833116002', NULL, NULL, NULL, N'The Holder', NULL, NULL, N'201', NULL, N'Wing-A, Flat No-201, Sukhiya Apartment,Kalyan Phata Daighar Gaon Road Beside Pg,Shil', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (553038, N'1', N'DIMAJOR2', N'1', N'A4', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, NULL, N'SUKHIYA APARTMENT', NULL, N'THE HOLDER', N'301', NULL, N'WING-A, FLAT NO-301, SUKHIYA APARTMENT,KALYAN PHATA DAIGHAR GAON ROAD BESIDE PG,SHIL-421204', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', N'9821201794', NULL, NULL, NULL, N'The Holder', NULL, NULL, N'301', NULL, N'Wing-A, Flat No-301, Sukhiya Apartment,Kalyan Phata Daighar Gaon Road Beside Pg,Shil', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (553039, N'1', N'DIMAJOR2', N'1', N'A5', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, NULL, N'SUKHIYA APARTMENT', NULL, N'THE HOLDER', N'401', NULL, N'WING-A, FLAT NO-401, SUKHIYA APARTMENT,KALYAN PHATA DAIGHAR GAON ROAD BESIDE PG,SHIL-421204', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', N'9892039450', NULL, NULL, NULL, N'The Holder', NULL, NULL, N'401', NULL, N'Wing-A, Flat No-401, Sukhiya Apartment,Kalyan Phata Daighar Gaon Road Beside Pg,Shil', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (553040, N'1', N'DIMAJOR2', N'1', N'A6', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, NULL, N'SUKHIYA APARTMENT', NULL, N'THE HOLDER', N'501', NULL, N'WING-A, FLAT NO-501, SUKHIYA APARTMENT,KALYAN PHATA DAIGHAR GAON ROAD BESIDE PG,SHIL-421204', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', N'9821201794', NULL, NULL, NULL, N'The Holder', NULL, NULL, N'501', NULL, N'Wing-A, Flat No-501, Sukhiya Apartment,Kalyan Phata Daighar Gaon Road Beside Pg,Shil', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (553041, N'1', N'DIMAJOR2', N'1', N'A7', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'', N'SUKHIYA APARTMENT', NULL, N'THE HOLDER', N'2', N'', N'WING-A, FLAT NO-2, SUKHIYA APARTMENT,KALYAN PHATA DAIGHAR GAON ROAD BESIDE PG,SHIL-421204', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', N'9821201794', N'', NULL, N'', N'The Holder', NULL, N'', N'2', N'', N'Wing-A, Flat No-2, Sukhiya Apartment,Kalyan Phata Daighar Gaon Road Beside Pg,Shil', N'42VX+8G3, Kalyan Phata Cir, Shilphata, Navi Mumbai, Thane, Maharashtra 421204, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-06-12T16:06:18.700' AS DateTime)),
- 
+
  (556004, N'1', N'KLMAJOR3', N'1', N'', 69, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'à¤¶à¥à¤°à¥€', N'PRADIP DATTATRAY KINI AND HANUMAN RAMCHANDRA KINI', N'', N'', N'', N'.', N'MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,KHAREGAON-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', N'', N'', NULL, N'Mr', N'.', N'', N'', N'', N'.', N'', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 55, CAST(N'2025-07-21T20:24:38.123' AS DateTime)),
- 
+
  (556008, N'1', N'KLMAJOR3', N'1', N'A', 69, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'à¤¶à¥à¤°à¥€', N'PRADIP DATTATRAY KINI AND HANUMAN RAMCHANDRA KINI', NULL, N'', N'', N'.', N'Wing -A, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK , Kharegaon-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', N'', N'', NULL, N'Mr', N'.', NULL, N'', N'', N'', N'Wing -A, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,à¤–à¤¾à¤°à¥‡à¤—à¤¾à¤µ-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 69, CAST(N'2025-07-23T18:04:54.223' AS DateTime)),
- 
+
  (556010, N'1', N'KLMAJOR3', N'1', N'A1', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'PRADIP DATTATRAY KINI AND HANUMAN RAMCHANDRA KINI', N'', N'MANDAR CONSTRUCTION AND DEVLOPERS .LLP', N'101', N'', N'Wing-A, Flat No-101, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,Kharegaon-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', N'9833187777', N'mandarkeni@yahoo.com', NULL, N'', N'.', NULL, N'', N'101', N'', N'Wing-A, Flat No-101, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,à¤–à¤¾à¤°à¥‡à¤—à¤¾à¤µ-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 58, CAST(N'2025-08-08T13:13:55.817' AS DateTime)),
- 
+
  (556011, N'1', N'KLMAJOR3', N'1', N'A2', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'PRADIP DATTATRAY KINI AND HANUMAN RAMCHANDRA KINI', N'', N'MANDAR CONSTRUCTION AND DEVLOPERS .LLP', N'201', N'', N'Wing-A, Flat No-201, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,Kharegaon-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', N'9833187777', N'mandarkeni@yahoo.com', NULL, N'', N'.', NULL, N'', N'201', N'', N'Wing-A, Flat No-201, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,à¤–à¤¾à¤°à¥‡à¤—à¤¾à¤µ-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (556012, N'1', N'KLMAJOR3', N'1', N'A3', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'PRADIP DATTATRAY KINI AND HANUMAN RAMCHANDRA KINI', N'', N'MANDAR CONSTRUCTION AND DEVLOPERS .LLP', N'301', N'', N'Wing-A, Flat No-301, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,Kharegaon-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', N'9833187777', N'mandarkeni@yahoo.com', NULL, N'', N'.', NULL, N'', N'301', N'', N'Wing-A, Flat No-301, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,à¤–à¤¾à¤°à¥‡à¤—à¤¾à¤µ-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
  (556013, N'1', N'KLMAJOR3', N'1', N'A4', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'PRADIP DATTATRAY KINI AND HANUMAN RAMCHANDRA KINI', N'', N'MANDAR CONSTRUCTION AND DEVLOPERS .LLP', N'401', N'', N'Wing-A, Flat No-401, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,Kharegaon-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', N'9833187777', N'mandarkeni@yahoo.com', NULL, N'', N'.', NULL, N'', N'401', N'', N'Wing-A, Flat No-401, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,à¤–à¤¾à¤°à¥‡à¤—à¤¾à¤µ-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 55, CAST(N'2025-07-03T20:30:13.697' AS DateTime)),
- 
+
  (556014, N'1', N'KLMAJOR3', N'1', N'A5', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'PRADIP DATTATRAY KINI AND HANUMAN RAMCHANDRA KINI', N'', N'MANDAR CONSTRUCTION AND DEVLOPERS .LLP', N'501', N'', N'Wing-A, Flat No-501, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,Kharegaon-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', N'9833187777', N'mandarkeni@yahoo.com', NULL, N'', N'.', NULL, N'', N'501', N'', N'Wing-A, Flat No-501, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,à¤–à¤¾à¤°à¥‡à¤—à¤¾à¤µ-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (556015, N'1', N'KLMAJOR3', N'1', N'A6', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'PRADIP DATTATRAY KINI AND HANUMAN RAMCHANDRA KINI', N'Mr', N'MANDAR CONSTRUCTION AND DEVLOPERS .LLP', N'601', N'', N'Wing-A, Flat No-601, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,Kharegaon-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', N'9833187777', N'mandarkeni@yahoo.com', NULL, N'', N'.', NULL, N'', N'601', N'', N'Wing-A, Flat No-601, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,à¤–à¤¾à¤°à¥‡à¤—à¤¾à¤µ-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (556016, N'1', N'KLMAJOR3', N'1', N'A7', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'PRADIP DATTATRAY KINI AND HANUMAN RAMCHANDRA KINI', N'', N'MANDAR CONSTRUCTION AND DEVLOPERS .LLP', N'701', N'', N'Wing-A, Flat No-701, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,Kharegaon-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', N'9833187777', N'mandarkeni@yahoo.com', NULL, N'', N'.', NULL, N'', N'701', N'', N'Wing-A, Flat No-701, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,à¤–à¤¾à¤°à¥‡à¤—à¤¾à¤µ-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (556017, N'1', N'KLMAJOR3', N'1', N'A8', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'PRADIP DATTATRAY KINI AND HANUMAN RAMCHANDRA KINI', N'', N'MANDAR CONSTRUCTION AND DEVLOPERS .LLP', N'801', N'', N'Wing-A, Flat No-801, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,Kharegaon-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', N'9833187777', N'mandarkeni@yahoo.com', NULL, N'', N'.', NULL, N'', N'801', N'', N'Wing-A, Flat No-801, MAPLE PARADISE BUILDING,DATTAWADI ,60 FEET ROAD ,OPPOSITE SAYA PARK ,à¤–à¤¾à¤°à¥‡à¤—à¤¾à¤µ-400605', N'6X4W+VFH, Kharegaon, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (560660, N'1', N'KLMAJOR1', N'3', N'A1', 12, NULL, 0, NULL, NULL, NULL, 6, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'101', NULL, N'Flat No-101, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'101', NULL, N'Flat No-101, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (560661, N'1', N'KLMAJOR1', N'3', N'A2', 12, NULL, 0, NULL, NULL, NULL, 6, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'201', NULL, N'Flat No-201, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'201', NULL, N'Flat No-201, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (560662, N'1', N'KLMAJOR1', N'3', N'A3', 12, NULL, 0, NULL, NULL, NULL, 6, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'301', NULL, N'Flat No-301, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'301', NULL, N'Flat No-301, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (560663, N'1', N'KLMAJOR1', N'3', N'A4', 12, NULL, 0, NULL, NULL, NULL, 6, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'401', NULL, N'Flat No-401, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'401', NULL, N'Flat No-401, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (560664, N'1', N'KLMAJOR1', N'3', N'A5', 12, NULL, 0, NULL, NULL, NULL, 6, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'501', NULL, N'Flat No-501, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'501', NULL, N'Flat No-501, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (560665, N'1', N'KLMAJOR1', N'3', N'A6', 12, NULL, 0, NULL, NULL, NULL, 6, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'601', NULL, N'Flat No-601, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'601', NULL, N'Flat No-601, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (560666, N'1', N'KLMAJOR1', N'3', N'A7', 12, NULL, 0, NULL, NULL, NULL, 6, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'701', NULL, N'Flat No-701, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'701', NULL, N'Flat No-701, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (560667, N'1', N'KLMAJOR1', N'3', N'A8', 12, NULL, 0, NULL, NULL, NULL, 6, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'102', NULL, N'Flat No-102, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'102', NULL, N'Flat No-102, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (560668, N'1', N'KLMAJOR1', N'3', N'A9', 12, NULL, 0, NULL, NULL, NULL, 6, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'202', NULL, N'Flat No-202, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'202', NULL, N'Flat No-202, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (560669, N'1', N'KLMAJOR1', N'3', N'A10', 12, NULL, 0, NULL, NULL, NULL, 6, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'302', NULL, N'Flat No-302, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'302', NULL, N'Flat No-302, Baban kar Laat hight Devi chapada Ambedkar Nagar Vitawa', N'Shop No 4, Priyanka Paradise, Shop No 4, Vitawa, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (576936, N'1', N'KLMAJOR2', N'1', N'', 69, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'à¤¶à¥à¤°à¥€', N'SHREE HARI HIGHTS', N'', N'THE HOLDER', N'', N'.', N'SHREE HARI HIGHTS, OPPOSITE AMRUT PARK SOCIETY, SHSHTRI NAGAR, KALWA(W).-400605', N'5XXQ+HG7, Shastri Nagar, Manisha Nagar, Kalwa, Thane, Maharashtra 400605, India ', N'9892805400', N'', NULL, N'Mr', N'.', N'', N'', N'', N'', N'', N'5XXQ+HG7, Shastri Nagar, Manisha Nagar, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 75, CAST(N'2025-07-14T17:36:05.770' AS DateTime)),
- 
+
  (576939, N'1', N'KLMAJOR2', N'2', N'', 69, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'à¤¶à¥à¤°à¥€', N'SAWALARAM HEIGHTS WING A&B', N'', N'THE HOLDER', N'', N'.', N'SAWALARAM HEIGHTS,MANISHA NAGAR RD, SHASTRI NAGAR, KALWA,THANE-400605', NULL, N'9867146697', N'', NULL, N'Mr', N'.', N'', N'', N'', N'.', N'', NULL, 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 74, CAST(N'2025-07-12T11:05:38.767' AS DateTime)),
- 
+
  (577185, N'1', N'KLMAJOR2', N'3', N'', 69, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'Mr', N'SALUBAI NIWAS', N'', N'THE HOLDER', N'', N'.', N'SALUBAI NIWAS, JAMA MASJIT ROAD, KALWA NAKA, KALWA (P)THANE.-400605', N'Bala Mhatre Building, Kalwa West, Budhaji Nagar, Kalwa, Thane, Maharashtra 400605, India ', N'9819824232', N'', NULL, N'', N'', N'', N'', N'', N'', N'', N'Bala Mhatre Building, Kalwa West, Budhaji Nagar, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 78, CAST(N'2025-07-09T17:09:15.410' AS DateTime)),
- 
+
  (577437, N'1', N'KLMAJOR2', N'4', N'', 69, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'Mr', N'GANESH KRUPA CO. OP. HOUSING SOCIETY', N'', N'THE HOLDER', N'', N'.', N'GANESH KRUPA, THAKUR CHAUK, MUMBAI-PUNE ROAD, KALWA, THANE-400605', N'401 Dhanalaxmi CHS, Kalwa - Kharigaon Road, Kumbhar Aali, Kalwa West, Budhaji Nagar, Kalwa, Thane, Maharashtra 400605, India ', N'7738709030', N'', NULL, N'', N'', N'', N'', N'', N'.', N'', N'401 Dhanalaxmi CHS, Kalwa - Kharigaon Road, Kumbhar Aali, Kalwa West, Budhaji Nagar, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 77, CAST(N'2025-07-15T17:12:14.963' AS DateTime)),
- 
+
  (577538, N'1', N'KLMAJOR2', N'5', N'', 69, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'Mr', N'PARVATI VILLA', N'', N'THE HOLDER', N'', N'.', N'PARVATI VILLA BUILDING, NEAR PRINCE ELECTRONICS, KUMBHAR ALI, KALWA, THANE-400605', N'9, Station Rd, Kalwa West, Budhaji Nagar, Thane East, Mumbai, Thane, Maharashtra 400605, India ', N'9833123321', N'', NULL, N'', N'', N'', N'', N'', N'', N'', N'9, Station Rd, Kalwa West, Budhaji Nagar, Thane East, Mumbai, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 75, CAST(N'2025-07-14T17:35:03.773' AS DateTime)),
- 
+
  (577957, N'1', N'KLMAJOR2', N'7', N'', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Smt', N'The Holder', N'Smt', N'Sunita Ramnath Tandel', N'', N'Riddhesh Bunglow', N'Riddhesh Bunglow,Near Prince Electronics, KumbhaAli, Kalwa West,Thane.', N'5XWR+93F, Kumbhar Ln, Sudama Nagar, Budhaji Nagar, Kalwa, Thane, Maharashtra 400605, India ', N'9967488844', N'', NULL, N'', N'', N'', N'', N'', N'Riddhesh Bunglow', N'', N'5XWR+93F, Kumbhar Ln, Sudama Nagar, Budhaji Nagar, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 94, CAST(N'2025-09-04T10:19:52.800' AS DateTime)),
- 
+
  (579097, N'1', N'KLMAJOR2', N'1', N'A', 69, NULL, 0, N'', NULL, N'', 6, NULL, NULL, NULL, N'SHREE HARI HIGHTS', NULL, N'THE HOLDER', NULL, NULL, N'WING -A, SHREE HARI HIGHTS, OPPOSITE AMRUT PARK SOCIETY, SHSHTRI NAGAR, KALWA(W).-400605', N'5XXQ+HG7, Shastri Nagar, Manisha Nagar, Kalwa, Thane, Maharashtra 400605, India ', NULL, N'', NULL, NULL, NULL, NULL, NULL, NULL, NULL, N'', N'5XXQ+HG7, Shastri Nagar, Manisha Nagar, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (579098, N'1', N'KLMAJOR2', N'1', N'S', 13, NULL, 0, N'', NULL, N'', 6, NULL, NULL, N'à¤¶à¥à¤°à¥€', N'SHREE HARI HIGHTS', NULL, N'THE HOLDER', N'', N'.', N'WING -S, SHREE HARI HIGHTS, OPPOSITE AMRUT PARK SOCIETY, SHSHTRI NAGAR, KALWA(W).-400605', N'5XXQ+HG7, Shastri Nagar, Manisha Nagar, Kalwa, Thane, Maharashtra 400605, India ', N'', N'', NULL, N'Mr', N'.', NULL, N'', N'', N'', N'', N'5XXQ+HG7, Shastri Nagar, Manisha Nagar, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 70, CAST(N'2025-09-03T13:26:25.643' AS DateTime)),
- 
+
  (579099, N'1', N'KLMAJOR2', N'1', N'A1', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'', N'SHRI HARI HIGHTS', NULL, N'THE HOLDER', N'1', N'', N'WING-A, FLAT NO-1, SHREE HARI HIGHTS, OPPOSITE AMRUT PARK SOCIETY, SHSHTRI NAGAR, KALWA(W).-400605', N'5XXQ+HG7, Shastri Nagar, Manisha Nagar, Kalwa, Thane, Maharashtra 400605, India ', N'9867284101', N'', NULL, N'', N'The Holder', NULL, N'', N'1', N'', N'Wing-A, Flat No-1, Shree Hari Hights, Opposite Amrut Park Society, Shshtri Nagar, Kalwa(W).', N'5XXQ+HG7, Shastri Nagar, Manisha Nagar, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 65, CAST(N'2025-07-01T12:52:29.307' AS DateTime)),
- 
+
  (579100, N'1', N'KLMAJOR2', N'1', N'A2', 12, NULL, 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'', N'SHRI HARI HIGHTS', NULL, N'THE HOLDER', N'101', N'', N'WING-A, FLAT NO-101, SHREE HARI HIGHTS, OPPOSITE AMRUT PARK SOCIETY, SHSHTRI NAGAR, KALWA(W).-400605', N'5XXQ+HG7, Shastri Nagar, Manisha Nagar, Kalwa, Thane, Maharashtra 400605, India ', N'8828309595', N'', NULL, N'', N'The Holder', NULL, N'', N'101', N'', N'Wing-A, Flat No-101, Shree Hari Hights, Opposite Amrut Park Society, Shshtri Nagar, Kalwa(W).', N'5XXQ+HG7, Shastri Nagar, Manisha Nagar, Kalwa, Thane, Maharashtra 400605, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 65, CAST(N'2025-07-01T13:01:02.627' AS DateTime)),
- 
+
  (599038, N'1', N'MM13', N'1', N'', 152, N'MM1300010000', 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'The Holder', N'Mr', N'GROVERS PVT.LTD.', N'', N'', N'Near 3 Manorama Nagar Kolshet Road Thane West', N'3, Manorma Nagar Rd, Sambhaji Nagar, Manorama Nagar, Thane West, Mumbai, Thane, Maharashtra 400607, India ', N'9820127610', N'', NULL, N'', N'The Holder', N'', N'', N'', N'', N'', N'3, Manorma Nagar Rd, Sambhaji Nagar, Manorama Nagar, Thane West, Mumbai, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (602675, N'1', N'MM13', N'15', N'', 82, N'MM1300150000', 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'The Holder', N'Mr', N'MR. BHAVESH PRAVIN DAGHA / MR. VIRAL LAKHAMSHI CHHEDA / MR. LEERA PARBAT BANGARI', N'', N'Eye Care Optics ,mix And Mach,career point Cota', N'HOUSE NO 51 NR DEV PUJA KOLSHET ROAD BALKUM DHOKALI', N'6XHJ+5FX, Kolshet Rd, Opposite Silverline, Shree Swamikrupa Phase 2, New Ganesh Nagar, Dhokali, Thane West, Thane, Maharashtra 400607, India ', N'9820165906', N'', NULL, N'', N'The Holder', N'', N'', N'', N'Eye Care Optics ,mix And Mach,career point Cota', N'', N'6XHJ+5FX, Kolshet Rd, Opposite Silverline, Shree Swamikrupa Phase 2, New Ganesh Nagar, Dhokali, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (602680, N'1', N'MM13', N'16', N'', 92, N'MM1300160000', 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'The Holder', N'Mr', N'M/S.  S. D. PAINTS', N'', N'ESDEE PAINTS LTD', N'HOUSE NO 52 NR SUBHASH SARAP KOLSHET ROAD BALKUM DHOKALI', N'Kavyaduara Residential Complex, Kolshet Rd, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', N'9372759045', N'', NULL, N'', N'The Holder', N'', N'', N'', N'ESDEE PAINTS LTD', N'', N'Kavyaduara Residential Complex, Kolshet Rd, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 57, CAST(N'2025-10-03T17:19:32.833' AS DateTime)),
- 
+
  (604230, N'1', N'MM13', N'20', N'A', 12, N'MM130020000A', 0, N'', NULL, N'', 6, NULL, NULL, NULL, N'Riviera', NULL, NULL, NULL, NULL, N'Wing -RIVIERA A, Dhokali Manorama Nagar Kolshet Road Thane West', N'5, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Manpada, Thane, Maharashtra 400607, India ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, N'Wing -RIVIERA A, Dhokali Manorama Nagar Kolshet Road Thane West', N'5, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Manpada, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (604231, N'1', N'MM13', N'20', N'B', 12, N'MM130020000B', 0, N'', NULL, N'', 6, NULL, NULL, NULL, N'Riviera', NULL, NULL, NULL, NULL, N'Wing -B, Dhokali Manorama Nagar Kolshet Road Thane West', N'5, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Manpada, Thane, Maharashtra 400607, India ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, N'Wing -B, Dhokali Manorama Nagar Kolshet Road Thane West', N'5, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Manpada, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (604264, N'1', N'MM13', N'31', N'A1', 12, N'MM13003100A1', 0, NULL, NULL, NULL, 6, NULL, NULL, NULL, N'The Holder', NULL, N'', N'101', NULL, N'Wing-A, Flat No-101, Dhokali Manorama Nagar Kolshet Road Thane West', N'189, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', N'9869534650', NULL, NULL, NULL, N'The Holder', NULL, NULL, N'101', NULL, N'Wing-A, Flat No-101, Dhokali Manorama Nagar Kolshet Road Thane West', N'189, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (604265, N'1', N'MM13', N'31', N'A2', 12, N'MM13003100A2', 0, NULL, NULL, NULL, 6, NULL, NULL, NULL, N'The Holder', NULL, N'', N'201', NULL, N'Wing-A, Flat No-201, Dhokali Manorama Nagar Kolshet Road Thane West', N'189, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, N'', N'201', NULL, N'Wing-A, Flat No-201, Dhokali Manorama Nagar Kolshet Road Thane West', N'189, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (604266, N'1', N'MM13', N'31', N'A3', 12, N'MM13003100A3', 0, NULL, NULL, NULL, 6, NULL, NULL, NULL, N'The Holder', NULL, N'', N'301', NULL, N'Wing-A, Flat No-301, Dhokali Manorama Nagar Kolshet Road Thane West', N'189, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, N'', N'301', NULL, N'Wing-A, Flat No-301, Dhokali Manorama Nagar Kolshet Road Thane West', N'189, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (604267, N'1', N'MM13', N'31', N'A4', 12, N'MM13003100A4', 0, NULL, NULL, NULL, 6, NULL, NULL, NULL, N'The Holder', NULL, N'', N'401', NULL, N'Wing-A, Flat No-401, Dhokali Manorama Nagar Kolshet Road Thane West', N'189, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, N'', N'401', NULL, N'Wing-A, Flat No-401, Dhokali Manorama Nagar Kolshet Road Thane West', N'189, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (604268, N'1', N'MM13', N'31', N'A5', 12, N'MM13003100A5', 0, NULL, NULL, NULL, 6, NULL, NULL, NULL, N'The Holder', NULL, N'', N'501', NULL, N'Wing-A, Flat No-501, Dhokali Manorama Nagar Kolshet Road Thane West', N'189, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, N'', N'501', NULL, N'Wing-A, Flat No-501, Dhokali Manorama Nagar Kolshet Road Thane West', N'189, Shree Swamikrupa Phase 2, Dokali Pada, Dhokali, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (608764, N'1', N'MM10', N'1', N'', 51, N'MM1000010000', 0, N'45', N'98/440 ', N'', 6, NULL, NULL, N'Mr', N'SHRI. S. G.  KHALE HOLTIME DIRCTOR M/S. BOMBAY CHEMICALS PVT. LTD.,', N'Mr', N'THE LICENSEE: M/S. LANDMARK CAR LTD.,', N'', N'LANDMARK CARS', N'BOMBAY CHEMICALS PVT. LTD. THE LICENSEE : M/S LANDMARK CAR PVT. LTD. 275/A/2/2A, PATLIPADA, NEAR ST. XAVIER''S SCHOOL, G.B.ROAD, THANE (W.) 400607', N'5, S Vivekanand Marg, Brahmand, Manpada, Thane, Maharashtra 400607, India ', N'9869905413', N'', NULL, N'', N'à¤¶à¥à¤°à¥€. à¤à¤¸. à¤œà¥€. à¤—à¥‹à¤–à¤²à¥‡, à¤ªà¥‚à¤°à¥à¤£à¤µà¥‡à¤³ à¤¸à¤‚à¤šà¤¾à¤²à¤•, à¤®à¥‡à¤¸à¤°à¥à¤¸ à¤¬à¥‰à¤®à¥à¤¬à¥‡ à¤•à¥‡à¤®à¤¿à¤•à¤²à¥à¤¸ à¤ªà¥à¤°à¤¾à¤¯à¤µà¥à¤¹à¥‡à¤Ÿ à¤²à¤¿à¤®à¤¿à¤Ÿà¥‡à¤¡', N'', N'', N'', N'à¤²à¤à¤¡à¤®à¤¾à¤°à¥à¤• à¤•à¤¾à¤°', N'à¤¬à¥‰à¤®à¥à¤¬à¥‡ à¤•à¥‡à¤®à¤¿à¤•à¤²à¥à¤¸ à¤ªà¥à¤°à¤¾à¤¯à¤µà¥à¤¹à¥‡à¤Ÿ à¤²à¤¿à¤®à¤¿à¤Ÿà¥‡à¤¡. à¤ªà¤¾à¤Ÿà¤²à¥€à¤ªà¤¾à¤¡à¤¾, à¤¸à¥‡à¤‚à¤Ÿ à¤à¥‡à¤µà¤¿à¤¯à¤°à¥à¤¸ à¤¸à¥à¤•à¥‚à¤² à¤œà¤µà¤³, à¤œà¥€à¤¬à¥€à¤°à¥‹à¤¡, à¤ à¤¾à¤£à¥‡ (à¤µà¥‡à¤¸à¥à¤Ÿ ) à¥ªà¥¦à¥¦à¥¬à¥¦à¥­', N'5, S Vivekanand Marg, Brahmand, Manpada, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (608857, N'1', N'MM10', N'2', N'', 12, N'MM1000020000', 0, N'', NULL, N'', 6, NULL, NULL, N'Mr', N'CLOVERDALE CO-OP HOUSING SOCIETY LIMITED    ', N'', N'', N'', N'', N'BOMBAY CHEMICALS PVT. LTD. THE LICENSEE : M/S LANDMARK CAR PVT. LTD. 275/A/2/2A, PATLIPADA, NEAR ST. XAVIER''S SCHOOL, G.B.ROAD, THANE (W.) 400607', N'1303, Cloverdale, One Hiranandani Park, Brahmand, Thane West, Thane, Maharashtra 400607, India ', N'8169048567', N'', NULL, N'', N'.', N'', N'', N'', N'', N'', N'1303, Cloverdale, One Hiranandani Park, Brahmand, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 74, CAST(N'2025-09-16T12:49:15.893' AS DateTime)),
- 
+
  (608928, N'1', N'MM10', N'5', N'', 12, N'MM1000050000', 0, N'', NULL, N'', 6, NULL, NULL, N'Mr', N'HAMPTON CO-OP HOUSING SOCIETY LIMITED', N'', N'THE HOLDER', N'', N'', N'HAMPTON,ONE HIRANANDANI PARK,PATLIPADA,GB ROAD,THANE WEST-400615', N'403, Willowcrest, One Hiranandani Park, Patlipada, Thane West, Brahmand, Thane, Maharashtra 400607, India ', N'9136821218', N'', NULL, N'', N'HAMPTON CO-OP HOUSING SOCIETY LIMITED', N'', N'', N'', N'', N'', N'403, Willowcrest, One Hiranandani Park, Patlipada, Thane West, Brahmand, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 60, CAST(N'2025-08-28T15:01:57.880' AS DateTime)),
- 
+
  (608935, N'1', N'MM10', N'6', N'', 12, N'MM1000060000', 0, N'', NULL, N'', 6, NULL, NULL, N'Mr', N'EAGLETON CO-OP HOUSING SOCIETY LIMITED', N'', N'THE HOLDER', N'', N'', N'One Hiranandani Park Patlipada GB Road Thane West', N'2, S Vivekanand Marg, Brahmand, Manpada, Thane, Maharashtra 400607, India ', N'9619919019', N'', NULL, N'', N' EAGLETON CO-OP HOUSING SOCIETY .LTD   ', N'', N'', N'', N'', N'', N'2, S Vivekanand Marg, Brahmand, Manpada, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 60, CAST(N'2025-09-05T13:00:58.753' AS DateTime)),
- 
+
  (608985, N'1', N'MM10', N'7', N'', 12, N'MM1000070000', 0, N'', NULL, N'', 6, NULL, NULL, N'Mr', N'CLIFTON  CO-OPERATIVE HOUSING SOCIETY LIMITED', N'', N'THE HOLDER', N'', N'', N'CLIFTON BLDG,NEAR GHODBANDAR ROAD THANE(W)', N'2, S Vivekanand Marg, Brahmand, Manpada, Thane, Maharashtra 400607, India ', N'9819502727', N'', NULL, N'', N'CLIFTON  CO-OPERATIVE HOUSING SOCIETY LIMITED ', N'', N'', N'', N'', N'', N'2, S Vivekanand Marg, Brahmand, Manpada, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 60, CAST(N'2025-08-26T14:05:10.887' AS DateTime)),
- 
+
  (609019, N'1', N'MM10', N'8', N'', 12, N'MM1000080000', 0, N'', NULL, N'', 6, NULL, NULL, N'Mr', N'PRESTON CO-OP HOUSING SOCIETY LIMITED', N'', N'THE HOLDER', N'', N'', N'Survey No. 99/2 Preston Tower, One Hiranandani Park, Patlipada, Thane(W)', N'6XVG+MQX, Ghodbunder Service Rd, Brahmand, Thane West, Thane, Maharashtra 400607, India ', N'9821705686', N'', NULL, N'', N'.', N'', N'', N'', N'', N'', N'6XVG+MQX, Ghodbunder Service Rd, Brahmand, Thane West, Thane, Maharashtra 400607, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), 60, CAST(N'2025-08-28T18:27:09.703' AS DateTime)),
- 
+
  (609287, N'1', N'MM10', N'4', N'A1', 12, N'MM10000400A1', 0, NULL, NULL, NULL, 6, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'101', NULL, N'Wing-A, Flat No-101, One Hiranandani Park Patlipada GB Road Thane West', N'Hiranandani Park Willowcrest, Brahmand, Thane West, Thane, Maharashtra, India ', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'101', NULL, N'Wing-A, Flat No-101, One Hiranandani Park Patlipada GB Road Thane West', N'Hiranandani Park Willowcrest, Brahmand, Thane West, Thane, Maharashtra, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (609288, N'1', N'MM10', N'4', N'A2', 12, N'MM10000400A2', 0, NULL, NULL, NULL, 6, NULL, NULL, NULL, N'FLAT HOLDER:', NULL, N'WILLOWCREST, M/S ROMA BUILDERS PVT. LTD.', N'201', NULL, N'Wing-A, Flat No-201, One Hiranandani Park Patlipada GB Road Thane West', N'Hiranandani Park Willowcrest, Brahmand, Thane West, Thane, Maharashtra, India ', N'9322952476', NULL, NULL, NULL, NULL, NULL, NULL, N'201', NULL, N'Wing-A, Flat No-201, One Hiranandani Park Patlipada GB Road Thane West', N'Hiranandani Park Willowcrest, Brahmand, Thane West, Thane, Maharashtra, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (609289, N'1', N'MM10', N'4', N'A3', 12, N'MM10000400A3', 0, NULL, NULL, NULL, 6, NULL, NULL, NULL, N'FLAT HOLDER: ARCHANA MANGALAGIRI / RANJANA MANGALAGIRI   WILLOWCREST, M/S ROMA BUILDERS PVT. LTD.', NULL, N'', N'301', NULL, N'Wing-A, Flat No-301, One Hiranandani Park Patlipada GB Road Thane West', N'Hiranandani Park Willowcrest, Brahmand, Thane West, Thane, Maharashtra, India ', N'9920695522', NULL, NULL, NULL, NULL, NULL, NULL, N'301', NULL, N'Wing-A, Flat No-301, One Hiranandani Park Patlipada GB Road Thane West', N'Hiranandani Park Willowcrest, Brahmand, Thane West, Thane, Maharashtra, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (609290, N'1', N'MM10', N'4', N'A4', 12, N'MM10000400A4', 0, NULL, NULL, NULL, 6, NULL, NULL, NULL, N'FLAT HOLDER:', NULL, N'WILLOWCREST, M/S ROMA BUILDERS PVT. LTD.', N'401', NULL, N'Wing-A, Flat No-401, One Hiranandani Park Patlipada GB Road Thane West', N'Hiranandani Park Willowcrest, Brahmand, Thane West, Thane, Maharashtra, India ', N'7208489397', NULL, NULL, NULL, NULL, NULL, NULL, N'401', NULL, N'Wing-A, Flat No-401, One Hiranandani Park Patlipada GB Road Thane West', N'Hiranandani Park Willowcrest, Brahmand, Thane West, Thane, Maharashtra, India ', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (750338, N'1', N'LSMAJOR1', N'1', N'D1', 12, NULL, 0, N'', NULL, N'', 6, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'101', NULL, N'Wing-D, Flat No-101, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'101', NULL, N'Wing-D, Flat No-101, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (750339, N'1', N'LSMAJOR1', N'1', N'D2', 12, NULL, 0, N'', NULL, N'', 6, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'201', NULL, N'Wing-D, Flat No-201, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'201', NULL, N'Wing-D, Flat No-201, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (750340, N'1', N'LSMAJOR1', N'1', N'D3', 12, NULL, 0, N'', NULL, N'', 6, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'301', NULL, N'Wing-D, Flat No-301, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'301', NULL, N'Wing-D, Flat No-301, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (750341, N'1', N'LSMAJOR1', N'1', N'D4', 12, NULL, 0, N'', NULL, N'', 6, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'401', NULL, N'Wing-D, Flat No-401, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'401', NULL, N'Wing-D, Flat No-401, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (750342, N'1', N'LSMAJOR1', N'1', N'D5', 12, NULL, 0, N'', NULL, N'', 6, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'501', NULL, N'Wing-D, Flat No-501, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'501', NULL, N'Wing-D, Flat No-501, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (750343, N'1', N'LSMAJOR1', N'1', N'D6', 12, NULL, 0, N'', NULL, N'', 6, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'601', NULL, N'Wing-D, Flat No-601, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'601', NULL, N'Wing-D, Flat No-601, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (750344, N'1', N'LSMAJOR1', N'1', N'D7', 12, NULL, 0, N'', NULL, N'', 6, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'701', NULL, N'Wing-D, Flat No-701, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'701', NULL, N'Wing-D, Flat No-701, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (750345, N'1', N'LSMAJOR1', N'1', N'D8', 12, NULL, 0, N'', NULL, N'', 6, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'801', NULL, N'Wing-D, Flat No-801, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'801', NULL, N'Wing-D, Flat No-801, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
  (750346, N'1', N'LSMAJOR1', N'1', N'D9', 12, NULL, 0, N'', NULL, N'', 6, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'901', NULL, N'Wing-D, Flat No-901, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'901', NULL, N'Wing-D, Flat No-901, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL),
- 
+
     (750347, N'1', N'LSMAJOR1', N'1', N'D10', 12, NULL, 0, N'', NULL, N'', 6, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'1001', NULL, N'Wing-D, Flat No-1001, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', NULL, NULL, NULL, NULL, N'The Holder', NULL, NULL, N'1001', NULL, N'Wing-D, Flat No-1001, Hubtown Greenwoods, Opposite Thirani High School Pokharan road number 1 ,Vartak Nagar', N'', 0, 1, NULL, CAST(N'2026-01-21T18:12:16.440' AS DateTime), NULL, NULL)
 ) AS pd(PropertyId, TaxZoneId, WardId, PropertyNo, PartitionNo, PropertyTypeId, UPICId, OpenPlot, CSN, SubZoneNo, PlotNo, CategoryId, Type, PartType, OwnerTitle, OwnerName, OccupierTitle, OccupierName, FlatOrShopNo, FlatOrShopName, Address, Location, MobileNo, EmailId, SocietyDetailId, OwnerTitleEnglish, OwnerNameEnglish, OccupierTitleEnglish, OccupierNameEnglish, FlatOrShopNoEnglish, FlatOrShopNameEnglish, AddressEnglish, LocationEnglish, MarkedForDeletion, IsActive, CreatedBy, CreatedDate, UpdatedBy, UpdatedDate);
 GO
@@ -1363,216 +1363,216 @@ SET IDENTITY_INSERT [PTIS].[PropertyMastOld] OFF;
 GO
 
 
- 
 
-           
- SET IDENTITY_INSERT [PTIS].[SocietyDetailsMast] ON 
+
+
+ SET IDENTITY_INSERT [PTIS].[SocietyDetailsMast] ON
 GO
-INSERT [PTIS].[SocietyDetailsMast] ([Id], [PropertyId], [WingId], [WingName], [SocietyName], [SocietyAddress], [SecretaryName], [ManagerName], [LandOwnerName], [BuilderName], [SocietyNameEnglish], [SocietyAddressEnglish], [SecretaryNameEnglish], [ManagerNameEnglish], [LandOwnerNameEnglish], [BuilderNameEnglish], [ManagerMobileNo], [SecretaryMobileNo], [SocietyEmailId], [SecretaryEmailId], [ManagerEmailId], [MarkedForDeletion], [MarkedForDeletionDate], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES 
+INSERT [PTIS].[SocietyDetailsMast] ([Id], [PropertyId], [WingId], [WingName], [SocietyName], [SocietyAddress], [SecretaryName], [ManagerName], [LandOwnerName], [BuilderName], [SocietyNameEnglish], [SocietyAddressEnglish], [SecretaryNameEnglish], [ManagerNameEnglish], [LandOwnerNameEnglish], [BuilderNameEnglish], [ManagerMobileNo], [SecretaryMobileNo], [SocietyEmailId], [SecretaryEmailId], [ManagerEmailId], [MarkedForDeletion], [MarkedForDeletionDate], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES
 (4, 549357, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (5, 549439, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (6, 549441, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (7, 549442, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (8, 549445, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (9, 549446, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (10, 549448, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (11, 549451, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (12, 549452, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (13, 549453, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (14, 550296, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (15, 550299, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (16, 550300, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (17, 550304, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (18, 550514, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (19, 550516, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (20, 550722, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (21, 550726, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (22, 550727, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (23, 550728, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (24, 552371, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (25, 552372, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (26, 552373, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (27, 552374, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (28, 552375, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (29, 552376, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (30, 552377, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (31, 552378, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (32, 552379, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (33, 552380, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (34, 552994, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (35, 553033, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (36, 553034, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (37, 553035, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (38, 553036, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (39, 553037, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (40, 553038, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (41, 553039, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (42, 553040, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (43, 553041, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (44, 556004, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (45, 556008, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (46, 556010, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (47, 556011, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (48, 556012, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (49, 556013, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (50, 556014, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (51, 556015, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (52, 556016, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (53, 556017, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (54, 560660, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (55, 560661, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (56, 560662, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (57, 560663, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (58, 560664, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (59, 560665, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (60, 560666, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (61, 560667, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (62, 560668, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (63, 560669, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (64, 576936, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (65, 576939, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (66, 577185, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (67, 577437, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (68, 577538, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (69, 577957, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (70, 579097, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (71, 579098, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (72, 579099, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (73, 579100, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (74, 599038, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (75, 602675, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (76, 602680, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (77, 604230, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (78, 604231, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (79, 604264, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (80, 604265, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (81, 604266, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (82, 604267, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (83, 604268, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (84, 608764, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (85, 608857, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (86, 608928, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (87, 608935, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (88, 608985, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (89, 609019, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (90, 609287, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (91, 609288, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (92, 609289, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (93, 609290, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (94, 750338, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (95, 750339, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (96, 750340, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (97, 750341, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (98, 750342, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (99, 750343, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (100, 750344, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (101, 750345, 2, N'B', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (102, 750346, 3, N'C', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL),
- 
+
   (103, 750347, 1, N'A', N'Shiv Residency', N'Main Road, City Area', N'रमेश पटेल', N'अमित शाह', N'धीरुभाई पटेल', N'सूरज बिल्डर', N'Shiv Residency', N'Main Road, City Area', N'Ramesh Patel', N'Amit Shah', N'Dhirubhai Patel', N'Suraj Builder', N'9876543210', N'9123456780', N'society@gmail.com', N'secretary@gmail.com', N'manager@gmail.com', 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), 1, 1, CAST(N'2026-03-25T12:44:13.140' AS DateTime), NULL, NULL)
 GO
 SET IDENTITY_INSERT [PTIS].[SocietyDetailsMast] OFF
 
 GO
-SET IDENTITY_INSERT [PTIS].[PropertyMapMaster] ON 
+SET IDENTITY_INSERT [PTIS].[PropertyMapMaster] ON
 GO
 INSERT [PTIS].[PropertyMapMaster] ([Id], [ModuleId], [ParentPropertyMapId], [VersionNo], [MappingCategory], [ChangeReason], [Remark], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1, NULL, NULL, 1, N'ONE_TO_ONE', NULL, N'One old property mapped to one new property', 1, 1, CAST(N'2026-05-07T18:58:37.810' AS DateTime), NULL, NULL)
 GO
@@ -1613,7 +1613,7 @@ SET IDENTITY_INSERT [PTIS].[PropertyMapMaster] OFF
 
 -- SET IDENTITY_INSERT [PTIS].[PropertyMapDetail] OFF;
 
-    
+
 -- ===============================
 -- Socail Details Mast
 -- ===============================
@@ -1645,7 +1645,7 @@ VALUES
 ('HAS_STP', 'Sewage Treatment Plant', 'BIT');
 
 -- ============================================================
--- Seed: PTIS.BulkUpdateMaster 
+-- Seed: PTIS.BulkUpdateMaster
 -- ============================================================
 INSERT INTO [PTIS].[BulkUpdateMaster]
 ([UpdateCode],[UpdateName],[UpdateNameMarathi],[ReferenceTableName],[DisplaySequence],[Description])

@@ -1,4 +1,4 @@
-﻿SET ANSI_NULLS ON
+SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
@@ -27,15 +27,15 @@ CREATE TABLE [AMS].[AssetCategoryMaster](
 	[UpdatedDate] [datetime] NULL,
 	[MarkedForDeletion] [bit] NOT NULL,
 	[MarkedForDeletionDate] [datetime] NULL,
- CONSTRAINT [PK_AssetCategoryMaster] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_AssetCategoryMaster] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 ),
- CONSTRAINT [UQ_AssetCategoryMaster_CategoryCode] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_AssetCategoryMaster_CategoryCode] UNIQUE NONCLUSTERED
 (
 	[CategoryCode] ASC
 ),
- CONSTRAINT [UQ_AssetCategoryMaster_CategoryName] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_AssetCategoryMaster_CategoryName] UNIQUE NONCLUSTERED
 (
 	[CategoryName] ASC
 )
@@ -65,11 +65,11 @@ CREATE TABLE [AMS].[AuthorityMaster](
 	[UpdatedDate] [datetime] NULL,
 	[MarkedForDeletion] [bit] NOT NULL,
 	[MarkedForDeletionDate] [datetime] NULL,
- CONSTRAINT [PK_AuthorityMaster] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_AuthorityMaster] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 ),
- CONSTRAINT [UQ_AuthorityMaster_AuthorityCode] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_AuthorityMaster_AuthorityCode] UNIQUE NONCLUSTERED
 (
 	[AuthorityCode] ASC
 )
@@ -100,15 +100,15 @@ CREATE TABLE [AMS].[InventoryItemCategoryMaster](
 	[UpdatedDate] [datetime] NULL,
 	[MarkedForDeletion] [bit] NOT NULL,
 	[MarkedForDeletionDate] [datetime] NULL,
- CONSTRAINT [PK_InventoryItemCategoryMaster] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_InventoryItemCategoryMaster] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 ),
- CONSTRAINT [UQ_InventoryItemCategoryMaster_TypeCode] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_InventoryItemCategoryMaster_TypeCode] UNIQUE NONCLUSTERED
 (
 	[TypeCode] ASC
 ),
- CONSTRAINT [UQ_InventoryItemCategoryMaster_TypeName] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_InventoryItemCategoryMaster_TypeName] UNIQUE NONCLUSTERED
 (
 	[TypeName] ASC
 )
@@ -139,11 +139,11 @@ CREATE TABLE [AMS].[OwnershipTypeMaster](
 	[UpdatedDate] [datetime] NULL,
 	[MarkedForDeletion] [bit] NOT NULL,
 	[MarkedForDeletionDate] [datetime] NULL,
- CONSTRAINT [PK_OwnershipTypeMaster] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_OwnershipTypeMaster] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 ),
- CONSTRAINT [UQ_OwnershipTypeMaster_OwnershipTypeName] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_OwnershipTypeMaster_OwnershipTypeName] UNIQUE NONCLUSTERED
 (
 	[OwnershipTypeName] ASC
 )
@@ -171,11 +171,11 @@ CREATE TABLE [AMS].[OwningDepartmentMaster](
 	[UpdatedDate] [datetime] NULL,
 	[MarkedForDeletion] [bit] NOT NULL,
 	[MarkedForDeletionDate] [datetime] NULL,
- CONSTRAINT [PK_OwningDepartmentMaster] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_OwningDepartmentMaster] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 ),
- CONSTRAINT [UQ_OwningDepartmentMaster_OwningDepartmentName] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_OwningDepartmentMaster_OwningDepartmentName] UNIQUE NONCLUSTERED
 (
 	[OwningDepartmentName] ASC
 )
@@ -215,15 +215,15 @@ CREATE TABLE [AMS].[AssetTypeMaster](
 	[UpdatedDate] [datetime] NULL,
 	[MarkedForDeletion] [bit] NOT NULL,
 	[MarkedForDeletionDate] [datetime] NULL,
- CONSTRAINT [PK_AssetTypeMaster] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_AssetTypeMaster] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 ),
- CONSTRAINT [UQ_AssetTypeMaster_TypeCode] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_AssetTypeMaster_TypeCode] UNIQUE NONCLUSTERED
 (
 	[TypeCode] ASC
 ),
- CONSTRAINT [UQ_AssetTypeMaster_TypeName] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_AssetTypeMaster_TypeName] UNIQUE NONCLUSTERED
 (
 	[TypeName] ASC
 )
@@ -265,11 +265,11 @@ CREATE TABLE [AMS].[OrganizationMaster](
 	[UpdatedDate] [datetime] NULL,
 	[MarkedForDeletion] [bit] NOT NULL,
 	[MarkedForDeletionDate] [datetime] NULL,
- CONSTRAINT [PK_OrganizationMaster] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_OrganizationMaster] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 ),
- CONSTRAINT [UQ_OrganizationMaster_OrgCode] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_OrganizationMaster_OrgCode] UNIQUE NONCLUSTERED
 (
 	[OrganizationCode] ASC
 )
@@ -307,11 +307,11 @@ CREATE TABLE [AMS].[InventoryItemConditionMaster](
 	[UpdatedDate] [datetime] NULL,
 	[MarkedForDeletion] [bit] NOT NULL,
 	[MarkedForDeletionDate] [datetime] NULL,
- CONSTRAINT [PK_InventoryItemConditionMaster] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_InventoryItemConditionMaster] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 ),
- CONSTRAINT [UQ_InventoryItemConditionMaster_CategoryCondition] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_InventoryItemConditionMaster_CategoryCondition] UNIQUE NONCLUSTERED
 (
 	[InventoryItemCategoryId] ASC,
 	[ConditionName] ASC
@@ -353,16 +353,16 @@ CREATE TABLE [AMS].[InventoryItemNameMaster](
 	[UpdatedDate] [datetime] NULL,
 	[MarkedForDeletion] [bit] NOT NULL,
 	[MarkedForDeletionDate] [datetime] NULL,
- CONSTRAINT [PK_InventoryItemNameMaster] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_InventoryItemNameMaster] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 ),
- CONSTRAINT [UQ_InventoryItemNameMaster_CategorySubTypeCode] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_InventoryItemNameMaster_CategorySubTypeCode] UNIQUE NONCLUSTERED
 (
 	[InventoryItemCategoryId] ASC,
 	[SubTypeCode] ASC
 ),
- CONSTRAINT [UQ_InventoryItemNameMaster_CategorySubTypeName] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_InventoryItemNameMaster_CategorySubTypeName] UNIQUE NONCLUSTERED
 (
 	[InventoryItemCategoryId] ASC,
 	[SubTypeName] ASC
@@ -409,11 +409,11 @@ CREATE TABLE [AMS].[AssetDocumentDefinition](
 	[UpdatedDate] [datetime] NULL,
 	[MarkedForDeletion] [bit] NOT NULL,
 	[MarkedForDeletionDate] [datetime] NULL,
- CONSTRAINT [PK_AssetDocumentDefinition] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_AssetDocumentDefinition] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 ),
- CONSTRAINT [UQ_DocDef_CategoryTypeCode] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_DocDef_CategoryTypeCode] UNIQUE NONCLUSTERED
 (
 	[AssetCategoryId] ASC,
 	[AssetTypeId] ASC,
@@ -481,11 +481,11 @@ CREATE TABLE [AMS].[AssetFieldDefinition](
 	[UpdatedDate] [datetime] NULL,
 	[MarkedForDeletion] [bit] NOT NULL,
 	[MarkedForDeletionDate] [datetime] NULL,
- CONSTRAINT [PK_AssetFieldDefinition] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_AssetFieldDefinition] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 ),
- CONSTRAINT [UQ_FieldDef_CategoryTypeField] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_FieldDef_CategoryTypeField] UNIQUE NONCLUSTERED
 (
 	[AssetCategoryId] ASC,
 	[AssetTypeId] ASC,
@@ -536,11 +536,11 @@ CREATE TABLE [AMS].[DepartmentMaster](
 	[UpdatedDate] [datetime] NULL,
 	[MarkedForDeletion] [bit] NOT NULL,
 	[MarkedForDeletionDate] [datetime] NULL,
- CONSTRAINT [PK_DepartmentMaster] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_DepartmentMaster] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 ),
- CONSTRAINT [UQ_DepartmentMaster_DeptCode] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_DepartmentMaster_DeptCode] UNIQUE NONCLUSTERED
 (
 	[OrganizationId] ASC,
 	[DepartmentCode] ASC
@@ -578,11 +578,11 @@ CREATE TABLE [AMS].[InventoryItemModelMaster](
 	[UpdatedDate] [datetime] NULL,
 	[MarkedForDeletion] [bit] NOT NULL,
 	[MarkedForDeletionDate] [datetime] NULL,
- CONSTRAINT [PK_InventoryItemModelMaster] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_InventoryItemModelMaster] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 ),
- CONSTRAINT [UQ_InventoryItemModelMaster_ItemNameModel] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_InventoryItemModelMaster_ItemNameModel] UNIQUE NONCLUSTERED
 (
 	[InventoryItemNameId] ASC,
 	[ModelName] ASC
@@ -662,11 +662,11 @@ CREATE TABLE [AMS].[AssetMaster](
 	[MarkedForDeletion] [bit] NOT NULL,
 	[MarkedForDeletionDate] [datetime] NULL,
 	[FloorDetailsId] [int] NULL,
- CONSTRAINT [PK_AssetMaster] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_AssetMaster] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 ),
- CONSTRAINT [UQ_AssetMaster_AssetNo] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_AssetMaster_AssetNo] UNIQUE NONCLUSTERED
 (
 	[AssetNo] ASC
 )
@@ -811,7 +811,7 @@ CREATE TABLE [AMS].[InventoryBatch](
 	[UpdatedBy] [int] NULL,
 	[MarkedForDeletion] [bit] NOT NULL,
 	[MarkedForDeletionDate] [datetime] NULL,
- CONSTRAINT [PK_InventoryBatch] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_InventoryBatch] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 )
@@ -893,11 +893,11 @@ CREATE TABLE [AMS].[AssetFloorDetails](
 	[RentYearly] [decimal](18, 2) NULL,
 	[RenterNameEnglish] [varchar](500) NULL,
 	[RenterNameLocal] [nvarchar](500) NULL,
- CONSTRAINT [PK_AssetFloorDetails] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_AssetFloorDetails] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 ),
- CONSTRAINT [UQ_AssetFloorDetails_AssetFloor] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_AssetFloorDetails_AssetFloor] UNIQUE NONCLUSTERED
 (
 	[AssetId] ASC,
 	[FloorId] ASC,
@@ -972,11 +972,11 @@ CREATE TABLE [AMS].[AssetFormData](
 	[IsActive] [bit] NOT NULL,
 	[MarkedForDeletion] [bit] NOT NULL,
 	[MarkedForDeletionDate] [datetime] NULL,
- CONSTRAINT [PK_AssetFormData] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_AssetFormData] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 ),
- CONSTRAINT [UQ_FormData_AssetSection] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_FormData_AssetSection] UNIQUE NONCLUSTERED
 (
 	[AssetId] ASC,
 	[SectionCode] ASC
@@ -1020,11 +1020,11 @@ CREATE TABLE [AMS].[AssetFieldValue](
 	[IsActive] [bit] NOT NULL,
 	[MarkedForDeletion] [bit] NOT NULL,
 	[MarkedForDeletionDate] [datetime] NULL,
- CONSTRAINT [PK_AssetFieldValue] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_AssetFieldValue] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 ),
- CONSTRAINT [UQ_FieldValue_AssetField] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_FieldValue_AssetField] UNIQUE NONCLUSTERED
 (
 	[AssetId] ASC,
 	[FieldName] ASC
@@ -1079,7 +1079,7 @@ CREATE TABLE [AMS].[PlotDetails](
 	[CreatedDate] [datetime] NOT NULL,
 	[UpdatedDate] [datetime] NULL,
 	[UpdatedBy] [int] NULL,
- CONSTRAINT [PK_PlotDetails] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_PlotDetails] PRIMARY KEY CLUSTERED
 (
 	[PlotId] ASC
 )
@@ -1129,7 +1129,7 @@ CREATE TABLE [AMS].[RoomWiseSubmissionDetails](
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
 	[MarkedForDeletionDate] [datetime] NULL,
- CONSTRAINT [PK_RoomWiseSubmissionDetails] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_RoomWiseSubmissionDetails] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 )
@@ -1218,11 +1218,11 @@ CREATE TABLE [AMS].[InventoryAssetDetail](
 	[UpdatedBy] [int] NULL,
 	[MarkedForDeletion] [bit] NOT NULL,
 	[MarkedForDeletionDate] [datetime] NULL,
- CONSTRAINT [PK_InventoryAssetDetail] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_InventoryAssetDetail] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 ),
- CONSTRAINT [UQ_InventoryAssetDetail_AssetId] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_InventoryAssetDetail_AssetId] UNIQUE NONCLUSTERED
 (
 	[AssetId] ASC
 )
@@ -1284,7 +1284,7 @@ CREATE TABLE [AMS].[AssetDocument](
 (
 	[Id] ASC
 ),
- CONSTRAINT [UQ_AssetDocument_AssetId_DocumentDefinitionId_FileName] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_AssetDocument_AssetId_DocumentDefinitionId_FileName] UNIQUE NONCLUSTERED
 (
 	[AssetId] ASC,
 	[DocumentDefinitionId] ASC,
@@ -1352,7 +1352,7 @@ CREATE TABLE [AMS].[AssetCVCalculationHistory](
 	[UpdatedDate] [datetime] NULL,
 	[MarkedForDeletion] [bit] NOT NULL,
 	[MarkedForDeletionDate] [datetime] NULL,
- CONSTRAINT [PK_AssetCVCalculationHistory] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_AssetCVCalculationHistory] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 )
@@ -1417,7 +1417,7 @@ CREATE TABLE [AMS].[RenterDetails](
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
 	[MarkedForDeletionDate] [datetime] NULL,
- CONSTRAINT [Pk_RenterDetails] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [Pk_RenterDetails] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 )
@@ -1530,7 +1530,7 @@ CREATE TABLE [AMS].[RoomWiseMinusData](
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
 	[MarkedForDeletionDate] [datetime] NULL,
- CONSTRAINT [PK_RoomWiseMinusData] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_RoomWiseMinusData] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 )
@@ -1591,7 +1591,7 @@ CREATE TABLE [AMS].[AssetDetails](
 	[UpdatedDate] [datetime] NULL,
 	[MarkedForDeletion] [bit] NOT NULL,
 	[MarkedForDeletionDate] [datetime] NULL,
- CONSTRAINT [PK_AssetDetails] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_AssetDetails] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 )
@@ -1614,4 +1614,3 @@ GO
 
 ALTER TABLE [AMS].[AssetDetails] CHECK CONSTRAINT [FK_AssetDetails_AssetMaster]
 GO
-

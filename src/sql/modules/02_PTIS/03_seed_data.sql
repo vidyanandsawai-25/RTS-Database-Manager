@@ -1,4 +1,4 @@
-﻿ INSERT PTIS.ZoneMaster ([ZoneNo], [Description], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
+ INSERT PTIS.ZoneMaster ([ZoneNo], [Description], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
    (N'UT', N'उथळसर', NULL, NULL, NULL),
    (N'NK', N'नौपाडा - कोपरी', NULL, NULL, NULL),
    (N'KL', N'कळवा', NULL, NULL, NULL),
@@ -120,7 +120,7 @@
 INSERT PTIS.WardMaster (ZoneId, WardNo, [Description])
 SELECT z.Id,
        w.WardNo,
-       w.WardNo  
+       w.WardNo
 FROM WardSeed w
 JOIN PTIS.ZoneMaster z
   ON z.ZoneNo = w.ZoneNo;
@@ -222,15 +222,15 @@ WHEN NOT MATCHED THEN
 ;WITH GroupMap AS
 (
     SELECT
-        g.Id AS TypeOfUseGroupId,      
-        g.TypeOfUseGroupCode              
+        g.Id AS TypeOfUseGroupId,
+        g.TypeOfUseGroupCode
     FROM PTIS.TypeOfUseGroupMaster g
 ),
 GroupMapCV AS
 (
     SELECT
-        gcv.Id AS TypeOfUseGroupCVId,      
-        gcv.TypeOfUseGroupCVCode              
+        gcv.Id AS TypeOfUseGroupCVId,
+        gcv.TypeOfUseGroupCVCode
     FROM PTIS.TypeOfUseGroupMasterCV gcv
 ),
 TypeSeed AS
@@ -1430,7 +1430,7 @@ INSERT PTIS.SubTypeOfUseMaster
 SELECT
     s.Id,
     s.[Description],
-    t.Id,         
+    t.Id,
     s.CreatedBy,
     s.UpdatedBy,
     s.UpdatedDate,
@@ -1792,7 +1792,7 @@ INSERT PTIS.SubTypeOfUseMaster
 SELECT
     s.Id,
     s.[Description],
-    t.Id,          
+    t.Id,
     s.CreatedBy,
     s.UpdatedBy,
     s.UpdatedDate,
@@ -2120,7 +2120,7 @@ WHERE NOT EXISTS (
 
 INSERT INTO PTIS.AgeFactorCVMaster
 (ConstructionTypeId, AgeFrom, AgeTo, Factor, YearRangeCVId, IsActive, CreatedBy, CreatedDate)
-SELECT 
+SELECT
     ct.Id,
     v.AgeFrom,
     v.AgeTo,
@@ -2179,7 +2179,7 @@ JOIN PTIS.AssessmentYearRangeMasterCV yr
       (N'WB1', 1.30, NULL, NULL, NULL, NULL),
       (N'WC1', 1.00, NULL, NULL, NULL, NULL)
 
-     
+
     ) v(ConstructionCode, Factor, Code, CreatedBy, UpdatedBy, UpdatedDate)
 )
 
@@ -2220,7 +2220,7 @@ INSERT INTO PTIS.UseFactorCVMaster
 SELECT
     tu.Id,
     stu.Id,
-    1.00 AS Factor,                
+    1.00 AS Factor,
     yr.Id,
     1,
     NULL,
@@ -2261,7 +2261,7 @@ WHERE NOT EXISTS (
     SELECT 1
     FROM PTIS.ParkingTypeMaster x
     WHERE x.TypeOfUseId = tou.Id
-     
+
       AND x.[Description] = s.[Description]
 );
 
@@ -2364,7 +2364,7 @@ WHERE NOT EXISTS (
 ;WITH Seed AS
 (
     SELECT
-       
+
         v.TaxZoneNo,
         v.ConstructionCode,
         v.UseGroupCode,
@@ -2374,11 +2374,11 @@ WHERE NOT EXISTS (
         v.Col8,
         v.Col9,
         v.Col10,
-        v.RateType,       
+        v.RateType,
         v.MinYear,
         v.MaxYear,
         v.RateSectionCode,
-        v.OldId            
+        v.OldId
     FROM (VALUES
      ( N'1', N'A', N'R', 167.9200, 1807.4909, N'G', NULL, NULL, NULL, N'YearWise Rate', 2005, 2015, N'12', 2824357),
 ( N'1', N'B', N'R', 142.0800, 1529.3491, N'G', NULL, NULL, NULL, N'YearWise Rate', 1998, 1998, N'1', 2824358),
@@ -3381,7 +3381,7 @@ WHERE NOT EXISTS (
 ( N'1', N'B', N'R', 116.2500, 1251.3150, N'G', NULL, NULL, NULL, N'YearWise Rate', 1998, 1998, N'12', 2825431),
 ( N'1', N'C', N'R', 103.3300, 1112.2441, N'G', NULL, NULL, NULL, N'YearWise Rate', 2005, 2015, N'4', 2825432)
     ) AS v(
-       
+
         TaxZoneNo,
         ConstructionCode,
         UseGroupCode,
@@ -3403,7 +3403,7 @@ WHERE NOT EXISTS (
 
 INSERT INTO PTIS.RateMaster
 (
-   
+
     TaxZoneId,
     FloorId,
     ConstructionTypeId,
@@ -3421,7 +3421,7 @@ INSERT INTO PTIS.RateMaster
 
 SELECT
 
-   
+
     tz.Id,
     f.Id,
     ct.Id,
@@ -3452,7 +3452,7 @@ JOIN PTIS.AssessmentYearRangeMasterRV yr
 	;WITH Seed AS
 (
     SELECT
-        
+
         v.TaxZoneNo,
         v.ConstructionCode,
         v.UseGroupCode,
@@ -3462,11 +3462,11 @@ JOIN PTIS.AssessmentYearRangeMasterRV yr
         v.Col8,
         v.Col9,
         v.Col10,
-        v.RateType,      
+        v.RateType,
         v.MinYear,
         v.MaxYear,
         v.RateSectionId,
-        v.OldId            
+        v.OldId
     FROM (VALUES
     ( N'1', N'E', N'R', 83.9600, 903.7454, N'G', NULL, NULL, NULL, N'YearWise Rate', 1998, 1998, N'12', 2825433),
 ( N'1', N'D', N'R', 90.4200, 973.2809, N'G', NULL, NULL, NULL, N'YearWise Rate', 2005, 2015, N'4', 2825434),
@@ -3693,7 +3693,7 @@ JOIN PTIS.AssessmentYearRangeMasterRV yr
 ( N'1', N'A', N'C', 322.9200, 3475.9109, N'G', NULL, NULL, NULL, N'YearWise Rate', 1700, 1997, N'4', 2825579),
 ( N'1', N'E', N'R', 142.0800, 1529.3491, N'G', NULL, NULL, NULL, N'YearWise Rate', 2005, 2015, N'1', 2825580)
     ) AS v(
-       
+
         TaxZoneNo,
         ConstructionCode,
         UseGroupCode,
@@ -3715,7 +3715,7 @@ JOIN PTIS.AssessmentYearRangeMasterRV yr
 
 INSERT INTO PTIS.RateMaster
 (
-   
+
     TaxZoneId,
     FloorId,
     ConstructionTypeId,
@@ -3733,7 +3733,7 @@ INSERT INTO PTIS.RateMaster
 
 SELECT
 
-    
+
     tz.Id,
     f.Id,
     ct.Id,
@@ -3975,7 +3975,7 @@ WHERE NOT EXISTS
 
 
 
-	
+
 
 -- SET IDENTITY_INSERT [PTIS].[ActiveTaxesMaster] ON;
 -- GO
@@ -4037,19 +4037,19 @@ INSERT INTO [CORE].[YearMaster] ([Year], [IsActive]) VALUES ( '2025','1');
 --     OldPenalty,IsActive,CreatedBy,CreatedDate,UpdatedBy, UpdatedDate
 -- )
 -- SELECT
-    
+
 --     tum.TypeOfUseId,
 --     2,
 --    15.0000, 1.0000, 2.0000, 5.0000, 0.0000, 0.0000, 10.0000, 8.0000, 1.0000,
 --     0.0000, 1.0000, 0.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
 --     1.0000, 1.0000, 0.0000, 0.0000, 10.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
---     1,   
+--     1,
 --     NULL,
 --     GETDATE(),
 --     NULL,
 --     NULL
 -- FROM  PTIS.TypeOfUseMaster tum
-   
+
 
 -- SET IDENTITY_INSERT PTIS.TaxPercentageMasterCV OFF;
 
@@ -4065,19 +4065,19 @@ INSERT INTO [CORE].[YearMaster] ([Year], [IsActive]) VALUES ( '2025','1');
 --     OldPenalty,IsActive,CreatedBy,CreatedDate,UpdatedBy, UpdatedDate
 -- )
 -- SELECT
-    
+
 --     tum.TypeOfUseId,
 --     2,
 --     15.0000, 1.0000, 2.0000, 5.0000, 0.0000, 0.0000, 10.0000, 8.0000, 1.0000,
 --     0.0000, 1.0000, 0.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
 --     1.0000, 1.0000, 0.0000, 0.0000, 10.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
---     1,   
+--     1,
 --     NULL,
 --     GETDATE(),
 --     NULL,
 --     NULL
 -- FROM  PTIS.TypeOfUseMaster tum
-   
+
 
 -- SET IDENTITY_INSERT PTIS.TaxPercentageMasterRV OFF;
 
@@ -4093,7 +4093,7 @@ INSERT INTO [CORE].[YearMaster] ([Year], [IsActive]) VALUES ( '2025','1');
 
 
  GO
- SET IDENTITY_INSERT [PTIS].[GenderMaster] ON 
+ SET IDENTITY_INSERT [PTIS].[GenderMaster] ON
  GO
  INSERT [PTIS].[GenderMaster] ([Id], [GenderName]) VALUES (1, N'Female')
  GO
@@ -4107,7 +4107,7 @@ INSERT INTO [CORE].[YearMaster] ([Year], [IsActive]) VALUES ( '2025','1');
 
 
 
- SET IDENTITY_INSERT [PTIS].[DocumentMaster] ON 
+ SET IDENTITY_INSERT [PTIS].[DocumentMaster] ON
  GO
  INSERT [PTIS].[DocumentMaster] ([Id], [DocumentName], [DocPrefix]) VALUES (1, N'Aadhar Card', N'ADR')
  GO
@@ -4178,7 +4178,7 @@ INSERT INTO [CORE].[YearMaster] ([Year], [IsActive]) VALUES ( '2025','1');
  GO
 
 
- SET IDENTITY_INSERT [PTIS].[MobileScreenValidationMaster] ON 
+ SET IDENTITY_INSERT [PTIS].[MobileScreenValidationMaster] ON
  GO
  INSERT [PTIS].[MobileScreenValidationMaster] ([Id], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (1, N'Pilot', N'SocietyName', N'SocietyName', 1, NULL, NULL, NULL, 1, 1)
  GO
@@ -4330,7 +4330,7 @@ FROM (VALUES
 JOIN PTIS.WardMaster wm
   ON wm.WardNo = v.WardNo;
  --- global master-- end---
- 
+
  INSERT INTO [PTIS].[PolicyConfiguration]
 (
     PolicyCode, Category, DisplayName, Description,
@@ -4424,7 +4424,7 @@ FROM (VALUES
     ('SERVICE', 'Service Tax',          'TAX',  18),
     ('OLD PENALTY', 'Old Penalty of ULB', 'PENALTY',  19),
     ('PENALTY', 'Run Time Penalty', 'PENALTY',  20)
-   
+
 ) v(TaxCode, TaxName, CategoryCode, DisplayOrder)
 JOIN PTIS.TaxCategoryMaster c ON c.CategoryCode = v.CategoryCode
 WHERE NOT EXISTS (
@@ -4432,33 +4432,33 @@ WHERE NOT EXISTS (
 );
 GO
 
-SET IDENTITY_INSERT [PTIS].[WingMaster] ON 
-INSERT [PTIS].[WingMaster] ([Id], [WingNo], [SequenceNo], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES 
+SET IDENTITY_INSERT [PTIS].[WingMaster] ON
+INSERT [PTIS].[WingMaster] ([Id], [WingNo], [SequenceNo], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES
 (1, N'A', 1, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
-(2, N'B', 2, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(3, N'C', 3, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(4, N'D', 4, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(5, N'E', 5, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(6, N'F', 6, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(7, N'G', 7, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(8, N'H', 8, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(9, N'I', 9, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(10, N'J', 10, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(11, N'K', 11, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(12, N'L', 12, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(13, N'M', 13, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(14, N'N', 14, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(15, N'O', 15, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(16, N'P', 16, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(17, N'Q', 17, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(18, N'R', 18, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(19, N'S', 19, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(20, N'T', 20, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(21, N'U', 21, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(22, N'V', 22, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
+(2, N'B', 2, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(3, N'C', 3, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(4, N'D', 4, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(5, N'E', 5, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(6, N'F', 6, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(7, N'G', 7, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(8, N'H', 8, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(9, N'I', 9, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(10, N'J', 10, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(11, N'K', 11, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(12, N'L', 12, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(13, N'M', 13, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(14, N'N', 14, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(15, N'O', 15, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(16, N'P', 16, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(17, N'Q', 17, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(18, N'R', 18, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(19, N'S', 19, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(20, N'T', 20, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(21, N'U', 21, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(22, N'V', 22, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
 (23, N'W', 23, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
 (24, N'X', 24, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
-(25, N'Y', 25, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
+(25, N'Y', 25, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
 (26, N'Z', 26, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL)
 SET IDENTITY_INSERT [PTIS].[WingMaster] OFF
 
@@ -4615,7 +4615,7 @@ GO
 -- Rules Engine Configuration Seed Data
 -- ==========================================
 
-SET IDENTITY_INSERT [PTIS].[RuleScopeMaster] ON 
+SET IDENTITY_INSERT [PTIS].[RuleScopeMaster] ON
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeMaster] WHERE [RuleScope] = N'Property Level')
     INSERT [PTIS].[RuleScopeMaster] ([Id], [RuleScope], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1, N'Property Level', 1, 1, CAST(N'2026-05-04T15:43:57.587' AS DateTime), 0, CAST(N'2026-05-04T15:44:33.573' AS DateTime))
@@ -4623,7 +4623,7 @@ GO
 SET IDENTITY_INSERT [PTIS].[RuleScopeMaster] OFF
 GO
 
-SET IDENTITY_INSERT [PTIS].[RulesFieldMaster] ON 
+SET IDENTITY_INSERT [PTIS].[RulesFieldMaster] ON
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Floor')
     INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (1, N'Floor', N'Int', 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL, N'FloorId')
@@ -4694,7 +4694,7 @@ GO
 SET IDENTITY_INSERT [PTIS].[RulesFieldMaster] OFF
 GO
 
-SET IDENTITY_INSERT [PTIS].[RuleCategoryMaster] ON 
+SET IDENTITY_INSERT [PTIS].[RuleCategoryMaster] ON
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleCategoryMaster] WHERE [CategoryCode] = N'RV')
     INSERT [PTIS].[RuleCategoryMaster] ([Id], [CategoryCode], [CategoryName], [Description], [SortOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1, N'RV', N'RV (Rateable Value)', N'Rules applicable to Rateable Value method', 1, 1, 1, CAST(N'2026-05-28T14:31:42.670' AS DateTime), NULL, NULL)
@@ -4705,7 +4705,7 @@ GO
 SET IDENTITY_INSERT [PTIS].[RuleCategoryMaster] OFF
 GO
 
-SET IDENTITY_INSERT [PTIS].[RuleEffectTypeMaster] ON 
+SET IDENTITY_INSERT [PTIS].[RuleEffectTypeMaster] ON
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleEffectTypeMaster] WHERE [EffectType] = N'Increase %')
     INSERT [PTIS].[RuleEffectTypeMaster] ([Id], [EffectType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1, N'Increase %', 1, 1, CAST(N'2026-05-05T19:03:44.857' AS DateTime), 1, CAST(N'2026-05-05T19:04:14.420' AS DateTime))
@@ -4716,7 +4716,7 @@ GO
 SET IDENTITY_INSERT [PTIS].[RuleEffectTypeMaster] OFF
 GO
 
-SET IDENTITY_INSERT [PTIS].[RuleOperatorMaster] ON 
+SET IDENTITY_INSERT [PTIS].[RuleOperatorMaster] ON
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleOperatorMaster] WHERE [Operator] = N'=')
     INSERT [PTIS].[RuleOperatorMaster] ([Id], [Operator], [OperatorDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1, N'=', N'Equal To', 1, 1, CAST(N'2026-05-07T12:40:19.087' AS DateTime), 0, CAST(N'2026-05-07T12:40:54.183' AS DateTime))
@@ -4754,7 +4754,7 @@ GO
 SET IDENTITY_INSERT [PTIS].[RuleOperatorMaster] OFF
 GO
 
-SET IDENTITY_INSERT [PTIS].[EffectTypeConfiguration] ON 
+SET IDENTITY_INSERT [PTIS].[EffectTypeConfiguration] ON
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[EffectTypeConfiguration] WHERE [EffectTypeId] = 1)
     INSERT [PTIS].[EffectTypeConfiguration] ([Id], [EffectTypeId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ExpressionTemplate], [StaticApiEndpoint], [StaticApiInputType], [StaticApiMethod], [StaticApiParamter], [StaticApiResponseMapping]) VALUES (1, 1, N'String', N'TextBox', 0, N'', N'', N'', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-27T16:36:11.117' AS DateTime), NULL, NULL, NULL, N'PropertyRuleEvaluationMaster', N'dropdown', N'GET', N'{"PageSize":"-1"}', N'{"responsePath":"data","valuePath":"id","labelPath":"parameterName","displayTemplate":"{parameterCode} - {parameterName}","additionalFields":{"parameterCode":"parameterCode"}}')
@@ -4765,7 +4765,7 @@ GO
 SET IDENTITY_INSERT [PTIS].[EffectTypeConfiguration] OFF
 GO
 
-SET IDENTITY_INSERT [PTIS].[FieldConfiguration] ON 
+SET IDENTITY_INSERT [PTIS].[FieldConfiguration] ON
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 1)
     INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (3, 1, N'Int', N'Dropdown', 1, N'Floor', N'Get', N'{"PageSize":"-1"}', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-21T11:51:26.163' AS DateTime), NULL, NULL, N'{"responsePath":"items","valuePath":"id","labelPath":"description","displayTemplate":"{floorCode} - {description}","additionalFields":{"floorCode":"floorCode","sequenceNo":"sequenceNo"}}')
@@ -4863,7 +4863,7 @@ GO
 SET IDENTITY_INSERT [PTIS].[FieldConfiguration] OFF
 GO
 
-SET IDENTITY_INSERT [PTIS].[RuleScopeFieldMapping] ON 
+SET IDENTITY_INSERT [PTIS].[RuleScopeFieldMapping] ON
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 1)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1035, 1, 1, 1, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)

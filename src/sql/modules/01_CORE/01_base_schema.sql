@@ -1,4 +1,4 @@
-﻿SET ANSI_NULLS ON
+SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
@@ -466,7 +466,7 @@ GO
    STEP 4: [CORE].[UserRoleAllocation]  ← depends on UserMaster + DepartmentMaster + UserRoleMaster
 =========================== */
 CREATE TABLE [CORE].[UserRoleAllocation](
-    
+
     [Id]           INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [UserId]       INT NOT NULL,
     [DepartmentId] INT NOT NULL,
@@ -824,7 +824,7 @@ CREATE TABLE [CORE].[ScreenMaster](
     CONSTRAINT [FK_ScreenMaster_ScreenGroupMaster] FOREIGN KEY ([ScreenGroupId]) REFERENCES [CORE].[ScreenGroupMaster] ([Id]),
     CONSTRAINT [FK_ScreenMaster_ModuleMaster] FOREIGN KEY ([ModuleId]) REFERENCES [CORE].[ModuleMaster] ([Id] ) ,
     CONSTRAINT [FK_ScreenMaster_DepartmentMaster] FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id]),
-    CONSTRAINT [CK_ScreenMaster_DisplayOrder_NonNegative] CHECK ([DisplayOrder] >= 0)   
+    CONSTRAINT [CK_ScreenMaster_DisplayOrder_NonNegative] CHECK ([DisplayOrder] >= 0)
 
 )
 GO
@@ -1126,7 +1126,7 @@ CREATE TABLE [CORE].[UlbType](
  	[CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_UlbType_CreatedDate] DEFAULT (GETDATE()),
  	[UpdatedBy] INT NULL,
  	[UpdatedDate] DATETIME NULL,
- CONSTRAINT [PK_UlbType] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_UlbType] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 ) ON [PRIMARY]
@@ -1167,11 +1167,11 @@ CREATE TABLE [CORE].[UlbMaster](
 	[UpdatedDate] [datetime] NULL,
 	[CreatedBy] [int] NULL,
 	[UpdatedBy] [int] NULL,
- CONSTRAINT [PK_UlbMaster] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_UlbMaster] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 ) ON [PRIMARY],
- CONSTRAINT [UQ_UlbMaster_UlbCode] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_UlbMaster_UlbCode] UNIQUE NONCLUSTERED
 (
 	[UlbCode] ASC
 ) ON [PRIMARY]
@@ -1214,16 +1214,16 @@ CREATE TABLE [CORE].[RefreshToken](
     [UpdatedBy] INT NULL,
     [UpdatedDate] DATETIME NULL,
  CONSTRAINT [PK_RefreshToken] PRIMARY KEY CLUSTERED ([Id] ASC),
- CONSTRAINT [UQ_RefreshToken_Token] UNIQUE ([Token])    
+ CONSTRAINT [UQ_RefreshToken_Token] UNIQUE ([Token])
 );
- 
+
 ALTER TABLE [CORE].[RefreshToken]  WITH CHECK ADD  CONSTRAINT [FK_RefreshToken_UserMaster] FOREIGN KEY([UserId])
 REFERENCES [CORE].[UserMaster] ([Id])
 ON DELETE CASCADE
 GO
 ALTER TABLE [CORE].[RefreshToken] CHECK CONSTRAINT [FK_RefreshToken_UserMaster];
 GO
- 
+
 CREATE TABLE [CORE].[ConfigCategoryMaster](
     [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL  ,
     [CategoryCode] [varchar](30) NOT NULL,
@@ -1238,7 +1238,7 @@ CREATE TABLE [CORE].[ConfigCategoryMaster](
  CONSTRAINT [UQ_ConfigCategoryMaster_CategoryCode] UNIQUE ([CategoryCode])
 ) ON [PRIMARY]
 GO
- 
+
 
 CREATE TABLE [CORE].[ConfigKeyMaster](
     [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL ,
@@ -1253,22 +1253,22 @@ CREATE TABLE [CORE].[ConfigKeyMaster](
     [CreatedBy] [int] NULL,
     [CreatedDate] [datetime] NOT NULL CONSTRAINT DF_ConfigKeyMaster_CreatedDate DEFAULT(GETDATE()),
     [UpdatedBy] [int] NULL,
-    [UpdatedDate] [datetime] NULL, 
+    [UpdatedDate] [datetime] NULL,
  CONSTRAINT [PK_ConfigKeyMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
  CONSTRAINT [UQ_ConfigKeyMaster_ConfigCode] UNIQUE ([ConfigCode])
 ) ON [PRIMARY]
 GO
- 
+
 ALTER TABLE [CORE].[ConfigKeyMaster] WITH CHECK ADD CONSTRAINT [FK_ConfigKeyMaster_ConfigCategoryMaster_CategoryId] FOREIGN KEY([CategoryId])
 REFERENCES [CORE].[ConfigCategoryMaster] ([Id])
 GO
 ALTER TABLE [CORE].[ConfigKeyMaster] CHECK CONSTRAINT [FK_ConfigKeyMaster_ConfigCategoryMaster_CategoryId]
 GO
- 
+
 CREATE NONCLUSTERED INDEX [IX_ConfigKeyMaster_CategoryId]
 ON [CORE].[ConfigKeyMaster] ([CategoryId] ASC)
 GO
- 
+
 CREATE TABLE [CORE].[ConfigValueMaster](
     [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [ConfigKeyId] [int] NOT NULL,
@@ -1303,7 +1303,7 @@ CREATE UNIQUE NONCLUSTERED INDEX [UQ_ConfigValue_ConfigKeyId_DepartmentId_Module
 ON [CORE].[ConfigValueMaster] ([ConfigKeyId] ASC, [DepartmentId] ASC, [ModuleId] ASC)
 WHERE [DepartmentId] IS NOT NULL AND [ModuleId] IS NOT NULL
 GO
- 
+
 ALTER TABLE [CORE].[ConfigValueMaster] WITH CHECK ADD CONSTRAINT [FK_ConfigValueMaster_ConfigKeyMaster_ConfigKeyId]
 FOREIGN KEY([ConfigKeyId])
 REFERENCES [CORE].[ConfigKeyMaster] ([Id]);

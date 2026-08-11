@@ -1,4 +1,4 @@
-﻿SET ANSI_NULLS ON
+SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
@@ -46,7 +46,7 @@ ALTER TABLE [PTIS].[WardMaster]  WITH CHECK ADD  CONSTRAINT [FK_WardMaster_ZoneM
 FOREIGN KEY([ZoneId]) REFERENCES [PTIS].[ZoneMaster] ([Id])
 GO
 ALTER TABLE [PTIS].[WardMaster] CHECK CONSTRAINT [FK_WardMaster_ZoneMaster]
-GO	
+GO
 
 
 /****** Object:  Table [PTIS].[OwnerTypeMaster]******/
@@ -157,7 +157,7 @@ GO
 -- 	[UpdatedDate] [datetime] NULL,
 --  CONSTRAINT [PK_SubCategory] PRIMARY KEY CLUSTERED ([SubCategory] ASC)
 
--- ) 
+-- )
 
 CREATE TABLE [PTIS].[WingMaster](
 	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
@@ -212,12 +212,12 @@ CREATE TABLE [PTIS].[SocietyDetailsMast](
 GO
 
 ALTER TABLE [PTIS].[SocietyDetailsMast] WITH CHECK ADD CONSTRAINT [FK_SocietyDetailsMast_WingMaster] FOREIGN KEY([WingId])
-REFERENCES [PTIS].[WingMaster] ([Id]) 
+REFERENCES [PTIS].[WingMaster] ([Id])
 GO
-ALTER TABLE [PTIS].[SocietyDetailsMast] CHECK CONSTRAINT [FK_SocietyDetailsMast_WingMaster] 
+ALTER TABLE [PTIS].[SocietyDetailsMast] CHECK CONSTRAINT [FK_SocietyDetailsMast_WingMaster]
 GO
 
-ALTER TABLE [PTIS].[SocietyDetailsMast]  WITH CHECK ADD  CONSTRAINT [FK_SocietyDetailsMast_ManagerMobileNoRemarkMaster] FOREIGN KEY([ManagerMobileNoRemarkId])	
+ALTER TABLE [PTIS].[SocietyDetailsMast]  WITH CHECK ADD  CONSTRAINT [FK_SocietyDetailsMast_ManagerMobileNoRemarkMaster] FOREIGN KEY([ManagerMobileNoRemarkId])
 REFERENCES [CORE].[CommonRemarkTypeMaster] ([Id])
 GO
 ALTER TABLE [PTIS].[SocietyDetailsMast] CHECK CONSTRAINT [FK_SocietyDetailsMast_ManagerMobileNoRemarkMaster]
@@ -230,15 +230,15 @@ ALTER TABLE [PTIS].[SocietyDetailsMast] CHECK CONSTRAINT [FK_SocietyDetailsMast_
 GO
 
 
-ALTER TABLE [PTIS].[SocietyDetailsMast]  WITH CHECK ADD  CONSTRAINT [FK_SocietyDetailsMast_BuilderMobileNoRemarkMaster] FOREIGN KEY([BuilderMobileNoRemarkId])	
+ALTER TABLE [PTIS].[SocietyDetailsMast]  WITH CHECK ADD  CONSTRAINT [FK_SocietyDetailsMast_BuilderMobileNoRemarkMaster] FOREIGN KEY([BuilderMobileNoRemarkId])
 REFERENCES [CORE].[CommonRemarkTypeMaster] ([Id])
 GO
 ALTER TABLE [PTIS].[SocietyDetailsMast] CHECK CONSTRAINT [FK_SocietyDetailsMast_BuilderMobileNoRemarkMaster]
 GO
 
 
--- ALTER TABLE [PTIS].[SocietyDetailsMast]  WITH CHECK ADD  CONSTRAINT [FK_SocietyDetailsMast_PropertyMast] FOREIGN KEY([PropertyId]) 
--- REFERENCES [PTIS].[PropertyMast] ([Id])	
+-- ALTER TABLE [PTIS].[SocietyDetailsMast]  WITH CHECK ADD  CONSTRAINT [FK_SocietyDetailsMast_PropertyMast] FOREIGN KEY([PropertyId])
+-- REFERENCES [PTIS].[PropertyMast] ([Id])
 -- GO
 -- ALTER TABLE [PTIS].[SocietyDetailsMast] CHECK CONSTRAINT [FK_SocietyDetailsMast_PropertyMast]
 -- GO
@@ -413,7 +413,7 @@ CREATE TABLE [PTIS].[PropertyMastOld](
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
  CONSTRAINT [PK_PropertyMastOld] PRIMARY KEY CLUSTERED ([Id] ASC)
-) ON [PRIMARY] 
+) ON [PRIMARY]
 GO
 
 
@@ -483,7 +483,7 @@ CREATE TABLE [PTIS].[PropertyMast](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_PropertyMast_CreatedDate] DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
-	
+
     CONSTRAINT [PK_PropertyMast] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
@@ -502,14 +502,14 @@ GO
 ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_TaxZoneMaster_TaxZoneId];
 GO
 
-ALTER TABLE [PTIS].[PropertyMast] WITH CHECK ADD CONSTRAINT [FK_PropertyMast_PropertyCategoryMaster] FOREIGN KEY([CategoryId]) 
+ALTER TABLE [PTIS].[PropertyMast] WITH CHECK ADD CONSTRAINT [FK_PropertyMast_PropertyCategoryMaster] FOREIGN KEY([CategoryId])
 REFERENCES [PTIS].[PropertyCategoryMaster] ([Id]);
 GO
 
 ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_PropertyCategoryMaster];
 GO
 
-ALTER TABLE [PTIS].[PropertyMast] WITH CHECK ADD CONSTRAINT [FK_PropertyMast_WardMaster] FOREIGN KEY([WardId]) 
+ALTER TABLE [PTIS].[PropertyMast] WITH CHECK ADD CONSTRAINT [FK_PropertyMast_WardMaster] FOREIGN KEY([WardId])
 REFERENCES [PTIS].[WardMaster] ([Id]);
 GO
 
@@ -673,13 +673,13 @@ CREATE TABLE [PTIS].[TypeOfUseMaster](
  CONSTRAINT [UQ_TypeOfUseMaster_Description] UNIQUE ([Description])
 )
 GO
-alter table [PTIS].[TypeOfUseMaster]  WITH CHECK ADD  CONSTRAINT [FK_TypeOfUseMaster_TypeOfUseGroupMaster] FOREIGN KEY([TypeOfUseGroupId])	
+alter table [PTIS].[TypeOfUseMaster]  WITH CHECK ADD  CONSTRAINT [FK_TypeOfUseMaster_TypeOfUseGroupMaster] FOREIGN KEY([TypeOfUseGroupId])
 REFERENCES [PTIS].[TypeOfUseGroupMaster] ([Id])
 GO
 ALTER TABLE [PTIS].[TypeOfUseMaster] CHECK CONSTRAINT [FK_TypeOfUseMaster_TypeOfUseGroupMaster]
 GO
 
-alter table [PTIS].[TypeOfUseMaster]  WITH CHECK ADD  CONSTRAINT [FK_TypeOfUseMaster_TypeOfUseGroupMasterCV] FOREIGN KEY([TypeOfUseGroupCVId])	
+alter table [PTIS].[TypeOfUseMaster]  WITH CHECK ADD  CONSTRAINT [FK_TypeOfUseMaster_TypeOfUseGroupMasterCV] FOREIGN KEY([TypeOfUseGroupCVId])
 REFERENCES [PTIS].[TypeOfUseGroupMasterCV] ([Id])
 GO
 ALTER TABLE [PTIS].[TypeOfUseMaster] CHECK CONSTRAINT [FK_TypeOfUseMaster_TypeOfUseGroupMasterCV]
@@ -782,31 +782,31 @@ CREATE TABLE [PTIS].[PropertyDetails](
  CONSTRAINT [PK_PropertyDetails] PRIMARY KEY CLUSTERED ([Id] ASC)
 )
 GO
-ALTER TABLE [PTIS].[PropertyDetails] WITH CHECK ADD CONSTRAINT [FK_PropertyDetails_PropertyMast] 
+ALTER TABLE [PTIS].[PropertyDetails] WITH CHECK ADD CONSTRAINT [FK_PropertyDetails_PropertyMast]
 FOREIGN KEY([PropertyId]) REFERENCES [PTIS].[PropertyMast]([Id]);
 GO
 ALTER TABLE [PTIS].[PropertyDetails] CHECK CONSTRAINT [FK_PropertyDetails_PropertyMast];
 GO
 
-ALTER TABLE [PTIS].[PropertyDetails] WITH CHECK ADD CONSTRAINT [FK_PropertyDetails_SubFloorMaster] 
+ALTER TABLE [PTIS].[PropertyDetails] WITH CHECK ADD CONSTRAINT [FK_PropertyDetails_SubFloorMaster]
 FOREIGN KEY([SubFloorId]) REFERENCES [PTIS].[SubFloorMaster]([Id]);
 GO
 ALTER TABLE [PTIS].[PropertyDetails] CHECK CONSTRAINT [FK_PropertyDetails_SubFloorMaster];
 GO
 
-ALTER TABLE [PTIS].[PropertyDetails] WITH CHECK ADD CONSTRAINT [FK_PropertyDetails_ConstructionTypeMaster] 
+ALTER TABLE [PTIS].[PropertyDetails] WITH CHECK ADD CONSTRAINT [FK_PropertyDetails_ConstructionTypeMaster]
 FOREIGN KEY([ConstructionTypeId]) REFERENCES [PTIS].[ConstructionTypeMaster]([Id]);
 GO
 ALTER TABLE [PTIS].[PropertyDetails] CHECK CONSTRAINT [FK_PropertyDetails_ConstructionTypeMaster];
 GO
 
-ALTER TABLE [PTIS].[PropertyDetails] WITH CHECK ADD CONSTRAINT [FK_PropertyDetails_FloorMaster] 
+ALTER TABLE [PTIS].[PropertyDetails] WITH CHECK ADD CONSTRAINT [FK_PropertyDetails_FloorMaster]
 FOREIGN KEY([FloorId]) REFERENCES [PTIS].[FloorMaster]([Id]);
 GO
 ALTER TABLE [PTIS].[PropertyDetails] CHECK CONSTRAINT [FK_PropertyDetails_FloorMaster];
 GO
 
-ALTER TABLE [PTIS].[PropertyDetails] WITH CHECK ADD CONSTRAINT [FK_PropertyDetails_TypeOfUseMaster] 
+ALTER TABLE [PTIS].[PropertyDetails] WITH CHECK ADD CONSTRAINT [FK_PropertyDetails_TypeOfUseMaster]
 FOREIGN KEY([TypeOfUseId]) REFERENCES [PTIS].[TypeOfUseMaster]([Id]);
 GO
 ALTER TABLE [PTIS].[PropertyDetails] CHECK CONSTRAINT [FK_PropertyDetails_TypeOfUseMaster];
@@ -1140,7 +1140,7 @@ CREATE TABLE [PTIS].[ApplyTaxesMaster](
     [PropertyId] [int] NOT NULL,
     [TaxId] [int] NOT NULL,
     -- [IsTaxForPlot] [bit] NOT NULL CONSTRAINT [DF_ApplyTaxesMaster_IsTaxForPlot] DEFAULT ((0)),
-    -- [IsPolicyApplicable] [bit] NOT NULL CONSTRAINT [DF_ApplyTaxesMaster_IsPolicyApplicable] DEFAULT ((0)),	
+    -- [IsPolicyApplicable] [bit] NOT NULL CONSTRAINT [DF_ApplyTaxesMaster_IsPolicyApplicable] DEFAULT ((0)),
 	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_ApplyTaxesMaster_MarkedForDeletion] DEFAULT (0),
 	[MarkedForDeletionDate] [datetime] NULL ,
     [IsActive] [bit] NOT NULL CONSTRAINT [DF_ApplyTaxesMaster_IsActive] DEFAULT (1),
@@ -1194,7 +1194,7 @@ GO
 -- 	[UpdatedBy] [int] NULL,
 -- 	[UpdatedDate] [datetime] NULL,
 --  CONSTRAINT [PK_AssessmentMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
--- ) ON [PRIMARY] 
+-- ) ON [PRIMARY]
 -- GO
 
 
@@ -1303,7 +1303,7 @@ GO
 -- 	[UpdatedBy] [int] NULL,
 -- 	[UpdatedDate] [datetime] NULL,
 --  CONSTRAINT [PK_ConditionMaster] PRIMARY KEY CLUSTERED ([ConditionID] ASC)
--- ) ON [PRIMARY] 
+-- ) ON [PRIMARY]
 -- GO
 
 -- /****** Object:  Table [PTIS].[ConditionMasterRates]******/
@@ -1365,7 +1365,7 @@ CREATE TABLE [PTIS].[DepreciationMaster](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_DepreciationMaster_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
-	
+
  CONSTRAINT [PK_DepreciationMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
  CONSTRAINT [UQ_DepreciationMaster] UNIQUE ([ConstructionTypeId], [MinYear], [MaxYear])
 ) ON [PRIMARY]
@@ -1497,7 +1497,7 @@ GO
 
 ALTER TABLE [PTIS].[FloorFactorCVMaster] WITH CHECK ADD CONSTRAINT [FK_FloorFactorCVMaster_AssessmentYearRangeCVMaster]
 FOREIGN KEY([YearRangeCVId]) REFERENCES [PTIS].[AssessmentYearRangeMasterCV]([Id]);
-GO	
+GO
 ALTER TABLE [PTIS].[FloorFactorCVMaster] CHECK CONSTRAINT [FK_FloorFactorCVMaster_AssessmentYearRangeCVMaster];
 GO
 
@@ -1519,7 +1519,7 @@ CREATE TABLE [PTIS].[RoomTypeMaster](
 
 /****** Object:  Table [PTIS].[RoomWiseSubmissionDetails]******/
 
- 
+
 
 CREATE TABLE [PTIS].[RoomWiseSubmissionDetails]
 (
@@ -1571,8 +1571,8 @@ ALTER TABLE [PTIS].[RoomWiseSubmissionDetails]
 CHECK CONSTRAINT [FK_RoomWiseSubmissionDetails_PropertyMast];
 GO
 
-ALTER TABLE [PTIS].[RoomWiseSubmissionDetails]  WITH CHECK 
-ADD  CONSTRAINT [FK_RoomWiseSubmissionDetails_RoomTypeMaster_RoomTypeId] 
+ALTER TABLE [PTIS].[RoomWiseSubmissionDetails]  WITH CHECK
+ADD  CONSTRAINT [FK_RoomWiseSubmissionDetails_RoomTypeMaster_RoomTypeId]
 FOREIGN KEY([RoomTypeId])
 REFERENCES [PTIS].[RoomTypeMaster] ([Id]);
 GO
@@ -1653,7 +1653,7 @@ GO
 ALTER TABLE [PTIS].[NatureFactorCVMaster] CHECK CONSTRAINT [FK_NatureFactorCVMaster_ConstructionTypeMaster];
 GO
 
-ALTER TABLE [PTIS].[NatureFactorCVMaster] WITH CHECK ADD CONSTRAINT [FK_NatureFactorCVMaster_AssessmentYearRangeMasterCV] FOREIGN KEY([YearRangeCVId]) 
+ALTER TABLE [PTIS].[NatureFactorCVMaster] WITH CHECK ADD CONSTRAINT [FK_NatureFactorCVMaster_AssessmentYearRangeMasterCV] FOREIGN KEY([YearRangeCVId])
 REFERENCES [PTIS].[AssessmentYearRangeMasterCV]([Id]);
 GO
 ALTER TABLE [PTIS].[NatureFactorCVMaster] CHECK CONSTRAINT [FK_NatureFactorCVMaster_AssessmentYearRangeMasterCV];
@@ -1674,7 +1674,7 @@ CREATE TABLE [PTIS].[RateSectionDetails](
 );
 GO
 
-alter table [PTIS].[RateSectionDetails] with check add constraint [FK_RateSectionDetails_RateSectionMaster]	
+alter table [PTIS].[RateSectionDetails] with check add constraint [FK_RateSectionDetails_RateSectionMaster]
 foreign key([RateSectionId]) references [PTIS].[RateSectionMaster] ([Id]);
 GO
 alter table [PTIS].[RateSectionDetails] check constraint [FK_RateSectionDetails_RateSectionMaster];
@@ -1683,7 +1683,7 @@ ALTER TABLE [PTIS].[RateSectionDetails] WITH CHECK ADD CONSTRAINT [FK_RateSectio
 FOREIGN KEY([WardId]) REFERENCES [PTIS].[WardMaster] ([Id]);
 GO
 ALTER TABLE [PTIS].[RateSectionDetails] CHECK CONSTRAINT [FK_RateSectionDetails_WardMaster];
-GO	
+GO
 
 
 
@@ -1739,7 +1739,7 @@ CREATE TABLE [PTIS].[PlotDetails](
 	[UpdatedDate] [datetime] NULL,
 	[UpdatedBy] [int] NULL,
  CONSTRAINT [PK_PlotDetails] PRIMARY KEY CLUSTERED ([Id] ASC)
-) ON [PRIMARY] 
+) ON [PRIMARY]
 GO
 
 ALTER TABLE [PTIS].[PlotDetails]  WITH CHECK ADD  CONSTRAINT [FK_PlotDetails_PropertyMast] FOREIGN KEY([PropertyId])
@@ -1788,7 +1788,7 @@ CREATE TABLE [PTIS].[PropertyAssessmentDetails](
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
  CONSTRAINT [PK_PropertyAssessmentDetails] PRIMARY KEY CLUSTERED ([Id] ASC)
-) ON [PRIMARY] 
+) ON [PRIMARY]
 GO
 
 ALTER TABLE [PTIS].[PropertyAssessmentDetails]  WITH CHECK ADD  CONSTRAINT [FK_PropertyAssessmentDetails_PropertyMast] FOREIGN KEY([PropertyId])
@@ -1813,13 +1813,13 @@ CREATE TABLE [PTIS].[PropertyDescriptionAndTypeOfUseValidation](
 	[UpdatedDate] [datetime] NULL,
     CONSTRAINT [PK_PropertyDescriptionAndTypeOfUseValidation] PRIMARY KEY CLUSTERED ([Id]),
     CONSTRAINT [FK_PropertyDescriptionAndTypeOfUseValidation_PropertyType]
-        FOREIGN KEY ([PropertyTypeId]) 
+        FOREIGN KEY ([PropertyTypeId])
         REFERENCES [PTIS].[PropertyTypeMaster]([Id]),
 	CONSTRAINT [FK_PropertyDescriptionAndTypeOfUseValidation_TypeOfUse]
-		FOREIGN KEY ([TypeOfUseId]) 
+		FOREIGN KEY ([TypeOfUseId])
 		REFERENCES [PTIS].[TypeOfUseMaster]([Id]),
 	CONSTRAINT [UQ_PropertyDescriptionAndTypeOfUseValidation] UNIQUE ([PropertyTypeId], [TypeOfUseId])
-	
+
 ) ON [PRIMARY];
 GO
 
@@ -1908,7 +1908,7 @@ CREATE TABLE [PTIS].[PropertyImagesMast](
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
  CONSTRAINT [PK_PropertyImagesMast] PRIMARY KEY CLUSTERED ([Id] ASC)
-) ON [PRIMARY] 
+) ON [PRIMARY]
 GO
 ALTER TABLE [PTIS].[PropertyImagesMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyImagesMast_PropertyMast] FOREIGN KEY([PropertyId])
 REFERENCES [PTIS].[PropertyMast] ([Id])
@@ -1975,7 +1975,7 @@ CREATE TABLE [PTIS].[PropertyMastDetails](
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
  CONSTRAINT [PK_PropertyMastDetails] PRIMARY KEY CLUSTERED ([Id] ASC)
-) ON [PRIMARY] 
+) ON [PRIMARY]
 GO
 
 ALTER TABLE [PTIS].[PropertyMastDetails]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMastDetails_PropertyMast_PropertyId] FOREIGN KEY([PropertyId])
@@ -1986,7 +1986,7 @@ ALTER TABLE [PTIS].[PropertyMastDetails] CHECK CONSTRAINT [FK_PropertyMastDetail
 GO
 
 alter table [PTIS].[PropertyMastDetails]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMastDetails_OwnerTypeMaster] FOREIGN KEY([OwnerTypeId])
-REFERENCES [PTIS].[OwnerTypeMaster] ([Id])	
+REFERENCES [PTIS].[OwnerTypeMaster] ([Id])
 GO
 ALTER TABLE [PTIS].[PropertyMastDetails] CHECK CONSTRAINT [FK_PropertyMastDetails_OwnerTypeMaster]
 
@@ -1995,7 +1995,7 @@ ALTER TABLE [PTIS].[PropertyMastDetails] CHECK CONSTRAINT [FK_PropertyMastDetail
 -- alter table [PTIS].[PropertyMastDetails]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMastDetails_UsageCategoryMaster] FOREIGN KEY([UsageCategoryId])
 -- REFERENCES [PTIS].[UsageCategoryMaster] ([Id])
 -- GO
--- ALTER TABLE [PTIS].[PropertyMastDetails] CHECK CONSTRAINT [FK_PropertyMastDetails_UsageCategoryMaster]	
+-- ALTER TABLE [PTIS].[PropertyMastDetails] CHECK CONSTRAINT [FK_PropertyMastDetails_UsageCategoryMaster]
 -- GO
 
 
@@ -2035,7 +2035,7 @@ CREATE TABLE [PTIS].[PropertySocialDetails](
 	[DateValue] DATE NULL,
 	[DocumentBindingId] INT  NULL,                 -- FK → CORE.DocumentBinding.Id (binding contains DocumentId) | e.g. 6601
 	[Remark] NVARCHAR(500) NULL,
-   
+
 	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_PropertySocialDetails_MarkedForDeletion] DEFAULT (0),
 	[MarkedForDeletionDate] [datetime] NULL,
    	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertySocialDetails_IsActive] DEFAULT (1),
@@ -2082,7 +2082,7 @@ CREATE TABLE [PTIS].[SocialDiscountMaster](
     [UpdatedDate] [datetime] NULL,
     CONSTRAINT PK_SocialDiscountMaster PRIMARY KEY ([Id]),
 	CONSTRAINT FK_SocialDiscountMaster_YearMaster FOREIGN KEY ([YearId]) REFERENCES [CORE].[YearMaster]([Id]),
-    CONSTRAINT FK_SocialDiscountMaster_SocialAttribute FOREIGN KEY ([SocialAttributeId]) 
+    CONSTRAINT FK_SocialDiscountMaster_SocialAttribute FOREIGN KEY ([SocialAttributeId])
 	REFERENCES [PTIS].[SocialAttributeMaster]([Id]),
     CONSTRAINT UQ_SocialDiscountMaster UNIQUE ([SocialAttributeId], [YearId]),
 	CONSTRAINT [CK_SocialDiscountMaster_DiscountType]
@@ -2111,7 +2111,7 @@ CHECK (
 );
 
 ALTER TABLE [PTIS].[SocialDiscountMaster] ADD CONSTRAINT [CK_SocialDiscountMaster_MaxDiscountAmount_NonNegative]
-CHECK ( 				
+CHECK (
 [MaxDiscountAmount] IS NULL OR [MaxDiscountAmount] >= 0
 );
 
@@ -2578,15 +2578,15 @@ CREATE TABLE [PTIS].[PropertyTaxCalculationCVResults](
 	CONSTRAINT [PK_PropertyTaxCalculationCVResults] PRIMARY KEY CLUSTERED ([Id] ASC),
 	CONSTRAINT [FK_PropertyTaxCalculationCVResults_PropertyMast] FOREIGN KEY([PropertyId]) REFERENCES [PTIS].[PropertyMast] ([Id]),
 	CONSTRAINT [FK_PropertyTaxCalculationCVResults_PropertyDetails] FOREIGN KEY ([PropertyDetailsId]) REFERENCES [PTIS].[PropertyDetails] ([Id]),
-	CONSTRAINT [FK_PropertyTaxCalculationCVResults_TaxMaster] FOREIGN KEY ([TaxId]) REFERENCES [PTIS].[TaxMaster] ([Id]),	
+	CONSTRAINT [FK_PropertyTaxCalculationCVResults_TaxMaster] FOREIGN KEY ([TaxId]) REFERENCES [PTIS].[TaxMaster] ([Id]),
 	CONSTRAINT [Fk_PropertyTaxCalculationCVResults_FloorFactorMaster] FOREIGN KEY ([FloorFactorCVId]) REFERENCES [PTIS].[FloorFactorCVMaster] ([Id]),
 	CONSTRAINT [Fk_PropertyTaxCalculationCVResults_AgeFactorMaster] FOREIGN KEY ([AgeFactorCVId]) REFERENCES [PTIS].[AgeFactorCVMaster] ([Id]),
 	CONSTRAINT [Fk_PropertyTaxCalculationCVResults_NatureFactorMaster] FOREIGN KEY ([NatureFactorCVId]) REFERENCES [PTIS].[NatureFactorCVMaster] ([Id]),
-	CONSTRAINT [Fk_PropertyTaxCalculationCVResults_UseFactorMaster] FOREIGN KEY ([UseFactorCVId]) REFERENCES [PTIS].[UseFactorCVMaster] ([Id])	
+	CONSTRAINT [Fk_PropertyTaxCalculationCVResults_UseFactorMaster] FOREIGN KEY ([UseFactorCVId]) REFERENCES [PTIS].[UseFactorCVMaster] ([Id])
 	) ON [PRIMARY]
 GO
 -- Add FK constraint for PropertyTaxCalculationCVResults.RateCVMasterId
-ALTER TABLE [PTIS].[PropertyTaxCalculationCVResults] WITH CHECK ADD CONSTRAINT [FK_PropertyTaxCalculationCVResults_RateCVMaster] 
+ALTER TABLE [PTIS].[PropertyTaxCalculationCVResults] WITH CHECK ADD CONSTRAINT [FK_PropertyTaxCalculationCVResults_RateCVMaster]
 FOREIGN KEY([RateCVMasterId]) REFERENCES [PTIS].[RateCVMaster] ([Id]);
 GO
 ALTER TABLE [PTIS].[PropertyTaxCalculationCVResults] CHECK CONSTRAINT [FK_PropertyTaxCalculationCVResults_RateCVMaster];
@@ -2595,7 +2595,7 @@ GO
 
 CREATE UNIQUE NONCLUSTERED INDEX [UX_PropertyTaxCalculationCVResults_PropertyDetails_TaxId]
 ON [PTIS].[PropertyTaxCalculationCVResults]([PropertyDetailsId], [TaxId])
-WHERE [IsActive] = 1 
+WHERE [IsActive] = 1
 GO
 
 
@@ -2630,7 +2630,7 @@ CREATE TABLE [PTIS].[PropertyTaxCalculationSection129Results](
     CONSTRAINT [FK_PropertyTaxCalculationSection129Results_PropertyDetails] FOREIGN KEY ([PropertyDetailsId]) REFERENCES [PTIS].[PropertyDetails] ([Id]),
     CONSTRAINT [FK_PropertyTaxCalculationSection129Results_TaxMaster] FOREIGN KEY ([TaxId]) REFERENCES [PTIS].[TaxMaster] ([Id])
 );
-GO	
+GO
 
 
 -- /****** Object:  Table [PTIS].[PropertyTaxSlabWiseMaster]******/
@@ -2720,13 +2720,13 @@ GO
 -- 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_RateChartMaster_CreatedDate DEFAULT (GETDATE()),
 -- 	[UpdatedBy] [int] NULL,
 -- 	[UpdatedDate] [datetime] NULL,
-	
+
 --  CONSTRAINT [PK_RateChartMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
 -- ) ON [PRIMARY]
 -- GO
 
 -- alter table [PTIS].[RateChartMaster] WITH CHECK ADD CONSTRAINT [FK_RateChartMaster_RateSectionMaster]
--- FOREIGN KEY([RateSectionId]) REFERENCES [PTIS].[RateSectionMaster]([Id]);	
+-- FOREIGN KEY([RateSectionId]) REFERENCES [PTIS].[RateSectionMaster]([Id]);
 -- GO
 -- ALTER TABLE [PTIS].[RateChartMaster] CHECK CONSTRAINT [FK_RateChartMaster_RateSectionMaster];
 
@@ -2751,7 +2751,7 @@ CREATE TABLE [PTIS].[RateMaster](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_RateMaster_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
-	
+
  CONSTRAINT [PK_RateMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 
@@ -2763,7 +2763,7 @@ FOREIGN KEY (TaxZoneId) REFERENCES PTIS.TaxZoneMaster(Id);
 ALTER TABLE PTIS.RateMaster CHECK CONSTRAINT FK_RateMaster_TaxZoneMaster;
 GO
 
-ALTER TABLE [PTIS].[RateMaster] ADD CONSTRAINT [FK_RateMaster_FloorId] 
+ALTER TABLE [PTIS].[RateMaster] ADD CONSTRAINT [FK_RateMaster_FloorId]
 FOREIGN KEY (FloorId) REFERENCES [PTIS].[FloorMaster](Id);
 GO
 ALTER TABLE [PTIS].[RateMaster] CHECK CONSTRAINT [FK_RateMaster_FloorId];
@@ -2772,7 +2772,7 @@ GO
 
 ALTER TABLE [PTIS].[RateMaster] ADD CONSTRAINT [FK_RateMaster_ConstructionTypeId]
 FOREIGN KEY (ConstructionTypeId) REFERENCES [PTIS].[ConstructionTypeMaster](Id);
-GO	
+GO
 ALTER TABLE [PTIS].[RateMaster] CHECK CONSTRAINT [FK_RateMaster_ConstructionTypeId];
 GO
 
@@ -2792,7 +2792,7 @@ ALTER TABLE PTIS.RateMaster WITH CHECK ADD CONSTRAINT FK_RateMaster_AssessmentYe
 FOREIGN KEY (YearRangeRVId) REFERENCES PTIS.AssessmentYearRangeMasterRV(Id);
 GO
 ALTER TABLE PTIS.RateMaster CHECK CONSTRAINT FK_RateMaster_AssessmentYearRangeMasterRV;
-GO	
+GO
 
 
 ALTER TABLE PTIS.RateMaster ADD CONSTRAINT UQ_RateMaster_TaxZone_Construction_UseGroup_Year_Section
@@ -2809,7 +2809,7 @@ GO
 CREATE TABLE [PTIS].[SubZoneDetailsForCV](
 	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[MoujaId] [int] NOT NULL,
-	[SubZoneNo] [nvarchar](20) NOT NULL,---- (MoujaId + SubZoneNo) 
+	[SubZoneNo] [nvarchar](20) NOT NULL,---- (MoujaId + SubZoneNo)
 	[SubZoneName] [nvarchar](1000) NOT NULL,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_SubZoneDetailsForCV_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
@@ -2818,19 +2818,19 @@ CREATE TABLE [PTIS].[SubZoneDetailsForCV](
 	[UpdatedDate] [datetime] NULL,
 CONSTRAINT [PK_SubZoneDetailsForCV] PRIMARY KEY CLUSTERED  ([Id] ASC),
 constraint UQ_SubZoneDetailsForCV_Mouja_SubZoneNo UNIQUE (MoujaId, SubZoneNo),
-CONSTRAINT FK_SubZoneDetailsForCV_MoujaMaster FOREIGN KEY (MoujaId) REFERENCES PTIS.MoujaMaster(Id)	
+CONSTRAINT FK_SubZoneDetailsForCV_MoujaMaster FOREIGN KEY (MoujaId) REFERENCES PTIS.MoujaMaster(Id)
 )
 GO
 
 -- Add FK constraint for RateCVMaster.SubZoneId (deferred because SubZoneDetailsForCV is defined after RateCVMaster)
-ALTER TABLE [PTIS].[RateCVMaster] WITH CHECK ADD CONSTRAINT [FK_RateCVMaster_SubZoneDetailsForCV] 
+ALTER TABLE [PTIS].[RateCVMaster] WITH CHECK ADD CONSTRAINT [FK_RateCVMaster_SubZoneDetailsForCV]
 FOREIGN KEY([SubZoneId]) REFERENCES [PTIS].[SubZoneDetailsForCV] ([Id]);
 GO
 ALTER TABLE [PTIS].[RateCVMaster] CHECK CONSTRAINT [FK_RateCVMaster_SubZoneDetailsForCV];
 GO
 
 /****** Object:  Table [PTIS].[CSNDetails]   ******/
- 
+
 CREATE TABLE [PTIS].[CSNDetails](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[RateCVMasterId] [int] NOT NULL,
@@ -2951,7 +2951,7 @@ CREATE TABLE [PTIS].[SubmissionSameAsUserHistory](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_SubmissionSameAsUserHistory_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
-	
+
 PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 GO
@@ -3191,8 +3191,8 @@ CREATE TABLE PTIS.TransMastArchive (
     CONSTRAINT [PK_TransMastArchive]  PRIMARY KEY CLUSTERED ([Id]),
     CONSTRAINT [FK_TransMastArchive_TaxMaster]  FOREIGN KEY ([TaxId]) REFERENCES PTIS.TaxMaster([Id]),
     CONSTRAINT [FK_TransMastArchive_PropertyMast]  FOREIGN KEY ([PropertyId]) REFERENCES PTIS.PropertyMast([Id]),
-    CONSTRAINT [FK_TransMastArchive_YearMaster]  FOREIGN KEY ([FinanceYearId]) REFERENCES CORE.YearMaster([Id])    
-); 
+    CONSTRAINT [FK_TransMastArchive_YearMaster]  FOREIGN KEY ([FinanceYearId]) REFERENCES CORE.YearMaster([Id])
+);
 
 ALTER TABLE PTIS.TransMastArchive ADD CONSTRAINT [UQ_TransMastArchive_Property_Year_Tax] UNIQUE (PropertyId, FinanceYearId, TaxId);
 CREATE NONCLUSTERED INDEX IX_TransMastArchive_PropertyYear ON PTIS.TransMastArchive(PropertyId, FinanceYearId)  INCLUDE (TaxId, TaxAmount);
@@ -3219,8 +3219,8 @@ CREATE NONCLUSTERED INDEX IX_TransMastArchive_TaxId ON PTIS.TransMastArchive(Tax
 --     CONSTRAINT [PK_TransMastCV]  PRIMARY KEY CLUSTERED ([Id]),
 --     CONSTRAINT [FK_TransMastCV_TaxMaster]  FOREIGN KEY ([TaxId]) REFERENCES PTIS.TaxMaster([Id]),
 --     CONSTRAINT [FK_TransMastCV_PropertyMast]  FOREIGN KEY ([PropertyId]) REFERENCES PTIS.PropertyMast([Id]),
---     CONSTRAINT [FK_TransMastCV_YearMaster]  FOREIGN KEY ([FinanceYearId]) REFERENCES CORE.YearMaster([Id])    
--- ); 
+--     CONSTRAINT [FK_TransMastCV_YearMaster]  FOREIGN KEY ([FinanceYearId]) REFERENCES CORE.YearMaster([Id])
+-- );
 
 
 -- ALTER TABLE PTIS.TransMastCV ADD CONSTRAINT [UQ_TransMastCV_Property_Year_Tax] UNIQUE (PropertyId, FinanceYearId, TaxId);
@@ -3248,8 +3248,8 @@ CREATE TABLE PTIS.TransMastLookup (
     CONSTRAINT [PK_TransMastLookup]  PRIMARY KEY CLUSTERED ([Id]),
     CONSTRAINT [FK_TransMastLookup_TaxMaster]  FOREIGN KEY ([TaxId]) REFERENCES PTIS.TaxMaster([Id]),
     CONSTRAINT [FK_TransMastLookup_PropertyMast]  FOREIGN KEY ([PropertyId]) REFERENCES PTIS.PropertyMast([Id]),
-    CONSTRAINT [FK_TransMastLookup_YearMaster]  FOREIGN KEY ([FinanceYearId]) REFERENCES CORE.YearMaster([Id])    
-); 
+    CONSTRAINT [FK_TransMastLookup_YearMaster]  FOREIGN KEY ([FinanceYearId]) REFERENCES CORE.YearMaster([Id])
+);
 
 
 ALTER TABLE PTIS.TransMastLookup ADD CONSTRAINT [UQ_TransMastLookup_Property_Year_Tax] UNIQUE (PropertyId, FinanceYearId, TaxId);
@@ -3259,7 +3259,7 @@ CREATE NONCLUSTERED INDEX IX_TransMastLookup_TaxId ON PTIS.TransMastLookup(TaxId
 
 
 
-/****** Object:  Table [PTIS].[RoomWiseMinusData] ******/ 
+/****** Object:  Table [PTIS].[RoomWiseMinusData] ******/
 CREATE TABLE [PTIS].[RoomWiseMinusData](
 	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[RoomWiseSubmissionId] [int] NULL,
@@ -3280,7 +3280,7 @@ CREATE TABLE [PTIS].[RoomWiseMinusData](
 	[UpdatedDate] [datetime] NULL,
 CONSTRAINT [PK_RoomWiseMinusData] PRIMARY KEY CLUSTERED ( [Id] ASC )
 ) ON [PRIMARY]
-GO	
+GO
 
 ALTER TABLE [PTIS].[RoomWiseMinusData]  WITH CHECK ADD  CONSTRAINT [FK_RoomWiseMinusData_RoomWiseSubmissionDetails] FOREIGN KEY([RoomWiseSubmissionId])
 REFERENCES [PTIS].[RoomWiseSubmissionDetails] ([Id])
@@ -3294,7 +3294,7 @@ GO
 CREATE TABLE [PTIS].[RenterDetails] (
     [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [PropertyDetailsId] [INT] NOT NULL,
-    [AgreementId] [Nvarchar](25) NULL, 
+    [AgreementId] [Nvarchar](25) NULL,
     [IncrementFrequency] [NVARCHAR](35) NULL,
     [IncrementType] [NVARCHAR](35) NULL,
     [IncrementValue] [FLOAT] NULL,
@@ -3302,7 +3302,7 @@ CREATE TABLE [PTIS].[RenterDetails] (
     [DurationFrom] [DATETIME] NULL,
     [DurationTo] [DATETIME] NULL,
     [RentAmount] [FLOAT] NULL,
-    [Increment] [Float] NULL, 
+    [Increment] [Float] NULL,
     [IncrementStatus] [bit] NULL,
     [RentMonthly] [float] null,
     [CustomFromDate] [datetime] NULL,
@@ -3324,9 +3324,9 @@ GO
 
 ALTER TABLE PTIS.RenterDetails  WITH CHECK ADD  CONSTRAINT [FK_RenterDetails_PropertyDetails] FOREIGN KEY([PropertyDetailsId])
 REFERENCES [PTIS].[PropertyDetails] ([Id])
-GO	
+GO
 ALTER TABLE PTIS.RenterDetails CHECK CONSTRAINT [FK_RenterDetails_PropertyDetails]
-GO	
+GO
 
 
 
@@ -3359,7 +3359,7 @@ CREATE TABLE  [PTIS].[RenterMast] (
 GO
 ALTER TABLE PTIS.RenterMast  WITH CHECK ADD  CONSTRAINT [FK_RenterMast_PropertyDetails] FOREIGN KEY([PropertyDetailsId])
 REFERENCES [PTIS].[PropertyDetails] ([Id])
-GO	
+GO
 ALTER TABLE PTIS.RenterMast CHECK CONSTRAINT [FK_RenterMast_PropertyDetails]
 GO
 
@@ -3388,8 +3388,8 @@ GO
 /****** Object:  Table [PTIS].[DocumentMaster] ******/
 CREATE TABLE [PTIS].[DocumentMaster](
 	[Id] [int] IDENTITY(1,1) not FOR REPLICATION NOT NULL,
-	[DocumentName] [nvarchar](100) NOT null, 
-	[DocPrefix] [varchar](50) not null, 
+	[DocumentName] [nvarchar](100) NOT null,
+	[DocPrefix] [varchar](50) not null,
 	[IsActive] BIT NOT NULl CONSTRAINT DF_documentmaster_IsActive DEFAULT (1),
 	[CreatedBy] [int] null,
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_documentmaster_CreatedDate DEFAULT (GETDATE()),
@@ -3437,7 +3437,7 @@ CREATE TABLE [PTIS].[MobileScreenValidationMaster](
  CONSTRAINT [PK_TabScreenMaster] PRIMARY KEY CLUSTERED  (	[Id] ASC ),
  CONSTRAINT UQ_MobileScreenValidationMaster_TabScreenName_Flag UNIQUE (TabScreenName, Flag)
 ) ON [PRIMARY]
- 
+
 
 GO
 /****** Object:  Table [PTIS].[BlockMaster] ******/
@@ -3468,16 +3468,16 @@ CREATE TABLE [PTIS].[PolicyConfiguration]
     [Description] NVARCHAR(500) NULL,
     [DataType] NVARCHAR(20) NOT NULL CONSTRAINT [DF_PolicyConfiguration_DataType] DEFAULT (N'bit'),
 	[PolicyValue] NVARCHAR(500) NULL,
-    [DefaultValue] NVARCHAR(500) NULL, 
-	[Unit] VARCHAR(30) NULL,  
+    [DefaultValue] NVARCHAR(500) NULL,
+	[Unit] VARCHAR(30) NULL,
 	[EffectiveFrom] DATETIME NULL,
     [EffectiveTo] DATETIME NULL,
     [AllowedValues] NVARCHAR(500) NULL,
 	[IsActive] BIT NOT NULL CONSTRAINT [DF_PolicyConfiguration_IsActive] DEFAULT (1),
-    [CreatedBy] INT NULL, 
+    [CreatedBy] INT NULL,
     [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_PolicyConfiguration_CreatedDate] DEFAULT (GETDATE()),
     [UpdatedBy] INT NULL,
-    [UpdatedDate] DATETIME NULL,  
+    [UpdatedDate] DATETIME NULL,
     CONSTRAINT [PK_PolicyConfiguration] PRIMARY KEY CLUSTERED ([Id] ASC),
 	CONSTRAINT UQ_PolicyConfiguration_PolicyCode  UNIQUE ([PolicyCode]),
 	CONSTRAINT [CK_PolicyConfiguration_DataType]
@@ -3552,10 +3552,10 @@ CREATE TABLE [PTIS].[PropertyMapDetail]
 [Longitude] DECIMAL(12,8) NULL,
 [Location] NVARCHAR(500) NULL,
 [IsActive] BIT NOT NULL CONSTRAINT [DF_PropertyMapDetail_IsActive] DEFAULT (1),
-[CreatedBy] INT NULL, 
+[CreatedBy] INT NULL,
 [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_PropertyMapDetail_CreatedDate] DEFAULT (GETDATE()),
 [UpdatedBy] INT NULL,
-[UpdatedDate] DATETIME NULL, 
+[UpdatedDate] DATETIME NULL,
 CONSTRAINT [PK_PropertyMapDetail] PRIMARY KEY CLUSTERED ([Id] ASC),
 CONSTRAINT [FK_PropertyMapDetail_PropertyMapMaster] FOREIGN KEY ([PropertyMapId]) REFERENCES [PTIS].[PropertyMapMaster]([Id]),
 CONSTRAINT UQ_PropertyMapDetail_PropertyMapId_PropertySide_PropertyId_Status UNIQUE (PropertyMapId, PropertySide, PropertyIdNew, PropertyIdOld,Status)
@@ -3862,7 +3862,7 @@ CREATE TABLE [PTIS].[WaterConnectionDetails]
     [UpdatedBy] int NULL,
     [UpdatedDate] datetime NULL,
 	CONSTRAINT PK_WaterConnectionDetails      PRIMARY KEY ([Id]),
-	CONSTRAINT FK_WaterConnectionDetails_Connection  FOREIGN KEY ([WaterConnectionId]) 
+	CONSTRAINT FK_WaterConnectionDetails_Connection  FOREIGN KEY ([WaterConnectionId])
         REFERENCES PTIS.WaterConnectionMaster([Id]),
 
 	CONSTRAINT CK_WaterConnectionDetails_ChargeMonths   CHECK ([ChargeMonths] BETWEEN 1 AND 12),
@@ -3879,7 +3879,7 @@ ON PTIS.WaterConnectionDetails
 );
 
 /****** Object:  Table [PTIS].[CombinePropertyHistory] ******/
-  
+
 CREATE TABLE [PTIS].[CombinePropertyHistory] (
     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [SourcePropertyId] INT NOT NULL,
@@ -4018,7 +4018,7 @@ CREATE TABLE [PTIS].[PropertyTaxJob]
     (
         [Status] IN ('Scheduled', 'Pending', 'InProgress', 'Completed', 'Failed')
     )
-) ON [PRIMARY] 
+) ON [PRIMARY]
 GO
 
 CREATE UNIQUE NONCLUSTERED INDEX [UX_PropertyTaxJob_JobCode_Active]
@@ -4143,7 +4143,7 @@ CREATE TABLE [PTIS].[EffectTypeConfiguration](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_EffectTypeConfiguration_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
-	
+
 	CONSTRAINT [PK_EffectTypeConfiguration] PRIMARY KEY CLUSTERED ([Id] ASC),
 	CONSTRAINT [UQ_EffectTypeConfiguration_EffectTypeId] UNIQUE NONCLUSTERED ([EffectTypeId] ASC),
 	CONSTRAINT [FK_EffectTypeConfiguration_RuleEffectTypeMaster] FOREIGN KEY([EffectTypeId]) REFERENCES [PTIS].[RuleEffectTypeMaster] ([Id])
@@ -4194,7 +4194,7 @@ CREATE TABLE [PTIS].[FieldConfiguration](
 	CONSTRAINT [PK_FieldConfiguration] PRIMARY KEY CLUSTERED ([Id] ASC),
 	CONSTRAINT [UQ_FieldConfiguration_FieldId] UNIQUE NONCLUSTERED ([RulesFieldId] ASC),
 	CONSTRAINT [FK_FieldConfiguration_RulesFieldMaster] FOREIGN KEY([RulesFieldId]) REFERENCES [PTIS].[RulesFieldMaster] ([Id])
-) ON [PRIMARY] 
+) ON [PRIMARY]
 GO
 
 /****** Object:  Table [PTIS].[PropertyRuleApplicationLog] ******/
@@ -4271,7 +4271,7 @@ CREATE TABLE [PTIS].[RuleEngineMaster](
 	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_RuleEngineMaster_MarkedForDeletion] DEFAULT (0),
 	[MarkedForDeletionDate] [datetime] NULL,
 	CONSTRAINT [PK_RuleEngineMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
-) ON [PRIMARY] 
+) ON [PRIMARY]
 GO
 
 /****** Object:  Table [PTIS].[RuleOperatorMaster] ******/

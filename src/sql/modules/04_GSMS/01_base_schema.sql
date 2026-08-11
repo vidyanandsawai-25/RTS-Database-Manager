@@ -1,4 +1,4 @@
-﻿/* ===========================
+/* ===========================
  CommunicationDetails
 =========================== */
 
@@ -43,7 +43,7 @@ CREATE TABLE [GSMS].[CommonRemarkDetails](
 );
 GO
  /****** Added here because [GSMS].[CommonRemarkDetails] is created after [PTIS].[PropertyMast], which avoids an execution error. ******/
-ALTER TABLE [PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_MobileNoRemarkMaster] FOREIGN KEY([MobileNoRemarkId])		
+ALTER TABLE [PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_MobileNoRemarkMaster] FOREIGN KEY([MobileNoRemarkId])
 REFERENCES [GSMS].[CommonRemarkDetails] ([Id])
 GO
 ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_MobileNoRemarkMaster]
@@ -82,7 +82,7 @@ CREATE TABLE [GSMS].[SocietyWingDetails]
     CONSTRAINT [PK_GSMS_SocietyWingDetails]
         PRIMARY KEY CLUSTERED ([Id] ASC),
 
-    CONSTRAINT [FK_SocietyWingDetails_SocietyDetailsMast] 
+    CONSTRAINT [FK_SocietyWingDetails_SocietyDetailsMast]
         FOREIGN KEY ([SocietyDetailId]) REFERENCES [PTIS].[SocietyDetailsMast] ([Id]),
 
     CONSTRAINT [FK_SocietyWingDetails_PropertyMast]
@@ -99,7 +99,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 /* ===========================
-   STEP 1: [GSMS].[WardAllocation]  
+   STEP 1: [GSMS].[WardAllocation]
 =========================== */
 
 CREATE TABLE [GSMS].[WardAllocation](
