@@ -126,33 +126,44 @@ JOIN PTIS.ZoneMaster z
   ON z.ZoneNo = w.ZoneNo;
 
 
-  INSERT INTO PTIS.TypeOfUseGroupMaster
-(TypeOfUseGroupCode, GroupName, GroupIcon, CreatedBy, UpdatedBy, UpdatedDate)
-VALUES
-(N'R',  N'निवासी',     N'home', NULL, NULL, NULL),
-(N'C',  N'व्यावसायिक', N'home', NULL, NULL, NULL),
-(N'I',  N'औद्योगिक',   N'home', NULL, NULL, NULL),
-(N'N',  N'इतर',        N'home', NULL, NULL, NULL),
-(N'OP', N'प्लॉट',       N'home', NULL, NULL, NULL);
+SET IDENTITY_INSERT [PTIS].[TypeOfUseGroupMaster] ON;
+GO
 
+INSERT INTO PTIS.TypeOfUseGroupMaster
+(Id, TypeOfUseGroupCode, GroupName, GroupIcon, IsProtected, IsOpenPlotGroup)
+VALUES
+(1, N'R',  N'निवासी',     N'home', 1,0),
+(2, N'C',  N'व्यावसायिक', N'home', 1,0),
+(3, N'I',  N'औद्योगिक',   N'home', 1,0),
+(4, N'N',  N'इतर',        N'home', 1,0),
+(5, N'OP', N'खुला भूखंड',       N'home', 1,1),
+(6, N'OPC', N'खुला भूखंड अनिवासी',       N'home', 1,1),
+(7, N'OPI', N'खुला भूखंड औद्योगिक',       N'home', 1,1),
+(8, N'OPF', N'खुला भूखंड शेती',       N'home', 1,1),
+(9, N'OPN', N'खुला भूखंड करमुक्त',       N'home', 1,1);
+GO
+
+SET IDENTITY_INSERT [PTIS].[TypeOfUseGroupMaster] OFF;
+GO
+
+
+SET IDENTITY_INSERT [PTIS].[TypeOfUseGroupMasterCV] ON;
+GO
 
 INSERT INTO PTIS.TypeOfUseGroupMasterCV
-(TypeOfUseGroupCVCode, GroupName, GroupIcon, IsFloorWiseRateApplicable, CreatedBy, UpdatedBy, UpdatedDate)
+(Id, TypeOfUseGroupCVCode, GroupName, GroupIcon, IsFloorWiseRateApplicable, IsProtected, CreatedBy, UpdatedBy, UpdatedDate)
 VALUES
-(N'R',  N'निवासी CV',     N'home', 0, NULL, NULL, NULL),
-(N'C',  N'व्यावसायिक CV', N'home', 1, NULL, NULL, NULL),
-(N'I',  N'औद्योगिक CV',   N'home', 0, NULL, NULL, NULL),
-(N'N',  N'इतर CV',        N'home', 0, NULL, NULL, NULL),
-(N'OP', N'प्लॉट CV',       N'home', 0, NULL, NULL, NULL);
+(1, N'R',  N'निवासी CV',     N'home', 0, 1, NULL, NULL, NULL),
+(2, N'C',  N'व्यावसायिक CV', N'home', 1, 1, NULL, NULL, NULL),
+(3, N'I',  N'औद्योगिक CV',   N'home', 0, 1, NULL, NULL, NULL),
+(4, N'N',  N'इतर CV',        N'home', 0, 1, NULL, NULL, NULL),
+(5, N'OP', N'प्लॉट CV',       N'home', 0, 1, NULL, NULL, NULL);
+GO
+
+SET IDENTITY_INSERT [PTIS].[TypeOfUseGroupMasterCV] OFF;
+GO
 
 
-
-SET IDENTITY_INSERT [PTIS].[TypeOfUseCategoryMaster] ON;
-
-INSERT INTO [PTIS].[TypeOfUseCategoryMaster] ([Id], [CategoryCode], [Description])
-VALUES (1, 'PARKING', N'Parking category for identifying parking-related uses');
-
-SET IDENTITY_INSERT [PTIS].[TypeOfUseCategoryMaster]  OFF;
 
 
 
@@ -219,6 +230,36 @@ WHEN NOT MATCHED THEN
 
 
 
+
+
+
+SET IDENTITY_INSERT [PTIS].[TypeOfUseCategoryMaster] ON;
+GO
+
+INSERT INTO [PTIS].[TypeOfUseCategoryMaster]
+(
+    [Id],
+    [TypeOfUseCategoryCode],
+    [TypeOfUseCategoryName],
+    [IsProtected]
+)
+VALUES
+(1, 'Utility',  N'UTILITY', 1),
+(2, 'Parking',  N'PARKING', 1),
+(3, 'OpenSpace', N'Open Space', 1),
+(4, 'OpenPlot', N'Open Plot',      1);
+GO
+
+SET IDENTITY_INSERT [PTIS].[TypeOfUseCategoryMaster] OFF;
+GO
+
+
+
+
+
+SET IDENTITY_INSERT [PTIS].[TypeOfUseMaster] ON;
+GO
+
 ;WITH GroupMap AS
 (
     SELECT
@@ -236,11 +277,16 @@ GroupMapCV AS
 TypeSeed AS
 (
     SELECT * FROM (VALUES
-
+(N'R', N'निवासी', N'R', N'R', 1, NULL, NULL, N'R', 1, 1,NULL),
 (N'C', N'अनिवासी', N'C', N'C', 1, NULL, NULL, N'C', 1, 0,NULL),
+(N'I', N'कारखाना', N'I', N'I', 1, NULL, NULL, N'I', 1, 0,NULL),
 (N'T', N'धार्मिक स्थळ', N'N', N'N', 1, NULL, NULL, N'T', 1, 1,NULL),
 (N'V', N'V-व्हरांडा टॉयल॓ट बाथ', N'N', N'N', 1, NULL, NULL, N'V', 1, 0,NULL),
-(N'R', N'निवासी', N'R', N'R', 1, NULL, NULL, N'R', 1, 1,NULL),
+(N'S', N'दुकान', N'C', N'C', 1, NULL, NULL, N'S', 1, 0,NULL),
+(N'D', N'दवाखाना', N'C', N'C', 1, NULL, NULL, N'D', 1, 0,NULL),
+(N'B', N'बँक', N'C', N'C', 1, NULL, NULL, N'B', 1, 0,NULL),
+(N'SW', N'जलतरण तलाव', N'C', N'C', 1, NULL, NULL, N'S', 4, 0,NULL),
+
 (N'UC', N'बांधकाम चालू ', N'N', N'N', 1, NULL, NULL, N'U', 1, 0,NULL),
 (N'SPK', N'स्टील पार्किंग ', N'R', N'R', 1, NULL, NULL, N'S', 5, 1,1),
 (N'N', N'मनपा मालमत्ता', N'N', N'N', 1, NULL, NULL, N'N', 1, 1,NULL),
@@ -257,19 +303,13 @@ TypeSeed AS
 (N'WEP', N'WEP-व्हरांडा खाजगी शैक्षणीक ', N'C', N'C', 1, NULL, NULL, N'E', 2, 0,NULL),
 (N'WGR', N'WGR-व्हरांडा शासकीय निवासी', N'R', N'R', 1, NULL, NULL, N'G', 4, 0,NULL),
 (N'PC', N'पार्किंग अनिवासी', N'N', N'N', 1, NULL, NULL, N'P', NULL, 0,1),
-(N'S', N'दुकान', N'C', N'C', 1, NULL, NULL, N'S', 1, 0,NULL),
-(N'D', N'दवाखाना', N'C', N'C', 1, NULL, NULL, N'D', 1, 0,NULL),
-(N'B', N'बँक', N'C', N'C', 1, NULL, NULL, N'B', 1, 0,NULL),
-(N'SW', N'जलतरण तलाव', N'C', N'C', 1, NULL, NULL, N'S', 4, 0,NULL),
-(N'I', N'कारखाना', N'I', N'I', 1, NULL, NULL, N'I', 1, 0,NULL),
+
 (N'EP', N'खाजगी शैक्षणिक', N'C', N'C', 1, NULL, NULL, N'E', 1, 0,NULL),
 (N'WR', N'WR-व्हरांडा निवासी', N'R', N'R', 1, NULL, NULL, N'R', 2, 0,NULL),
 (N'WC', N'WC-व्हरांडा अनिवासी', N'C', N'C', 1, NULL, NULL, N'S', 2, 0,NULL),
 (N'CC', N'कोचिंग क्लासेस', N'C', N'C', 1, NULL, NULL, N'C', 2, 0,NULL),
 (N'CG', N'केंद्र शासकीय मालमत्ता', N'C', N'C', 1, NULL, NULL, N'C', NULL, 0,NULL),
 (N'CR', N'केंद्र शासकीय मालमत्ता निवासी', N'R', N'R', 1, NULL, NULL, N'R', NULL, 0,NULL),
-(N'OPR', N'खुला भूखंड निवासी', N'C', N'C', 1, NULL, NULL, N'C', NULL, 0,NULL),
-(N'OPC', N'खुला भूखंड अनिवासी', N'C', N'C', 1, NULL, NULL, N'C', NULL, 0,NULL),
 (N'PTR', N'पेट्रोल पंप', N'C', N'C', 1, NULL, NULL, N'P', 1, 0,NULL),
 (N'GC', N'शासकीय अनिवासी', N'C', N'C', 1, NULL, NULL, N'C', NULL, 0,NULL),
 (N'O', N'ऑफिस', N'C', N'C', 1, NULL, NULL, N'O', 1, 0,NULL),
@@ -278,7 +318,7 @@ TypeSeed AS
 (N'H', N'हॉटेल', N'C', N'C', 1, NULL, NULL, N'H', 1, 0,NULL),
 (N'OPK', N'ओपन पार्किंग', N'R', N'R', 1, NULL, NULL, N'R', NULL, 1,1),
 (N'WI', N'WI-व्हरांडा औद्योगिक', N'I', N'I', 1, NULL, NULL, N'I', 2, 0,NULL),
-(N'OP', N'खुला भूखंड', N'R', N'R', 1, 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), N'R', 0, 0,NULL),
+
 (N'WCGR', N'WCGR-केंद्र शासकीय मालमत्ता', N'R', N'R', 1, NULL, NULL, N'R', NULL, 0,NULL),
 (N'WCGC', N'WCGC-केंद्र शासकीय मालमत्ता', N'C', N'C', 1, NULL, NULL, N'C', NULL, 0,NULL),
 (N'CH', N'सामाजिक सभागृह', N'C', N'C', 1, NULL, NULL, N'C', NULL, 0,NULL),
@@ -295,11 +335,6 @@ TypeSeed AS
 (N'CCO', N'C-कॉरिडॉर', N'N', N'N', 1, NULL, NULL, N'N', NULL, 1,NULL),
 (N'CCR', N'CCR-ट्युशन क्लासेस ', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL,NULL),
 (N'CGC', N'केंद्र शासन वाणिज्य मालमत्ता', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL,NULL),
-(N'ENCC', N'ENCC', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL,NULL),
-(N'ENCEG', N'ENCEG', N'R', N'R', 1, NULL, NULL, N'R', NULL, NULL,NULL),
-(N'ENCEP', N'ENCEP', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL,NULL),
-(N'ENCI', N'ENCI', N'I', N'I', 1, NULL, NULL, N'I', NULL, NULL,NULL),
-(N'ENCR', N'ENCR', N'R', N'R', 1, NULL, NULL, N'R', NULL, NULL,NULL),
 (N'GM', N'व्यायाम शाळा ', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL,NULL),
 (N'GMR', N'GMR-व्यायाम शाळा', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL,NULL),
 (N'KTR', N'KTR-टॉकीज/चित्रपट गृह', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL,NULL),
@@ -350,72 +385,214 @@ TypeSeed AS
 (N'SI',   N'सामाजिक संस्था', N'R', N'R', 1, NULL, NULL, N'R', NULL, NULL,NULL),
 (N'TL',   N'टेरेस लिफ्ट', N'R', N'R', 1, NULL, NULL, N'R', NULL, NULL,NULL),
 (N'OPKI', N'ओपन पार्किंग औदयोगिक', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL,1),
-(N'SPKI', N'स्टील पार्किंग औदयोगिक', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL,1)
+(N'SPKI', N'स्टील पार्किंग औदयोगिक', N'C', N'C', 1, NULL, NULL, N'C', NULL, NULL,1),
+(N'OP', N'खुला भूखंड', N'R', N'OP', 1, 0, CAST(N'1900-01-01T00:00:00.000' AS DateTime), N'OP', 0, 0,NULL),
+(N'OPC', N'खुला भूखंड अनिवासी', N'C', N'OPC', 1, NULL, NULL, N'OP', NULL, 0,NULL),
+(N'OPI', N'खुला भूखंड औद्योगिक', N'I', N'OPI', 1, NULL, NULL, N'OP', NULL, NULL,NULL),
+(N'OPF', N'खुला भूखंड शेती', N'N', N'OPF', 1, NULL, NULL, N'OP', NULL, NULL,NULL),
+(N'OPN', N'करमुक्त', N'N', N'OPN', 1, NULL, NULL, N'OP', NULL, NULL,NULL)
+
+
 ) v(TypeOfUseCode, [Description], [Type], TypeOfUseGroupCode, CreatedBy, UpdatedBy, UpdatedDate, TypeOfUseGroupCVCode, SearchSequence, IsSociety,TypeOfUseCategoryId)
+),
+TypeOfUseIdMap AS
+(
+    SELECT * FROM (VALUES
+        (N'R', 1),
+        (N'C', 2),
+        (N'I', 3),
+        (N'T', 4),
+        (N'V', 5),
+        (N'S', 6),
+        (N'D', 7),
+        (N'B', 8),
+        (N'SW', 9),
+        (N'UC', 10),
+        (N'SPK', 11),
+        (N'N', 12),
+        (N'EG', 13),
+        (N'GO', 14),
+        (N'GR', 15),
+        (N'HO', 16),
+        (N'LB', 17),
+        (N'UCC', 18),
+        (N'MTR', 19),
+        (N'FF', 20),
+        (N'WGC', 21),
+        (N'WEG', 22),
+        (N'WEP', 23),
+        (N'WGR', 24),
+        (N'PC', 25),
+        (N'EP', 26),
+        (N'WR', 27),
+        (N'WC', 28),
+        (N'CC', 29),
+        (N'CG', 30),
+        (N'CR', 31),
+        (N'PTR', 32),
+        (N'GC', 33),
+        (N'O', 34),
+        (N'M', 35),
+        (N'KT', 36),
+        (N'H', 37),
+        (N'OPK', 38),
+        (N'WI', 39),
+        (N'WCGR', 40),
+        (N'WCGC', 41),
+        (N'CH', 42),
+        (N'L', 43),
+        (N'AG', 44),
+        (N'ACH', 45),
+        (N'AGM', 46),
+        (N'AH', 47),
+        (N'AMH', 48),
+        (N'AO', 49),
+         (N'OP', 50),
+        (N'OPC', 51),
+        (N'OPI', 52),
+        (N'OPF', 53),
+        (N'OPN', 54),
+        (N'CGC', 55),
+        (N'GM', 56),
+        (N'GMR', 57),
+        (N'KTR', 58),
+        (N'NPD', 59),
+        (N'OBR', 60),
+        (N'OPKC', 61),
+        (N'RCO', 62),
+        (N'RGN', 63),
+        (N'SPKC', 64),
+        (N'WT', 65),
+        (N'PG', 66),
+        (N'GA', 67),
+        (N'RFG', 68),
+        (N'PH', 69),
+        (N'SR', 70),
+        (N'WAT', 71),
+        (N'ISR', 72),
+        (N'EHO', 73),
+        (N'PF', 74),
+        (N'NR', 75),
+        (N'NC', 76),
+        (N'NI', 77),
+        (N'ICR', 78),
+        (N'ICC', 79),
+        (N'ICI', 80),
+        (N'ICRT', 81),
+        (N'ICCT', 82),
+        (N'ICIT', 83),
+        (N'ICHT', 84),
+        (N'ICH', 85),
+        (N'ICP', 86),
+        (N'ICPRT', 87),
+        (N'OAH', 88),
+        (N'ABLC', 89),
+        (N'ABLOP', 90),
+        (N'ABLR', 91),
+        (N'ACHC', 92),
+        (N'ASWC', 93),
+        (N'AWA', 94),
+        (N'FCR', 95),
+        (N'FIRR', 96),
+        (N'GRR', 97),
+        (N'IT', 98),
+        (N'LR', 99),
+        (N'MR', 100),
+        (N'OL', 101),
+        (N'OWC', 102),
+        (N'SI', 103),
+        (N'TL', 104),
+        (N'OPKI', 105),
+        (N'SPKI', 106),
+        (N'APG', 107),
+        (N'ASW', 108),
+        (N'AWC', 109),
+        (N'CCO', 110),
+        (N'CCR', 111)
+
+    ) v(TypeOfUseCode, Id)
 )
 
 
 INSERT INTO PTIS.TypeOfUseMaster
-(TypeOfUseCode, [Description], [Type], TypeOfUseGroupId, TypeOfUseGroupCVId, CreatedBy, UpdatedBy, UpdatedDate, SearchSequence,TypeOfUseCategoryId)
+(Id, TypeOfUseCode, [Description], [Type], TypeOfUseGroupId, TypeOfUseGroupCVId, CreatedBy, UpdatedBy, UpdatedDate, SearchSequence, TypeOfUseCategoryId, IsProtected)
 SELECT
+        m.Id,
     s.TypeOfUseCode,
     s.[Description],
     s.[Type],
     gm.TypeOfUseGroupId,
     gcv.TypeOfUseGroupCVId,
     s.CreatedBy, s.UpdatedBy, s.UpdatedDate,
-    s.SearchSequence,s.TypeOfUseCategoryId
+        ISNULL(s.SearchSequence, m.Id) AS SearchSequence,
+        CASE
+        WHEN s.TypeOfUseCode IN (N'WR', N'WCGR', N'ENCEG', N'WGC', N'WEG', N'WEP', N'WC', N'WCGC') THEN 1
+            WHEN s.TypeOfUseCode IN (N'OPK', N'ICPRT', N'OPKC', N'SPKC', N'OPKI', N'SPKI', N'PC') THEN 2
+            when s.TypeOfUseCode IN (N'ABLOP', N'GA', N'RFG') THEN 3
+                WHEN s.TypeOfUseCode IN (N'OP', N'OPC', N'OPI', N'OPF', N'OPN') THEN 4
+                ELSE s.TypeOfUseCategoryId
+        END AS TypeOfUseCategoryId,
+        1 AS IsProtected
 FROM TypeSeed s
+JOIN TypeOfUseIdMap m
+    ON m.TypeOfUseCode = s.TypeOfUseCode
 JOIN GroupMap gm
   ON gm.TypeOfUseGroupCode = s.TypeOfUseGroupCode
 JOIN GroupMapCV gcv
-  ON gcv.TypeOfUseGroupCVCode = s.TypeOfUseGroupCode
+    ON gcv.TypeOfUseGroupCVCode = s.TypeOfUseGroupCVCode
+
+UPDATE tou
+SET tou.TypeOfUseGroupCVId = gcv.Id
+FROM PTIS.TypeOfUseMaster tou
+JOIN PTIS.TypeOfUseGroupMaster g
+    ON g.Id = tou.TypeOfUseGroupId
+JOIN PTIS.TypeOfUseGroupMasterCV gcv
+    ON gcv.TypeOfUseGroupCVCode = CASE
+            WHEN g.TypeOfUseGroupCode IN (N'OP', N'OPC', N'OPI', N'OPF', N'OPN') THEN N'OP'
+            ELSE g.TypeOfUseGroupCode
+    END;
+
+GO
+
+SET IDENTITY_INSERT [PTIS].[TypeOfUseMaster] OFF;
+GO
 
 
-
+SET identity_insert [PTIS].[ConstructionTypeMaster] on
 
 INSERT INTO [PTIS].[ConstructionTypeMaster]
-([ConstructionCode], [Description], [SearchSequence], [CreatedBy], [UpdatedBy], [UpdatedDate])
+(Id, [ConstructionCode], [Description], [SearchSequence], IsProtected)
 VALUES
-('A', N'सिमेंट कॉक्रिट संरचना', 0, 0, 56, NULL),
-('B', N'सिमेंट/चुना/दगड/विटांची भिंत व स्लॅब', NULL, NULL, 56, '2022-06-17T12:43:04'),
-('C', N'सिमेंट/चुना/दगड/विटांची भिंत व टिनाचे छत', NULL, NULL, 56, '2022-06-17T12:43:20'),
-('D', N'कुडाचे लाकडी फाट्याचे कच्चेघर', NULL, NULL, 56, '2022-06-17T12:43:31'),
-('E', N'कुडाचे', NULL, NULL, 56, '2022-06-17T12:43:41'),
-('AR', N'A-R RCC Structure', NULL, NULL, 56, '2022-03-17T18:55:50'),
-('BR', N'BR Load Bearing', NULL, NULL, 56, '2022-06-17T12:44:32'),
-('CR', N'CR Tin & Cement', NULL, NULL, 56, '2022-06-17T12:44:46'),
-('DR', N'DR Kavelu', NULL, NULL, 56, '2022-06-17T12:44:53'),
-('ER', N'ER Kudache', NULL, NULL, 56, '2022-06-17T12:45:04'),
-('op', N'open plot', NULL, NULL, NULL, NULL),
-('OPR', N'Rented Plot', NULL, NULL, NULL, NULL),
-('WA', N'सिमेंट कॉक्रिट संरचना-व्हरांडा', NULL, NULL, 56, '2022-04-09T18:04:48'),
-('WB', N'व्हरांडा-सिमेंट/चुना/दगड/विटांची भिंत व स्लॅब', NULL, NULL, 56, '2022-06-17T12:45:28'),
-('WC', N'व्हरांडा-सिमेंट/चुना/दगड/विटांची भिंत व टिनाचे छत', NULL, NULL, 56, '2022-06-17T12:45:39'),
-('WD', N'व्हरांडा-कुडाचे लाकडी फाट्याचे कच्चेघर', NULL, NULL, 56, '2022-06-17T12:45:51'),
-('WE', N'व्हरांडा-कुडाचे', NULL, NULL, 56, '2022-06-17T12:46:01'),
-('A1', N'आरामदायी आरसीसी इमारत ', NULL, 56, 56, '2022-04-09T17:52:40'),
-('B1', N'उच्च दर्जाचे एल.बी.एस. इमारत', NULL, 56, 56, '2022-06-17T12:46:25'),
-('C1', N'उच्च दर्जाचे विटा सीमेंट च्या भिंती व टिन कवेलूचे छत असलेले इमारत ', NULL, 56, 56, '2022-06-17T12:46:37'),
-('WA1', N'आरामदायी RCC-व्हरांडा', NULL, 56, NULL, NULL),
-('WB1', N'उच्च दर्जाचे LBS व्हरांडा ', NULL, 56, 56, '2022-06-17T12:46:51'),
-('WC1', N'उच्च दर्जाचे विटा सीमेंट च्या भिंती व टिन कवेलूचे छत व्हरांडा', NULL, 56, 56, '2022-06-17T12:46:59'),
-('STEEL', N'Steel Structure', 2, NULL, NULL, NULL),
-('BRICK', N'Brick Masonry', 3, NULL, NULL, NULL),
-('WOOD', N'Wooden Structure', 4, NULL, NULL, NULL);
+(1, N'A', N'सिमेंट कॉक्रिट संरचना', 1,0),
+(2, N'B', N'सिमेंट/चुना/दगड/विटांची भिंत व स्लॅब', 2,0),
+(3, N'C', N'सिमेंट/चुना/दगड/विटांची भिंत व टिनाचे छत', 3,0),
+(4, N'D', N'कुडाचे लाकडी फाट्याचे कच्चेघर', 4,0),
+(5, N'E', N'कुडाचे', 5,0),
+(6, N'OP', N'खुला भूखंड', 6,1)
+
+SET identity_insert [PTIS].[ConstructionTypeMaster] OFF
 
 
 
--- SET IDENTITY_INSERT [PTIS].[PropertyCategoryMaster] ON;
-INSERT INTO [PTIS].[PropertyCategoryMaster] ( [PropertyCategoryName]) VALUES ('Apartment');
-INSERT INTO [PTIS].[PropertyCategoryMaster] ( [PropertyCategoryName]) VALUES ('Individual');
-INSERT INTO [PTIS].[PropertyCategoryMaster] ( [PropertyCategoryName]) VALUES ('Industry');
-INSERT INTO [PTIS].[PropertyCategoryMaster] ( [PropertyCategoryName]) VALUES ('Plot');
-INSERT INTO [PTIS].[PropertyCategoryMaster] ( [PropertyCategoryName]) VALUES ('Government Property');
-INSERT INTO [PTIS].[PropertyCategoryMaster] ( [PropertyCategoryName]) VALUES ('Multi Commercial Apartment');
-INSERT INTO [PTIS].[PropertyCategoryMaster] ( [PropertyCategoryName]) VALUES ('Individual Chal');
--- SET IDENTITY_INSERT [PTIS].[PropertyCategoryMaster] OFF;
+SET IDENTITY_INSERT [PTIS].[PropertyCategoryMaster] ON;
 
+INSERT INTO [PTIS].[PropertyCategoryMaster]
+    ([Id], [PropertyCategoryName], [IsProtected])
+SELECT v.*
+FROM (
+    VALUES
+        (1, N'Apartment', 1),
+        (2, N'Individual', 1),
+        (3, N'Industry', 1),
+        (4, N'Plot', 1)
+       ) AS v ([Id], [PropertyCategoryName], [IsProtected])
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM [PTIS].[PropertyCategoryMaster] pcm
+    WHERE pcm.[Id] = v.[Id]
+);
+
+SET IDENTITY_INSERT [PTIS].[PropertyCategoryMaster] OFF;
 
 SET IDENTITY_INSERT [PTIS].[SubTypeOfUseMaster] ON;
 
@@ -1944,88 +2121,104 @@ SET IDENTITY_INSERT [PTIS].[PropertyTypeMaster] OFF;
 
 
 
+SET IDENTITY_INSERT [PTIS].[FloorMaster] ON;
+GO
 
 INSERT INTO [PTIS].[FloorMaster]
-([FloorCode], [Description], [SequenceNo], [MaxFloorNo], [CreatedBy], [UpdatedBy], [UpdatedDate])
+(
+    [Id],
+    [FloorCode],
+    [Description],
+    [SequenceNo],
+    [MaxFloorNo],
+    [IsProtected]
+)
 VALUES
-(N'1',  N'पहिला मजला', 12, 13, NULL, NULL, NULL),
-(N'2',  N'दुसरा मजला', 13, 14, NULL, NULL, NULL),
-(N'3',  N'तिसरा मजला', 14, 15, NULL, NULL, NULL),
-(N'4',  N'चौथा मजला', 15, 16, NULL, NULL, NULL),
-(N'5',  N'पाचवा मजला', 16, 17, NULL, NULL, NULL),
-(N'6',  N'सहावा मजला', 17, 18, NULL, NULL, NULL),
-(N'7',  N'सातवा मजला', 18, 19, NULL, NULL, NULL),
-(N'8',  N'आठवा मजला', 19, 20, NULL, NULL, NULL),
-(N'9',  N'नववा मजला', 20, 21, NULL, NULL, NULL),
-(N'10', N'दहावा मजला', 21, 22, NULL, NULL, NULL),
-(N'11', N'अकरावा मजला', 22, 23, NULL, NULL, NULL),
-(N'12', N'बारावा मजला', 23, 24, NULL, NULL, NULL),
-(N'13', N'तेरावा मजला', 24, 25, NULL, NULL, NULL),
-(N'14', N'चोदावा मजला', 25, 26, NULL, NULL, NULL),
-(N'15', N'पंधरावा मजला', 26, 27, NULL, NULL, NULL),
-(N'16', N'सोळावा मजला', 27, 28, NULL, NULL, NULL),
-(N'17', N'सतरावा मजला', 28, 29, NULL, NULL, NULL),
-(N'18', N'अठरावा मजला', 29, 30, NULL, NULL, NULL),
-(N'19', N'एकोणिसावा मजला', 30, 31, NULL, NULL, NULL),
-(N'20', N'विसांवा मजला', 31, 32, NULL, NULL, NULL),
-(N'21', N'एकविसांवा मजला', 32, 33, NULL, NULL, NULL),
-(N'22', N'बाविसांवा मजला', 33, 34, NULL, NULL, NULL),
-(N'23', N'तेवीसांवा मजला', 34, 35, NULL, NULL, NULL),
-(N'24', N'चोवीसांवा मजला', 35, 36, NULL, NULL, NULL),
-(N'25', N'पंचवीसांवा मजला', 36, 37, NULL, NULL, NULL),
-(N'26', N'सव्वीसांवा मजला', 37, 38, NULL, NULL, NULL),
-(N'27', N'सत्तावीसांवा मजला', 38, 39, NULL, NULL, NULL),
-(N'28', N'अठावीसांवा मजला', 39, 40, NULL, NULL, NULL),
-(N'29', N'एकोणतिसांवा मजला', 40, 41, NULL, NULL, NULL),
-(N'30', N'तिसांवा मजला', 41, 42, NULL, NULL, NULL),
-(N'31', N'एकतीसांवा मजला', 42, 43, NULL, NULL, NULL),
-(N'32', N'बत्तीसांवा मजला', 43, 44, NULL, NULL, NULL),
-(N'33', N'तेत्तीसावा मजला', 44, 45, NULL, NULL, NULL),
-(N'34', N'चोत्तीसावा मजला', 45, 46, NULL, NULL, NULL),
-(N'35', N'पस्तीसावा मजला', 46, 47, NULL, NULL, NULL),
-(N'36', N'छत्तिसावा मजला', 47, 48, NULL, NULL, NULL),
-(N'37', N'सदतिसावा मजला', 48, 49, NULL, NULL, NULL),
-(N'38', N'अडतिसावा मजला', 49, 50, NULL, NULL, NULL),
-(N'39', N'एकोणचाळिसावा मजला', 50, 51, NULL, NULL, NULL),
-(N'40', N'चाळिसावा मजला', 51, 52, NULL, NULL, NULL),
-(N'41', N'एकेचाळिसावा मजला', 52, 53, NULL, NULL, NULL),
-(N'42', N'बेचाळीसवा मजला', 53, 54, NULL, NULL, NULL),
-(N'44', N'चौचाळीसवा मजला', 55, 56, NULL, NULL, NULL),
-(N'48', N'अठ्ठेचाळीसवा मजला', 59, 60, NULL, NULL, NULL),
-(N'50', N'पन्नासवा मजला', 61, 62, NULL, NULL, NULL),
-(N'51', N'एकावन्नवा मजला', 62, 63, NULL, NULL, NULL),
-(N'52', N'बाव्वन्नवा मजला', 63, 64, NULL, NULL, NULL),
-(N'53', N'त्रेपन्नवा मजला', 64, 65, NULL, NULL, NULL),
-(N'54', N'चौपन्नवा मजला', 65, 66, NULL, NULL, NULL),
-(N'55', N'पंचावन्नवा मजला', 66, 67, NULL, NULL, NULL),
-(N'56', N'छप्पनवा मजला', 67, 68, NULL, NULL, NULL),
-(N'57', N'सत्तावन्नवा मजला', 68, 69, NULL, NULL, NULL),
-(N'58', N'अठ्ठावन्नवा मजला', 69, 70, NULL, NULL, NULL),
-(N'59', N'एकोणसाठवा मजला', 70, 71, NULL, NULL, NULL),
-(N'60', N'साठवा मजला', 71, 72, NULL, NULL, NULL),
-(N'61', N'एकसष्टवा मजला', 72, 73, NULL, NULL, NULL),
-(N'63', N'त्रेसष्टवा मजला', 73, 75, NULL, NULL, NULL),
-(N'64', N'चौसष्टवा मजला', 74, 76, NULL, NULL, NULL),
-(N'65', N'पासष्टवा मजला', 75, 77, NULL, NULL, NULL),
-(N'66', N'सहासष्ठवा मजला', 76, 78, NULL, NULL, NULL),
-(N'67', N'सदुसष्टवा मजला', 77, 79, NULL, NULL, NULL),
-(N'68', N'अडुसष्ठवा मजला', 78, 80, NULL, NULL, NULL),
-(N'69', N'एकोणसत्तरवा मजला', 79, 81, NULL, NULL, NULL),
-(N'70', N'सत्तरवा मजला', 80, 82, NULL, NULL, NULL),
-(N'B',  N'तळघर', 1, 1, NULL, NULL, NULL),
-(N'L',  N'लोअर तळमजला', 2, 3, NULL, NULL, NULL),
-(N'G',  N'तळमजला', 3, 2, NULL, NULL, NULL),
-(N'U1', N'अप्पर ग्राऊंड पहिला', 4, 11, NULL, NULL, NULL),
-(N'U2', N'अप्पर ग्राऊंड दुसरा', 5, 12, NULL, NULL, NULL),
-(N'P1', N'पोडियम1', 6, 5, NULL, NULL, NULL),
-(N'P2', N'पोडियम2', 7, 6, NULL, NULL, NULL),
-(N'P3', N'पोडियम3', 8, 7, NULL, NULL, NULL),
-(N'P4', N'पोडियम4', 9, 8, NULL, NULL, NULL),
-(N'P5', N'पोडियम5', 10, 9, NULL, NULL, NULL),
-(N'P6', N'पोडियम6', 11, 10, NULL, NULL, NULL),
-(N'M',  N'पॉटमाळा', 0, 4, NULL, NULL, NULL),
-(N'OP', N'Open Plot', 0, 0, NULL, NULL, NULL);
+(1,  N'B',  N'तळघर',                    1,  1,  1),
+(3,  N'L',  N'लोअर तळमजला',             2,  3,  1),
+(2,  N'G',  N'तळमजला',                   3,  2,  1),
+(4,  N'M',  N'पोटमाळा',                  0,  4,  1),
 
+(13, N'1',  N'पहिला मजला',              12, 13, 1),
+(11, N'U1', N'अप्पर ग्राऊंड पहिला',      4, 11, 1),
+(14, N'2',  N'दुसरा मजला',              13, 14, 1),
+(12, N'U2', N'अप्पर ग्राऊंड दुसरा',      5, 12, 1),
+(15, N'3',  N'तिसरा मजला',              14, 15, 1),
+(16, N'4',  N'चौथा मजला',               15, 16, 1),
+(17, N'5',  N'पाचवा मजला',              16, 17, 1),
+(18, N'6',  N'सहावा मजला',              17, 18, 1),
+(19, N'7',  N'सातवा मजला',              18, 19, 1),
+(20, N'8',  N'आठवा मजला',               19, 20, 1),
+(21, N'9',  N'नववा मजला',               20, 21, 1),
+(22, N'10', N'दहावा मजला',              21, 22, 1),
+(23, N'11', N'अकरावा मजला',             22, 23, 1),
+(24, N'12', N'बारावा मजला',             23, 24, 1),
+(25, N'13', N'तेरावा मजला',             24, 25, 1),
+(26, N'14', N'चौदावा मजला',             25, 26, 1),
+(27, N'15', N'पंधरावा मजला',            26, 27, 1),
+(28, N'16', N'सोळावा मजला',             27, 28, 1),
+(29, N'17', N'सतरावा मजला',             28, 29, 1),
+(30, N'18', N'अठरावा मजला',             29, 30, 1),
+(31, N'19', N'एकोणिसावा मजला',          30, 31, 1),
+(32, N'20', N'विसावा मजला',             31, 32, 1),
+(33, N'21', N'एकविसावा मजला',           32, 33, 1),
+(34, N'22', N'बाविसावा मजला',           33, 34, 1),
+(35, N'23', N'तेविसावा मजला',           34, 35, 1),
+(36, N'24', N'चोविसावा मजला',           35, 36, 1),
+(37, N'25', N'पंचविसावा मजला',          36, 37, 1),
+(38, N'26', N'सव्विसावा मजला',          37, 38, 1),
+(39, N'27', N'सत्ताविसावा मजला',        38, 39, 1),
+(40, N'28', N'अठ्ठाविसावा मजला',        39, 40, 1),
+(41, N'29', N'एकोणतिसावा मजला',         40, 41, 1),
+(42, N'30', N'तिसावा मजला',             41, 42, 1),
+(43, N'31', N'एकतिसावा मजला',           42, 43, 1),
+(44, N'32', N'बत्तिसावा मजला',          43, 44, 1),
+(45, N'33', N'तेत्तिसावा मजला',         44, 45, 1),
+(46, N'34', N'चौतिसावा मजला',           45, 46, 1),
+(47, N'35', N'पस्तिसावा मजला',          46, 47, 1),
+(48, N'36', N'छत्तिसावा मजला',          47, 48, 1),
+(49, N'37', N'सदतिसावा मजला',           48, 49, 1),
+(50, N'38', N'अडतिसावा मजला',           49, 50, 1),
+(51, N'39', N'एकोणचाळिसावा मजला',       50, 51, 1),
+(52, N'40', N'चाळिसावा मजला',           51, 52, 1),
+(53, N'41', N'एकेचाळिसावा मजला',        52, 53, 1),
+(54, N'42', N'बेचाळिसावा मजला',         53, 54, 1),
+
+(56, N'44', N'चौचाळिसावा मजला',         55, 56, 1),
+(60, N'48', N'अठ्ठेचाळिसावा मजला',      59, 60, 1),
+(62, N'50', N'पन्नासावा मजला',          61, 62, 1),
+(63, N'51', N'एकावन्नावा मजला',         62, 63, 1),
+(64, N'52', N'बावन्नावा मजला',          63, 64, 1),
+(65, N'53', N'त्रेपन्नावा मजला',        64, 65, 1),
+(66, N'54', N'चौपन्नावा मजला',          65, 66, 1),
+(67, N'55', N'पंचावन्नावा मजला',        66, 67, 1),
+(68, N'56', N'छप्पन्नावा मजला',         67, 68, 1),
+(69, N'57', N'सत्तावन्नावा मजला',       68, 69, 1),
+(70, N'58', N'अठ्ठावन्नावा मजला',       69, 70, 1),
+(71, N'59', N'एकोणसाठावा मजला',         70, 71, 1),
+(72, N'60', N'साठावा मजला',             71, 72, 1),
+(73, N'61', N'एकसष्टावा मजला',          72, 73, 1),
+(75, N'63', N'त्रेसष्टावा मजला',        73, 75, 1),
+(76, N'64', N'चौसष्टावा मजला',          74, 76, 1),
+(77, N'65', N'पासष्टावा मजला',          75, 77, 1),
+(78, N'66', N'सहासष्टावा मजला',         76, 78, 1),
+(79, N'67', N'सदुसष्टावा मजला',         77, 79, 1),
+(80, N'68', N'अडुसष्टावा मजला',         78, 80, 1),
+(81, N'69', N'एकोणसत्तरावा मजला',       79, 81, 1),
+(82, N'70', N'सत्तरावा मजला',           80, 82, 1),
+
+(5,  N'P1', N'पोडियम1',                  6,  5, 1),
+(6,  N'P2', N'पोडियम2',                  7,  6, 1),
+(7,  N'P3', N'पोडियम3',                  8,  7, 1),
+(8,  N'P4', N'पोडियम4',                  9,  8, 1),
+(9,  N'P5', N'पोडियम5',                 10,  9, 1),
+(10, N'P6', N'पोडियम6',                 11, 10, 1),
+
+(83, N'OP', N'Open Plot',                 83,  0, 1);
+GO
+
+SET IDENTITY_INSERT [PTIS].[FloorMaster] OFF;
+GO
 
 ;WITH Seed(FloorCode, FactorWithLift, FactorWithoutLift, CreatedBy, UpdatedBy, UpdatedDate) AS
 (
@@ -2241,7 +2434,7 @@ WHERE NOT EXISTS
 
 
 
-  ;WITH Seed(TypeOfUseCode,  [Description]) AS
+;WITH Seed(TypeOfUseCode,  [Description]) AS
 (
     SELECT * FROM (VALUES
       (N'OPK',   N'ओपन पार्किंग'),
@@ -2269,6 +2462,7 @@ WHERE NOT EXISTS (
 
 
 
+
 SET IDENTITY_INSERT [PTIS].[PartTypeMaster] ON;
 INSERT INTO [PTIS].[PartTypeMaster] ([Id], [PartType]) VALUES ('1','C');
 INSERT INTO [PTIS].[PartTypeMaster] ([Id], [PartType]) VALUES ('2','Government Property');
@@ -2286,42 +2480,25 @@ SET IDENTITY_INSERT [PTIS].[PartTypeMaster] OFF;
 
 
 
-INSERT INTO [PTIS].[SubFloorMaster] ([SubFloorCode], [Description], [SubFloorPercentage]) VALUES ('Loft','LOFT','50.00');
+SET IDENTITY_INSERT [PTIS].[SubFloorMaster] ON;
+GO
 
-INSERT INTO [PTIS].[SubFloorMaster] ([SubFloorCode], [Description], [SubFloorPercentage]) VALUES ('Attic','ATTIC','50.00');
-INSERT INTO [PTIS].[SubFloorMaster] ([SubFloorCode], [Description], [SubFloorPercentage]) VALUES ('Mezzanine','MEZZANINE','70.00');
+INSERT INTO [PTIS].[SubFloorMaster]
+(
+    [Id],
+    [SubFloorCode],
+    [Description],
+    [SubFloorPercentage],
+    [IsProtected]
+)
+VALUES
+(1, N'Loft',      N'LOFT',      50.00, 1),
+(2, N'Attic',     N'ATTIC',     50.00, 1),
+(3, N'Mezzanine', N'MEZZANINE', 70.00, 1);
+GO
 
-
-
-
---SET IDENTITY_INSERT [PTIS].[SubmissionRemarkMaster] ON;
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('1','Hall','N','1');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('2','Kit/Din','N','1');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('3','BED1','N','1');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('4','BED2','N','1');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('5','BED3','N','1');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('6','Hall Bal ENC','E','1');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('7','Kit Bal ENC','E','1');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('8','Hall Bal','O','0');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('9','Bed Bal','O','0');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('10','Kit Bal','O','0');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('11','W/C/Bath','WB','2');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('12','WC','W','2');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('13','BED1 Bal ENC','E','1');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('14','BED2 Bal ENC','E','1');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('15','BED3 Bal ENC','E','1');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('16','Bath','B','2');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('17','Shop','A','1');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('18','Passage','A','1');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('19','Office','A','1');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('20','PSG','A','1');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('21','Individual','A','1');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('26','Parking','N','3');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('27','Other','N','2');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('28','Rooms','N','4');
---INSERT INTO [PTIS].[SubmissionRemarkMaster] ([SubmissionRemarkMasterId], [SubmissionRemark], [RemarkType], [IsAreaRemark]) VALUES ('29','Staire','E','2');
---SET IDENTITY_INSERT [PTIS].[SubmissionRemarkMaster] OFF;
----- [PTIS].[UsageCategoryMaster]
+SET IDENTITY_INSERT [PTIS].[SubFloorMaster] OFF;
+GO
 
 
 
@@ -4331,105 +4508,123 @@ JOIN PTIS.WardMaster wm
   ON wm.WardNo = v.WardNo;
  --- global master-- end---
 
+ SET IDENTITY_INSERT [PTIS].[PolicyConfiguration] ON;
+
  INSERT INTO [PTIS].[PolicyConfiguration]
-(
+ (
+    Id,
     PolicyCode, Category, DisplayName, Description,
     DataType, PolicyValue, DefaultValue,
-    IsActive, Unit, AllowedValues, CreatedDate
-)
+    IsProtected, IsActive, Unit, AllowedValues, CreatedDate
+ )
  SELECT
+     v.Id,
      v.PolicyCode, v.Category, v.DisplayName, v.Description,
      v.DataType, v.PolicyValue, v.DefaultValue,
-     v.IsActive, v.Unit, v.AllowedValues, v.CreatedDate
+     v.IsProtected, v.IsActive, v.Unit, v.AllowedValues, v.CreatedDate
  FROM (VALUES
-     (N'AssessmentYear', N'General', N'Assessment Base Year',
+     (1, N'AssessmentYear', N'General', N'Assessment Base Year',
       N'Assessment base year for policy configuration.',
-      N'INT', N'2010', N'2010', 1, NULL, NULL, GETDATE()),
-     (N'TaxesOnCV', N'Calculation', N'Taxes On CV',
-      N'Apply tax calculation based on Capital Value (CV).',
-      N'BIT', N'1', N'0', 1, NULL, NULL, GETDATE()),
-     (N'TaxesOnRV', N'Calculation', N'Taxes On RV',
-      N'Apply tax calculation based on Rateable Value (RV).',
-      N'BIT', N'1', N'1', 1, NULL, NULL, GETDATE()),
-     (N'TaxOnBuiltUpArea', N'Calculation', N'Tax On Built Up Area',
-      N'Apply tax calculation based on Built Up Area.',
-      N'BIT', N'0', N'0', 1, NULL, NULL, GETDATE()),
-     (N'EducationEmploymentTaxOnRV', N'Calculation',
-      N'Education / Employment Tax On RV',
-      N'Apply Education Tax and Employment Tax based on Rateable Value (RV).',
-      N'BIT', N'0', N'0', 1, NULL, NULL, GETDATE()),
-     (N'ApplyMaintenance', N'Calculation', N'Apply Maintenance',
-      N'Apply maintenance deduction during annual rental value or rateable value calculation.',
-      N'BIT', N'1', N'1', 1, NULL, NULL, GETDATE()),
-     (N'MaintenancePercentage', N'Calculation', N'Maintenance Percentage',
-      N'Percentage of maintenance deduction applied during annual rental value or rateable value calculation.',
-      N'DECIMAL', N'10', N'10', 1, N'PERCENT', NULL, GETDATE()),
-     (N'RateMasterAreaUnit', N'Calculation', N'Rate Master Area Unit',
-      N'Purpose: Defines whether Rate Master rates are entered per SqMeter or per SqFeet. PolicyValue: SqMeter or SqFeet. Example: SqMeter.',
-      N'VARCHAR', N'SqMeter', N'SqMeter', 1, NULL, N'SqMeter,SqFeet', GETDATE()),
-     (N'RateMonthlyOrYearly', N'Calculation', N'Rate Monthly Or Yearly',
-      N'Purpose: Determines whether Rate Master rates are monthly or yearly. PolicyValue: Monthly or Yearly. Example: Yearly.',
-      N'VARCHAR', N'Yearly', N'Monthly', 1, NULL, N'Monthly,Yearly', GETDATE()),
-     (N'TaxCalculationMethod', N'Calculation', N'Tax Calculation Method',
+      N'INT', N'2010', N'2010', 1, 1, NULL, NULL, GETDATE()),
+     (2, N'TaxCalculationMethod', N'Calculation', N'Tax Calculation Method',
       N'Purpose: Specifies which tax calculation method should be used. PolicyValue: RV=Rateable Value, CV=Capital Value. Example: RV.',
-      N'VARCHAR', N'RV', N'RV', 1, NULL, N'RV,CV', GETDATE())
+      N'VARCHAR', N'RV', N'RV', 1, 1, NULL, N'RV,CV', GETDATE()),
+     (3, N'RateableValueAreaType', N'Calculation', N'Rateable Value Area Type',
+       N'Determines the area type used for Rateable Value calculation. PolicyValue: CarpetArea or BuiltUpArea. Example: CarpetArea.',
+      N'VARCHAR', N'BuiltUpArea', N'CarpetArea', 1, 1, NULL, 'CarpetArea,BuiltUpArea', GETDATE()),
+
+     (4, N'EducationEmploymentTaxCalculationMethod', N'Calculation',
+      N'Education / Employment Tax On RV or ALV',
+      N'Controls Education and Employment Tax calculation on Rateable Value Or Annual Letting Value.',
+      N'VARCHAR', N'RV', N'ALV', 1, 1, NULL, N'RV,ALV', GETDATE()),
+     (5, N'ApplyMaintenance', N'Calculation', N'Apply Maintenance',
+      N'Apply maintenance deduction during annual rental value or rateable value calculation.',
+      N'BIT', N'1', N'1', 1, 1, NULL, 'Enable,Disable', GETDATE()),
+     (6, N'MaintenancePercentage', N'Calculation', N'Maintenance Percentage',
+      N'Percentage of maintenance deduction applied during annual rental value or rateable value calculation.',
+      N'DECIMAL', N'10', N'10', 1, 1, N'PERCENT', NULL, GETDATE()),
+     (7, N'RateMasterAreaUnit', N'Calculation', N'Rate Master Area Unit',
+      N'Purpose: Defines whether Rate Master rates are entered per SqMeter or per SqFeet. PolicyValue: SqMeter or SqFeet. Example: SqMeter.',
+      N'VARCHAR', N'SqMeter', N'SqMeter', 1, 1, NULL, N'SqMeter,SqFeet', GETDATE()),
+     (8, N'RateMonthlyOrYearly', N'Calculation', N'Rate Monthly Or Yearly',
+      N'Purpose: Determines whether Rate Master rates are monthly or yearly. PolicyValue: Monthly or Yearly. Example: Yearly.',
+        N'VARCHAR', N'Yearly', N'Monthly', 1, 1, NULL, N'Monthly,Yearly', GETDATE()),
+         (9, N'CombinePropertyLimit', N'Calculation', N'Combine Property Limit',
+        N'Purpose: Specifies the maximum number of adjacent properties allowed for property combination. PolicyValue: Enter a numeric value. Example: 2 means a property can be combined with up to 2 adjacent properties.',
+        N'INT', N'10', N'3', 1, 1, NULL, NULL, CAST(N'2026-06-16T16:26:35.227' AS DATETIME)),
+         (10, N'MaxPropertyTransferLimit', N'Validation', N'Maximum Property Transfer Limit',
+        N'Purpose: Updated maximum property transfer limit.',
+        N'INT', N'8', N'5', 0, 1, NULL, NULL, CAST(N'2026-06-18T14:20:31.163' AS DATETIME))
+
   ) v
   (
+      Id,
       PolicyCode, Category, DisplayName, Description,
       DataType, PolicyValue, DefaultValue,
-      IsActive, Unit, AllowedValues, CreatedDate
+      IsProtected, IsActive, Unit, AllowedValues, CreatedDate
   )
   WHERE NOT EXISTS (
       SELECT 1
       FROM [PTIS].[PolicyConfiguration] pc
       WHERE pc.PolicyCode = v.PolicyCode
   );
+ SET IDENTITY_INSERT [PTIS].[PolicyConfiguration] OFF;
 ------------------------tax configuration-----------------------
-
-INSERT INTO PTIS.TaxCategoryMaster (CategoryCode, CategoryName, IsActive, CreatedBy)
-SELECT v.CategoryCode, v.CategoryName, 1, 1
+SET IDENTITY_INSERT [PTIS].[TaxCategoryMaster] ON;
+INSERT INTO [PTIS].[TaxCategoryMaster] ([Id], [CategoryCode], [CategoryName], [IsActive], [IsProtected], [CreatedBy])
+SELECT v.Id, v.CategoryCode, v.CategoryName, v.IsActive, v.IsProtected, v.CreatedBy
 FROM (VALUES
-    ('TAX',  'Property Tax'),
-    ('CESS', 'Cess'),
-    ('EDU',  'State Education Tax'),
-    ('EMP',  'State Employment Tax'),
-    ('USER', 'User Charges'),
-    ('PENALTY', 'Penalty')
-) v(CategoryCode, CategoryName)
-
+    (1, 'TAX',  'Property Tax', 1, 1, 1),
+    (2, 'CESS', 'Cess', 1, 1, 1),
+    (3, 'EDU',  'State Education Tax', 1, 1, 1),
+    (4, 'EMP',  'State Employment Tax', 1, 1, 1),
+    (5, 'USER', 'User Charges', 1, 1, 1),
+    (6, 'PENALTY', 'Penalty', 1, 1, 1),
+    (7, 'DISCOUNT', 'Discount', 1, 1, 1),
+    (8, 'TAXTOTAL', 'Tax Total', 1, 1, 1),
+    (9, 'NETTOTAL', 'Net Total', 1, 1, 1)
+) v(Id, CategoryCode, CategoryName, IsActive, IsProtected, CreatedBy)
+WHERE NOT EXISTS (
+    SELECT 1 FROM [PTIS].[TaxCategoryMaster] tcm WHERE tcm.[Id] = v.[Id]
+);
+SET IDENTITY_INSERT [PTIS].[TaxCategoryMaster] OFF;
 GO
-
-
-
-INSERT INTO PTIS.TaxMaster (TaxCode, TaxName, TaxCategoryId, DisplayOrder, IsActive)
-SELECT v.TaxCode, v.TaxName, c.Id, v.DisplayOrder, 1
+SET IDENTITY_INSERT [PTIS].[TaxMaster] ON;
+INSERT INTO [PTIS].[TaxMaster] ([Id], [TaxCode], [TaxName], [TaxCategoryId], [DisplayOrder], [IsActive], [AssessmentStatus], [OldTaxStatus], [IsProtected])
+SELECT v.Id, v.TaxCode, v.TaxName, c.Id, v.DisplayOrder, v.IsActive, v.AssessmentStatus, v.OldTaxStatus, v.IsProtected
 FROM (VALUES
-    ('GEN',  'General Tax',              'TAX',  1),
-    ('STATE_EDU', 'State Education Tax','EDU',  2),
-    ('STATE_EMP', 'State Employment Tax','EMP', 3),
-    ('TREE', 'Tree Cess',               'CESS', 4),
-    ('SP_WATER', 'Special Water Cess',  'CESS', 5),
-    ('ROAD', 'Road Cess',               'CESS', 6),
-    ('FIRE', 'Fire Cess',               'CESS', 7),
-    ('LIGHT', 'Light Cess',             'CESS', 8),
-    ('WATER_BEN', 'Water Benefit Cess', 'CESS', 9),
-    ('SEWAGE', 'Sewage Disposal Cess',  'CESS', 10),
-    ('SP_EDU', 'Special Education Tax', 'EDU',  11),
-    ('SANITATION', 'Sanitation Cess',   'CESS', 12),
-    ('DRAIN', 'Drain Cess',             'CESS', 13),
-    ('WATER_BILL', 'Water Bill',        'USER', 14),
-    ('BIG_BUILD', 'Big Building',       'TAX',  15),
-    ('ILLEGAL', 'Illegal Construction Penalty','PENALTY',16),
-    ('USER', 'User Charges',            'USER', 17),
-    ('SERVICE', 'Service Tax',          'TAX',  18),
-    ('OLD PENALTY', 'Old Penalty of ULB', 'PENALTY',  19),
-    ('PENALTY', 'Run Time Penalty', 'PENALTY',  20)
+    (1, 'GEN',  'General Tax',              'TAX',  1, 1, 1, 1, 1),
+    (2, 'STATE_EDU', 'State Education Tax','EDU',  2, 1, 1, 1, 1),
+    (3, 'STATE_EMP', 'State Employment Tax','EMP', 3, 1, 1, 1, 1),
+    (4, 'TREE', 'Tree Cess',               'CESS', 4, 1, 1, 1, 1),
+    (5, 'SP_WATER', 'Special Water Cess',  'CESS', 5, 1, 1, 1, 1),
+    (6, 'ROAD', 'Road Cess',               'CESS', 6, 1, 1, 1, 1),
+    (7, 'FIRE', 'Fire Cess',               'CESS', 7, 1, 1, 1, 1),
+    (8, 'LIGHT', 'Light Cess',             'CESS', 8, 1, 1, 1, 1),
+    (9, 'WATER_BEN', 'Water Benefit Cess', 'CESS', 9, 1, 1, 1, 1),
+    (10, 'SEWAGE', 'Sewage Disposal Cess',  'CESS', 10, 1, 1, 1, 1),
+    (11, 'SP_EDU', 'Special Education Tax', 'EDU',  11, 1, 1, 1, 1),
+    (12, 'SANITATION', 'Sanitation Cess',   'CESS', 12, 0, 0, 0, 1),
+    (13, 'DRAIN', 'Drain Cess',             'CESS', 13, 0, 0, 0, 1),
+    (14, 'WATER_BILL', 'Water Bill',        'USER', 14, 0, 0, 0, 1),
+    (15, 'BIG_BUILD', 'Big Building',       'TAX',  15, 0, 0, 0, 1),
+    (16, 'ILLEGAL', 'Illegal Construction Penalty','PENALTY',16, 0, 0, 0, 1),
+    (17, 'USER', 'User Charges',            'USER', 17, 0, 0, 0, 1),
+    (18, 'SERVICE', 'Service Tax',          'TAX',  18, 0, 0, 0, 1),
+    (19, 'OLD PENALTY', 'Old Penalty of ULB', 'PENALTY',  19, 0, 0, 0, 1),
+    (20, 'PENALTY', 'Run Time Penalty', 'PENALTY',  20, 0, 0, 0, 1),
+    (21, 'TAXTOTAL', 'Tax Total', 'TAXTOTAL', 21, 1, 1, 1, 1),
+    (22, 'NETTOTAL', 'Net Total', 'NETTOTAL', 22, 0, 0, 0, 1),
+    (23, 'DISCOUNT', 'Discount', 'DISCOUNT', 23, 0, 0, 0, 1)
+) v(Id, TaxCode, TaxName, CategoryCode, DisplayOrder, IsActive, AssessmentStatus, OldTaxStatus, IsProtected)
 
-) v(TaxCode, TaxName, CategoryCode, DisplayOrder)
 JOIN PTIS.TaxCategoryMaster c ON c.CategoryCode = v.CategoryCode
 WHERE NOT EXISTS (
-    SELECT 1 FROM PTIS.TaxMaster t WHERE t.TaxCode = v.TaxCode
+    SELECT 1 FROM PTIS.TaxMaster t WHERE t.Id = v.Id
 );
+
+SET IDENTITY_INSERT [PTIS].[TaxMaster] OFF;
+
 GO
 
 SET IDENTITY_INSERT [PTIS].[WingMaster] ON
@@ -4463,78 +4658,11 @@ INSERT [PTIS].[WingMaster] ([Id], [WingNo], [SequenceNo], [IsActive], [CreatedBy
 SET IDENTITY_INSERT [PTIS].[WingMaster] OFF
 
 
----- policy code master - seed data----
-
-INSERT INTO PTIS.PolicyCodeMaster (PolicyCode, PolicyName, Description, PolicyType, CreatedBy)
-SELECT v.PolicyCode, v.PolicyName, v.Description, v.PolicyType, 1
-FROM (VALUES
-    (N'NETTAX', N'Net Tax', N'Annual tax assessment', N'NORMAL'),
-    (N'HEARING', N'Hearing', N'Hearing case', N'DECISION'),
-    (N'APPEAL_COMMITTEE', N'Appeal Committee', N'Appeal/committee decision', N'DECISION'),
-    (N'REMISSION', N'Remission', N'Remission granted', N'DECISION')
-) v(PolicyCode, PolicyName, Description, PolicyType)
-WHERE NOT EXISTS (
-    SELECT 1 FROM PTIS.PolicyCodeMaster pcm WHERE pcm.PolicyCode = v.PolicyCode
-);
-
-
----- policy tax details - seed data----
-
-
-;WITH PropertyList AS
-(
-    SELECT top 100 Id
-    FROM PTIS.PropertyMast
-    --WHERE Id IN (101,102,103)
-      --AND IsActive = 1
-       ORDER BY Id
-),
-PolicyList AS
-(
-    SELECT pcm.Id AS PolicyCodeId, pcm.PolicyCode, pcm.Description AS PolicyReason
-    FROM PTIS.PolicyCodeMaster pcm
-    WHERE pcm.PolicyCode IN (N'NETTAX', N'HEARING', N'APPEAL_COMMITTEE', N'REMISSION')
-),
-TaxList AS
-(
-    SELECT Id AS TaxId
-    FROM PTIS.TaxMaster
-    WHERE IsActive = 1
-)
-INSERT INTO PTIS.PolicyTaxDetails
-(
-    PropertyId,
-    PolicyCodeId,
-    PolicyYear,
-    PolicyReason,
-    CalculationValue,
-    TaxId,
-    TaxAmount,
-    CreatedBy
-)
-SELECT
-    PR.Id AS PropertyId,
-    PL.PolicyCodeId,
-    2026,
-    PL.PolicyReason,
-    CAST(500000 + (PR.Id * 25) + (TL.TaxId * 100) AS MONEY),
-    TL.TaxId,
-    CAST(1000 + ((PR.Id * TL.TaxId) % 25000) AS MONEY),
-    1
-FROM PropertyList PR
-CROSS JOIN PolicyList PL
-CROSS JOIN TaxList TL
-WHERE NOT EXISTS
-(
-    SELECT 1
-    FROM PTIS.PolicyTaxDetails D
-    WHERE D.PropertyId = PR.Id
-      AND D.PolicyYear = 2026
-      AND D.PolicyCodeId = PL.PolicyCodeId
-      AND D.TaxId = TL.TaxId
-      AND D.IsActive = 1
-      AND D.MarkedForDeletion = 0
-);
+---- policy tax details - seed data ----
+-- No default seed data. PTIS.PolicyTaxDetails is the RV/CV pipeline's
+-- own property-wise tax transaction table (PropertyId, PolicyCodeId,
+-- PolicyYear, TaxId) -- populated by that pipeline against real
+-- properties/taxes, not by synthetic demo rows here.
 
 
 SET IDENTITY_INSERT [PTIS].[RoomTypeMaster] ON;
@@ -4713,6 +4841,14 @@ GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleEffectTypeMaster] WHERE [EffectType] = N'Decrease %')
     INSERT [PTIS].[RuleEffectTypeMaster] ([Id], [EffectType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2, N'Decrease %', 1, 1, CAST(N'2026-05-18T14:22:05.493' AS DateTime), NULL, NULL)
 GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleEffectTypeMaster] WHERE [EffectType] = N'Multiply')
+    INSERT [PTIS].[RuleEffectTypeMaster] ([Id], [EffectType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (3, N'Multiply', 1, 1, CAST(N'2026-07-18T15:57:24.273' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleEffectTypeMaster] WHERE [EffectType] = N'RateLookup')
+    INSERT [PTIS].[RuleEffectTypeMaster] ([Id], [EffectType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (4, N'RateLookup', 1, 1, CAST(N'2026-07-22T12:02:34.953' AS DateTime), NULL, NULL)
+GO
 SET IDENTITY_INSERT [PTIS].[RuleEffectTypeMaster] OFF
 GO
 
@@ -4761,6 +4897,14 @@ IF NOT EXISTS (SELECT 1 FROM [PTIS].[EffectTypeConfiguration] WHERE [EffectTypeI
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[EffectTypeConfiguration] WHERE [EffectTypeId] = 2)
     INSERT [PTIS].[EffectTypeConfiguration] ([Id], [EffectTypeId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ExpressionTemplate], [StaticApiEndpoint], [StaticApiInputType], [StaticApiMethod], [StaticApiParamter], [StaticApiResponseMapping]) VALUES (2, 2, N'String', N'TextBox', 0, N'', N'', N'', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-27T16:36:11.117' AS DateTime), NULL, NULL, NULL, N'PropertyRuleEvaluationMaster', N'dropdown', N'GET', N'{"PageSize":"-1"}', N'{"responsePath":"data","valuePath":"id","labelPath":"parameterName","displayTemplate":"{parameterCode} - {parameterName}","additionalFields":{"parameterCode":"parameterCode"}}')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[EffectTypeConfiguration] WHERE [EffectTypeId] = 3)
+    INSERT [PTIS].[EffectTypeConfiguration] ([Id], [EffectTypeId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ExpressionTemplate], [StaticApiEndpoint], [StaticApiInputType], [StaticApiMethod], [StaticApiParamter], [StaticApiResponseMapping])
+    VALUES (3, 3, N'string', N'TextBox', 0, N'', N'', N'', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-27T16:36:11.117' AS DateTime), NULL, NULL, NULL, N'PropertyRuleEvaluationMaster', N'dropdown', N'GET', N'{"PageSize":"-1"}', N'{"responsePath":"data","valuePath":"id","labelPath":"parameterName","displayTemplate":"{parameterCode} - {parameterName}","additionalFields":{"parameterCode":"parameterCode"}}')
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[EffectTypeConfiguration] WHERE [EffectTypeId] = 4)
+    INSERT [PTIS].[EffectTypeConfiguration] ([Id], [EffectTypeId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ExpressionTemplate], [StaticApiEndpoint], [StaticApiInputType], [StaticApiMethod], [StaticApiParamter], [StaticApiResponseMapping])
+    VALUES (4, 4, N'string', N'TextBox', 1, N'', N'', N'', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 101, CAST(N'2026-07-04T13:37:13.747' AS DateTime), NULL, CAST(N'2026-07-04T13:39:30.047' AS DateTime), N'', N'TypeOfUseGroup', N'dropdown', N'GET', N'{"PageSize":"-1"}', N'{"responsePath":"data","valuePath":"id","labelPath":"parameterName","displayTemplate":"{typeOfUseGroupCode} - {groupName}","additionalFields":{"parameterCode":"typeOfUseGroupCode"}}')
 GO
 SET IDENTITY_INSERT [PTIS].[EffectTypeConfiguration] OFF
 GO
@@ -4866,70 +5010,70 @@ GO
 SET IDENTITY_INSERT [PTIS].[RuleScopeFieldMapping] ON
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 1)
-    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1035, 1, 1, 1, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1, 1, 1, 1, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 2)
-    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1036, 1, 2, 2, 1, 1, CAST(N'2026-05-18T11:30:10.320' AS DateTime), NULL, NULL)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2, 1, 2, 2, 1, 1, CAST(N'2026-05-18T11:30:10.320' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 3)
-    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1037, 1, 3, 3, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (3, 1, 3, 3, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 4)
-    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1038, 1, 4, 4, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (4, 1, 4, 4, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 5)
-    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1039, 1, 5, 5, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (5, 1, 5, 5, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 6)
-    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1040, 1, 6, 6, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (6, 1, 6, 6, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 7)
-    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1041, 1, 7, 7, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (7, 1, 7, 7, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 8)
-    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1042, 1, 8, 8, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (8, 1, 8, 8, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 9)
-    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1043, 1, 9, 9, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (9, 1, 9, 9, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 10)
-    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1044, 1, 10, 10, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (10, 1, 10, 10, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 11)
-    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1045, 1, 11, 11, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (11, 1, 11, 11, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 13)
-    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1047, 1, 13, 13, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (12, 1, 13, 13, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 14)
-    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1048, 1, 14, 14, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (13, 1, 14, 14, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 15)
-    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1049, 1, 15, 15, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (14, 1, 15, 15, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 16)
-    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1050, 1, 16, 16, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (15, 1, 16, 16, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 17)
-    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1051, 1, 17, 17, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (16, 1, 17, 17, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 18)
-    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1052, 1, 18, 18, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (17, 1, 18, 18, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 19)
-    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1053, 1, 19, 19, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (18, 1, 19, 19, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 1011)
-    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1054, 1, 1011, 1011, 1, 1, CAST(N'2026-06-09T12:42:27.143' AS DateTime), NULL, NULL)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (19, 1, 1011, 1011, 1, 1, CAST(N'2026-06-09T12:42:27.143' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 1013)
-    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2035, 1, 1013, 1013, 1, 1, CAST(N'2026-06-17T15:24:15.270' AS DateTime), NULL, NULL)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (20, 1, 1013, 1013, 1, 1, CAST(N'2026-06-17T15:24:15.270' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 2013)
-    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (3035, 1, 2013, 2013, 1, 1, CAST(N'2026-06-19T18:41:24.770' AS DateTime), NULL, NULL)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (21, 1, 2013, 2013, 1, 1, CAST(N'2026-06-19T18:41:24.770' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 3013)
-    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (4037, 1, 3013, 3013, 1, 1, CAST(N'2026-07-06T12:33:19.597' AS DateTime), NULL, NULL)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (22, 1, 3013, 3013, 1, 1, CAST(N'2026-07-06T12:33:19.597' AS DateTime), NULL, NULL)
 GO
 SET IDENTITY_INSERT [PTIS].[RuleScopeFieldMapping] OFF
 GO
@@ -4949,11 +5093,11 @@ BEGIN
     BEGIN TRY
         BEGIN TRANSACTION;
 
-        ------------------------------------------------------------
-        -- Insert policy codes
-        ------------------------------------------------------------
+        SET IDENTITY_INSERT [PTIS].[PolicyCodeMaster] ON;
+
         INSERT INTO [PTIS].[PolicyCodeMaster]
         (
+            [Id],
             [PolicyCode],
             [PolicyName],
             [Description],
@@ -4963,386 +5107,33 @@ BEGIN
             [IsExclusive],
             [RequiresStageTracking],
             [DisplayOrder],
+            [IsProtected],
             [IsActive],
             [CreatedBy]
         )
         VALUES
-        ------------------------------------------------------------
-        -- Normal policies
-        ------------------------------------------------------------
-        (
-            'NETTAX',
-            N'Net Tax',
-            N'Normal final calculated property tax',
-            'NORMAL',
-            NULL,
-            1,
-            0,
-            0,
-            1,
-            1,
-            1
-        ),
-        (
-            'AS_PER_OLD',
-            N'As Per Old',
-            N'Old ULB tax is considered as the final applicable tax',
-            'NORMAL',
-            NULL,
-            1,
-            1,
-            0,
-            2,
-            1,
-            1
-        ),
-        (
-            'MIN_RV',
-            N'Minimum RV',
-            N'Minimum rateable value policy is applied',
-            'NORMAL',
-            NULL,
-            1,
-            1,
-            0,
-            3,
-            1,
-            1
-        ),
-        (
-            'RETENTION',
-            N'Retention',
-            N'Previous tax or rateable value is retained',
-            'NORMAL',
-            NULL,
-            1,
-            1,
-            0,
-            4,
-            1,
-            1
-        ),
+        (1,  'NETTAX',            N'Net Tax',                        N'Normal final calculated property tax',                                                'NORMAL',      NULL, 1, 0, 0,  1, 1, 1, 1),
+        (2,  'AS_PER_OLD',        N'As Per Old',                     N'Old ULB tax is considered as the final applicable tax',                               'NORMAL',      NULL, 1, 1, 0,  2, 1, 1, 1),
+        (3,  'MIN_RV',            N'Minimum RV',                     N'Minimum rateable value policy is applied',                                            'NORMAL',      NULL, 1, 1, 0,  3, 1, 1, 1),
+        (4,  'RETENTION',         N'Retention',                      N'Previous tax or rateable value is retained',                                          'NORMAL',      NULL, 1, 1, 0,  4, 1, 1, 1),
+        (5,  'OC_PARTIAL',        N'Partial Occupancy Certificate',  N'Prorated OC tax for the remaining days of the current financial year',                'DATE_BASED',  6,    0, 1, 1,  5, 1, 1, 1),
+        (6,  'OC',                N'Occupancy Certificate',          N'Full-year tax based on the occupancy certificate',                                    'DATE_BASED',  NULL, 1, 1, 0,  6, 1, 1, 1),
+        (7,  'CC_PARTIAL',        N'Partial Completion Certificate', N'Prorated CC tax for the remaining days of the current financial year',                'DATE_BASED',  8,    0, 1, 1,  7, 1, 1, 1),
+        (8,  'CC',                N'Completion Certificate',         N'Full-year tax based on the completion certificate',                                   'DATE_BASED',  NULL, 1, 1, 0,  8, 1, 1, 1),
+        (9,  'ELECTRIC_PARTIAL',  N'Partial Electricity Bill',       N'Prorated electricity-bill tax for the remaining days of the current financial year',  'DATE_BASED',  10,   0, 1, 1,  9, 1, 1, 1),
+        (10, 'ELECTRIC_BILL',     N'Electricity Bill',               N'Full-year tax based on the electricity bill date',                                    'DATE_BASED',  NULL, 1, 1, 0, 10, 1, 1, 1),
+        (11, 'SECTION_129_OLD_1', N'Section 129 - Old Tax Year 1',   N'First financial year tax is equal to old ULB tax',                                    'STAGE_BASED', 12,   0, 1, 1, 11, 1, 1, 1),
+        (12, 'SECTION_129_OLD_2', N'Section 129 - Old Tax Year 2',   N'Second financial year tax is equal to old ULB tax',                                   'STAGE_BASED', 13,   0, 1, 1, 12, 1, 1, 1),
+        (13, 'SECTION_129_20',    N'Section 129 - 20 Percent',       N'Section 129 twenty-percent stage',                                                     'STAGE_BASED', 14,   0, 1, 1, 13, 1, 1, 1),
+        (14, 'SECTION_129_40',    N'Section 129 - 40 Percent',       N'Section 129 forty-percent stage',                                                      'STAGE_BASED', 15,   0, 1, 1, 14, 1, 1, 1),
+        (15, 'SECTION_129_60',    N'Section 129 - 60 Percent',       N'Section 129 sixty-percent stage',                                                      'STAGE_BASED', 16,   0, 1, 1, 15, 1, 1, 1),
+        (16, 'SECTION_129_80',    N'Section 129 - 80 Percent',       N'Section 129 eighty-percent stage',                                                     'STAGE_BASED', 17,   0, 1, 1, 16, 1, 1, 1),
+        (17, 'SECTION_129_100',   N'Section 129 - 100 Percent',      N'Final Section 129 stage with full new assessment tax',                                'STAGE_BASED', NULL, 1, 1, 1, 17, 1, 1, 1),
+        (18, 'HEARING',           N'Hearing',                        N'Final tax decided during hearing',                                                     'DECISION',    NULL, 1, 1, 0, 18, 1, 1, 1),
+        (19, 'APPEAL_COMMITTEE',  N'Appeal Committee',               N'Final tax decided by the appeal committee',                                            'DECISION',    NULL, 1, 1, 0, 19, 1, 1, 1),
+        (20, 'REMISSION',         N'Remission',                      N'Final tax decided after remission',                                                    'DECISION',    NULL, 1, 1, 0, 20, 1, 1, 1);
 
-        ------------------------------------------------------------
-        -- Occupancy Certificate policies
-        ------------------------------------------------------------
-        (
-            'OC_PARTIAL',
-            N'Partial Occupancy Certificate',
-            N'Prorated OC tax for the remaining days of the current financial year',
-            'DATE_BASED',
-            NULL,
-            0,
-            1,
-            1,
-            5,
-            1,
-            1
-        ),
-        (
-            'OC',
-            N'Occupancy Certificate',
-            N'Full-year tax based on the occupancy certificate',
-            'DATE_BASED',
-            NULL,
-            1,
-            1,
-            0,
-            6,
-            1,
-            1
-        ),
-
-        ------------------------------------------------------------
-        -- Completion Certificate policies
-        ------------------------------------------------------------
-        (
-            'CC_PARTIAL',
-            N'Partial Completion Certificate',
-            N'Prorated CC tax for the remaining days of the current financial year',
-            'DATE_BASED',
-            NULL,
-            0,
-            1,
-            1,
-            7,
-            1,
-            1
-        ),
-        (
-            'CC',
-            N'Completion Certificate',
-            N'Full-year tax based on the completion certificate',
-            'DATE_BASED',
-            NULL,
-            1,
-            1,
-            0,
-            8,
-            1,
-            1
-        ),
-
-        ------------------------------------------------------------
-        -- Electricity Bill policies
-        ------------------------------------------------------------
-        (
-            'ELECTRIC_PARTIAL',
-            N'Partial Electricity Bill',
-            N'Prorated electricity-bill tax for the remaining days of the current financial year',
-            'DATE_BASED',
-            NULL,
-            0,
-            1,
-            1,
-            9,
-            1,
-            1
-        ),
-        (
-            'ELECTRIC_BILL',
-            N'Electricity Bill',
-            N'Full-year tax based on the electricity bill date',
-            'DATE_BASED',
-            NULL,
-            1,
-            1,
-            0,
-            10,
-            1,
-            1
-        ),
-
-        ------------------------------------------------------------
-        -- Section 129 policies
-        ------------------------------------------------------------
-        (
-            'SECTION_129_OLD_1',
-            N'Section 129 - Old Tax Year 1',
-            N'First financial year tax is equal to old ULB tax',
-            'STAGE_BASED',
-            NULL,
-            0,
-            1,
-            1,
-            11,
-            1,
-            1
-        ),
-        (
-            'SECTION_129_OLD_2',
-            N'Section 129 - Old Tax Year 2',
-            N'Second financial year tax is equal to old ULB tax',
-            'STAGE_BASED',
-            NULL,
-            0,
-            1,
-            1,
-            12,
-            1,
-            1
-        ),
-        (
-            'SECTION_129_20',
-            N'Section 129 - 20 Percent',
-            N'Section 129 twenty-percent stage',
-            'STAGE_BASED',
-            NULL,
-            0,
-            1,
-            1,
-            13,
-            1,
-            1
-        ),
-        (
-            'SECTION_129_40',
-            N'Section 129 - 40 Percent',
-            N'Section 129 forty-percent stage',
-            'STAGE_BASED',
-            NULL,
-            0,
-            1,
-            1,
-            14,
-            1,
-            1
-        ),
-        (
-            'SECTION_129_60',
-            N'Section 129 - 60 Percent',
-            N'Section 129 sixty-percent stage',
-            'STAGE_BASED',
-            NULL,
-            0,
-            1,
-            1,
-            15,
-            1,
-            1
-        ),
-        (
-            'SECTION_129_80',
-            N'Section 129 - 80 Percent',
-            N'Section 129 eighty-percent stage',
-            'STAGE_BASED',
-            NULL,
-            0,
-            1,
-            1,
-            16,
-            1,
-            1
-        ),
-        (
-            'SECTION_129_100',
-            N'Section 129 - 100 Percent',
-            N'Final Section 129 stage with full new assessment tax',
-            'STAGE_BASED',
-            NULL,
-            1,
-            1,
-            1,
-            17,
-            1,
-            1
-        ),
-
-        ------------------------------------------------------------
-        -- Decision policies
-        ------------------------------------------------------------
-        (
-            'HEARING',
-            N'Hearing',
-            N'Final tax decided during hearing',
-            'DECISION',
-            NULL,
-            1,
-            1,
-            0,
-            18,
-            1,
-            1
-        ),
-        (
-            'APPEAL_COMMITTEE',
-            N'Appeal Committee',
-            N'Final tax decided by the appeal committee',
-            'DECISION',
-            NULL,
-            1,
-            1,
-            0,
-            19,
-            1,
-            1
-        ),
-        (
-            'REMISSION',
-            N'Remission',
-            N'Final tax decided after remission',
-            'DECISION',
-            NULL,
-            1,
-            1,
-            0,
-            20,
-            1,
-            1
-        );
-
-        ------------------------------------------------------------
-        -- Configure OC_PARTIAL -> OC
-        ------------------------------------------------------------
-        UPDATE currentPolicy
-        SET
-            currentPolicy.[NextPolicyCodeId] = nextPolicy.[Id],
-            currentPolicy.[UpdatedBy] = 1,
-            currentPolicy.[UpdatedDate] = GETDATE()
-        FROM [PTIS].[PolicyCodeMaster] AS currentPolicy
-        INNER JOIN [PTIS].[PolicyCodeMaster] AS nextPolicy
-            ON nextPolicy.[PolicyCode] = 'OC'
-        WHERE currentPolicy.[PolicyCode] = 'OC_PARTIAL';
-
-        ------------------------------------------------------------
-        -- Configure CC_PARTIAL -> CC
-        ------------------------------------------------------------
-        UPDATE currentPolicy
-        SET
-            currentPolicy.[NextPolicyCodeId] = nextPolicy.[Id],
-            currentPolicy.[UpdatedBy] = 1,
-            currentPolicy.[UpdatedDate] = GETDATE()
-        FROM [PTIS].[PolicyCodeMaster] AS currentPolicy
-        INNER JOIN [PTIS].[PolicyCodeMaster] AS nextPolicy
-            ON nextPolicy.[PolicyCode] = 'CC'
-        WHERE currentPolicy.[PolicyCode] = 'CC_PARTIAL';
-
-        ------------------------------------------------------------
-        -- Configure ELECTRIC_PARTIAL -> ELECTRIC_BILL
-        ------------------------------------------------------------
-        UPDATE currentPolicy
-        SET
-            currentPolicy.[NextPolicyCodeId] = nextPolicy.[Id],
-            currentPolicy.[UpdatedBy] = 1,
-            currentPolicy.[UpdatedDate] = GETDATE()
-        FROM [PTIS].[PolicyCodeMaster] AS currentPolicy
-        INNER JOIN [PTIS].[PolicyCodeMaster] AS nextPolicy
-            ON nextPolicy.[PolicyCode] = 'ELECTRIC_BILL'
-        WHERE currentPolicy.[PolicyCode] = 'ELECTRIC_PARTIAL';
-
-        ------------------------------------------------------------
-        -- Configure Section 129 workflow
-        ------------------------------------------------------------
-        ;WITH [PolicyFlow] AS
-        (
-            SELECT
-                CAST('SECTION_129_OLD_1' AS VARCHAR(30))
-                    AS [CurrentPolicyCode],
-                CAST('SECTION_129_OLD_2' AS VARCHAR(30))
-                    AS [NextPolicyCode]
-
-            UNION ALL
-
-            SELECT
-                'SECTION_129_OLD_2',
-                'SECTION_129_20'
-
-            UNION ALL
-
-            SELECT
-                'SECTION_129_20',
-                'SECTION_129_40'
-
-            UNION ALL
-
-            SELECT
-                'SECTION_129_40',
-                'SECTION_129_60'
-
-            UNION ALL
-
-            SELECT
-                'SECTION_129_60',
-                'SECTION_129_80'
-
-            UNION ALL
-
-            SELECT
-                'SECTION_129_80',
-                'SECTION_129_100'
-        )
-        UPDATE currentPolicy
-        SET
-            currentPolicy.[NextPolicyCodeId] = nextPolicy.[Id],
-            currentPolicy.[UpdatedBy] = 1,
-            currentPolicy.[UpdatedDate] = GETDATE()
-        FROM [PTIS].[PolicyCodeMaster] AS currentPolicy
-        INNER JOIN [PolicyFlow] AS policyFlow
-            ON policyFlow.[CurrentPolicyCode]
-               = currentPolicy.[PolicyCode]
-        INNER JOIN [PTIS].[PolicyCodeMaster] AS nextPolicy
-            ON nextPolicy.[PolicyCode]
-               = policyFlow.[NextPolicyCode];
+        SET IDENTITY_INSERT [PTIS].[PolicyCodeMaster] OFF;
 
         COMMIT TRANSACTION;
 
@@ -5463,8 +5254,11 @@ GO
    3. Seed PTIS.PropertyCertificateTypeMaster
 ============================================================================ */
 
+SET IDENTITY_INSERT [PTIS].[PropertyCertificateTypeMaster] ON;
+
 INSERT INTO PTIS.PropertyCertificateTypeMaster
 (
+    Id,
     CertificateTypeCode,
     CertificateTypeName,
     Description,
@@ -5475,6 +5269,7 @@ INSERT INTO PTIS.PropertyCertificateTypeMaster
     IsActive
 )
 SELECT
+    v.Id,
     v.CertificateTypeCode,
     v.CertificateTypeName,
     v.Description,
@@ -5484,17 +5279,18 @@ SELECT
     v.IsRequired,
     1
 FROM (VALUES
-    ('CC',                      N'Completion Certificate',   N'Completion Certificate used for CC based occupation tax calculation.',                      1,  1, 1, 1),
-    ('OC',                      N'Occupancy Certificate',    N'Occupancy Certificate used for OC based occupation tax calculation.',                       2,  1, 1, 1),
-    ('EleBillDt',               N'Electric Bill Date',       N'Electric Bill Date used as fallback certificate date for occupation tax calculation.',       3,  1, 1, 0),
-    ('POSSESSION_CERTIFICATE',  N'Possession Certificate',   N'Possession Certificate for document record purpose. Tax calculation disabled by default.',   4,  0, 0, 0),
-    ('INDEX_2',                 N'Index 2',                  N'Index 2 document for property record purpose. Tax calculation disabled by default.',         5,  0, 0, 0),
-    ('AGREEMENT',               N'Agreement',                N'Agreement document for property record purpose. Tax calculation disabled by default.',        6,  0, 0, 0),
-    ('SALE_DEED',               N'Sale Deed',                N'Sale Deed document for property record purpose. Tax calculation disabled by default.',        7,  0, 0, 0),
-    ('TAX_RECEIPT',             N'Tax Receipt',              N'Tax Receipt document for property record purpose. Tax calculation disabled by default.',      8,  0, 0, 0),
-    ('OTHER',                   N'Other',                    N'Other certificate or supporting document.',                                                 99, 0, 0, 0)
+    (1, 'CC',                      N'Completion Certificate',   N'Completion Certificate used for CC based occupation tax calculation.',                      1,  1, 1, 1),
+    (2, 'OC',                      N'Occupancy Certificate',    N'Occupancy Certificate used for OC based occupation tax calculation.',                       2,  1, 1, 1),
+    (3, 'EleBillDt',               N'Electric Bill Date',       N'Electric Bill Date used as fallback certificate date for occupation tax calculation.',       3,  1, 1, 0)
+    -- (4, 'POSSESSION_CERTIFICATE',  N'Possession Certificate',   N'Possession Certificate for document record purpose. Tax calculation disabled by default.',   4,  0, 0, 0),
+    -- (5, 'INDEX_2',                 N'Index 2',                  N'Index 2 document for property record purpose. Tax calculation disabled by default.',         5,  0, 0, 0),
+    -- (6, 'AGREEMENT',               N'Agreement',                N'Agreement document for property record purpose. Tax calculation disabled by default.',        6,  0, 0, 0),
+    -- (7, 'SALE_DEED',               N'Sale Deed',                N'Sale Deed document for property record purpose. Tax calculation disabled by default.',        7,  0, 0, 0),
+    -- (8, 'TAX_RECEIPT',             N'Tax Receipt',              N'Tax Receipt document for property record purpose. Tax calculation disabled by default.',      8,  0, 0, 0),
+    -- (9, 'OTHER',                   N'Other',                    N'Other certificate or supporting document.',                                                 99, 0, 0, 0)
 ) v
 (
+    Id,
     CertificateTypeCode,
     CertificateTypeName,
     Description,
@@ -5509,6 +5305,8 @@ WHERE NOT EXISTS
     FROM PTIS.PropertyCertificateTypeMaster c
     WHERE c.CertificateTypeCode = v.CertificateTypeCode
 );
+
+SET IDENTITY_INSERT [PTIS].[PropertyCertificateTypeMaster] OFF;
 GO
 /* ============================================================================
    4. Seed PTIS.PropertyCertificates
@@ -5519,3 +5317,46 @@ GO
    Records must be inserted from Building Permission / Certificate Upload API
    against real PropertyId, PropertyDetailsId and DocumentBindingId.
 ============================================================================ */
+
+/* ============================================================================
+   1. Seed PTIS.RuleEngineMaster
+        Thane Rules
+============================================================================ */
+
+SET IDENTITY_INSERT [PTIS].[RuleEngineMaster] ON
+GO
+
+    INSERT [PTIS].[RuleEngineMaster] ([Id], [RuleCode], [RuleName], [Description], [RuleCategory], [RuleJson], [Priority], [IsEnabled], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ConditionsJson], [EffectJson], [TargetFiltersJson], [StopProcessing], [RuleScopeId], [MarkedForDeletion], [MarkedForDeletionDate])
+    VALUES (1, N'RULE-20260717-0001', N'Increase Rate', N'If building have Club House or Swimming  Pool then rate increase by 20%', N'RV', N'{"RuleName":"Increase Rate","isActive":true,"RuleCategory":"RV","rules":[{"RuleCode":"5d38d1bf-86a0-4c06-a15f-6d5179cf225c","errorMessage":"If building have Club House or Swimming  Pool then rate increase by 20%.","enabled":true,"ruleExpressionType":"LambdaExpression","expression":"input.CategoryId == (1) && (input.TypeOfUseId == 86 || input.TypeOfUseId == 104 || input.TypeOfUseId == 85 || input.TypeOfUseId == 14033)","Actions":{"OnSuccess":{"Name":"MultiEffect","Context":{"effects":[{"Expression":"input.Rate * (1 + 20 / 100)","effectType":"Increase %","value":"20","ParameterCode":"input.Rate"}]}}},"stopProcessing":true},{"RuleCode":"d9410f8e-4637-42b9-86c6-ba5e3f5df198","errorMessage":"If building having lift and floor above 10th then increase rate by 10%","enabled":true,"ruleExpressionType":"LambdaExpression","expression":"(input.CategoryId == 1 || input.CategoryId == 2) && input.SocialAttributeId.Contains(28) && input.BuildingMaxFloorSequence > 21","Actions":{"OnSuccess":{"Name":"MultiEffect","Context":{"effects":[{"Expression":"input.Rate * (1 + 10 / 100)","effectType":"Increase %","value":"10","ParameterCode":"input.Rate"}]}}},"stopProcessing":false},{"RuleCode":"985b6c26-b37f-41d0-a1b0-2367b919c033","errorMessage":"If building having lift and floor upto 10th then increase rate by 5%","enabled":true,"ruleExpressionType":"LambdaExpression","expression":"input.BuildingMaxFloorSequence <= 21 && input.SocialAttributeId.Contains(28)","Actions":{"OnSuccess":{"Name":"MultiEffect","Context":{"effects":[{"Expression":"input.Rate * (1 + 5 / 100)","effectType":"Increase %","value":"5","ParameterCode":"input.Rate"}]}}},"stopProcessing":false}]}', 1, 1, 1, 1, CAST(N'2026-07-17T18:11:43.717' AS DateTime), 1, CAST(N'2026-07-20T16:27:46.540' AS DateTime), N'[{"id":"5d38d1bf-86a0-4c06-a15f-6d5179cf225c","description":"If building have Club House or Swimming  Pool then rate increase by 20%.","conditions":{"id":"1fed7e7b-43dd-42df-922d-f26a1506b048","logicalOperator":"AND","conditions":[{"id":"bb643f85-4f6a-4cd4-8c48-140a43037801","fieldId":"CategoryId","operator":"=","value":["1"],"valueLabel":["Apartment"]},{"id":"4113fc95-34f3-4cdf-bc13-29ecb9a8f108","fieldId":"TypeOfUseId","operator":"In","value":["86","104","85","14033"],"valueLabel":["ASWC - सोसायटी स्विमिंग पूल C","ASW - सोसायटी स्विमिंग पूल","ACHC - क्लब हाऊस C","ACH - क्लब हाऊस"]}],"groups":[]},"effect":[{"effectType":"Increase %","value":20,"isPercentage":true,"overrideRate":1}],"effects":[{"effectType":"Increase %","value":20,"isPercentage":true,"overrideRate":1}],"stopProcessing":true,"ruleScopeName":"Property Level"},{"id":"d9410f8e-4637-42b9-86c6-ba5e3f5df198","description":"If building having lift and floor above 10th then increase rate by 10%","conditions":{"id":"9383f25a-0ceb-44a1-8c3a-de6027bafc0d","logicalOperator":"AND","conditions":[{"id":"4a4fc553-563a-4f83-b5e5-5616a0362e62","fieldId":"CategoryId","operator":"In","value":["1","2"],"valueLabel":["Apartment","Individual"]},{"id":"dd06caab-04f7-4f8c-9cc7-f560ba2ad96f","fieldId":"SocialAttributeId","operator":"=","value":"28","valueLabel":"Lift Available"},{"id":"161d5be5-473f-4284-90dc-c074023a59e8","fieldId":"BuildingMaxFloorSequence","operator":">","value":"21","valueLabel":"10 - दहावा मजला"}],"groups":[]},"effect":[{"effectType":"Increase %","value":10,"isPercentage":true,"overrideRate":1}],"effects":[{"effectType":"Increase %","value":10,"isPercentage":true,"overrideRate":1}],"stopProcessing":false,"ruleScopeName":"Property Level"},{"id":"985b6c26-b37f-41d0-a1b0-2367b919c033","description":"If building having lift and floor upto 10th then increase rate by 5%","conditions":{"id":"30ef5bc0-67f9-41a1-994a-b926fd12b106","logicalOperator":"AND","conditions":[{"id":"8e4ff554-cd14-4185-8d4a-d5265b9bff62","fieldId":"BuildingMaxFloorSequence","operator":"<=","value":"21","valueLabel":"10 - दहावा मजला"},{"id":"d7e94c88-51e4-48ba-94a3-9394c6e923c1","fieldId":"SocialAttributeId","operator":"=","value":"28","valueLabel":"Lift Available"}],"groups":[]},"effect":[{"effectType":"Increase %","value":5,"isPercentage":true,"overrideRate":1}],"effects":[{"effectType":"Increase %","value":5,"isPercentage":true,"overrideRate":1}],"stopProcessing":false,"ruleScopeName":"Property Level"}]', N'[{"effectType":"Increase %","value":20,"isPercentage":true,"overrideRate":1}]', N'{}', 0, 1, 0, NULL)
+GO
+
+    INSERT [PTIS].[RuleEngineMaster] ([Id], [RuleCode], [RuleName], [Description], [RuleCategory], [RuleJson], [Priority], [IsEnabled], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ConditionsJson], [EffectJson], [TargetFiltersJson], [StopProcessing], [RuleScopeId], [MarkedForDeletion], [MarkedForDeletionDate])
+    VALUES (2, N'RULE-20260718-0001', N'Basement Property Rule', N'If Commercial use in Basement floor then decrees rate by 20%', N'RV', N'{"RuleName":"Basement Property Rule","isActive":true,"RuleCategory":"RV","rules":[{"RuleCode":"b12107d8-f611-4362-a65f-adc25f0b21a6","errorMessage":"If lower ground  floor use as Commercial  then decrees rate by 20%","enabled":true,"ruleExpressionType":"LambdaExpression","expression":"(input.FloorId == 70 || input.FloorId == 71 || input.FloorId == 72 || input.FloorId == 73 || input.FloorId == 74 || input.FloorId == 75 || input.FloorId == 66) && (input.TypeOfUseGroupId == 2 || input.TypeOfUseGroupId == 3)","Actions":{"OnSuccess":{"Name":"MultiEffect","Context":{"effects":[{"Expression":"input.Rate * (1 - 20 / 100)","effectType":"Decrease %","value":"20","ParameterCode":"input.Rate"}]}}},"stopProcessing":false},{"RuleCode":"178071ab-9b1f-4fad-a3b9-dc001e87cb57","errorMessage":"if floor is basment then decrease rate 40%","enabled":true,"ruleExpressionType":"LambdaExpression","expression":"input.FloorId == (65)","Actions":{"OnSuccess":{"Name":"MultiEffect","Context":{"effects":[{"Expression":"input.Rate * (1 - 40 / 100)","effectType":"Decrease %","value":"40","ParameterCode":"input.Rate"}]}}},"stopProcessing":false}]}', 3, 1, 1, 1, CAST(N'2026-07-18T13:23:26.083' AS DateTime), 1, CAST(N'2026-07-20T16:09:54.283' AS DateTime), N'[{"id":"b12107d8-f611-4362-a65f-adc25f0b21a6","description":"If lower ground  floor use as Commercial  then decrees rate by 20%","conditions":{"id":"1199c91b-64f8-45ea-9be1-61a65cc43f37","logicalOperator":"AND","conditions":[{"id":"a7d96501-c76d-4821-aae2-1f90db2632f5","fieldId":"FloorId","operator":"In","value":["70","71","72","73","74","75","66"],"valueLabel":["P1 - पोडियम1","P2 - पोडियम2","P3 - पोडियम3","P4 - पोडियम4","P5 - पोडियम5","P6 - पोडियम6","L - लोअर तळमजला"]},{"id":"2a899496-e3c4-44e1-a697-5001ad33214e","fieldId":"TypeOfUseGroupId","operator":"In","value":["2","3"],"valueLabel":["C - व्यावसायिक","I - औद्योगिक"]}],"groups":[]},"effect":[{"effectType":"Decrease %","value":20,"isPercentage":true,"overrideRate":1}],"effects":[{"effectType":"Decrease %","value":20,"isPercentage":true,"overrideRate":1}],"stopProcessing":false,"ruleScopeName":"Property Level"},{"id":"178071ab-9b1f-4fad-a3b9-dc001e87cb57","description":"if floor is basment then decrease rate 40%","conditions":{"id":"6d8e28db-e68e-41c8-a59e-2d3d81471bfe","logicalOperator":"AND","conditions":[{"id":"9a5acf8e-fba4-4e52-bdc6-51829c91da5c","fieldId":"FloorId","operator":"=","value":["65"],"valueLabel":["B - तळघर"]}],"groups":[]},"effect":[{"effectType":"Decrease %","value":40,"isPercentage":true,"overrideRate":1}],"effects":[{"effectType":"Decrease %","value":40,"isPercentage":true,"overrideRate":1}],"stopProcessing":false,"ruleScopeName":"Property Level"}]', N'[{"effectType":"Decrease %","value":20,"isPercentage":true,"overrideRate":1}]', N'{}', 0, 1, 0, NULL)
+GO
+
+    INSERT [PTIS].[RuleEngineMaster] ([Id], [RuleCode], [RuleName], [Description], [RuleCategory], [RuleJson], [Priority], [IsEnabled], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ConditionsJson], [EffectJson], [TargetFiltersJson], [StopProcessing], [RuleScopeId], [MarkedForDeletion], [MarkedForDeletionDate])
+    VALUES (3, N'RULE-20260718-0002', N'Commercial Floor Wise Decrees  20% Rate', N'Commercial Floor Wise Decrees  20% Rate', N'RV', N'{"RuleName":"Commercial Floor Wise Decrees  20% Rate","isActive":true,"RuleCategory":"RV","rules":[{"RuleCode":"a97af7b4-c73b-47ff-8182-edc5edaacf5d","errorMessage":"Floor equal to first and use is commercial then decrease rate by 10 %","enabled":true,"ruleExpressionType":"LambdaExpression","expression":"input.FloorId == 1 && (input.TypeOfUseGroupId == 2 || input.TypeOfUseGroupId == 3)","Actions":{"OnSuccess":{"Name":"MultiEffect","Context":{"effects":[{"Expression":"input.Rate * (1 - 10 / 100)","effectType":"Decrease %","value":"10","ParameterCode":"input.Rate"}]}}},"stopProcessing":false},{"RuleCode":"d4a44548-eaec-4130-8015-e0aae8749f1b","errorMessage":"Commercial Floor Wise Decrees  20% Rate","enabled":true,"ruleExpressionType":"LambdaExpression","expression":"input.FloorId > 1 && (input.TypeOfUseGroupId == 2 || input.TypeOfUseGroupId == 3)","Actions":{"OnSuccess":{"Name":"MultiEffect","Context":{"effects":[{"Expression":"input.Rate * (1 - 20 / 100)","effectType":"Decrease %","value":"20","ParameterCode":"input.Rate"}]}}},"stopProcessing":false}]}', 1, 1, 1, 1, CAST(N'2026-07-18T13:28:30.783' AS DateTime), 1, CAST(N'2026-07-22T16:33:47.763' AS DateTime), N'[{"id":"a97af7b4-c73b-47ff-8182-edc5edaacf5d","description":"Floor equal to first and use is commercial then decrease rate by 10 %","conditions":{"id":"c62c8773-3ba2-44c0-b5c1-52d607a55263","logicalOperator":"AND","conditions":[{"id":"d27481ef-a9ef-439d-a8a0-94f4f94d3ba0","fieldId":"FloorId","operator":"=","value":"1","valueLabel":"1 - पहिला मजला"},{"id":"80b4ee59-8b7d-45f0-9efc-b6f8ff0c33b7","fieldId":"TypeOfUseGroupId","operator":"In","value":["2","3"],"valueLabel":["C - व्यावसायिक","I - औद्योगिक"]}],"groups":[]},"effects":[{"effectType":"Decrease %","value":10,"isPercentage":true,"overrideRate":1}],"effect":[{"effectType":"Decrease %","value":10,"isPercentage":true,"overrideRate":1}],"ruleScopeName":"Property Level"},{"id":"d4a44548-eaec-4130-8015-e0aae8749f1b","description":"Commercial Floor Wise Decrees  20% Rate","conditions":{"id":"f6ece9b0-348f-49ce-92c0-df6264ccaca5","logicalOperator":"AND","conditions":[{"id":"49467857-4eda-45e6-8560-b0454380d421","fieldId":"FloorId","operator":">","value":"1","valueLabel":"1 - पहिला मजला"},{"id":"189bc7d5-f1f9-47f9-829f-7c2fff935245","fieldId":"TypeOfUseGroupId","operator":"In","value":["2","3"],"valueLabel":["C - व्यावसायिक","I - औद्योगिक"]}],"groups":[]},"effect":[{"effectType":"Decrease %","value":20,"isPercentage":true,"overrideRate":1}],"effects":[{"effectType":"Decrease %","value":20,"isPercentage":true,"overrideRate":1}],"stopProcessing":false,"ruleScopeName":"Property Level"}]', N'[{"effectType":"Decrease %","value":10,"isPercentage":true,"overrideRate":1}]', N'{}', 0, 1, 0, NULL)
+GO
+
+    INSERT [PTIS].[RuleEngineMaster] ([Id], [RuleCode], [RuleName], [Description], [RuleCategory], [RuleJson], [Priority], [IsEnabled], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ConditionsJson], [EffectJson], [TargetFiltersJson], [StopProcessing], [RuleScopeId], [MarkedForDeletion], [MarkedForDeletionDate])
+    VALUES (4, N'RULE-20260718-0003', N'Terrace Balcony Rate 40%', N'Terrace Balcony Rate 40%', N'RV', N'{"RuleName":"Terrace Balcony Rate 40%","isActive":true,"RuleCategory":"RV","rules":[{"RuleCode":"3c947489-1e0c-41fd-8eec-8edc3563ca0d","errorMessage":"Terrace Balcony Rate 40%","enabled":true,"ruleExpressionType":"LambdaExpression","expression":"(input.TypeOfUseId == 21 || input.TypeOfUseId == 22 || input.TypeOfUseId == 84 || input.TypeOfUseId == 14031 || input.TypeOfUseId == 14032)","Actions":{"OnSuccess":{"Name":"MultiEffect","Context":{"effects":[{"Expression":"input.Rate * (1 - 60 / 100)","effectType":"Decrease %","value":"60","ParameterCode":"input.Rate"}]}}},"stopProcessing":false}]}', 1, 1, 1, 1, CAST(N'2026-07-18T13:34:54.843' AS DateTime), 1, CAST(N'2026-07-20T16:05:18.160' AS DateTime), N'[{"id":"3c947489-1e0c-41fd-8eec-8edc3563ca0d","description":"Terrace Balcony Rate 40%","conditions":{"id":"34a67af8-fcec-4c1d-b00d-f3516dc39f16","logicalOperator":"AND","conditions":[{"id":"65f4bc23-32ed-42de-9ad5-19a722dc14c3","fieldId":"TypeOfUseId","operator":"In","value":["21","22","84","14031","14032"],"valueLabel":["ABLOP - ओपन टेरेस","ABLR - टेरेस-बाल्कनी ","ABLC - टेरेस-बाल्कनी अनिवासी","ABL-EP - टेरेस-बाल्कनी शैक्षणिक","ABLRC - टेरेस-बाल्कनी-C"]}],"groups":[]},"effect":[{"effectType":"Decrease %","value":60,"isPercentage":true,"overrideRate":1}],"effects":[{"effectType":"Decrease %","value":60,"isPercentage":true,"overrideRate":1}],"stopProcessing":false,"ruleScopeName":"Property Level"}]', N'[{"effectType":"Decrease %","value":60,"isPercentage":true,"overrideRate":1}]', N'{}', 0, 1, 0, NULL)
+GO
+
+    INSERT [PTIS].[RuleEngineMaster] ([Id], [RuleCode], [RuleName], [Description], [RuleCategory], [RuleJson], [Priority], [IsEnabled], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ConditionsJson], [EffectJson], [TargetFiltersJson], [StopProcessing], [RuleScopeId], [MarkedForDeletion], [MarkedForDeletionDate])
+    VALUES (5, N'RULE-20260718-0004', N'Parking Rate Decrease', N'If property use is Steel Parking the decrees rate by 50%', N'RV', N'{"RuleName":"Parking Rate Decrease","isActive":true,"RuleCategory":"RV","rules":[{"RuleCode":"ca86747c-bf92-4d94-87d6-78a7b254f016","errorMessage":"If property use is Steel Parking the decrees rate by 50%","enabled":true,"ruleExpressionType":"LambdaExpression","expression":"(input.TypeOfUseId == 2 || input.TypeOfUseId == 74 || input.TypeOfUseId == 88 || input.TypeOfUseId == 14047 || input.TypeOfUseId == 14048) && input.FloorId == 65","Actions":{"OnSuccess":{"Name":"MultiEffect","Context":{"effects":[{"Expression":"input.Rate * (1 - 50 / 100)","effectType":"Decrease %","value":"50","ParameterCode":"input.Rate"}]}}},"stopProcessing":false},{"RuleCode":"789186a6-8494-4b61-9a73-b84c399d070f","errorMessage":"If property use is Open Parking the decrees rate by 75%","enabled":true,"ruleExpressionType":"LambdaExpression","expression":"(input.TypeOfUseId == 9 || input.TypeOfUseId == 73 || input.TypeOfUseId == 87 || input.TypeOfUseId == 14045) && input.FloorId == 65","Actions":{"OnSuccess":{"Name":"MultiEffect","Context":{"effects":[{"Expression":"input.Rate * (1 - 75 / 100)","effectType":"Decrease %","value":"75","ParameterCode":"input.Rate"}]}}},"stopProcessing":false},{"RuleCode":"85801e66-4608-4eaf-b8d8-01e06b4f9d3a","errorMessage":"if Basement use as parking then decrees rate by 50%","enabled":true,"ruleExpressionType":"LambdaExpression","expression":"(input.FloorId == 65) && (input.TypeOfUseId == 9 || input.TypeOfUseId == 73 || input.TypeOfUseId == 87 || input.TypeOfUseId == 14045 || input.TypeOfUseId == 2 || input.TypeOfUseId == 74 || input.TypeOfUseId == 88 || input.TypeOfUseId == 14047 || input.TypeOfUseId == 14048)","Actions":{"OnSuccess":{"Name":"MultiEffect","Context":{"effects":[{"Expression":"input.Rate * (1 - 50 / 100)","effectType":"Decrease %","value":"50","ParameterCode":"input.Rate"}]}}},"stopProcessing":false}]}', 6, 1, 1, 1, CAST(N'2026-07-18T13:37:09.103' AS DateTime), 1, CAST(N'2026-07-18T13:50:53.333' AS DateTime), N'[{"id":"ca86747c-bf92-4d94-87d6-78a7b254f016","description":"If property use is Steel Parking the decrees rate by 50%","conditions":{"id":"75992bf0-68dd-4f1f-b3fa-ac6fcbf292b7","logicalOperator":"AND","conditions":[{"id":"dfbfaf4a-cbd5-4ed5-8f0b-e3121458fc41","fieldId":"TypeOfUseId","operator":"In","value":["2","74","88","14047","14048"],"valueLabel":["SPK - स्टील पार्किंग","SPKC - स्टील पार्किंग अनिवासी","SPKI - स्टील पार्किंग औदयोगिक","SPK-EG - स्टील पार्किंग-शैक्षणिक मालमत्ता अनुदानित","SPKR - स्टील पार्किंग-C"]},{"id":"f1267cd1-223b-4837-b03e-3bb80497f003","fieldId":"FloorId","operator":"?","value":"65","valueLabel":"B - तळघर"}],"groups":[]},"effect":[{"effectType":"Decrease %","value":50,"isPercentage":true,"overrideRate":1}],"effects":[{"effectType":"Decrease %","value":50,"isPercentage":true,"overrideRate":1}],"stopProcessing":false,"ruleScopeName":"Property Level"},{"id":"789186a6-8494-4b61-9a73-b84c399d070f","description":"If property use is Open Parking the decrees rate by 75%","conditions":{"id":"a0fe374b-39d1-4562-81f2-ac0b7821f030","logicalOperator":"AND","conditions":[{"id":"351c451d-c1c4-4b3d-9eae-6b56397673ef","fieldId":"TypeOfUseId","operator":"In","value":["9","73","87","14045"],"valueLabel":["OPK - ओपन पार्किंग","OPKC - ओपन पार्किंग अनिवासी","OPKI - ओपन पार्किंग औदयोगिक","OPK-EG - ओपन पार्किंग-शैक्षणिक मालमत्ता अनुदानित"]},{"id":"d82a68ea-036b-40a1-a754-b9721a9ca27d","fieldId":"FloorId","operator":"?","value":"65","valueLabel":"B - तळघर"}],"groups":[]},"effect":[{"effectType":"Decrease %","value":75,"isPercentage":true,"overrideRate":1}],"effects":[{"effectType":"Decrease %","value":75,"isPercentage":true,"overrideRate":1}],"stopProcessing":false,"ruleScopeName":"Property Level"},{"id":"85801e66-4608-4eaf-b8d8-01e06b4f9d3a","description":"if Basement use as parking then decrees rate by 50%","conditions":{"id":"9e6164f9-0dcb-4f90-8fae-eb8ff3f7d1bb","logicalOperator":"AND","conditions":[{"id":"390b58de-4abd-4163-903b-4e8b40673744","fieldId":"FloorId","operator":"In","value":["65"],"valueLabel":["B - तळघर"]},{"id":"7039250e-9967-4509-9890-bce0cb8bd6fe","fieldId":"TypeOfUseId","operator":"In","value":["9","73","87","14045","2","74","88","14047","14048"],"valueLabel":["OPK - ओपन पार्किंग","OPKC - ओपन पार्किंग अनिवासी","OPKI - ओपन पार्किंग औदयोगिक","OPK-EG - ओपन पार्किंग-शैक्षणिक मालमत्ता अनुदानित","SPK - स्टील पार्किंग","SPKC - स्टील पार्किंग अनिवासी","SPKI - स्टील पार्किंग औदयोगिक","SPK-EG - स्टील पार्किंग-शैक्षणिक मालमत्ता अनुदानित","SPKR - स्टील पार्किंग-C"]}],"groups":[]},"effects":[{"effectType":"Decrease %","value":50,"isPercentage":true,"overrideRate":1}],"effect":[{"effectType":"Decrease %","value":50,"isPercentage":true,"overrideRate":1}],"ruleScopeName":"Property Level"}]', N'[{"effectType":"Decrease %","value":50,"isPercentage":true,"overrideRate":1}]', N'{}', 0, 1, 0, NULL)
+GO
+
+    INSERT [PTIS].[RuleEngineMaster] ([Id], [RuleCode], [RuleName], [Description], [RuleCategory], [RuleJson], [Priority], [IsEnabled], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ConditionsJson], [EffectJson], [TargetFiltersJson], [StopProcessing], [RuleScopeId], [MarkedForDeletion], [MarkedForDeletionDate])
+    VALUES (6, N'RULE-20260718-0005', N'Mezzanine Floor Rule', N'If Mezzanine Floor then rate decrease by 30%', N'RV', N'{"RuleName":"Mezzanine Floor Rule","isActive":true,"RuleCategory":"RV","rules":[{"RuleCode":"40ebdba9-a805-4391-8dab-2730c921281f","errorMessage":"If Mezzanine Floor then rate decrease by 30%   ","enabled":true,"ruleExpressionType":"LambdaExpression","expression":"input.FloorId == (76)","Actions":{"OnSuccess":{"Name":"MultiEffect","Context":{"effects":[{"Expression":"input.Rate * (1 - 30 / 100)","effectType":"Decrease %","value":"30","ParameterCode":"Rate","overrideRate":"1","overrideRateLabel":"Rate - Rate"}]}}},"stopProcessing":false}]}', 7, 1, 1, 1, CAST(N'2026-07-18T14:07:58.297' AS DateTime), 1, CAST(N'2026-07-21T13:34:14.857' AS DateTime), N'[{"id":"40ebdba9-a805-4391-8dab-2730c921281f","description":"If Mezzanine Floor then rate decrease by 30%   ","conditions":{"id":"b139740f-871d-4b92-8687-f4432827279d","logicalOperator":"AND","conditions":[{"id":"b87c8288-2edc-45c2-ab0d-b4c28514b0df","fieldId":"FloorId","operator":"=","value":["76"],"valueLabel":["M - पॉटमाळा"]}],"groups":[]},"effects":[{"effectType":"Decrease %","value":30,"isPercentage":true,"overrideRate":1,"overrideRateLabel":"Rate - Rate","parameterCode":"Rate"}],"stopProcessing":false,"ruleScopeName":"Property Level"}]', N'[{"effectType":"Decrease %","value":30,"isPercentage":true,"overrideRate":1,"overrideRateLabel":"Rate - Rate","parameterCode":"Rate"}]', N'{}', 0, 1, 0, NULL)
+GO
+
+    INSERT [PTIS].[RuleEngineMaster] ([Id], [RuleCode], [RuleName], [Description], [RuleCategory], [RuleJson], [Priority], [IsEnabled], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ConditionsJson], [EffectJson], [TargetFiltersJson], [StopProcessing], [RuleScopeId], [MarkedForDeletion], [MarkedForDeletionDate])
+    VALUES (7, N'RULE-20260720-0001', N'Rented Property Rule', N'If a property is rented out and is being used for non-residential purposes, and the property tax is paid by the owner, then 20% of the total annual rent shall be considered as the taxable value for the purpose of property tax assessment.', N'RV', N'{"RuleName":"Rented Property Rule","isActive":true,"RuleCategory":"RV","rules":[{"RuleCode":"1746ff82-d571-4b3b-a49f-71161f441762","errorMessage":"If a property is rented out and is being used for non-residential purposes, and the property tax is paid by the owner, then 20% of the total annual rent shall be considered as the taxable value for the purpose of property tax assessment.","enabled":true,"ruleExpressionType":"LambdaExpression","expression":"input.IsRenter == true && (input.TypeOfUseGroupId == 2 || input.TypeOfUseGroupId == 3) && input.TaxLiability == \"Self\"","Actions":{"OnSuccess":{"Name":"MultiEffect","Context":{"effects":[{"Expression":"input.Rate * (1 - 80 / 100)","effectType":"Decrease %","value":"80","ParameterCode":"input.Rate"}]}}},"stopProcessing":false},{"RuleCode":"4fa019c9-5f88-4274-a0bb-03076f8e3242","errorMessage":"If a property is rented out and is being used for non-residential purposes, and the property tax is paid by the renter, then 40% of the total annual rent shall be considered as the taxable value for the purpose of property tax assessment.","enabled":true,"ruleExpressionType":"LambdaExpression","expression":"input.IsRenter == true && input.TaxLiability == \"Renter\" && (input.TypeOfUseGroupId == 2 || input.TypeOfUseGroupId == 3)","Actions":{"OnSuccess":{"Name":"MultiEffect","Context":{"effects":[{"Expression":"input.Rate * (1 - 60 / 100)","effectType":"Decrease %","value":"60","ParameterCode":"input.Rate"}]}}},"stopProcessing":false}]}', 8, 1, 1, 1, CAST(N'2026-07-20T18:25:10.933' AS DateTime), 1, CAST(N'2026-07-21T11:28:22.287' AS DateTime), N'[{"id":"1746ff82-d571-4b3b-a49f-71161f441762","description":"If a property is rented out and is being used for non-residential purposes, and the property tax is paid by the owner, then 20% of the total annual rent shall be considered as the taxable value for the purpose of property tax assessment.","conditions":{"id":"447d065c-4f99-4679-9de9-2417f872d824","logicalOperator":"AND","conditions":[{"id":"339875b0-fc21-41fe-886f-02a94a330723","fieldId":"IsRenter","operator":"=","value":true,"valueLabel":"True"},{"id":"0a09a6b3-4f5d-4eea-8073-e7d67b95626d","fieldId":"TypeOfUseGroupId","operator":"In","value":["2","3"],"valueLabel":["C - व्यावसायिक","I - औद्योगिक"]},{"id":"8c9991ec-7f7e-4e26-bca6-80e8416311af","fieldId":"TaxLiability","operator":"=","value":"Self","valueLabel":"Self"}],"groups":[]},"effect":[{"effectType":"Decrease %","value":80,"isPercentage":true,"overrideRate":5}],"effects":[{"effectType":"Decrease %","value":80,"isPercentage":true,"overrideRate":5}],"stopProcessing":false,"ruleScopeName":"Property Level"},{"id":"4fa019c9-5f88-4274-a0bb-03076f8e3242","description":"If a property is rented out and is being used for non-residential purposes, and the property tax is paid by the renter, then 40% of the total annual rent shall be considered as the taxable value for the purpose of property tax assessment.","conditions":{"id":"4c7d2de2-8270-4fe6-afd8-98d34311662c","logicalOperator":"AND","conditions":[{"id":"95719597-d156-4ef3-9088-ebb0ee1a65f5","fieldId":"IsRenter","operator":"=","value":true,"valueLabel":"True"},{"id":"8e6b6fcc-a725-4f72-a651-6c7a95274ce9","fieldId":"TaxLiability","operator":"=","value":"Renter","valueLabel":"Renter"},{"id":"1b5d94eb-0cd5-4f16-a456-b38861458b30","fieldId":"TypeOfUseGroupId","operator":"In","value":["2","3"],"valueLabel":["C - व्यावसायिक","I - औद्योगिक"]}],"groups":[]},"effect":[{"effectType":"Decrease %","value":60,"isPercentage":true,"overrideRate":5}],"effects":[{"effectType":"Decrease %","value":60,"isPercentage":true,"overrideRate":5}],"stopProcessing":false,"ruleScopeName":"Property Level"}]', N'[{"effectType":"Decrease %","value":80,"isPercentage":true,"overrideRate":5}]', N'{}', 0, 1, 0, NULL)
+GO
+
+    INSERT [PTIS].[RuleEngineMaster] ([Id], [RuleCode], [RuleName], [Description], [RuleCategory], [RuleJson], [Priority], [IsEnabled], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ConditionsJson], [EffectJson], [TargetFiltersJson], [StopProcessing], [RuleScopeId], [MarkedForDeletion], [MarkedForDeletionDate])
+    VALUES (8, N'RULE-20260720-0002', N'Parking use as a Residential  or Commercial', N'if original sanction plan is Parking but current  use as a Residential  or Commercial  then apply 3 Times tax', N'RV', N'{"RuleName":"Parking use as a Residential  or Commercial","isActive":true,"RuleCategory":"RV","rules":[{"RuleCode":"2bf0b453-d273-4d4f-884e-5eee095b05bc","errorMessage":"if original sanction plan is Parking but current  use as a Residential  or Commercial  then apply 3 Times tax","enabled":true,"ruleExpressionType":"LambdaExpression","expression":"input.TypeOfUseId == 14048","Actions":{"OnSuccess":{"Name":"MultiEffect","Context":{"effects":[{"Expression":"input.Rate * 3","effectType":"Multiply","value":"3","ParameterCode":"input.Rate"}]}}},"stopProcessing":false}]}', 8, 1, 1, 1, CAST(N'2026-07-20T18:40:53.097' AS DateTime), NULL, NULL, N'[{"id":"2bf0b453-d273-4d4f-884e-5eee095b05bc","description":"if original sanction plan is Parking but current  use as a Residential  or Commercial  then apply 3 Times tax","conditions":{"id":"fa05f608-03ef-4987-a920-e5b8f13e68f4","logicalOperator":"AND","conditions":[{"id":"25cb79d2-24ac-42dc-bc0a-35619d9c214b","fieldId":"TypeOfUseId","operator":"=","value":"14048","valueLabel":"SPKR - स्टील पार्किंग-C"}],"groups":[]},"effect":[{"effectType":"Multiply","value":3,"isPercentage":true,"overrideRate":1}],"effects":[{"effectType":"Multiply","value":3,"isPercentage":true,"overrideRate":1}],"stopProcessing":false,"ruleScopeName":"Property Level"}]', N'[{"effectType":"Multiply","value":3,"isPercentage":true,"overrideRate":1}]', N'{}', 0, 1, 0, NULL)
+GO
+
+SET IDENTITY_INSERT [PTIS].[RuleEngineMaster] OFF
+GO

@@ -35,6 +35,7 @@ CREATE TABLE [CORE].[DepartmentMaster](
     [DepartmentNameLocal]   NVARCHAR(150) NULL,
     [DepartmentIcon]        VARCHAR(50) NULL,
     [DepartmentDescription] NVARCHAR(200) NULL,
+    [IsProtected]           BIT NOT NULL CONSTRAINT [DF_DepartmentMaster_IsProtected] DEFAULT (0),
     [IsActive]              BIT NOT NULL CONSTRAINT [DF_DepartmentMaster_IsActive] DEFAULT (1),
     [CreatedBy]             INT NULL,
     [CreatedDate]           DATETIME NOT NULL CONSTRAINT [DF_DepartmentMaster_CreatedDate] DEFAULT (GETDATE()),
@@ -1318,3 +1319,51 @@ ALTER TABLE [CORE].[ConfigValueMaster] WITH CHECK ADD CONSTRAINT [FK_ConfigValue
 FOREIGN KEY([ModuleId])
 REFERENCES [CORE].[ModuleMaster] ([Id]);
 GO
+
+/* ===========================
+   SourceTable
+   Stores master metadata for configurable source tables.
+   =========================== */
+CREATE TABLE [CORE].[SourceTable] (
+    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [ModuleId] INT NOT NULL,
+    [TableName] VARCHAR(200) NOT NULL,
+    [TableAliasName] NVARCHAR(200) NULL,
+    [IsActive] BIT NOT NULL CONSTRAINT [DF_SourceTable_IsActive] DEFAULT (1),
+    [CreatedBy] INT NULL,
+    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_SourceTable_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy] INT NULL,
+    [UpdatedDate] DATETIME NULL,
+    CONSTRAINT [PK_SourceTable] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_SourceTable_ModuleId_TableName] UNIQUE NONCLUSTERED ([ModuleId] ASC, [TableName] ASC),
+    CONSTRAINT [FK_SourceTable_ModuleId] FOREIGN KEY ([ModuleId]) REFERENCES [CORE].[ModuleMaster] ([Id])
+);
+
+/* ===========================
+   SourceTableDetails
+   Stores field-level metadata for configurable source tables.
+   =========================== */
+CREATE TABLE [CORE].[SourceTableDetails] (
+    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [SourceTableId] INT NOT NULL,
+    [FieldName] VARCHAR(200) NOT NULL,
+    [DisplayName] NVARCHAR(200) NULL,
+    [ControlType] VARCHAR(50) NULL,
+    [DataType] VARCHAR(50) NULL,
+    [Placeholder] NVARCHAR(500) NULL,
+    [MaxLength] INT NULL,
+    [ValidationRegex] VARCHAR(500) NULL,
+    [DefaultValue] VARCHAR(500) NULL,
+    [IsRequired] BIT NOT NULL CONSTRAINT [DF_SourceTableDetails_IsRequired] DEFAULT (0),
+    [SequenceNo] INT NOT NULL CONSTRAINT [DF_SourceTableDetails_SequenceNo] DEFAULT (0),
+    [BindApi] VARCHAR(500) NULL,
+    [ApiResponse] VARCHAR(500) NULL,
+    [IsActive] BIT NOT NULL CONSTRAINT [DF_SourceTableDetails_IsActive] DEFAULT (1),
+    [CreatedBy] INT NULL,
+    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_SourceTableDetails_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy] INT NULL,
+    [UpdatedDate] DATETIME NULL,
+    CONSTRAINT [PK_SourceTableDetails] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_SourceTableDetails_SourceTableId_FieldName] UNIQUE NONCLUSTERED ([SourceTableId] ASC, [FieldName] ASC),
+    CONSTRAINT [FK_SourceTableDetails_SourceTableId] FOREIGN KEY ([SourceTableId]) REFERENCES [CORE].[SourceTable] ([Id])
+);

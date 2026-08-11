@@ -58,6 +58,16 @@ GO
 ALTER TABLE [GSMS].[CommonRemarkDetails] ADD CONSTRAINT [UQ_CommonRemarkDetails_RemarkTypeId_Remark] UNIQUE ([RemarkTypeId],[Remark])
 GO
 
+ALTER TABLE [PTIS].[PropertyMastDetails] WITH CHECK
+ADD CONSTRAINT [FK_PropertyMastDetails_CommonRemarkDetails_OwnerSign]
+FOREIGN KEY (OwnerSignRemarkId)
+REFERENCES [GSMS].[CommonRemarkDetails] ([Id]);
+GO
+
+ALTER TABLE [PTIS].[PropertyMastDetails]
+CHECK CONSTRAINT [FK_PropertyMastDetails_CommonRemarkDetails_OwnerSign];
+GO
+
 CREATE TABLE [GSMS].[SocietyWingDetails]
 (
     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
@@ -109,6 +119,7 @@ CREATE TABLE [GSMS].[WardAllocation](
     [ModuleId]     INT NOT NULL,
     [ZoneId]       INT NOT NULL,
     [WardId]       INT NOT NULL,
+    [OldWardId]    INT NULL,
     [IsActive]     BIT NOT NULL CONSTRAINT [DF_WardAllocation_IsActive] DEFAULT (1),
     [CreatedBy]    INT NULL,
     [CreatedDate]  DATETIME NOT NULL CONSTRAINT [DF_WardAllocation_CreatedDate] DEFAULT (GETDATE()),
@@ -161,4 +172,79 @@ FOREIGN KEY ([WardId]) REFERENCES [PTIS].[WardMaster]([Id]);
 GO
 
 ALTER TABLE [GSMS].[WardAllocation] CHECK CONSTRAINT [FK_WardAllocation_WardMaster];
+GO
+
+
+CREATE TABLE [GSMS].[PropertySurveyVisit]
+(
+    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [PropertyWorkflowDetailsId] INT NOT NULL,
+    [InternalSurveyVerified] BIT NOT NULL CONSTRAINT [DF_PropertySurveyVisit_InternalSurveyVerified] DEFAULT (0),
+    [RemarkId] INT NULL,
+    [RemarkText] NVARCHAR(1000) NULL,
+    [IsActive] BIT NOT NULL CONSTRAINT [DF_PropertySurveyVisit_IsActive] DEFAULT (1),
+    [Latitude] DECIMAL(10,7) NULL,
+    [Longitude] DECIMAL(10,7) NULL,
+    [Location] NVARCHAR(500) NULL,
+    [CreatedBy] INT NOT NULL,
+    [CreatedDate] DATETIME2(0) NOT NULL CONSTRAINT [DF_PropertySurveyVisit_CreatedDate] DEFAULT GETDATE(),
+    [UpdatedBy] INT NULL,
+    [UpdatedDate] DATETIME2(0) NULL,
+    CONSTRAINT [PK_PropertySurveyVisit] PRIMARY KEY CLUSTERED ([Id]),
+    CONSTRAINT [FK_PropertySurveyVisit_PropertyWorkflowDetails] FOREIGN KEY ([PropertyWorkflowDetailsId])
+                REFERENCES [PTIS].[PropertyWorkflowDetails] ([Id])
+);
+GO
+
+ALTER TABLE [GSMS].[PropertySurveyVisit]  WITH CHECK ADD  CONSTRAINT [FK_PropertySurveyVisit_CommonRemarkDetails] FOREIGN KEY([RemarkId])
+REFERENCES [GSMS].[CommonRemarkDetails] ([Id])
+GO
+
+
+CREATE TABLE [GSMS].[OldWardMaster]
+(
+    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [OldZoneName] NVARCHAR(200) NOT NULL,
+    [OldWardNo] VARCHAR(100) NOT NULL,
+    [IsActive] BIT NOT NULL CONSTRAINT [DF_OldWardMaster_IsActive] DEFAULT (1),
+    [CreatedBy] INT NOT NULL,
+    [CreatedDate] DATETIME2(0) NOT NULL CONSTRAINT [DF_OldWardMaster_CreatedDate] DEFAULT GETDATE(),
+    [UpdatedBy] INT NULL,
+    [UpdatedDate] DATETIME2(0) NULL,
+    CONSTRAINT [PK_OldWardMaster] PRIMARY KEY CLUSTERED ([Id]),
+    CONSTRAINT [UQ_OldWardMaster_OldZoneName_OldWardNo] UNIQUE ([OldZoneName], [OldWardNo])
+);
+GO
+
+ ALTER TABLE [GSMS].[WardAllocation] WITH CHECK ADD CONSTRAINT [FK_WardAllocation_OldWardMaster_OldWardId]
+     FOREIGN KEY ([OldWardId]) REFERENCES [GSMS].[OldWardMaster] ([Id]);
+GO
+ALTER TABLE [GSMS].[WardAllocation] CHECK CONSTRAINT [FK_WardAllocation_OldWardMaster_OldWardId];
+
+GO
+CREATE TABLE [GSMS].[MergeDetails]
+(
+    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [PropertyMapDetailId] INT NOT NULL,
+    [OwnerName] NVARCHAR(1000) NULL,
+    [OwnerNameEnglish] VARCHAR(1000) NULL,
+    [OccupierName] NVARCHAR(1000) NULL,
+    [OccupierNameEnglish] VARCHAR(1000) NULL,
+    [MobileNo] VARCHAR(13) NULL,
+    [Address] NVARCHAR(500) NULL,
+    [BuilderName] NVARCHAR(200) NULL,
+    [BuilderNameEnglish] VARCHAR(200) NULL,
+    [FlatOrShopNo] NVARCHAR(100) NULL,
+    [FlatOrShopNoEnglish] VARCHAR(100) NULL,
+    [FlatOrShopName] NVARCHAR(200) NULL,
+    [FlatOrShopNameEnglish] VARCHAR(200) NULL,
+    [IsActive] BIT NOT NULL CONSTRAINT [DF_MergeDetails_IsActive] DEFAULT (1),
+    [CreatedBy] INT NOT NULL,
+    [CreatedDate] DATETIME2(0) NOT NULL CONSTRAINT [DF_MergeDetails_CreatedDate] DEFAULT GETDATE(),
+    [UpdatedBy] INT NULL,
+    [UpdatedDate] DATETIME2(0) NULL,
+    CONSTRAINT [PK_MergeDetails] PRIMARY KEY CLUSTERED ([Id]),
+    CONSTRAINT [FK_MergeDetails_PropertyMapDetail] FOREIGN KEY ([PropertyMapDetailId])
+            REFERENCES [PTIS].[PropertyMapDetail] ([Id])
+);
 GO
