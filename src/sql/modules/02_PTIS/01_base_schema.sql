@@ -4336,6 +4336,22 @@ GO
 
 
 
+/****** Object:  Table [PTIS].[PropertyRuleEvaluationMaster] ******/
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [PTIS].[PropertyRuleEvaluationMaster](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[ParameterCode] [varchar](100) NOT NULL,
+	[ParameterName] [varchar](200) NOT NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PropertyRuleEvaluationMaster_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_PropertyRuleEvaluationMaster_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_PropertyRuleEvaluationMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
+) ON [PRIMARY]
+GO
+
 /****** Object:  Table [PTIS].[RuleEngineMaster] ******/
 CREATE TABLE [PTIS].[RuleEngineMaster](
 	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
@@ -4356,6 +4372,7 @@ CREATE TABLE [PTIS].[RuleEngineMaster](
 	[TargetFiltersJson] [nvarchar](max) NULL,
 	[StopProcessing] [bit] NOT NULL CONSTRAINT [DF_RuleEngineMaster_StopProcessing] DEFAULT (0),
 	[RuleScopeId] [int] NULL,
+	[PropertyRuleEvaluationMasterId] [int] NULL,
 	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_RuleEngineMaster_MarkedForDeletion] DEFAULT (0),
 	[MarkedForDeletionDate] [datetime] NULL,
 	CONSTRAINT [PK_RuleEngineMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
@@ -4447,6 +4464,14 @@ GO
 ALTER TABLE [PTIS].[RuleEngineMaster] WITH CHECK ADD CONSTRAINT [FK_RuleEngineMaster_RuleScopeMaster] FOREIGN KEY([RuleScopeId]) REFERENCES [PTIS].[RuleScopeMaster] ([Id])
 GO
 ALTER TABLE [PTIS].[RuleEngineMaster] CHECK CONSTRAINT [FK_RuleEngineMaster_RuleScopeMaster]
+GO
+
+ALTER TABLE [PTIS].[RuleEngineMaster] WITH CHECK
+ADD CONSTRAINT [FK_RuleEngineMaster_PropertyRuleEvaluationMaster_PropertyRuleEvaluationMasterId]
+FOREIGN KEY([PropertyRuleEvaluationMasterId])
+REFERENCES [PTIS].[PropertyRuleEvaluationMaster] ([Id]);
+
+ALTER TABLE [PTIS].[RuleEngineMaster] CHECK CONSTRAINT [FK_RuleEngineMaster_PropertyRuleEvaluationMaster_PropertyRuleEvaluationMasterId];
 GO
 
 ALTER TABLE [PTIS].[RuleScopeFieldMapping] WITH CHECK ADD CONSTRAINT [FK_RuleScopeFieldMapping_RuleScopeMaster] FOREIGN KEY([RuleScopeId]) REFERENCES [PTIS].[RuleScopeMaster] ([Id])
