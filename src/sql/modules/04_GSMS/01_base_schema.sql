@@ -232,6 +232,7 @@ CREATE TABLE [GSMS].[MergeDetails]
     [OccupierNameEnglish] VARCHAR(1000) NULL,
     [MobileNo] VARCHAR(13) NULL,
     [Address] NVARCHAR(500) NULL,
+    [AddressEnglish] VARCHAR(500) NULL,
     [BuilderName] NVARCHAR(200) NULL,
     [BuilderNameEnglish] VARCHAR(200) NULL,
     [FlatOrShopNo] NVARCHAR(100) NULL,
