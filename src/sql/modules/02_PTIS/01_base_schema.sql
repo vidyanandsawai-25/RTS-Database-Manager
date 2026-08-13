@@ -4749,3 +4749,60 @@ ALTER TABLE [PTIS].[PropertyWorkflowDetails] WITH CHECK ADD CONSTRAINT [FK_Prope
 GO
 
 
+
+/****** Object:  Table [PTIS].[ULBDocumentType] ******/
+CREATE TABLE [PTIS].[ULBDocumentType]
+(
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[DocumentTypeCode] [varchar](100) NOT NULL,
+	[DocumentTypeName] [varchar](200) NOT NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_ULBDocumentType_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_ULBDocumentType_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_ULBDocumentType] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT [UQ_ULBDocumentType_DocumentTypeCode] UNIQUE ([DocumentTypeCode])
+) ON [PRIMARY]
+GO
+
+/****** Object:  Table [PTIS].[ULBDocument] ******/
+CREATE TABLE [PTIS].[ULBDocument]
+(
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[ULBDocumentTypeId] [int] NOT NULL,
+	[DocumentBindingId] [int] NULL,
+	[DocumentTitle] [nvarchar](250) NULL,
+	[Remark] [nvarchar](500) NULL,
+	[IsLatest] [bit] NOT NULL CONSTRAINT [DF_ULBDocument_IsLatest] DEFAULT (1),
+	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_ULBDocument_MarkedForDeletion] DEFAULT (0),
+	[MarkedForDeletionDate] [datetime] NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_ULBDocument_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_ULBDocument_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_ULBDocument] PRIMARY KEY CLUSTERED ([Id] ASC)
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [PTIS].[ULBDocument] WITH CHECK ADD CONSTRAINT [FK_ULBDocument_ULBDocumentType] FOREIGN KEY([ULBDocumentTypeId]) REFERENCES [PTIS].[ULBDocumentType] ([Id])
+GO
+ALTER TABLE [PTIS].[ULBDocument] CHECK CONSTRAINT [FK_ULBDocument_ULBDocumentType]
+GO
+
+ALTER TABLE [PTIS].[ULBDocument] WITH CHECK ADD CONSTRAINT [FK_ULBDocument_DocumentBinding] FOREIGN KEY([DocumentBindingId]) REFERENCES [CORE].[DocumentBinding] ([Id])
+GO
+ALTER TABLE [PTIS].[ULBDocument] CHECK CONSTRAINT [FK_ULBDocument_DocumentBinding]
+GO
+
+-- Indexes to support FK checks and common lookups (SQL Server does not
+-- auto-create indexes on FK columns, so parent updates/deletes and
+-- lookups by document type would otherwise fall back to full scans).
+CREATE NONCLUSTERED INDEX [IX_ULBDocument_ULBDocumentTypeId]
+    ON [PTIS].[ULBDocument] ([ULBDocumentTypeId]);
+GO
+CREATE NONCLUSTERED INDEX [IX_ULBDocument_IsLatest]
+    ON [PTIS].[ULBDocument] ([IsLatest])
+    WHERE [IsActive] = 1 AND [MarkedForDeletion] = 0;
+GO

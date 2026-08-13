@@ -5394,3 +5394,47 @@ GO
 
 SET IDENTITY_INSERT [PTIS].[RuleEngineMaster] OFF
 GO
+/* ============================================================================
+   Seed PTIS.ULBDocumentType
+============================================================================ */
+
+SET IDENTITY_INSERT [PTIS].[ULBDocumentType] ON;
+
+INSERT INTO PTIS.ULBDocumentType
+(
+    Id,
+    DocumentTypeCode,
+    DocumentTypeName,
+    IsActive,
+    CreatedBy
+)
+SELECT
+    v.Id,
+    v.DocumentTypeCode,
+    v.DocumentTypeName,
+    1,
+    1
+FROM (VALUES
+    (1, 'READY_RECKONER_RATE_CHART', 'Ready Reckoner Rate Chart'),
+    (2, 'TAX_ZONING_DOCUMENT',       'Tax Zoning Document'),
+    (3, 'TAX_RATE_CHART',            'Tax Rate Chart'),
+    (4, 'WARD_ZONE_MAP',             'Ward / Zone Map'),
+    (5, 'ASSESSMENT_RULE_DOCUMENT',  'Assessment Rule Document'),
+    (6, 'GOVERNMENT_CIRCULAR',       'Government Circular / GR'),
+    (7, 'PENALTY_INTEREST_RULE',     'Penalty / Interest Rule Document'),
+    (8, 'EXEMPTION_RULE_DOCUMENT',   'Exemption Rule Document')
+) v
+(
+    Id,
+    DocumentTypeCode,
+    DocumentTypeName
+)
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM PTIS.ULBDocumentType t
+    WHERE t.DocumentTypeCode = v.DocumentTypeCode
+);
+
+SET IDENTITY_INSERT [PTIS].[ULBDocumentType] OFF;
+GO
