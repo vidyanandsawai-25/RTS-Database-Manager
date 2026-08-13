@@ -3664,6 +3664,26 @@ CONSTRAINT UQ_PropertyMapDetail_PropertyMapId_PropertyId_Status UNIQUE (Property
 GO
 
 
+-- ============================================================
+-- BulkUpdateActivity (used to audit all actions on bulk update screens)
+-- ============================================================
+CREATE TABLE [PTIS].[BulkUpdateActivity](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[ActivityType] [varchar](100) NULL,
+	[ActivityStatus] [varchar](50) NULL,
+	[CreatedDateTime] [datetime] NOT NULL CONSTRAINT [DF_BulkUpdateActivity_DateAndTime]  DEFAULT (getdate()),
+	[RecordCount] [int] NULL,
+	[ClientIpAddress] [nvarchar](100) NULL,
+	[Remarks] [nvarchar](1000) NULL,
+	[GroupName] [nvarchar](200) NULL,
+	[ExecutedBy] [nvarchar](200) NULL,
+	[StartDateTime] [datetime] NULL,
+	[EndDateTime] [datetime] NULL,
+	[DurationInSeconds] [int] NULL,
+	[ActivityRemark] [nvarchar](1000) NULL,
+	CONSTRAINT [PK_BulkUpdateActivity] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+GO
 
 -- ============================================================
 -- BulkUpdateMaster ( Holds one row per supported bulk-update operation type.)
@@ -3671,9 +3691,8 @@ GO
 CREATE TABLE [PTIS].[BulkUpdateMaster] ( 
 	[Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL, 
 	[UpdateCode] VARCHAR(100) NOT NULL, 
-	[UpdateName] NVARCHAR(200) NOT NULL, 
+	[GroupName] NVARCHAR(200) NOT NULL, 
 	[ReferenceTableName] VARCHAR(200) NULL, 
-	[IsApprovalRequired] BIT NULL, 
 	[IsActive] BIT NOT NULL CONSTRAINT [DF_BulkUpdateMaster_IsActive] DEFAULT (1), 
 	[CreatedBy] INT NULL, 
 	[CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_BulkUpdateMaster_CreatedDate] DEFAULT (GETDATE()), 
@@ -3719,39 +3738,24 @@ GO
 -- BulkUpdateHistory (Immutable audit log; one row per property per bulk update.)
 -- ============================================================
 CREATE TABLE [PTIS].[BulkUpdateHistory](
-    [Id]                  INT            IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-    [BulkUpdateMasterId]  INT            NOT NULL,
-    [PropertyId]          INT            NOT NULL,
-    [OldValue]            NVARCHAR(MAX)  NULL,
-    [NewValue]            NVARCHAR(MAX)  NULL,
-    [UpdatedColumns]      NVARCHAR(MAX)  NULL,
-    [IPAddress]           NVARCHAR(100)  NULL,
-    [Remarks]             NVARCHAR(1000) NULL,
-    [IsActive]            BIT            NOT NULL CONSTRAINT [DF_BulkUpdateHistory_IsActive]    DEFAULT (1),
-    [CreatedBy]           INT            NULL,
-    [CreatedDate]         DATETIME       NOT NULL CONSTRAINT [DF_BulkUpdateHistory_CreatedDate] DEFAULT (GETDATE()),
-    [UpdatedBy]           INT            NULL,
-    [UpdatedDate]         DATETIME       NULL,
-    CONSTRAINT [PK_BulkUpdateHistory] PRIMARY KEY CLUSTERED ([Id] ASC)
-);
-
-GO
-
-ALTER TABLE [PTIS].[BulkUpdateHistory] WITH CHECK
-    ADD CONSTRAINT [FK_BulkUpdateHistory_BulkUpdateMaster]
-    FOREIGN KEY ([BulkUpdateMasterId]) REFERENCES [PTIS].[BulkUpdateMaster]([Id]);
-GO
-ALTER TABLE [PTIS].[BulkUpdateHistory]
-    CHECK CONSTRAINT [FK_BulkUpdateHistory_BulkUpdateMaster];
-GO
-
-ALTER TABLE [PTIS].[BulkUpdateHistory] WITH CHECK
-    ADD CONSTRAINT [FK_BulkUpdateHistory_PropertyMast]
-    FOREIGN KEY ([PropertyId]) REFERENCES [PTIS].[PropertyMast]([Id]);
-GO
-ALTER TABLE [PTIS].[BulkUpdateHistory]
-    CHECK CONSTRAINT [FK_BulkUpdateHistory_PropertyMast];
-GO
+	[Id]					INT				IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[ActivityID]			INT				NOT NULL,
+	[PropertyId]			INT				NOT NULL,
+	[BulkUpdateMasterId]	INT				NOT NULL,
+	[OldValue]				NVARCHAR(4000)  NULL,
+	[NewValue]				NVARCHAR(4000)  NULL,
+	[UpdatedColumns]		VARCHAR(500)    NULL,
+	[IsActive]				BIT				NOT NULL CONSTRAINT [DF_BulkUpdateHistory_IsActive] DEFAULT (1),
+	[CreatedBy]				INT				NULL,
+	[CreatedDate]			DATETIME		NOT NULL CONSTRAINT [DF_BulkUpdateHistory_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy]				INT				NULL,
+	[UpdatedDate]			DATETIME		NULL,
+	CONSTRAINT [PK_BulkUpdateHistory] PRIMARY KEY CLUSTERED([Id] ASC),
+	CONSTRAINT [FK_BulkUpdateHistory_BulkUpdateMaster]  FOREIGN KEY ([BulkUpdateMasterId]) REFERENCES [PTIS].[BulkUpdateMaster]([Id]),
+	CONSTRAINT [FK_BulkUpdateHistory_PropertyMast]    FOREIGN KEY ([PropertyId]) REFERENCES [PTIS].[PropertyMast]([Id]),
+	CONSTRAINT [FK_BulkUpdateHistory_BulkUpdateActivity] FOREIGN KEY ([ActivityID]) REFERENCES [PTIS].[BulkUpdateActivity]([Id])
+ );
+ GO
 
 CREATE NONCLUSTERED INDEX [IX_BulkUpdateHistory_BulkUpdateMasterId]
 ON [PTIS].[BulkUpdateHistory] ([BulkUpdateMasterId] ASC);
@@ -3761,6 +3765,9 @@ CREATE NONCLUSTERED INDEX [IX_BulkUpdateHistory_PropertyId]
 ON [PTIS].[BulkUpdateHistory] ([PropertyId] ASC);
 GO
 
+CREATE NONCLUSTERED INDEX [IX_BulkUpdateHistory_ActivityID]
+ON [PTIS].[BulkUpdateHistory] ([ActivityID] ASC);
+GO
 
 -- ============================================================
 -- PropertyScreenLock ( One row per (PropertyId, LockableScreenId), where
