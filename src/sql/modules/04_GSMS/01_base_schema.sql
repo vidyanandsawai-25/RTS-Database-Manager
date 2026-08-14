@@ -232,6 +232,7 @@ CREATE TABLE [GSMS].[MergeDetails]
     [OccupierNameEnglish] VARCHAR(1000) NULL,
     [MobileNo] VARCHAR(13) NULL,
     [Address] NVARCHAR(500) NULL,
+    [AddressEnglish] VARCHAR(500) NULL,
     [BuilderName] NVARCHAR(200) NULL,
     [BuilderNameEnglish] VARCHAR(200) NULL,
     [FlatOrShopNo] NVARCHAR(100) NULL,
@@ -247,4 +248,39 @@ CREATE TABLE [GSMS].[MergeDetails]
     CONSTRAINT [FK_MergeDetails_PropertyMapDetail] FOREIGN KEY ([PropertyMapDetailId])
             REFERENCES [PTIS].[PropertyMapDetail] ([Id])
 );
+GO
+/****** Object: Table [GSMS].[VirtualPropertyTransferHistory] ******/
+CREATE TABLE [GSMS].[VirtualPropertyTransferHistory]
+(
+    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [PropertyId] INT NOT NULL,
+    [WardId] INT NOT NULL,
+    [PropertyNo] NVARCHAR(10) NULL,
+    [PartitionNo] NVARCHAR(10) NULL,
+    [TransferredWardId] INT NOT NULL,
+    [IsActive] BIT NOT NULL CONSTRAINT [DF_VirtualPropertyTransferHistory_IsActive] DEFAULT (1),
+    [CreatedBy] INT NULL,
+    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_VirtualPropertyTransferHistory_CreatedDate] DEFAULT GETDATE(),
+    [UpdatedBy] INT NULL,
+    [UpdatedDate] DATETIME NULL,
+    CONSTRAINT [PK_VirtualPropertyTransferHistory] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+GO
+
+ALTER TABLE [GSMS].[VirtualPropertyTransferHistory] WITH CHECK
+ADD CONSTRAINT [FK_VirtualPropertyTransferHistory_PropertyMast]
+FOREIGN KEY ([PropertyId])
+REFERENCES [PTIS].[PropertyMast]([Id]);
+GO
+
+ALTER TABLE [GSMS].[VirtualPropertyTransferHistory] WITH CHECK
+ADD CONSTRAINT [FK_VirtualPropertyTransferHistory_Ward]
+FOREIGN KEY ([WardId])
+REFERENCES [PTIS].[WardMaster]([Id]);
+GO
+
+ALTER TABLE [GSMS].[VirtualPropertyTransferHistory] WITH CHECK
+ADD CONSTRAINT [FK_VirtualPropertyTransferHistory_TransferredWard]
+FOREIGN KEY ([TransferredWardId])
+REFERENCES [PTIS].[WardMaster]([Id]);
 GO
