@@ -1778,3 +1778,87 @@ WHERE NOT EXISTS (
     WHERE ST.ApprovalFlowId = F.Id AND ST.StageOrder = S.StageOrder
 );
 GO
+
+/* ============================================================================
+   RTS Payment Module Reference Masters and Gateway Config Seed
+   ============================================================================ */
+
+-- 1. PaymentStatusMaster
+MERGE [RTS].[PaymentStatusMaster] AS target
+USING (VALUES
+    ('INITIATED', 'Initiated', N'सुरू केले', 'bg-amber-50 text-amber-700', 1, 1),
+    ('PENDING',   'Pending',   N'प्रलंबित',   'bg-yellow-50 text-yellow-800', 2, 1),
+    ('SUCCESS',   'Success',   N'यशस्वी',     'bg-emerald-50 text-emerald-700', 3, 1),
+    ('FAILED',    'Failed',    N'अयशस्वी',   'bg-rose-50 text-rose-700', 4, 1),
+    ('REFUNDED',  'Refunded',  N'परतावा केला', 'bg-purple-50 text-purple-700', 5, 1),
+    ('EXPIRED',   'Expired',   N'कालबाह्य',   'bg-slate-50 text-slate-700', 6, 1)
+) AS source (StatusCode, StatusNameEn, StatusNameMr, BadgeColor, DisplayOrder, IsActive)
+ON target.StatusCode = source.StatusCode
+WHEN MATCHED THEN
+    UPDATE SET 
+        target.StatusNameEn = source.StatusNameEn,
+        target.StatusNameMr = source.StatusNameMr,
+        target.BadgeColor = source.BadgeColor,
+        target.DisplayOrder = source.DisplayOrder,
+        target.IsActive = source.IsActive
+WHEN NOT MATCHED THEN
+    INSERT (StatusCode, StatusNameEn, StatusNameMr, BadgeColor, DisplayOrder, IsActive, CreatedDate)
+    VALUES (source.StatusCode, source.StatusNameEn, source.StatusNameMr, source.BadgeColor, source.DisplayOrder, source.IsActive, GETDATE());
+GO
+
+-- 2. PaymentModeMaster
+MERGE [RTS].[PaymentModeMaster] AS target
+USING (VALUES
+    ('UPI',             'UPI / QR Code',      N'युपीआय / क्यूआर कोड', 'QrCode', 1),
+    ('NETBANKING',      'Internet Banking',  N'नेट बँकिंग',           'Building', 1),
+    ('CREDIT_CARD',     'Credit Card',       N'क्रेडिट कार्ड',         'CreditCard', 1),
+    ('DEBIT_CARD',      'Debit Card',        N'डेबिट कार्ड',          'CreditCard', 1),
+    ('WALLET',          'Digital Wallet',    N'डिजिटल वॉलेट',         'Wallet', 1),
+    ('OFFLINE_CHALLAN', 'Offline Challan',   N'ऑफलाइन चलन',          'FileText', 1)
+) AS source (ModeCode, ModeNameEn, ModeNameMr, IconName, IsActive)
+ON target.ModeCode = source.ModeCode
+WHEN MATCHED THEN
+    UPDATE SET 
+        target.ModeNameEn = source.ModeNameEn,
+        target.ModeNameMr = source.ModeNameMr,
+        target.IconName = source.IconName,
+        target.IsActive = source.IsActive
+WHEN NOT MATCHED THEN
+    INSERT (ModeCode, ModeNameEn, ModeNameMr, IconName, IsActive, CreatedDate)
+    VALUES (source.ModeCode, source.ModeNameEn, source.ModeNameMr, source.IconName, source.IsActive, GETDATE());
+GO
+
+-- 3. PaymentGatewayConfig
+IF NOT EXISTS (SELECT 1 FROM [RTS].[PaymentGatewayConfig] WHERE [GatewayCode] = 'RAZORPAY')
+BEGIN
+    INSERT INTO [RTS].[PaymentGatewayConfig]
+    (
+        [GatewayCode],
+        [GatewayName],
+        [MerchantId],
+        [KeyId],
+        [SecretKey],
+        [WebhookSecret],
+        [ServiceUrl],
+        [Currency],
+        [IsActive],
+        [IsDefault],
+        [CreatedDate]
+    )
+    VALUES
+    (
+        'RAZORPAY',
+        N'Razorpay Smart Payment Gateway',
+        NULL,
+        'rzp_test_SZLId8MmrfQwTX',
+        'd1TPunImUMBxcPDStAGUnOdj',
+        'd1TPunImUMBxcPDStAGUnOdj',
+        'https://api.razorpay.com/v1/checkout/embedded',
+        'INR',
+        1,
+        1,
+        GETDATE()
+    );
+END;
+GO
+
