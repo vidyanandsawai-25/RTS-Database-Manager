@@ -4756,6 +4756,39 @@ ALTER TABLE [PTIS].[PropertyWorkflowDetails] WITH CHECK ADD CONSTRAINT [FK_Prope
 GO
 
 
+ 
+CREATE TABLE [PTIS].[TaxZoningRange](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[WardId] [int] NOT NULL,
+	[TaxZoneId] [int] NOT NULL,
+	[FromPropertyNo] [nvarchar](10) NULL,
+	[ToPropertyNo] [nvarchar](10) NULL,
+	[AssignEntireWard] [bit] NOT NULL CONSTRAINT [DF_TaxZoningRange_AssignEntireWard] DEFAULT (0),
+	[ZoneDescription] [nvarchar](500) NOT NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_TaxZoningRange_IsActive] DEFAULT (1),
+	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_TaxZoningRange_MarkedForDeletion] DEFAULT (0),
+	[MarkedForDeletionDate] [datetime] NULL,
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_TaxZoningRange_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_TaxZoningRange] PRIMARY KEY CLUSTERED ([Id] ASC)
+) ON [PRIMARY]
+GO
+ 
+ALTER TABLE [PTIS].[TaxZoningRange]  WITH CHECK ADD  CONSTRAINT [FK_TaxZoningRange_TaxZoneMaster] FOREIGN KEY([TaxZoneId])
+REFERENCES [PTIS].[TaxZoneMaster] ([Id])
+GO
+ 
+ALTER TABLE [PTIS].[TaxZoningRange] CHECK CONSTRAINT [FK_TaxZoningRange_TaxZoneMaster]
+GO
+ 
+ALTER TABLE [PTIS].[TaxZoningRange]  WITH CHECK ADD  CONSTRAINT [FK_TaxZoningRange_WardMaster] FOREIGN KEY([WardId])
+REFERENCES [PTIS].[WardMaster] ([Id])
+GO
+ 
+ALTER TABLE [PTIS].[TaxZoningRange] CHECK CONSTRAINT [FK_TaxZoningRange_WardMaster]
+GO
 
 /****** Object:  Table [PTIS].[ULBDocumentType] ******/
 CREATE TABLE [PTIS].[ULBDocumentType]
