@@ -125,7 +125,7 @@ GO
 
 -- 2. Insert Gateway Configuration Properties
 SET IDENTITY_INSERT [CORE].[SmsGatewayDetails] ON;
-INSERT INTO [CORE].[SmsGatewayDetails] 
+INSERT INTO [CORE].[SmsGatewayDetails]
     ([SMSGatewayDetailsID], [SMSGatewayMasterID], [PropertyName], [Value], [SequenceNo], [IsURL], [IsMessage], [IsMobile], [IsTemplateID], [IsUnicode], [IsActive], [CreatedBy], [CreatedDate])
 VALUES
     (1, 1, 'BaseURL',   'http://sms.ptaxcollection.com/sendsms.jsp', 1, 1, 0, 0, 0, 0, 1, 1, GETDATE()),
