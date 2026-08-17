@@ -497,4 +497,3 @@ ALTER TABLE [RTS].[PaymentWebhookLog] WITH CHECK
 GO
 ALTER TABLE [RTS].[PaymentWebhookLog] CHECK CONSTRAINT [FK_PaymentWebhookLog_PaymentGatewayConfig];
 GO
-

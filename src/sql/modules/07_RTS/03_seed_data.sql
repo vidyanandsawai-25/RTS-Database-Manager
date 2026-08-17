@@ -1795,7 +1795,7 @@ USING (VALUES
 ) AS source (StatusCode, StatusNameEn, StatusNameMr, BadgeColor, DisplayOrder, IsActive)
 ON target.StatusCode = source.StatusCode
 WHEN MATCHED THEN
-    UPDATE SET 
+    UPDATE SET
         target.StatusNameEn = source.StatusNameEn,
         target.StatusNameMr = source.StatusNameMr,
         target.BadgeColor = source.BadgeColor,
@@ -1818,7 +1818,7 @@ USING (VALUES
 ) AS source (ModeCode, ModeNameEn, ModeNameMr, IconName, IsActive)
 ON target.ModeCode = source.ModeCode
 WHEN MATCHED THEN
-    UPDATE SET 
+    UPDATE SET
         target.ModeNameEn = source.ModeNameEn,
         target.ModeNameMr = source.ModeNameMr,
         target.IconName = source.IconName,
@@ -1861,4 +1861,3 @@ BEGIN
     );
 END;
 GO
-
