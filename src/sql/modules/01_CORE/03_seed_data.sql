@@ -681,3 +681,193 @@ BEGIN
 END
 
 SET IDENTITY_INSERT [CORE].[CommonRemarkTypeMaster] OFF;
+
+
+  SET IDENTITY_INSERT [CORE].[ConfigCategoryMaster] ON 
+GO
+INSERT [CORE].[ConfigCategoryMaster] ([Id], [CategoryCode], [CategoryName], [DisplayOrder], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (1, N'SECURITY_AUTH', N'Security & Authentication', 1, 1, GETDATE(), 1, NULL, NULL)
+GO
+INSERT [CORE].[ConfigCategoryMaster] ([Id], [CategoryCode], [CategoryName], [DisplayOrder], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (5, N'Payment', N'Payment Configurations', 3, 0, GETDATE(), 1, NULL, NULL)
+GO
+INSERT [CORE].[ConfigCategoryMaster] ([Id], [CategoryCode], [CategoryName], [DisplayOrder], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (3006, N'PAYROLL', N'Payroll Management', 3, 0, GETDATE(), 1, NULL, NULL)
+GO
+INSERT [CORE].[ConfigCategoryMaster] ([Id], [CategoryCode], [CategoryName], [DisplayOrder], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (3007, N'EmailSettings', N'Email Configuration', 5, 1, GETDATE(), NULL, NULL, NULL)
+GO
+SET IDENTITY_INSERT [CORE].[ConfigCategoryMaster] OFF
+GO
+SET IDENTITY_INSERT [CORE].[ConfigKeyMaster] ON 
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1, 1, N'MAXFAILEDATTEMPTS', N'Maximum Failed Login Attempts', N'Number of failed login attempts before account lockout', N'decimal', N'textbox', N'2', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2, 1, N'LOCKOUTDURATIONMINUTES', N'Lockout Duration Minutes', N'Duration in minutes for which account remains locked', N'int', N'calendar', N'30', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (3, 1, N'REFRESHTOKENEXPIRYDAYS', N'Refresh Token Expiry Days', N'Number of days before refresh token expires', N'int', N'number', N'7', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (4, 1, N'ACCESSTOKENEXPIRYMINUTES', N'Access Token Expiry Minutes', N'Number of minutes before access token expires', N'int', N'number', N'61', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (5, 1, N'PASSWORDALGORITHM', N'Password Hashing Algorithm', N'Algorithm used for password hashing (BCrypt/PBKDF2)', N'string', N'dropdown', N'BCrypt', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (6, 1, N'MINPASSWORDLENGTH', N'Minimum Password Length', N'Minimum number of characters required in password', N'int', N'number', N'8', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (7, 1, N'MAXPASSWORDLENGTH', N'Maximum Password Length', N'Maximum number of characters allowed in password', N'int', N'number', N'100', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (8, 1, N'REQUIREUPPERCASE', N'Require Uppercase Letter', N'Password must contain at least one uppercase letter', N'bool', N'checkbox', N'true', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (9, 1, N'REQUIRELOWERCASE', N'Require Lowercase Letter', N'Password must contain at least one lowercase letter', N'bool', N'checkbox', N'true', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (10, 1, N'REQUIREDIGIT', N'Require Digit', N'Password must contain at least one digit', N'bool', N'checkbox', N'true', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (11, 1, N'REQUIRESPECIALCHAR', N'Require Special Character', N'Password must contain at least one special character', N'bool', N'checkbox', N'true', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (12, 1, N'PASSWORDEXPIRYDAYS', N'Password Expiry Days', N'Number of days before password expires', N'int', N'number', N'15', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (13, 1, N'PASSWORDHISTORYCOUNT', N'Password History Count', N'Number of previous passwords that cannot be reused', N'int', N'number', N'5', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (14, 1, N'SESSIONTIMEOUTMINUTES', N'Session Timeout Minutes', N'Duration in minutes before session times out due to inactivity', N'int', N'number', N'480', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (15, 1, N'MAXCONCURRENTSESSIONS', N'Maximum Concurrent Sessions', N'Maximum number of concurrent sessions allowed per user', N'int', N'number', N'2', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (16, 1, N'MFAREQUIRED', N'MFA Required', N'Whether Multi-Factor Authentication is mandatory', N'boolean', N'checkbox', N'true', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (17, 1, N'MFABACKUPCODECOUNT', N'MFA Backup Code Count', N'Number of backup codes generated for MFA', N'int', N'number', N'10', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (19, 1, N'PASSWORDRESETTOKENEXPIRYMINUTES', N'Password Reset Token Expiry Minutes', N'Duration in minutes for which the password reset token remains valid Default is 60 minutes 1 hour', N'int', N'number', N'5', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (22, 1, N'LOGINOTPONMAIL', N'Login Otp On Mail', N'Login Otp On Mail', N'boolean', N'checkbox', N'true', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (23, 1, N'LOGINOTPONSMS', N'Enable Login OTP via SMS', N'When enabled, login OTP will be sent via SMS to user mobile number', N'Boolean', N'Toggle', N'false', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (25, 1, N'LOGINOTPEXPIRYMINUTES', N'Login Otp Expiry Minutes', N'Login OTP validity duration in minutes', N'int', N'number', N'2', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (29, 5, N'GOOGLE_PAY_01', N'GOOGLE PAY', N'GOOGLE PAY', N'datetime', N'calendar', N'2026-07-18T23:23', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (30, 5, N'PHONE PE', N'phone pe', N'phonepe', N'boolean', N'checkbox', N'true', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1034, 3006, N'PAYROLL_CONFIG', N'PayrollConfig', N'PayrollConfig', N'int', N'number', N'2', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1035, 3007, N'SMTPHOST', N'SMTP Server Host', N'SMTP server hostname (e.g., smtp.gmail.com)', N'string', N'textbox', N'smtp.gmail.com', 1, NULL, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2036, 3007, N'SMTPPORT', N'SMTP Port', N'SMTP server port 587 for TLS 465 for SSL', N'int', N'textbox', N'587', 1, 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2037, 3007, N'SMTPUSERNAME', N'SMTP Username', N'SMTP authentication username', N'string', N'textbox', N'hr.payrollsolutionservo@gmail.com', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2038, 3007, N'SMTPPASSWORD', N'SMTP Password', N'SMTP authentication password use App Password for Gmail', N'string', N'textbox', N'dujbbskqhedlmjpg', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2039, 3007, N'FROMEMAIL', N'From Email Address', N'Sender email address', N'string', N'textbox', N'hr.payrollsolutionservo@gmail.com', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2040, 3007, N'FROMNAME', N'From Display Name', N'Sender display name', N'string', N'textbox', N'UserInfo', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2041, 3007, N'USESSL', N'Use SSLTLS', N'Whether to use SSLTLS encryption', N'boolean', N'checkbox', N'true', 1, 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2042, 3007, N'LOGINURL', N'Login URL', N'Login URL', N'string', N'textbox', N'https://ptisqa.scipl.info.in/en/login', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (3036, 1, N'FPASSOTPMAIL', N'Forgot Password Otp on Mail', N'this flag use to define forgot passwork otp on mail', N'boolean', N'checkbox', N'true', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (3037, 1, N'FPASSOTPONSMS', N'Forgot password Otp On Sms', N'this flag use to get forgot password otp on sms', N'boolean', N'checkbox', N'false', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (3038, 1, N'2FALOGIN', N'2FA Activation For Login', N'2FA activation for Login', N'boolean', N'checkbox', N'true', 1, 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (3039, 1, N'2FALOGINFORFPASS', N'2FA Activation For Forgot Password', N'2FA Activation For Forgot Password', N'boolean', N'checkbox', N'false', 1, 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (3041, 1, N'MAXOTPCHALLENGELOCKOUTS', N'Max Otp Challenge Lockouts', N'Max Otp Challenge Lock outs', N'int', N'number', N'5', 1, 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (3042, 1, N'OTPCHALLENGELOCKOUTDURATIONMINUTES', N'Otp Challenge Lockout Duration Minutes', N'OtpChallengeLockoutDurationMinutes', N'int', N'number', N'2', 1, 1, GETDATE(), NULL, NULL)
+GO
+SET IDENTITY_INSERT [CORE].[ConfigKeyMaster] OFF
+GO
+SET IDENTITY_INSERT [CORE].[ConfigValueMaster] ON 
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (73, 29, 1, NULL, 1, N'2026-05-14T18:11', 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (74, 29, 1, 1, 0, N'2026-05-14T18:11', 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (75, 29, 4, NULL, 0, N'2026-05-14T18:11', 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (76, 30, 1, NULL, 1, N'true', 1, GETDATE(), 2, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (77, 30, 1, 1, 1, N'true', 1, GETDATE(), 2, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (78, 30, 2, NULL, 1, N'true', 1, GETDATE(), 2, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (79, 30, 2, 1001, 0, N'false', 1, GETDATE(), 2, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (82, 29, 2, NULL, 1, N'2026-05-14T18:11', 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (83, 29, 3, NULL, 1, N'2026-05-14T18:11', 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (84, 30, 3, NULL, 1, N'true', 1, GETDATE(), 2, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (85, 30, 4, NULL, 1, N'true', 1, GETDATE(), 2, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (86, 30, 3, 1004, 1, N'true', 1, GETDATE(), 2, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (87, 29, 3, 1004, 1, N'2026-05-16T18:14', 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (93, 29, 2, 1001, 1, N'2026-05-14T18:14', 2, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1101, 1034, 1, 1, 1, N'25', 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1102, 1034, 1, 2006, 0, N'2', 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1103, 1034, 1, NULL, 1, N'2', 1, GETDATE(), 1, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1104, 1034, 1, 8008, 0, N'2', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2119, 1035, NULL, NULL, 1, N'smtp.gmail.com', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2122, 2036, NULL, NULL, 1, N'587', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2124, 2038, NULL, NULL, 1, N'dujbbskqhedlmjpg', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2125, 2037, NULL, NULL, 1, N'hr.payrollsolutionservo@gmail.com', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2128, 2039, NULL, NULL, 1, N'hr.payrollsolutionservo@gmail.com', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2130, 2041, NULL, NULL, 1, N'true', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2131, 2042, NULL, NULL, 1, N'https://ptisqa.scipl.info.in/en/login', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2133, 2040, NULL, NULL, 1, N'UserInfo', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2144, 1, NULL, NULL, 1, N'3', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2145, 2, NULL, NULL, 1, N'2026-08-13', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2146, 3, NULL, NULL, 1, N'5', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2147, 4, NULL, NULL, 1, N'30', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2148, 6, NULL, NULL, 1, N'20', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2149, 8, NULL, NULL, 1, N'true', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2150, 9, NULL, NULL, 1, N'true', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2151, 10, NULL, NULL, 1, N'true', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2152, 12, NULL, NULL, 1, N'20', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2153, 11, NULL, NULL, 1, N'true', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2154, 14, NULL, NULL, 1, N'40', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2155, 15, NULL, NULL, 1, N'2', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2156, 16, NULL, NULL, 1, N'true', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2157, 19, NULL, NULL, 1, N'5', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2158, 22, NULL, NULL, 1, N'0', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2159, 25, NULL, NULL, 1, N'2', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2160, 3036, NULL, NULL, 1, N'true', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2161, 3038, NULL, NULL, 1, N'true', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2162, 3041, NULL, NULL, 1, N'5', 1, GETDATE(), NULL, NULL)
+GO
+INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2163, 3042, NULL, NULL, 1, N'2', 1, GETDATE(), NULL, NULL)
+GO
+SET IDENTITY_INSERT [CORE].[ConfigValueMaster] OFF
+GO
