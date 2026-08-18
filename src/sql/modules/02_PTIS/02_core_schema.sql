@@ -56,7 +56,7 @@ IF COL_LENGTH('PTIS.PropertyCategoryMaster', 'IsProtected') IS NULL
 BEGIN
     ALTER TABLE [PTIS].[PropertyCategoryMaster]
     ADD [IsProtected] [bit] NOT NULL
-        CONSTRAINT [DF_PropertyCategoryMaster_IsProtected] DEFAULT (0)
+        CONSTRAINT [DF_PropertyCategoryMaster_IsProtected] DEFAULT (1)
         WITH VALUES;
 END;
 GO
@@ -69,6 +69,48 @@ BEGIN
         WITH VALUES;
 END;
 GO
+
+
+IF COL_LENGTH('PTIS.TaxCategoryMaster', 'IsProtected') IS NULL
+BEGIN
+    ALTER TABLE [PTIS].[TaxCategoryMaster]
+    ADD [IsProtected] [bit] NOT NULL
+        CONSTRAINT [DF_TaxCategoryMaster_IsProtected] DEFAULT (1)
+        WITH VALUES;
+END;
+GO
+IF COL_LENGTH('PTIS.TaxMaster', 'IsProtected') IS NULL
+BEGIN
+    ALTER TABLE [PTIS].[TaxMaster]
+    ADD [IsProtected] [bit] NOT NULL
+        CONSTRAINT [DF_TaxMaster_IsProtected] DEFAULT (1)
+        WITH VALUES;
+END;
+GO
+
+IF COL_LENGTH('PTIS.ConstructionTypeMaster', 'IsProtected') IS NULL
+BEGIN
+    ALTER TABLE [PTIS].[ConstructionTypeMaster]
+    ADD [IsProtected] [bit] NOT NULL
+        CONSTRAINT [DF_ConstructionTypeMaster_IsProtected] DEFAULT (1)
+        WITH VALUES;
+END;
+GO
+
+IF COL_LENGTH('PTIS.SubFloorMaster', 'IsProtected') IS NULL
+BEGIN
+    ALTER TABLE [PTIS].[SubFloorMaster]
+    ADD [IsProtected] [bit] NOT NULL
+        CONSTRAINT [DF_SubFloorMaster_IsProtected] DEFAULT (1)
+        WITH VALUES;
+END;
+GO
+
+
+
+
+
+
 
 CREATE OR ALTER TRIGGER [PTIS].[TR_ConstructionTypeMaster_ProtectUpdate]
 ON [PTIS].[ConstructionTypeMaster]
@@ -112,15 +154,15 @@ BEGIN
           AND
           (
                  ISNULL(i.[ConstructionCode], N'') <> ISNULL(d.[ConstructionCode], N'')
-              OR ISNULL(i.[Description], N'') <> ISNULL(d.[Description], N'')
-              OR ISNULL(i.[SearchSequence], N'') <> ISNULL(d.[SearchSequence], N'')
+            --   OR ISNULL(i.[Description], N'') <> ISNULL(d.[Description], N'')
+            --   OR ISNULL(i.[SearchSequence], N'') <> ISNULL(d.[SearchSequence], N'')
               OR i.[IsActive] <> d.[IsActive]
               OR i.[IsProtected] <> d.[IsProtected]
           )
     )
     BEGIN
         THROW 50202,
-              'PTIS.ConstructionTypeMaster: Protected records cannot be modified. ConstructionCode, Description, SearchSequence, IsActive and IsProtected are read-only.',
+              'PTIS.ConstructionTypeMaster: Protected records cannot be modified. ConstructionCode, IsActive and IsProtected are read-only.',
               1;
     END;
 END;
@@ -225,7 +267,7 @@ BEGIN
           (
                  ISNULL(i.[CertificateTypeCode], N'') <> ISNULL(d.[CertificateTypeCode], N'')
               OR ISNULL(i.[CertificateTypeName], N'') <> ISNULL(d.[CertificateTypeName], N'')
-              OR ISNULL(i.[Description], N'') <> ISNULL(d.[Description], N'')
+            --   OR ISNULL(i.[Description], N'') <> ISNULL(d.[Description], N'')
               OR ISNULL(i.[DisplayOrder], 0) <> ISNULL(d.[DisplayOrder], 0)
               OR i.[IsTaxable] <> d.[IsTaxable]
               OR i.[IsRequired] <> d.[IsRequired]
@@ -235,7 +277,7 @@ BEGIN
     )
     BEGIN
         THROW 50202,
-              'PTIS.PropertyCertificateTypeMaster: Protected records cannot be modified. CertificateTypeCode, CertificateTypeName, Description, DisplayOrder, IsTaxable, IsRequired, IsActive and IsProtected are read-only.',
+              'PTIS.PropertyCertificateTypeMaster: Protected records cannot be modified. CertificateTypeCode, CertificateTypeName,  DisplayOrder, IsTaxable, IsRequired, IsActive and IsProtected are read-only.',
               1;
     END;
 END;

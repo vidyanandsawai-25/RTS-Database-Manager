@@ -65,20 +65,20 @@ CREATE TABLE [PTIS].[OwnerTypeMaster](
 GO
 
 
-/****** Object:  Table [PTIS].[PartTypeMaster]******/
+-- /****** Object:  Table [PTIS].[PartTypeMaster]******/
 
-CREATE TABLE [PTIS].[PartTypeMaster](
-	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-	[PartType] [nvarchar](20) NOT NULL,
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PartTypeMaster_IsActive] DEFAULT (1),
-	[CreatedBy] [int] NULL,
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PartTypeMaster_CreatedDate DEFAULT (GETDATE()),
-	[UpdatedBy] [int] NULL,
-	[UpdatedDate] [datetime] NULL,
- CONSTRAINT [PK_PartTypeMaster_1] PRIMARY KEY CLUSTERED ([Id] ASC),
- CONSTRAINT [UQ_PartTypeMaster_PartType] UNIQUE ([PartType])
-) ON [PRIMARY]
-GO
+-- CREATE TABLE [PTIS].[PartTypeMaster](
+-- 	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+-- 	[PartType] [nvarchar](20) NOT NULL,
+-- 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_PartTypeMaster_IsActive] DEFAULT (1),
+-- 	[CreatedBy] [int] NULL,
+-- 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_PartTypeMaster_CreatedDate DEFAULT (GETDATE()),
+-- 	[UpdatedBy] [int] NULL,
+-- 	[UpdatedDate] [datetime] NULL,
+--  CONSTRAINT [PK_PartTypeMaster_1] PRIMARY KEY CLUSTERED ([Id] ASC),
+--  CONSTRAINT [UQ_PartTypeMaster_PartType] UNIQUE ([PartType])
+-- ) ON [PRIMARY]
+-- GO
 
 
 /****** Object:  Table [PTIS].[PropertyTypeCategoryMaster]******/
@@ -176,8 +176,8 @@ CREATE TABLE [PTIS].[WingMaster](
 CREATE TABLE [PTIS].[SocietyDetailsMast](
 	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[PropertyId] [int] NULL,
-	[WingId] [int] NULL,
-	[WingName] [nvarchar](30) NULL,
+	-- [WingId] [int] NULL,
+	-- [WingName] [nvarchar](30) NULL,
 	[SocietyName] [nvarchar](500) NULL,
 	[SocietyAddress] [nvarchar](200) NULL,
 	[SecretaryName] [nvarchar](200) NULL,
@@ -199,7 +199,7 @@ CREATE TABLE [PTIS].[SocietyDetailsMast](
 	[SocietyEmailId] [nvarchar](100) NULL,
 	[SecretaryEmailId] [nvarchar](100) NULL,
 	[ManagerEmailId] [nvarchar](100) NULL,
-	[WingPhotoDocumentIds] VARCHAR(1000) NULL,
+	--[WingPhotoDocumentIds] VARCHAR(1000) NULL,
 	[BoardPhotoDocumentIds] VARCHAR(1000) NULL,
 	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_SocietyDetailsMaster_MarkedForDeletion] DEFAULT (0),
     [MarkedForDeletionDate] [datetime] NULL ,
@@ -212,11 +212,7 @@ CREATE TABLE [PTIS].[SocietyDetailsMast](
 ) ON [PRIMARY]
 GO
 
-ALTER TABLE [PTIS].[SocietyDetailsMast] WITH CHECK ADD CONSTRAINT [FK_SocietyDetailsMast_WingMaster] FOREIGN KEY([WingId])
-REFERENCES [PTIS].[WingMaster] ([Id]) 
-GO
-ALTER TABLE [PTIS].[SocietyDetailsMast] CHECK CONSTRAINT [FK_SocietyDetailsMast_WingMaster] 
-GO
+
 
 ALTER TABLE [PTIS].[SocietyDetailsMast]  WITH CHECK ADD  CONSTRAINT [FK_SocietyDetailsMast_ManagerMobileNoRemarkMaster] FOREIGN KEY([ManagerMobileNoRemarkId])	
 REFERENCES [CORE].[CommonRemarkTypeMaster] ([Id])
@@ -238,18 +234,78 @@ ALTER TABLE [PTIS].[SocietyDetailsMast] CHECK CONSTRAINT [FK_SocietyDetailsMast_
 GO
 
 
--- ALTER TABLE [PTIS].[SocietyDetailsMast]  WITH CHECK ADD  CONSTRAINT [FK_SocietyDetailsMast_PropertyMast] FOREIGN KEY([PropertyId]) 
--- REFERENCES [PTIS].[PropertyMast] ([Id])	
--- GO
--- ALTER TABLE [PTIS].[SocietyDetailsMast] CHECK CONSTRAINT [FK_SocietyDetailsMast_PropertyMast]
--- GO
 
 
 
--- CREATE UNIQUE INDEX [UQ_SocietyDetailsMaster_WingName]
--- ON [PTIS].[SocietyDetailsMast] ([WingName])
--- WHERE [WingName] IS NOT NULL;
--- GO
+/****** Object:  Table [PTIS].[SocietyWingMast] ******/
+CREATE TABLE [PTIS].[WingDetailsMast](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[SocietyDetailsMastId] [int] NOT NULL, 
+	[WingMasterId] [int] NOT NULL,
+	[WingName] [nvarchar](30) NULL,
+	--[SocietyName] [nvarchar](500) NULL,
+	--[SocietyAddress] [nvarchar](200) NULL,
+	[SecretaryName] [nvarchar](200) NULL,
+	[ManagerName] [nvarchar](200) NULL,
+	--[LandOwnerName] [nvarchar](200) NULL,
+	--[BuilderName] [nvarchar](200) NULL,
+	--[SocietyNameEnglish] [nvarchar](500) NULL,
+	--[SocietyAddressEnglish] [nvarchar](200) NULL,
+	[SecretaryNameEnglish] [nvarchar](200) NULL,
+	[ManagerNameEnglish] [nvarchar](200) NULL,
+	--[LandOwnerNameEnglish] [nvarchar](200) NULL,
+	--[BuilderNameEnglish] [nvarchar](200) NULL,
+	[ManagerMobileNo] [varchar](13) NULL,
+	[ManagerMobileNoRemarkId] [int] NULL,
+
+	[SecretaryMobileNo] [varchar](13) NULL,
+	[SecretaryMobileNoRemarkId] [int] NULL,
+	[SecretaryEmailId] [nvarchar](100) NULL,
+	--[BuilderMobileNo] [varchar](13) NULL,
+	--[BuilderMobileNoRemarkId] [int] NULL,
+	--[SocietyEmailId] [nvarchar](100) NULL,
+	
+	[ManagerEmailId] [nvarchar](100) NULL,
+	[WingPhotoDocumentIds] VARCHAR(1000) NULL,
+	--[BoardPhotoDocumentIds] VARCHAR(1000) NULL,
+	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_WingDetailsMast_MarkedForDeletion] DEFAULT (0),
+    [MarkedForDeletionDate] [datetime] NULL ,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_WingDetailsMast_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_WingDetailsMast_CreatedDate DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+ CONSTRAINT [PK_WingDetailsMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
+) ON [PRIMARY]
+GO
+
+
+
+ALTER TABLE [PTIS].[WingDetailsMast] WITH CHECK ADD CONSTRAINT [FK_WingDetailsMast_SocietyDetailsMastId] FOREIGN KEY([SocietyDetailsMastId])
+REFERENCES [PTIS].[SocietyDetailsMast] ([Id]) 
+GO
+ALTER TABLE [PTIS].[WingDetailsMast] CHECK CONSTRAINT [FK_WingDetailsMast_SocietyDetailsMastId] 
+GO
+
+ALTER TABLE [PTIS].[WingDetailsMast] WITH CHECK ADD CONSTRAINT [FK_WingDetailsMast_WingMaster] FOREIGN KEY([WingMasterId])
+REFERENCES [PTIS].[WingMaster] ([Id]) 
+GO
+ALTER TABLE [PTIS].[WingDetailsMast] CHECK CONSTRAINT [FK_WingDetailsMast_WingMaster] 
+GO
+
+
+ALTER TABLE [PTIS].[WingDetailsMast]  WITH CHECK ADD  CONSTRAINT [FK_WingDetailsMast_ManagerMobileNoRemarkMaster] FOREIGN KEY([ManagerMobileNoRemarkId])	
+REFERENCES [CORE].[CommonRemarkTypeMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[WingDetailsMast] CHECK CONSTRAINT [FK_WingDetailsMast_ManagerMobileNoRemarkMaster]
+GO
+
+ALTER TABLE [PTIS].[WingDetailsMast]  WITH CHECK ADD  CONSTRAINT [FK_WingDetailsMast_SecretaryMobileNoRemarkMaster] FOREIGN KEY([SecretaryMobileNoRemarkId])
+REFERENCES [CORE].[CommonRemarkTypeMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[WingDetailsMast] CHECK CONSTRAINT [FK_WingDetailsMast_SecretaryMobileNoRemarkMaster]
+GO
+
 
 
 
@@ -266,7 +322,8 @@ CREATE TABLE [PTIS].[TaxZoneMaster](
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
  CONSTRAINT [PK_TaxZoneMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
- CONSTRAINT [UQ_TaxZoneMaster_TaxZoneNo] UNIQUE ([TaxZoneNo] ASC)
+ CONSTRAINT [UQ_TaxZoneMaster_TaxZoneNo] UNIQUE ([TaxZoneNo] ASC),
+ CONSTRAINT [UQ_TaxZoneMaster_TaxZoneType] UNIQUE ([TaxZoneType] ASC)
 ) ON [PRIMARY]
 GO
 
@@ -467,7 +524,7 @@ CREATE TABLE [PTIS].[PropertyMast](
 	[OccupierMobileNo] [varchar](13) NULL,
 	[OccupierMobileNoRemarkId] [int] NULL,
 	[EmailId] [nvarchar](100) NULL,
-	[SocietyDetailId] [int] NULL,
+	[WingDetailId] [int] NULL,
 	[OwnerTitleEnglish] [nvarchar](20) NULL,
 	[OwnerNameEnglish] [nvarchar](1000) NULL,
 	[OccupierTitleEnglish] [nvarchar](20) NULL,
@@ -519,11 +576,11 @@ GO
 ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_WardMaster];
 GO
 
-ALTER TABLE [PTIS].[PropertyMast] WITH CHECK ADD CONSTRAINT [FK_PropertyMast_SocietyDetailsMast] FOREIGN KEY([SocietyDetailId])
- REFERENCES [PTIS].[SocietyDetailsMast] ([Id]);
+ALTER TABLE [PTIS].[PropertyMast] WITH CHECK ADD CONSTRAINT [FK_PropertyMast_WingDetailsMast] FOREIGN KEY([WingDetailId])
+ REFERENCES [PTIS].[WingDetailsMast] ([Id]);
 GO
 
-ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_SocietyDetailsMast];
+ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_WingDetailsMast];
 GO
 
 ALTER TABLE [PTIS].[PropertyMast] WITH CHECK ADD CONSTRAINT [FK_PropertyMast_MoujaMaster] FOREIGN KEY([MoujaId])
@@ -769,6 +826,7 @@ CREATE TABLE [PTIS].[PropertyDetails](
 	[BuiltupAreaSqFeet] [float] NULL,
 	[NoOfRooms] [int] NULL,
 	[IsRenter] [bit] NULL,
+	[ChangeDetectionYear] int null,
 	-- [TaxLiability] [nvarchar](20) NULL,
 	-- [RentMonthly] [float] NULL,
 	-- [RentYearly] [float] NULL,
@@ -1955,9 +2013,6 @@ CREATE TABLE [PTIS].[PropertyMastDetails](
 	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[PropertyId] [int] NULL,
 	[OwnerTypeId] int NULL,
-	-- [WingName] [nvarchar](30) NULL,
-	-- [WingId] [int] NULL,
-	-- [WingNo] [nvarchar](20) NULL,
 	[AssessmentRemark] [nvarchar](400) NULL,
 	[SurveyRemark] [nvarchar](400) NULL,
 	[OwnerSignRemarkId] INT NULL,
@@ -2233,8 +2288,18 @@ CREATE TABLE [PTIS].[PropertyCertificates]
 (
     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 
-    [PropertyId] INT NOT NULL,
-        -- FK to PTIS.PropertyMast.
+    [EntityType] CHAR(1) NOT NULL,
+        -- S = Society, W = Wing, P = Property.
+        -- Identifies which of SocietyDetailId / WingDetailId / PropertyId is populated.
+
+    [SocietyDetailId] INT NULL,
+        -- FK to PTIS.SocietyDetailsMast. Set when EntityType = 'S'.
+
+    [WingDetailId] INT NULL,
+        -- FK to PTIS.WingDetailsMast. Set when EntityType = 'W'.
+
+    [PropertyId] INT NULL,
+        -- FK to PTIS.PropertyMast. Set when EntityType = 'P'.
 
     [PropertyDetailsId] INT NULL,
         -- FK to PTIS.PropertyDetails.
@@ -2280,6 +2345,14 @@ CREATE TABLE [PTIS].[PropertyCertificates]
     CONSTRAINT [PK_PropertyCertificates]
         PRIMARY KEY CLUSTERED ([Id] ASC),
 
+    CONSTRAINT [FK_PropertyCertificates_SocietyDetailsMast]
+        FOREIGN KEY ([SocietyDetailId])
+        REFERENCES [PTIS].[SocietyDetailsMast] ([Id]),
+
+    CONSTRAINT [FK_PropertyCertificates_WingDetailsMast]
+        FOREIGN KEY ([WingDetailId])
+        REFERENCES [PTIS].[WingDetailsMast] ([Id]),
+
     CONSTRAINT [FK_PropertyCertificates_PropertyMast]
         FOREIGN KEY ([PropertyId])
         REFERENCES [PTIS].[PropertyMast] ([Id]),
@@ -2294,15 +2367,29 @@ CREATE TABLE [PTIS].[PropertyCertificates]
 
     CONSTRAINT [FK_PropertyCertificates_DocumentBinding]
         FOREIGN KEY ([DocumentBindingId])
-        REFERENCES [CORE].[DocumentBinding] ([Id])
+        REFERENCES [CORE].[DocumentBinding] ([Id]),
+
+    CONSTRAINT [CK_PropertyCertificates_EntityType]
+        CHECK ([EntityType] IN ('S', 'W', 'P'))
+
+    
 );
 GO
 
 -- Indexes to support FK checks and common lookups (SQL Server does not
 -- auto-create indexes on FK columns, so parent updates/deletes and
 -- lookups by property would otherwise fall back to full scans).
+CREATE NONCLUSTERED INDEX [IX_PropertyCertificates_SocietyDetailId]
+    ON [PTIS].[PropertyCertificates] ([SocietyDetailId])
+    WHERE [SocietyDetailId] IS NOT NULL;
+GO
+CREATE NONCLUSTERED INDEX [IX_PropertyCertificates_WingDetailId]
+    ON [PTIS].[PropertyCertificates] ([WingDetailId])
+    WHERE [WingDetailId] IS NOT NULL;
+GO
 CREATE NONCLUSTERED INDEX [IX_PropertyCertificates_PropertyId]
-    ON [PTIS].[PropertyCertificates] ([PropertyId]);
+    ON [PTIS].[PropertyCertificates] ([PropertyId])
+    WHERE [PropertyId] IS NOT NULL;
 GO
 CREATE NONCLUSTERED INDEX [IX_PropertyCertificates_CertificateTypeId]
     ON [PTIS].[PropertyCertificates] ([CertificateTypeId]);
@@ -4008,6 +4095,7 @@ CREATE TABLE [PTIS].[PropertyPhotoType](
 	[PhotoTypeName] NVARCHAR(200)      NOT NULL,                      -- UI label | e.g. 'Front View'
 	[Description]   NVARCHAR(500)      NULL,                          -- Tooltip / help text | e.g. 'Front facade of the property'
 	[DisplayOrder]  INT                NULL,                          -- UI dropdown sort | e.g. 1
+	[PhotoScope] VARCHAR(30) NULL,
 	[IsActive]      BIT                NOT NULL                       -- Soft hide flag | e.g. 1
 		CONSTRAINT [DF_PropertyPhotoType_IsActive] DEFAULT (1),
 	[CreatedBy]     INT                NULL,                          -- Audit user | e.g. 42
@@ -4028,7 +4116,10 @@ GO
 
 CREATE TABLE [PTIS].[PropertyPhoto](
     [Id]                    INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,  -- Surrogate PK | e.g. 5001
-    [PropertyId]            INT               NOT NULL,                      -- FK → PTIS.PropertyMast.Id | e.g. 101
+    [EntityType]            CHAR(1)           NOT NULL,                      -- S = Society, W = Wing, P = Property | e.g. 'P'
+    [SocietyDetailId]       INT               NULL,                          -- FK → PTIS.SocietyDetailsMast.Id, set when EntityType = 'S'
+    [WingDetailId]          INT               NULL,                          -- FK → PTIS.WingDetailsMast.Id, set when EntityType = 'W'
+    [PropertyId]            INT               NULL,                          -- FK → PTIS.PropertyMast.Id, set when EntityType = 'P' | e.g. 101
     [PhotoTypeId]           INT               NOT NULL,                      -- FK → PropertyPhotoType.Id | e.g. 1 (FRONT)
     [DocumentBindingId]     INT               NULL,                          -- FK → CORE.DocumentBinding.Id | e.g. 7701
     [IsLatest]              BIT               NOT NULL                       -- 1=current, 0=superseded | e.g. 1
@@ -4045,10 +4136,24 @@ CREATE TABLE [PTIS].[PropertyPhoto](
         CONSTRAINT [DF_PropertyPhoto_CreatedDate] DEFAULT (GETDATE()),
     [UpdatedBy]             INT               NULL,                          -- Audit user | e.g. NULL
     [UpdatedDate]           DATETIME          NULL,                          -- Update ts | e.g. NULL
-    CONSTRAINT [PK_PropertyPhoto] PRIMARY KEY CLUSTERED ([Id] ASC)
+    CONSTRAINT [PK_PropertyPhoto] PRIMARY KEY CLUSTERED ([Id] ASC),
+
+    CONSTRAINT [CK_PropertyPhoto_EntityType]
+        CHECK ([EntityType] IN ('S', 'W', 'P')),
+
+    CONSTRAINT [CK_PropertyPhoto_EntityScope]
+        CHECK (
+            ([EntityType] = 'S' AND [SocietyDetailId] IS NOT NULL AND [WingDetailId] IS NULL AND [PropertyId] IS NULL) OR
+            ([EntityType] = 'W' AND [WingDetailId] IS NOT NULL AND [SocietyDetailId] IS NULL AND [PropertyId] IS NULL) OR
+            ([EntityType] = 'P' AND [PropertyId] IS NOT NULL AND [SocietyDetailId] IS NULL AND [WingDetailId] IS NULL)
+        )
 );
 GO
 
+ALTER TABLE [PTIS].[PropertyPhoto] WITH CHECK
+ADD CONSTRAINT [FK_PropertyPhoto_SocietyDetailsMast] FOREIGN KEY ([SocietyDetailId])  REFERENCES [PTIS].[SocietyDetailsMast]([Id]);
+ALTER TABLE [PTIS].[PropertyPhoto] WITH CHECK
+ADD CONSTRAINT [FK_PropertyPhoto_WingDetailsMast]    FOREIGN KEY ([WingDetailId])     REFERENCES [PTIS].[WingDetailsMast]([Id]);
 ALTER TABLE [PTIS].[PropertyPhoto] WITH CHECK
 ADD CONSTRAINT [FK_PropertyPhoto_PropertyMast]    FOREIGN KEY ([PropertyId])        REFERENCES [PTIS].[PropertyMast]([Id]);
 ALTER TABLE [PTIS].[PropertyPhoto] WITH CHECK
@@ -4058,8 +4163,8 @@ ADD CONSTRAINT [FK_PropertyPhoto_DocumentBinding] FOREIGN KEY ([DocumentBindingI
 GO
 
 -- Single unique index with INCLUDE clause - serves both uniqueness enforcement and query performance
-CREATE UNIQUE NONCLUSTERED INDEX [UX_PropertyPhoto_Latest_Per_Property_Type]
-	ON [PTIS].[PropertyPhoto]([PropertyId], [PhotoTypeId])
+CREATE UNIQUE NONCLUSTERED INDEX [UX_PropertyPhoto_Latest_Per_Entity_Type]
+	ON [PTIS].[PropertyPhoto]([EntityType], [SocietyDetailId], [WingDetailId], [PropertyId], [PhotoTypeId])
 	INCLUDE ([DocumentBindingId], [DisplayOrder], [IsLatest])
 	WHERE [IsLatest] = 1 AND [IsActive] = 1 AND [MarkedForDeletion] = 0;
 GO

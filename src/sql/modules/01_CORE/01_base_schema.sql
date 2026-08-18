@@ -307,7 +307,7 @@ CREATE TABLE [CORE].[YearMaster](
     [StartDate]   DATETIME NULL,
     [EndDate]     DATETIME NULL,
     [Description] NVARCHAR(500) NULL,
-    [IsActive]    BIT NOT NULL CONSTRAINT [DF_YearMaster_IsActive] DEFAULT (1),
+    [IsActive]    BIT NOT NULL CONSTRAINT [DF_YearMaster_IsActive] DEFAULT (0),
     [CreatedBy]   INT NULL,
     [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_YearMaster_CreatedDate] DEFAULT (GETDATE()),
     [UpdatedBy]   INT NULL,
@@ -317,6 +317,10 @@ CREATE TABLE [CORE].[YearMaster](
     CONSTRAINT [CK_YearMaster_DateRange]
         CHECK ([StartDate] IS NULL OR [EndDate] IS NULL OR [EndDate] >= [StartDate])
 );
+GO
+CREATE UNIQUE INDEX [UX_YearMaster_OnlyOneActive]
+ON [CORE].[YearMaster] ([IsActive])
+WHERE [IsActive] = 1;
 GO
 
 /* ===========================

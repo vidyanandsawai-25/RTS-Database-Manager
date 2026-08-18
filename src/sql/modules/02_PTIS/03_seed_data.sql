@@ -2462,21 +2462,6 @@ WHERE NOT EXISTS
 
 
 
-SET IDENTITY_INSERT [PTIS].[PartTypeMaster] ON;
-INSERT INTO [PTIS].[PartTypeMaster] ([Id], [PartType]) VALUES ('1','C');
-INSERT INTO [PTIS].[PartTypeMaster] ([Id], [PartType]) VALUES ('2','Government Property');
-INSERT INTO [PTIS].[PartTypeMaster] ([Id], [PartType]) VALUES ('3','Individual');
-INSERT INTO [PTIS].[PartTypeMaster] ([Id], [PartType]) VALUES ('4','Individual Chal');
-INSERT INTO [PTIS].[PartTypeMaster] ([Id], [PartType]) VALUES ('5','Individual Partition');
-INSERT INTO [PTIS].[PartTypeMaster] ([Id], [PartType]) VALUES ('6','Industry');
-INSERT INTO [PTIS].[PartTypeMaster] ([Id], [PartType]) VALUES ('7','IndustryL');
-INSERT INTO [PTIS].[PartTypeMaster] ([Id], [PartType]) VALUES ('8','Plot');
-INSERT INTO [PTIS].[PartTypeMaster] ([Id], [PartType]) VALUES ('9','R');
-INSERT INTO [PTIS].[PartTypeMaster] ([Id], [PartType]) VALUES ('10','RH');
-INSERT INTO [PTIS].[PartTypeMaster] ([Id], [PartType]) VALUES ('11','utilsub');
-INSERT INTO [PTIS].[PartTypeMaster] ([Id], [PartType]) VALUES ('13','Apartment');
-SET IDENTITY_INSERT [PTIS].[PartTypeMaster] OFF;
-
 
 
 SET IDENTITY_INSERT [PTIS].[SubFloorMaster] ON;
@@ -4577,7 +4562,7 @@ SET IDENTITY_INSERT [PTIS].[TaxCategoryMaster] ON;
 INSERT INTO [PTIS].[TaxCategoryMaster] ([Id], [CategoryCode], [CategoryName], [IsActive], [IsProtected], [CreatedBy])
 SELECT v.Id, v.CategoryCode, v.CategoryName, v.IsActive, v.IsProtected, v.CreatedBy
 FROM (VALUES
-    (1, 'TAX',  'Property Tax', 1, 1, 1),
+    (1, 'TAX',  'Tax', 1, 1, 1),
     (2, 'CESS', 'Cess', 1, 1, 1),
     (3, 'EDU',  'State Education Tax', 1, 1, 1),
     (4, 'EMP',  'State Employment Tax', 1, 1, 1),
