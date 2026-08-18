@@ -1295,15 +1295,9 @@ FOREIGN KEY([ConfigKeyId])
 REFERENCES [CORE].[ConfigKeyMaster] ([Id]);
 GO
 
-ALTER TABLE [CORE].[ConfigValueMaster] WITH CHECK ADD CONSTRAINT [FK_ConfigValueMaster_DepartmentMaster_DepartmentId]
-FOREIGN KEY([DepartmentId])
-REFERENCES [CORE].[DepartmentMaster] ([Id]);
-GO
+ 
 
-ALTER TABLE [CORE].[ConfigValueMaster] WITH CHECK ADD CONSTRAINT [FK_ConfigValueMaster_ModuleMaster_ModuleId]
-FOREIGN KEY([ModuleId])
-REFERENCES [CORE].[ModuleMaster] ([Id]);
-GO
+ 
 
 /* ===========================
    SourceTable
@@ -1352,4 +1346,75 @@ CREATE TABLE [CORE].[SourceTableDetails] (
     CONSTRAINT [UQ_SourceTableDetails_SourceTableId_FieldName] UNIQUE NONCLUSTERED ([SourceTableId] ASC, [FieldName] ASC), 
     CONSTRAINT [FK_SourceTableDetails_SourceTableId] FOREIGN KEY ([SourceTableId]) REFERENCES [CORE].[SourceTable] ([Id]) 
 );
+
+ALTER TABLE CORE.UserMaster
+        ADD TwoFactorRequired BIT NOT NULL CONSTRAINT DF_UserMaster_TwoFactorRequired DEFAULT (0),TwoFactorEnabled BIT NOT NULL CONSTRAINT DF_UserMaster_TwoFactorEnabled DEFAULT (0),
+	TwoFactorSecretEncrypted NVARCHAR(500) NULL,TwoFactorEnabledAt DATETIME NULL,SecurityStamp NVARCHAR(64) NULL,PasswordChangedAt DATETIME NULL,OtpChallengeFailCount INT NULL,OtpChallengeLockedUntilAt DATETIME NULL;
+
+         CREATE TABLE CORE.TwoFactorRecoveryCode
+    (
+        Id              INT IDENTITY(1,1)  NOT FOR REPLICATION NOT NULL,
+        UserId          INT                 NOT NULL,
+        CodeHash        NVARCHAR(255)       NOT NULL,
+        UsedAt          DATETIME           NULL,
+        RevokedAt       DATETIME           NULL,
+        CreatedBy       INT                 NULL,
+        CreatedDate     DATETIME           NULL,
+        UpdatedBy       INT                 NULL,
+        UpdatedDate     DATETIME           NULL,
+        CONSTRAINT PK_TwoFactorRecoveryCode PRIMARY KEY CLUSTERED (Id),
+        CONSTRAINT FK_TwoFactorRecoveryCode_UserMaster FOREIGN KEY (UserId)
+            REFERENCES CORE.UserMaster (Id)
+    );
+
+    CREATE INDEX IX_TwoFactorRecoveryCode_UserId_UsedAt_RevokedAt
+        ON CORE.TwoFactorRecoveryCode (UserId, UsedAt, RevokedAt);
+
+        CREATE TABLE CORE.TwoFactorChallenge
+    (
+        Id                  UNIQUEIDENTIFIER    NOT NULL,
+        ChallengeHash       NVARCHAR(64)        NOT NULL,
+        UserId              INT                 NOT NULL,
+        Purpose             NVARCHAR(50)        NOT NULL,
+        CreatedAt           DATETIME           NOT NULL,
+        ExpiresAt           DATETIME           NOT NULL,
+        FailedAttemptCount  INT                 NOT NULL CONSTRAINT DF_TwoFactorChallenge_FailedAttemptCount DEFAULT (0),
+        ConsumedAt          DATETIME           NULL,
+        RevokedAt           DATETIME           NULL,
+        IpAddress           NVARCHAR(45)        NULL,
+        UserAgent           NVARCHAR(500)       NULL,
+        CONSTRAINT PK_TwoFactorChallenge PRIMARY KEY CLUSTERED (Id),
+        CONSTRAINT FK_TwoFactorChallenge_UserMaster FOREIGN KEY (UserId)
+            REFERENCES CORE.UserMaster (Id)
+    );
+
+    CREATE UNIQUE INDEX IX_TwoFactorChallenge_ChallengeHash
+        ON CORE.TwoFactorChallenge (ChallengeHash);
+
+    CREATE INDEX IX_TwoFactorChallenge_UserId
+        ON CORE.TwoFactorChallenge (UserId);
+
+    -- Supports the periodic cleanup task that purges expired/resolved challenges.
+    CREATE INDEX IX_TwoFactorChallenge_ExpiresAt
+        ON CORE.TwoFactorChallenge (ExpiresAt);
+
+          CREATE TABLE CORE.SecurityAuditLog
+    (   
+        Id              INT IDENTITY(1,1)  NOT FOR REPLICATION NOT NULL,
+        EventType       NVARCHAR(100)          NOT NULL,
+        UserId          INT                    NULL,
+        Success         BIT                    NOT NULL,
+        CorrelationId   NVARCHAR(100)          NULL,
+        IpAddress       NVARCHAR(45)           NULL,
+        UserAgent       NVARCHAR(500)          NULL,
+        Detail          NVARCHAR(200)          NULL,
+        CreatedAt       DATETIME              NOT NULL,
+        CONSTRAINT PK_SecurityAuditLog PRIMARY KEY CLUSTERED (Id)
+        -- Intentionally no FK to UserMaster: audit rows must remain even if the user is later
+        -- hard-deleted by the cleanup task.
+    );
+
+    CREATE INDEX IX_SecurityAuditLog_UserId ON CORE.SecurityAuditLog (UserId);
+    CREATE INDEX IX_SecurityAuditLog_EventType ON CORE.SecurityAuditLog (EventType);
+    CREATE INDEX IX_SecurityAuditLog_CreatedAt ON CORE.SecurityAuditLog (CreatedAt);
 
