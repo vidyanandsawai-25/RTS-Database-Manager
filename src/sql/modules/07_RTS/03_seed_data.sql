@@ -1861,3 +1861,81 @@ BEGIN
     );
 END;
 GO
+
+/* ============================================================================
+   RTS / Core SMS Gateway Configuration & Unified Dynamic Templates Seed
+   ============================================================================ */
+
+-- 1. SMS Gateway Provider
+IF NOT EXISTS (SELECT 1 FROM [CORE].[SMSGatewayMaster] WHERE [ProviderName] LIKE '%Akola%')
+BEGIN
+    INSERT INTO [CORE].[SMSGatewayMaster] ([ProviderName], [IsActive], [CreatedBy], [CreatedDate])
+    VALUES ('Akola Municipal Corporation SMS Gateway', 1, 1, GETDATE());
+END;
+GO
+
+DECLARE @SmsGatewayId INT = (SELECT TOP 1 [SMSGatewayMasterID] FROM [CORE].[SMSGatewayMaster] WHERE [IsActive] = 1 ORDER BY [SMSGatewayMasterID]);
+
+-- 2. SMS Gateway Parameter Details
+IF @SmsGatewayId IS NOT NULL AND NOT EXISTS (SELECT 1 FROM [CORE].[SmsGatewayDetails] WHERE [SMSGatewayMasterID] = @SmsGatewayId)
+BEGIN
+    INSERT INTO [CORE].[SmsGatewayDetails]
+        ([SMSGatewayMasterID], [PropertyName], [Value], [SequenceNo], [IsURL], [IsMessage], [IsMobile], [IsTemplateID], [IsUnicode], [IsActive], [CreatedBy], [CreatedDate])
+    VALUES
+        (@SmsGatewayId, 'BaseURL',   'http://sms.ptaxcollection.com/sendsms.jsp', 1, 1, 0, 0, 0, 0, 1, 1, GETDATE()),
+        (@SmsGatewayId, 'user',      'payakl',                                    2, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
+        (@SmsGatewayId, 'password',  'fb05b4a701XX',                              3, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
+        (@SmsGatewayId, 'senderid',  'AKOLMC',                                    4, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
+        (@SmsGatewayId, 'mobiles',   '',                                          5, 0, 0, 1, 0, 0, 1, 1, GETDATE()),
+        (@SmsGatewayId, 'sms',       '',                                          6, 0, 1, 0, 0, 0, 1, 1, GETDATE()),
+        (@SmsGatewayId, 'tempid',    '1707175319753583565',                       7, 0, 0, 0, 1, 0, 1, 1, GETDATE()),
+        (@SmsGatewayId, 'unicode',   '0',                                         8, 0, 0, 0, 0, 1, 1, 1, GETDATE());
+END;
+GO
+
+-- 3. SMS Types
+MERGE INTO [CORE].[SMSType] AS Target
+USING (VALUES
+    (1, 'OTP',                            'One Time Password for citizen login/verification'),
+    (2, 'Online Fee Paid',                'Receipt notification for online fee payments'),
+    (3, 'RTS Application Status Update',  'Unified status update notification for all RTS workflow steps')
+) AS Source ([SMSTypeID], [TypeName], [Description])
+ON Target.[TypeName] = Source.[TypeName]
+WHEN MATCHED THEN
+    UPDATE SET Target.[Description] = Source.[Description], Target.[IsActive] = 1
+WHEN NOT MATCHED THEN
+    INSERT ([TypeName], [Description], [IsActive])
+    VALUES (Source.[TypeName], Source.[Description], 1);
+GO
+
+-- 4. Unified Dynamic Templates in SMSMaster
+DECLARE @GatewayId INT = (SELECT TOP 1 [SMSGatewayMasterID] FROM [CORE].[SMSGatewayMaster] WHERE [IsActive] = 1 ORDER BY [SMSGatewayMasterID]);
+DECLARE @OtpTypeId INT = (SELECT TOP 1 [SMSTypeID] FROM [CORE].[SMSType] WHERE [TypeName] = 'OTP');
+DECLARE @StatusUpdateTypeId INT = (SELECT TOP 1 [SMSTypeID] FROM [CORE].[SMSType] WHERE [TypeName] = 'RTS Application Status Update');
+DECLARE @FeePaidTypeId INT = (SELECT TOP 1 [SMSTypeID] FROM [CORE].[SMSType] WHERE [TypeName] = 'Online Fee Paid');
+
+IF @GatewayId IS NOT NULL
+BEGIN
+    -- OTP Template
+    IF NOT EXISTS (SELECT 1 FROM [CORE].[SMSMaster] WHERE [TemplateName] = 'RTS_CITIZEN_LOGIN_OTP')
+    BEGIN
+        INSERT INTO [CORE].[SMSMaster] ([SMSGatewayMasterID], [SMSTypeID], [TemplateName], [TemplateID], [SmsText], [IsActive], [CreatedBy], [CreatedDate])
+        VALUES (@GatewayId, ISNULL(@OtpTypeId, 1), 'RTS_CITIZEN_LOGIN_OTP', '1707175319753583565', 'Your RTS Citizen Portal login OTP is {Otp}. Please do not share this OTP with anyone. - {CorporationName}', 1, 1, GETDATE());
+    END;
+
+    -- Unified Dynamic Application Status Template (Used on all actions: submit, forward, approve, reject, revert)
+    IF NOT EXISTS (SELECT 1 FROM [CORE].[SMSMaster] WHERE [TemplateName] = 'RTS_APP_STATUS_UPDATE')
+    BEGIN
+        INSERT INTO [CORE].[SMSMaster] ([SMSGatewayMasterID], [SMSTypeID], [TemplateName], [TemplateID], [SmsText], [IsActive], [CreatedBy], [CreatedDate])
+        VALUES (@GatewayId, ISNULL(@StatusUpdateTypeId, 3), 'RTS_APP_STATUS_UPDATE', '1707175319753583566', 'Dear {CitizenName}, your RTS Application No: {ApplicationNo} for {ServiceName} is currently {Status}. Track status: {TrackingUrl} - {CorporationName}', 1, 1, GETDATE());
+    END;
+
+    -- Online Payment Receipt Template
+    IF NOT EXISTS (SELECT 1 FROM [CORE].[SMSMaster] WHERE [TemplateName] = 'RTS_FEE_PAID')
+    BEGIN
+        INSERT INTO [CORE].[SMSMaster] ([SMSGatewayMasterID], [SMSTypeID], [TemplateName], [TemplateID], [SmsText], [IsActive], [CreatedBy], [CreatedDate])
+        VALUES (@GatewayId, ISNULL(@FeePaidTypeId, 2), 'RTS_FEE_PAID', '1707175319753583568', 'Dear {CitizenName}, payment of Rs.{Amount} for RTS Application No: {ApplicationNo} is successful. Receipt No: {ReceiptNo}. Download receipt: {ReceiptUrl} - {CorporationName}', 1, 1, GETDATE());
+    END;
+END;
+GO
+
