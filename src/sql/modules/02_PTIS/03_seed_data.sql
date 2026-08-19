@@ -4574,35 +4574,48 @@ WHERE NOT EXISTS (
 );
 SET IDENTITY_INSERT [PTIS].[TaxCategoryMaster] OFF;
 GO
-SET IDENTITY_INSERT [PTIS].[TaxMaster] ON;
-INSERT INTO [PTIS].[TaxMaster] ([Id], [TaxCode], [TaxName], [TaxCategoryId], [DisplayOrder], [IsActive], [AssessmentStatus], [OldTaxStatus], [IsProtected])
-SELECT v.Id, v.TaxCode, v.TaxName, c.Id, v.DisplayOrder, v.IsActive, v.AssessmentStatus, v.OldTaxStatus, v.IsProtected
-FROM (VALUES
-    (1, 'GEN',  'General Tax',              'TAX',  1, 1, 1, 1, 1),
-    (2, 'STATE_EDU', 'State Education Tax','EDU',  2, 1, 1, 1, 1),
-    (3, 'STATE_EMP', 'State Employment Tax','EMP', 3, 1, 1, 1, 1),
-    (4, 'TREE', 'Tree Cess',               'CESS', 4, 1, 1, 1, 1),
-    (5, 'SP_WATER', 'Special Water Cess',  'CESS', 5, 1, 1, 1, 1),
-    (6, 'ROAD', 'Road Cess',               'CESS', 6, 1, 1, 1, 1),
-    (7, 'FIRE', 'Fire Cess',               'CESS', 7, 1, 1, 1, 1),
-    (8, 'LIGHT', 'Light Cess',             'CESS', 8, 1, 1, 1, 1),
-    (9, 'WATER_BEN', 'Water Benefit Cess', 'CESS', 9, 1, 1, 1, 1),
-    (10, 'SEWAGE', 'Sewage Disposal Cess',  'CESS', 10, 1, 1, 1, 1),
-    (11, 'SP_EDU', 'Special Education Tax', 'EDU',  11, 1, 1, 1, 1),
-    (12, 'SANITATION', 'Sanitation Cess',   'CESS', 12, 0, 0, 0, 1),
-    (13, 'DRAIN', 'Drain Cess',             'CESS', 13, 0, 0, 0, 1),
-    (14, 'WATER_BILL', 'Water Bill',        'USER', 14, 0, 0, 0, 1),
-    (15, 'BIG_BUILD', 'Big Building',       'TAX',  15, 0, 0, 0, 1),
-    (16, 'ILLEGAL', 'Illegal Construction Penalty','PENALTY',16, 0, 0, 0, 1),
-    (17, 'USER', 'User Charges',            'USER', 17, 0, 0, 0, 1),
-    (18, 'SERVICE', 'Service Tax',          'TAX',  18, 0, 0, 0, 1),
-    (19, 'OLD PENALTY', 'Old Penalty of ULB', 'PENALTY',  19, 0, 0, 0, 1),
-    (20, 'PENALTY', 'Run Time Penalty', 'PENALTY',  20, 0, 0, 0, 1),
-    (21, 'TAXTOTAL', 'Tax Total', 'TAXTOTAL', 21, 1, 1, 1, 1),
-    (22, 'NETTOTAL', 'Net Total', 'NETTOTAL', 22, 0, 0, 0, 1),
-    (23, 'DISCOUNT', 'Discount', 'DISCOUNT', 23, 0, 0, 0, 1)
-) v(Id, TaxCode, TaxName, CategoryCode, DisplayOrder, IsActive, AssessmentStatus, OldTaxStatus, IsProtected)
 
+SET IDENTITY_INSERT [PTIS].[TaxCalculationModeMaster] ON;
+INSERT INTO [PTIS].[TaxCalculationModeMaster] ([Id],[ModeCode],[ModeName],[DisplayOrder],[UsesValueConfig],[UsesConditionConfig],[UsesMasterConfig],[UsesHybridConfig],[CreatedDate],[UpdatedDate],[CreatedBy],[UpdatedBy],[IsActive])
+VALUES
+    (1,'VALUE_BASED',     'Value Based',     1, 1, 0, 0, 0, GETDATE(), NULL, 1, NULL, 1),
+    (2,'CONDITION_BASED', 'Condition Based', 2, 0, 1, 0, 0, GETDATE(), NULL, 1, NULL, 1),
+    (3,'MASTER_BASED',    'Master Based',    3, 0, 0, 1, 0, GETDATE(), NULL, 1, NULL, 1),
+    (4,'HYBRID',          'Hybrid',          4, 0, 1, 1, 1, GETDATE(), NULL, 1, NULL, 1)
+GO
+SET IDENTITY_INSERT [PTIS].[TaxCalculationModeMaster] OFF;
+GO
+
+
+SET IDENTITY_INSERT [PTIS].[TaxMaster] ON;
+
+INSERT INTO [PTIS].[TaxMaster] ([Id], [TaxCode], [TaxName], [TaxCategoryId], [DisplayOrder], [IsActive], [AssessmentStatus], [OldTaxStatus], [IsProtected], [CalculationModeId])
+SELECT v.Id, v.TaxCode, v.TaxName, c.Id, v.DisplayOrder, v.IsActive, v.AssessmentStatus, v.OldTaxStatus, v.IsProtected, v.CalculationModeId
+FROM (VALUES
+    (1, 'GEN',  'General Tax',              'TAX',  1, 1, 1, 1, 1, 1),
+    (2, 'STATE_EDU', 'State Education Tax','EDU',  2, 1, 1, 1, 1, 1),
+    (3, 'STATE_EMP', 'State Employment Tax','EMP', 3, 1, 1, 1, 1, 1),
+    (4, 'TREE', 'Tree Cess',               'CESS', 4, 1, 1, 1, 1, 1),
+    (5, 'SP_WATER', 'Special Water Cess',  'CESS', 5, 1, 1, 1, 1, 1),
+    (6, 'ROAD', 'Road Cess',               'CESS', 6, 1, 1, 1, 1, 1),
+    (7, 'FIRE', 'Fire Cess',               'CESS', 7, 1, 1, 1, 1, 1),
+    (8, 'LIGHT', 'Light Cess',             'CESS', 8, 1, 1, 1, 1, 1),
+    (9, 'WATER_BEN', 'Water Benefit Cess', 'CESS', 9, 1, 1, 1, 1, 1),
+    (10, 'SEWAGE', 'Sewage Disposal Cess',  'CESS', 10, 1, 1, 1, 1, 1),
+    (11, 'SP_EDU', 'Special Education Tax', 'EDU',  11, 1, 1, 1, 1, 1),
+    (12, 'SANITATION', 'Sanitation Cess',   'CESS', 12, 0, 0, 0, 1, 1),
+    (13, 'DRAIN', 'Drain Cess',             'CESS', 13, 0, 0, 0, 1, 1),
+    (14, 'WATER_BILL', 'Water Bill',        'USER', 14, 0, 0, 0, 1, 1),
+    (15, 'BIG_BUILD', 'Big Building',       'TAX',  15, 0, 0, 0, 1, 1),
+    (16, 'ILLEGAL', 'Illegal Construction Penalty','PENALTY',16, 0, 0, 0, 1, 1),
+    (17, 'USER', 'User Charges',            'USER', 17, 0, 0, 0, 1, 1),
+    (18, 'SERVICE', 'Service Tax',          'TAX',  18, 0, 0, 0, 1, 1),
+    (19, 'OLD PENALTY', 'Old Penalty of ULB', 'PENALTY',  19, 0, 0, 0, 1, 1),
+    (20, 'PENALTY', 'Run Time Penalty', 'PENALTY',  20, 0, 0, 0, 1, 1),
+    (21, 'TAXTOTAL', 'Tax Total', 'TAXTOTAL', 21, 1, 1, 1, 1, 1),
+    (22, 'NETTOTAL', 'Net Total', 'NETTOTAL', 22, 0, 0, 0, 1, 1),
+    (23, 'DISCOUNT', 'Discount', 'DISCOUNT', 23, 0, 0, 0, 1, 1)
+) v(Id, TaxCode, TaxName, CategoryCode, DisplayOrder, IsActive, AssessmentStatus, OldTaxStatus, IsProtected, CalculationModeId)
 JOIN PTIS.TaxCategoryMaster c ON c.CategoryCode = v.CategoryCode
 WHERE NOT EXISTS (
     SELECT 1 FROM PTIS.TaxMaster t WHERE t.Id = v.Id
@@ -4733,6 +4746,9 @@ GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeMaster] WHERE [RuleScope] = N'Property Level')
     INSERT [PTIS].[RuleScopeMaster] ([Id], [RuleScope], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1, N'Property Level', 1, 1, CAST(N'2026-05-04T15:43:57.587' AS DateTime), 0, CAST(N'2026-05-04T15:44:33.573' AS DateTime))
 GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeMaster] WHERE [RuleScope] = N'DynamicTaxRegisterCondition')
+    INSERT [PTIS].[RuleScopeMaster] ([Id], [RuleScope], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2, N'DynamicTaxRegisterCondition', 1, 1, CAST(N'2026-05-04T15:43:57.587' AS DateTime), 0, CAST(N'2026-05-04T15:44:33.573' AS DateTime))
+GO
 SET IDENTITY_INSERT [PTIS].[RuleScopeMaster] OFF
 GO
 
@@ -4803,6 +4819,16 @@ IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Tot
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Tax Liability')
     INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (3013, N'Tax Liability', N'String', 1, 1, CAST(N'2026-07-06T12:31:02.063' AS DateTime), NULL, NULL, N'TaxLiability')
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Rateable Value')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (3014, N'Rateable Value', N'Int', 1, 1, CAST(N'2026-07-06T12:31:02.063' AS DateTime), NULL, NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Toilet Count')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (3015, N'Toilet Count', N'Int', 1, 1, CAST(N'2026-07-06T12:31:02.063' AS DateTime), NULL, NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Road Width')
+    INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (3016, N'Road Width', N'Int', 1, 1, CAST(N'2026-07-06T12:31:02.063' AS DateTime), NULL, NULL, NULL)
 GO
 SET IDENTITY_INSERT [PTIS].[RulesFieldMaster] OFF
 GO
@@ -5085,6 +5111,90 @@ IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] 
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 3013)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (22, 1, 3013, 3013, 1, 1, CAST(N'2026-07-06T12:33:19.597' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 3014)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (23, 1, 3014, 3014, 1, 1, CAST(N'2026-07-06T12:33:19.597' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 3015)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (24, 1, 3015, 3015, 1, 1, CAST(N'2026-07-06T12:33:19.597' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 3016)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (25, 1, 3016, 3016, 1, 1, CAST(N'2026-07-06T12:33:19.597' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 1)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (26, 2, 1, 1, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+GO                                                                                                                                                                             
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 2)                                                                    
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (27, 2, 2, 2, 1, 1, CAST(N'2026-05-18T11:30:10.320' AS DateTime), NULL, NULL)
+GO                                                                                                                                                                             
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 3)                                                                    
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (28, 2, 3, 3, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+GO                                                                                                                                                                             
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 4)                                                                    
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (29, 2, 4, 4, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+GO                                                                                                                                                                             
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 5)                                                                    
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (30, 2, 5, 5, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+GO                                                                                                                                                                             
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 6)                                                                    
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (31, 2, 6, 6, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+GO                                                                                                                                                                             
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 7)                                                                    
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (32, 2, 7, 7, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+GO                                                                                                                                                                             
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 8)                                                                    
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (33, 2, 8, 8, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+GO                                                                                                                                                                             
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 9)                                                                    
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (34, 2, 9, 9, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 10)
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (35, 2, 10, 10, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
+GO                                                                                                                                                                              
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 11)                                                                    
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (36, 2, 11, 11, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+GO                                                                                                                                                                              
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 13)                                                                    
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (37, 2, 13, 13, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+GO                                                                                                                                                                              
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 14)                                                                    
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (38, 2, 14, 14, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+GO                                                                                                                                                                              
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 15)                                                                    
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (39, 2, 15, 15, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+GO                                                                                                                                                                              
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 16)                                                                    
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (40, 2, 16, 16, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+GO                                                                                                                                                                              
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 17)                                                                    
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (41, 2, 17, 17, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+GO                                                                                                                                                                              
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 18)                                                                    
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (42, 2, 18, 18, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+GO                                                                                                                                                                              
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 19)                                                                    
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (43, 2, 19, 19, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
+GO                                                                                                                                                                              
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 1011)                                                                  
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (44, 2, 1011, 1011, 1, 1, CAST(N'2026-06-09T12:42:27.143' AS DateTime), NULL, NULL)
+GO                                                                                                                                                                              
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 1013)                                                                  
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (45, 2, 1013, 1013, 1, 1, CAST(N'2026-06-17T15:24:15.270' AS DateTime), NULL, NULL)
+GO                                                                                                                                                                              
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 2013)                                                                  
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (46, 2, 2013, 2013, 1, 1, CAST(N'2026-06-19T18:41:24.770' AS DateTime), NULL, NULL)
+GO                                                                                                                                                                              
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 3013)                                                                  
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (47, 2, 3013, 3013, 1, 1, CAST(N'2026-07-06T12:33:19.597' AS DateTime), NULL, NULL)
+GO                                                                                                                                                                              
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 3014)                                                                  
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (48, 2, 3014, 3014, 1, 1, CAST(N'2026-07-06T12:33:19.597' AS DateTime), NULL, NULL)
+GO                                                                                                                                                                              
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 3015)                                                                  
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (49, 2, 3015, 3015, 1, 1, CAST(N'2026-07-06T12:33:19.597' AS DateTime), NULL, NULL)
+GO                                                                                                                                                                              
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 3016)                                                                  
+    INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (50, 2, 3016, 3016, 1, 1, CAST(N'2026-07-06T12:33:19.597' AS DateTime), NULL, NULL)
 GO
 SET IDENTITY_INSERT [PTIS].[RuleScopeFieldMapping] OFF
 GO

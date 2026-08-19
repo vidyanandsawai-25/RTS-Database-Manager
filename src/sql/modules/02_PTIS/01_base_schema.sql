@@ -1106,6 +1106,44 @@ CREATE TABLE PTIS.TaxCategoryMaster (
 
 GO
 
+CREATE TABLE [PTIS].[TaxCalculationModeMaster] (
+    [Id]                  INT            IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [ModeCode]            VARCHAR(20)   NOT NULL,
+    [ModeName]            VARCHAR(100)  NOT NULL,
+    [DisplayOrder]        INT            NOT NULL CONSTRAINT [DF_TaxCalculationModeMaster_DisplayOrder]        DEFAULT (0),
+    [UsesValueConfig]     BIT            NOT NULL CONSTRAINT [DF_TaxCalculationModeMaster_UsesValueConfig]     DEFAULT (0),
+    [UsesConditionConfig] BIT            NOT NULL CONSTRAINT [DF_TaxCalculationModeMaster_UsesConditionConfig] DEFAULT (0),
+    [UsesMasterConfig]    BIT            NOT NULL CONSTRAINT [DF_TaxCalculationModeMaster_UsesMasterConfig]    DEFAULT (0),
+    [UsesHybridConfig]    BIT            NOT NULL CONSTRAINT [DF_TaxCalculationModeMaster_UsesHybridConfig]    DEFAULT (0),
+    [IsActive]            BIT            NOT NULL CONSTRAINT [DF_TaxCalculationModeMaster_IsActive]            DEFAULT (1),
+    [CreatedBy]           INT            NULL,
+    [CreatedDate]         DATETIME       NULL CONSTRAINT [DF_TaxCalculationModeMaster_CreatedDate]             DEFAULT (GETDATE()),
+    [UpdatedBy]           INT            NULL,
+    [UpdatedDate]         DATETIME       NULL,
+    CONSTRAINT [PK_TaxCalculationModeMaster] PRIMARY KEY CLUSTERED ([Id])
+);
+CREATE UNIQUE INDEX [UQ_TaxCalculationModeMaster_ModeCode]
+    ON [PTIS].[TaxCalculationModeMaster] ([ModeCode]);
+GO
+
+CREATE TABLE [PTIS].[DynamicTaxRuleMaster] (
+    [Id]                INT            IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [DisplayName]       NVARCHAR(200)  NOT NULL,
+    [RuleType]          VARCHAR(20)   NOT NULL,
+    [AttachedReference] VARCHAR(200)  NULL,
+    [SortOrder]         INT            NOT NULL CONSTRAINT [DF_DynamicTaxRuleMaster_SortOrder] DEFAULT (0),
+    [Description]       NVARCHAR(MAX)  NULL,
+    [IsActive]          BIT            NOT NULL CONSTRAINT [DF_DynamicTaxRuleMaster_IsActive]  DEFAULT (1),
+    [CreatedBy]         INT            NULL,
+    [CreatedDate]       DATETIME       NULL CONSTRAINT [DF_DynamicTaxRuleMaster_CreatedDate]   DEFAULT (GETDATE()),
+    [UpdatedBy]         INT            NULL,
+    [UpdatedDate]       DATETIME       NULL,
+    CONSTRAINT [PK_DynamicTaxRuleMaster] PRIMARY KEY CLUSTERED ([Id])
+);
+CREATE UNIQUE INDEX [UQ_DynamicTaxRuleMaster_DisplayName]
+    ON [PTIS].[DynamicTaxRuleMaster] ([DisplayName]);
+GO
+
 CREATE TABLE PTIS.TaxMaster (
     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [TaxCode] NVARCHAR(20) NOT NULL,
@@ -1116,6 +1154,8 @@ CREATE TABLE PTIS.TaxMaster (
     [TaxOnUnit] [bit] NOT NULL CONSTRAINT [DF_TaxMaster_TaxOnUnit] DEFAULT (0),
 	[AssessmentStatus] [bit] NOT NULL CONSTRAINT [DF_TaxMaster_AssessmentStatus] DEFAULT (1),
 	[OldTaxStatus] [bit] NOT NULL CONSTRAINT [DF_TaxMaster_OldTaxStatus] DEFAULT (1),
+	[CalculationModeId] [int] NOT NULL,
+	[RuleDefinitionId] INT NULL,
     [IsActive] [bit] NOT NULL CONSTRAINT [DF_TaxMaster_IsActive] DEFAULT (1),
     [IsProtected] [bit] NOT NULL CONSTRAINT [DF_TaxMaster_IsProtected] DEFAULT (0),
     [CreatedBy] [int] NULL,
@@ -1127,9 +1167,83 @@ CREATE TABLE PTIS.TaxMaster (
 	CONSTRAINT [UQ_TaxMaster_TaxCode] UNIQUE ([TaxCode]),
 	CONSTRAINT [UQ_TaxMaster_TaxName] UNIQUE ([TaxName]),
     CONSTRAINT [FK_TaxMaster_Category] FOREIGN KEY ([TaxCategoryId])
-    REFERENCES PTIS.TaxCategoryMaster([Id])
+    REFERENCES PTIS.TaxCategoryMaster([Id]),
+	CONSTRAINT [FK_TaxMaster_TaxCalculationModeMaster] FOREIGN KEY ([CalculationModeId])
+	REFERENCES [PTIS].[TaxCalculationModeMaster] ([Id]),
+	CONSTRAINT [FK_TaxMaster_DynamicTaxRuleMaster] FOREIGN KEY ([RuleDefinitionId]) 
+	REFERENCES [PTIS].[DynamicTaxRuleMaster] ([Id])
 );
+GO
 
+CREATE TABLE [PTIS].[TaxMasterMapping] (
+    [Id]                    INT            IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [TaxId]                 INT            NOT NULL,
+    [MasterKey]             VARCHAR(50)   NOT NULL,
+    [DisplayValue]          NVARCHAR(200)  NULL,
+    [AssessmentYearRangeId] INT            NOT NULL,
+    [ResultMode]            VARCHAR(10)   NOT NULL CONSTRAINT [DF_TaxMasterMapping_ResultMode]  DEFAULT ('FIXED'),
+    [ResultBase]            VARCHAR(10)   NOT NULL CONSTRAINT [DF_TaxMasterMapping_ResultBase]  DEFAULT ('NONE'),
+    [ResultValue]           DECIMAL(18,2)  NULL     CONSTRAINT [DF_TaxMasterMapping_ResultValue] DEFAULT (0),
+    [IsActive]              BIT            NOT NULL CONSTRAINT [DF_TaxMasterMapping_IsActive]    DEFAULT (1),
+    [CreatedBy]             INT            NULL,
+    [CreatedDate]           DATETIME       NULL CONSTRAINT [DF_TaxMasterMapping_CreatedDate]     DEFAULT (GETDATE()),
+    [UpdatedBy]             INT            NULL,
+    [UpdatedDate]           DATETIME       NULL,
+    CONSTRAINT [PK_TaxMasterMapping] PRIMARY KEY CLUSTERED ([Id]),
+    CONSTRAINT [FK_TaxMasterMapping_TaxMaster]
+        FOREIGN KEY ([TaxId]) REFERENCES [PTIS].[TaxMaster] ([Id]) ON DELETE NO ACTION
+);
+CREATE UNIQUE INDEX [UQ_TaxMasterMapping_Tax_Year_Key]
+    ON [PTIS].[TaxMasterMapping] ([TaxId], [AssessmentYearRangeId], [MasterKey]);
+GO
+
+CREATE TABLE [PTIS].[TaxConditionRule] (
+    [Id]                    INT            IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [TaxId]                 INT            NOT NULL,
+    [SortOrder]             INT            NOT NULL CONSTRAINT [DF_TaxConditionRule_SortOrder]   DEFAULT (0),
+    [ConditionsJson]        NVARCHAR(MAX)  NOT NULL,
+    [AssessmentYearRangeId] INT            NULL,
+    [ResultMode]            VARCHAR(10)   NOT NULL CONSTRAINT [DF_TaxConditionRule_ResultMode]  DEFAULT ('FIXED'),
+    [ResultBase]            VARCHAR(10)   NOT NULL CONSTRAINT [DF_TaxConditionRule_ResultBase]  DEFAULT ('NONE'),
+    [ResultValue]           DECIMAL(18,2)  NULL     CONSTRAINT [DF_TaxConditionRule_ResultValue] DEFAULT (0),
+    [ReferenceTaxId]        INT            NULL,
+    [UnitFieldId]           VARCHAR(100)  NULL,
+    [StopFurtherProcessing] BIT            NOT NULL CONSTRAINT [DF_TaxConditionRule_StopFurtherProcessing] DEFAULT (0),
+    [IsBuildingBased]       BIT            NOT NULL CONSTRAINT [DF_TaxConditionRule_IsBuildingBased]       DEFAULT (0),
+    [IsActive]              BIT            NOT NULL CONSTRAINT [DF_TaxConditionRule_IsActive]              DEFAULT (1),
+    [CreatedBy]             INT            NULL,
+    [CreatedDate]           DATETIME       NULL CONSTRAINT [DF_TaxConditionRule_CreatedDate]               DEFAULT (GETDATE()),
+    [UpdatedBy]             INT            NULL,
+    [UpdatedDate]           DATETIME       NULL,
+    CONSTRAINT [PK_TaxConditionRule] PRIMARY KEY CLUSTERED ([Id]),
+    CONSTRAINT [FK_TaxConditionRule_TaxMaster]
+        FOREIGN KEY ([TaxId]) REFERENCES [PTIS].[TaxMaster] ([Id]) ON DELETE NO ACTION,
+    CONSTRAINT [FK_TaxConditionRule_TaxMaster_ReferenceTaxId]
+        FOREIGN KEY ([ReferenceTaxId]) REFERENCES [PTIS].[TaxMaster] ([Id]) ON DELETE NO ACTION
+);
+CREATE INDEX [IX_TaxConditionRule_Tax_SortOrder]
+    ON [PTIS].[TaxConditionRule] ([TaxId], [SortOrder]);
+CREATE INDEX [IX_TaxConditionRule_ReferenceTaxId]
+        ON [PTIS].[TaxConditionRule] ([ReferenceTaxId]);
+GO
+
+CREATE TABLE [PTIS].[TaxHybridConfig] (
+    [Id]                 INT           IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [TaxId]              INT           NOT NULL,
+    [EvaluationPriority] VARCHAR(30)  NOT NULL CONSTRAINT [DF_TaxHybridConfig_EvaluationPriority] DEFAULT ('MASTER_THEN_CONDITION'),
+    [FallbackStrategy]   VARCHAR(20)  NOT NULL CONSTRAINT [DF_TaxHybridConfig_FallbackStrategy]   DEFAULT ('DEFAULT_ZERO'),
+    [ResultBase]         VARCHAR(10)  NOT NULL CONSTRAINT [DF_TaxHybridConfig_ResultBase]         DEFAULT ('NONE'),
+    [IsActive]           BIT           NOT NULL CONSTRAINT [DF_TaxHybridConfig_IsActive]           DEFAULT (1),
+    [CreatedBy]          INT           NULL,
+    [CreatedDate]        DATETIME      NULL CONSTRAINT [DF_TaxHybridConfig_CreatedDate]            DEFAULT (GETDATE()),
+    [UpdatedBy]          INT           NULL,
+    [UpdatedDate]        DATETIME      NULL,
+    CONSTRAINT [PK_TaxHybridConfig] PRIMARY KEY CLUSTERED ([Id]),
+    CONSTRAINT [FK_TaxHybridConfig_TaxMaster] FOREIGN KEY ([TaxId]) 
+	REFERENCES [PTIS].[TaxMaster] ([Id]) ON DELETE NO ACTION
+);
+CREATE UNIQUE INDEX [UQ_TaxHybridConfig_TaxId]
+    ON [PTIS].[TaxHybridConfig] ([TaxId]);
 GO
 
 /****** Object:  Table [PTIS].[AgeFactorCVMaster]******/
@@ -1346,6 +1460,7 @@ CREATE TABLE PTIS.TaxPercentageMasterRV (
 		[TypeOfUseId] INT NOT NULL,
 		[YearRangeRVId] INT NOT NULL,
 		[TaxPercentage] DECIMAL(10,4) NOT NULL,
+		[BaseType] VARCHAR(10) NOT NULL CONSTRAINT [DF_TaxPercentageMasterRV_BaseType] DEFAULT ('RV'),
 		[IsActive] BIT NOT NULL CONSTRAINT DF_TaxPercentageMasterRV_IsActive DEFAULT (1),
 		[CreatedBy] INT NULL,
 		[CreatedDate] DATETIME NOT NULL CONSTRAINT DF_TaxPercentageMasterRV_CreatedDate DEFAULT (GETDATE()),
