@@ -137,7 +137,7 @@ VALUES
     (7, 1, 'tempid',    '1777178712043664592',                       7, 0, 0, 0, 1, 0, 1, 1, GETDATE()),
     (8, 1, 'unicode',   '0',                                         8, 0, 0, 0, 0, 1, 1, 1, GETDATE()),
     (9, 1, 'accusage',  '1',                                         9, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
-    (10, 1, 'entityid', '1707175319753583565',                      10, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
+    (10, 1, 'entityid', '1701161970302682421',                      10, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
     (11, 1, 'responsein','json',                                     11, 0, 0, 0, 0, 0, 1, 1, GETDATE());
 SET IDENTITY_INSERT [CORE].[SmsGatewayDetails] OFF;
 GO
