@@ -1888,7 +1888,7 @@ BEGIN
         (@SmsGatewayId, 'senderid',  'AKOLMC',                                    4, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
         (@SmsGatewayId, 'mobiles',   '',                                          5, 0, 0, 1, 0, 0, 1, 1, GETDATE()),
         (@SmsGatewayId, 'sms',       '',                                          6, 0, 1, 0, 0, 0, 1, 1, GETDATE()),
-        (@SmsGatewayId, 'tempid',    '1777178721904398497',                       7, 0, 0, 0, 1, 0, 1, 1, GETDATE()),
+        (@SmsGatewayId, 'tempid',    '',                                          7, 0, 0, 0, 1, 0, 1, 1, GETDATE()),
         (@SmsGatewayId, 'unicode',   '0',                                         8, 0, 0, 0, 0, 1, 1, 1, GETDATE()),
         (@SmsGatewayId, 'accusage',  '1',                                         9, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
         (@SmsGatewayId, 'entityid',  '1701161970302682421',                      10, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
