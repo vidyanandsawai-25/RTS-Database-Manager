@@ -5530,3 +5530,928 @@ WHERE NOT EXISTS
 
 SET IDENTITY_INSERT [PTIS].[ULBDocumentType] OFF;
 GO
+
+
+/* ============================================================
+   PTIS RETROSPECTIVE RULE CONFIGURATION SEED DATA
+
+   Rules seeded:
+   - THA-01 to THA-09
+   - PCM-01 to PCM-06
+   - FUR-01 to FUR-04
+
+   Note:
+   Since ULBId is removed, all rules are saved in one rule library.
+   During calculation, match only:
+       RuleStatus = 'Active'
+       IsActive = 1
+
+   If some old corporation reference rules are not required for current ULB,
+   keep them as Review / Draft or set IsActive = 0.
+============================================================ */
+
+------------------------------------------------------------
+-- 1. Ensure Evidence Master Data
+------------------------------------------------------------
+IF NOT EXISTS (SELECT 1 FROM PTIS.EvidenceTypeMaster WHERE EvidenceCode = 'OC')
+    INSERT INTO PTIS.EvidenceTypeMaster (EvidenceCode, EvidenceName, IsCertificate, DisplayOrder, IsActive, CreatedBy)
+    VALUES ('OC', 'OC', 1, 1, 1, 1);
+GO
+IF NOT EXISTS (SELECT 1 FROM PTIS.EvidenceTypeMaster WHERE EvidenceCode = 'CC')
+    INSERT INTO PTIS.EvidenceTypeMaster (EvidenceCode, EvidenceName, IsCertificate, DisplayOrder, IsActive, CreatedBy)
+    VALUES ('CC', 'CC', 1, 2, 1, 1);
+GO
+IF NOT EXISTS (SELECT 1 FROM PTIS.EvidenceTypeMaster WHERE EvidenceCode = 'ELECTRICITY')
+    INSERT INTO PTIS.EvidenceTypeMaster (EvidenceCode, EvidenceName, IsCertificate, DisplayOrder, IsActive, CreatedBy)
+    VALUES ('ELECTRICITY', 'Electricity', 0, 3, 1, 1);
+GO
+IF NOT EXISTS (SELECT 1 FROM PTIS.EvidenceTypeMaster WHERE EvidenceCode = 'CHANGE_DETECTION')
+    INSERT INTO PTIS.EvidenceTypeMaster (EvidenceCode, EvidenceName, IsCertificate, DisplayOrder, IsActive, CreatedBy)
+    VALUES ('CHANGE_DETECTION', 'Change Detection', 0, 4, 1, 1);
+GO
+IF NOT EXISTS (SELECT 1 FROM PTIS.EvidenceTypeMaster WHERE EvidenceCode = 'CONSTRUCTION_YEAR')
+    INSERT INTO PTIS.EvidenceTypeMaster (EvidenceCode, EvidenceName, IsCertificate, DisplayOrder, IsActive, CreatedBy)
+    VALUES ('CONSTRUCTION_YEAR', 'Construction Year', 0, 5, 1, 1);
+GO
+
+
+------------------------------------------------------------
+-- 2. Rule Master
+------------------------------------------------------------
+INSERT INTO PTIS.RetrospectiveRuleMaster
+(
+    RuleCode,
+    RuleName,
+    RuleDescription,
+    PriorityNo,
+    MatchType,
+    IsFallbackRule,
+    RuleStatus,
+    AuthorizationStatus,
+    LegalCapEnabled,
+    LegalCapYears,
+    NoticeDays,
+    VersionNo,
+    EffectiveFrom,
+    IsActive,
+    Remarks,
+    CreatedBy
+)
+SELECT
+    v.RuleCode,
+    v.RuleName,
+    v.RuleDescription,
+    v.PriorityNo,
+    v.MatchType,
+    v.IsFallbackRule,
+    v.RuleStatus,
+    v.AuthorizationStatus,
+    v.LegalCapEnabled,
+    v.LegalCapYears,
+    v.NoticeDays,
+    v.VersionNo,
+    v.EffectiveFrom,
+    v.IsActive,
+    v.Remarks,
+    1
+FROM (VALUES
+    ('THA-09', 'OC + CC - 1.5x from CC to OC, then 1x', 'Both OC and CC are available. Retrospective tax starts from CC date. Tax is 1.5x from CC to OC and 1x after OC.', 5, 'CONDITION_BASED', 0, 'Active', 'AUTHORIZED', 1, 6, 15, '1.0', '2026-04-01', 1, 'Specific OC + CC split multiplier rule.'),
+    ('THA-01', 'OC evidence - start from OC date', 'Only OC is available. Retrospective tax applicable from OC date.', 10, 'CONDITION_BASED', 0, 'Active', 'AUTHORIZED', 1, 6, 15, '1.0', '2026-04-01', 1, 'OC evidence available.'),
+    ('THA-02', 'CC evidence - start from CC date', 'Only CC is available. Retrospective tax applicable from CC date.', 20, 'CONDITION_BASED', 0, 'Active', 'AUTHORIZED', 1, 6, 15, '1.0', '2026-04-01', 1, 'CC evidence available.'),
+    ('THA-03', 'CC + electricity earlier than CC', 'CC and electricity available. Electricity date is before CC date. Retrospective tax starts from CC date with 1.5 multiplier.', 30, 'CONDITION_BASED', 0, 'Active', 'AUTHORIZED', 1, 6, 15, '1.0', '2026-04-01', 1, 'CC plus electricity before CC.'),
+    ('THA-04', 'CC + electricity later than CC', 'CC and electricity available. Electricity date is after CC date. Retrospective tax starts from electricity date with 1.5 multiplier.', 40, 'CONDITION_BASED', 0, 'Active', 'AUTHORIZED', 1, 6, 15, '1.0', '2026-04-01', 1, 'CC plus electricity after CC.'),
+    ('THA-05', 'Only electricity before 2016 cutoff', 'Only electricity bill date is available and electricity date is before cutoff date 01-Apr-2016.', 50, 'CONDITION_BASED', 0, 'Review', 'UNAUTHORIZED', 1, 6, 15, '1.0', '2026-04-01', 1, 'Unauthorized construction penalty applicable as per Act.'),
+    ('THA-06', 'Only electricity after 2016 cutoff', 'Only electricity bill date is available and electricity date is after cutoff date 01-Apr-2016.', 60, 'CONDITION_BASED', 0, 'Review', 'UNAUTHORIZED', 1, 6, 15, '1.0', '2026-04-01', 1, 'Unauthorized construction penalty applicable as per Act.'),
+    ('THA-07', 'Change detection fallback', 'OC, CC and electricity are not available. Change detection date is available.', 70, 'CONDITION_BASED', 1, 'Review', 'UNAUTHORIZED', 1, 6, 15, '1.0', '2026-04-01', 1, 'Fallback rule based on change detection.'),
+    ('THA-08', 'Construction year final fallback', 'OC, CC, electricity and change detection are not available. Construction year is available.', 80, 'CONDITION_BASED', 1, 'Review', 'UNAUTHORIZED', 1, 6, 15, '1.0', '2026-04-01', 1, 'Final fallback based on construction year.'),
+    ('PCM-01', 'OC older than six years', 'Only OC is available and OC date is older than allowed six-year period.', 110, 'CONDITION_BASED', 0, 'Active', 'AUTHORIZED', 1, 6, 15, '1.0', '2026-04-01', 1, 'OC older than six years.'),
+    ('PCM-02', 'OC within six years', 'Only OC is available and OC date is within allowed six-year period.', 120, 'CONDITION_BASED', 0, 'Active', 'AUTHORIZED', 1, 6, 15, '1.0', '2026-04-01', 1, 'OC within six years.'),
+    ('PCM-05', 'CC + electricity - use electricity date', 'CC and electricity are available. OC is unavailable. Retrospective tax starts from electricity date.', 125, 'CONDITION_BASED', 0, 'Active', 'AUTHORIZED', 1, 6, 15, '1.0', '2026-04-01', 1, 'Specific CC + electricity rule. Priority kept before only CC rule.'),
+    ('PCM-03', 'Only CC - next financial year', 'Only CC is available. Retrospective tax starts from next financial year after CC date.', 130, 'CONDITION_BASED', 0, 'Active', 'AUTHORIZED', 1, 6, 15, '1.0', '2026-04-01', 1, 'CC date plus next financial year start.'),
+    ('PCM-04', 'Only electricity - align to 1 April', 'Only electricity date is available. Retrospective tax starts from 1 April of electricity financial year.', 140, 'CONDITION_BASED', 0, 'NeedsClarification', 'UNAUTHORIZED', 1, 6, 15, '1.0', '2026-04-01', 1, 'Penalty date wording has unclear gap and requires policy confirmation.'),
+    ('PCM-06', 'No evidence - construction year or cap', 'OC, CC and electricity are unavailable. Construction year is available. Start from later of construction date or six-year cap.', 160, 'CONDITION_BASED', 1, 'NeedsClarification', 'UNAUTHORIZED', 1, 6, 15, '1.0', '2026-04-01', 1, 'Penalty source refers to electricity date even though electricity is unavailable. Manual review required.'),
+    ('FUR-01', 'OC older than six years', 'Only OC is available and OC date is older than six-year period.', 210, 'CONDITION_BASED', 0, 'Active', 'AUTHORIZED', 1, 6, 15, '1.0', '2026-04-01', 1, 'OC older than six years.'),
+    ('FUR-02', 'OC within six years', 'Only OC is available and OC date is within six-year period.', 220, 'CONDITION_BASED', 0, 'Active', 'AUTHORIZED', 1, 6, 15, '1.0', '2026-04-01', 1, 'OC within six years.'),
+    ('FUR-03', 'No evidence - September 2024 cutoff', 'OC and CC are unavailable. Construction year is available. Retrospective tax starts from fixed September 2024 cutoff.', 230, 'CONDITION_BASED', 1, 'Review', 'UNAUTHORIZED', 1, 6, 15, '1.0', '2024-09-01', 1, 'Unauthorized construction penalty applicable as per Act.'),
+    ('FUR-04', 'Electricity after cutoff - add six months', 'Only electricity date is available and electricity date is after September 2024 cutoff. Retrospective starts six months after electricity date.', 240, 'CONDITION_BASED', 0, 'Review', 'UNAUTHORIZED', 1, 6, 15, '1.0', '2024-09-01', 1, 'Unauthorized construction penalty applicable as per Act.')
+) v
+(
+    RuleCode, RuleName, RuleDescription, PriorityNo, MatchType, IsFallbackRule, RuleStatus,
+    AuthorizationStatus, LegalCapEnabled, LegalCapYears, NoticeDays, VersionNo, EffectiveFrom,
+    IsActive, Remarks
+)
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM PTIS.RetrospectiveRuleMaster t
+    WHERE t.RuleCode = v.RuleCode
+);
+GO
+
+
+------------------------------------------------------------
+-- 3. Rule Evidence Conditions
+------------------------------------------------------------
+INSERT INTO PTIS.RetrospectiveRuleEvidenceCondition
+(
+    RuleId,
+    EvidenceTypeId,
+    EvidenceState,
+    IsActive,
+    CreatedBy
+)
+SELECT
+    R.Id,
+    ET.Id,
+    v.EvidenceState,
+    1,
+    1
+FROM (VALUES
+    ('THA-01', 'OC', 'AVAILABLE'),
+    ('THA-01', 'CC', 'UNAVAILABLE'),
+    ('THA-01', 'ELECTRICITY', 'UNAVAILABLE'),
+    ('THA-01', 'CHANGE_DETECTION', 'UNAVAILABLE'),
+    ('THA-02', 'CC', 'AVAILABLE'),
+    ('THA-02', 'OC', 'UNAVAILABLE'),
+    ('THA-02', 'ELECTRICITY', 'UNAVAILABLE'),
+    ('THA-02', 'CHANGE_DETECTION', 'UNAVAILABLE'),
+    ('THA-03', 'CC', 'AVAILABLE'),
+    ('THA-03', 'ELECTRICITY', 'AVAILABLE'),
+    ('THA-03', 'OC', 'UNAVAILABLE'),
+    ('THA-03', 'CHANGE_DETECTION', 'UNAVAILABLE'),
+    ('THA-04', 'CC', 'AVAILABLE'),
+    ('THA-04', 'ELECTRICITY', 'AVAILABLE'),
+    ('THA-04', 'OC', 'UNAVAILABLE'),
+    ('THA-04', 'CHANGE_DETECTION', 'UNAVAILABLE'),
+    ('THA-05', 'ELECTRICITY', 'AVAILABLE'),
+    ('THA-05', 'OC', 'UNAVAILABLE'),
+    ('THA-05', 'CC', 'UNAVAILABLE'),
+    ('THA-05', 'CHANGE_DETECTION', 'UNAVAILABLE'),
+    ('THA-06', 'ELECTRICITY', 'AVAILABLE'),
+    ('THA-06', 'OC', 'UNAVAILABLE'),
+    ('THA-06', 'CC', 'UNAVAILABLE'),
+    ('THA-06', 'CHANGE_DETECTION', 'UNAVAILABLE'),
+    ('THA-07', 'CHANGE_DETECTION', 'AVAILABLE'),
+    ('THA-07', 'OC', 'UNAVAILABLE'),
+    ('THA-07', 'CC', 'UNAVAILABLE'),
+    ('THA-07', 'ELECTRICITY', 'UNAVAILABLE'),
+    ('THA-08', 'CONSTRUCTION_YEAR', 'AVAILABLE'),
+    ('THA-08', 'OC', 'UNAVAILABLE'),
+    ('THA-08', 'CC', 'UNAVAILABLE'),
+    ('THA-08', 'ELECTRICITY', 'UNAVAILABLE'),
+    ('THA-08', 'CHANGE_DETECTION', 'UNAVAILABLE'),
+    ('THA-09', 'OC', 'AVAILABLE'),
+    ('THA-09', 'CC', 'AVAILABLE'),
+    ('PCM-01', 'OC', 'AVAILABLE'),
+    ('PCM-01', 'CC', 'UNAVAILABLE'),
+    ('PCM-01', 'ELECTRICITY', 'UNAVAILABLE'),
+    ('PCM-01', 'CHANGE_DETECTION', 'UNAVAILABLE'),
+    ('PCM-02', 'OC', 'AVAILABLE'),
+    ('PCM-02', 'CC', 'UNAVAILABLE'),
+    ('PCM-02', 'ELECTRICITY', 'UNAVAILABLE'),
+    ('PCM-02', 'CHANGE_DETECTION', 'UNAVAILABLE'),
+    ('PCM-03', 'CC', 'AVAILABLE'),
+    ('PCM-03', 'OC', 'UNAVAILABLE'),
+    ('PCM-03', 'ELECTRICITY', 'UNAVAILABLE'),
+    ('PCM-03', 'CHANGE_DETECTION', 'UNAVAILABLE'),
+    ('PCM-04', 'ELECTRICITY', 'AVAILABLE'),
+    ('PCM-04', 'OC', 'UNAVAILABLE'),
+    ('PCM-04', 'CC', 'UNAVAILABLE'),
+    ('PCM-04', 'CHANGE_DETECTION', 'UNAVAILABLE'),
+    ('PCM-05', 'CC', 'AVAILABLE'),
+    ('PCM-05', 'ELECTRICITY', 'AVAILABLE'),
+    ('PCM-05', 'OC', 'UNAVAILABLE'),
+    ('PCM-05', 'CHANGE_DETECTION', 'UNAVAILABLE'),
+    ('PCM-06', 'CONSTRUCTION_YEAR', 'AVAILABLE'),
+    ('PCM-06', 'OC', 'UNAVAILABLE'),
+    ('PCM-06', 'CC', 'UNAVAILABLE'),
+    ('PCM-06', 'ELECTRICITY', 'UNAVAILABLE'),
+    ('PCM-06', 'CHANGE_DETECTION', 'UNAVAILABLE'),
+    ('FUR-01', 'OC', 'AVAILABLE'),
+    ('FUR-01', 'CC', 'UNAVAILABLE'),
+    ('FUR-01', 'ELECTRICITY', 'UNAVAILABLE'),
+    ('FUR-01', 'CHANGE_DETECTION', 'UNAVAILABLE'),
+    ('FUR-02', 'OC', 'AVAILABLE'),
+    ('FUR-02', 'CC', 'UNAVAILABLE'),
+    ('FUR-02', 'ELECTRICITY', 'UNAVAILABLE'),
+    ('FUR-02', 'CHANGE_DETECTION', 'UNAVAILABLE'),
+    ('FUR-03', 'CONSTRUCTION_YEAR', 'AVAILABLE'),
+    ('FUR-03', 'OC', 'UNAVAILABLE'),
+    ('FUR-03', 'CC', 'UNAVAILABLE'),
+    ('FUR-03', 'ELECTRICITY', 'UNAVAILABLE'),
+    ('FUR-03', 'CHANGE_DETECTION', 'UNAVAILABLE'),
+    ('FUR-04', 'ELECTRICITY', 'AVAILABLE'),
+    ('FUR-04', 'OC', 'UNAVAILABLE'),
+    ('FUR-04', 'CC', 'UNAVAILABLE'),
+    ('FUR-04', 'CHANGE_DETECTION', 'UNAVAILABLE')
+) v (RuleCode, EvidenceCode, EvidenceState)
+INNER JOIN PTIS.RetrospectiveRuleMaster R
+    ON R.RuleCode = v.RuleCode
+INNER JOIN PTIS.EvidenceTypeMaster ET
+    ON ET.EvidenceCode = v.EvidenceCode
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM PTIS.RetrospectiveRuleEvidenceCondition t
+    WHERE t.RuleId = R.Id
+      AND t.EvidenceTypeId = ET.Id
+);
+GO
+
+
+------------------------------------------------------------
+-- 4. Rule Date Conditions
+------------------------------------------------------------
+INSERT INTO PTIS.RetrospectiveRuleDateCondition
+(
+    RuleId,
+    ComparatorCode,
+    LeftEvidenceTypeId,
+    RightEvidenceTypeId,
+    CompareOperator,
+    CompareDate,
+    CompareDateTo,
+    CompareYears,
+    IsActive,
+    CreatedBy
+)
+SELECT
+    R.Id,
+    v.ComparatorCode,
+    LET.Id,
+    RET.Id,
+    v.CompareOperator,
+    v.CompareDate,
+    v.CompareDateTo,
+    v.CompareYears,
+    1,
+    1
+FROM (VALUES
+    ('THA-01', 'NONE', NULL, NULL, NULL, NULL, CAST(NULL AS DATE), NULL),
+    ('THA-02', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL),
+    ('THA-03', 'ELECTRICITY_BEFORE_CC', 'ELECTRICITY', 'CC', 'BEFORE', NULL, NULL, NULL),
+    ('THA-04', 'ELECTRICITY_AFTER_CC', 'ELECTRICITY', 'CC', 'AFTER', NULL, NULL, NULL),
+    ('THA-05', 'ELECTRICITY_BEFORE_CUTOFF', 'ELECTRICITY', NULL, 'BEFORE', '2016-04-01', NULL, NULL),
+    ('THA-06', 'ELECTRICITY_AFTER_CUTOFF', 'ELECTRICITY', NULL, 'AFTER', '2016-04-01', NULL, NULL),
+    ('THA-07', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL),
+    ('THA-08', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL),
+    ('THA-09', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL),
+    ('PCM-01', 'OC_OLDER_THAN_ALLOWED_PERIOD', 'OC', NULL, 'OLDER_THAN_YEARS', NULL, NULL, 6),
+    ('PCM-02', 'OC_WITHIN_ALLOWED_PERIOD', 'OC', NULL, 'WITHIN_YEARS', NULL, NULL, 6),
+    ('PCM-03', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL),
+    ('PCM-04', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL),
+    ('PCM-05', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL),
+    ('PCM-06', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL),
+    ('FUR-01', 'OC_OLDER_THAN_ALLOWED_PERIOD', 'OC', NULL, 'OLDER_THAN_YEARS', NULL, NULL, 6),
+    ('FUR-02', 'OC_WITHIN_ALLOWED_PERIOD', 'OC', NULL, 'WITHIN_YEARS', NULL, NULL, 6),
+    ('FUR-03', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL),
+    ('FUR-04', 'ELECTRICITY_AFTER_CUTOFF', 'ELECTRICITY', NULL, 'AFTER', '2024-09-01', NULL, NULL)
+) v (RuleCode, ComparatorCode, LeftEvidenceCode, RightEvidenceCode, CompareOperator, CompareDate, CompareDateTo, CompareYears)
+INNER JOIN PTIS.RetrospectiveRuleMaster R
+    ON R.RuleCode = v.RuleCode
+LEFT JOIN PTIS.EvidenceTypeMaster LET
+    ON LET.EvidenceCode = v.LeftEvidenceCode
+LEFT JOIN PTIS.EvidenceTypeMaster RET
+    ON RET.EvidenceCode = v.RightEvidenceCode
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM PTIS.RetrospectiveRuleDateCondition t
+    WHERE t.RuleId = R.Id
+);
+GO
+
+
+------------------------------------------------------------
+-- 5. Rule Actions
+------------------------------------------------------------
+INSERT INTO PTIS.RetrospectiveRuleAction
+(
+    RuleId,
+    TaxStartMode,
+    StartEvidenceTypeId,
+    OffsetMonths,
+    RetrospectiveLimitType,
+    MaximumYears,
+    CutoffDate,
+    TaxCalculationMode,
+    TaxMultiplier,
+    SplitStartEvidenceTypeId,
+    SplitEndEvidenceTypeId,
+    SplitMultiplier,
+    AfterSplitMultiplier,
+    IsActive,
+    CreatedBy
+)
+SELECT
+    R.Id,
+    v.TaxStartMode,
+    SETM.Id,
+    v.OffsetMonths,
+    v.RetrospectiveLimitType,
+    v.MaximumYears,
+    v.CutoffDate,
+    v.TaxCalculationMode,
+    v.TaxMultiplier,
+    SSETM.Id,
+    SEETM.Id,
+    v.SplitMultiplier,
+    v.AfterSplitMultiplier,
+    1,
+    1
+FROM (VALUES
+    ('THA-01', 'EVIDENCE_DATE', 'OC', NULL, 'FIXED_CUTOFF_DATE', NULL, '2016-04-01', 'SINGLE', 1.00, NULL, NULL, NULL, NULL),
+    ('THA-02', 'EVIDENCE_DATE', 'CC', NULL, 'FIXED_CUTOFF_DATE', NULL, '2016-04-01', 'SINGLE', 1.00, NULL, NULL, NULL, NULL),
+    ('THA-03', 'EVIDENCE_DATE', 'CC', NULL, 'FIXED_CUTOFF_DATE', NULL, '2016-04-01', 'SINGLE', 1.50, NULL, NULL, NULL, NULL),
+    ('THA-04', 'EVIDENCE_DATE', 'ELECTRICITY', NULL, 'FIXED_CUTOFF_DATE', NULL, '2016-04-01', 'SINGLE', 1.50, NULL, NULL, NULL, NULL),
+    ('THA-05', 'FIXED_CUTOFF', NULL, NULL, 'FIXED_CUTOFF_DATE', NULL, '2016-04-01', 'SINGLE', 1.00, NULL, NULL, NULL, NULL),
+    ('THA-06', 'EVIDENCE_DATE', 'ELECTRICITY', NULL, 'FIXED_CUTOFF_DATE', NULL, '2016-04-01', 'SINGLE', 1.00, NULL, NULL, NULL, NULL),
+    ('THA-07', 'EVIDENCE_DATE', 'CHANGE_DETECTION', NULL, 'FIXED_CUTOFF_DATE', NULL, '2016-04-01', 'SINGLE', 1.00, NULL, NULL, NULL, NULL),
+    ('THA-08', 'CONSTRUCTION_YEAR', 'CONSTRUCTION_YEAR', NULL, 'FIXED_CUTOFF_DATE', NULL, '2016-04-01', 'SINGLE', 1.00, NULL, NULL, NULL, NULL),
+    ('THA-09', 'EVIDENCE_DATE', 'CC', NULL, 'FIXED_CUTOFF_DATE', NULL, '2016-04-01', 'SPLIT', 1.00, 'CC', 'OC', 1.50, 1.00),
+    ('PCM-01', 'MAX_LOOK_BACK_DATE', NULL, NULL, 'MAXIMUM_YEARS', 6, NULL, 'SINGLE', 1.00, NULL, NULL, NULL, NULL),
+    ('PCM-02', 'EVIDENCE_DATE', 'OC', NULL, 'MAXIMUM_YEARS', 6, NULL, 'SINGLE', 1.00, NULL, NULL, NULL, NULL),
+    ('PCM-03', 'NEXT_FINANCIAL_YEAR', 'CC', NULL, 'MAXIMUM_YEARS', 6, NULL, 'SINGLE', 1.00, NULL, NULL, NULL, NULL),
+    ('PCM-04', 'FY_START', 'ELECTRICITY', NULL, 'MAXIMUM_YEARS', 6, NULL, 'SINGLE', 1.00, NULL, NULL, NULL, NULL),
+    ('PCM-05', 'EVIDENCE_DATE', 'ELECTRICITY', NULL, 'MAXIMUM_YEARS', 6, NULL, 'SINGLE', 1.00, NULL, NULL, NULL, NULL),
+    ('PCM-06', 'CONSTRUCTION_OR_CAP', 'CONSTRUCTION_YEAR', NULL, 'MAXIMUM_YEARS', 6, NULL, 'SINGLE', 1.00, NULL, NULL, NULL, NULL),
+    ('FUR-01', 'MAX_LOOK_BACK_DATE', NULL, NULL, 'MAXIMUM_YEARS', 6, NULL, 'SINGLE', 1.00, NULL, NULL, NULL, NULL),
+    ('FUR-02', 'EVIDENCE_DATE', 'OC', NULL, 'MAXIMUM_YEARS', 6, NULL, 'SINGLE', 1.00, NULL, NULL, NULL, NULL),
+    ('FUR-03', 'FIXED_CUTOFF', NULL, NULL, 'FIXED_CUTOFF_DATE', NULL, '2024-09-01', 'SINGLE', 1.00, NULL, NULL, NULL, NULL),
+    ('FUR-04', 'MONTHS_AFTER', 'ELECTRICITY', 6, 'FIXED_CUTOFF_DATE', NULL, '2024-09-01', 'SINGLE', 1.00, NULL, NULL, NULL, NULL)
+) v (RuleCode, TaxStartMode, StartEvidenceCode, OffsetMonths, RetrospectiveLimitType, MaximumYears, CutoffDate, TaxCalculationMode, TaxMultiplier, SplitStartEvidenceCode, SplitEndEvidenceCode, SplitMultiplier, AfterSplitMultiplier)
+INNER JOIN PTIS.RetrospectiveRuleMaster R
+    ON R.RuleCode = v.RuleCode
+LEFT JOIN PTIS.EvidenceTypeMaster SETM
+    ON SETM.EvidenceCode = v.StartEvidenceCode
+LEFT JOIN PTIS.EvidenceTypeMaster SSETM
+    ON SSETM.EvidenceCode = v.SplitStartEvidenceCode
+LEFT JOIN PTIS.EvidenceTypeMaster SEETM
+    ON SEETM.EvidenceCode = v.SplitEndEvidenceCode
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM PTIS.RetrospectiveRuleAction t
+    WHERE t.RuleId = R.Id
+);
+GO
+
+
+------------------------------------------------------------
+-- 6. Penalty Rules
+------------------------------------------------------------
+INSERT INTO PTIS.RetrospectivePenaltyRule
+(
+    RuleId,
+    IsPenaltyApplicable,
+    PenaltyMode,
+    PenaltyPercent,
+    PenaltyDateSourceType,
+    PenaltyDateEvidenceTypeId,
+    PenaltyDateCondition,
+    CompareDate,
+    CompareDateTo,
+    ElseAction,
+    RequiresManualReview,
+    Remarks,
+    IsActive,
+    CreatedBy
+)
+SELECT
+    R.Id,
+    v.IsPenaltyApplicable,
+    v.PenaltyMode,
+    v.PenaltyPercent,
+    v.PenaltyDateSourceType,
+    ET.Id,
+    v.PenaltyDateCondition,
+    v.CompareDate,
+    v.CompareDateTo,
+    v.ElseAction,
+    v.RequiresManualReview,
+    v.Remarks,
+    1,
+    1
+FROM (VALUES
+    ('THA-01', 0, 'NONE', CAST(NULL AS DECIMAL(10,2)), NULL, NULL, NULL, NULL, CAST(NULL AS DATE), NULL, 0, 'Penalty not applicable because OC or CC is available.'),
+    ('THA-02', 0, 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Penalty not applicable because OC or CC is available.'),
+    ('THA-03', 0, 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Penalty not applicable because OC or CC is available.'),
+    ('THA-04', 0, 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Penalty not applicable because OC or CC is available.'),
+    ('THA-09', 0, 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Penalty not applicable because OC or CC is available.'),
+    ('THA-05', 1, 'ACT_UNLAWFUL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Apply unauthorized construction penalty as per Act.'),
+    ('THA-06', 1, 'ACT_UNLAWFUL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Apply unauthorized construction penalty as per Act.'),
+    ('THA-07', 1, 'ACT_UNLAWFUL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Apply unauthorized construction penalty as per Act.'),
+    ('THA-08', 1, 'ACT_UNLAWFUL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Apply unauthorized construction penalty as per Act.'),
+    ('PCM-01', 0, 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Penalty not applicable because OC or CC is available.'),
+    ('PCM-02', 0, 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Penalty not applicable because OC or CC is available.'),
+    ('PCM-03', 0, 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Penalty not applicable because OC or CC is available.'),
+    ('PCM-05', 0, 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Penalty not applicable because OC or CC is available.'),
+    ('PCM-04', 1, 'DATE_VALIDATION', NULL, 'EVIDENCE_DATE', 'ELECTRICITY', 'ON_OR_AFTER', '2026-03-03', NULL, 'MANUAL_REVIEW', 1, 'Apply penalty if electricity date is on or after 03-Mar-2026. Other cases require manual review due to unclear policy wording.'),
+    ('PCM-06', 1, 'DATE_VALIDATION', NULL, 'EVIDENCE_DATE', 'ELECTRICITY', 'ON_OR_AFTER', '2026-03-03', NULL, 'MANUAL_REVIEW', 1, 'Policy conflict: electricity is marked unavailable but penalty source uses electricity date. Manual review required.'),
+    ('FUR-01', 0, 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Penalty not applicable because OC or CC is available.'),
+    ('FUR-02', 0, 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Penalty not applicable because OC or CC is available.'),
+    ('FUR-03', 1, 'ACT_UNLAWFUL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Apply unauthorized construction penalty as per Act.'),
+    ('FUR-04', 1, 'ACT_UNLAWFUL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Apply unauthorized construction penalty as per Act.')
+) v (RuleCode, IsPenaltyApplicable, PenaltyMode, PenaltyPercent, PenaltyDateSourceType, PenaltyDateEvidenceCode, PenaltyDateCondition, CompareDate, CompareDateTo, ElseAction, RequiresManualReview, Remarks)
+INNER JOIN PTIS.RetrospectiveRuleMaster R
+    ON R.RuleCode = v.RuleCode
+LEFT JOIN PTIS.EvidenceTypeMaster ET
+    ON ET.EvidenceCode = v.PenaltyDateEvidenceCode
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM PTIS.RetrospectivePenaltyRule t
+    WHERE t.RuleId = R.Id
+);
+GO
+
+
+------------------------------------------------------------
+-- 7. Rule Summary
+------------------------------------------------------------
+INSERT INTO PTIS.RetrospectiveRuleSummary
+(
+    RuleId,
+    WhenSummary,
+    TaxSummary,
+    PenaltySummary,
+    IsActive,
+    CreatedBy
+)
+SELECT
+    R.Id,
+    v.WhenSummary,
+    v.TaxSummary,
+    v.PenaltySummary,
+    1,
+    1
+FROM (VALUES
+    ('THA-01', 'OC available; CC, Electricity, Change Detection unavailable', 'Start from OC date; not before 01-Apr-2016; tax x 1.', 'Not applicable because OC or CC is available.'),
+    ('THA-02', 'CC available; OC, Electricity, Change Detection unavailable', 'Start from CC date; not before 01-Apr-2016; tax x 1.', 'Not applicable because OC or CC is available.'),
+    ('THA-03', 'CC and Electricity available; OC unavailable; Electricity date before CC date', 'Start from CC date; not before 01-Apr-2016; tax x 1.5.', 'Not applicable because OC or CC is available.'),
+    ('THA-04', 'CC and Electricity available; OC unavailable; Electricity date after CC date', 'Start from Electricity date; not before 01-Apr-2016; tax x 1.5.', 'Not applicable because OC or CC is available.'),
+    ('THA-05', 'Electricity available; OC, CC, Change Detection unavailable; Electricity date before cutoff date', 'Start from fixed cutoff date 01-Apr-2016; tax x 1.', 'Apply penalty as per the Act.'),
+    ('THA-06', 'Electricity available; OC, CC, Change Detection unavailable; Electricity date after cutoff date', 'Start from Electricity date; not before 01-Apr-2016; tax x 1.', 'Apply penalty as per the Act.'),
+    ('THA-07', 'Change Detection available; OC, CC, Electricity unavailable', 'Start from Change Detection date; not before 01-Apr-2016; tax x 1.', 'Apply penalty as per the Act.'),
+    ('THA-08', 'Construction Year available; OC, CC, Electricity, Change Detection unavailable', 'Start from Construction Year/date; not before 01-Apr-2016; tax x 1.', 'Apply penalty as per the Act.'),
+    ('THA-09', 'OC and CC available', 'Start from CC date; not before 01-Apr-2016; tax 1.5x from CC date to OC date, then 1x.', 'Not applicable because OC or CC is available.'),
+    ('PCM-01', 'OC available; OC date older than allowed period', 'Start from rolling six-year boundary; maximum 6 years; tax x 1.', 'Not applicable because OC or CC is available.'),
+    ('PCM-02', 'OC available; OC date within allowed period', 'Start from OC date; maximum 6 years; tax x 1.', 'Not applicable because OC or CC is available.'),
+    ('PCM-03', 'CC available; OC, Electricity, Change Detection unavailable', 'Start from next financial year after CC date; maximum 6 years; tax x 1.', 'Not applicable because OC or CC is available.'),
+    ('PCM-04', 'Electricity available; OC, CC, Change Detection unavailable', 'Start from 1-April of Electricity financial year; maximum 6 years; tax x 1.', 'Apply penalty if Electricity date is on or after 03-Mar-2026; otherwise manual review.'),
+    ('PCM-05', 'CC and Electricity available; OC unavailable', 'Start from Electricity date; maximum 6 years; tax x 1.', 'Not applicable because OC or CC is available.'),
+    ('PCM-06', 'Construction Year available; OC, CC, Electricity, Change Detection unavailable', 'Start from later of construction date or rolling cap; maximum 6 years; tax x 1.', 'Penalty date source requires manual review because Electricity is unavailable.'),
+    ('FUR-01', 'OC available; OC date older than allowed period', 'Start from rolling six-year boundary; maximum 6 years; tax x 1.', 'Not applicable because OC or CC is available.'),
+    ('FUR-02', 'OC available; OC date within allowed period', 'Start from OC date; maximum 6 years; tax x 1.', 'Not applicable because OC or CC is available.'),
+    ('FUR-03', 'Construction Year available; OC, CC, Electricity, Change Detection unavailable', 'Start from fixed cutoff date 01-Sep-2024; tax x 1.', 'Apply penalty as per the Act.'),
+    ('FUR-04', 'Electricity available; OC, CC, Change Detection unavailable; Electricity date after September 2024 cutoff', 'Start six months after Electricity date; not before 01-Sep-2024; tax x 1.', 'Apply penalty as per the Act.')
+) v (RuleCode, WhenSummary, TaxSummary, PenaltySummary)
+INNER JOIN PTIS.RetrospectiveRuleMaster R
+    ON R.RuleCode = v.RuleCode
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM PTIS.RetrospectiveRuleSummary t
+    WHERE t.RuleId = R.Id
+);
+GO
+
+
+------------------------------------------------------------
+-- 8. Rule Audit Log
+------------------------------------------------------------
+INSERT INTO PTIS.RetrospectiveRuleAuditLog
+(
+    RuleId,
+    ActionType,
+    OldValue,
+    NewValue,
+    Remarks,
+    CreatedBy
+)
+SELECT
+    R.Id,
+    'CREATE',
+    NULL,
+    R.RuleCode,
+    'Initial retrospective rule seed data inserted without ULB mapping.',
+    1
+FROM (VALUES
+    ('THA-09'),
+    ('THA-01'),
+    ('THA-02'),
+    ('THA-03'),
+    ('THA-04'),
+    ('THA-05'),
+    ('THA-06'),
+    ('THA-07'),
+    ('THA-08'),
+    ('PCM-01'),
+    ('PCM-02'),
+    ('PCM-05'),
+    ('PCM-03'),
+    ('PCM-04'),
+    ('PCM-06'),
+    ('FUR-01'),
+    ('FUR-02'),
+    ('FUR-03'),
+    ('FUR-04')
+) v (RuleCode)
+INNER JOIN PTIS.RetrospectiveRuleMaster R
+    ON R.RuleCode = v.RuleCode
+WHERE NOT EXISTS
+(
+    SELECT 1
+    FROM PTIS.RetrospectiveRuleAuditLog t
+    WHERE t.RuleId = R.Id
+      AND t.ActionType = 'CREATE'
+);
+GO
+
+
+------------------------------------------------------------
+-- 9. Default Tax Policy
+------------------------------------------------------------
+IF NOT EXISTS (SELECT 1 FROM PTIS.RetrospectiveTaxPolicy WHERE TaxPolicyCode = 'DEFAULT_RETRO_POLICY')
+BEGIN
+    DECLARE @IsActive bit = CASE WHEN EXISTS (SELECT 1 FROM PTIS.RetrospectiveTaxPolicy WHERE IsActive = 1) THEN 0 ELSE 1 END;
+
+    INSERT INTO PTIS.RetrospectiveTaxPolicy (TaxPolicyCode, TaxPolicyName, RateMode, PercentageMode, FixedPercentage, FinancialYearStartMonth, FinancialYearStartDay, EffectiveFrom, IsActive, CreatedBy)
+    VALUES ('DEFAULT_RETRO_POLICY', 'Default Retrospective Tax Policy', 'CURRENT_YEAR_FOR_ALL_YEARS', 'CURRENT_YEAR_FOR_ALL_YEARS', NULL, 4, 1, '2026-04-01', @IsActive, 1);
+END
+GO
+
+
+/* ============================================================================
+   Seed: PTIS.PropertyPhotoType
+   Purpose:
+   Mandatory photo types for society, wing, property and amenity photos.
+
+   Notes:
+   - PhotoScope identifies level only (PROPERTY / SOCIETY / WING / AMENITY).
+   - BOARD / SIGN_BOARD are PhotoTypeCode values, not PhotoScope values.
+   - Same PhotoType can have multiple uploaded photos in PTIS.PropertyPhoto
+     (see CK_PropertyPhoto_EntityScope / IX_PropertyPhoto_Entity_Type above:
+     EntityType marks the apply level, S/W rows also keep their parent
+     SocietyDetailId/WingDetailId hierarchy ids for filtering/reporting).
+============================================================================ */
+
+SET NOCOUNT ON;
+
+BEGIN TRY
+    BEGIN TRANSACTION;
+
+    /* =========================
+       PROPERTY PHOTO TYPES
+    ========================= */
+
+    IF NOT EXISTS (
+        SELECT 1 FROM [PTIS].[PropertyPhotoType]
+        WHERE [PhotoTypeCode] = 'PROPERTY_FRONT'
+    )
+    BEGIN
+        INSERT INTO [PTIS].[PropertyPhotoType]
+        (
+            [PhotoTypeCode],
+            [PhotoTypeName],
+            [Description],
+            [DisplayOrder],
+            [PhotoScope],
+            [IsActive],
+            [CreatedBy]
+        )
+        VALUES
+        (
+            'PROPERTY_FRONT',
+            N'Property Front Photo',
+            N'Front photo of individual property / flat / shop',
+            1,
+            'PROPERTY',
+            1,
+            1
+        );
+    END
+
+    IF NOT EXISTS (
+        SELECT 1 FROM [PTIS].[PropertyPhotoType]
+        WHERE [PhotoTypeCode] = 'PROPERTY_SIDE'
+    )
+    BEGIN
+        INSERT INTO [PTIS].[PropertyPhotoType]
+        (
+            [PhotoTypeCode],
+            [PhotoTypeName],
+            [Description],
+            [DisplayOrder],
+            [PhotoScope],
+            [IsActive],
+            [CreatedBy]
+        )
+        VALUES
+        (
+            'PROPERTY_SIDE',
+            N'Property Side Photo',
+            N'Side photo of individual property / flat / shop',
+            2,
+            'PROPERTY',
+            1,
+            1
+        );
+    END
+
+    IF NOT EXISTS (
+        SELECT 1 FROM [PTIS].[PropertyPhotoType]
+        WHERE [PhotoTypeCode] = 'PROPERTY_INSIDE'
+    )
+    BEGIN
+        INSERT INTO [PTIS].[PropertyPhotoType]
+        (
+            [PhotoTypeCode],
+            [PhotoTypeName],
+            [Description],
+            [DisplayOrder],
+            [PhotoScope],
+            [IsActive],
+            [CreatedBy]
+        )
+        VALUES
+        (
+            'PROPERTY_INSIDE',
+            N'Property Inside Photo',
+            N'Inside photo of individual property / flat / shop',
+            3,
+            'PROPERTY',
+            1,
+            1
+        );
+    END
+
+    IF NOT EXISTS (
+        SELECT 1 FROM [PTIS].[PropertyPhotoType]
+        WHERE [PhotoTypeCode] = 'PROPERTY_BOARD'
+    )
+    BEGIN
+        INSERT INTO [PTIS].[PropertyPhotoType]
+        (
+            [PhotoTypeCode],
+            [PhotoTypeName],
+            [Description],
+            [DisplayOrder],
+            [PhotoScope],
+            [IsActive],
+            [CreatedBy]
+        )
+        VALUES
+        (
+            'PROPERTY_BOARD',
+            N'Property Board Photo',
+            N'Board / name plate photo of individual property',
+            4,
+            'PROPERTY',
+            1,
+            1
+        );
+    END
+
+
+    /* =========================
+       SOCIETY PHOTO TYPES
+    ========================= */
+
+    IF NOT EXISTS (
+        SELECT 1 FROM [PTIS].[PropertyPhotoType]
+        WHERE [PhotoTypeCode] = 'SOCIETY_PLACE'
+    )
+    BEGIN
+        INSERT INTO [PTIS].[PropertyPhotoType]
+        (
+            [PhotoTypeCode],
+            [PhotoTypeName],
+            [Description],
+            [DisplayOrder],
+            [PhotoScope],
+            [IsActive],
+            [CreatedBy]
+        )
+        VALUES
+        (
+            'SOCIETY_PLACE',
+            N'Society Place Photo',
+            N'Common society place / premises photo',
+            10,
+            'SOCIETY',
+            1,
+            1
+        );
+    END
+
+    IF NOT EXISTS (
+        SELECT 1 FROM [PTIS].[PropertyPhotoType]
+        WHERE [PhotoTypeCode] = 'SOCIETY_BOARD'
+    )
+    BEGIN
+        INSERT INTO [PTIS].[PropertyPhotoType]
+        (
+            [PhotoTypeCode],
+            [PhotoTypeName],
+            [Description],
+            [DisplayOrder],
+            [PhotoScope],
+            [IsActive],
+            [CreatedBy]
+        )
+        VALUES
+        (
+            'SOCIETY_BOARD',
+            N'Society Board Photo',
+            N'Society name board photo',
+            11,
+            'SOCIETY',
+            1,
+            1
+        );
+    END
+
+    IF NOT EXISTS (
+        SELECT 1 FROM [PTIS].[PropertyPhotoType]
+        WHERE [PhotoTypeCode] = 'SOCIETY_SIGN_BOARD'
+    )
+    BEGIN
+        INSERT INTO [PTIS].[PropertyPhotoType]
+        (
+            [PhotoTypeCode],
+            [PhotoTypeName],
+            [Description],
+            [DisplayOrder],
+            [PhotoScope],
+            [IsActive],
+            [CreatedBy]
+        )
+        VALUES
+        (
+            'SOCIETY_SIGN_BOARD',
+            N'Society Sign Board Photo',
+            N'Society sign board photo',
+            12,
+            'SOCIETY',
+            1,
+            1
+        );
+    END
+
+
+    /* =========================
+       WING PHOTO TYPES
+    ========================= */
+
+    IF NOT EXISTS (
+        SELECT 1 FROM [PTIS].[PropertyPhotoType]
+        WHERE [PhotoTypeCode] = 'WING_BUILDING'
+    )
+    BEGIN
+        INSERT INTO [PTIS].[PropertyPhotoType]
+        (
+            [PhotoTypeCode],
+            [PhotoTypeName],
+            [Description],
+            [DisplayOrder],
+            [PhotoScope],
+            [IsActive],
+            [CreatedBy]
+        )
+        VALUES
+        (
+            'WING_BUILDING',
+            N'Wing Building Photo',
+            N'Wing building photo',
+            20,
+            'WING',
+            1,
+            1
+        );
+    END
+
+    IF NOT EXISTS (
+        SELECT 1 FROM [PTIS].[PropertyPhotoType]
+        WHERE [PhotoTypeCode] = 'WING_PLACE'
+    )
+    BEGIN
+        INSERT INTO [PTIS].[PropertyPhotoType]
+        (
+            [PhotoTypeCode],
+            [PhotoTypeName],
+            [Description],
+            [DisplayOrder],
+            [PhotoScope],
+            [IsActive],
+            [CreatedBy]
+        )
+        VALUES
+        (
+            'WING_PLACE',
+            N'Wing Place Photo',
+            N'Wing common place / premises photo',
+            21,
+            'WING',
+            1,
+            1
+        );
+    END
+
+    IF NOT EXISTS (
+        SELECT 1 FROM [PTIS].[PropertyPhotoType]
+        WHERE [PhotoTypeCode] = 'WING_BOARD'
+    )
+    BEGIN
+        INSERT INTO [PTIS].[PropertyPhotoType]
+        (
+            [PhotoTypeCode],
+            [PhotoTypeName],
+            [Description],
+            [DisplayOrder],
+            [PhotoScope],
+            [IsActive],
+            [CreatedBy]
+        )
+        VALUES
+        (
+            'WING_BOARD',
+            N'Wing Board Photo',
+            N'Wing board photo',
+            22,
+            'WING',
+            1,
+            1
+        );
+    END
+
+    IF NOT EXISTS (
+        SELECT 1 FROM [PTIS].[PropertyPhotoType]
+        WHERE [PhotoTypeCode] = 'WING_SIGN_BOARD'
+    )
+    BEGIN
+        INSERT INTO [PTIS].[PropertyPhotoType]
+        (
+            [PhotoTypeCode],
+            [PhotoTypeName],
+            [Description],
+            [DisplayOrder],
+            [PhotoScope],
+            [IsActive],
+            [CreatedBy]
+        )
+        VALUES
+        (
+            'WING_SIGN_BOARD',
+            N'Wing Sign Board Photo',
+            N'Wing sign board photo',
+            23,
+            'WING',
+            1,
+            1
+        );
+    END
+
+
+    /* =========================
+       AMENITY PHOTO TYPE
+       Final usage pending DBA discussion.
+       Required because SocialAttributeMaster has PhotoTypeId FK.
+    ========================= */
+
+    IF NOT EXISTS (
+        SELECT 1 FROM [PTIS].[PropertyPhotoType]
+        WHERE [PhotoTypeCode] = 'AMENITY_PHOTO'
+    )
+    BEGIN
+        INSERT INTO [PTIS].[PropertyPhotoType]
+        (
+            [PhotoTypeCode],
+            [PhotoTypeName],
+            [Description],
+            [DisplayOrder],
+            [PhotoScope],
+            [IsActive],
+            [CreatedBy]
+        )
+        VALUES
+        (
+            'AMENITY_PHOTO',
+            N'Amenity Photo',
+            N'Photo for amenity / social attribute',
+            30,
+            'AMENITY',
+            1,
+            1
+        );
+    END
+
+    COMMIT TRANSACTION;
+END TRY
+BEGIN CATCH
+    IF @@TRANCOUNT > 0
+        ROLLBACK TRANSACTION;
+
+    THROW;
+END CATCH;
+GO
