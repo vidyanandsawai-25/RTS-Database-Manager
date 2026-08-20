@@ -1920,21 +1920,45 @@ BEGIN
     IF NOT EXISTS (SELECT 1 FROM [CORE].[SMSMaster] WHERE [TemplateName] = 'RTS_CITIZEN_LOGIN_OTP')
     BEGIN
         INSERT INTO [CORE].[SMSMaster] ([SMSGatewayMasterID], [SMSTypeID], [TemplateName], [TemplateID], [SmsText], [IsActive], [CreatedBy], [CreatedDate])
-        VALUES (@GatewayId, ISNULL(@OtpTypeId, 1), 'RTS_CITIZEN_LOGIN_OTP', '1707175319753583565', 'Your RTS Citizen Portal login OTP is {Otp}. Please do not share this OTP with anyone. - {CorporationName}', 1, 1, GETDATE());
+        VALUES (@GatewayId, ISNULL(@OtpTypeId, 1), 'RTS_CITIZEN_LOGIN_OTP', '1777178712043664592', 'Your RTS Citizen Portal login OTP is {Otp}. Please do not share this OTP with anyone. Akola Municipal Corporation', 1, 1, GETDATE());
+    END
+    ELSE
+    BEGIN
+        UPDATE [CORE].[SMSMaster]
+        SET [TemplateID] = '1777178712043664592',
+            [SmsText] = 'Your RTS Citizen Portal login OTP is {Otp}. Please do not share this OTP with anyone. Akola Municipal Corporation',
+            [IsActive] = 1
+        WHERE [TemplateName] = 'RTS_CITIZEN_LOGIN_OTP';
     END;
 
     -- Unified Dynamic Application Status Template (Used on all actions: submit, forward, approve, reject, revert)
     IF NOT EXISTS (SELECT 1 FROM [CORE].[SMSMaster] WHERE [TemplateName] = 'RTS_APP_STATUS_UPDATE')
     BEGIN
         INSERT INTO [CORE].[SMSMaster] ([SMSGatewayMasterID], [SMSTypeID], [TemplateName], [TemplateID], [SmsText], [IsActive], [CreatedBy], [CreatedDate])
-        VALUES (@GatewayId, ISNULL(@StatusUpdateTypeId, 3), 'RTS_APP_STATUS_UPDATE', '1707175319753583566', 'Dear {CitizenName}, your RTS Application No: {ApplicationNo} for {ServiceName} is currently {Status}. Track status: {TrackingUrl} - {CorporationName}', 1, 1, GETDATE());
+        VALUES (@GatewayId, ISNULL(@StatusUpdateTypeId, 3), 'RTS_APP_STATUS_UPDATE', '1777178712142992263', 'Dear {CitizenName}, Your RTS Application No: {ApplicationNo} for {ServiceName} is Currently {Status} Track Status: {TrackingUrl} Akola Municipal Corporation', 1, 1, GETDATE());
+    END
+    ELSE
+    BEGIN
+        UPDATE [CORE].[SMSMaster]
+        SET [TemplateID] = '1777178712142992263',
+            [SmsText] = 'Dear {CitizenName}, Your RTS Application No: {ApplicationNo} for {ServiceName} is Currently {Status} Track Status: {TrackingUrl} Akola Municipal Corporation',
+            [IsActive] = 1
+        WHERE [TemplateName] = 'RTS_APP_STATUS_UPDATE';
     END;
 
     -- Online Payment Receipt Template
     IF NOT EXISTS (SELECT 1 FROM [CORE].[SMSMaster] WHERE [TemplateName] = 'RTS_FEE_PAID')
     BEGIN
         INSERT INTO [CORE].[SMSMaster] ([SMSGatewayMasterID], [SMSTypeID], [TemplateName], [TemplateID], [SmsText], [IsActive], [CreatedBy], [CreatedDate])
-        VALUES (@GatewayId, ISNULL(@FeePaidTypeId, 2), 'RTS_FEE_PAID', '1707175319753583568', 'Dear {CitizenName}, payment of Rs.{Amount} for RTS Application No: {ApplicationNo} is successful. Receipt No: {ReceiptNo}. Download receipt: {ReceiptUrl} - {CorporationName}', 1, 1, GETDATE());
+        VALUES (@GatewayId, ISNULL(@FeePaidTypeId, 2), 'RTS_FEE_PAID', '1777178712159619916', 'Dear {CitizenName}, Payment of Rs.{Amount} for RTS Application No: {ApplicationNo} is successful. Receipt No: {ReceiptNo}. Download Receipt:{ReceiptUrl} Akola Municipal Corporation', 1, 1, GETDATE());
+    END
+    ELSE
+    BEGIN
+        UPDATE [CORE].[SMSMaster]
+        SET [TemplateID] = '1777178712159619916',
+            [SmsText] = 'Dear {CitizenName}, Payment of Rs.{Amount} for RTS Application No: {ApplicationNo} is successful. Receipt No: {ReceiptNo}. Download Receipt:{ReceiptUrl} Akola Municipal Corporation',
+            [IsActive] = 1
+        WHERE [TemplateName] = 'RTS_FEE_PAID';
     END;
 END;
 GO

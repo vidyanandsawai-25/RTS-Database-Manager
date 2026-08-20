@@ -168,9 +168,7 @@ DECLARE @ApprovedTypeId INT = (SELECT TOP 1 [SMSTypeID] FROM [CORE].[SMSType] WH
 
 INSERT INTO [CORE].[SMSMaster] ([SMSGatewayMasterID], [SMSTypeID], [TemplateName], [TemplateID], [SmsText], [IsActive], [CreatedBy], [CreatedDate])
 VALUES
-(@GatewayId, @OtpTypeId,            'OTP_SMS',            '1707175319753583565', 'Your PTAX Login OTP is {OTP} Akola Municipal Corporation', 1, 1, GETDATE()),
-(@GatewayId, @SubmitTypeId,         'RTS_APP_SUBMITTED',  '1707175319753583565', 'Dear Citizen {UserName}, your application {ApplicationNo} for {ServiceName} has been successfully submitted to Akola Municipal Corporation.', 1, 1, GETDATE()),
-(@GatewayId, @PaymentPendingTypeId, 'RTS_PAYMENT_PENDING','1707175319753583565', 'Dear Citizen {UserName}, your application {ApplicationNo} is verified. Please pay Government Fee of Rs.{Amount} to Akola Municipal Corporation.', 1, 1, GETDATE()),
-(@GatewayId, @FeePaidTypeId,        'RTS_FEE_PAID',       '1707175319753583565', 'Dear Citizen {UserName}, payment of Rs.{Amount} for application {ApplicationNo} is successful. Receipt No: {ReceiptNo}. Akola Municipal Corporation', 1, 1, GETDATE()),
-(@GatewayId, @ApprovedTypeId,       'RTS_APP_APPROVED',   '1707175319753583565', 'Dear Citizen {UserName}, your certificate for {ServiceName} (Application No: {ApplicationNo}) has been approved by Akola Municipal Corporation.', 1, 1, GETDATE());
+(@GatewayId, @OtpTypeId,            'RTS_CITIZEN_LOGIN_OTP', '1777178712043664592', 'Your RTS Citizen Portal login OTP is {Otp}. Please do not share this OTP with anyone. Akola Municipal Corporation', 1, 1, GETDATE()),
+(@GatewayId, @SubmitTypeId,         'RTS_APP_STATUS_UPDATE', '1777178712142992263', 'Dear {CitizenName}, Your RTS Application No: {ApplicationNo} for {ServiceName} is Currently {Status} Track Status: {TrackingUrl} Akola Municipal Corporation', 1, 1, GETDATE()),
+(@GatewayId, @FeePaidTypeId,        'RTS_FEE_PAID',          '1777178712159619916', 'Dear {CitizenName}, Payment of Rs.{Amount} for RTS Application No: {ApplicationNo} is successful. Receipt No: {ReceiptNo}. Download Receipt:{ReceiptUrl} Akola Municipal Corporation', 1, 1, GETDATE());
 GO
