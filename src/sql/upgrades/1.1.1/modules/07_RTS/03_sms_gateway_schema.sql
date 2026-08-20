@@ -145,13 +145,9 @@ GO
 -- 3. Upsert SMS Types
 MERGE INTO [CORE].[SMSType] AS Target
 USING (VALUES
-    (1, 'OTP',                       'One Time Password for login/verification'),
-    (2, 'Change Password',           'Notification for password updates'),
-    (3, 'Online Fee Paid',           'Receipt notification for online payments'),
-    (4, 'RTS Application Submitted', 'Notification sent when RTS application is submitted'),
-    (5, 'RTS Payment Pending',       'Notification requesting citizen to pay application fee'),
-    (6, 'RTS Application Approved',  'Notification when RTS service is approved and ready'),
-    (7, 'RTS Application Rejected',  'Notification when RTS application is rejected')
+    (1, 'OTP',                            'One Time Password for citizen login/verification'),
+    (2, 'Online Fee Paid',                'Receipt notification for online fee payments'),
+    (3, 'RTS Application Status Update',  'Unified status update notification for all RTS workflow steps')
 ) AS Source ([SMSTypeID], [TypeName], [Description])
 ON Target.[TypeName] = Source.[TypeName]
 WHEN MATCHED THEN
@@ -164,12 +160,12 @@ GO
 -- 4. Insert Official DLT SMS Templates
 DECLARE @GatewayId INT = 1;
 DECLARE @OtpTypeId INT = (SELECT TOP 1 [SMSTypeID] FROM [CORE].[SMSType] WHERE [TypeName] = 'OTP');
-DECLARE @SubmitTypeId INT = (SELECT TOP 1 [SMSTypeID] FROM [CORE].[SMSType] WHERE [TypeName] = 'RTS Application Submitted');
+DECLARE @StatusUpdateTypeId INT = (SELECT TOP 1 [SMSTypeID] FROM [CORE].[SMSType] WHERE [TypeName] = 'RTS Application Status Update');
 DECLARE @FeePaidTypeId INT = (SELECT TOP 1 [SMSTypeID] FROM [CORE].[SMSType] WHERE [TypeName] = 'Online Fee Paid');
 
 INSERT INTO [CORE].[SMSMaster] ([SMSGatewayMasterID], [SMSTypeID], [TemplateName], [TemplateID], [SmsText], [IsActive], [CreatedBy], [CreatedDate])
 VALUES
 (@GatewayId, @OtpTypeId,            'RTS_CITIZEN_LOGIN_OTP', '1777178721904398497', 'Your RTS Citizen Portal login OTP is {Otp}. Please do not share this OTP with anyone. Akola Municipal Corporation', 1, 1, GETDATE()),
-(@GatewayId, @SubmitTypeId,         'RTS_APP_STATUS_UPDATE', '1777178721329285369', 'Dear {CitizenName}, Your RTS Application No: {ApplicationNo} for {ServiceName} is Currently {Status} Track Status: https://citizen.scipl.info.in/service?track={ApplicationNo} Akola Municipal Corporation', 1, 1, GETDATE()),
+(@GatewayId, @StatusUpdateTypeId,   'RTS_APP_STATUS_UPDATE', '1777178721329285369', 'Dear {CitizenName}, Your RTS Application No: {ApplicationNo} for {ServiceName} is Currently {Status} Track Status: https://citizen.scipl.info.in/service?track={ApplicationNo} Akola Municipal Corporation', 1, 1, GETDATE()),
 (@GatewayId, @FeePaidTypeId,        'RTS_FEE_PAID',          '1777178721313405133', 'Dear {CitizenName}, Payment of Rs.{Amount} for RTS Application No: {ApplicationNo} is successful. Receipt No: {ReceiptNo}. Download Receipt: https://citizen.scipl.info.in/service?receipt={ReceiptNo} Akola Municipal Corporation', 1, 1, GETDATE());
 GO
