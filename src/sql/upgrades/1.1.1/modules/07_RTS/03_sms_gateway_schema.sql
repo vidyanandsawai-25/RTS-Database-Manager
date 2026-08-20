@@ -131,7 +131,7 @@ VALUES
     (1, 1, 'BaseURL',   'http://sms.ptaxcollection.com/sendsms.jsp', 1, 1, 0, 0, 0, 0, 1, 1, GETDATE()),
     (2, 1, 'user',      'payakl',                                    2, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
     (3, 1, 'password',  'fb05b4a701XX',                              3, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
-    (4, 1, 'senderid',  'AKOLMC',                                    4, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
+    (4, 1, 'senderid',  'AMCPAY',                                    4, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
     (5, 1, 'mobiles',   '',                                          5, 0, 0, 1, 0, 0, 1, 1, GETDATE()),
     (6, 1, 'sms',       '',                                          6, 0, 1, 0, 0, 0, 1, 1, GETDATE()),
     (7, 1, 'tempid',    '1707175319753583565',                       7, 0, 0, 0, 1, 0, 1, 1, GETDATE()),

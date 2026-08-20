@@ -1885,11 +1885,15 @@ BEGIN
         (@SmsGatewayId, 'BaseURL',   'http://sms.ptaxcollection.com/sendsms.jsp', 1, 1, 0, 0, 0, 0, 1, 1, GETDATE()),
         (@SmsGatewayId, 'user',      'payakl',                                    2, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
         (@SmsGatewayId, 'password',  'fb05b4a701XX',                              3, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
-        (@SmsGatewayId, 'senderid',  'AKOLMC',                                    4, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
+        (@SmsGatewayId, 'senderid',  'AMCPAY',                                    4, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
         (@SmsGatewayId, 'mobiles',   '',                                          5, 0, 0, 1, 0, 0, 1, 1, GETDATE()),
         (@SmsGatewayId, 'sms',       '',                                          6, 0, 1, 0, 0, 0, 1, 1, GETDATE()),
-        (@SmsGatewayId, 'tempid',    '1707175319753583565',                       7, 0, 0, 0, 1, 0, 1, 1, GETDATE()),
+        (@SmsGatewayId, 'tempid',    '1777178712043664592',                       7, 0, 0, 0, 1, 0, 1, 1, GETDATE()),
         (@SmsGatewayId, 'unicode',   '0',                                         8, 0, 0, 0, 0, 1, 1, 1, GETDATE());
+END
+ELSE IF @SmsGatewayId IS NOT NULL
+BEGIN
+    UPDATE [CORE].[SmsGatewayDetails] SET [Value] = 'AMCPAY' WHERE [SMSGatewayMasterID] = @SmsGatewayId AND [PropertyName] = 'senderid';
 END;
 GO
 
