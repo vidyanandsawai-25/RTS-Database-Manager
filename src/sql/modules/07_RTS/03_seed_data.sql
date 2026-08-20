@@ -1885,10 +1885,10 @@ BEGIN
         (@SmsGatewayId, 'BaseURL',   'http://sms.ptaxcollection.com/sendsms.jsp', 1, 1, 0, 0, 0, 0, 1, 1, GETDATE()),
         (@SmsGatewayId, 'user',      'payakl',                                    2, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
         (@SmsGatewayId, 'password',  'fb05b4a701XX',                              3, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
-        (@SmsGatewayId, 'senderid',  'AMCPAY',                                    4, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
+        (@SmsGatewayId, 'senderid',  'AKOLMC',                                    4, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
         (@SmsGatewayId, 'mobiles',   '',                                          5, 0, 0, 1, 0, 0, 1, 1, GETDATE()),
         (@SmsGatewayId, 'sms',       '',                                          6, 0, 1, 0, 0, 0, 1, 1, GETDATE()),
-        (@SmsGatewayId, 'tempid',    '1777178712043664592',                       7, 0, 0, 0, 1, 0, 1, 1, GETDATE()),
+        (@SmsGatewayId, 'tempid',    '1777178721904398497',                       7, 0, 0, 0, 1, 0, 1, 1, GETDATE()),
         (@SmsGatewayId, 'unicode',   '0',                                         8, 0, 0, 0, 0, 1, 1, 1, GETDATE()),
         (@SmsGatewayId, 'accusage',  '1',                                         9, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
         (@SmsGatewayId, 'entityid',  '1701161970302682421',                      10, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
@@ -1896,7 +1896,7 @@ BEGIN
 END
 ELSE IF @SmsGatewayId IS NOT NULL
 BEGIN
-    UPDATE [CORE].[SmsGatewayDetails] SET [Value] = 'AMCPAY' WHERE [SMSGatewayMasterID] = @SmsGatewayId AND [PropertyName] = 'senderid';
+    UPDATE [CORE].[SmsGatewayDetails] SET [Value] = 'AKOLMC' WHERE [SMSGatewayMasterID] = @SmsGatewayId AND [PropertyName] = 'senderid';
     UPDATE [CORE].[SmsGatewayDetails] SET [Value] = '1701161970302682421' WHERE [SMSGatewayMasterID] = @SmsGatewayId AND [PropertyName] = 'entityid';
 END;
 GO
@@ -1928,12 +1928,12 @@ BEGIN
     IF NOT EXISTS (SELECT 1 FROM [CORE].[SMSMaster] WHERE [TemplateName] = 'RTS_CITIZEN_LOGIN_OTP')
     BEGIN
         INSERT INTO [CORE].[SMSMaster] ([SMSGatewayMasterID], [SMSTypeID], [TemplateName], [TemplateID], [SmsText], [IsActive], [CreatedBy], [CreatedDate])
-        VALUES (@GatewayId, ISNULL(@OtpTypeId, 1), 'RTS_CITIZEN_LOGIN_OTP', '1777178712043664592', 'Your RTS Citizen Portal login OTP is {Otp}. Please do not share this OTP with anyone. Akola Municipal Corporation', 1, 1, GETDATE());
+        VALUES (@GatewayId, ISNULL(@OtpTypeId, 1), 'RTS_CITIZEN_LOGIN_OTP', '1777178721904398497', 'Your RTS Citizen Portal login OTP is {Otp}. Please do not share this OTP with anyone. Akola Municipal Corporation', 1, 1, GETDATE());
     END
     ELSE
     BEGIN
         UPDATE [CORE].[SMSMaster]
-        SET [TemplateID] = '1777178712043664592',
+        SET [TemplateID] = '1777178721904398497',
             [SmsText] = 'Your RTS Citizen Portal login OTP is {Otp}. Please do not share this OTP with anyone. Akola Municipal Corporation',
             [IsActive] = 1
         WHERE [TemplateName] = 'RTS_CITIZEN_LOGIN_OTP';
@@ -1943,13 +1943,13 @@ BEGIN
     IF NOT EXISTS (SELECT 1 FROM [CORE].[SMSMaster] WHERE [TemplateName] = 'RTS_APP_STATUS_UPDATE')
     BEGIN
         INSERT INTO [CORE].[SMSMaster] ([SMSGatewayMasterID], [SMSTypeID], [TemplateName], [TemplateID], [SmsText], [IsActive], [CreatedBy], [CreatedDate])
-        VALUES (@GatewayId, ISNULL(@StatusUpdateTypeId, 3), 'RTS_APP_STATUS_UPDATE', '1777178712142992263', 'Dear {CitizenName}, Your RTS Application No: {ApplicationNo} for {ServiceName} is Currently {Status} Track Status: {TrackingUrl} Akola Municipal Corporation', 1, 1, GETDATE());
+        VALUES (@GatewayId, ISNULL(@StatusUpdateTypeId, 3), 'RTS_APP_STATUS_UPDATE', '1777178721329285369', 'Dear {CitizenName}, Your RTS Application No: {ApplicationNo} for {ServiceName} is Currently {Status} Track Status: https://citizen.scipl.info.in/service?track={ApplicationNo} Akola Municipal Corporation', 1, 1, GETDATE());
     END
     ELSE
     BEGIN
         UPDATE [CORE].[SMSMaster]
-        SET [TemplateID] = '1777178712142992263',
-            [SmsText] = 'Dear {CitizenName}, Your RTS Application No: {ApplicationNo} for {ServiceName} is Currently {Status} Track Status: {TrackingUrl} Akola Municipal Corporation',
+        SET [TemplateID] = '1777178721329285369',
+            [SmsText] = 'Dear {CitizenName}, Your RTS Application No: {ApplicationNo} for {ServiceName} is Currently {Status} Track Status: https://citizen.scipl.info.in/service?track={ApplicationNo} Akola Municipal Corporation',
             [IsActive] = 1
         WHERE [TemplateName] = 'RTS_APP_STATUS_UPDATE';
     END;
@@ -1958,13 +1958,13 @@ BEGIN
     IF NOT EXISTS (SELECT 1 FROM [CORE].[SMSMaster] WHERE [TemplateName] = 'RTS_FEE_PAID')
     BEGIN
         INSERT INTO [CORE].[SMSMaster] ([SMSGatewayMasterID], [SMSTypeID], [TemplateName], [TemplateID], [SmsText], [IsActive], [CreatedBy], [CreatedDate])
-        VALUES (@GatewayId, ISNULL(@FeePaidTypeId, 2), 'RTS_FEE_PAID', '1777178712159619916', 'Dear {CitizenName}, Payment of Rs.{Amount} for RTS Application No: {ApplicationNo} is successful. Receipt No: {ReceiptNo}. Download Receipt:{ReceiptUrl} Akola Municipal Corporation', 1, 1, GETDATE());
+        VALUES (@GatewayId, ISNULL(@FeePaidTypeId, 2), 'RTS_FEE_PAID', '1777178721313405133', 'Dear {CitizenName}, Payment of Rs.{Amount} for RTS Application No: {ApplicationNo} is successful. Receipt No: {ReceiptNo}. Download Receipt: https://citizen.scipl.info.in/service?receipt={ReceiptNo} Akola Municipal Corporation', 1, 1, GETDATE());
     END
     ELSE
     BEGIN
         UPDATE [CORE].[SMSMaster]
-        SET [TemplateID] = '1777178712159619916',
-            [SmsText] = 'Dear {CitizenName}, Payment of Rs.{Amount} for RTS Application No: {ApplicationNo} is successful. Receipt No: {ReceiptNo}. Download Receipt:{ReceiptUrl} Akola Municipal Corporation',
+        SET [TemplateID] = '1777178721313405133',
+            [SmsText] = 'Dear {CitizenName}, Payment of Rs.{Amount} for RTS Application No: {ApplicationNo} is successful. Receipt No: {ReceiptNo}. Download Receipt: https://citizen.scipl.info.in/service?receipt={ReceiptNo} Akola Municipal Corporation',
             [IsActive] = 1
         WHERE [TemplateName] = 'RTS_FEE_PAID';
     END;

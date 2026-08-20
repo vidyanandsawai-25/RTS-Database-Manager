@@ -131,10 +131,10 @@ VALUES
     (1, 1, 'BaseURL',   'http://sms.ptaxcollection.com/sendsms.jsp', 1, 1, 0, 0, 0, 0, 1, 1, GETDATE()),
     (2, 1, 'user',      'payakl',                                    2, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
     (3, 1, 'password',  'fb05b4a701XX',                              3, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
-    (4, 1, 'senderid',  'AMCPAY',                                    4, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
+    (4, 1, 'senderid',  'AKOLMC',                                    4, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
     (5, 1, 'mobiles',   '',                                          5, 0, 0, 1, 0, 0, 1, 1, GETDATE()),
     (6, 1, 'sms',       '',                                          6, 0, 1, 0, 0, 0, 1, 1, GETDATE()),
-    (7, 1, 'tempid',    '1777178712043664592',                       7, 0, 0, 0, 1, 0, 1, 1, GETDATE()),
+    (7, 1, 'tempid',    '1777178721904398497',                       7, 0, 0, 0, 1, 0, 1, 1, GETDATE()),
     (8, 1, 'unicode',   '0',                                         8, 0, 0, 0, 0, 1, 1, 1, GETDATE()),
     (9, 1, 'accusage',  '1',                                         9, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
     (10, 1, 'entityid', '1701161970302682421',                      10, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
@@ -165,13 +165,11 @@ GO
 DECLARE @GatewayId INT = 1;
 DECLARE @OtpTypeId INT = (SELECT TOP 1 [SMSTypeID] FROM [CORE].[SMSType] WHERE [TypeName] = 'OTP');
 DECLARE @SubmitTypeId INT = (SELECT TOP 1 [SMSTypeID] FROM [CORE].[SMSType] WHERE [TypeName] = 'RTS Application Submitted');
-DECLARE @PaymentPendingTypeId INT = (SELECT TOP 1 [SMSTypeID] FROM [CORE].[SMSType] WHERE [TypeName] = 'RTS Payment Pending');
 DECLARE @FeePaidTypeId INT = (SELECT TOP 1 [SMSTypeID] FROM [CORE].[SMSType] WHERE [TypeName] = 'Online Fee Paid');
-DECLARE @ApprovedTypeId INT = (SELECT TOP 1 [SMSTypeID] FROM [CORE].[SMSType] WHERE [TypeName] = 'RTS Application Approved');
 
 INSERT INTO [CORE].[SMSMaster] ([SMSGatewayMasterID], [SMSTypeID], [TemplateName], [TemplateID], [SmsText], [IsActive], [CreatedBy], [CreatedDate])
 VALUES
-(@GatewayId, @OtpTypeId,            'RTS_CITIZEN_LOGIN_OTP', '1777178712043664592', 'Your RTS Citizen Portal login OTP is {Otp}. Please do not share this OTP with anyone. Akola Municipal Corporation', 1, 1, GETDATE()),
-(@GatewayId, @SubmitTypeId,         'RTS_APP_STATUS_UPDATE', '1777178712142992263', 'Dear {CitizenName}, Your RTS Application No: {ApplicationNo} for {ServiceName} is Currently {Status} Track Status: {TrackingUrl} Akola Municipal Corporation', 1, 1, GETDATE()),
-(@GatewayId, @FeePaidTypeId,        'RTS_FEE_PAID',          '1777178712159619916', 'Dear {CitizenName}, Payment of Rs.{Amount} for RTS Application No: {ApplicationNo} is successful. Receipt No: {ReceiptNo}. Download Receipt:{ReceiptUrl} Akola Municipal Corporation', 1, 1, GETDATE());
+(@GatewayId, @OtpTypeId,            'RTS_CITIZEN_LOGIN_OTP', '1777178721904398497', 'Your RTS Citizen Portal login OTP is {Otp}. Please do not share this OTP with anyone. Akola Municipal Corporation', 1, 1, GETDATE()),
+(@GatewayId, @SubmitTypeId,         'RTS_APP_STATUS_UPDATE', '1777178721329285369', 'Dear {CitizenName}, Your RTS Application No: {ApplicationNo} for {ServiceName} is Currently {Status} Track Status: https://citizen.scipl.info.in/service?track={ApplicationNo} Akola Municipal Corporation', 1, 1, GETDATE()),
+(@GatewayId, @FeePaidTypeId,        'RTS_FEE_PAID',          '1777178721313405133', 'Dear {CitizenName}, Payment of Rs.{Amount} for RTS Application No: {ApplicationNo} is successful. Receipt No: {ReceiptNo}. Download Receipt: https://citizen.scipl.info.in/service?receipt={ReceiptNo} Akola Municipal Corporation', 1, 1, GETDATE());
 GO
