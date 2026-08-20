@@ -1889,7 +1889,10 @@ BEGIN
         (@SmsGatewayId, 'mobiles',   '',                                          5, 0, 0, 1, 0, 0, 1, 1, GETDATE()),
         (@SmsGatewayId, 'sms',       '',                                          6, 0, 1, 0, 0, 0, 1, 1, GETDATE()),
         (@SmsGatewayId, 'tempid',    '1777178712043664592',                       7, 0, 0, 0, 1, 0, 1, 1, GETDATE()),
-        (@SmsGatewayId, 'unicode',   '0',                                         8, 0, 0, 0, 0, 1, 1, 1, GETDATE());
+        (@SmsGatewayId, 'unicode',   '0',                                         8, 0, 0, 0, 0, 1, 1, 1, GETDATE()),
+        (@SmsGatewayId, 'accusage',  '1',                                         9, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
+        (@SmsGatewayId, 'entityid',  '1707175319753583565',                      10, 0, 0, 0, 0, 0, 1, 1, GETDATE()),
+        (@SmsGatewayId, 'responsein','json',                                     11, 0, 0, 0, 0, 0, 1, 1, GETDATE());
 END
 ELSE IF @SmsGatewayId IS NOT NULL
 BEGIN
