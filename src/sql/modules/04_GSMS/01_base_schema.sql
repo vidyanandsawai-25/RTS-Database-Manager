@@ -187,9 +187,9 @@ CREATE TABLE [GSMS].[PropertySurveyVisit]
     [Longitude] DECIMAL(10,7) NULL,
     [Location] NVARCHAR(500) NULL,
     [CreatedBy] INT NOT NULL,
-    [CreatedDate] DATETIME2(0) NOT NULL CONSTRAINT [DF_PropertySurveyVisit_CreatedDate] DEFAULT GETDATE(),
+    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_PropertySurveyVisit_CreatedDate] DEFAULT GETDATE(),
     [UpdatedBy] INT NULL,
-    [UpdatedDate] DATETIME2(0) NULL,
+    [UpdatedDate] DATETIME NULL,
     CONSTRAINT [PK_PropertySurveyVisit] PRIMARY KEY CLUSTERED ([Id]),
     CONSTRAINT [FK_PropertySurveyVisit_PropertyWorkflowDetails] FOREIGN KEY ([PropertyWorkflowDetailsId])
                 REFERENCES [PTIS].[PropertyWorkflowDetails] ([Id])
@@ -208,9 +208,9 @@ CREATE TABLE [GSMS].[OldWardMaster]
     [OldWardNo] VARCHAR(100) NOT NULL,
     [IsActive] BIT NOT NULL CONSTRAINT [DF_OldWardMaster_IsActive] DEFAULT (1),
     [CreatedBy] INT NOT NULL,
-    [CreatedDate] DATETIME2(0) NOT NULL CONSTRAINT [DF_OldWardMaster_CreatedDate] DEFAULT GETDATE(),
+    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_OldWardMaster_CreatedDate] DEFAULT GETDATE(),
     [UpdatedBy] INT NULL,
-    [UpdatedDate] DATETIME2(0) NULL,
+    [UpdatedDate] DATETIME NULL,
     CONSTRAINT [PK_OldWardMaster] PRIMARY KEY CLUSTERED ([Id]),
     CONSTRAINT [UQ_OldWardMaster_OldZoneName_OldWardNo] UNIQUE ([OldZoneName], [OldWardNo])
 );
@@ -241,9 +241,9 @@ CREATE TABLE [GSMS].[MergeDetails]
     [FlatOrShopNameEnglish] VARCHAR(200) NULL,
     [IsActive] BIT NOT NULL CONSTRAINT [DF_MergeDetails_IsActive] DEFAULT (1),
     [CreatedBy] INT NOT NULL,
-    [CreatedDate] DATETIME2(0) NOT NULL CONSTRAINT [DF_MergeDetails_CreatedDate] DEFAULT GETDATE(),
+    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_MergeDetails_CreatedDate] DEFAULT GETDATE(),
     [UpdatedBy] INT NULL,
-    [UpdatedDate] DATETIME2(0) NULL,
+    [UpdatedDate] DATETIME NULL,
     CONSTRAINT [PK_MergeDetails] PRIMARY KEY CLUSTERED ([Id]),
     CONSTRAINT [FK_MergeDetails_PropertyMapDetail] FOREIGN KEY ([PropertyMapDetailId])
             REFERENCES [PTIS].[PropertyMapDetail] ([Id])
@@ -283,4 +283,31 @@ ALTER TABLE [GSMS].[VirtualPropertyTransferHistory] WITH CHECK
 ADD CONSTRAINT [FK_VirtualPropertyTransferHistory_TransferredWard]
 FOREIGN KEY ([TransferredWardId])
 REFERENCES [PTIS].[WardMaster]([Id]);
+GO
+
+
+CREATE TABLE [GSMS].[VillageMaster](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[ZoneId] INT NOT NULL,
+	[VillageName] [nvarchar](100) NOT NULL,
+	[VillageNameEnglish] [varchar](100) NULL,
+	[PinCode] VARCHAR(6) NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_VillageMaster_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_VillageMaster_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+  CONSTRAINT [PK_VillageMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+GO
+
+ALTER TABLE [GSMS].[VillageMaster] WITH CHECK
+ADD CONSTRAINT [FK_VillageMaster_ZoneMaster]
+FOREIGN KEY ([ZoneId])
+REFERENCES [PTIS].[ZoneMaster] ([Id]);
+GO
+
+ALTER TABLE [GSMS].[VillageMaster]
+ADD CONSTRAINT [UQ_VillageMaster_Zone_Village_Pincode]
+UNIQUE ([ZoneId],[VillageName],[PinCode]);
 GO
