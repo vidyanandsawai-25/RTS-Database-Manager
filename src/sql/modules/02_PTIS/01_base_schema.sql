@@ -5317,7 +5317,7 @@ CREATE TABLE [PTIS].[RetrospectivePenaltyRule](
 	[RuleId] [int] NOT NULL,
 	[IsPenaltyApplicable] [bit] NOT NULL,
 	[PenaltyMode] [varchar](50) NOT NULL CONSTRAINT [DF_RetrospectivePenaltyRule_PenaltyMode] DEFAULT ('NONE')
-		CONSTRAINT [CK_RetrospectivePenaltyRule_PenaltyMode] CHECK ([PenaltyMode] IN ('NONE', 'ACT_UNLAWFUL', 'DATE_VALIDATION')),
+		CONSTRAINT [CK_RetrospectivePenaltyRule_PenaltyMode] CHECK ([PenaltyMode] IN ('NONE', 'ACT_PENALTY', 'DATE_VALIDATION')),
 	[PenaltyPercent] [decimal](10,2) NULL,
 	[PenaltyDateSourceType] [varchar](30) NULL
 		CONSTRAINT [CK_RetrospectivePenaltyRule_PenaltyDateSourceType] CHECK ([PenaltyDateSourceType] IN ('EVIDENCE_DATE', 'ASSESSMENT_DATE', 'FIXED_DATE')),

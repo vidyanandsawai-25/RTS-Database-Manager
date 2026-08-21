@@ -5938,10 +5938,10 @@ FROM (VALUES
     ('THA-03', 0, 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Penalty not applicable because OC or CC is available.'),
     ('THA-04', 0, 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Penalty not applicable because OC or CC is available.'),
     ('THA-09', 0, 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Penalty not applicable because OC or CC is available.'),
-    ('THA-05', 1, 'ACT_UNLAWFUL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Apply unauthorized construction penalty as per Act.'),
-    ('THA-06', 1, 'ACT_UNLAWFUL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Apply unauthorized construction penalty as per Act.'),
-    ('THA-07', 1, 'ACT_UNLAWFUL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Apply unauthorized construction penalty as per Act.'),
-    ('THA-08', 1, 'ACT_UNLAWFUL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Apply unauthorized construction penalty as per Act.'),
+    ('THA-05', 1, 'ACT_PENALTY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Apply unauthorized construction penalty as per Act.'),
+    ('THA-06', 1, 'ACT_PENALTY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Apply unauthorized construction penalty as per Act.'),
+    ('THA-07', 1, 'ACT_PENALTY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Apply unauthorized construction penalty as per Act.'),
+    ('THA-08', 1, 'ACT_PENALTY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Apply unauthorized construction penalty as per Act.'),
     ('PCM-01', 0, 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Penalty not applicable because OC or CC is available.'),
     ('PCM-02', 0, 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Penalty not applicable because OC or CC is available.'),
     ('PCM-03', 0, 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Penalty not applicable because OC or CC is available.'),
@@ -5950,8 +5950,8 @@ FROM (VALUES
     ('PCM-06', 1, 'DATE_VALIDATION', NULL, 'EVIDENCE_DATE', 'ELECTRICITY', 'ON_OR_AFTER', '2026-03-03', NULL, 'MANUAL_REVIEW', 1, 'Policy conflict: electricity is marked unavailable but penalty source uses electricity date. Manual review required.'),
     ('FUR-01', 0, 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Penalty not applicable because OC or CC is available.'),
     ('FUR-02', 0, 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Penalty not applicable because OC or CC is available.'),
-    ('FUR-03', 1, 'ACT_UNLAWFUL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Apply unauthorized construction penalty as per Act.'),
-    ('FUR-04', 1, 'ACT_UNLAWFUL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Apply unauthorized construction penalty as per Act.')
+    ('FUR-03', 1, 'ACT_PENALTY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Apply unauthorized construction penalty as per Act.'),
+    ('FUR-04', 1, 'ACT_PENALTY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Apply unauthorized construction penalty as per Act.')
 ) v (RuleCode, IsPenaltyApplicable, PenaltyMode, PenaltyPercent, PenaltyDateSourceType, PenaltyDateEvidenceCode, PenaltyDateCondition, CompareDate, CompareDateTo, ElseAction, RequiresManualReview, Remarks)
 INNER JOIN PTIS.RetrospectiveRuleMaster R
     ON R.RuleCode = v.RuleCode
