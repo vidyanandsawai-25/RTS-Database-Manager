@@ -199,8 +199,6 @@ CREATE TABLE [PTIS].[SocietyDetailsMast](
 	[SocietyEmailId] [nvarchar](100) NULL,
 	[SecretaryEmailId] [nvarchar](100) NULL,
 	[ManagerEmailId] [nvarchar](100) NULL,
-	--[WingPhotoDocumentIds] VARCHAR(1000) NULL,
-	[BoardPhotoDocumentIds] VARCHAR(1000) NULL,
 	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_SocietyDetailsMaster_MarkedForDeletion] DEFAULT (0),
     [MarkedForDeletionDate] [datetime] NULL ,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_SocietyDetailsMaster_IsActive] DEFAULT (1),
@@ -268,8 +266,6 @@ CREATE TABLE [PTIS].[WingDetailsMast](
 	--[SocietyEmailId] [nvarchar](100) NULL,
 	
 	[ManagerEmailId] [nvarchar](100) NULL,
-	[WingPhotoDocumentIds] VARCHAR(1000) NULL,
-	--[BoardPhotoDocumentIds] VARCHAR(1000) NULL,
 	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_WingDetailsMast_MarkedForDeletion] DEFAULT (0),
     [MarkedForDeletionDate] [datetime] NULL ,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_WingDetailsMast_IsActive] DEFAULT (1),
@@ -2487,9 +2483,17 @@ CREATE TABLE [PTIS].[PropertyCertificates]
         REFERENCES [CORE].[DocumentBinding] ([Id]),
 
     CONSTRAINT [CK_PropertyCertificates_EntityType]
-        CHECK ([EntityType] IN ('S', 'W', 'P'))
+        CHECK ([EntityType] IN ('S', 'W', 'P')),
 
-    
+    -- EntityType marks the certificate apply level (society/wing/property/floor);
+    -- PropertyDetailsId NULL vs NOT NULL on a 'P' row distinguishes property-wise
+    -- from floor-wise, no separate EntityType value is needed for that.
+    CONSTRAINT [CK_PropertyCertificates_EntityScope]
+        CHECK (
+            ([EntityType] = 'S' AND [SocietyDetailId] IS NOT NULL AND [WingDetailId] IS NULL AND [PropertyId] IS NULL AND [PropertyDetailsId] IS NULL) OR
+            ([EntityType] = 'W' AND [SocietyDetailId] IS NOT NULL AND [WingDetailId] IS NOT NULL AND [PropertyId] IS NULL AND [PropertyDetailsId] IS NULL) OR
+            ([EntityType] = 'P' AND [PropertyId] IS NOT NULL)
+        )
 );
 GO
 
@@ -4258,11 +4262,15 @@ CREATE TABLE [PTIS].[PropertyPhoto](
     CONSTRAINT [CK_PropertyPhoto_EntityType]
         CHECK ([EntityType] IN ('S', 'W', 'P')),
 
+    -- EntityType marks the photo/certificate apply level; SocietyDetailId/WingDetailId
+    -- may still be populated on 'W'/'P' rows to carry the parent hierarchy for
+    -- filtering/reporting (e.g. an apartment flat photo keeps SocietyDetailId + WingDetailId
+    -- alongside its required PropertyId).
     CONSTRAINT [CK_PropertyPhoto_EntityScope]
         CHECK (
             ([EntityType] = 'S' AND [SocietyDetailId] IS NOT NULL AND [WingDetailId] IS NULL AND [PropertyId] IS NULL) OR
-            ([EntityType] = 'W' AND [WingDetailId] IS NOT NULL AND [SocietyDetailId] IS NULL AND [PropertyId] IS NULL) OR
-            ([EntityType] = 'P' AND [PropertyId] IS NOT NULL AND [SocietyDetailId] IS NULL AND [WingDetailId] IS NULL)
+            ([EntityType] = 'W' AND [SocietyDetailId] IS NOT NULL AND [WingDetailId] IS NOT NULL AND [PropertyId] IS NULL) OR
+            ([EntityType] = 'P' AND [PropertyId] IS NOT NULL)
         )
 );
 GO
@@ -4279,11 +4287,12 @@ ALTER TABLE [PTIS].[PropertyPhoto] WITH CHECK
 ADD CONSTRAINT [FK_PropertyPhoto_DocumentBinding] FOREIGN KEY ([DocumentBindingId]) REFERENCES [CORE].[DocumentBinding]([Id]);
 GO
 
--- Single unique index with INCLUDE clause - serves both uniqueness enforcement and query performance
-CREATE UNIQUE NONCLUSTERED INDEX [UX_PropertyPhoto_Latest_Per_Entity_Type]
-	ON [PTIS].[PropertyPhoto]([EntityType], [SocietyDetailId], [WingDetailId], [PropertyId], [PhotoTypeId])
-	INCLUDE ([DocumentBindingId], [DisplayOrder], [IsLatest])
-	WHERE [IsLatest] = 1 AND [IsActive] = 1 AND [MarkedForDeletion] = 0;
+-- Non-unique: multiple photos of the same type are allowed per entity (e.g. several
+-- society board photos), ordered/superseded via DisplayOrder / IsLatest.
+CREATE NONCLUSTERED INDEX [IX_PropertyPhoto_Entity_Type]
+	ON [PTIS].[PropertyPhoto]([EntityType], [SocietyDetailId], [WingDetailId], [PropertyId], [PhotoTypeId], [IsLatest])
+	INCLUDE ([DocumentBindingId], [DisplayOrder], [Remarks])
+	WHERE [IsActive] = 1 AND [MarkedForDeletion] = 0;
 GO
 
 ALTER TABLE [PTIS].[SocialAttributeMaster] WITH CHECK ADD CONSTRAINT [FK_SocialAttributeMaster_PhotoType]
@@ -5065,4 +5074,494 @@ GO
 CREATE NONCLUSTERED INDEX [IX_ULBDocument_IsLatest]
     ON [PTIS].[ULBDocument] ([IsLatest])
     WHERE [IsActive] = 1 AND [MarkedForDeletion] = 0;
+GO
+
+
+/* =====================================================================================
+   Retrospective Tax Rule Engine
+   12 tables: EvidenceTypeMaster, RetrospectiveRuleMaster, RetrospectiveTaxPolicy,
+   RetrospectiveRuleEvidenceCondition, RetrospectiveRuleDateCondition,
+   RetrospectiveRuleAction, RetrospectivePenaltyRule, RetrospectiveRuleSummary,
+   RetrospectiveTaxCalculation, RetrospectiveCalculationEvidence,
+   RetrospectiveTaxCalculationDetail, RetrospectiveRuleAuditLog.
+   ===================================================================================== */
+
+/****** Object:  Table [PTIS].[EvidenceTypeMaster] ******/
+CREATE TABLE [PTIS].[EvidenceTypeMaster](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[EvidenceCode] [varchar](50) NOT NULL,
+	[EvidenceName] [nvarchar](100) NOT NULL,
+	[IsCertificate] [bit] NOT NULL,
+	[DisplayOrder] [int] NOT NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_EvidenceTypeMaster_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_EvidenceTypeMaster_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_EvidenceTypeMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT [UQ_EvidenceTypeMaster_EvidenceCode] UNIQUE ([EvidenceCode])
+) ON [PRIMARY]
+GO
+
+
+/****** Object:  Table [PTIS].[RetrospectiveRuleMaster] ******/
+CREATE TABLE [PTIS].[RetrospectiveRuleMaster](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[RuleCode] [varchar](50) NOT NULL,
+	[RuleName] [nvarchar](200) NOT NULL,
+	[RuleDescription] [nvarchar](1000) NULL,
+	[PriorityNo] [int] NOT NULL,
+	[MatchType] [varchar](30) NOT NULL CONSTRAINT [DF_RetrospectiveRuleMaster_MatchType] DEFAULT ('CONDITION_BASED')
+		CONSTRAINT [CK_RetrospectiveRuleMaster_MatchType] CHECK ([MatchType] IN ('CONDITION_BASED', 'EXACT_EVIDENCE_MATCH', 'PRIORITY_BASED')),
+	[IsFallbackRule] [bit] NOT NULL,
+	[RuleStatus] [varchar](30) NOT NULL CONSTRAINT [DF_RetrospectiveRuleMaster_RuleStatus] DEFAULT ('Draft')
+		CONSTRAINT [CK_RetrospectiveRuleMaster_RuleStatus] CHECK ([RuleStatus] IN ('Draft', 'Active', 'Review', 'NeedsClarification')),
+	[AuthorizationStatus] [varchar](30) NULL
+		CONSTRAINT [CK_RetrospectiveRuleMaster_AuthorizationStatus] CHECK ([AuthorizationStatus] IN ('AUTHORIZED', 'UNAUTHORIZED', 'UNDETERMINED')),
+	[LegalCapEnabled] [bit] NOT NULL CONSTRAINT [DF_RetrospectiveRuleMaster_LegalCapEnabled] DEFAULT (1),
+	[LegalCapYears] [int] NOT NULL CONSTRAINT [DF_RetrospectiveRuleMaster_LegalCapYears] DEFAULT (6),
+	[NoticeDays] [int] NOT NULL CONSTRAINT [DF_RetrospectiveRuleMaster_NoticeDays] DEFAULT (15),
+	[VersionNo] [varchar](20) NULL,
+	[ResolutionRef] [varchar](200) NULL,
+	[EffectiveFrom] [datetime] NULL,
+	[EffectiveTo] [datetime] NULL,
+	[Remarks] [nvarchar](1000) NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RetrospectiveRuleMaster_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_RetrospectiveRuleMaster_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_RetrospectiveRuleMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT [UQ_RetrospectiveRuleMaster_RuleCode] UNIQUE ([RuleCode])
+) ON [PRIMARY]
+GO
+
+
+/****** Object:  Table [PTIS].[RetrospectiveTaxPolicy] ******/
+CREATE TABLE [PTIS].[RetrospectiveTaxPolicy](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[TaxPolicyCode] [varchar](50) NOT NULL,
+	[TaxPolicyName] [nvarchar](200) NOT NULL,
+	[RateMode] [varchar](50) NOT NULL
+		CONSTRAINT [CK_RetrospectiveTaxPolicy_RateMode] CHECK ([RateMode] IN ('HISTORIC_YEAR_WISE', 'CURRENT_YEAR_FOR_ALL_YEARS')),
+	[PercentageMode] [varchar](50) NOT NULL
+		CONSTRAINT [CK_RetrospectiveTaxPolicy_PercentageMode] CHECK ([PercentageMode] IN ('HISTORIC_YEAR_WISE', 'CURRENT_YEAR_FOR_ALL_YEARS', 'FIXED_PERCENTAGE')),
+	[FixedPercentage] [decimal](10,2) NULL,
+	[FinancialYearStartMonth] [tinyint] NOT NULL CONSTRAINT [DF_RetrospectiveTaxPolicy_FinancialYearStartMonth] DEFAULT (4),
+	[FinancialYearStartDay] [tinyint] NOT NULL CONSTRAINT [DF_RetrospectiveTaxPolicy_FinancialYearStartDay] DEFAULT (1),
+	[EffectiveFrom] [datetime] NULL,
+	[EffectiveTo] [datetime] NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RetrospectiveTaxPolicy_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_RetrospectiveTaxPolicy_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_RetrospectiveTaxPolicy] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT [UQ_RetrospectiveTaxPolicy_TaxPolicyCode] UNIQUE ([TaxPolicyCode])
+) ON [PRIMARY]
+GO
+
+/* This feature defines 6 filtered unique indexes in total, breaking down as:
+     - 1 "one active row overall" index here on RetrospectiveTaxPolicy.
+     - 4 "one active row per rule" indexes, one each on RetrospectiveRuleDateCondition,
+       RetrospectiveRuleAction, RetrospectivePenaltyRule and RetrospectiveRuleSummary.
+     - 1 "one active row per rule + evidence type" index on
+       RetrospectiveRuleEvidenceCondition (a rule can have many active evidence
+       conditions, one per EvidenceTypeMaster row, so it isn't a plain per-rule index). */
+CREATE UNIQUE NONCLUSTERED INDEX [UX_RetrospectiveTaxPolicy_OneActive]
+	ON [PTIS].[RetrospectiveTaxPolicy] ([IsActive])
+	WHERE [IsActive] = 1;
+GO
+
+
+/****** Object:  Table [PTIS].[RetrospectiveRuleEvidenceCondition] ******/
+CREATE TABLE [PTIS].[RetrospectiveRuleEvidenceCondition](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[RuleId] [int] NOT NULL,
+	[EvidenceTypeId] [int] NOT NULL,
+	[EvidenceState] [varchar](20) NOT NULL
+		CONSTRAINT [CK_RetrospectiveRuleEvidenceCondition_EvidenceState] CHECK ([EvidenceState] IN ('AVAILABLE', 'UNAVAILABLE')),
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RetrospectiveRuleEvidenceCondition_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_RetrospectiveRuleEvidenceCondition_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_RetrospectiveRuleEvidenceCondition] PRIMARY KEY CLUSTERED ([Id] ASC)
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [PTIS].[RetrospectiveRuleEvidenceCondition] WITH CHECK ADD CONSTRAINT [FK_RetrospectiveRuleEvidenceCondition_RetrospectiveRuleMaster]
+	FOREIGN KEY([RuleId]) REFERENCES [PTIS].[RetrospectiveRuleMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[RetrospectiveRuleEvidenceCondition] CHECK CONSTRAINT [FK_RetrospectiveRuleEvidenceCondition_RetrospectiveRuleMaster]
+GO
+ALTER TABLE [PTIS].[RetrospectiveRuleEvidenceCondition] WITH CHECK ADD CONSTRAINT [FK_RetrospectiveRuleEvidenceCondition_EvidenceTypeMaster]
+	FOREIGN KEY([EvidenceTypeId]) REFERENCES [PTIS].[EvidenceTypeMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[RetrospectiveRuleEvidenceCondition] CHECK CONSTRAINT [FK_RetrospectiveRuleEvidenceCondition_EvidenceTypeMaster]
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX [UX_RetrospectiveRuleEvidenceCondition_Rule_EvidenceType]
+	ON [PTIS].[RetrospectiveRuleEvidenceCondition] ([RuleId], [EvidenceTypeId])
+	WHERE [IsActive] = 1;
+GO
+
+
+/****** Object:  Table [PTIS].[RetrospectiveRuleDateCondition] ******/
+CREATE TABLE [PTIS].[RetrospectiveRuleDateCondition](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[RuleId] [int] NOT NULL,
+	[ComparatorCode] [varchar](50) NOT NULL
+		CONSTRAINT [CK_RetrospectiveRuleDateCondition_ComparatorCode] CHECK ([ComparatorCode] IN (
+			'NONE', 'ELECTRICITY_BEFORE_CC', 'ELECTRICITY_AFTER_CC', 'ELECTRICITY_BEFORE_CUTOFF',
+			'ELECTRICITY_AFTER_CUTOFF', 'OC_OLDER_THAN_ALLOWED_PERIOD', 'OC_WITHIN_ALLOWED_PERIOD')),
+	[LeftEvidenceTypeId] [int] NULL,
+	[RightEvidenceTypeId] [int] NULL,
+	[CompareOperator] [varchar](30) NULL
+		CONSTRAINT [CK_RetrospectiveRuleDateCondition_CompareOperator] CHECK ([CompareOperator] IN (
+			'BEFORE', 'AFTER', 'ON_OR_BEFORE', 'ON_OR_AFTER', 'BETWEEN', 'OLDER_THAN_YEARS', 'WITHIN_YEARS')),
+	[CompareDate] [datetime] NULL,
+	[CompareDateTo] [datetime] NULL,
+	[CompareYears] [int] NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RetrospectiveRuleDateCondition_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_RetrospectiveRuleDateCondition_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_RetrospectiveRuleDateCondition] PRIMARY KEY CLUSTERED ([Id] ASC)
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [PTIS].[RetrospectiveRuleDateCondition] WITH CHECK ADD CONSTRAINT [FK_RetrospectiveRuleDateCondition_RetrospectiveRuleMaster]
+	FOREIGN KEY([RuleId]) REFERENCES [PTIS].[RetrospectiveRuleMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[RetrospectiveRuleDateCondition] CHECK CONSTRAINT [FK_RetrospectiveRuleDateCondition_RetrospectiveRuleMaster]
+GO
+ALTER TABLE [PTIS].[RetrospectiveRuleDateCondition] WITH CHECK ADD CONSTRAINT [FK_RetrospectiveRuleDateCondition_EvidenceTypeMaster_Left]
+	FOREIGN KEY([LeftEvidenceTypeId]) REFERENCES [PTIS].[EvidenceTypeMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[RetrospectiveRuleDateCondition] CHECK CONSTRAINT [FK_RetrospectiveRuleDateCondition_EvidenceTypeMaster_Left]
+GO
+ALTER TABLE [PTIS].[RetrospectiveRuleDateCondition] WITH CHECK ADD CONSTRAINT [FK_RetrospectiveRuleDateCondition_EvidenceTypeMaster_Right]
+	FOREIGN KEY([RightEvidenceTypeId]) REFERENCES [PTIS].[EvidenceTypeMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[RetrospectiveRuleDateCondition] CHECK CONSTRAINT [FK_RetrospectiveRuleDateCondition_EvidenceTypeMaster_Right]
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX [UX_RetrospectiveRuleDateCondition_Rule]
+	ON [PTIS].[RetrospectiveRuleDateCondition] ([RuleId])
+	WHERE [IsActive] = 1;
+GO
+
+
+/****** Object:  Table [PTIS].[RetrospectiveRuleAction] ******/
+CREATE TABLE [PTIS].[RetrospectiveRuleAction](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[RuleId] [int] NOT NULL,
+	[TaxStartMode] [varchar](50) NOT NULL
+		CONSTRAINT [CK_RetrospectiveRuleAction_TaxStartMode] CHECK ([TaxStartMode] IN (
+			'EVIDENCE_DATE', 'FY_START', 'NEXT_FINANCIAL_YEAR', 'MONTHS_AFTER', 'FIXED_CUTOFF',
+			'MAX_LOOK_BACK_DATE', 'CONSTRUCTION_YEAR', 'CONSTRUCTION_OR_CAP')),
+	[StartEvidenceTypeId] [int] NULL,
+	[OffsetMonths] [int] NULL,
+	[RetrospectiveLimitType] [varchar](50) NOT NULL
+		CONSTRAINT [CK_RetrospectiveRuleAction_RetrospectiveLimitType] CHECK ([RetrospectiveLimitType] IN ('MAXIMUM_YEARS', 'FIXED_CUTOFF_DATE', 'NONE')),
+	[MaximumYears] [int] NULL,
+	[CutoffDate] [datetime] NULL,
+	[TaxCalculationMode] [varchar](30) NOT NULL CONSTRAINT [DF_RetrospectiveRuleAction_TaxCalculationMode] DEFAULT ('SINGLE')
+		CONSTRAINT [CK_RetrospectiveRuleAction_TaxCalculationMode] CHECK ([TaxCalculationMode] IN ('SINGLE', 'SPLIT')),
+	[TaxMultiplier] [decimal](10,2) NOT NULL CONSTRAINT [DF_RetrospectiveRuleAction_TaxMultiplier] DEFAULT (1.00),
+	[SplitStartEvidenceTypeId] [int] NULL,
+	[SplitEndEvidenceTypeId] [int] NULL,
+	[SplitMultiplier] [decimal](10,2) NULL,
+	[AfterSplitMultiplier] [decimal](10,2) NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RetrospectiveRuleAction_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_RetrospectiveRuleAction_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_RetrospectiveRuleAction] PRIMARY KEY CLUSTERED ([Id] ASC)
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [PTIS].[RetrospectiveRuleAction] WITH CHECK ADD CONSTRAINT [FK_RetrospectiveRuleAction_RetrospectiveRuleMaster]
+	FOREIGN KEY([RuleId]) REFERENCES [PTIS].[RetrospectiveRuleMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[RetrospectiveRuleAction] CHECK CONSTRAINT [FK_RetrospectiveRuleAction_RetrospectiveRuleMaster]
+GO
+ALTER TABLE [PTIS].[RetrospectiveRuleAction] WITH CHECK ADD CONSTRAINT [FK_RetrospectiveRuleAction_EvidenceTypeMaster_Start]
+	FOREIGN KEY([StartEvidenceTypeId]) REFERENCES [PTIS].[EvidenceTypeMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[RetrospectiveRuleAction] CHECK CONSTRAINT [FK_RetrospectiveRuleAction_EvidenceTypeMaster_Start]
+GO
+ALTER TABLE [PTIS].[RetrospectiveRuleAction] WITH CHECK ADD CONSTRAINT [FK_RetrospectiveRuleAction_EvidenceTypeMaster_SplitStart]
+	FOREIGN KEY([SplitStartEvidenceTypeId]) REFERENCES [PTIS].[EvidenceTypeMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[RetrospectiveRuleAction] CHECK CONSTRAINT [FK_RetrospectiveRuleAction_EvidenceTypeMaster_SplitStart]
+GO
+ALTER TABLE [PTIS].[RetrospectiveRuleAction] WITH CHECK ADD CONSTRAINT [FK_RetrospectiveRuleAction_EvidenceTypeMaster_SplitEnd]
+	FOREIGN KEY([SplitEndEvidenceTypeId]) REFERENCES [PTIS].[EvidenceTypeMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[RetrospectiveRuleAction] CHECK CONSTRAINT [FK_RetrospectiveRuleAction_EvidenceTypeMaster_SplitEnd]
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX [UX_RetrospectiveRuleAction_Rule]
+	ON [PTIS].[RetrospectiveRuleAction] ([RuleId])
+	WHERE [IsActive] = 1;
+GO
+
+
+/****** Object:  Table [PTIS].[RetrospectivePenaltyRule] ******/
+CREATE TABLE [PTIS].[RetrospectivePenaltyRule](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[RuleId] [int] NOT NULL,
+	[IsPenaltyApplicable] [bit] NOT NULL,
+	[PenaltyMode] [varchar](50) NOT NULL CONSTRAINT [DF_RetrospectivePenaltyRule_PenaltyMode] DEFAULT ('NONE')
+		CONSTRAINT [CK_RetrospectivePenaltyRule_PenaltyMode] CHECK ([PenaltyMode] IN ('NONE', 'ACT_PENALTY', 'DATE_VALIDATION')),
+	[PenaltyPercent] [decimal](10,2) NULL,
+	[PenaltyDateSourceType] [varchar](30) NULL
+		CONSTRAINT [CK_RetrospectivePenaltyRule_PenaltyDateSourceType] CHECK ([PenaltyDateSourceType] IN ('EVIDENCE_DATE', 'ASSESSMENT_DATE', 'FIXED_DATE')),
+	[PenaltyDateEvidenceTypeId] [int] NULL,
+	[PenaltyDateCondition] [varchar](30) NULL
+		CONSTRAINT [CK_RetrospectivePenaltyRule_PenaltyDateCondition] CHECK ([PenaltyDateCondition] IN ('ON_OR_AFTER', 'AFTER', 'ON_OR_BEFORE', 'BEFORE', 'BETWEEN')),
+	[CompareDate] [datetime] NULL,
+	[CompareDateTo] [datetime] NULL,
+	[ElseAction] [varchar](50) NULL
+		CONSTRAINT [CK_RetrospectivePenaltyRule_ElseAction] CHECK ([ElseAction] IN ('NONE', 'MANUAL_REVIEW')),
+	[RequiresManualReview] [bit] NOT NULL,
+	[Remarks] [nvarchar](500) NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RetrospectivePenaltyRule_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_RetrospectivePenaltyRule_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_RetrospectivePenaltyRule] PRIMARY KEY CLUSTERED ([Id] ASC)
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [PTIS].[RetrospectivePenaltyRule] WITH CHECK ADD CONSTRAINT [FK_RetrospectivePenaltyRule_RetrospectiveRuleMaster]
+	FOREIGN KEY([RuleId]) REFERENCES [PTIS].[RetrospectiveRuleMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[RetrospectivePenaltyRule] CHECK CONSTRAINT [FK_RetrospectivePenaltyRule_RetrospectiveRuleMaster]
+GO
+ALTER TABLE [PTIS].[RetrospectivePenaltyRule] WITH CHECK ADD CONSTRAINT [FK_RetrospectivePenaltyRule_EvidenceTypeMaster]
+	FOREIGN KEY([PenaltyDateEvidenceTypeId]) REFERENCES [PTIS].[EvidenceTypeMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[RetrospectivePenaltyRule] CHECK CONSTRAINT [FK_RetrospectivePenaltyRule_EvidenceTypeMaster]
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX [UX_RetrospectivePenaltyRule_Rule]
+	ON [PTIS].[RetrospectivePenaltyRule] ([RuleId])
+	WHERE [IsActive] = 1;
+GO
+
+
+/****** Object:  Table [PTIS].[RetrospectiveRuleSummary] ******/
+CREATE TABLE [PTIS].[RetrospectiveRuleSummary](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[RuleId] [int] NOT NULL,
+	[WhenSummary] [nvarchar](1000) NULL,
+	[TaxSummary] [nvarchar](1000) NULL,
+	[PenaltySummary] [nvarchar](1000) NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RetrospectiveRuleSummary_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_RetrospectiveRuleSummary_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_RetrospectiveRuleSummary] PRIMARY KEY CLUSTERED ([Id] ASC)
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [PTIS].[RetrospectiveRuleSummary] WITH CHECK ADD CONSTRAINT [FK_RetrospectiveRuleSummary_RetrospectiveRuleMaster]
+	FOREIGN KEY([RuleId]) REFERENCES [PTIS].[RetrospectiveRuleMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[RetrospectiveRuleSummary] CHECK CONSTRAINT [FK_RetrospectiveRuleSummary_RetrospectiveRuleMaster]
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX [UX_RetrospectiveRuleSummary_Rule]
+	ON [PTIS].[RetrospectiveRuleSummary] ([RuleId])
+	WHERE [IsActive] = 1;
+GO
+
+
+/****** Object:  Table [PTIS].[RetrospectiveTaxCalculation] ******/
+CREATE TABLE [PTIS].[RetrospectiveTaxCalculation](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[PropertyId] [int] NOT NULL,
+	[CalculationMode] [varchar](20) NOT NULL
+		CONSTRAINT [CK_RetrospectiveTaxCalculation_CalculationMode] CHECK ([CalculationMode] IN ('PROPERTY', 'FLOOR')),
+	[FloorId] [int] NULL,
+	[AppliedRuleId] [int] NULL,
+	[AppliedTaxPolicyId] [int] NULL,
+	[AssessmentDate] [datetime] NOT NULL,
+	[PolicyStartDate] [datetime] NULL,
+	[LegalBoundaryDate] [datetime] NULL,
+	[RuleBoundaryDate] [datetime] NULL,
+	[ChargeableStartDate] [datetime] NULL,
+	[ChargeableEndDate] [datetime] NULL,
+	[BaseTaxAmount] [decimal](18,2) NOT NULL,
+	[RetrospectiveTaxAmount] [decimal](18,2) NOT NULL,
+	[PenaltyAmount] [decimal](18,2) NOT NULL,
+	[TotalAmount] [decimal](18,2) NOT NULL,
+	[AuthorizationStatus] [varchar](30) NULL
+		CONSTRAINT [CK_RetrospectiveTaxCalculation_AuthorizationStatus] CHECK ([AuthorizationStatus] IN ('AUTHORIZED', 'UNAUTHORIZED', 'UNDETERMINED')),
+	[CalculationStatus] [varchar](30) NOT NULL CONSTRAINT [DF_RetrospectiveTaxCalculation_CalculationStatus] DEFAULT ('Calculated')
+		CONSTRAINT [CK_RetrospectiveTaxCalculation_CalculationStatus] CHECK ([CalculationStatus] IN ('Calculated', 'ManualReview', 'Failed')),
+	[Remarks] [nvarchar](1000) NULL,
+	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_RetrospectiveTaxCalculation_MarkedForDeletion] DEFAULT (0),
+	[MarkedForDeletionDate] [datetime] NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RetrospectiveTaxCalculation_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_RetrospectiveTaxCalculation_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_RetrospectiveTaxCalculation] PRIMARY KEY CLUSTERED ([Id] ASC)
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [PTIS].[RetrospectiveTaxCalculation] WITH CHECK ADD CONSTRAINT [FK_RetrospectiveTaxCalculation_PropertyMast]
+	FOREIGN KEY([PropertyId]) REFERENCES [PTIS].[PropertyMast] ([Id])
+GO
+ALTER TABLE [PTIS].[RetrospectiveTaxCalculation] CHECK CONSTRAINT [FK_RetrospectiveTaxCalculation_PropertyMast]
+GO
+ALTER TABLE [PTIS].[RetrospectiveTaxCalculation] WITH CHECK ADD CONSTRAINT [FK_RetrospectiveTaxCalculation_FloorMaster]
+	FOREIGN KEY([FloorId]) REFERENCES [PTIS].[FloorMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[RetrospectiveTaxCalculation] CHECK CONSTRAINT [FK_RetrospectiveTaxCalculation_FloorMaster]
+GO
+ALTER TABLE [PTIS].[RetrospectiveTaxCalculation] WITH CHECK ADD CONSTRAINT [FK_RetrospectiveTaxCalculation_RetrospectiveRuleMaster]
+	FOREIGN KEY([AppliedRuleId]) REFERENCES [PTIS].[RetrospectiveRuleMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[RetrospectiveTaxCalculation] CHECK CONSTRAINT [FK_RetrospectiveTaxCalculation_RetrospectiveRuleMaster]
+GO
+ALTER TABLE [PTIS].[RetrospectiveTaxCalculation] WITH CHECK ADD CONSTRAINT [FK_RetrospectiveTaxCalculation_RetrospectiveTaxPolicy]
+	FOREIGN KEY([AppliedTaxPolicyId]) REFERENCES [PTIS].[RetrospectiveTaxPolicy] ([Id])
+GO
+ALTER TABLE [PTIS].[RetrospectiveTaxCalculation] CHECK CONSTRAINT [FK_RetrospectiveTaxCalculation_RetrospectiveTaxPolicy]
+GO
+
+CREATE NONCLUSTERED INDEX [IX_RetrospectiveTaxCalculation_Property_CreatedDate]
+	ON [PTIS].[RetrospectiveTaxCalculation] ([PropertyId], [CreatedDate]);
+GO
+CREATE NONCLUSTERED INDEX [IX_RetrospectiveTaxCalculation_AppliedRuleId]
+	ON [PTIS].[RetrospectiveTaxCalculation] ([AppliedRuleId]);
+GO
+CREATE NONCLUSTERED INDEX [IX_RetrospectiveTaxCalculation_AppliedTaxPolicyId]
+	ON [PTIS].[RetrospectiveTaxCalculation] ([AppliedTaxPolicyId]);
+GO
+
+
+/****** Object:  Table [PTIS].[RetrospectiveCalculationEvidence] ******/
+CREATE TABLE [PTIS].[RetrospectiveCalculationEvidence](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[CalculationId] [int] NOT NULL,
+	[EvidenceTypeId] [int] NOT NULL,
+	[EvidenceDate] [datetime] NULL,
+	[IsAvailable] [bit] NOT NULL,
+	[SourceReference] [varchar](200) NULL,
+	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_RetrospectiveCalculationEvidence_MarkedForDeletion] DEFAULT (0),
+	[MarkedForDeletionDate] [datetime] NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RetrospectiveCalculationEvidence_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_RetrospectiveCalculationEvidence_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_RetrospectiveCalculationEvidence] PRIMARY KEY CLUSTERED ([Id] ASC)
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [PTIS].[RetrospectiveCalculationEvidence] WITH CHECK ADD CONSTRAINT [FK_RetrospectiveCalculationEvidence_RetrospectiveTaxCalculation]
+	FOREIGN KEY([CalculationId]) REFERENCES [PTIS].[RetrospectiveTaxCalculation] ([Id])
+GO
+ALTER TABLE [PTIS].[RetrospectiveCalculationEvidence] CHECK CONSTRAINT [FK_RetrospectiveCalculationEvidence_RetrospectiveTaxCalculation]
+GO
+ALTER TABLE [PTIS].[RetrospectiveCalculationEvidence] WITH CHECK ADD CONSTRAINT [FK_RetrospectiveCalculationEvidence_EvidenceTypeMaster]
+	FOREIGN KEY([EvidenceTypeId]) REFERENCES [PTIS].[EvidenceTypeMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[RetrospectiveCalculationEvidence] CHECK CONSTRAINT [FK_RetrospectiveCalculationEvidence_EvidenceTypeMaster]
+GO
+
+CREATE NONCLUSTERED INDEX [IX_RetrospectiveCalculationEvidence_CalculationId]
+	ON [PTIS].[RetrospectiveCalculationEvidence] ([CalculationId]);
+GO
+
+
+/****** Object:  Table [PTIS].[RetrospectiveTaxCalculationDetail] ******/
+CREATE TABLE [PTIS].[RetrospectiveTaxCalculationDetail](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[CalculationId] [int] NOT NULL,
+	[PropertyId] [int] NOT NULL,
+	[FloorId] [int] NOT NULL,
+	[FinancialYear] [varchar](20) NOT NULL,
+	[FromDate] [datetime] NOT NULL,
+	[ToDate] [datetime] NOT NULL,
+	[RateMode] [varchar](50) NULL,
+	[PercentageMode] [varchar](50) NULL,
+	[BaseTaxAmount] [decimal](18,2) NOT NULL,
+	[TaxMultiplier] [decimal](10,2) NOT NULL CONSTRAINT [DF_RetrospectiveTaxCalculationDetail_TaxMultiplier] DEFAULT (1.00),
+	[RetrospectiveTaxAmount] [decimal](18,2) NOT NULL,
+	[PenaltyPercent] [decimal](10,2) NULL,
+	[PenaltyAmount] [decimal](18,2) NOT NULL,
+	[TotalAmount] [decimal](18,2) NOT NULL,
+	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_RetrospectiveTaxCalculationDetail_MarkedForDeletion] DEFAULT (0),
+	[MarkedForDeletionDate] [datetime] NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RetrospectiveTaxCalculationDetail_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_RetrospectiveTaxCalculationDetail_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_RetrospectiveTaxCalculationDetail] PRIMARY KEY CLUSTERED ([Id] ASC)
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [PTIS].[RetrospectiveTaxCalculationDetail] WITH CHECK ADD CONSTRAINT [FK_RetrospectiveTaxCalculationDetail_PropertyMast]
+	FOREIGN KEY([PropertyId]) REFERENCES [PTIS].[PropertyMast] ([Id])
+GO
+ALTER TABLE [PTIS].[RetrospectiveTaxCalculationDetail] CHECK CONSTRAINT [FK_RetrospectiveTaxCalculationDetail_PropertyMast]
+GO
+ALTER TABLE [PTIS].[RetrospectiveTaxCalculationDetail] WITH CHECK ADD CONSTRAINT [FK_RetrospectiveTaxCalculationDetail_FloorMaster]
+	FOREIGN KEY([FloorId]) REFERENCES [PTIS].[FloorMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[RetrospectiveTaxCalculationDetail] CHECK CONSTRAINT [FK_RetrospectiveTaxCalculationDetail_FloorMaster]
+GO
+ALTER TABLE [PTIS].[RetrospectiveTaxCalculationDetail] WITH CHECK ADD CONSTRAINT [FK_RetrospectiveTaxCalculationDetail_RetrospectiveTaxCalculation]
+	FOREIGN KEY([CalculationId]) REFERENCES [PTIS].[RetrospectiveTaxCalculation] ([Id])
+GO
+ALTER TABLE [PTIS].[RetrospectiveTaxCalculationDetail] CHECK CONSTRAINT [FK_RetrospectiveTaxCalculationDetail_RetrospectiveTaxCalculation]
+GO
+
+CREATE NONCLUSTERED INDEX [IX_RetrospectiveTaxCalculationDetail_Calculation_Property_Floor]
+	ON [PTIS].[RetrospectiveTaxCalculationDetail] ([CalculationId], [PropertyId], [FloorId]);
+GO
+
+
+/****** Object:  Table [PTIS].[RetrospectiveRuleAuditLog] ******/
+CREATE TABLE [PTIS].[RetrospectiveRuleAuditLog](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[RuleId] [int] NULL,
+	[ActionType] [varchar](50) NOT NULL
+		CONSTRAINT [CK_RetrospectiveRuleAuditLog_ActionType] CHECK ([ActionType] IN (
+			'CREATE', 'UPDATE', 'SAVE_DRAFT', 'PUBLISH', 'DEACTIVATE', 'TEST', 'EXPORT')),
+	[OldValue] [nvarchar](max) NULL,
+	[NewValue] [nvarchar](max) NULL,
+	[Remarks] [nvarchar](1000) NULL,
+	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_RetrospectiveRuleAuditLog_MarkedForDeletion] DEFAULT (0),
+	[MarkedForDeletionDate] [datetime] NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RetrospectiveRuleAuditLog_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_RetrospectiveRuleAuditLog_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_RetrospectiveRuleAuditLog] PRIMARY KEY CLUSTERED ([Id] ASC)
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [PTIS].[RetrospectiveRuleAuditLog] WITH CHECK ADD CONSTRAINT [FK_RetrospectiveRuleAuditLog_RetrospectiveRuleMaster]
+	FOREIGN KEY([RuleId]) REFERENCES [PTIS].[RetrospectiveRuleMaster] ([Id])
+GO
+ALTER TABLE [PTIS].[RetrospectiveRuleAuditLog] CHECK CONSTRAINT [FK_RetrospectiveRuleAuditLog_RetrospectiveRuleMaster]
+GO
+
+CREATE NONCLUSTERED INDEX [IX_RetrospectiveRuleAuditLog_Rule_CreatedDate]
+	ON [PTIS].[RetrospectiveRuleAuditLog] ([RuleId], [CreatedDate]);
 GO

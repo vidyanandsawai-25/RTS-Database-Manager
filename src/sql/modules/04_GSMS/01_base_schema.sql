@@ -66,13 +66,17 @@ GO
 
 ALTER TABLE [PTIS].[PropertyMastDetails]
 CHECK CONSTRAINT [FK_PropertyMastDetails_CommonRemarkDetails_OwnerSign];
+
 GO
+
+/****** Object: Table [GSMS].[SocietyWingDetails] ******/
 
 CREATE TABLE [GSMS].[SocietyWingDetails]
 (
     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [SocietyDetailId] INT NULL,
-    [PropertyId] INT NULL,
+    --[PropertyId] INT NULL,
+    [WingDetailsMastId] INT NULL,
     [WingId] INT NULL,
     [FromFloor] NVARCHAR(50) NULL,
     [ToFloor] NVARCHAR(50) NULL,
@@ -81,11 +85,17 @@ CREATE TABLE [GSMS].[SocietyWingDetails]
     [NoOfFlat] INT NULL,
     [NoOfShop] INT NULL,
     [NoOfRowHouse] INT NULL,
-    [WingPhoto] INT NULL,
-    [BoardPhoto] INT NULL,
-    [IsActive] BIT NOT NULL CONSTRAINT [DF_SocietyWingDetails_IsActive] DEFAULT ((1)),
+    --[WingPhoto] INT NULL,
+    --[BoardPhoto] INT NULL,
+
+    [IsActive] BIT NOT NULL
+        CONSTRAINT [DF_SocietyWingDetails_IsActive] DEFAULT ((1)),
+
     [CreatedBy] INT NULL,
-    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_SocietyWingDetails_CreatedDate] DEFAULT (GETDATE()),
+
+    [CreatedDate] DATETIME NOT NULL
+        CONSTRAINT [DF_SocietyWingDetails_CreatedDate] DEFAULT (GETDATE()),
+
     [UpdatedBy] INT NULL,
     [UpdatedDate] DATETIME NULL,
 
@@ -93,19 +103,31 @@ CREATE TABLE [GSMS].[SocietyWingDetails]
         PRIMARY KEY CLUSTERED ([Id] ASC),
 
     CONSTRAINT [FK_SocietyWingDetails_SocietyDetailsMast]
-        FOREIGN KEY ([SocietyDetailId]) REFERENCES [PTIS].[SocietyDetailsMast] ([Id]),
+        FOREIGN KEY ([SocietyDetailId])
+        REFERENCES [PTIS].[SocietyDetailsMast]([Id]),
 
-    CONSTRAINT [FK_SocietyWingDetails_PropertyMast]
-        FOREIGN KEY ([PropertyId])REFERENCES [PTIS].[PropertyMast] ([Id]),
+
+    -- Uncomment this only if PropertyId column exists
+    /*
+        CONSTRAINT [FK_SocietyWingDetails_PropertyMast]
+        FOREIGN KEY ([PropertyId])
+        REFERENCES [PTIS].[PropertyMast]([Id]),
+    */
 
     CONSTRAINT [FK_SocietyWingDetails_WingMaster]
-        FOREIGN KEY ([WingId])REFERENCES [PTIS].[WingMaster] ([Id])
-);
+        FOREIGN KEY ([WingId])
+        REFERENCES [PTIS].[WingMaster]([Id]),
 
+    CONSTRAINT [FK_SocietyWingDetails_WingDetailsMast]
+        FOREIGN KEY ([WingDetailsMastId])
+        REFERENCES [PTIS].[WingDetailsMast]([Id])
+);
 GO
-SET ANSI_NULLS ON
+
+SET ANSI_NULLS ON;
 GO
-SET QUOTED_IDENTIFIER ON
+
+SET QUOTED_IDENTIFIER ON;
 GO
 
 /* ===========================

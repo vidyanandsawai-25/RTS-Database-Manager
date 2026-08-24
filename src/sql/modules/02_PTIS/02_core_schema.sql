@@ -842,4 +842,36 @@ END;
 
 GO
 
+/* ============================================================================
+   Rename PTIS.RetrospectivePenaltyRule.PenaltyMode code 'ACT_UNLAWFUL' to
+   'ACT_PENALTY' (matches the UI's actual field). Guarded on the current CHECK
+   constraint definition so this is a no-op on databases created fresh from
+   01_base_schema.sql (which already only allows 'ACT_PENALTY') and only runs
+   once against a database still on the old constraint.
+============================================================================ */
+IF EXISTS
+(
+    SELECT 1
+    FROM sys.check_constraints cc
+    INNER JOIN sys.tables t ON t.object_id = cc.parent_object_id
+    WHERE t.name = 'RetrospectivePenaltyRule'
+      AND cc.name = 'CK_RetrospectivePenaltyRule_PenaltyMode'
+      AND cc.definition LIKE '%ACT_UNLAWFUL%'
+)
+BEGIN
+    -- Drop the old constraint first: the UPDATE below sets a value the old
+    -- constraint doesn't allow yet.
+    ALTER TABLE [PTIS].[RetrospectivePenaltyRule]
+    DROP CONSTRAINT [CK_RetrospectivePenaltyRule_PenaltyMode];
+
+    UPDATE [PTIS].[RetrospectivePenaltyRule]
+    SET [PenaltyMode] = 'ACT_PENALTY'
+    WHERE [PenaltyMode] = 'ACT_UNLAWFUL';
+
+    ALTER TABLE [PTIS].[RetrospectivePenaltyRule] WITH CHECK
+    ADD CONSTRAINT [CK_RetrospectivePenaltyRule_PenaltyMode]
+    CHECK ([PenaltyMode] IN ('NONE', 'ACT_PENALTY', 'DATE_VALIDATION'));
+END;
+
 GO
+
