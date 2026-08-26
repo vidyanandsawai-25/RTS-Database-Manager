@@ -774,11 +774,11 @@ SET IDENTITY_INSERT [RTS].[FieldDefinition] ON;
         (83, 11, 69, N'idProofType', N'ID Proof Type', N'ओळखपत्राचा प्रकार', N'select', N'Applicant Details', N'[{"value":"aadhaar","label":{"en":"Aadhaar","hi":"आधार","mr":"आधार"}},{"value":"voter","label":{"en":"Voter ID","hi":"वोटर आईडी","mr":"मतदार ओळखपत्र"}},{"value":"pan","label":{"en":"PAN","hi":"पैन","mr":"पॅन"}},{"value":"dl","label":{"en":"Driving License","hi":"ड्राइविंग लाइसेंस","mr":"ड्रायव्हिंग लायसन्स"}}]', NULL, NULL, 1, 5, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.547', NULL, NULL),
         (84, 11, 69, N'idProofNumber', N'ID Proof Number', N'ओळखपत्र क्रमांक', N'text', N'Applicant Details', NULL, NULL, N'{
   "maxLength": 15,
-  "pattern": "^[A-Za-z0-9/-]+$" 
+  "pattern": "^[A-Za-z0-9/-]+$"
 }', 1, 6, NULL, NULL, 20, 1, 0, NULL, 0, '2026-07-15 16:26:57.547', NULL, NULL),
         (85, 11, 69, N'propertyNo', N'Property No / UPIC', N'मालमत्ता क्रमांक / युपीआयसी निवडा', N'text', N'Property / Location Details', NULL, NULL, N'{
   "maxLength": 15,
-  "pattern": "^[A-Za-z0-9/-]+$" 
+  "pattern": "^[A-Za-z0-9/-]+$"
 }', 1, 7, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.547', NULL, NULL),
         (86, 11, 69, N'wardId', N'Ward', N'प्रभाग', N'select', N'Property / Location Details', N'[
   {"value":"A1","label":{"en":"A1","hi":"A1","mr":"A1"}},
@@ -910,7 +910,7 @@ SET IDENTITY_INSERT [RTS].[FieldDefinition] ON;
         (129, 4, 62, N'wardArea', N'Ward Area', N'प्रभाग क्षेत्र', N'text', N'Event & Permission Info', NULL, NULL, NULL, 1, 26, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.597', NULL, NULL),
         (130, 4, 62, N'plotNo', N'Plot No', N'प्लॉट क्रमांक', N'text', N'Event & Permission Info', NULL, NULL, N'{
   "maxLength": 6,
-  "pattern": "^[A-Za-z0-9/-]+$" 
+  "pattern": "^[A-Za-z0-9/-]+$"
 }', 1, 27, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.597', NULL, NULL),
         (131, 4, 62, N'pandolAddress', N'Pandol / Stage Address', N'मंडप / स्टेजचा पत्ता', N'textarea', N'Event & Permission Info', NULL, NULL, NULL, 1, 28, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.597', NULL, NULL),
         (132, 4, 62, N'mandapType', N'Mandap Type', N'मंडपाचा प्रकार', N'select', N'Mandap Structural Details', N'[{"value":"temporary","label":{"en":"Temporary Mandap","hi":"अस्थायी मंडप","mr":"तात्पुरता मंडप"}},{"value":"stage","label":{"en":"Stage / Platform","hi":"स्टेज / मंच","mr":"स्टेज / व्यासपीठ"}},{"value":"shamiyana","label":{"en":"Shamiyana / Tent","hi":"शामियाना / तंबू","mr":"शामियाना / तंबू"}}]', NULL, NULL, 1, 29, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.597', NULL, NULL),
@@ -1253,11 +1253,11 @@ SET IDENTITY_INSERT [RTS].[FieldDefinition] ON;
         (305, 4, 43, N'idProofType', N'ID Proof Type', N'ओळखपत्राचा प्रकार', N'select', N'Applicant Details', N'[{"value":"aadhaar","label":{"en":"Aadhaar","hi":"आधार","mr":"आधार"}},{"value":"voter","label":{"en":"Voter ID","hi":"वोटर आईडी","mr":"मतदार ओळखपत्र"}},{"value":"pan","label":{"en":"PAN","hi":"पैन","mr":"पॅन"}},{"value":"dl","label":{"en":"Driving License","hi":"ड्राइविंग लाइसेंस","mr":"ड्रायव्हिंग लायसन्स"}},{"value":"passport","label":{"en":"Passport","hi":"पासपोर्ट","mr":"पासपोर्ट"}}]', NULL, NULL, 1, 5, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.690', NULL, NULL),
         (306, 4, 43, N'idProofNumber', N'ID Proof Number', N'ओळखपत्र क्रमांक', N'text', N'Applicant Details', NULL, NULL, N'{
   "maxLength": 15,
-  "pattern": "^[A-Za-z0-9/-]+$" 
+  "pattern": "^[A-Za-z0-9/-]+$"
 }', 1, 6, NULL, NULL, 20, 1, 0, NULL, 0, '2026-07-15 16:26:57.690', NULL, NULL),
         (307, 4, 43, N'propertyNo', N'Property No / UPIC', N'मालमत्ता क्रमांक / युपीआयसी निवडा', N'text', N'Ward / Zone & Property Details', NULL, NULL, N'{
   "maxLength": 15,
-  "pattern": "^[A-Za-z0-9/-]+$" 
+  "pattern": "^[A-Za-z0-9/-]+$"
 }', 1, 7, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.690', NULL, NULL),
         (308, 4, 43, N'wardId', N'Ward', N'प्रभाग', N'select', N'Ward / Zone & Property Details', N'[
   {"value":"A1","label":{"en":"A1","hi":"A1","mr":"A1"}},
@@ -1333,11 +1333,11 @@ SET IDENTITY_INSERT [RTS].[FieldDefinition] ON;
         (319, 4, 44, N'idProofType', N'ID Proof Type', N'ओळखपत्राचा प्रकार', N'select', N'Applicant Details', N'[{"value":"aadhaar","label":{"en":"Aadhaar","hi":"आधार","mr":"आधार"}},{"value":"voter","label":{"en":"Voter ID","hi":"वोटर आईडी","mr":"मतदार ओळखपत्र"}},{"value":"pan","label":{"en":"PAN","hi":"पैन","mr":"पॅन"}},{"value":"dl","label":{"en":"Driving License","hi":"ड्राइविंग लाइसेंस","mr":"ड्रायव्हिंग लायसन्स"}},{"value":"passport","label":{"en":"Passport","hi":"पासपोर्ट","mr":"पासपोर्ट"}}]', NULL, NULL, 1, 5, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.690', NULL, NULL),
         (320, 4, 44, N'idProofNumber', N'ID Proof Number', N'ओळखपत्र क्रमांक', N'text', N'Applicant Details', NULL, NULL, N'{
   "maxLength": 15,
-  "pattern": "^[A-Za-z0-9/-]+$" 
+  "pattern": "^[A-Za-z0-9/-]+$"
 }', 1, 6, NULL, NULL, 20, 1, 0, NULL, 0, '2026-07-15 16:26:57.690', NULL, NULL),
         (321, 4, 44, N'propertyNo', N'Property No / UPIC', N'मालमत्ता क्रमांक / युपीआयसी निवडा', N'text', N'Ward / Zone & Property Details', NULL, NULL, N'{
   "maxLength": 15,
-  "pattern": "^[A-Za-z0-9/-]+$" 
+  "pattern": "^[A-Za-z0-9/-]+$"
 }', 1, 7, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.690', NULL, NULL),
         (322, 4, 44, N'wardId', N'Ward', N'प्रभाग', N'select', N'Ward / Zone & Property Details', N'[
   {"value":"A1","label":{"en":"A1","hi":"A1","mr":"A1"}},
@@ -1414,11 +1414,11 @@ SET IDENTITY_INSERT [RTS].[FieldDefinition] ON;
         (334, 4, 45, N'idProofType', N'ID Proof Type', N'ओळखपत्राचा प्रकार', N'select', N'Applicant Details', N'[{"value":"aadhaar","label":{"en":"Aadhaar","hi":"आधार","mr":"आधार"}},{"value":"voter","label":{"en":"Voter ID","hi":"वोटर आईडी","mr":"मतदार ओळखपत्र"}},{"value":"pan","label":{"en":"PAN","hi":"पैन","mr":"पॅन"}},{"value":"dl","label":{"en":"Driving License","hi":"ड्राइविंग लाइसेंस","mr":"ड्रायव्हिंग लायसन्स"}},{"value":"passport","label":{"en":"Passport","hi":"पासपोर्ट","mr":"पासपोर्ट"}}]', NULL, NULL, 1, 5, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.690', NULL, NULL),
         (335, 4, 45, N'idProofNumber', N'ID Proof Number', N'ओळखपत्र क्रमांक', N'text', N'Applicant Details', NULL, NULL, N'{
   "maxLength": 15,
-  "pattern": "^[A-Za-z0-9/-]+$" 
+  "pattern": "^[A-Za-z0-9/-]+$"
 }', 1, 6, NULL, NULL, 20, 1, 0, NULL, 0, '2026-07-15 16:26:57.690', NULL, NULL),
         (336, 4, 45, N'propertyNo', N'Property No / UPIC', N'मालमत्ता क्रमांक / युपीआयसी निवडा', N'text', N'Ward / Zone & Property Details', NULL, NULL, N'{
   "maxLength": 15,
-  "pattern": "^[A-Za-z0-9/-]+$" 
+  "pattern": "^[A-Za-z0-9/-]+$"
 }', 0, 7, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.690', NULL, NULL),
         (337, 4, 45, N'wardId', N'Ward', N'प्रभाग', N'select', N'Ward / Zone & Property Details', N'[
   {"value":"A1","label":{"en":"A1","hi":"A1","mr":"A1"}},
@@ -1509,12 +1509,12 @@ SET IDENTITY_INSERT [RTS].[FieldDefinition] ON;
         (360, 4, 47, N'idProofType', N'ID Proof Type', N'ओळखपत्राचा प्रकार', N'select', N'Applicant Details', N'[{"value":"aadhaar","label":{"en":"Aadhaar","hi":"आधार","mr":"आधार"}},{"value":"voter","label":{"en":"Voter ID","hi":"वोटर आईडी","mr":"मतदार ओळखपत्र"}},{"value":"pan","label":{"en":"PAN","hi":"पैन","mr":"पॅन"}},{"value":"dl","label":{"en":"Driving License","hi":"ड्राइविंग लाइसेंस","mr":"ड्रायव्हिंग लायसन्स"}},{"value":"passport","label":{"en":"Passport","hi":"पासपोर्ट","mr":"पासपोर्ट"}}]', NULL, NULL, 1, 5, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.690', NULL, NULL),
         (361, 4, 47, N'idProofNumber', N'ID Proof Number', N'ओळखपत्र क्रमांक', N'text', N'Applicant Details', NULL, NULL, N'{
   "maxLength": 15,
-  "pattern": "^[A-Za-z0-9/-]+$" 
+  "pattern": "^[A-Za-z0-9/-]+$"
 }', 1, 6, NULL, NULL, 20, 1, 0, NULL, 0, '2026-07-15 16:26:57.690', NULL, NULL),
         (362, 4, 47, N'applicantRelationship', N'Relationship to Property', N'मालमत्तेशी संबंध', N'select', N'Applicant Details', N'[{"value":"owner","label":{"en":"Owner","hi":"मालक","mr":"मालक"}},{"value":"poa","label":{"en":"POA Holder","hi":"POA धारक","mr":"मुखत्यार (POA)"}},{"value":"representative","label":{"en":"Representative","hi":"प्रतिनिधि","mr":"प्रतिनिधी"}},{"value":"other","label":{"en":"Other","hi":"अन्य","mr":"इतर"}}]', NULL, NULL, 0, 7, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.690', NULL, NULL),
         (363, 4, 47, N'propertyNo', N'Property No / UPIC', N'मालमत्ता क्रमांक / युपीआयसी', N'text', N'Ward / Zone & Property Details', NULL, NULL, N'{
   "maxLength": 15,
-  "pattern": "^[A-Za-z0-9/-]+$" 
+  "pattern": "^[A-Za-z0-9/-]+$"
 }', 1, 8, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.690', NULL, NULL),
         (364, 4, 47, N'wardId', N'Ward', N'प्रभाग', N'select', N'Ward / Zone & Property Details', N'[
   {"value":"A1","label":{"en":"A1","hi":"A1","mr":"A1"}},
@@ -1731,7 +1731,7 @@ SET IDENTITY_INSERT [RTS].[FieldDefinition] ON;
         (437, 6, 55, N'guardianFullName', N'Parent/Guardian Full Name', N'पालक / संरक्षकाचे पूर्ण नाव', N'text', N'Applicant Information', NULL, NULL, NULL, 1, 8, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.730', NULL, NULL),
         (438, 6, 55, N'rollNumber', N'Roll Number', N'अनुक्रमांक', N'text', N'Student Details', NULL, NULL, N'{
   "maxLength": 10,
-  "pattern": "^[A-Za-z0-9/-]+$" 
+  "pattern": "^[A-Za-z0-9/-]+$"
 }', 0, 9, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.730', NULL, NULL),
         (439, 6, 55, N'studentName', N'Student Full Name', N'विद्यार्थ्याचे पूर्ण नाव', N'text', N'Student Details', NULL, NULL, NULL, 1, 10, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.730', NULL, NULL),
         (440, 6, 55, N'dateOfBirth', N'Date of Birth', N'जन्मतारीख', N'date', N'Student Details', NULL, NULL, N'{"minDate":"1900-01-01","maxDate":"today"}', 1, 11, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.730', NULL, NULL),
@@ -1904,7 +1904,7 @@ SET IDENTITY_INSERT [RTS].[FieldDefinition] ON;
 ]', NULL, NULL, 1, 24, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.730', NULL, NULL),
         (454, 6, 55, N'originalCertificateNumber', N'Original Certificate No. (if known)', NULL, N'text', N'Certificate Details', NULL, NULL, N'{
   "maxLength": 13,
-  "pattern": "^[A-Za-z0-9/-]+$" 
+  "pattern": "^[A-Za-z0-9/-]+$"
 }', 0, 25, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.730', NULL, NULL),
         (455, 6, 55, N'policeComplaintFiled', N'Police Complaint Filed?', N'पोलीस तक्रार दाखल केली आहे का?', N'select', N'Certificate Details', N'[
   {
@@ -1945,7 +1945,7 @@ SET IDENTITY_INSERT [RTS].[FieldDefinition] ON;
         (457, 6, 55, N'lastExamPassed', N'Last Exam Passed', N'शेवटची उत्तीर्ण परीक्षा', N'number', N'Certificate Details', NULL, NULL, N'{"min":0}', 0, 28, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.730', NULL, NULL),
         (458, 6, 55, N'seatOrRegNo', N'Seat No / Registration No', N'आसन क्रमांक / नोंदणी क्रमांक', N'text', N'Certificate Details', NULL, NULL, N'{
   "maxLength": 13,
-  "pattern": "^[A-Za-z0-9/-]+$" 
+  "pattern": "^[A-Za-z0-9/-]+$"
 }', 0, 29, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.730', NULL, NULL),
         (459, 6, 55, N'destinationInstituteName', N'Destination Institute (optional)', NULL, N'text', N'Certificate Details', NULL, NULL, NULL, 0, 30, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.730', NULL, NULL),
         (460, 6, 55, N'declaration', N'I hereby declare that the information provided is true and correct.', N'घोषणापत्र / मी सहमत आहे', N'checkbox', N'Declaration', NULL, NULL, NULL, 1, 31, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.730', NULL, NULL),
@@ -1960,12 +1960,12 @@ SET IDENTITY_INSERT [RTS].[FieldDefinition] ON;
         (466, 10, 66, N'idProofType', N'ID Proof Type', N'ओळखपत्राचा प्रकार', N'select', N'Applicant Details', N'[{"value":"aadhaar","label":{"en":"Aadhaar","hi":"आधार","mr":"आधार"}},{"value":"voter","label":{"en":"Voter ID","hi":"वोटर आईडी","mr":"मतदार ओळखपत्र"}},{"value":"pan","label":{"en":"PAN","hi":"पैन","mr":"पॅन"}},{"value":"dl","label":{"en":"Driving License","hi":"ड्राइविंग लाइसेंस","mr":"ड्रायव्हिंग लायसन्स"}}]', NULL, NULL, 1, 6, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.730', NULL, NULL),
         (467, 10, 66, N'idProofNumber', N'ID Proof Number', N'ओळखपत्र क्रमांक', N'text', N'Applicant Details', NULL, NULL, N'{
   "maxLength": 15,
-  "pattern": "^[A-Za-z0-9/-]+$" 
+  "pattern": "^[A-Za-z0-9/-]+$"
 }', 1, 7, NULL, NULL, 20, 1, 0, NULL, 0, '2026-07-15 16:26:57.730', NULL, NULL),
         (468, 10, 66, N'applicantRelationship', N'Relationship to Property', N'मालमत्तेशी असलेले नाते', N'select', N'Applicant Details', N'[{"value":"owner","label":{"en":"Owner","hi":"मालक","mr":"मालक"}},{"value":"poa","label":{"en":"POA Holder","hi":"POA धारक","mr":"मुखत्यार (POA)"}},{"value":"tenant","label":{"en":"Tenant","hi":"किरायेदार","mr":"भाडेकरू"}},{"value":"society_authorized","label":{"en":"Society (Authorized)","hi":"सोसायटी (अधिकृत)","mr":"सोसायटी (अधिकृत)"}},{"value":"other","label":{"en":"Other","hi":"अन्य","mr":"इतर"}}]', NULL, NULL, 1, 8, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.730', NULL, NULL),
         (469, 10, 66, N'propertyNo', N'Property No / UPIC', N'मालमत्ता क्रमांक / युपीआयसी निवडा', N'text', N'Location / Property Details', NULL, NULL, N'{
   "maxLength": 15,
-  "pattern": "^[A-Za-z0-9/-]+$" 
+  "pattern": "^[A-Za-z0-9/-]+$"
 }', 1, 9, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15 16:26:57.730', NULL, NULL),
         (470, 10, 66, N'wardId', N'Ward', N'प्रभाग', N'select', N'Location / Property Details', N'[
   {"value":"A1","label":{"en":"A1","hi":"A1","mr":"A1"}},
@@ -2227,13 +2227,13 @@ SET IDENTITY_INSERT [RTS].[FieldDefinition] ON;
         (1142, 4, 46, N'architectName', N'Licensed Architect Name', N'परवानाधारक वास्तुविशारदाचे नाव', N'text', N'Architect Details', NULL, NULL, NULL, 1, 7, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21 18:45:34.910', NULL, NULL),
         (1143, 4, 46, N'buildingPermitRefNo', N'Sanctioned Building Permit Ref No', N'मंजूर बांधकाम परवाना संदर्भ क्रमांक', N'text', N'Permit Details', NULL, NULL, N'{
   "maxLength": 15,
-  "pattern": "^[A-Za-z0-9/-]+$" 
+  "pattern": "^[A-Za-z0-9/-]+$"
 }', 1, 6, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21 18:45:34.910', NULL, NULL),
         (1144, 4, 46, N'declaration', N'I hereby declare that the information provided is true and correct.', N'घोषणापत्र / मी सहमत आहे', N'checkbox', N'Declaration', NULL, NULL, NULL, 1, 8, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21 18:45:34.910', NULL, NULL),
         (1145, 4, 46, N'mobileNo', N'Mobile Number', N'मोबाईल नंबर', N'tel', N'Applicant Details', NULL, NULL, NULL, 1, 2, NULL, NULL, 10, 1, 0, NULL, 0, '2026-07-21 18:45:34.910', NULL, NULL),
         (1146, 4, 46, N'propertyNo', N'Property No / UPIC', N'मालमत्ता क्रमांक / युपीआयसी निवडा', N'text', N'Property Details', NULL, NULL, N'{
   "maxLength": 15,
-  "pattern": "^[A-Za-z0-9/-]+$" 
+  "pattern": "^[A-Za-z0-9/-]+$"
 }', 1, 3, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21 18:45:34.910', NULL, NULL),
         (1147, 4, 46, N'wardId', N'Ward', N'प्रभाग', N'select', N'Property Details', N'[
   {"value":"A1","label":{"en":"A1","hi":"A1","mr":"A1"}},
@@ -2515,7 +2515,7 @@ SET IDENTITY_INSERT [RTS].[FieldDefinition] ON;
         (1189, 6, 56, N'fatherFullName', N'Father / Guardian Full Name', N'वडील / पालक यांचे पूर्ण नाव', N'text', N'Student Details', NULL, NULL, NULL, 1, 5, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21 18:51:28.123', NULL, NULL),
         (1190, 6, 56, N'grNumber', N'General Register (G.R.) / Roll No', N'जनरल रजिस्टर (जी.आर.) / रोल क्रमांक', N'text', N'School Details', NULL, NULL, N'{
   "maxLength": 15,
-  "pattern": "^[A-Za-z0-9/-]+$" 
+  "pattern": "^[A-Za-z0-9/-]+$"
 }', 1, 7, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21 18:51:28.123', NULL, NULL),
         (1191, 6, 56, N'lastStandardStudied', N'Last Standard / Class Studied', N'शेवटची शिकलेली इयत्ता / वर्ग', N'select', N'School Details', N'[{"value":"std_1","label":{"en":"1st Std","hi":"1ली","mr":"इयत्ता १ ली"}},{"value":"std_2","label":{"en":"2nd Std","hi":"2री","mr":"इयत्ता २ री"}},{"value":"std_3","label":{"en":"3rd Std","hi":"3री","mr":"इयत्ता ३ री"}},{"value":"std_4","label":{"en":"4th Std","hi":"4थी","mr":"इयत्ता ४ थी"}},{"value":"std_5","label":{"en":"5th Std","hi":"5वी","mr":"इयत्ता ५ वी"}},{"value":"std_6","label":{"en":"6th Std","hi":"6वी","mr":"इयत्ता ६ वी"}},{"value":"std_7","label":{"en":"7th Std","hi":"7वी","mr":"इयत्ता ७ वी"}},{"value":"std_8","label":{"en":"8th Std","hi":"8वी","mr":"इयत्ता ८ वी"}},{"value":"std_9","label":{"en":"9th Std","hi":"9वी","mr":"इयत्ता ९ वी"}},{"value":"std_10","label":{"en":"10th Std","hi":"10वी","mr":"इयत्ता १० वी"}}]', NULL, NULL, 1, 9, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21 18:51:28.123', NULL, NULL),
         (1192, 6, 56, N'mobileNo', N'Mobile Number', N'मोबाईल नंबर', N'tel', N'Applicant Details', NULL, NULL, NULL, 1, 2, NULL, NULL, 10, 1, 0, NULL, 0, '2026-07-21 18:51:28.123', NULL, NULL),
@@ -2611,7 +2611,7 @@ SET IDENTITY_INSERT [RTS].[FieldDefinition] ON;
 ]', NULL, NULL, 1, 5, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21 18:51:28.123', NULL, NULL),
         (1206, 6, 57, N'seatNumber', N'Seat / Roll Number', N'आसन क्रमांक / रोल क्रमांक', N'text', N'Exam Details', NULL, NULL, N'{
   "maxLength": 10,
-  "pattern": "^[A-Za-z0-9/-]+$" 
+  "pattern": "^[A-Za-z0-9/-]+$"
 }', 1, 7, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21 18:51:28.123', NULL, NULL),
         (1207, 6, 57, N'studentFullName', N'Student Full Name', N'विद्यार्थ्याचे पूर्ण नाव', N'text', N'Student Details', NULL, NULL, NULL, 1, 4, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21 18:51:28.123', NULL, NULL),
         (1208, 4, 46, N'CommencementCertificateDoc', N'Construction Commencement Certificate', N'बांधकाम आरंभ प्रमाणपत्र', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 51, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21 18:51:28.150', NULL, NULL),
@@ -6106,4 +6106,3 @@ BEGIN
     END;
 END;
 GO
-
