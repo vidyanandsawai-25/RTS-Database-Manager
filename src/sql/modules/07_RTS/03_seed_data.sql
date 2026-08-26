@@ -123,7 +123,7 @@ WHERE NOT EXISTS (
 );
 GO
 -- =========================================================
--- 1. RTS.DepartmentMaster (100% Live Records)
+-- 1. RTS.DepartmentMaster (100% Live Records + NULM Department)
 -- =========================================================
 SET IDENTITY_INSERT [RTS].[DepartmentMaster] ON;
 GO
@@ -141,6 +141,7 @@ GO
        ,(10, N'Tree', N'वृक्ष प्राधिकरण', N'TreePine', 10, 1, 0, N'2026-07-15 16:26:57.467')
        ,(11, N'Sanitation', N'स्वच्छता विभाग', N'Trash2', 11, 1, 0, N'2026-07-15 16:26:57.467')
        ,(12, N'PWD', N'सार्वजनिक बांधकाम विभाग', N'Building', 12, 1, 0, N'2026-08-17 13:30:48.017')
+       ,(13, N'NULM', N'राष्ट्रीय नागरी उपजीविका अभियान (फेरीवाला विभाग)', N'ShoppingBag', 13, 1, 1, N'2026-08-26 12:00:00.000')
     ) AS V (Id, DepartmentName, DepartmentNameLocal, DepartmentIcon, DisplayOrder, IsActive, CreatedBy, CreatedDate)
 )
 MERGE [RTS].[DepartmentMaster] AS Target
@@ -155,7 +156,7 @@ SET IDENTITY_INSERT [RTS].[DepartmentMaster] OFF;
 GO
 
 -- =========================================================
--- 2. RTS.ServiceMaster (100% Live Records with Classification)
+-- 2. RTS.ServiceMaster (100% Live Records with Classification & NULM)
 -- =========================================================
 SET IDENTITY_INSERT [RTS].[ServiceMaster] ON;
 GO
@@ -225,7 +226,7 @@ GO
        ,(159, 3, 57, N'Renewal of Lodging House License', N'लॉजिंग हाऊस परवान्याचे नुतनीकरण करणे', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Hotel', 57, N'30 Days', 0.00, 0, 1, 0, N'2026-07-21 18:57:16.223')
        ,(160, 3, 58, N'Issuance of Marriage Hall / Auditorium License', N'मंगल कार्यालय/सभागृह वगैरे परवाना देणे', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Building2', 58, N'30 Days', 0.00, 0, 1, 0, N'2026-07-21 18:57:16.223')
        ,(161, 3, 59, N'Renewal of Marriage Hall / Auditorium License', N'मंगल कार्यालय/सभागृह वगैरे परवान्याचे नुतनीकरण करणे', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Building2', 59, N'30 Days', 0.00, 0, 1, 0, N'2026-07-21 18:57:16.223')
-       ,(162, 3, 60, N'Issuance of Hawker Registration Certificate', N'फेरीवाले नोंदणी प्रमाणपत्र देणे', NULL, NULL, N'Store', 60, N'30 Days', 0.00, 0, 1, 0, N'2026-07-21 18:57:16.223')
+       ,(162, 13, 60, N'Issuance of Hawker Registration Certificate', N'फेरीवाले नोंदणी प्रमाणपत्र देणे', NULL, NULL, N'Store', 60, N'30 Days', 0.00, 0, 1, 0, N'2026-07-21 18:57:16.223')
     ) AS V (Id, DepartmentId, GovtServiceCode, ServiceName, ServiceNameLocal, Description, ServiceUrl, ServiceIcon, DisplayOrder, Sla, Fees, FeesRequired, IsActive, CreatedBy, CreatedDate)
 )
 MERGE [RTS].[ServiceMaster] AS Target
@@ -243,7 +244,7 @@ SET IDENTITY_INSERT [RTS].[ServiceMaster] OFF;
 GO
 
 -- =========================================================
--- 3. RTS.FieldDefinition (100% Live Records with Clean Unicode)
+-- 3. RTS.FieldDefinition (100% Live Records with Clean Unicode & NULM Dept Mapping)
 -- =========================================================
 SET IDENTITY_INSERT [RTS].[FieldDefinition] ON;
 GO
@@ -2071,7 +2072,7 @@ GO
        ,(3029, 3, 159, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, 1, 0, 0, N'2026-08-12 17:59:44.977')
        ,(3030, 3, 160, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, 1, 0, 0, N'2026-08-12 17:59:44.977')
        ,(3031, 3, 161, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, 1, 0, 0, N'2026-08-12 17:59:44.977')
-       ,(3032, 3, 162, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, 1, 0, 0, N'2026-08-12 17:59:44.977')
+       ,(3032, 13, 162, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, 1, 0, 0, N'2026-08-12 17:59:44.977')
        ,(3033, 1, 145, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, 1, 0, 0, N'2026-08-12 18:00:25.820')
        ,(3034, 1, 146, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, 1, 0, 0, N'2026-08-12 18:00:25.820')
        ,(3035, 1, 147, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, 0, 1, NULL, NULL, NULL, 1, 0, 0, N'2026-08-12 18:00:25.820')
@@ -2181,9 +2182,9 @@ GO
        ,(4095, 3, 161, N'DOC_RENT_AGREEMENT_161', N'Premises Rent Agreement / Ownership Deed', N'जागेचा भाडे करारनामा / मालकी हक्क पुरावा', N'file', N'Document Uploads', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, 1, 0, NULL, N'2026-08-17 13:01:13.757')
        ,(4096, 3, 161, N'DOC_APPLICANT_ID_161', N'Applicant Identity Proof (Aadhaar / PAN)', N'अर्जदाराचा ओळख पुरावा (आधार / पॅन कार्ड)', N'file', N'Document Uploads', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, 1, 0, NULL, N'2026-08-17 13:01:13.760')
        ,(4097, 3, 161, N'DOC_NOC_CERTIFICATE_161', N'NOC Certificate / Shop Act Copy', N'ना-हरकत प्रमाणपत्र / गुमास्ता परवाना प्रत', N'file', N'Document Uploads', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, 1, 0, NULL, N'2026-08-17 13:01:13.760')
-       ,(4098, 3, 162, N'DOC_RENT_AGREEMENT_162', N'Premises Rent Agreement / Ownership Deed', N'जागेचा भाडे करारनामा / मालकी हक्क पुरावा', N'file', N'Document Uploads', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, 1, 0, NULL, N'2026-08-17 13:01:13.763')
-       ,(4099, 3, 162, N'DOC_APPLICANT_ID_162', N'Applicant Identity Proof (Aadhaar / PAN)', N'अर्जदाराचा ओळख पुरावा (आधार / पॅन कार्ड)', N'file', N'Document Uploads', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, 1, 0, NULL, N'2026-08-17 13:01:13.767')
-       ,(4100, 3, 162, N'DOC_NOC_CERTIFICATE_162', N'NOC Certificate / Shop Act Copy', N'ना-हरकत प्रमाणपत्र / गुमास्ता परवाना प्रत', N'file', N'Document Uploads', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, 1, 0, NULL, N'2026-08-17 13:01:13.770')
+       ,(4098, 13, 162, N'DOC_RENT_AGREEMENT_162', N'Premises Rent Agreement / Ownership Deed', N'जागेचा भाडे करारनामा / मालकी हक्क पुरावा', N'file', N'Document Uploads', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, 1, 0, NULL, N'2026-08-17 13:01:13.763')
+       ,(4099, 13, 162, N'DOC_APPLICANT_ID_162', N'Applicant Identity Proof (Aadhaar / PAN)', N'अर्जदाराचा ओळख पुरावा (आधार / पॅन कार्ड)', N'file', N'Document Uploads', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, 1, 0, NULL, N'2026-08-17 13:01:13.767')
+       ,(4100, 13, 162, N'DOC_NOC_CERTIFICATE_162', N'NOC Certificate / Shop Act Copy', N'ना-हरकत प्रमाणपत्र / गुमास्ता परवाना प्रत', N'file', N'Document Uploads', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, 1, 0, NULL, N'2026-08-17 13:01:13.770')
        ,(4101, 4, 61, N'approvedPlanDocument', N'Approved Plan / Map', N'मंजूर नकाशाची प्रत', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 52, NULL, NULL, NULL, 1, 0, 0, N'2026-08-17 21:57:15.420')
        ,(4102, 4, 61, N'sevenTwelveOrSaleDeedDocument', N'7/12 Extract / Sale Deed', N'७/१२ उतारा / खरेदी खत', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 53, NULL, NULL, NULL, 1, 0, 0, N'2026-08-17 21:57:15.420')
        ,(4103, 4, 61, N'rentAgreementDocument', N'Rent Agreement', N'भाडे करार', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 0, 54, NULL, NULL, NULL, 1, 0, 0, N'2026-08-17 21:57:15.420')
@@ -2925,7 +2926,7 @@ GO
          N'["परिसरात दैनंदिन स्वच्छता राखण्यासाठी नियमित घंटागाडी व सफाई कर्मचाऱ्यांची नेमणूक करण्यात आली आहे."]'
         ),
 
-        -- 12. Issuance of Hawker Registration Certificate (Service 162 - NULM / Trade)
+        -- 12. Issuance of Hawker Registration Certificate (Service 162 - NULM / फेरीवाला)
         (N'Issuance of Hawker Registration Certificate', N'फेरीवाले नोंदणी प्रमाणपत्र (Street Vendor / Hawker Registration Certificate)', 'CERT_HAWKER_REG',
          N'<div class="certificate-body space-y-4">
     <p>दीनदयाळ अंत्योदय योजना - राष्ट्रीय नागरी उपजीविका अभियान (DAY-NULM) व फेरीवाला धोरणांतर्गत प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> (मोबाईल: <strong>{{ApplicantMobile}}</strong>) यांना अकोला महानगरपालिका क्षेत्रात फेरीवाले व्यवसाय / पथविक्रेता म्हणून अधिकृत नोंदणी प्रमाणपत्र (अर्ज क्र. <strong>{{ApplicationNo}}</strong>) जारी करण्यात येत आहे.</p>
