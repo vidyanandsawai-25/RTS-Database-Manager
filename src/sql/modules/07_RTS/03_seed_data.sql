@@ -367,7 +367,8 @@ VALUES
     (N'RTS_CONFIGURATION', 'RTS_SERVICES',      'RTS Services',        N'आरटीएस सेवा',             N'Activity',        N'/rts/services',                                 2),
     (N'RTS_CONFIGURATION', 'RTS_FIELDS',        'RTS Fields',          N'आरटीएस फील्ड्स',          N'Sliders',         N'/rts/fields',                                   3),
     (N'RTS_CONFIGURATION', 'RTS_APPROVAL_FLOW', 'Approval Flow Master',N'मंजुरी प्रवाह मास्टर',     N'GitMerge',        N'/rts/configuration-settings/rts-workflows',     4),
-    (N'RTS_CONFIGURATION', 'RTS_USERS',         'RTS User Management', N'आरटीएस वापरकर्ता व्यवस्थापन', N'Users',       N'/rts/users',                                    5);
+    (N'RTS_CONFIGURATION', 'RTS_CERTIFICATES',  'Certificate Master',  N'प्रमाणपत्र संरचना',       N'Award',           N'/rts/configuration-settings/rts-certificates',   5),
+    (N'RTS_CONFIGURATION', 'RTS_USERS',         'RTS User Management', N'आरटीएस वापरकर्ता व्यवस्थापन', N'Users',       N'/rts/users',                                    6);
 
 INSERT INTO [CORE].[ScreenMaster]
 (
@@ -1751,17 +1752,17 @@ GO
         (N'Sanitation',    N'Providing drainage connections',                       1, N'Application Verification (Clerk)',       1, 2, 1,0,0,1,0,0),
         (N'Sanitation',    N'Providing drainage connections',                       2, N'Site Inspection (Junior Officer)',       2, 5, 1,0,0,1,0,0),
         (N'Sanitation',    N'Providing drainage connections',                       3, N'Connection Approval (Senior Officer)',   3, 3, 0,1,1,1,0,1)
-    ) AS V (DeptName, SvcName, StageOrder, StageName, EmployeeTypeId, SLADays,
+    ) AS V (DeptName, SvcName, StageOrder, StageName, UserId, SLADays,
             CanVerifyDocument, CanApprove, CanReject, CanReturn, CanPay, IsFinalStage)
 )
 INSERT INTO [RTS].[ApprovalFlowStageMaster]
-    ([ApprovalFlowId], [StageOrder], [StageName], [EmployeeTypeId], [SLADays],
+    ([ApprovalFlowId], [StageOrder], [StageName], [UserId], [SLADays],
      [CanVerifyDocument], [CanApprove], [CanReject], [CanReturn], [CanPay], [IsFinalStage])
 SELECT
     F.Id,
     S.StageOrder,
     S.StageName,
-    S.EmployeeTypeId,
+    S.UserId,
     S.SLADays,
     S.CanVerifyDocument,
     S.CanApprove,
@@ -1860,6 +1861,24 @@ BEGIN
         GETDATE()
     );
 END;
+GO
+
+-- 4. AppealTypeMaster
+MERGE [RTS].[AppealTypeMaster] AS target
+USING (VALUES
+    (1, N'प्रथम अपील (First Appeal)',  'FIRST_APPEAL', 1),
+    (2, N'द्वितीय अपील (Second Appeal)', 'SECOND_APPEAL', 1),
+    (3, N'तक्रार (Grievance)',          'GRIEVANCE', 1)
+) AS source (Id, AppealTypeName, Code, IsActive)
+ON target.Id = source.Id OR target.Code = source.Code
+WHEN MATCHED THEN
+    UPDATE SET
+        target.AppealTypeName = source.AppealTypeName,
+        target.Code = source.Code,
+        target.IsActive = source.IsActive
+WHEN NOT MATCHED THEN
+    INSERT (AppealTypeName, Code, IsActive, CreatedDate)
+    VALUES (source.AppealTypeName, source.Code, source.IsActive, GETDATE());
 GO
 
 /* ============================================================================
