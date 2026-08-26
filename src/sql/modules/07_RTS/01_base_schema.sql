@@ -394,55 +394,52 @@ BEGIN
 END;
 GO
 
-/****** Object: Table [RTS].[IssuedCertificates] ******/
-IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'IssuedCertificates')
+/****** Object: Table [RTS].[IssuedCertificate] ******/
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'IssuedCertificate')
 BEGIN
-    CREATE TABLE [RTS].[IssuedCertificates]
+    CREATE TABLE [RTS].[IssuedCertificate]
     (
         [Id]                    INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-        [CertificateGuid]       UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_IssuedCertificates_CertificateGuid] DEFAULT (NEWID()),
+        [CertificateGuid]       UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_IssuedCertificate_CertificateGuid] DEFAULT (NEWID()),
         [CertificateNo]         NVARCHAR(100) NOT NULL,
         [ApplicationId]         INT NOT NULL,
         [ServiceId]             INT NOT NULL,
-        [TemplateId]            INT NULL,
-        [CitizenDataJson]       NVARCHAR(MAX) NULL,
-        [OfficerDataJson]       NVARCHAR(MAX) NULL,
+        [TemplateId]            INT NOT NULL,
+        [OfficerInputsJson]     NVARCHAR(MAX) NULL,
         [MergedHtmlContent]     NVARCHAR(MAX) NOT NULL,
+        [QrCodePayload]         NVARCHAR(MAX) NULL,
         [IssuedByUserId]        INT NOT NULL,
-        [IssuedByOfficerName]   NVARCHAR(200) NULL,
-        [OfficerDesignation]    NVARCHAR(200) NULL,
-        [IsDigitallySigned]     BIT NOT NULL CONSTRAINT [DF_IssuedCertificates_IsDigitallySigned] DEFAULT (1),
-        [DigitalSignatureHash]  NVARCHAR(500) NULL,
-        [QrCodeDataUrl]         NVARCHAR(MAX) NULL,
-        [QrCodeVerificationUrl] NVARCHAR(500) NULL,
-        [DownloadCount]         INT NOT NULL CONSTRAINT [DF_IssuedCertificates_DownloadCount] DEFAULT (0),
-        [LastDownloadedDate]    DATETIME NULL,
-        [IsActive]              BIT NOT NULL CONSTRAINT [DF_IssuedCertificates_IsActive] DEFAULT (1),
+        [IssuedAt]              DATETIME NOT NULL CONSTRAINT [DF_IssuedCertificate_IssuedAt] DEFAULT (GETDATE()),
+        [IsDigitallySigned]     BIT NOT NULL CONSTRAINT [DF_IssuedCertificate_IsDigitallySigned] DEFAULT (1),
+        [DigitalSignatureInfo]  NVARCHAR(MAX) NULL,
+        [IsActive]              BIT NOT NULL CONSTRAINT [DF_IssuedCertificate_IsActive] DEFAULT (1),
         [CreatedBy]             INT NULL,
-        [CreatedDate]           DATETIME NOT NULL CONSTRAINT [DF_IssuedCertificates_CreatedDate] DEFAULT (GETDATE()),
+        [CreatedDate]           DATETIME NOT NULL CONSTRAINT [DF_IssuedCertificate_CreatedDate] DEFAULT (GETDATE()),
         [UpdatedBy]             INT NULL,
         [UpdatedDate]           DATETIME NULL,
+        [MarkedForDeletion]     BIT NOT NULL CONSTRAINT [DF_IssuedCertificate_MarkedForDeletion] DEFAULT (0),
+        [MarkedForDeletionDate] DATETIME NULL,
 
-        CONSTRAINT [PK_IssuedCertificates] PRIMARY KEY CLUSTERED ([Id] ASC),
-        CONSTRAINT [UQ_IssuedCertificates_CertificateGuid] UNIQUE NONCLUSTERED ([CertificateGuid] ASC),
-        CONSTRAINT [UQ_IssuedCertificates_CertificateNo] UNIQUE NONCLUSTERED ([CertificateNo] ASC)
+        CONSTRAINT [PK_IssuedCertificate] PRIMARY KEY CLUSTERED ([Id] ASC),
+        CONSTRAINT [UQ_IssuedCertificate_CertificateGuid] UNIQUE NONCLUSTERED ([CertificateGuid] ASC),
+        CONSTRAINT [UQ_IssuedCertificate_CertificateNo] UNIQUE NONCLUSTERED ([CertificateNo] ASC)
     );
 END;
 GO
 
-IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_IssuedCertificates_ApplicationDetails')
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_IssuedCertificate_ApplicationDetails')
 BEGIN
-    ALTER TABLE [RTS].[IssuedCertificates] WITH CHECK
-        ADD CONSTRAINT [FK_IssuedCertificates_ApplicationDetails]
+    ALTER TABLE [RTS].[IssuedCertificate] WITH CHECK
+        ADD CONSTRAINT [FK_IssuedCertificate_ApplicationDetails]
         FOREIGN KEY ([ApplicationId])
         REFERENCES [RTS].[ApplicationDetails] ([Id]);
 END;
 GO
 
-IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_IssuedCertificates_ServiceMaster')
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_IssuedCertificate_ServiceMaster')
 BEGIN
-    ALTER TABLE [RTS].[IssuedCertificates] WITH CHECK
-        ADD CONSTRAINT [FK_IssuedCertificates_ServiceMaster]
+    ALTER TABLE [RTS].[IssuedCertificate] WITH CHECK
+        ADD CONSTRAINT [FK_IssuedCertificate_ServiceMaster]
         FOREIGN KEY ([ServiceId])
         REFERENCES [RTS].[ServiceMaster] ([Id]);
 END;
