@@ -172,8 +172,8 @@ GO
        ,(46, 4, 6, N'Issuance of plinth certificate', N'जोते प्रमाणपत्र देणे', NULL, NULL, N'MapPin', 6, N'7 Days', 200.00, 1, 1, 1, N'2026-07-20 13:31:33.447')
        ,(47, 4, 7, N'Issuance of Occupancy Certificate', N'भोगवटा प्रमाणपत्र देणे', NULL, N'https://mahavastu.maharashtra.gov.in/', N'Key', 7, N'7 Days', 0.00, 0, 1, 0, N'2026-07-15 16:26:57.497')
        ,(48, 12, 61, N'Underground OFC Cable Permission', N'भुमिगत दुरसंचार वाहिनी (ऑप्टीकल फायबर केबल) टाकण्याकरीता परवानगी देणे', NULL, N'#', N'Cable', 61, N'60 Days', 120.00, 1, 1, 0, N'2026-07-15 16:26:57.497')
-       ,(49, 12, 63, N'Filling Potholes on City Roads', N'रस्त्यांवरील खड्डे बुजविणे', NULL, N'#', N'Wrench', 63, N'5 Days', 50.00, 1, 1, 0, N'2026-07-15 16:26:57.497')
-       ,(50, 12, 64, N'Maintaining & Securing Sewer Covers', N'गटारांवरील झाकणे सुस्थितीत ठेवणे', NULL, N'#', N'Shield', 64, N'5 Days', 50.00, 1, 1, 0, N'2026-07-15 16:26:57.497')
+       ,(49, 12, 63, N'Filling Potholes on City Roads', N'रस्त्यांवरील खड्डे बुजविणे', NULL, NULL, N'Wrench', 63, N'5 Days', 50.00, 1, 1, 0, N'2026-07-15 16:26:57.497')
+       ,(50, 12, 64, N'Maintaining & Securing Sewer Covers', N'गटारांवरील झाकणे सुस्थितीत ठेवणे', NULL, NULL, N'Shield', 64, N'5 Days', 50.00, 1, 1, 0, N'2026-07-15 16:26:57.497')
        ,(53, 5, 20, N'Birth Certificate', N'जन्म प्रमाणपत्र देणे', NULL, N'https://dc.crsorgi.gov.in/crs/Auth/general-public', N'Baby', 20, N'3 Days', 10.00, 1, 1, 0, N'2026-07-15 16:26:57.497')
        ,(54, 5, 21, N'Death Certificate', N'मृत्यु प्रमाणपत्र देणे', NULL, N'https://dc.crsorgi.gov.in/crs/Auth/general-public', N'HeartOff', 21, N'3 Days', 10.00, 1, 1, 0, N'2026-07-15 16:26:57.497')
        ,(55, 6, 50, N'School Leaving / Duplicate Certificate', N'विद्यार्थ्याचा शाळा सोडण्याचा दाखला व दुय्यम प्रत दाखला देणे', NULL, NULL, N'GraduationCap', 50, N'3 Days', 25.00, 1, 1, 0, N'2026-07-15 16:26:57.497')
@@ -188,7 +188,7 @@ GO
        ,(64, 8, 19, N'Issuance of Final Fire Exemption Certificate', N'अग्निशमन अंतिम नाहरकत दाखला देणे', NULL, N'#', N'Flame', 19, N'15 Days', 200.00, 1, 1, 0, N'2026-07-15 16:26:57.497')
        ,(65, 9, 22, N'Marriage Registration Certificate', N'विवाह नोंदणी प्रमाणपत्र देणे', NULL, N'https://mahaulb.in/MahaULB/index', N'Heart', 22, N'3 Days', 100.00, 1, 1, 0, N'2026-07-15 16:26:57.497')
        ,(66, 10, 62, N'Tree Felling Permission', N'वृक्षतोड परवानगी देणे', NULL, NULL, N'TreePine', 62, N'45 Days', 2000.00, 1, 1, 0, N'2026-07-15 16:26:57.497')
-       ,(68, 11, 65, N'Maintaining cleanliness', N'शहरात स्वच्छता राखणे', NULL, N'#', N'Trash2', 65, N'1 Days', 0.00, 0, 1, 1, N'2026-07-20 13:31:33.447')
+       ,(68, 11, 65, N'Maintaining cleanliness', N'शहरात स्वच्छता राखणे', NULL, NULL, N'Trash2', 65, N'1 Days', 0.00, 0, 1, 1, N'2026-07-20 13:31:33.447')
        ,(69, 2, 7175, N'Providing drainage connections', N'जलनिःसारण जोडणी देणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=21&upicid=', N'Droplet', 49, N'15 Days', 0.00, 0, 1, 0, N'2026-07-15 16:26:57.497')
        ,(80, 2, 7174, N'Provision of New Water Tap Connection', N'नळ जोडणी देणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=6&upicid=', N'Droplets', 48, N'15 Days', 0.00, 0, 1, 0, N'2026-07-21 18:44:51.083')
        ,(81, 2, 7162, N'Changing the Water Connection Size', N'नळ जोडणी आकारामध्ये बदल करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'Droplets', 36, N'15 Days', 0.00, 0, 1, 0, N'2026-07-21 18:44:51.083')
@@ -225,7 +225,7 @@ GO
        ,(159, 3, 57, N'Renewal of Lodging House License', N'लॉजिंग हाऊस परवान्याचे नुतनीकरण करणे', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Hotel', 57, N'30 Days', 0.00, 0, 1, 0, N'2026-07-21 18:57:16.223')
        ,(160, 3, 58, N'Issuance of Marriage Hall / Auditorium License', N'मंगल कार्यालय/सभागृह वगैरे परवाना देणे', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Building2', 58, N'30 Days', 0.00, 0, 1, 0, N'2026-07-21 18:57:16.223')
        ,(161, 3, 59, N'Renewal of Marriage Hall / Auditorium License', N'मंगल कार्यालय/सभागृह वगैरे परवान्याचे नुतनीकरण करणे', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Building2', 59, N'30 Days', 0.00, 0, 1, 0, N'2026-07-21 18:57:16.223')
-       ,(162, 3, 60, N'Issuance of Hawker Registration Certificate', N'फेरीवाले नोंदणी प्रमाणपत्र देणे', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Store', 60, N'30 Days', 0.00, 0, 1, 0, N'2026-07-21 18:57:16.223')
+       ,(162, 3, 60, N'Issuance of Hawker Registration Certificate', N'फेरीवाले नोंदणी प्रमाणपत्र देणे', NULL, NULL, N'Store', 60, N'30 Days', 0.00, 0, 1, 0, N'2026-07-21 18:57:16.223')
     ) AS V (Id, DepartmentId, GovtServiceCode, ServiceName, ServiceNameLocal, Description, ServiceUrl, ServiceIcon, DisplayOrder, Sla, Fees, FeesRequired, IsActive, CreatedBy, CreatedDate)
 )
 MERGE [RTS].[ServiceMaster] AS Target
@@ -2769,7 +2769,7 @@ GO
 
 -- ============================================================================
 -- 12. RTS.CertificateTemplateMaster Seed Data
---     Strictly configured for internal RTS services where ServiceUrl IS NULL.
+--     Configured for all internal RTS application services where ServiceUrl IS NULL.
 -- ============================================================================
 ;WITH SeedCertificateTemplates AS (
     SELECT * FROM (VALUES
@@ -2801,7 +2801,35 @@ GO
          N'["पुढील बांधकाम मंजूर नकाशा व नियमांनुसारच करणे बंधनकारक आहे."]'
         ),
 
-        -- 3. School Leaving Certificate (Service 55 - Education)
+        -- 3. Filling Potholes on City Roads (Service 49 - PWD)
+        (N'Filling Potholes on City Roads', N'रस्ता खड्डे दुरुस्ती व पूर्तता अहवाल दाखला (Potholes Work Completion Certificate)', 'CERT_POTHOLES',
+         N'<div class="certificate-body space-y-4">
+    <p>प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये प्राप्त तक्रारीनुसार संबंधित रस्ता/भागातील खड्डे बुजविण्याचे व दुरुस्तीचे काम सार्वजनिक बांधकाम विभागामार्फत समाधानकारकरीत्या पूर्ण करण्यात आले आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>काम पूर्तता / जावक क्र.:</strong> [[OrderNo]]</div>
+        <div><strong>रस्त्याचे नाव / परिसर:</strong> [[Location]]</div>
+        <div><strong>काम पूर्ण झाल्याचा दिनांक:</strong> [[CompletionDate]]</div>
+    </div>
+</div>',
+         N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"काम पूर्तता / जावक क्रमांक\",\"fieldLabelEnglish\":\"Completion / Outward No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"Location\",\"fieldLabelMarathi\":\"रस्त्याचे नाव / परिसर\",\"fieldLabelEnglish\":\"Road Name / Location\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"CompletionDate\",\"fieldLabelMarathi\":\"काम पूर्ण झाल्याचा दिनांक\",\"fieldLabelEnglish\":\"Completion Date\",\"fieldType\":\"text\",\"isMandatory\":false}]',
+         N'["सदर दुरुस्तीचे काम महानगरपालिका बांधकाम विभागाच्या देखरेखीखाली पूर्ण झाले आहे."]'
+        ),
+
+        -- 4. Maintaining & Securing Sewer Covers (Service 50 - PWD)
+        (N'Maintaining & Securing Sewer Covers', N'ड्रेनेज/गटार झाकण दुरुस्ती पूर्तता दाखला (Sewer Cover Completion Certificate)', 'CERT_SEWER_COVERS',
+         N'<div class="certificate-body space-y-4">
+    <p>प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये प्राप्त तक्रारीनुसार संबंधित ठिकाणच्या ड्रेनेज/गटारावरील झाकण बसविण्याचे व दुरुस्त करण्याचे काम सुरक्षितरीत्या पूर्ण करण्यात आले आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>काम पूर्तता / जावक क्र.:</strong> [[OrderNo]]</div>
+        <div><strong>ठिकाण / प्रभागाचे नाव:</strong> [[Location]]</div>
+        <div><strong>झाकण बसविल्याचा दिनांक:</strong> [[CompletionDate]]</div>
+    </div>
+</div>',
+         N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"काम पूर्तता / जावक क्रमांक\",\"fieldLabelEnglish\":\"Completion / Outward No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"Location\",\"fieldLabelMarathi\":\"ठिकाण / प्रभाग\",\"fieldLabelEnglish\":\"Location / Ward\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"CompletionDate\",\"fieldLabelMarathi\":\"झाकण बसविल्याचा दिनांक\",\"fieldLabelEnglish\":\"Completion Date\",\"fieldType\":\"text\",\"isMandatory\":false}]',
+         N'["ड्रेनेज झाकण सुरक्षेच्या निकषांनुसार बसविण्यात आले असून नियमित पाहणी केली जाईल."]'
+        ),
+
+        -- 5. School Leaving Certificate (Service 55 - Education)
         (N'School Leaving / Duplicate Certificate', N'शाळा सोडल्याचा दाखला (School Leaving Certificate)', 'CERT_SCHOOL_LEAVING',
          N'<div class="certificate-body space-y-4">
     <p>प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये शाळेतील नोंदींची पडताळणी करून शाळा सोडल्याचा अधिकृत दाखला जारी करण्यात येत आहे.</p>
@@ -2814,7 +2842,7 @@ GO
          N'["सदर दाखला शालेय अधिकृत अभिलेखावरून प्रमाणित करून दिला आहे."]'
         ),
 
-        -- 4. Transfer Certificate (Service 56 - Education)
+        -- 6. Transfer Certificate (Service 56 - Education)
         (N'Issuance of transfer certificate', N'स्थलांतर दाखला (Transfer Certificate)', 'CERT_TRANSFER_CERT',
          N'<div class="certificate-body space-y-4">
     <p>प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये शालेय नोंदीनुसार स्थलांतर दाखला (TC) जारी करण्यात येत आहे.</p>
@@ -2827,7 +2855,7 @@ GO
          N'["सदर दाखला शालेय अधिकृत अभिलेखावरून प्रमाणित केला आहे."]'
         ),
 
-        -- 5. Duplicate Mark Sheet (Service 57 - Education)
+        -- 7. Duplicate Mark Sheet (Service 57 - Education)
         (N'Issuance of duplicate mark sheet', N'द्वितीय गुणपत्रक (Duplicate Mark Sheet)', 'CERT_MARK_SHEET',
          N'<div class="certificate-body space-y-4">
     <p>प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये शालेय परीक्षा अभिलेखावरून द्वितीय गुणपत्रक प्रमाणित करून देण्यात येत आहे.</p>
@@ -2840,7 +2868,7 @@ GO
          N'["सदर गुणपत्रक मूळ अभिलेखावरून पडताळून दिले आहे."]'
         ),
 
-        -- 6. Trade NOC (Service 61 - Town Planning)
+        -- 8. Trade NOC (Service 61 - Town Planning)
         (N'Trade / Business / Storage Non-Revocation NOC', N'व्यापार / व्यवसाय ना-हरकत प्रमाणपत्र (Trade NOC)', 'CERT_TRADE_NOC',
          N'<div class="certificate-body space-y-4">
     <p>अर्जदार <strong>{{ApplicantName}}</strong> (मोबाईल: <strong>{{ApplicantMobile}}</strong>) यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये व्यवसाय/साठा करण्यासाठी ना-हरकत प्रमाणपत्र खालील अटींच्या अधीन राहून जारी करण्यात येत आहे.</p>
@@ -2854,7 +2882,7 @@ GO
          N'["परिसरातील नागरिकांना किंवा वाहतुकीस कोणताही त्रास होणार नाही याची दक्षता घ्यावी.","प्रदूषण नियंत्रण व मनपाच्या सर्व नियमांचे पालन करणे बंधनकारक राहील."]'
         ),
 
-        -- 7. Mandap NOC (Service 62 - Town Planning)
+        -- 9. Mandap NOC (Service 62 - Town Planning)
         (N'Mandap NOC', N'मंडप ना-हरकत / ना-नुकसान प्रमाणपत्र (Mandap NOC)', 'CERT_MANDAP_NOC',
          N'<div class="certificate-body space-y-4">
     <p>अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये मंडप उभारणीसाठी ना-हरकत प्रमाणपत्र जारी करण्यात येत आहे.</p>
@@ -2868,7 +2896,7 @@ GO
          N'["रस्त्यावर वाहतुकीस अडथळा निर्माण होणार नाही अशा पद्धतीने मंडप उभारणे आवश्यक आहे.","मुदत संपताच मंडप काढून रस्ता पूर्ववत करणे बंधनकारक आहे."]'
         ),
 
-        -- 8. Tree Felling Permission (Service 66 - Tree Authority)
+        -- 10. Tree Felling Permission (Service 66 - Tree Authority)
         (N'Tree Felling Permission', N'वृक्षतोड / छाटणी परवानगी (Tree Permission)', 'CERT_TREE_PERMIT',
          N'<div class="certificate-body space-y-4">
     <p>अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये वृक्ष प्राधिकरणाच्या पाहणी अहवालानुसार वृक्षतोड/फांद्या छाटणी परवानगी खालील अटींवर देण्यात येत आहे.</p>
@@ -2881,6 +2909,36 @@ GO
 </div>',
          N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"परवानगी आदेश क्रमांक\",\"fieldLabelEnglish\":\"Order No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"TreeCount\",\"fieldLabelMarathi\":\"मंजूर वृक्षांची संख्या\",\"fieldLabelEnglish\":\"Approved Tree Count\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"ReplantCount\",\"fieldLabelMarathi\":\"पुनर्लागवड करावयाची झाडे\",\"fieldLabelEnglish\":\"Replant Trees Count\",\"fieldType\":\"text\",\"isMandatory\":false},{\"fieldKey\":\"ChallanNo\",\"fieldLabelMarathi\":\"शुल्क पावती क्र.\",\"fieldLabelEnglish\":\"Challan No\",\"fieldType\":\"text\",\"isMandatory\":false}]',
          N'["तोडलेल्या प्रत्येक वृक्षाच्या बदल्यात नियमानुसार नवीन वृक्षांची लागवड करून त्यांचे संवर्धन करणे बंधनकारक आहे."]'
+        ),
+
+        -- 11. Maintaining cleanliness (Service 68 - Sanitation)
+        (N'Maintaining cleanliness', N'स्वच्छता पूर्तता अहवाल दाखला (Cleanliness Redressal Certificate)', 'CERT_CLEANLINESS',
+         N'<div class="certificate-body space-y-4">
+    <p>प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये अकोला महानगरपालिका स्वच्छता विभागामार्फत संबंधित परिसराची प्रत्यक्ष स्वच्छता मोहीम राबवून परिसर स्वच्छ करण्यात आला आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>कारवाई / अहवाल क्र.:</strong> [[OrderNo]]</div>
+        <div><strong>स्वच्छता केलेल्या परिसराचे नाव:</strong> [[Location]]</div>
+        <div><strong>स्वच्छता कार्यवाही दिनांक:</strong> [[CompletionDate]]</div>
+    </div>
+</div>',
+         N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"कारवाई / अहवाल क्रमांक\",\"fieldLabelEnglish\":\"Report / Outward No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"Location\",\"fieldLabelMarathi\":\"स्वच्छता परिसर\",\"fieldLabelEnglish\":\"Cleanliness Location\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"CompletionDate\",\"fieldLabelMarathi\":\"कार्यवाही दिनांक\",\"fieldLabelEnglish\":\"Action Date\",\"fieldType\":\"text\",\"isMandatory\":false}]',
+         N'["परिसरात दैनंदिन स्वच्छता राखण्यासाठी नियमित घंटागाडी व सफाई कर्मचाऱ्यांची नेमणूक करण्यात आली आहे."]'
+        ),
+
+        -- 12. Issuance of Hawker Registration Certificate (Service 162 - NULM / Trade)
+        (N'Issuance of Hawker Registration Certificate', N'फेरीवाले नोंदणी प्रमाणपत्र (Street Vendor / Hawker Registration Certificate)', 'CERT_HAWKER_REG',
+         N'<div class="certificate-body space-y-4">
+    <p>दीनदयाळ अंत्योदय योजना - राष्ट्रीय नागरी उपजीविका अभियान (DAY-NULM) व फेरीवाला धोरणांतर्गत प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> (मोबाईल: <strong>{{ApplicantMobile}}</strong>) यांना अकोला महानगरपालिका क्षेत्रात फेरीवाले व्यवसाय / पथविक्रेता म्हणून अधिकृत नोंदणी प्रमाणपत्र (अर्ज क्र. <strong>{{ApplicationNo}}</strong>) जारी करण्यात येत आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>फेरीवाला नोंदणी / ओळखपत्र क्र.:</strong> [[OrderNo]]</div>
+        <div><strong>फेरीवाला व्यवसाय प्रकार:</strong> [[VendorType]]</div>
+        <div><strong>मंजूर फेरीवाला क्षेत्र / वॉर्ड:</strong> [[VendingZone]]</div>
+        <div><strong>नोंदणी वैधता मुदत:</strong> [[ValidityPeriod]]</div>
+        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+    </div>
+</div>',
+         N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"फेरीवाला नोंदणी क्रमांक\",\"fieldLabelEnglish\":\"Vendor Reg No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"VendorType\",\"fieldLabelMarathi\":\"फेरीवाला प्रकार (स्थिर/फिरता)\",\"fieldLabelEnglish\":\"Vendor Type (Stationary/Mobile)\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"VendingZone\",\"fieldLabelMarathi\":\"मंजूर फेरीवाला क्षेत्र / झोन\",\"fieldLabelEnglish\":\"Approved Vending Zone\",\"fieldType\":\"text\",\"isMandatory\":false},{\"fieldKey\":\"ValidityPeriod\",\"fieldLabelMarathi\":\"वैधता मुदत\",\"fieldLabelEnglish\":\"Validity Period\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"ChallanNo\",\"fieldLabelMarathi\":\"शुल्क पावती क्र.\",\"fieldLabelEnglish\":\"Challan No\",\"fieldType\":\"text\",\"isMandatory\":false}]',
+         N'["सदर प्रमाणपत्र केवळ नियुक्त फेरीवाला क्षेत्रातच व्यवसाय करण्यासाठी वैध आहे.","वाहतुकीस अडथळा निर्माण होणार नाही व स्वच्छतेच्या नियमांचे पालन करणे बंधनकारक आहे.","सदर नोंदणी प्रमाणपत्र हस्तांतरणीय नाही."]'
         )
     ) AS V (ServiceName, TemplateName, TemplateCode, BodyContent, OfficerFieldsJson, DefaultConditionsJson)
 )
