@@ -1881,6 +1881,216 @@ WHEN NOT MATCHED THEN
     VALUES (source.AppealTypeName, source.Code, source.IsActive, GETDATE());
 GO
 
+-- =========================================================
+-- 5. RTS CertificateTemplateMaster Seed Data (Internal Services)
+-- =========================================================
+;WITH SeedCertificateTemplates AS (
+    SELECT * FROM (VALUES
+        -- 1. Birth Certificate
+        (N'Birth Certificate', N'जन्म प्रमाणपत्र (Official Birth Certificate)', 'CERT_BIRTH',
+         N'<div class="certificate-body space-y-4">
+    <p>प्रमाणित करण्यात येते की, खालील नोंदणी माहिती अकोला महानगरपालिकेच्या जन्म नोंदवहीनुसार अधिकृत असून, <strong>{{ApplicantName}}</strong> यांच्या अर्जावरून (अर्ज क्र. <strong>{{ApplicationNo}}</strong>) हे जन्म प्रमाणपत्र जारी करण्यात येत आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>नोंदणी क्रमांक / आदेश क्र.:</strong> [[OrderNo]]</div>
+        <div><strong>नोंदणी दिनांक:</strong> {{AppliedDate}}</div>
+        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+    </div>
+</div>',
+         N'[{"fieldKey":"OrderNo","fieldLabelMarathi":"नोंदणी / आदेश क्रमांक","fieldLabelEnglish":"Registration / Order No","fieldType":"text","isMandatory":true},{"fieldKey":"ChallanNo","fieldLabelMarathi":"शुल्क पावती क्र.","fieldLabelEnglish":"Challan No","fieldType":"text","isMandatory":false}]',
+         N'["सदर प्रमाणपत्र जन्म आणि मृत्यू नोंदणी अधिनियम, १९६९ अंतर्गत अधिकृत आहे.","प्रमाणपत्रातील नोंदी अधिकृत महानगरपालिका जन्म नोंदवहीवरून प्रमाणित केलेल्या आहेत."]'
+        ),
+
+        -- 2. Death Certificate
+        (N'Death Certificate', N'मृत्यू प्रमाणपत्र (Official Death Certificate)', 'CERT_DEATH',
+         N'<div class="certificate-body space-y-4">
+    <p>प्रमाणित करण्यात येते की, खालील नोंदणी माहिती अकोला महानगरपालिकेच्या मृत्यू नोंदवहीनुसार अधिकृत असून, <strong>{{ApplicantName}}</strong> यांच्या अर्जावरून (अर्ज क्र. <strong>{{ApplicationNo}}</strong>) हे मृत्यू प्रमाणपत्र जारी करण्यात येत आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>नोंदणी क्रमांक / आदेश क्र.:</strong> [[OrderNo]]</div>
+        <div><strong>नोंदणी दिनांक:</strong> {{AppliedDate}}</div>
+        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+    </div>
+</div>',
+         N'[{"fieldKey":"OrderNo","fieldLabelMarathi":"नोंदणी / आदेश क्रमांक","fieldLabelEnglish":"Registration / Order No","fieldType":"text","isMandatory":true},{"fieldKey":"ChallanNo","fieldLabelMarathi":"शुल्क पावती क्र.","fieldLabelEnglish":"Challan No","fieldType":"text","isMandatory":false}]',
+         N'["सदर प्रमाणपत्र जन्म आणि मृत्यू नोंदणी अधिनियम, १९६९ अंतर्गत अधिकृत आहे."]'
+        ),
+
+        -- 3. Marriage Registration Certificate
+        (N'Marriage Registration Certificate', N'विवाह नोंदणी प्रमाणपत्र (Marriage Certificate)', 'CERT_MARRIAGE',
+         N'<div class="certificate-body space-y-4">
+    <p>प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> (मोबाईल: <strong>{{ApplicantMobile}}</strong>) यांनी सादर केलेल्या विवाह नोंदणी अर्जाची (अर्ज क्र. <strong>{{ApplicationNo}}</strong>) नियमानुसार पडताळणी करण्यात येऊन विवाह नोंदणी प्रमाणपत्र जारी करण्यात येत आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>विवाह नोंदणी क्र.:</strong> [[OrderNo]]</div>
+        <div><strong>विवाह नोंदणी दिनांक:</strong> {{AppliedDate}}</div>
+        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+    </div>
+</div>',
+         N'[{"fieldKey":"OrderNo","fieldLabelMarathi":"विवाह नोंदणी क्रमांक","fieldLabelEnglish":"Marriage Reg No","fieldType":"text","isMandatory":true},{"fieldKey":"ChallanNo","fieldLabelMarathi":"शुल्क पावती क्र.","fieldLabelEnglish":"Challan No","fieldType":"text","isMandatory":false}]',
+         N'["सदर विवाह नोंदणी महाराष्ट्र विवाह मंडळांचे विनियमन आणि विवाह नोंदणी अधिनियम अंतर्गत वैध आहे."]'
+        ),
+
+        -- 4. Zone Certificate
+        (N'Issuance of Zone Certificate', N'झोन दाखला (Zone Certificate)', 'CERT_ZONE',
+         N'<div class="certificate-body space-y-4">
+    <p>प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> यांनी सादर केलेल्या अर्जानुसार (अर्ज क्र. <strong>{{ApplicationNo}}</strong>) विकास योजना व नगररचना नियमावलीनुसार संबंधित भूखंड/जागेचा झोन दाखला खालील तपशिलानुसार जारी करण्यात येत आहे:</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>जावक / आदेश क्र.:</strong> [[OrderNo]]</div>
+        <div><strong>झोन प्रकार व आरक्षण:</strong> [[ZoneType]]</div>
+        <div><strong>वैधता मुदत:</strong> [[ValidityPeriod]]</div>
+        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+    </div>
+</div>',
+         N'[{"fieldKey":"OrderNo","fieldLabelMarathi":"जावक / आदेश क्रमांक","fieldLabelEnglish":"Order No","fieldType":"text","isMandatory":true},{"fieldKey":"ZoneType","fieldLabelMarathi":"झोन प्रकार व आरक्षण","fieldLabelEnglish":"Zone Type & Reservation","fieldType":"text","isMandatory":true},{"fieldKey":"ValidityPeriod","fieldLabelMarathi":"वैधता मुदत","fieldLabelEnglish":"Validity Period","fieldType":"text","isMandatory":false},{"fieldKey":"ChallanNo","fieldLabelMarathi":"शुल्क पावती क्र.","fieldLabelEnglish":"Challan No","fieldType":"text","isMandatory":false}]',
+         N'["सदर दाखला केवळ नगररचना विकास नियंत्रण नियमावलीच्या अनुषंगाने माहितीस्तव आहे.","सदर दाखल्यावरून जागेच्या मालकी हक्काचा कोणताही दावा करता येणार नाही."]'
+        ),
+
+        -- 5. Construction Permit
+        (N'Issuance of Construction Permit', N'बांधकाम परवाना (Building Construction Permit)', 'CERT_CONSTRUCTION_PERMIT',
+         N'<div class="certificate-body space-y-4">
+    <p>अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये सादर केलेल्या इमारत बांधकामाच्या नकाशांची व कागदपत्रांची छाननी करण्यात आली असून, मंजूर नकाशा व अटी-शर्तींनुसार बांधकाम करण्यास परवानगी देण्यात येत आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>परवाना / आदेश क्र.:</strong> [[OrderNo]]</div>
+        <div><strong>परवाना वैधता मुदत:</strong> [[ValidityPeriod]]</div>
+        <div><strong>मंजूर चटई क्षेत्र (Built-up Area):</strong> [[BuiltUpArea]]</div>
+        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+    </div>
+</div>',
+         N'[{"fieldKey":"OrderNo","fieldLabelMarathi":"परवाना / आदेश क्रमांक","fieldLabelEnglish":"Permit / Order No","fieldType":"text","isMandatory":true},{"fieldKey":"ValidityPeriod","fieldLabelMarathi":"परवाना वैधता मुदत","fieldLabelEnglish":"Validity Period","fieldType":"text","isMandatory":true},{"fieldKey":"BuiltUpArea","fieldLabelMarathi":"मंजूर क्षेत्रफळ (Built-up Area)","fieldLabelEnglish":"Approved Area","fieldType":"text","isMandatory":false},{"fieldKey":"ChallanNo","fieldLabelMarathi":"शुल्क पावती क्र.","fieldLabelEnglish":"Challan No","fieldType":"text","isMandatory":false}]',
+         N'["बांधकाम केवळ मंजूर नकाशाप्रमाणेच करणे बंधनकारक आहे.","बांधकामादरम्यान सुरक्षेच्या सर्व नियमांचे पालन करणे आवश्यक आहे.","अनधिकृत बांधकाम आढळल्यास परवाना रद्द करून कारवाई केली जाईल."]'
+        ),
+
+        -- 6. Occupancy Certificate
+        (N'Issuance of Occupancy Certificate', N'भोगवटा प्रमाणपत्र (Occupancy Certificate)', 'CERT_OCCUPANCY',
+         N'<div class="certificate-body space-y-4">
+    <p>प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> यांच्या इमारत बांधकामाची प्रत्यक्ष पाहणी करण्यात आली असून बांधकाम मंजूर नकाशा व नियमांनुसार पूर्ण झाल्याने इमारतीचा वापर करण्यास भोगवटा प्रमाणपत्र जारी करण्यात येत आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>भोगवटा आदेश क्र.:</strong> [[OrderNo]]</div>
+        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+    </div>
+</div>',
+         N'[{"fieldKey":"OrderNo","fieldLabelMarathi":"भोगवटा आदेश क्रमांक","fieldLabelEnglish":"Occupancy Order No","fieldType":"text","isMandatory":true},{"fieldKey":"ChallanNo","fieldLabelMarathi":"शुल्क पावती क्र.","fieldLabelEnglish":"Challan No","fieldType":"text","isMandatory":false}]',
+         N'["इमारतीचा वापर केवळ मंजूर वापरासाठीच (Approved Use) करणे बंधनकारक आहे."]'
+        ),
+
+        -- 7. Trade NOC
+        (N'Trade / Business / Storage Non-Revocation NOC', N'व्यापार / व्यवसाय ना-हरकत प्रमाणपत्र (Trade NOC)', 'CERT_TRADE_NOC',
+         N'<div class="certificate-body space-y-4">
+    <p>अर्जदार <strong>{{ApplicantName}}</strong> (मोबाईल: <strong>{{ApplicantMobile}}</strong>) यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये व्यवसाय/साठा करण्यासाठी ना-हरकत प्रमाणपत्र खालील अटींच्या अधीन राहून जारी करण्यात येत आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>जावक / आदेश क्र.:</strong> [[OrderNo]]</div>
+        <div><strong>वैधता मुदत:</strong> [[ValidityPeriod]]</div>
+        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+    </div>
+</div>',
+         N'[{"fieldKey":"OrderNo","fieldLabelMarathi":"जावक / आदेश क्रमांक","fieldLabelEnglish":"Order No","fieldType":"text","isMandatory":true},{"fieldKey":"ValidityPeriod","fieldLabelMarathi":"वैधता मुदत","fieldLabelEnglish":"Validity Period","fieldType":"text","isMandatory":false},{"fieldKey":"ChallanNo","fieldLabelMarathi":"शुल्क पावती क्र.","fieldLabelEnglish":"Challan No","fieldType":"text","isMandatory":false}]',
+         N'["परिसरातील नागरिकांना किंवा वाहतुकीस कोणताही त्रास होणार नाही याची दक्षता घ्यावी.","प्रदूषण नियंत्रण व मनपाच्या सर्व नियमांचे पालन करणे बंधनकारक राहील."]'
+        ),
+
+        -- 8. Mandap No-Damage Certificate
+        (N'Mandap No-Damage Certificate', N'मंडप ना-हरकत / ना-नुकसान प्रमाणपत्र (Mandap NOC)', 'CERT_MANDAP_NOC',
+         N'<div class="certificate-body space-y-4">
+    <p>अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये मंडप उभारणीसाठी ना-हरकत प्रमाणपत्र जारी करण्यात येत आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>परवानगी आदेश क्र.:</strong> [[OrderNo]]</div>
+        <div><strong>परवानगी कालावधी:</strong> [[ValidityPeriod]]</div>
+        <div><strong>शुल्क / अनामत पावती क्र.:</strong> [[ChallanNo]]</div>
+    </div>
+</div>',
+         N'[{"fieldKey":"OrderNo","fieldLabelMarathi":"परवानगी आदेश क्रमांक","fieldLabelEnglish":"Order No","fieldType":"text","isMandatory":true},{"fieldKey":"ValidityPeriod","fieldLabelMarathi":"परवानगी कालावधी","fieldLabelEnglish":"Validity Period","fieldType":"text","isMandatory":true},{"fieldKey":"ChallanNo","fieldLabelMarathi":"शुल्क पावती क्र.","fieldLabelEnglish":"Challan No","fieldType":"text","isMandatory":false}]',
+         N'["रस्त्यावर वाहतुकीस अडथळा निर्माण होणार नाही अशा पद्धतीने मंडप उभारणे आवश्यक आहे.","मुदत संपताच मंडप काढून रस्ता पूर्ववत करणे बंधनकारक आहे."]'
+        ),
+
+        -- 9. Fire Safety NOC
+        (N'Issuance of Fire Safety NOC', N'अग्निशमन ना-हरकत दाखला (Fire Safety NOC)', 'CERT_FIRE_NOC',
+         N'<div class="certificate-body space-y-4">
+    <p>अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये अग्निशमन यंत्रणेची प्राथमिक पाहणी करण्यात आली असून अग्निशमन ना-हरकत दाखला जारी करण्यात येत आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>अग्निशमन जावक क्र.:</strong> [[OrderNo]]</div>
+        <div><strong>दाखला वैधता मुदत:</strong> [[ValidityPeriod]]</div>
+        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+    </div>
+</div>',
+         N'[{"fieldKey":"OrderNo","fieldLabelMarathi":"अग्निशमन जावक क्रमांक","fieldLabelEnglish":"Fire Outward No","fieldType":"text","isMandatory":true},{"fieldKey":"ValidityPeriod","fieldLabelMarathi":"वैधता मुदत","fieldLabelEnglish":"Validity Period","fieldType":"text","isMandatory":true},{"fieldKey":"ChallanNo","fieldLabelMarathi":"शुल्क पावती क्र.","fieldLabelEnglish":"Challan No","fieldType":"text","isMandatory":false}]',
+         N'["अग्निशामक उपकरणे नेहमी सुस्थितीत व कार्यान्वित ठेवणे आवश्यक आहे.","दरवर्षी नियमानुसार अग्निशमन लेखापरीक्षण (Fire Audit) सादर करणे बंधनकारक आहे."]'
+        ),
+
+        -- 10. Tree Felling Permission
+        (N'Tree Felling Permission (Sec 8)', N'वृक्षतोड / छाटणी परवानगी (Tree Permission)', 'CERT_TREE_PERMIT',
+         N'<div class="certificate-body space-y-4">
+    <p>अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये वृक्ष प्राधिकरणाच्या पाहणी अहवालानुसार वृक्षतोड/फांद्या छाटणी परवानगी खालील अटींवर देण्यात येत आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>परवानगी आदेश क्र.:</strong> [[OrderNo]]</div>
+        <div><strong>तोडण्यास/छाटण्यास मंजूर वृक्षांची संख्या:</strong> [[TreeCount]]</div>
+        <div><strong>पुनर्लागवड करावयाची वृक्षांची संख्या:</strong> [[ReplantCount]]</div>
+        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+    </div>
+</div>',
+         N'[{"fieldKey":"OrderNo","fieldLabelMarathi":"परवानगी आदेश क्रमांक","fieldLabelEnglish":"Order No","fieldType":"text","isMandatory":true},{"fieldKey":"TreeCount","fieldLabelMarathi":"मंजूर वृक्षांची संख्या","fieldLabelEnglish":"Approved Tree Count","fieldType":"text","isMandatory":true},{"fieldKey":"ReplantCount","fieldLabelMarathi":"पुनर्लागवड करावयाची झाडे","fieldLabelEnglish":"Replant Trees Count","fieldType":"text","isMandatory":false},{"fieldKey":"ChallanNo","fieldLabelMarathi":"शुल्क पावती क्र.","fieldLabelEnglish":"Challan No","fieldType":"text","isMandatory":false}]',
+         N'["तोडलेल्या प्रत्येक वृक्षाच्या बदल्यात नियमानुसार नवीन वृक्षांची लागवड करून त्यांचे संवर्धन करणे बंधनकारक आहे."]'
+        ),
+
+        -- 11. School Leaving Certificate
+        (N'School Leaving / Duplicate Certificate', N'शाळा सोडल्याचा दाखला (School Leaving Certificate)', 'CERT_SCHOOL_LEAVING',
+         N'<div class="certificate-body space-y-4">
+    <p>प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये शाळेतील नोंदींची पडताळणी करून शाळा सोडल्याचा अधिकृत दाखला जारी करण्यात येत आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>दाखला / रजिस्टर क्र.:</strong> [[OrderNo]]</div>
+        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+    </div>
+</div>',
+         N'[{"fieldKey":"OrderNo","fieldLabelMarathi":"दाखला / रजिस्टर क्रमांक","fieldLabelEnglish":"Certificate / Register No","fieldType":"text","isMandatory":true},{"fieldKey":"ChallanNo","fieldLabelMarathi":"शुल्क पावती क्र.","fieldLabelEnglish":"Challan No","fieldType":"text","isMandatory":false}]',
+         N'["सदर दाखला शालेय अधिकृत अभिलेखावरून प्रमाणित करून दिला आहे."]'
+        ),
+
+        -- 12. Nursing Home License
+        (N'Nursing home license under Registration Act, 1949', N'शुश्रूषा-गृह परवाना (Nursing Home License)', 'CERT_NURSING_HOME',
+         N'<div class="certificate-body space-y-4">
+    <p>महाराष्ट्र शुश्रूषा-गृह नोंदणी अधिनियम, १९४९ अंतर्गत अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये आरोग्य विभागामार्फत शुश्रूषा-गृह चालविण्याचा परवाना जारी करण्यात येत आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>परवाना क्रमांक:</strong> [[OrderNo]]</div>
+        <div><strong>मंजूर खाटांची संख्या (Beds):</strong> [[BedCapacity]]</div>
+        <div><strong>परवाना वैधता मुदत:</strong> [[ValidityPeriod]]</div>
+        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+    </div>
+</div>',
+         N'[{"fieldKey":"OrderNo","fieldLabelMarathi":"परवाना क्रमांक","fieldLabelEnglish":"License No","fieldType":"text","isMandatory":true},{"fieldKey":"BedCapacity","fieldLabelMarathi":"मंजूर खाटांची संख्या (Bed Capacity)","fieldLabelEnglish":"Bed Capacity","fieldType":"text","isMandatory":false},{"fieldKey":"ValidityPeriod","fieldLabelMarathi":"वैधता मुदत","fieldLabelEnglish":"Validity Period","fieldType":"text","isMandatory":true},{"fieldKey":"ChallanNo","fieldLabelMarathi":"शुल्क पावती क्र.","fieldLabelEnglish":"Challan No","fieldType":"text","isMandatory":false}]',
+         N'["बायो-मेडिकल कचरा व्यवस्थापन नियमांचे काटेकोर पालन करणे बंधनकारक आहे.","अग्निशमन व प्रदूषण नियंत्रण नियमांचे पालन करणे आवश्यक आहे."]'
+        ),
+
+        -- 13. Providing drainage connections
+        (N'Providing drainage connections', N'जलनिःसारण / ड्रेनेज जोडणी प्रमाणपत्र (Drainage Connection)', 'CERT_DRAINAGE',
+         N'<div class="certificate-body space-y-4">
+    <p>अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये मनपाच्या मुख्य ड्रेनेज लाईनला जलनिःसारण जोडणी घेण्यास अधिकृत परवानगी देण्यात येत आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>जोडणी आदेश क्र.:</strong> [[OrderNo]]</div>
+        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+    </div>
+</div>',
+         N'[{"fieldKey":"OrderNo","fieldLabelMarathi":"जोडणी आदेश क्रमांक","fieldLabelEnglish":"Connection Order No","fieldType":"text","isMandatory":true},{"fieldKey":"ChallanNo","fieldLabelMarathi":"शुल्क पावती क्र.","fieldLabelEnglish":"Challan No","fieldType":"text","isMandatory":false}]',
+         N'["जोडणी काम केवळ अधिकृत प्लंबरमार्फतच करणे आवश्यक आहे."]'
+        )
+    ) AS V (ServiceName, TemplateName, TemplateCode, BodyContent, OfficerFieldsJson, DefaultConditionsJson)
+)
+MERGE [RTS].[CertificateTemplateMaster] AS Target
+USING (
+    SELECT Svc.Id AS ServiceId, Seed.TemplateName, Seed.TemplateCode, Seed.BodyContent, Seed.OfficerFieldsJson, Seed.DefaultConditionsJson
+    FROM SeedCertificateTemplates Seed
+    INNER JOIN [RTS].[ServiceMaster] Svc ON Svc.ServiceName = Seed.ServiceName
+) AS Source
+ON Target.ServiceId = Source.ServiceId
+WHEN MATCHED THEN
+    UPDATE SET
+        Target.TemplateName = Source.TemplateName,
+        Target.TemplateCode = Source.TemplateCode,
+        Target.BodyContent = Source.BodyContent,
+        Target.OfficerFieldsJson = Source.OfficerFieldsJson,
+        Target.DefaultConditionsJson = Source.DefaultConditionsJson,
+        Target.IsActive = 1,
+        Target.UpdatedDate = GETDATE()
+WHEN NOT MATCHED THEN
+    INSERT (ServiceId, TemplateName, TemplateCode, BodyContent, OfficerFieldsJson, DefaultConditionsJson, IsActive, CreatedDate)
+    VALUES (Source.ServiceId, Source.TemplateName, Source.TemplateCode, Source.BodyContent, Source.OfficerFieldsJson, Source.DefaultConditionsJson, 1, GETDATE());
+GO
+
 /* ============================================================================
    RTS / Core SMS Gateway Configuration & Unified Dynamic Templates Seed
    ============================================================================ */
