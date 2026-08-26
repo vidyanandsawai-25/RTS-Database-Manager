@@ -2776,150 +2776,405 @@ GO
     SELECT * FROM (VALUES
         -- 1. Zone Certificate (Service 43 - Town Planning)
         (N'Issuance of Zone Certificate', N'झोन दाखला (Zone Certificate)', 'CERT_ZONE',
-         N'<div class="certificate-body space-y-4">
-    <p>प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> यांनी सादर केलेल्या अर्जानुसार (अर्ज क्र. <strong>{{ApplicationNo}}</strong>) विकास योजना व नगररचना नियमावलीनुसार संबंधित भूखंड/जागेचा झोन दाखला खालील तपशिलानुसार जारी करण्यात येत आहे:</p>
-    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
-        <div><strong>जावक / आदेश क्र.:</strong> [[OrderNo]]</div>
-        <div><strong>झोन प्रकार व आरक्षण:</strong> [[ZoneType]]</div>
-        <div><strong>वैधता मुदत:</strong> [[ValidityPeriod]]</div>
-        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+         N'<div class="certificate-body space-y-4 font-sans">
+    <p class="text-justify leading-relaxed">प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> (मोबाईल क्र.: <strong>{{ApplicantMobile}}</strong>) यांनी दाखल केलेल्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये अकोला महानगरपालिका विकास योजना व महाराष्ट्र नगररचना अधिनियम, १९६६ च्या तरतुदींनुसार संबंधित मिळकतीचा झोन दाखला खालीलप्रमाणे जारी करण्यात येत आहे:</p>
+    <div class="border border-slate-300 rounded-lg overflow-hidden my-3 text-xs">
+        <table class="w-full border-collapse">
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2.5 font-bold text-slate-700 w-1/3 border-r border-slate-200">जावक / आदेश क्रमांक:</td>
+                <td class="p-2.5 font-semibold text-slate-900 font-mono">[[OrderNo]]</td>
+            </tr>
+            <tr class="border-b border-slate-200">
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">सीटीएस / सर्व्हे / भूखंड क्र.:</td>
+                <td class="p-2.5 text-slate-800">[[SurveyNo]]</td>
+            </tr>
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">मंजूर झोन प्रकार (Zone):</td>
+                <td class="p-2.5 font-bold text-emerald-800">[[ZoneType]]</td>
+            </tr>
+            <tr class="border-b border-slate-200">
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">विकास योजना आरक्षण / शेरा:</td>
+                <td class="p-2.5 text-slate-800">[[ReservationDetails]]</td>
+            </tr>
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">लगतच्या रस्त्याची रुंदी (Road Width):</td>
+                <td class="p-2.5 text-slate-800">[[RoadWidth]]</td>
+            </tr>
+            <tr>
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">शुल्क पावती तपशील:</td>
+                <td class="p-2.5 text-slate-800 font-mono">[[ChallanNo]]</td>
+            </tr>
+        </table>
     </div>
 </div>',
-         N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"जावक / आदेश क्रमांक\",\"fieldLabelEnglish\":\"Order No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"ZoneType\",\"fieldLabelMarathi\":\"झोन प्रकार व आरक्षण\",\"fieldLabelEnglish\":\"Zone Type & Reservation\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"ValidityPeriod\",\"fieldLabelMarathi\":\"वैधता मुदत\",\"fieldLabelEnglish\":\"Validity Period\",\"fieldType\":\"text\",\"isMandatory\":false},{\"fieldKey\":\"ChallanNo\",\"fieldLabelMarathi\":\"शुल्क पावती क्र.\",\"fieldLabelEnglish\":\"Challan No\",\"fieldType\":\"text\",\"isMandatory\":false}]',
-         N'["सदर दाखला केवळ नगररचना विकास नियंत्रण नियमावलीच्या अनुषंगाने माहितीस्तव आहे.","सदर दाखल्यावरून जागेच्या मालकी हक्काचा कोणताही दावा करता येणार नाही."]'
+         N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"जावक / आदेश क्रमांक\",\"fieldLabelEnglish\":\"Order No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"SurveyNo\",\"fieldLabelMarathi\":\"सीटीएस / सर्व्हे क्र.\",\"fieldLabelEnglish\":\"CTS / Survey No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"ZoneType\",\"fieldLabelMarathi\":\"झोन प्रकार (निवासी/व्यावसायिक/हरित)\",\"fieldLabelEnglish\":\"Zone Category\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"ReservationDetails\",\"fieldLabelMarathi\":\"आरक्षण तपशील / शेरा\",\"fieldLabelEnglish\":\"Reservation Details\",\"fieldType\":\"text\",\"isMandatory\":false},{\"fieldKey\":\"RoadWidth\",\"fieldLabelMarathi\":\"रस्त्याची रुंदी\",\"fieldLabelEnglish\":\"Road Width\",\"fieldType\":\"text\",\"isMandatory\":false},{\"fieldKey\":\"ChallanNo\",\"fieldLabelMarathi\":\"शुल्क पावती क्र.\",\"fieldLabelEnglish\":\"Challan No\",\"fieldType\":\"text\",\"isMandatory\":false}]',
+         N'["सदर दाखला केवळ विकास योजना व नगररचना नियमावलीच्या अनुषंगाने माहितीस्तव जारी केला आहे.","सदर दाखल्यावरून जागेच्या मालकी हक्काचा किंवा कब्जेवहिवाटीचा कोणताही दावा करता येणार नाही."]'
         ),
 
         -- 2. Plinth Certificate (Service 46 - Town Planning)
         (N'Issuance of plinth certificate', N'जोते प्रमाणपत्र (Plinth Certificate)', 'CERT_PLINTH',
-         N'<div class="certificate-body space-y-4">
-    <p>अर्जदार <strong>{{ApplicantName}}</strong> यांच्या इमारत बांधकामाचे जोते (Plinth Level) मंजूर नकाशाप्रमाणे पूर्ण झाल्याची खात्री करून जोते प्रमाणपत्र जारी करण्यात येत आहे.</p>
-    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
-        <div><strong>जोते तपासणी आदेश क्र.:</strong> [[OrderNo]]</div>
-        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+         N'<div class="certificate-body space-y-4 font-sans">
+    <p class="text-justify leading-relaxed">प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये अकोला महानगरपालिका क्षेत्रात मंजूर बांधकाम परवानगीनुसार प्रत्यक्ष स्थळपाहणी करण्यात आली असून जोते (Plinth Level) नियमानुसार व मंजूर नकाशाप्रमाणे पूर्ण झाल्याची खात्री करून जोते प्रमाणपत्र मंजूर करण्यात येत आहे.</p>
+    <div class="border border-slate-300 rounded-lg overflow-hidden my-3 text-xs">
+        <table class="w-full border-collapse">
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2.5 font-bold text-slate-700 w-1/3 border-r border-slate-200">जोते आदेश / जावक क्र.:</td>
+                <td class="p-2.5 font-semibold text-slate-900 font-mono">[[OrderNo]]</td>
+            </tr>
+            <tr class="border-b border-slate-200">
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">बांधकाम परवानगी क्र. व दिनांक:</td>
+                <td class="p-2.5 text-slate-800">[[BuildingPermitNo]]</td>
+            </tr>
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">वास्तुविशारद / अभियंता नाव:</td>
+                <td class="p-2.5 text-slate-800">[[ArchitectName]]</td>
+            </tr>
+            <tr>
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">शुल्क पावती क्र.:</td>
+                <td class="p-2.5 text-slate-800 font-mono">[[ChallanNo]]</td>
+            </tr>
+        </table>
     </div>
 </div>',
-         N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"जोते तपासणी आदेश क्रमांक\",\"fieldLabelEnglish\":\"Plinth Order No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"ChallanNo\",\"fieldLabelMarathi\":\"शुल्क पावती क्र.\",\"fieldLabelEnglish\":\"Challan No\",\"fieldType\":\"text\",\"isMandatory\":false}]',
-         N'["पुढील बांधकाम मंजूर नकाशा व नियमांनुसारच करणे बंधनकारक आहे."]'
+         N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"जोते आदेश क्रमांक\",\"fieldLabelEnglish\":\"Plinth Order No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"BuildingPermitNo\",\"fieldLabelMarathi\":\"बांधकाम परवानगी क्र.\",\"fieldLabelEnglish\":\"Building Permit No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"ArchitectName\",\"fieldLabelMarathi\":\"अभियंता / वास्तुविशारद नाव\",\"fieldLabelEnglish\":\"Architect / Engineer\",\"fieldType\":\"text\",\"isMandatory\":false},{\"fieldKey\":\"ChallanNo\",\"fieldLabelMarathi\":\"शुल्क पावती क्र.\",\"fieldLabelEnglish\":\"Challan No\",\"fieldType\":\"text\",\"isMandatory\":false}]',
+         N'["पुढील संपूर्ण बांधकाम मंजूर नकाशा, विकास नियंत्रण नियमावली व सुरक्षिततेच्या मानकांनुसारच करणे बंधनकारक आहे."]'
         ),
 
         -- 3. Filling Potholes on City Roads (Service 49 - PWD)
         (N'Filling Potholes on City Roads', N'रस्ता खड्डे दुरुस्ती व पूर्तता अहवाल दाखला (Potholes Work Completion Certificate)', 'CERT_POTHOLES',
-         N'<div class="certificate-body space-y-4">
-    <p>प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये प्राप्त तक्रारीनुसार संबंधित रस्ता/भागातील खड्डे बुजविण्याचे व दुरुस्तीचे काम सार्वजनिक बांधकाम विभागामार्फत समाधानकारकरीत्या पूर्ण करण्यात आले आहे.</p>
-    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
-        <div><strong>काम पूर्तता / जावक क्र.:</strong> [[OrderNo]]</div>
-        <div><strong>रस्त्याचे नाव / परिसर:</strong> [[Location]]</div>
-        <div><strong>काम पूर्ण झाल्याचा दिनांक:</strong> [[CompletionDate]]</div>
+         N'<div class="certificate-body space-y-4 font-sans">
+    <p class="text-justify leading-relaxed">प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये प्राप्त तक्रारीनुसार संबंधित रस्ता/भागातील खड्डे बुजविण्याचे व दुरुस्तीचे काम सार्वजनिक बांधकाम विभागामार्फत समाधानकारकरीत्या पूर्ण करण्यात आले आहे.</p>
+    <div class="border border-slate-300 rounded-lg overflow-hidden my-3 text-xs">
+        <table class="w-full border-collapse">
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2.5 font-bold text-slate-700 w-1/3 border-r border-slate-200">काम पूर्तता / जावक क्र.:</td>
+                <td class="p-2.5 font-semibold text-slate-900 font-mono">[[OrderNo]]</td>
+            </tr>
+            <tr class="border-b border-slate-200">
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">रस्त्याचे नाव / परिसर:</td>
+                <td class="p-2.5 text-slate-800">[[Location]]</td>
+            </tr>
+            <tr>
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">काम पूर्ण झाल्याचा दिनांक:</td>
+                <td class="p-2.5 text-slate-800">[[CompletionDate]]</td>
+            </tr>
+        </table>
     </div>
 </div>',
-         N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"काम पूर्तता / जावक क्रमांक\",\"fieldLabelEnglish\":\"Completion / Outward No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"Location\",\"fieldLabelMarathi\":\"रस्त्याचे नाव / परिसर\",\"fieldLabelEnglish\":\"Road Name / Location\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"CompletionDate\",\"fieldLabelMarathi\":\"काम पूर्ण झाल्याचा दिनांक\",\"fieldLabelEnglish\":\"Completion Date\",\"fieldType\":\"text\",\"isMandatory\":false}]',
-         N'["सदर दुरुस्तीचे काम महानगरपालिका बांधकाम विभागाच्या देखरेखीखाली पूर्ण झाले आहे."]'
+         N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"काम पूर्तता क्रमांक\",\"fieldLabelEnglish\":\"Completion No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"Location\",\"fieldLabelMarathi\":\"रस्त्याचे नाव / परिसर\",\"fieldLabelEnglish\":\"Location / Road\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"CompletionDate\",\"fieldLabelMarathi\":\"काम पूर्ण दिनांक\",\"fieldLabelEnglish\":\"Completion Date\",\"fieldType\":\"text\",\"isMandatory\":false}]',
+         N'["सदर दुरुस्तीचे काम मनपा बांधकाम विभागाच्या देखरेखीखाली दर्जेदार साहित्यासह पूर्ण करण्यात आले आहे."]'
         ),
 
         -- 4. Maintaining & Securing Sewer Covers (Service 50 - PWD)
         (N'Maintaining & Securing Sewer Covers', N'ड्रेनेज/गटार झाकण दुरुस्ती पूर्तता दाखला (Sewer Cover Completion Certificate)', 'CERT_SEWER_COVERS',
-         N'<div class="certificate-body space-y-4">
-    <p>प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये प्राप्त तक्रारीनुसार संबंधित ठिकाणच्या ड्रेनेज/गटारावरील झाकण बसविण्याचे व दुरुस्त करण्याचे काम सुरक्षितरीत्या पूर्ण करण्यात आले आहे.</p>
-    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
-        <div><strong>काम पूर्तता / जावक क्र.:</strong> [[OrderNo]]</div>
-        <div><strong>ठिकाण / प्रभागाचे नाव:</strong> [[Location]]</div>
-        <div><strong>झाकण बसविल्याचा दिनांक:</strong> [[CompletionDate]]</div>
+         N'<div class="certificate-body space-y-4 font-sans">
+    <p class="text-justify leading-relaxed">प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये प्राप्त तक्रारीनुसार संबंधित ठिकाणच्या ड्रेनेज/गटारावरील झाकण बसविण्याचे व सुरक्षित करण्याचे काम पूर्ण करण्यात आले आहे.</p>
+    <div class="border border-slate-300 rounded-lg overflow-hidden my-3 text-xs">
+        <table class="w-full border-collapse">
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2.5 font-bold text-slate-700 w-1/3 border-r border-slate-200">काम पूर्तता / जावक क्र.:</td>
+                <td class="p-2.5 font-semibold text-slate-900 font-mono">[[OrderNo]]</td>
+            </tr>
+            <tr class="border-b border-slate-200">
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">ठिकाण / प्रभाग क्रमांक:</td>
+                <td class="p-2.5 text-slate-800">[[Location]]</td>
+            </tr>
+            <tr>
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">झाकण बसविल्याचा दिनांक:</td>
+                <td class="p-2.5 text-slate-800">[[CompletionDate]]</td>
+            </tr>
+        </table>
     </div>
 </div>',
-         N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"काम पूर्तता / जावक क्रमांक\",\"fieldLabelEnglish\":\"Completion / Outward No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"Location\",\"fieldLabelMarathi\":\"ठिकाण / प्रभाग\",\"fieldLabelEnglish\":\"Location / Ward\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"CompletionDate\",\"fieldLabelMarathi\":\"झाकण बसविल्याचा दिनांक\",\"fieldLabelEnglish\":\"Completion Date\",\"fieldType\":\"text\",\"isMandatory\":false}]',
-         N'["ड्रेनेज झाकण सुरक्षेच्या निकषांनुसार बसविण्यात आले असून नियमित पाहणी केली जाईल."]'
+         N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"काम पूर्तता क्रमांक\",\"fieldLabelEnglish\":\"Completion No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"Location\",\"fieldLabelMarathi\":\"ठिकाण / प्रभाग\",\"fieldLabelEnglish\":\"Location / Ward\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"CompletionDate\",\"fieldLabelMarathi\":\"झाकण बसविल्याचा दिनांक\",\"fieldLabelEnglish\":\"Completion Date\",\"fieldType\":\"text\",\"isMandatory\":false}]',
+         N'["ड्रेनेज झाकण सुरक्षेच्या निकषांनुसार सुस्थितीत बसविण्यात आले असून नियमित तपासणी केली जाईल."]'
         ),
 
-        -- 5. School Leaving Certificate (Service 55 - Education)
-        (N'School Leaving / Duplicate Certificate', N'शाळा सोडल्याचा दाखला (School Leaving Certificate)', 'CERT_SCHOOL_LEAVING',
-         N'<div class="certificate-body space-y-4">
-    <p>प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये शाळेतील नोंदींची पडताळणी करून शाळा सोडल्याचा अधिकृत दाखला जारी करण्यात येत आहे.</p>
-    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
-        <div><strong>दाखला / रजिस्टर क्र.:</strong> [[OrderNo]]</div>
-        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+        -- 5. School Leaving / Duplicate Certificate (Service 55 - Education)
+        (N'School Leaving / Duplicate Certificate', N'विद्यार्थ्याचा शाळा सोडल्याचा दाखला (School Leaving Certificate)', 'CERT_SCHOOL_LEAVING',
+         N'<div class="certificate-body space-y-3 font-sans">
+    <p class="text-justify leading-relaxed">प्रमाणित करण्यात येते की, शाळेतील जनरल रजिस्टर (G.R.) मधील अधिकृत नोंदीनुसार खालील विद्यार्थ्याचा <strong>शाळा सोडल्याचा दाखला (School Leaving Certificate)</strong> प्रमाणित करून देण्यात येत आहे:</p>
+    <div class="border border-slate-300 rounded-lg overflow-hidden my-2 text-xs">
+        <table class="w-full border-collapse">
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2 font-bold text-slate-700 w-1/3 border-r border-slate-200">जनरल रजिस्टर (G.R.) क्र.:</td>
+                <td class="p-2 font-bold text-slate-900 font-mono">[[GRNo]]</td>
+            </tr>
+            <tr class="border-b border-slate-200">
+                <td class="p-2 font-bold text-slate-700 border-r border-slate-200">विद्यार्थ्याचे संपूर्ण नाव:</td>
+                <td class="p-2 font-bold text-slate-900">{{ApplicantName}}</td>
+            </tr>
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2 font-bold text-slate-700 border-r border-slate-200">आईचे नाव (Mother''s Name):</td>
+                <td class="p-2 text-slate-800">[[MotherName]]</td>
+            </tr>
+            <tr class="border-b border-slate-200">
+                <td class="p-2 font-bold text-slate-700 border-r border-slate-200">धर्म व जात/प्रवर्ग (Caste):</td>
+                <td class="p-2 text-slate-800">[[CasteCategory]]</td>
+            </tr>
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2 font-bold text-slate-700 border-r border-slate-200">जन्मस्थान व राष्ट्रीयत्व:</td>
+                <td class="p-2 text-slate-800">[[BirthPlace]] (भारतीय)</td>
+            </tr>
+            <tr class="border-b border-slate-200">
+                <td class="p-2 font-bold text-slate-700 border-r border-slate-200">जन्मतारीख (अंकात व अक्षरात):</td>
+                <td class="p-2 text-slate-800"><strong>[[DOB]]</strong> ([[DOBWords]])</td>
+            </tr>
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2 font-bold text-slate-700 border-r border-slate-200">दाखल दिनांक व इयत्ता:</td>
+                <td class="p-2 text-slate-800">[[AdmissionDate]] (इयत्ता: [[AdmissionStd]])</td>
+            </tr>
+            <tr class="border-b border-slate-200">
+                <td class="p-2 font-bold text-slate-700 border-r border-slate-200">प्रगती व वर्तणूक (Conduct):</td>
+                <td class="p-2 font-semibold text-emerald-800">[[Conduct]]</td>
+            </tr>
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2 font-bold text-slate-700 border-r border-slate-200">शाळा सोडल्याचा दिनांक:</td>
+                <td class="p-2 font-bold text-slate-900">[[LeavingDate]]</td>
+            </tr>
+            <tr class="border-b border-slate-200">
+                <td class="p-2 font-bold text-slate-700 border-r border-slate-200">कोणत्या इयत्तेत शिकत होता:</td>
+                <td class="p-2 text-slate-800">[[StandardStudied]]</td>
+            </tr>
+            <tr>
+                <td class="p-2 font-bold text-slate-700 border-r border-slate-200">शाळा सोडण्याचे कारण:</td>
+                <td class="p-2 text-slate-800">[[ReasonForLeaving]]</td>
+            </tr>
+        </table>
     </div>
 </div>',
-         N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"दाखला / रजिस्टर क्रमांक\",\"fieldLabelEnglish\":\"Certificate / Register No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"ChallanNo\",\"fieldLabelMarathi\":\"शुल्क पावती क्र.\",\"fieldLabelEnglish\":\"Challan No\",\"fieldType\":\"text\",\"isMandatory\":false}]',
-         N'["सदर दाखला शालेय अधिकृत अभिलेखावरून प्रमाणित करून दिला आहे."]'
+         N'[{\"fieldKey\":\"GRNo\",\"fieldLabelMarathi\":\"जनरल रजिस्टर (G.R.) क्र.\",\"fieldLabelEnglish\":\"G.R. No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"MotherName\",\"fieldLabelMarathi\":\"आईचे नाव\",\"fieldLabelEnglish\":\"Mother Name\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"CasteCategory\",\"fieldLabelMarathi\":\"धर्म व जात / प्रवर्ग\",\"fieldLabelEnglish\":\"Religion & Caste\",\"fieldType\":\"text\",\"isMandatory\":false},{\"fieldKey\":\"BirthPlace\",\"fieldLabelMarathi\":\"जन्मस्थान\",\"fieldLabelEnglish\":\"Birth Place\",\"fieldType\":\"text\",\"isMandatory\":false},{\"fieldKey\":\"DOB\",\"fieldLabelMarathi\":\"जन्मतारीख (DD/MM/YYYY)\",\"fieldLabelEnglish\":\"Date of Birth\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"DOBWords\",\"fieldLabelMarathi\":\"जन्मतारीख (अक्षरात)\",\"fieldLabelEnglish\":\"DOB in Words\",\"fieldType\":\"text\",\"isMandatory\":false},{\"fieldKey\":\"AdmissionDate\",\"fieldLabelMarathi\":\"प्रवेश दिनांक\",\"fieldLabelEnglish\":\"Admission Date\",\"fieldType\":\"text\",\"isMandatory\":false},{\"fieldKey\":\"AdmissionStd\",\"fieldLabelMarathi\":\"प्रवेशाची इयत्ता\",\"fieldLabelEnglish\":\"Admission Std\",\"fieldType\":\"text\",\"isMandatory\":false},{\"fieldKey\":\"Conduct\",\"fieldLabelMarathi\":\"प्रगती व वर्तणूक\",\"fieldLabelEnglish\":\"Conduct & Progress\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"LeavingDate\",\"fieldLabelMarathi\":\"शाळा सोडल्याचा दिनांक\",\"fieldLabelEnglish\":\"Leaving Date\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"StandardStudied\",\"fieldLabelMarathi\":\"शिकत असलेली इयत्ता\",\"fieldLabelEnglish\":\"Standard Studied\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"ReasonForLeaving\",\"fieldLabelMarathi\":\"शाळा सोडण्याचे कारण\",\"fieldLabelEnglish\":\"Reason for Leaving\",\"fieldType\":\"text\",\"isMandatory\":true}]',
+         N'["सदर दाखला शाळेतील अधिकृत जनरल रजिस्टर (G.R.) वरून पडताळणी करून जारी करण्यात आला आहे.","दाखल्यात कोणताही खाडाखोड केल्यास तो अवैध ठरेल."]'
         ),
 
         -- 6. Transfer Certificate (Service 56 - Education)
         (N'Issuance of transfer certificate', N'स्थलांतर दाखला (Transfer Certificate)', 'CERT_TRANSFER_CERT',
-         N'<div class="certificate-body space-y-4">
-    <p>प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये शालेय नोंदीनुसार स्थलांतर दाखला (TC) जारी करण्यात येत आहे.</p>
-    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
-        <div><strong>दाखला क्र.:</strong> [[OrderNo]]</div>
-        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+         N'<div class="certificate-body space-y-3 font-sans">
+    <p class="text-justify leading-relaxed">प्रमाणित करण्यात येते की, विद्यार्थी <strong>{{ApplicantName}}</strong> (मोबाईल: <strong>{{ApplicantMobile}}</strong>) यांनी दाखल केलेल्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये शालेय अधिकृत अभिलेखावरून <strong>स्थलांतर दाखला (Transfer / Migration Certificate)</strong> जारी करण्यात येत आहे:</p>
+    <div class="border border-slate-300 rounded-lg overflow-hidden my-2 text-xs">
+        <table class="w-full border-collapse">
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2.5 font-bold text-slate-700 w-1/3 border-r border-slate-200">दाखला / जावक क्रमांक:</td>
+                <td class="p-2.5 font-bold text-slate-900 font-mono">[[OrderNo]]</td>
+            </tr>
+            <tr class="border-b border-slate-200">
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">विद्यार्थ्याचे संपूर्ण नाव:</td>
+                <td class="p-2.5 font-bold text-slate-900">{{ApplicantName}}</td>
+            </tr>
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">नोंदणी / इनरोलमेंट क्र.:</td>
+                <td class="p-2.5 text-slate-800 font-mono">[[EnrollmentNo]]</td>
+            </tr>
+            <tr class="border-b border-slate-200">
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">शाळेचे नाव:</td>
+                <td class="p-2.5 text-slate-800">[[SchoolName]]</td>
+            </tr>
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">स्थलांतराचे कारण (Reason):</td>
+                <td class="p-2.5 text-slate-800">[[ReasonForTransfer]]</td>
+            </tr>
+            <tr>
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">शुल्क पावती क्र.:</td>
+                <td class="p-2.5 text-slate-800 font-mono">[[ChallanNo]]</td>
+            </tr>
+        </table>
     </div>
 </div>',
-         N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"दाखला क्रमांक\",\"fieldLabelEnglish\":\"Certificate No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"ChallanNo\",\"fieldLabelMarathi\":\"शुल्क पावती क्र.\",\"fieldLabelEnglish\":\"Challan No\",\"fieldType\":\"text\",\"isMandatory\":false}]',
-         N'["सदर दाखला शालेय अधिकृत अभिलेखावरून प्रमाणित केला आहे."]'
+         N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"दाखला / जावक क्रमांक\",\"fieldLabelEnglish\":\"Certificate No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"EnrollmentNo\",\"fieldLabelMarathi\":\"नोंदणी / इनरोलमेंट क्र.\",\"fieldLabelEnglish\":\"Enrollment No\",\"fieldType\":\"text\",\"isMandatory\":false},{\"fieldKey\":\"SchoolName\",\"fieldLabelMarathi\":\"शाळेचे नाव\",\"fieldLabelEnglish\":\"School Name\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"ReasonForTransfer\",\"fieldLabelMarathi\":\"स्थलांतराचे कारण\",\"fieldLabelEnglish\":\"Reason for Transfer\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"ChallanNo\",\"fieldLabelMarathi\":\"शुल्क पावती क्र.\",\"fieldLabelEnglish\":\"Challan No\",\"fieldType\":\"text\",\"isMandatory\":false}]',
+         N'["सदर दाखला पुढील उच्च शिक्षण किंवा इतर संस्थेत प्रवेश घेण्यासाठी वैध आहे."]'
         ),
 
         -- 7. Duplicate Mark Sheet (Service 57 - Education)
         (N'Issuance of duplicate mark sheet', N'द्वितीय गुणपत्रक (Duplicate Mark Sheet)', 'CERT_MARK_SHEET',
-         N'<div class="certificate-body space-y-4">
-    <p>प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये शालेय परीक्षा अभिलेखावरून द्वितीय गुणपत्रक प्रमाणित करून देण्यात येत आहे.</p>
-    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
-        <div><strong>गुणपत्रक अनुक्रमांक:</strong> [[OrderNo]]</div>
-        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+         N'<div class="certificate-body space-y-3 font-sans">
+    <p class="text-justify leading-relaxed">प्रमाणित करण्यात येते की, विद्यार्थी <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये परीक्षा अभिलेखावरून खालील तपशिलानुसार <strong>द्वितीय गुणपत्रक (Duplicate Statement of Marks)</strong> प्रमाणित करून देण्यात येत आहे:</p>
+
+    <div class="grid grid-cols-2 gap-2 text-xs bg-slate-50 p-2.5 rounded-lg border border-slate-200 mb-2">
+        <div><strong>विद्यार्थ्याचे नाव:</strong> {{ApplicantName}}</div>
+        <div><strong>आसन / रोल नंबर:</strong> <span class="font-mono font-bold text-slate-900">[[SeatNo]]</span></div>
+        <div><strong>परीक्षेचे नाव:</strong> [[ExamName]]</div>
+        <div><strong>शैक्षणिक वर्ष / सत्र:</strong> [[AcademicYear]]</div>
+    </div>
+
+    <div class="border border-slate-300 rounded-lg overflow-hidden my-2 text-xs">
+        <table class="w-full border-collapse text-center">
+            <thead>
+                <tr class="bg-slate-800 text-white font-bold text-[11px]">
+                    <th class="p-2 border-r border-slate-700 w-12">अ.क्र.</th>
+                    <th class="p-2 border-r border-slate-700 text-left">विषय (Subject)</th>
+                    <th class="p-2 border-r border-slate-700 w-24">कमाल गुण (Max)</th>
+                    <th class="p-2 border-r border-slate-700 w-24">किमान गुण (Min)</th>
+                    <th class="p-2 w-28 bg-slate-900 text-emerald-300">प्राप्त गुण (Marks)</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+                <tr class="hover:bg-slate-50">
+                    <td class="p-1.5 border-r border-slate-200 font-mono">१</td>
+                    <td class="p-1.5 border-r border-slate-200 text-left font-medium">प्रथम भाषा (मराठी)</td>
+                    <td class="p-1.5 border-r border-slate-200">१००</td>
+                    <td class="p-1.5 border-r border-slate-200">३५</td>
+                    <td class="p-1.5 font-bold font-mono text-slate-900">[[MarksMarathi]]</td>
+                </tr>
+                <tr class="hover:bg-slate-50 bg-slate-50/50">
+                    <td class="p-1.5 border-r border-slate-200 font-mono">२</td>
+                    <td class="p-1.5 border-r border-slate-200 text-left font-medium">द्वितीय भाषा (हिंदी)</td>
+                    <td class="p-1.5 border-r border-slate-200">१००</td>
+                    <td class="p-1.5 border-r border-slate-200">३५</td>
+                    <td class="p-1.5 font-bold font-mono text-slate-900">[[MarksHindi]]</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                    <td class="p-1.5 border-r border-slate-200 font-mono">३</td>
+                    <td class="p-1.5 border-r border-slate-200 text-left font-medium">तृतीय भाषा (इंग्रजी)</td>
+                    <td class="p-1.5 border-r border-slate-200">१००</td>
+                    <td class="p-1.5 border-r border-slate-200">३५</td>
+                    <td class="p-1.5 font-bold font-mono text-slate-900">[[MarksEnglish]]</td>
+                </tr>
+                <tr class="hover:bg-slate-50 bg-slate-50/50">
+                    <td class="p-1.5 border-r border-slate-200 font-mono">४</td>
+                    <td class="p-1.5 border-r border-slate-200 text-left font-medium">गणित (Mathematics)</td>
+                    <td class="p-1.5 border-r border-slate-200">१००</td>
+                    <td class="p-1.5 border-r border-slate-200">३५</td>
+                    <td class="p-1.5 font-bold font-mono text-slate-900">[[MarksMaths]]</td>
+                </tr>
+                <tr class="hover:bg-slate-50">
+                    <td class="p-1.5 border-r border-slate-200 font-mono">५</td>
+                    <td class="p-1.5 border-r border-slate-200 text-left font-medium">विज्ञान व तंत्रज्ञान (Science)</td>
+                    <td class="p-1.5 border-r border-slate-200">१००</td>
+                    <td class="p-1.5 border-r border-slate-200">३५</td>
+                    <td class="p-1.5 font-bold font-mono text-slate-900">[[MarksScience]]</td>
+                </tr>
+                <tr class="hover:bg-slate-50 bg-slate-50/50">
+                    <td class="p-1.5 border-r border-slate-200 font-mono">६</td>
+                    <td class="p-1.5 border-r border-slate-200 text-left font-medium">सामाजिक शास्त्रे (Social Sciences)</td>
+                    <td class="p-1.5 border-r border-slate-200">१००</td>
+                    <td class="p-1.5 border-r border-slate-200">३५</td>
+                    <td class="p-1.5 font-bold font-mono text-slate-900">[[MarksSocialScience]]</td>
+                </tr>
+                <tr class="bg-slate-100 font-bold text-slate-900 border-t-2 border-slate-400">
+                    <td class="p-2 border-r border-slate-300" colspan="2">एकूण गुण (Total):</td>
+                    <td class="p-2 border-r border-slate-300">६००</td>
+                    <td class="p-2 border-r border-slate-300">२१०</td>
+                    <td class="p-2 font-mono text-emerald-800 text-sm">[[TotalMarks]]</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="flex justify-between items-center text-xs bg-emerald-50 border border-emerald-300 p-2.5 rounded-lg">
+        <div><strong>टक्केवारी (Percentage):</strong> <span class="font-mono font-bold text-emerald-900 text-sm">[[Percentage]]%</span></div>
+        <div><strong>निकालाचा दर्जा (Result / Grade):</strong> <span class="font-bold text-emerald-900 text-sm">[[Grade]]</span></div>
     </div>
 </div>',
-         N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"गुणपत्रक अनुक्रमांक\",\"fieldLabelEnglish\":\"Mark Sheet Serial No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"ChallanNo\",\"fieldLabelMarathi\":\"शुल्क पावती क्र.\",\"fieldLabelEnglish\":\"Challan No\",\"fieldType\":\"text\",\"isMandatory\":false}]',
-         N'["सदर गुणपत्रक मूळ अभिलेखावरून पडताळून दिले आहे."]'
+         N'[{\"fieldKey\":\"SeatNo\",\"fieldLabelMarathi\":\"आसन / रोल नंबर\",\"fieldLabelEnglish\":\"Seat / Roll No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"ExamName\",\"fieldLabelMarathi\":\"परीक्षेचे नाव\",\"fieldLabelEnglish\":\"Exam Name\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"AcademicYear\",\"fieldLabelMarathi\":\"शैक्षणिक वर्ष\",\"fieldLabelEnglish\":\"Academic Year\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"MarksMarathi\",\"fieldLabelMarathi\":\"मराठी गुण\",\"fieldLabelEnglish\":\"Marathi Marks\",\"fieldType\":\"number\",\"isMandatory\":true},{\"fieldKey\":\"MarksHindi\",\"fieldLabelMarathi\":\"हिंदी गुण\",\"fieldLabelEnglish\":\"Hindi Marks\",\"fieldType\":\"number\",\"isMandatory\":true},{\"fieldKey\":\"MarksEnglish\",\"fieldLabelMarathi\":\"इंग्रजी गुण\",\"fieldLabelEnglish\":\"English Marks\",\"fieldType\":\"number\",\"isMandatory\":true},{\"fieldKey\":\"MarksMaths\",\"fieldLabelMarathi\":\"गणित गुण\",\"fieldLabelEnglish\":\"Maths Marks\",\"fieldType\":\"number\",\"isMandatory\":true},{\"fieldKey\":\"MarksScience\",\"fieldLabelMarathi\":\"विज्ञान गुण\",\"fieldLabelEnglish\":\"Science Marks\",\"fieldType\":\"number\",\"isMandatory\":true},{\"fieldKey\":\"MarksSocialScience\",\"fieldLabelMarathi\":\"सामाजिक शास्त्रे गुण\",\"fieldLabelEnglish\":\"Social Science Marks\",\"fieldType\":\"number\",\"isMandatory\":true},{\"fieldKey\":\"TotalMarks\",\"fieldLabelMarathi\":\"एकूण गुण (६०० पैकी)\",\"fieldLabelEnglish\":\"Total Marks (out of 600)\",\"fieldType\":\"number\",\"isMandatory\":true},{\"fieldKey\":\"Percentage\",\"fieldLabelMarathi\":\"टक्केवारी (%)\",\"fieldLabelEnglish\":\"Percentage\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"Grade\",\"fieldLabelMarathi\":\"श्रेणी / निकाल (Grade/Pass)\",\"fieldLabelEnglish\":\"Result Grade\",\"fieldType\":\"text\",\"isMandatory\":true}]',
+         N'["सदर गुणपत्रक मूळ परीक्षा अभिलेखावरून पडताळणी करून अधिकृतरीत्या द्वितीय प्रत म्हणून जारी केले आहे.","या गुणपत्रकावर सक्षम प्राधिकाऱ्यांची डिजिटल स्वाक्षरी व QR पडताळणी समाविष्ट आहे."]'
         ),
 
         -- 8. Trade NOC (Service 61 - Town Planning)
         (N'Trade / Business / Storage Non-Revocation NOC', N'व्यापार / व्यवसाय ना-हरकत प्रमाणपत्र (Trade NOC)', 'CERT_TRADE_NOC',
-         N'<div class="certificate-body space-y-4">
-    <p>अर्जदार <strong>{{ApplicantName}}</strong> (मोबाईल: <strong>{{ApplicantMobile}}</strong>) यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये व्यवसाय/साठा करण्यासाठी ना-हरकत प्रमाणपत्र खालील अटींच्या अधीन राहून जारी करण्यात येत आहे.</p>
-    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
-        <div><strong>जावक / आदेश क्र.:</strong> [[OrderNo]]</div>
-        <div><strong>वैधता मुदत:</strong> [[ValidityPeriod]]</div>
-        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+         N'<div class="certificate-body space-y-4 font-sans">
+    <p class="text-justify leading-relaxed">अर्जदार <strong>{{ApplicantName}}</strong> (मोबाईल: <strong>{{ApplicantMobile}}</strong>) यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये व्यवसाय/साठा करण्यासाठी ना-हरकत प्रमाणपत्र खालील तपशिलानुसार व अटींच्या अधीन राहून जारी करण्यात येत आहे:</p>
+    <div class="border border-slate-300 rounded-lg overflow-hidden my-3 text-xs">
+        <table class="w-full border-collapse">
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2.5 font-bold text-slate-700 w-1/3 border-r border-slate-200">जावक / आदेश क्रमांक:</td>
+                <td class="p-2.5 font-semibold text-slate-900 font-mono">[[OrderNo]]</td>
+            </tr>
+            <tr class="border-b border-slate-200">
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">व्यवसायाचे स्वरूप / प्रकार:</td>
+                <td class="p-2.5 text-slate-800">[[BusinessType]]</td>
+            </tr>
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">परवाना वैधता मुदत:</td>
+                <td class="p-2.5 font-semibold text-slate-900">[[ValidityPeriod]]</td>
+            </tr>
+            <tr>
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">शुल्क पावती तपशील:</td>
+                <td class="p-2.5 text-slate-800 font-mono">[[ChallanNo]]</td>
+            </tr>
+        </table>
     </div>
 </div>',
-         N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"जावक / आदेश क्रमांक\",\"fieldLabelEnglish\":\"Order No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"ValidityPeriod\",\"fieldLabelMarathi\":\"वैधता मुदत\",\"fieldLabelEnglish\":\"Validity Period\",\"fieldType\":\"text\",\"isMandatory\":false},{\"fieldKey\":\"ChallanNo\",\"fieldLabelMarathi\":\"शुल्क पावती क्र.\",\"fieldLabelEnglish\":\"Challan No\",\"fieldType\":\"text\",\"isMandatory\":false}]',
-         N'["परिसरातील नागरिकांना किंवा वाहतुकीस कोणताही त्रास होणार नाही याची दक्षता घ्यावी.","प्रदूषण नियंत्रण व मनपाच्या सर्व नियमांचे पालन करणे बंधनकारक राहील."]'
+         N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"जावक / आदेश क्रमांक\",\"fieldLabelEnglish\":\"Order No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"BusinessType\",\"fieldLabelMarathi\":\"व्यवसायाचे स्वरूप / प्रकार\",\"fieldLabelEnglish\":\"Business Type\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"ValidityPeriod\",\"fieldLabelMarathi\":\"वैधता मुदत\",\"fieldLabelEnglish\":\"Validity Period\",\"fieldType\":\"text\",\"isMandatory\":false},{\"fieldKey\":\"ChallanNo\",\"fieldLabelMarathi\":\"शुल्क पावती क्र.\",\"fieldLabelEnglish\":\"Challan No\",\"fieldType\":\"text\",\"isMandatory\":false}]',
+         N'["परिसरातील नागरिकांना किंवा वाहतुकीस कोणताही त्रास होणार नाही याची दक्षता घ्यावी.","प्रदूषण नियंत्रण, अग्निशमन व मनपाच्या सर्व नियमांचे पालन करणे बंधनकारक राहील."]'
         ),
 
         -- 9. Mandap NOC (Service 62 - Town Planning)
         (N'Mandap NOC', N'मंडप ना-हरकत / ना-नुकसान प्रमाणपत्र (Mandap NOC)', 'CERT_MANDAP_NOC',
-         N'<div class="certificate-body space-y-4">
-    <p>अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये मंडप उभारणीसाठी ना-हरकत प्रमाणपत्र जारी करण्यात येत आहे.</p>
-    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
-        <div><strong>परवानगी आदेश क्र.:</strong> [[OrderNo]]</div>
-        <div><strong>परवानगी कालावधी:</strong> [[ValidityPeriod]]</div>
-        <div><strong>शुल्क / अनामत पावती क्र.:</strong> [[ChallanNo]]</div>
+         N'<div class="certificate-body space-y-4 font-sans">
+    <p class="text-justify leading-relaxed">अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये तात्पुरत्या स्वरूपात मंडप उभारणीसाठी ना-हरकत प्रमाणपत्र खालील अटींवर जारी करण्यात येत आहे:</p>
+    <div class="border border-slate-300 rounded-lg overflow-hidden my-3 text-xs">
+        <table class="w-full border-collapse">
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2.5 font-bold text-slate-700 w-1/3 border-r border-slate-200">परवानगी आदेश क्रमांक:</td>
+                <td class="p-2.5 font-semibold text-slate-900 font-mono">[[OrderNo]]</td>
+            </tr>
+            <tr class="border-b border-slate-200">
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">मंडपाचे ठिकाण / परिसर:</td>
+                <td class="p-2.5 text-slate-800">[[Location]]</td>
+            </tr>
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">परवानगी कालावधी (मुदत):</td>
+                <td class="p-2.5 font-semibold text-slate-900">[[ValidityPeriod]]</td>
+            </tr>
+            <tr>
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">शुल्क / अनामत पावती क्र.:</td>
+                <td class="p-2.5 text-slate-800 font-mono">[[ChallanNo]]</td>
+            </tr>
+        </table>
     </div>
 </div>',
-         N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"परवानगी आदेश क्रमांक\",\"fieldLabelEnglish\":\"Order No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"ValidityPeriod\",\"fieldLabelMarathi\":\"परवानगी कालावधी\",\"fieldLabelEnglish\":\"Validity Period\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"ChallanNo\",\"fieldLabelMarathi\":\"शुल्क पावती क्र.\",\"fieldLabelEnglish\":\"Challan No\",\"fieldType\":\"text\",\"isMandatory\":false}]',
-         N'["रस्त्यावर वाहतुकीस अडथळा निर्माण होणार नाही अशा पद्धतीने मंडप उभारणे आवश्यक आहे.","मुदत संपताच मंडप काढून रस्ता पूर्ववत करणे बंधनकारक आहे."]'
+         N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"परवानगी आदेश क्रमांक\",\"fieldLabelEnglish\":\"Order No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"Location\",\"fieldLabelMarathi\":\"मंडपाचे ठिकाण\",\"fieldLabelEnglish\":\"Mandap Location\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"ValidityPeriod\",\"fieldLabelMarathi\":\"परवानगी कालावधी\",\"fieldLabelEnglish\":\"Validity Period\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"ChallanNo\",\"fieldLabelMarathi\":\"शुल्क / अनामत पावती क्र.\",\"fieldLabelEnglish\":\"Challan No\",\"fieldType\":\"text\",\"isMandatory\":false}]',
+         N'["रस्त्यावरील वाहतुकीस व पादचाऱ्यांना अडथळा निर्माण होणार नाही अशा पद्धतीने मंडप उभारणे आवश्यक आहे.","मुदत संपताच २४ तासांच्या आत मंडप काढून रस्ता पूर्ववत करणे बंधनकारक आहे."]'
         ),
 
         -- 10. Tree Felling Permission (Service 66 - Tree Authority)
         (N'Tree Felling Permission', N'वृक्षतोड / छाटणी परवानगी (Tree Permission)', 'CERT_TREE_PERMIT',
-         N'<div class="certificate-body space-y-4">
-    <p>अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये वृक्ष प्राधिकरणाच्या पाहणी अहवालानुसार वृक्षतोड/फांद्या छाटणी परवानगी खालील अटींवर देण्यात येत आहे.</p>
-    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
-        <div><strong>परवानगी आदेश क्र.:</strong> [[OrderNo]]</div>
-        <div><strong>तोडण्यास/छाटण्यास मंजूर वृक्षांची संख्या:</strong> [[TreeCount]]</div>
-        <div><strong>पुनर्लागवड करावयाची वृक्षांची संख्या:</strong> [[ReplantCount]]</div>
-        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+         N'<div class="certificate-body space-y-4 font-sans">
+    <p class="text-justify leading-relaxed">अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये वृक्ष प्राधिकरणाच्या प्रत्यक्ष स्थळपाहणी अहवालानुसार वृक्षतोड/फांद्या छाटणी परवानगी खालील अटींवर देण्यात येत आहे:</p>
+    <div class="border border-slate-300 rounded-lg overflow-hidden my-3 text-xs">
+        <table class="w-full border-collapse">
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2.5 font-bold text-slate-700 w-1/3 border-r border-slate-200">परवानगी आदेश क्रमांक:</td>
+                <td class="p-2.5 font-semibold text-slate-900 font-mono">[[OrderNo]]</td>
+            </tr>
+            <tr class="border-b border-slate-200">
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">तोडण्यास/छाटण्यास मंजूर वृक्षांची संख्या:</td>
+                <td class="p-2.5 font-bold text-slate-900">[[TreeCount]] झाडे</td>
+            </tr>
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">पुनर्लागवड करावयाची झाडे:</td>
+                <td class="p-2.5 font-bold text-emerald-800">[[ReplantCount]] नवीन झाडे</td>
+            </tr>
+            <tr>
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">शुल्क पावती तपशील:</td>
+                <td class="p-2.5 text-slate-800 font-mono">[[ChallanNo]]</td>
+            </tr>
+        </table>
     </div>
 </div>',
          N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"परवानगी आदेश क्रमांक\",\"fieldLabelEnglish\":\"Order No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"TreeCount\",\"fieldLabelMarathi\":\"मंजूर वृक्षांची संख्या\",\"fieldLabelEnglish\":\"Approved Tree Count\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"ReplantCount\",\"fieldLabelMarathi\":\"पुनर्लागवड करावयाची झाडे\",\"fieldLabelEnglish\":\"Replant Trees Count\",\"fieldType\":\"text\",\"isMandatory\":false},{\"fieldKey\":\"ChallanNo\",\"fieldLabelMarathi\":\"शुल्क पावती क्र.\",\"fieldLabelEnglish\":\"Challan No\",\"fieldType\":\"text\",\"isMandatory\":false}]',
-         N'["तोडलेल्या प्रत्येक वृक्षाच्या बदल्यात नियमानुसार नवीन वृक्षांची लागवड करून त्यांचे संवर्धन करणे बंधनकारक आहे."]'
+         N'["तोडलेल्या प्रत्येक वृक्षाच्या बदल्यात नियमानुसार नवीन वृक्षांची लागवड करून त्यांचे ३ वर्षे संवर्धन करणे बंधनकारक आहे."]'
         ),
 
         -- 11. Maintaining cleanliness (Service 68 - Sanitation)
         (N'Maintaining cleanliness', N'स्वच्छता पूर्तता अहवाल दाखला (Cleanliness Redressal Certificate)', 'CERT_CLEANLINESS',
-         N'<div class="certificate-body space-y-4">
-    <p>प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये अकोला महानगरपालिका स्वच्छता विभागामार्फत संबंधित परिसराची प्रत्यक्ष स्वच्छता मोहीम राबवून परिसर स्वच्छ करण्यात आला आहे.</p>
-    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
-        <div><strong>कारवाई / अहवाल क्र.:</strong> [[OrderNo]]</div>
-        <div><strong>स्वच्छता केलेल्या परिसराचे नाव:</strong> [[Location]]</div>
-        <div><strong>स्वच्छता कार्यवाही दिनांक:</strong> [[CompletionDate]]</div>
+         N'<div class="certificate-body space-y-4 font-sans">
+    <p class="text-justify leading-relaxed">प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये अकोला महानगरपालिका स्वच्छता विभागामार्फत संबंधित परिसराची प्रत्यक्ष स्वच्छता मोहीम राबवून परिसर स्वच्छ करण्यात आला आहे.</p>
+    <div class="border border-slate-300 rounded-lg overflow-hidden my-3 text-xs">
+        <table class="w-full border-collapse">
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2.5 font-bold text-slate-700 w-1/3 border-r border-slate-200">कारवाई / अहवाल क्रमांक:</td>
+                <td class="p-2.5 font-semibold text-slate-900 font-mono">[[OrderNo]]</td>
+            </tr>
+            <tr class="border-b border-slate-200">
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">स्वच्छता केलेल्या परिसराचे नाव:</td>
+                <td class="p-2.5 text-slate-800">[[Location]]</td>
+            </tr>
+            <tr>
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">स्वच्छता कार्यवाही दिनांक:</td>
+                <td class="p-2.5 text-slate-800">[[CompletionDate]]</td>
+            </tr>
+        </table>
     </div>
 </div>',
          N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"कारवाई / अहवाल क्रमांक\",\"fieldLabelEnglish\":\"Report / Outward No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"Location\",\"fieldLabelMarathi\":\"स्वच्छता परिसर\",\"fieldLabelEnglish\":\"Cleanliness Location\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"CompletionDate\",\"fieldLabelMarathi\":\"कार्यवाही दिनांक\",\"fieldLabelEnglish\":\"Action Date\",\"fieldType\":\"text\",\"isMandatory\":false}]',
@@ -2928,14 +3183,31 @@ GO
 
         -- 12. Issuance of Hawker Registration Certificate (Service 162 - NULM / फेरीवाला)
         (N'Issuance of Hawker Registration Certificate', N'फेरीवाले नोंदणी प्रमाणपत्र (Street Vendor / Hawker Registration Certificate)', 'CERT_HAWKER_REG',
-         N'<div class="certificate-body space-y-4">
-    <p>दीनदयाळ अंत्योदय योजना - राष्ट्रीय नागरी उपजीविका अभियान (DAY-NULM) व फेरीवाला धोरणांतर्गत प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> (मोबाईल: <strong>{{ApplicantMobile}}</strong>) यांना अकोला महानगरपालिका क्षेत्रात फेरीवाले व्यवसाय / पथविक्रेता म्हणून अधिकृत नोंदणी प्रमाणपत्र (अर्ज क्र. <strong>{{ApplicationNo}}</strong>) जारी करण्यात येत आहे.</p>
-    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
-        <div><strong>फेरीवाला नोंदणी / ओळखपत्र क्र.:</strong> [[OrderNo]]</div>
-        <div><strong>फेरीवाला व्यवसाय प्रकार:</strong> [[VendorType]]</div>
-        <div><strong>मंजूर फेरीवाला क्षेत्र / वॉर्ड:</strong> [[VendingZone]]</div>
-        <div><strong>नोंदणी वैधता मुदत:</strong> [[ValidityPeriod]]</div>
-        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+         N'<div class="certificate-body space-y-4 font-sans">
+    <p class="text-justify leading-relaxed">दीनदयाळ अंत्योदय योजना - राष्ट्रीय नागरी उपजीविका अभियान (DAY-NULM) व फेरीवाला धोरणांतर्गत प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> (मोबाईल: <strong>{{ApplicantMobile}}</strong>) यांना अकोला महानगरपालिका क्षेत्रात फेरीवाले व्यवसाय / पथविक्रेता म्हणून अधिकृत नोंदणी प्रमाणपत्र (अर्ज क्र. <strong>{{ApplicationNo}}</strong>) जारी करण्यात येत आहे.</p>
+    <div class="border border-slate-300 rounded-lg overflow-hidden my-3 text-xs">
+        <table class="w-full border-collapse">
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2.5 font-bold text-slate-700 w-1/3 border-r border-slate-200">फेरीवाला नोंदणी / ओळखपत्र क्र.:</td>
+                <td class="p-2.5 font-bold text-slate-900 font-mono">[[OrderNo]]</td>
+            </tr>
+            <tr class="border-b border-slate-200">
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">फेरीवाला प्रकार (Vendor Type):</td>
+                <td class="p-2.5 font-semibold text-emerald-800">[[VendorType]]</td>
+            </tr>
+            <tr class="border-b border-slate-200 bg-slate-50">
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">मंजूर फेरीवाला क्षेत्र / वॉर्ड (Zone):</td>
+                <td class="p-2.5 text-slate-800">[[VendingZone]]</td>
+            </tr>
+            <tr class="border-b border-slate-200">
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">नोंदणी वैधता मुदत (Validity):</td>
+                <td class="p-2.5 text-slate-800 font-semibold">[[ValidityPeriod]]</td>
+            </tr>
+            <tr>
+                <td class="p-2.5 font-bold text-slate-700 border-r border-slate-200">शुल्क पावती तपशील:</td>
+                <td class="p-2.5 text-slate-800 font-mono">[[ChallanNo]]</td>
+            </tr>
+        </table>
     </div>
 </div>',
          N'[{\"fieldKey\":\"OrderNo\",\"fieldLabelMarathi\":\"फेरीवाला नोंदणी क्रमांक\",\"fieldLabelEnglish\":\"Vendor Reg No\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"VendorType\",\"fieldLabelMarathi\":\"फेरीवाला प्रकार (स्थिर/फिरता)\",\"fieldLabelEnglish\":\"Vendor Type (Stationary/Mobile)\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"VendingZone\",\"fieldLabelMarathi\":\"मंजूर फेरीवाला क्षेत्र / झोन\",\"fieldLabelEnglish\":\"Approved Vending Zone\",\"fieldType\":\"text\",\"isMandatory\":false},{\"fieldKey\":\"ValidityPeriod\",\"fieldLabelMarathi\":\"वैधता मुदत\",\"fieldLabelEnglish\":\"Validity Period\",\"fieldType\":\"text\",\"isMandatory\":true},{\"fieldKey\":\"ChallanNo\",\"fieldLabelMarathi\":\"शुल्क पावती क्र.\",\"fieldLabelEnglish\":\"Challan No\",\"fieldType\":\"text\",\"isMandatory\":false}]',
