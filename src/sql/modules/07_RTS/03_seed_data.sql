@@ -10,7 +10,6 @@ GO
 
 DECLARE @RtsDepartmentId INT;
 DECLARE @RtsModuleId INT;
-DECLARE @RtsAdminRoleId INT;
 DECLARE @AdminUserId INT;
 
 SELECT @AdminUserId = [Id]
@@ -18,12 +17,12 @@ FROM [CORE].[UserMaster]
 WHERE [UserName] = N'ADMIN';
 
 IF @AdminUserId IS NULL
-    THROW 51000, 'The seed ADMIN user is required before the RTS project seed runs.', 1;
+    SELECT @AdminUserId = 1;
 
 IF NOT EXISTS (SELECT 1 FROM [CORE].[DepartmentMaster] WHERE [DepartmentCode] = 'RTS')
 BEGIN
     INSERT INTO [CORE].[DepartmentMaster] ([DepartmentCode], [DepartmentName], [DepartmentNameLocal], [DepartmentIcon], [DepartmentDescription], [IsActive], [CreatedBy], [CreatedDate])
-    VALUES ('RTS', 'RTS Department', N'लोकसेवा हक्क', N'Landmark', N'Maharashtra Right to Public Services', 1, @AdminUserId, GETDATE());
+    VALUES ('RTS', 'RTS Department', N'लोकसेवा हक्क', 'Landmark', N'Maharashtra Right to Public Services', 1, @AdminUserId, GETDATE());
 END;
 
 SELECT @RtsDepartmentId = [Id] FROM [CORE].[DepartmentMaster] WHERE [DepartmentCode] = 'RTS';
@@ -31,7 +30,7 @@ SELECT @RtsDepartmentId = [Id] FROM [CORE].[DepartmentMaster] WHERE [DepartmentC
 UPDATE [CORE].[DepartmentMaster]
 SET [DepartmentName] = 'RTS Department',
     [DepartmentNameLocal] = N'लोकसेवा हक्क',
-    [DepartmentIcon] = N'Landmark',
+    [DepartmentIcon] = 'Landmark',
     [DepartmentDescription] = N'Maharashtra Right to Public Services',
     [IsActive] = 1,
     [UpdatedBy] = @AdminUserId,
@@ -59,25 +58,23 @@ SET [DepartmentId] = @RtsDepartmentId,
 WHERE [Id] = @RtsModuleId;
 
 DECLARE @ScreenGroups TABLE (
-    [ScreenGroupCode] NVARCHAR(50),
-    [ScreenGroupName] NVARCHAR(100),
+    [ScreenGroupCode] VARCHAR(50),
+    [ScreenGroupName] VARCHAR(100),
     [ScreenGroupNameLocal] NVARCHAR(100),
-    [ScreenGroupIcon] NVARCHAR(50),
+    [ScreenGroupIcon] VARCHAR(50),
     [DisplayOrder] INT
 );
 
 INSERT INTO @ScreenGroups ([ScreenGroupCode], [ScreenGroupName], [ScreenGroupNameLocal], [ScreenGroupIcon], [DisplayOrder])
 VALUES
-    (N'RTS_CITIZEN',       N'Citizen Services',      N'नागरिक सेवा',           N'Users',           1),
-    (N'RTS_OFFICER',       N'Officer Workplace',     N'अधिकारी कार्यस्थळ',     N'Briefcase',       2),
-    (N'RTS_CONFIGURATION', N'System Configuration',  N'प्रणाली संरचना',        N'Settings',        3),
-    (N'RTS_REPORTS',       N'Reports & Analytics',   N'अहवाल व विश्लेषण',      N'BarChart3',       4);
+    ('RTS_CITIZEN',       'Citizen Services',      N'नागरिक सेवा',           'Users',           1),
+    ('RTS_OFFICER',       'Officer Workplace',     N'अधिकारी कार्यस्थळ',     'Briefcase',       2),
+    ('RTS_CONFIGURATION', 'System Configuration',  N'प्रणाली संरचना',        'Settings',        3),
+    ('RTS_REPORTS',       'Reports & Analytics',   N'अहवाल व विश्लेषण',      'BarChart3',       4);
 
 MERGE [CORE].[ScreenGroupMaster] AS target
 USING @ScreenGroups AS source
-ON target.[DepartmentId] = @RtsDepartmentId
-   AND target.[ModuleId] = @RtsModuleId
-   AND target.[ScreenGroupCode] = source.[ScreenGroupCode]
+ON target.[ScreenGroupCode] = source.[ScreenGroupCode]
 WHEN MATCHED THEN
     UPDATE SET
         target.[ScreenGroupName] = source.[ScreenGroupName],
@@ -88,44 +85,41 @@ WHEN MATCHED THEN
         target.[UpdatedBy] = @AdminUserId,
         target.[UpdatedDate] = GETDATE()
 WHEN NOT MATCHED THEN
-    INSERT ([DepartmentId], [ModuleId], [ScreenGroupCode], [ScreenGroupName], [ScreenGroupNameLocal], [ScreenGroupIcon], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate])
-    VALUES (@RtsDepartmentId, @RtsModuleId, source.[ScreenGroupCode], source.[ScreenGroupName], source.[ScreenGroupNameLocal], source.[ScreenGroupIcon], source.[DisplayOrder], 1, @AdminUserId, GETDATE());
+    INSERT ([ScreenGroupCode], [ScreenGroupName], [ScreenGroupNameLocal], [ScreenGroupIcon], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate])
+    VALUES (source.[ScreenGroupCode], source.[ScreenGroupName], source.[ScreenGroupNameLocal], source.[ScreenGroupIcon], source.[DisplayOrder], 1, @AdminUserId, GETDATE());
 
 DECLARE @Screens TABLE (
-    [ScreenGroupCode] NVARCHAR(50),
-    [ScreenCode] NVARCHAR(50),
-    [ScreenName] NVARCHAR(100),
+    [ScreenGroupCode] VARCHAR(50),
+    [ScreenCode] VARCHAR(50),
+    [ScreenName] VARCHAR(100),
     [ScreenNameLocal] NVARCHAR(100),
     [ScreenIcon] NVARCHAR(50),
-    [ScreenUrl] NVARCHAR(200),
+    [RoutePath] NVARCHAR(200),
     [DisplayOrder] INT
 );
 
-INSERT INTO @Screens ([ScreenGroupCode], [ScreenCode], [ScreenName], [ScreenNameLocal], [ScreenIcon], [ScreenUrl], [DisplayOrder])
+INSERT INTO @Screens ([ScreenGroupCode], [ScreenCode], [ScreenName], [ScreenNameLocal], [ScreenIcon], [RoutePath], [DisplayOrder])
 VALUES
-    (N'RTS_CITIZEN',       N'RTS_SERVICES_PORTAL',  'Service Catalog',     N'सेवा सूची',                N'LayoutGrid',      N'/rts/services',                                 1),
-    (N'RTS_CITIZEN',       N'RTS_TRACK_STATUS',     'Track Application',   N'अर्जाची स्थिती ट्रॅक करा', N'Search',          N'/rts/track',                                    2),
-    (N'RTS_OFFICER',       N'RTS_OFFICER_DASHBOARD','Officer Dashboard',   N'अधिकारी डॅशबोर्ड',         N'LayoutDashboard', N'/rts/officer-dashboard',                        1),
-    (N'RTS_OFFICER',       N'RTS_APPEAL_DASHBOARD', 'Appeals Management',  N'अपील व्यवस्थापन',          N'Gavel',           N'/rts/appeals',                                  2),
-    (N'RTS_CONFIGURATION', N'RTS_DEPARTMENTS',     'Department Master',   N'विभाग व्यवस्थापन',         N'Building2',       N'/rts/configuration-settings/rts-departments',   1),
-    (N'RTS_CONFIGURATION', N'RTS_SERVICES',        'RTS Services',        N'आरटीएस सेवा',             N'Activity',        N'/rts/services',                                 2),
-    (N'RTS_CONFIGURATION', N'RTS_FIELDS',          'RTS Fields',          N'आरटीएस फील्ड्स',          N'Sliders',         N'/rts/fields',                                   3),
-    (N'RTS_CONFIGURATION', N'RTS_APPROVAL_FLOW',   'Approval Flow Master',N'मंजुरी प्रवाह मास्टर',     N'GitMerge',        N'/rts/configuration-settings/rts-workflows',     4),
-    (N'RTS_CONFIGURATION', N'RTS_CERTIFICATES',    'Certificate Master',  N'प्रमाणपत्र संरचना',       N'Award',           N'/rts/configuration-settings/rts-certificates',   5),
-    (N'RTS_CONFIGURATION', N'RTS_USERS',           'RTS User Management', N'आरटीएस वापरकर्ता व्यवस्थापन', N'Users',       N'/rts/users',                                    6);
+    ('RTS_CITIZEN',       'RTS_SERVICES_PORTAL',  'Service Catalog',     N'सेवा सूची',                N'LayoutGrid',      N'/rts/services',                                 1),
+    ('RTS_CITIZEN',       'RTS_TRACK_STATUS',     'Track Application',   N'अर्जाची स्थिती ट्रॅक करा', N'Search',          N'/rts/track',                                    2),
+    ('RTS_OFFICER',       'RTS_OFFICER_DASHBOARD','Officer Dashboard',   N'अधिकारी डॅशबोर्ड',         N'LayoutDashboard', N'/rts/officer-dashboard',                        1),
+    ('RTS_OFFICER',       'RTS_APPEAL_DASHBOARD', 'Appeals Management',  N'अपील व्यवस्थापन',          N'Gavel',           N'/rts/appeals',                                  2),
+    ('RTS_CONFIGURATION', 'RTS_DEPARTMENTS',     'Department Master',   N'विभाग व्यवस्थापन',         N'Building2',       N'/rts/configuration-settings/rts-departments',   1),
+    ('RTS_CONFIGURATION', 'RTS_SERVICES',        'RTS Services',        N'आरटीएस सेवा',             N'Activity',        N'/rts/services',                                 2),
+    ('RTS_CONFIGURATION', 'RTS_FIELDS',          'RTS Fields',          N'आरटीएस फील्ड्स',          N'Sliders',         N'/rts/fields',                                   3),
+    ('RTS_CONFIGURATION', 'RTS_APPROVAL_FLOW',   'Approval Flow Master',N'मंजुरी प्रवाह मास्टर',     N'GitMerge',        N'/rts/configuration-settings/rts-workflows',     4),
+    ('RTS_CONFIGURATION', 'RTS_CERTIFICATES',    'Certificate Master',  N'प्रमाणपत्र संरचना',       N'Award',           N'/rts/configuration-settings/rts-certificates',   5),
+    ('RTS_CONFIGURATION', 'RTS_USERS',           'RTS User Management', N'आरटीएस वापरकर्ता व्यवस्थापन', N'Users',       N'/rts/users',                                    6);
 
-INSERT INTO [CORE].[ScreenMaster] ([ScreenGroupId], [ScreenCode], [ScreenName], [ScreenNameLocal], [ScreenIcon], [ScreenUrl], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate])
+INSERT INTO [CORE].[ScreenMaster] ([ScreenGroupId], [ModuleId], [DepartmentId], [ScreenCode], [ScreenName], [ScreenNameLocal], [ScreenIcon], [RoutePath], [IsMenu], [IsAuthenticationRequired], [IsPropertyLockable], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate])
 SELECT
-    g.[Id], s.[ScreenCode], s.[ScreenName], s.[ScreenNameLocal], s.[ScreenIcon], s.[ScreenUrl], s.[DisplayOrder], 1, @AdminUserId, GETDATE()
+    g.[Id], @RtsModuleId, @RtsDepartmentId, s.[ScreenCode], s.[ScreenName], s.[ScreenNameLocal], s.[ScreenIcon], s.[RoutePath], 1, 0, 0, s.[DisplayOrder], 1, @AdminUserId, GETDATE()
 FROM @Screens s
 INNER JOIN [CORE].[ScreenGroupMaster] g
-    ON g.[DepartmentId] = @RtsDepartmentId
-   AND g.[ModuleId] = @RtsModuleId
-   AND g.[ScreenGroupCode] = s.[ScreenGroupCode]
+    ON g.[ScreenGroupCode] = s.[ScreenGroupCode]
 WHERE NOT EXISTS (
     SELECT 1 FROM [CORE].[ScreenMaster] existing
-    WHERE existing.[ScreenGroupId] = g.[Id]
-      AND existing.[ScreenCode] = s.[ScreenCode]
+    WHERE existing.[ScreenCode] = s.[ScreenCode]
 );
 GO
 -- =========================================================
@@ -3104,71 +3098,51 @@ GO
 
 DECLARE @SmsGatewayId INT = (SELECT TOP 1 [SMSGatewayMasterID] FROM [CORE].[SMSGatewayMaster] WHERE [IsActive] = 1 ORDER BY [SMSGatewayMasterID]);
 
--- 2. SMS Gateway Parameter Details
-IF @SmsGatewayId IS NOT NULL AND NOT EXISTS (SELECT 1 FROM [CORE].[SmsGatewayDetails] WHERE [SMSGatewayMasterID] = @SmsGatewayId)
-BEGIN
-    INSERT INTO [CORE].[SmsGatewayDetails] ([SMSGatewayMasterID], [IsUrlBase], [GatewayURL], [ParameterName1], [ParameterValue1], [ParameterName2], [ParameterValue2], [ParameterName3], [ParameterValue3], [ParameterName4], [ParameterValue4], [ParameterName5], [ParameterValue5], [ParameterName6], [ParameterValue6], [ParameterName7], [ParameterValue7], [ParameterName8], [ParameterValue8], [ParameterName9], [ParameterValue9], [ParameterName10], [ParameterValue10], [IsActive], [CreatedBy], [CreatedDate])
-    VALUES (
-        @SmsGatewayId, 1,
-        'http://sms.amc.gov.in/api/send_sms.php',
-        'username', 'akola_user',
-        'password', 'Akola@123',
-        'sender_id', 'AKOLAM',
-        'route', 'trans',
-        'dlt_entity_id', '1201159123456789012',
-        'template_id', '{{TEMPLATE_ID}}',
-        'mobile_no', '{{MOBILE_NO}}',
-        'message', '{{MESSAGE}}',
-        'unicode', '1',
-        'response_format', 'json',
-        1, 1, GETDATE()
-    );
-END;
-GO
-
--- 3. Unified Dynamic SMS Templates
+-- 2. Unified Dynamic SMS Templates
 MERGE [CORE].[SMSMaster] AS Target
 USING (VALUES
-    (N'RTS_SUBMITTED', N'RTS Citizen Application Submitted',
-     N'प्रिय {{APPLICANT_NAME}}, तुमचा आरटीएस अर्ज क्र. {{APPLICATION_NO}} ({{SERVICE_NAME}}) अकोला महानगरपालिकेकडे यशस्वीरीत्या प्राप्त झाला आहे. ट्रॅकिंग लिंक: {{TRACK_URL}} - अकोला मनपा',
-     1, 1, '1207161987654321001'),
+    (1, N'RTS_SUBMITTED', '1207161987654321001',
+     N'प्रिय {CitizenName}, तुमचा आरटीएस अर्ज क्र. {ApplicationNo} ({ServiceName}) अकोला महानगरपालिकेकडे प्राप्त झाला आहे. ट्रॅकिंग लिंक: https://citizen.scipl.info.in/service?track={ApplicationNo} - अकोला मनपा',
+     1),
 
-    (N'RTS_STAGE_FORWARDED', N'RTS Application Stage Forwarded',
-     N'प्रिय {{APPLICANT_NAME}}, तुमचा अर्ज क्र. {{APPLICATION_NO}} पुढील टप्प्यावर ({{STAGE_NAME}} - अधिकारी: {{OFFICER_NAME}}) पडताळणीसाठी पाठवला आहे. - अकोला मनपा',
-     1, 1, '1207161987654321002'),
+    (8, N'RTS_STAGE_FORWARDED', '1207161987654321002',
+     N'प्रिय {CitizenName}, तुमचा अर्ज क्र. {ApplicationNo} पुढील टप्प्यावर पडताळणीसाठी पाठवला आहे. - अकोला मनपा',
+     1),
 
-    (N'RTS_PAYMENT_REQUEST', N'RTS Payment Request Notification',
-     N'प्रिय {{APPLICANT_NAME}}, अर्ज क्र. {{APPLICATION_NO}} ({{SERVICE_NAME}}) साठी रु. {{AMOUNT}}/- शुल्क भरणे आवश्यक आहे. भरण्यासाठी लिंक: {{PAYMENT_URL}} - अकोला मनपा',
-     1, 1, '1207161987654321003'),
+    (3, N'RTS_PAYMENT_REQUEST', '1207161987654321003',
+     N'प्रिय {CitizenName}, अर्ज क्र. {ApplicationNo} ({ServiceName}) साठी शुल्क भरणे आवश्यक आहे. भरण्यासाठी लिंक: https://citizen.scipl.info.in/service?pay={ApplicationNo} - अकोला मनपा',
+     1),
 
-    (N'RTS_PAYMENT_SUCCESS', N'RTS Payment Success Confirmation',
-     N'प्रिय {{APPLICANT_NAME}}, अर्ज क्र. {{APPLICATION_NO}} साठी रु. {{AMOUNT}}/- चे शुल्क यशस्वीरीत्या प्राप्त झाले. ट्रॅन्झॅक्शन क्र.: {{TRANSACTION_NO}}. - अकोला मनपा',
-     1, 1, '1207161987654321004'),
+    (3, N'RTS_PAYMENT_SUCCESS', '1207161987654321004',
+     N'प्रिय {CitizenName}, अर्ज क्र. {ApplicationNo} साठी रु. {Amount}/- चे शुल्क यशस्वीरीत्या प्राप्त झाले. पावती क्र.: {ReceiptNo}. - अकोला मनपा',
+     1),
 
-    (N'RTS_APPROVED', N'RTS Application Approved & Certificate Ready',
-     N'अभिनंदन {{APPLICANT_NAME}}! तुमचा अर्ज क्र. {{APPLICATION_NO}} ({{SERVICE_NAME}}) मंजूर करण्यात आला आहे. आपले अधिकृत प्रमाणपत्र डाउनलोड करा: {{CERTIFICATE_URL}} - अकोला मनपा',
-     1, 1, '1207161987654321005'),
+    (8, N'RTS_APPROVED', '1207161987654321005',
+     N'अभिनंदन {CitizenName}! तुमचा अर्ज क्र. {ApplicationNo} ({ServiceName}) मंजूर करण्यात आला आहे. आपले अधिकृत प्रमाणपत्र डाउनलोड करा: https://citizen.scipl.info.in/service?cert={ApplicationNo} - अकोला मनपा',
+     1),
 
-    (N'RTS_REJECTED', N'RTS Application Rejected Notification',
-     N'प्रिय {{APPLICANT_NAME}}, अर्ज क्र. {{APPLICATION_NO}} ({{SERVICE_NAME}}) खालील कारणास्तव नामंजूर केला आहे: {{REASON}}. आपण ३० दिवसांत प्रथम अपील करू शकता: {{APPEAL_URL}} - अकोला मनपा',
-     1, 1, '1207161987654321006'),
+    (8, N'RTS_REJECTED', '1207161987654321006',
+     N'प्रिय {CitizenName}, अर्ज क्र. {ApplicationNo} ({ServiceName}) नामंजूर केला आहे. आपण ३० दिवसांत प्रथम अपील करू शकता: https://citizen.scipl.info.in/service?appeal={ApplicationNo} - अकोला मनपा',
+     1),
 
-    (N'RTS_RETURNED', N'RTS Application Returned for Clarification',
-     N'प्रिय {{APPLICANT_NAME}}, अर्ज क्र. {{APPLICATION_NO}} मधील त्रुटींची पूर्तता करण्यासाठी अर्ज परत पाठवला आहे. त्रुटी: {{REASON}}. दुरुस्तीसाठी लिंक: {{RESUBMIT_URL}} - अकोला मनपा',
-     1, 1, '1207161987654321007'),
+    (8, N'RTS_RETURNED', '1207161987654321007',
+     N'प्रिय {CitizenName}, अर्ज क्र. {ApplicationNo} मधील त्रुटींच्या पूर्ततेसाठी अर्ज परत पाठवला आहे. दुरुस्तीसाठी लिंक: https://citizen.scipl.info.in/service?edit={ApplicationNo} - अकोला मनपा',
+     1),
 
-    (N'RTS_APPEAL_FILED', N'RTS Appeal Filed Notification',
-     N'प्रिय {{APPLICANT_NAME}}, अर्ज क्र. {{APPLICATION_NO}} वरील आपले {{APPEAL_TYPE}} (अपील क्र. {{APPEAL_NO}}) नोंदवले गेले आहे. सुनावणीची तारीख व माहिती लवकरच कळवली जाईल. - अकोला मनपा',
-     1, 1, '1207161987654321008')
-) AS Source (TemplateCode, TemplateTitle, SMSTemplate, IsActive, SMSTypeID, DLTTemplateID)
-ON Target.TemplateTitle = Source.TemplateTitle OR Target.SMSTemplate = Source.SMSTemplate
+    (8, N'RTS_APPEAL_FILED', '1207161987654321008',
+     N'प्रिय {CitizenName}, अर्ज क्र. {ApplicationNo} वरील आपले अपील नोंदवले गेले आहे. सुनावणीची तारीख लवकरच कळवली जाईल. - अकोला मनपा',
+     1)
+) AS Source (SMSTypeID, TemplateName, TemplateID, SmsText, IsActive)
+ON Target.[TemplateName] = Source.[TemplateName]
 WHEN MATCHED THEN
     UPDATE SET
-        Target.TemplateTitle = Source.TemplateTitle,
-        Target.SMSTemplate = Source.SMSTemplate,
-        Target.IsActive = Source.IsActive,
-        Target.DLTTemplateID = Source.DLTTemplateID
+        Target.[SMSGatewayMasterID] = @SmsGatewayId,
+        Target.[SMSTypeID] = Source.[SMSTypeID],
+        Target.[TemplateID] = Source.[TemplateID],
+        Target.[SmsText] = Source.[SmsText],
+        Target.[IsActive] = Source.[IsActive],
+        Target.[UpdatedDate] = GETDATE()
 WHEN NOT MATCHED THEN
-    INSERT (TemplateTitle, SMSTemplate, IsActive, SMSTypeID, DLTTemplateID, CreatedBy, CreatedDate)
-    VALUES (Source.TemplateTitle, Source.SMSTemplate, Source.IsActive, Source.SMSTypeID, Source.DLTTemplateID, 1, GETDATE());
+    INSERT ([SMSGatewayMasterID], [SMSTypeID], [TemplateName], [TemplateID], [SmsText], [IsActive], [CreatedBy], [CreatedDate])
+    VALUES (@SmsGatewayId, Source.[SMSTypeID], Source.[TemplateName], Source.[TemplateID], Source.[SmsText], Source.[IsActive], 1, GETDATE());
 GO
