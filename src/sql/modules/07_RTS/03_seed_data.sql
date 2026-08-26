@@ -582,9 +582,9 @@ GO
         (N'Trade License', 60, N'Issuance of Hawker Registration Certificate', N'फेरीवाले नोंदणी प्रमाणपत्र देणे', N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Store', 60, N'7 Days', 100.00, 1),
         (N'Town Planning', 61, N'Underground OFC Cable Permission', N'भुमिगत दुरसंचार वाहिनी (ऑप्टीकल फायबर केबल) टाकण्याकरीता परवानगी देणे (Permission for establishment of under-ground Cable Infrastructure - Optical Fibre Cable)', NULL, N'Cable', 61, N'7 Days', 0.00, 0),
         (N'Tree', 62, N'Tree Felling Permission (Sec 8)', N'महाराष्ट्र (नागरी क्षेत्रे) वृक्ष संरक्षण आणि संवर्धन अधिनियम, 1975 मधील कलम 8 मधील तरतुदीनुसार वृक्षतोड परवानगी देणे', NULL, N'TreePine', 62, N'15 Days', 0.00, 0),
-        (N'Town Planning', 63, N'Filling Potholes on City Roads', N'रस्त्यांवरील खड्डे बुजविणे', NULL, N'Wrench', 63, N'7 Days', 0.00, 0),
-        (N'Town Planning', 64, N'Maintaining & Securing Sewer Covers', N'गटारांवरील झाकणे सुस्थितीत ठेवणे', NULL, N'Shield', 64, N'7 Days', 0.00, 0),
-        (N'Sanitation', 65, N'Maintaining cleanliness', N'शहरात स्वच्छता राखणे', NULL, N'Trash2', 65, N'7 Days', 0.00, 0)
+        (N'Town Planning', 63, N'Filling Potholes on City Roads', N'रस्त्यांवरील खड्डे बुजविणे', N'#', N'Wrench', 63, N'7 Days', 0.00, 0),
+        (N'Town Planning', 64, N'Maintaining & Securing Sewer Covers', N'गटारांवरील झाकणे सुस्थितीत ठेवणे', N'#', N'Shield', 64, N'7 Days', 0.00, 0),
+        (N'Sanitation', 65, N'Maintaining cleanliness', N'शहरात स्वच्छता राखणे', N'#', N'Trash2', 65, N'7 Days', 0.00, 0)
     ) AS V (DeptName, GovtServiceCode, ServiceName, ServiceNameLocal, ServiceUrl, ServiceIcon, DisplayOrder, Sla, Fees, FeesRequired)
 )
 MERGE [RTS].[ServiceMaster] AS Target
@@ -2067,6 +2067,114 @@ GO
 </div>',
          N'[{"fieldKey":"OrderNo","fieldLabelMarathi":"जोडणी आदेश क्रमांक","fieldLabelEnglish":"Connection Order No","fieldType":"text","isMandatory":true},{"fieldKey":"ChallanNo","fieldLabelMarathi":"शुल्क पावती क्र.","fieldLabelEnglish":"Challan No","fieldType":"text","isMandatory":false}]',
          N'["जोडणी काम केवळ अधिकृत प्लंबरमार्फतच करणे आवश्यक आहे."]'
+        ),
+
+        -- 14. Giving Part Map
+        (N'Giving Part Map', N'भाग नकाशा दाखला (Part Map Certificate)', 'CERT_PART_MAP',
+         N'<div class="certificate-body space-y-4">
+    <p>अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये विकास योजनेनुसार संबंधित क्षेत्राचा अधिकृत भाग नकाशा प्रमाणित करून देण्यात येत आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>जावक / आदेश क्र.:</strong> [[OrderNo]]</div>
+        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+    </div>
+</div>',
+         N'[{"fieldKey":"OrderNo","fieldLabelMarathi":"जावक / आदेश क्रमांक","fieldLabelEnglish":"Order No","fieldType":"text","isMandatory":true},{"fieldKey":"ChallanNo","fieldLabelMarathi":"शुल्क पावती क्र.","fieldLabelEnglish":"Challan No","fieldType":"text","isMandatory":false}]',
+         N'["सदर भाग नकाशा केवळ विकास योजना माहितीस्तव असून मालकी हक्काचा पुरावा नाही."]'
+        ),
+
+        -- 15. Plinth Certificate
+        (N'Issuance of plinth certificate', N'जोते प्रमाणपत्र (Plinth Certificate)', 'CERT_PLINTH',
+         N'<div class="certificate-body space-y-4">
+    <p>अर्जदार <strong>{{ApplicantName}}</strong> यांच्या इमारत बांधकामाचे जोते (Plinth Level) मंजूर नकाशाप्रमाणे पूर्ण झाल्याची खात्री करून जोते प्रमाणपत्र जारी करण्यात येत आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>जोते तपासणी आदेश क्र.:</strong> [[OrderNo]]</div>
+        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+    </div>
+</div>',
+         N'[{"fieldKey":"OrderNo","fieldLabelMarathi":"जोते तपासणी आदेश क्रमांक","fieldLabelEnglish":"Plinth Order No","fieldType":"text","isMandatory":true},{"fieldKey":"ChallanNo","fieldLabelMarathi":"शुल्क पावती क्र.","fieldLabelEnglish":"Challan No","fieldType":"text","isMandatory":false}]',
+         N'["पुढील बांधकाम मंजूर नकाशा व नियमांनुसारच करणे बंधनकारक आहे."]'
+        ),
+
+        -- 16. Final Fire Exemption Certificate
+        (N'Issuance of Final Fire Exemption Certificate', N'अग्निशमन अंतिम नाहरकत दाखला (Final Fire NOC)', 'CERT_FINAL_FIRE_EXEMPTION',
+         N'<div class="certificate-body space-y-4">
+    <p>अर्जदार <strong>{{ApplicantName}}</strong> यांच्या इमारतीमधील अग्निशमन यंत्रणेची अंतिम पाहणी यशस्वी झाल्याने अंतिम अग्निशमन नाहरकत दाखला जारी करण्यात येत आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>अंतिम अग्निशमन आदेश क्र.:</strong> [[OrderNo]]</div>
+        <div><strong>वैधता मुदत:</strong> [[ValidityPeriod]]</div>
+        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+    </div>
+</div>',
+         N'[{"fieldKey":"OrderNo","fieldLabelMarathi":"अंतिम अग्निशमन आदेश क्रमांक","fieldLabelEnglish":"Final Fire Order No","fieldType":"text","isMandatory":true},{"fieldKey":"ValidityPeriod","fieldLabelMarathi":"वैधता मुदत","fieldLabelEnglish":"Validity Period","fieldType":"text","isMandatory":true},{"fieldKey":"ChallanNo","fieldLabelMarathi":"शुल्क पावती क्र.","fieldLabelEnglish":"Challan No","fieldType":"text","isMandatory":false}]',
+         N'["अग्निशामक यंत्रणा सदैव कार्यरत ठेवणे बंधनकारक आहे."]'
+        ),
+
+        -- 17. Transfer Certificate
+        (N'Issuance of transfer certificate', N'स्थलांतर दाखला (Transfer Certificate)', 'CERT_TRANSFER_CERT',
+         N'<div class="certificate-body space-y-4">
+    <p>प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये शालेय नोंदीनुसार स्थलांतर दाखला (TC) जारी करण्यात येत आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>दाखला क्र.:</strong> [[OrderNo]]</div>
+        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+    </div>
+</div>',
+         N'[{"fieldKey":"OrderNo","fieldLabelMarathi":"दाखला क्रमांक","fieldLabelEnglish":"Certificate No","fieldType":"text","isMandatory":true},{"fieldKey":"ChallanNo","fieldLabelMarathi":"शुल्क पावती क्र.","fieldLabelEnglish":"Challan No","fieldType":"text","isMandatory":false}]',
+         N'["सदर दाखला शालेय अधिकृत अभिलेखावरून प्रमाणित केला आहे."]'
+        ),
+
+        -- 18. Duplicate Mark Sheet
+        (N'Issuance of duplicate mark sheet', N'द्वितीय गुणपत्रक (Duplicate Mark Sheet)', 'CERT_MARK_SHEET',
+         N'<div class="certificate-body space-y-4">
+    <p>प्रमाणित करण्यात येते की, अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये शालेय परीक्षा अभिलेखावरून द्वितीय गुणपत्रक प्रमाणित करून देण्यात येत आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>गुणपत्रक अनुक्रमांक:</strong> [[OrderNo]]</div>
+        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+    </div>
+</div>',
+         N'[{"fieldKey":"OrderNo","fieldLabelMarathi":"गुणपत्रक अनुक्रमांक","fieldLabelEnglish":"Mark Sheet Serial No","fieldType":"text","isMandatory":true},{"fieldKey":"ChallanNo","fieldLabelMarathi":"शुल्क पावती क्र.","fieldLabelEnglish":"Challan No","fieldType":"text","isMandatory":false}]',
+         N'["सदर गुणपत्रक मूळ अभिलेखावरून पडताळून दिले आहे."]'
+        ),
+
+        -- 19. Renewal of Nursing Home License
+        (N'Renewal of nursing home license', N'शुश्रूषा-गृह परवाना नूतनीकरण (Nursing Home Renewal)', 'CERT_NURSING_HOME_RENEWAL',
+         N'<div class="certificate-body space-y-4">
+    <p>महाराष्ट्र शुश्रूषा-गृह नोंदणी अधिनियमान्वये अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये शुश्रूषा-गृह परवान्याचे नूतनीकरण करण्यात येत आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>नूतनीकरण आदेश क्र.:</strong> [[OrderNo]]</div>
+        <div><strong>नवीन वैधता मुदत:</strong> [[ValidityPeriod]]</div>
+        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+    </div>
+</div>',
+         N'[{"fieldKey":"OrderNo","fieldLabelMarathi":"नूतनीकरण आदेश क्रमांक","fieldLabelEnglish":"Renewal Order No","fieldType":"text","isMandatory":true},{"fieldKey":"ValidityPeriod","fieldLabelMarathi":"नवीन वैधता मुदत","fieldLabelEnglish":"Validity Period","fieldType":"text","isMandatory":true},{"fieldKey":"ChallanNo","fieldLabelMarathi":"शुल्क पावती क्र.","fieldLabelEnglish":"Challan No","fieldType":"text","isMandatory":false}]',
+         N'["आरोग्य व सुरक्षेच्या सर्व नियमांचे पालन करणे आवश्यक आहे."]'
+        ),
+
+        -- 20. Change of Nursing Home License Holder
+        (N'Change of nursing home license holder / partner name', N'शुश्रूषा-गृह परवानाधारक नाव बदल दाखला (Nursing Home Name Change)', 'CERT_NURSING_HOME_NAME_CHANGE',
+         N'<div class="certificate-body space-y-4">
+    <p>महाराष्ट्र शुश्रूषा-गृह नोंदणी अधिनियमान्वये अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये शुश्रूषा-गृह परवान्यावरील परवानाधारक/भागीदार नाव बदल मंजुरी दाखला जारी करण्यात येत आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>नाव बदल आदेश क्र.:</strong> [[OrderNo]]</div>
+        <div><strong>शुल्क पावती क्र.:</strong> [[ChallanNo]]</div>
+    </div>
+</div>',
+         N'[{"fieldKey":"OrderNo","fieldLabelMarathi":"नाव बदल आदेश क्रमांक","fieldLabelEnglish":"Change Order No","fieldType":"text","isMandatory":true},{"fieldKey":"ChallanNo","fieldLabelMarathi":"शुल्क पावती क्र.","fieldLabelEnglish":"Challan No","fieldType":"text","isMandatory":false}]',
+         N'["सदर बदल मनपा आरोग्य विभागाच्या अधिकृत नोंदवहीत नोंदविण्यात आला आहे."]'
+        ),
+
+        -- 21. Underground OFC Cable Permission
+        (N'Underground OFC Cable Permission', N'भूमिगत ओएफसी केबल परवानगी (OFC Cable Permission)', 'CERT_OFC_CABLE',
+         N'<div class="certificate-body space-y-4">
+    <p>अर्जदार <strong>{{ApplicantName}}</strong> यांच्या अर्ज क्र. <strong>{{ApplicationNo}}</strong> अन्वये भूमिगत दूरसंचार वाहिनी (OFC Cable) टाकण्यास खालील अटींवर परवानगी देण्यात येत आहे.</p>
+    <div class="bg-slate-50 p-4 rounded border border-slate-200 text-sm space-y-2">
+        <div><strong>परवानगी आदेश क्र.:</strong> [[OrderNo]]</div>
+        <div><strong>परवानगी वैधता मुदत:</strong> [[ValidityPeriod]]</div>
+        <div><strong>खोदकाम लांबी (मीटर):</strong> [[TrenchLength]]</div>
+        <div><strong>शुल्क / पुनर्भरण पावती क्र.:</strong> [[ChallanNo]]</div>
+    </div>
+</div>',
+         N'[{"fieldKey":"OrderNo","fieldLabelMarathi":"परवानगी आदेश क्रमांक","fieldLabelEnglish":"Order No","fieldType":"text","isMandatory":true},{"fieldKey":"ValidityPeriod","fieldLabelMarathi":"परवानगी मुदत","fieldLabelEnglish":"Validity Period","fieldType":"text","isMandatory":true},{"fieldKey":"TrenchLength","fieldLabelMarathi":"खोदकाम लांबी (मीटर)","fieldLabelEnglish":"Trench Length (Meters)","fieldType":"text","isMandatory":false},{"fieldKey":"ChallanNo","fieldLabelMarathi":"शुल्क पावती क्र.","fieldLabelEnglish":"Challan No","fieldType":"text","isMandatory":false}]',
+         N'["काम पूर्ण झाल्यानंतर रस्ता त्वरित पूर्ववत करणे बंधनकारक राहील."]'
         )
     ) AS V (ServiceName, TemplateName, TemplateCode, BodyContent, OfficerFieldsJson, DefaultConditionsJson)
 )
