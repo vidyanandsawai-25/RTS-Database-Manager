@@ -1435,3 +1435,26 @@ ALTER TABLE CORE.UserMaster
     CREATE INDEX IX_SecurityAuditLog_UserId ON CORE.SecurityAuditLog (UserId);
     CREATE INDEX IX_SecurityAuditLog_EventType ON CORE.SecurityAuditLog (EventType);
     CREATE INDEX IX_SecurityAuditLog_CreatedAt ON CORE.SecurityAuditLog (CreatedAt);
+END;
+GO
+
+/****** Object:Table [CORE].[AliasMaster] ******/
+IF OBJECT_ID(N'[CORE].[AliasMaster]', N'U') IS NULL
+BEGIN
+    CREATE TABLE [CORE].[AliasMaster](
+        [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+        [KeyName] [varchar](200) NOT NULL,
+        [LabelName] [nvarchar](200) NOT NULL,
+        [EnglishName] [nvarchar](200) NULL,
+        [RegionalName] [nvarchar](200) NULL,
+        [HindiName] [nvarchar](200) NULL,
+        [IsActive] [bit] NOT NULL CONSTRAINT [DF_AliasMaster_IsActive] DEFAULT (1),
+        [CreatedBy] [int] NULL,
+        [CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_AliasMaster_CreatedDate] DEFAULT (GETDATE()),
+        [UpdatedBy] [int] NULL,
+        [UpdatedDate] [datetime] NULL,
+        CONSTRAINT [PK_AliasMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+        CONSTRAINT [UQ_AliasMaster_KeyName] UNIQUE NONCLUSTERED ([KeyName] ASC)
+    ) ON [PRIMARY];
+END;
+GO

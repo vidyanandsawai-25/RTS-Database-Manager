@@ -871,3 +871,71 @@ INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleI
 GO
 SET IDENTITY_INSERT [CORE].[ConfigValueMaster] OFF
 GO
+
+
+
+
+/* =========================================
+    AliasMaster
+=======================================*/
+
+SET IDENTITY_INSERT [CORE].[AliasMaster] ON;
+
+;WITH SeedData AS
+(
+    SELECT *
+    FROM
+    (
+        VALUES
+        (47, 'Ward_No', N'Ward No', N'Sector No', N'सेक्टर क्र.1', N'सेक्टर क्र.2', 1, 1, CAST('2026-08-25T11:49:27.240' AS DATETIME), 1, CAST('2026-08-25T18:25:32.950' AS DATETIME)),
+        (48, 'Construction_Type', N'Construction Type', N'Construction Type', N'बांधकाम प्रकार', N'निर्माण प्रकार', 1, 1, CAST('2026-08-25T18:41:40.540' AS DATETIME), 1, CAST('2026-08-26T15:55:14.760' AS DATETIME)),
+        (49, 'Property_No', N'Property No', N'Property No', N'मालमत्ता क्र.', N'संपत्ति क्र.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), 1, CAST('2026-08-26T15:50:59.183' AS DATETIME)),
+        (50, 'Partition_No', N'Partition No', N'Partition No', N'विभाग क्र.', N'विभाजन क्र.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (51, 'Old_No', N'Old No', N'Old No', N'जुना क्र.', N'पुराना क्र.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (52, 'Upic_Id', N'Upic Id', N'Upic Id', N'UPIC क्र.', N'UPIC आईडी', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (53, 'Assessment_Status', N'Assessment Status', N'Assessment Status', N'आकारणी स्थिती', N'निर्धारण स्थिति', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), 1, CAST('2026-08-26T11:53:38.450' AS DATETIME)),
+        (54, 'Division', N'Division', N'Division', N'विभाग', N'प्रभाग', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (55, 'Category', N'Category', N'Category', N'वर्ग', N'श्रेणी', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (56, 'Wing', N'Wing', N'Wing', N'विंग', N'विंग', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (57, 'Flat_No_Shop_No', N'Flat No/Shop No', N'Flat No/Shop No', N'फ्लॅट क्र./दुकान क्र.', N'फ्लैट क्र./दुकान क्र.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (58, 'Tax_Zone_No', N'Tax Zone No', N'Tax Zone No', N'कर क्षेत्र क्र.', N'कर क्षेत्र क्र.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (59, 'Rate_Section_Name', N'Ratesection Name', N'Ratesection Name', N'दर विभागाचे नाव', N'दर अनुभाग का नाम', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (60, 'Mouja_Name', N'Mouja Name', N'Mouja Name', N'मौजा नाव', N'मौजा नाम', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), 1, CAST('2026-08-26T15:50:33.640' AS DATETIME)),
+        (61, 'Sub_Zone_No', N'Subzone No', N'Subzone No', N'उपक्षेत्र क्र.', N'उपक्षेत्र क्र.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (62, 'Survey_No', N'Survey No', N'Survey No', N'सर्वे क्र.', N'सर्वे क्र.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (63, 'Floor', N'Floor', N'Floor', N'मजला', N'मंजिल', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (64, 'Sub_Floor', N'Sub Floor', N'Sub Floor', N'उपमजला', N'उपमंजिल', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (65, 'Construction_Year', N'Con Year', N'Con Year', N'बांधकाम वर्ष', N'निर्माण वर्ष', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (66, 'Assessment_Year', N'Asst Year', N'Asst Year', N'आकारणी वर्ष', N'निर्धारण वर्ष', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (67, 'Use', N'Use', N'Use', N'वापर', N'उपयोग', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (68, 'Sub_Type_Of_Use', N'Sub Type Of Use', N'Sub Type Of Use', N'वापराचा उपप्रकार', N'उपयोग का उपप्रकार', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (69, 'Rooms', N'Rooms', N'Rooms', N'खोल्या', N'कमरे', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (70, 'Carpet_Area', N'Carpet Area(Ft/Mtr)', N'Carpet Area(Ft/Mtr)', N'चटई क्षेत्रफळ (फु./मी.)', N'कार्पेट क्षेत्रफल (फु./मी.)', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (71, 'Builtup_Area', N'Builtup Area(Ft/Mtr)', N'Builtup Area(Ft/Mtr)', N'बांधकाम क्षेत्रफळ (फु./मी.)', N'निर्मित क्षेत्रफल (फु./मी.)', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (72, 'OC_Number', N'Oc Number', N'Oc Number', N'ओ.सी. क्र.', N'ओ.सी. नंबर', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (73, 'OC_Date', N'Oc Date', N'Oc Date', N'ओ.सी. दिनांक', N'ओ.सी. दिनांक', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL)
+    ) AS V
+    (
+        Id, KeyName, LabelName, EnglishName, RegionalName, HindiName,
+        IsActive, CreatedBy, CreatedDate, UpdatedBy, UpdatedDate
+    )
+)
+INSERT INTO [CORE].[AliasMaster]
+(
+    [Id], [KeyName], [LabelName], [EnglishName], [RegionalName], [HindiName],
+    [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]
+)
+
+SELECT 
+    S.Id, S.KeyName, S.LabelName, S.EnglishName, S.RegionalName, S.HindiName,
+    S.IsActive, S.CreatedBy, S.CreatedDate, S.UpdatedBy, S.UpdatedDate
+FROM SeedData S
+
+WHERE NOT EXISTS
+(
+    SELECT 1 
+    FROM [CORE].[AliasMaster] X
+    WHERE X.Id = S.Id
+);
+
+SET IDENTITY_INSERT [CORE].[AliasMaster] OFF;
