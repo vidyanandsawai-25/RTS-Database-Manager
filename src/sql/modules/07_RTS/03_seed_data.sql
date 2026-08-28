@@ -1,4 +1,4 @@
-﻿SET ANSI_NULLS ON
+SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
@@ -246,8 +246,6 @@ GO
 -- =========================================================
 -- 3. RTS.FieldDefinition (100% Live Records with Clean Unicode & NULM Dept Mapping)
 -- =========================================================
-SET IDENTITY_INSERT [RTS].[FieldDefinition] ON;
-GO
 ;WITH LiveFields AS (
     SELECT * FROM (VALUES
         (1, 4, 61, N'firstName', N'First Name', N'पहिले नाव', N'text', N'Applicant Information', NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, 1, 0, 0, N'2026-07-15 16:26:57.547')
@@ -2226,20 +2224,17 @@ GO
     ) AS V (Id, DepartmentId, ServiceId, FieldCode, FieldLabel, FieldLabelLocal, FieldType, FieldGroup, OptionsJson, DefaultValue, ValidationRules, IsRequired, DisplayOrder, MinValue, MaxValue, MaxLength, IsActive, MarkedForDeletion, CreatedBy, CreatedDate)
 )
 MERGE [RTS].[FieldDefinition] AS Target
-USING LiveFields AS Source ON Target.Id = Source.Id
+USING LiveFields AS Source ON Target.DepartmentId = Source.DepartmentId AND Target.ServiceId = Source.ServiceId AND Target.FieldCode = Source.FieldCode
 WHEN MATCHED THEN UPDATE SET
-    Target.DepartmentId = Source.DepartmentId, Target.ServiceId = Source.ServiceId,
-    Target.FieldCode = Source.FieldCode, Target.FieldLabel = Source.FieldLabel,
+    Target.FieldLabel = Source.FieldLabel,
     Target.FieldLabelLocal = Source.FieldLabelLocal, Target.FieldType = Source.FieldType,
     Target.FieldGroup = Source.FieldGroup, Target.OptionsJson = Source.OptionsJson,
     Target.DefaultValue = Source.DefaultValue, Target.ValidationRules = Source.ValidationRules,
     Target.IsRequired = Source.IsRequired, Target.DisplayOrder = Source.DisplayOrder,
     Target.MinValue = Source.MinValue, Target.MaxValue = Source.MaxValue,
     Target.MaxLength = Source.MaxLength, Target.IsActive = Source.IsActive, Target.MarkedForDeletion = Source.MarkedForDeletion
-WHEN NOT MATCHED THEN INSERT (Id, DepartmentId, ServiceId, FieldCode, FieldLabel, FieldLabelLocal, FieldType, FieldGroup, OptionsJson, DefaultValue, ValidationRules, IsRequired, DisplayOrder, MinValue, MaxValue, MaxLength, IsActive, MarkedForDeletion, CreatedBy, CreatedDate)
-VALUES (Source.Id, Source.DepartmentId, Source.ServiceId, Source.FieldCode, Source.FieldLabel, Source.FieldLabelLocal, Source.FieldType, Source.FieldGroup, Source.OptionsJson, Source.DefaultValue, Source.ValidationRules, Source.IsRequired, Source.DisplayOrder, Source.MinValue, Source.MaxValue, Source.MaxLength, Source.IsActive, Source.MarkedForDeletion, Source.CreatedBy, Source.CreatedDate);
-GO
-SET IDENTITY_INSERT [RTS].[FieldDefinition] OFF;
+WHEN NOT MATCHED THEN INSERT (DepartmentId, ServiceId, FieldCode, FieldLabel, FieldLabelLocal, FieldType, FieldGroup, OptionsJson, DefaultValue, ValidationRules, IsRequired, DisplayOrder, MinValue, MaxValue, MaxLength, IsActive, MarkedForDeletion, CreatedBy, CreatedDate)
+VALUES (Source.DepartmentId, Source.ServiceId, Source.FieldCode, Source.FieldLabel, Source.FieldLabelLocal, Source.FieldType, Source.FieldGroup, Source.OptionsJson, Source.DefaultValue, Source.ValidationRules, Source.IsRequired, Source.DisplayOrder, Source.MinValue, Source.MaxValue, Source.MaxLength, Source.IsActive, Source.MarkedForDeletion, Source.CreatedBy, Source.CreatedDate);
 GO
 
 -- =========================================================
@@ -3227,12 +3222,12 @@ WHEN MATCHED THEN
         Target.TemplateName = Source.TemplateName,
         Target.TemplateCode = Source.TemplateCode,
         Target.BodyContent = Source.BodyContent,
-        Target.OfficerFieldsJson = Source.OfficerFieldsJson,
+        Target.OfficerFieldsConfigJson = Source.OfficerFieldsJson,
         Target.DefaultConditionsJson = Source.DefaultConditionsJson,
         Target.IsActive = 1,
         Target.UpdatedDate = GETDATE()
 WHEN NOT MATCHED THEN
-    INSERT (ServiceId, TemplateName, TemplateCode, BodyContent, OfficerFieldsJson, DefaultConditionsJson, IsActive, CreatedDate)
+    INSERT (ServiceId, TemplateName, TemplateCode, BodyContent, OfficerFieldsConfigJson, DefaultConditionsJson, IsActive, CreatedDate)
     VALUES (Source.ServiceId, Source.TemplateName, Source.TemplateCode, Source.BodyContent, Source.OfficerFieldsJson, Source.DefaultConditionsJson, 1, GETDATE());
 GO
 

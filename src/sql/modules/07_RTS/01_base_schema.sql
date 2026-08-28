@@ -754,3 +754,75 @@ BEGIN
         REFERENCES [RTS].[PaymentGatewayConfig] ([Id]);
 END;
 GO
+
+/* ============================================================================
+   RTS High-Performance Non-Clustered Indexes (Aligned with PTIS Architecture)
+   ============================================================================ */
+
+-- 1. Index on ApplicationDetails for service, department, and status search
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_ApplicationDetails_Service_Status' AND object_id = OBJECT_ID(N'[RTS].[ApplicationDetails]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_ApplicationDetails_Service_Status]
+    ON [RTS].[ApplicationDetails] ([ServiceId], [ApplicationStatus], [MarkedForDeletion])
+    INCLUDE ([Id], [ApplicationNo], [ApplicantName], [ApplicantMobileNo], [CreatedDate]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_ApplicationDetails_Department_Status' AND object_id = OBJECT_ID(N'[RTS].[ApplicationDetails]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_ApplicationDetails_Department_Status]
+    ON [RTS].[ApplicationDetails] ([DepartmentId], [ApplicationStatus], [MarkedForDeletion])
+    INCLUDE ([Id], [ApplicationNo], [ApplicantName], [ApplicantMobileNo], [CreatedDate]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_ApplicationDetails_ApplicantMobileNo' AND object_id = OBJECT_ID(N'[RTS].[ApplicationDetails]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_ApplicationDetails_ApplicantMobileNo]
+    ON [RTS].[ApplicationDetails] ([ApplicantMobileNo])
+    WHERE ([MarkedForDeletion] = 0);
+END;
+GO
+
+-- 2. Index on FieldValueData for fast dynamic field retrieval
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_FieldValueData_ApplicationId' AND object_id = OBJECT_ID(N'[RTS].[FieldValueData]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_FieldValueData_ApplicationId]
+    ON [RTS].[FieldValueData] ([ApplicationId], [IsActive])
+    INCLUDE ([FieldDefinitionId], [TextValue], [NumberValue], [DateValue])
+    WHERE ([MarkedForDeletion] = 0);
+END;
+GO
+
+-- 3. Index on TrackApplicationHistory for fast timeline rendering
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_TrackApplicationHistory_App_Date' AND object_id = OBJECT_ID(N'[RTS].[TrackApplicationHistory]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_TrackApplicationHistory_App_Date]
+    ON [RTS].[TrackApplicationHistory] ([ApplicationId], [CreatedDate] DESC);
+END;
+GO
+
+-- 4. Index on IssuedCertificate for instant certificate lookup by application
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_IssuedCertificate_ApplicationId' AND object_id = OBJECT_ID(N'[RTS].[IssuedCertificate]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_IssuedCertificate_ApplicationId]
+    ON [RTS].[IssuedCertificate] ([ApplicationId], [IsActive])
+    WHERE ([MarkedForDeletion] = 0);
+END;
+GO
+
+-- 5. Index on CitizenSession for OTP auth validation speed
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_CitizenSession_Mobile_Active' AND object_id = OBJECT_ID(N'[RTS].[CitizenSession]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_CitizenSession_Mobile_Active]
+    ON [RTS].[CitizenSession] ([MobileNumber], [IsActive], [ExpiresAt]);
+END;
+GO
+
+-- 6. Index on PaymentTransaction for application transaction queries
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_PaymentTransaction_ApplicationId' AND object_id = OBJECT_ID(N'[RTS].[PaymentTransaction]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_PaymentTransaction_ApplicationId]
+    ON [RTS].[PaymentTransaction] ([ApplicationId], [PaymentStatusId]);
+END;
+GO
