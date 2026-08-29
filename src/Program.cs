@@ -92,25 +92,26 @@ internal class Program
             }
             else
             {
-                Console.WriteLine("  C - Create database with base schema (will DROP existing DB)");
+                Console.WriteLine("  S - Safe Sync / Seed (Apply latest schemas & seeds safely without dropping DB)");
                 Console.WriteLine("  U - Upgrade database to target version");
+                Console.WriteLine("  C - Create database with base schema (DANGEROUS: will DROP existing DB)");
                 Console.WriteLine("  Q - Quit without doing anything");
 
                 while (true)
                 {
-                    Console.Write("Enter command (C/U/Q): ");
+                    Console.Write("Enter command (S/U/C/Q): ");
                     var input = Console.ReadLine()?.Trim().ToUpperInvariant();
                     if (string.IsNullOrEmpty(input))
                         continue;
                     if (input == "Q" || input == "QUIT" || input == "EXIT")
                         return 0;
-                    if (input == "C" || input == "U")
+                    if (input == "S" || input == "U" || input == "C")
                     {
                         command = input;
                         break;
                     }
 
-                    Console.WriteLine("Unknown command. Please enter C, U, or Q.");
+                    Console.WriteLine("Unknown command. Please enter S, U, C, or Q.");
                 }
             }
         }
@@ -137,9 +138,9 @@ internal class Program
             }
             else
             {
-                Console.Write($"Database '{appSettings.DatabaseName}' already exists. This will DROP the database and recreate it. Are you sure? (y/N): ");
+                Console.Write($"WARNING: Database '{appSettings.DatabaseName}' already exists. This will DROP all tables and data. Type 'DROP' to confirm: ");
                 var conf = Console.ReadLine()?.Trim().ToUpperInvariant();
-                confirmed = conf == "Y" || conf == "YES";
+                confirmed = conf == "DROP" || conf == "Y" || conf == "YES";
             }
 
             if (confirmed)
@@ -160,6 +161,24 @@ internal class Program
         {
             switch (command)
             {
+                case "S":
+                case "SYNC":
+                    Console.WriteLine("Safe syncing database schema & idempotent seed data...");
+                    await runner.CreateDatabaseIfNotExistsAsync(appSettings.DatabaseName);
+
+                    // Ensure version tracking table exists
+                    await versionManager.EnsureSchemaVersionsTableAsync(appSettings.DatabaseName);
+
+                    // Execute base scripts and modules non-destructively
+                    var syncBasePath = Path.Combine(AppContext.BaseDirectory, "sql", "base");
+                    await runner.ExecuteVersionedSqlFilesAsync(syncBasePath, "0.0.0", appSettings.TargetVersion, versionManager, appSettings.DatabaseName, appSettings.Modules);
+
+                    // Execute post-deployment script
+                    await runner.ExecutePostDeploymentAsync(appSettings.DatabaseName);
+
+                    Console.WriteLine($"Database synced successfully with latest schemas & seed data at version {appSettings.TargetVersion}");
+                    break;
+
                 case "C":
                     Console.WriteLine("Creating database...");
                     await runner.CreateDatabaseIfNotExistsAsync(appSettings.DatabaseName);
@@ -170,7 +189,7 @@ internal class Program
                     // Execute base scripts and record current target version (base schema contains latest code)
                     // Use the output folder's copied `sql` directory so files are available after build
                     var basePath = Path.Combine(AppContext.BaseDirectory, "sql", "base");
-                    await runner.ExecuteVersionedSqlFilesAsync(basePath, "0.0.0", appSettings.TargetVersion, versionManager, appSettings.DatabaseName);
+                    await runner.ExecuteVersionedSqlFilesAsync(basePath, "0.0.0", appSettings.TargetVersion, versionManager, appSettings.DatabaseName, appSettings.Modules);
 
                     // Execute post-deployment script
                     await runner.ExecutePostDeploymentAsync(appSettings.DatabaseName);
@@ -231,7 +250,7 @@ internal class Program
                             // Get fromVersion before applying this version
                             var fromVersion = await versionManager.GetCurrentDatabaseVersionAsync(appSettings.DatabaseName);
                             var versionFolder = Path.Combine(upgradesBasePath, upgrade.Version);
-                            await runner.ExecuteVersionedSqlFilesAsync(versionFolder, fromVersion, upgrade.Version, versionManager, appSettings.DatabaseName);
+                            await runner.ExecuteVersionedSqlFilesAsync(versionFolder, fromVersion, upgrade.Version, versionManager, appSettings.DatabaseName, appSettings.Modules);
                         }
                     }
 

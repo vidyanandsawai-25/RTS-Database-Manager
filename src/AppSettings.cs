@@ -9,6 +9,7 @@ public class AppSettings
     public string? Password { get; set; }
     public string TargetVersion { get; set; } = "1.0.0";
     public string? ConnectionString { get; set; }
+    public List<string>? Modules { get; set; } = new() { "01_CORE", "07_RTS" };
 
     public string GetConnectionString()
     {

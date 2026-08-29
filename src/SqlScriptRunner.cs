@@ -97,7 +97,7 @@ END
     /// Executes SQL files from a specified folder and records the version as applied.
     /// First executes files in the folder, then processes any 'modules' subdirectory.
     /// </summary>
-    public async Task ExecuteVersionedSqlFilesAsync(string folderPath, string fromVersion, string toVersion, DatabaseVersionManager versionManager, string databaseName)
+    public async Task ExecuteVersionedSqlFilesAsync(string folderPath, string fromVersion, string toVersion, DatabaseVersionManager versionManager, string databaseName, IEnumerable<string>? allowedModules = null)
     {
         if (!Directory.Exists(folderPath))
             throw new DirectoryNotFoundException($"SQL folder not found: {folderPath}");
@@ -112,16 +112,23 @@ END
             allFiles.Add((file, Path.GetFileName(file)));
         }
 
-        // Check for modules subfolder and process each module alphabetically
+        // Check for modules subfolder and process configured modules alphabetically
         var modulesPath = Directory.Exists(Path.Combine(folderPath, "modules"))
             ? Path.Combine(folderPath, "modules")
             : Path.Combine(folderPath, "..", "modules");
         if (Directory.Exists(modulesPath))
         {
             var moduleDirectories = Directory.GetDirectories(modulesPath).OrderBy(d => d).ToList();
+            var allowedSet = allowedModules != null ? new HashSet<string>(allowedModules, StringComparer.OrdinalIgnoreCase) : null;
+
             foreach (var moduleDir in moduleDirectories)
             {
                 var moduleName = Path.GetFileName(moduleDir);
+                if (allowedSet != null && !allowedSet.Contains(moduleName))
+                {
+                    continue; // Skip modules not configured for this database
+                }
+
                 var moduleFiles = Directory.GetFiles(moduleDir, "*.sql").OrderBy(f => f).ToList();
                 foreach (var file in moduleFiles)
                 {

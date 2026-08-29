@@ -1,4 +1,4 @@
-SET ANSI_NULLS ON
+﻿SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
@@ -6,6 +6,8 @@ GO
 /* ===========================
    [CORE].[MultilingualResource]
  =========================== */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'MultilingualResource')
+BEGIN
 CREATE TABLE [CORE].[MultilingualResource](
 	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[Resource] [nvarchar](256) NOT NULL,
@@ -22,12 +24,15 @@ CREATE TABLE [CORE].[MultilingualResource](
     CONSTRAINT [PK_MultilingualResource] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT UQ_MultilingualResource_Resource_Key  UNIQUE ([Resource], [Key])
 )ON [PRIMARY]
+END;
 GO
 
 
 /* ===========================
    [CORE].[DepartmentMaster]
  =========================== */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'DepartmentMaster')
+BEGIN
 CREATE TABLE [CORE].[DepartmentMaster](
     [Id]                    INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [DepartmentCode]        VARCHAR(50) NOT NULL,
@@ -46,10 +51,13 @@ CREATE TABLE [CORE].[DepartmentMaster](
     CONSTRAINT [UQ_DepartmentMaster_DepartmentCode] UNIQUE ([DepartmentCode]),
     CONSTRAINT [UQ_DepartmentMaster_DepartmentName] UNIQUE ([DepartmentName])
 );
+END;
 GO
 /* ===========================
    [CORE].[ModuleMaster]
 =========================== */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'ModuleMaster')
+BEGIN
 CREATE TABLE [CORE].[ModuleMaster](
     [Id]                INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [DepartmentId]      INT NOT NULL,
@@ -70,23 +78,32 @@ CREATE TABLE [CORE].[ModuleMaster](
     CONSTRAINT [UQ_ModuleMaster_ModuleName] UNIQUE ([ModuleName]),
     CONSTRAINT [UQ_ModuleMaster_DepartmentId_Id] UNIQUE ([DepartmentId], [Id])
 );
+END;
 GO
 
-    ALTER TABLE [CORE].[ModuleMaster] WITH CHECK
-    ADD CONSTRAINT [FK_ModuleMaster_DepartmentId]
-    FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id]);
-    GO
+    IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_ModuleMaster_DepartmentId')
+BEGIN
+    ALTER TABLE [CORE].[ModuleMaster] WITH CHECK ADD CONSTRAINT [FK_ModuleMaster_DepartmentId] FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id]);
+END;
+GO
 
+    IF EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_ModuleMaster_DepartmentId')
+BEGIN
     ALTER TABLE [CORE].[ModuleMaster] CHECK CONSTRAINT [FK_ModuleMaster_DepartmentId];
-    GO
+END;
+GO
 
-CREATE NONCLUSTERED INDEX [IX_ModuleMaster_DepartmentId]
-    ON [CORE].[ModuleMaster] ([DepartmentId]);
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_ModuleMaster_DepartmentId' AND object_id = OBJECT_ID(N'[CORE].[ModuleMaster]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_ModuleMaster_DepartmentId] ON [CORE].[ModuleMaster] ([DepartmentId]);
+END;
 GO
 
 /* ===========================
    [CORE].[DepartmentLicenceDetails]
   =========================== */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'DepartmentLicenceDetails')
+BEGIN
 CREATE TABLE [CORE].[DepartmentLicenceDetails](
     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [DepartmentId]         INT NOT NULL,
@@ -105,15 +122,20 @@ CREATE TABLE [CORE].[DepartmentLicenceDetails](
     CONSTRAINT [CK_DepartmentLicenceDetails_DateRange]
         CHECK ([LicenceStartDate] IS NULL OR [LicenceEndDate] IS NULL OR [LicenceEndDate] >= [LicenceStartDate])
 );
+END;
 GO
 
-CREATE NONCLUSTERED INDEX [IX_DepartmentLicenceDetails_DepartmentId]
-ON [CORE].[DepartmentLicenceDetails] ([DepartmentId]);
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_DepartmentLicenceDetails_DepartmentId' AND object_id = OBJECT_ID(N'[CORE].[DepartmentLicenceDetails]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_DepartmentLicenceDetails_DepartmentId] ON [CORE].[DepartmentLicenceDetails] ([DepartmentId]);
+END;
 GO
 
 /* ===========================
    [CORE].[DesignationMaster]
  =========================== */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'DesignationMaster')
+BEGIN
 CREATE TABLE [CORE].[DesignationMaster](
     [Id]                     INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [DesignationCode]       VARCHAR(50) NOT NULL,
@@ -130,11 +152,14 @@ CREATE TABLE [CORE].[DesignationMaster](
     CONSTRAINT [UQ_DesignationMaster_DesignationCode] UNIQUE ([DesignationCode]),
     CONSTRAINT [UQ_DesignationMaster_DesignationName] UNIQUE ([DesignationName])
 );
+END;
 GO
 
 /* ===========================
    [CORE].[ScreenGroupMaster]
   =========================== */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'ScreenGroupMaster')
+BEGIN
 CREATE TABLE [CORE].[ScreenGroupMaster](
     [Id]                   INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [ScreenGroupCode]      VARCHAR(50) NOT NULL,
@@ -151,11 +176,14 @@ CREATE TABLE [CORE].[ScreenGroupMaster](
     CONSTRAINT [PK_ScreenGroupMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [UQ_ScreenGroupMaster_ScreenGroupCode] UNIQUE ([ScreenGroupCode])
 );
+END;
 GO
 
 /* ===========================
    [CORE].[BankMaster]
 =========================== */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'BankMaster')
+BEGIN
 CREATE TABLE [CORE].[BankMaster](
     [Id]          INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [BankCode]    NVARCHAR(50) NOT NULL,
@@ -176,11 +204,14 @@ CREATE TABLE [CORE].[BankMaster](
     CONSTRAINT [UQ_BankMaster_BankCode] UNIQUE ([BankCode]),
     CONSTRAINT [CK_BankMaster_IFSC_Len] CHECK ([IFSCCode] IS NULL OR LEN([IFSCCode]) = 11)
 );
+END;
 GO
 
 /* ===========================
    [CORE].[OfficeMaster]
  =========================== */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'OfficeMaster')
+BEGIN
 CREATE TABLE [CORE].[OfficeMaster](
     [Id]                   INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [OfficeCode]           NVARCHAR(20) NOT NULL,
@@ -203,22 +234,31 @@ CREATE TABLE [CORE].[OfficeMaster](
     CONSTRAINT [PK_OfficeMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [UQ_OfficeMaster_OfficeCode] UNIQUE ([OfficeCode])
 );
+END;
 GO
 
-CREATE NONCLUSTERED INDEX [IX_OfficeMaster_DesignationMasterId]
-ON [CORE].[OfficeMaster] ([DesignationMasterId]);
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_OfficeMaster_DesignationMasterId' AND object_id = OBJECT_ID(N'[CORE].[OfficeMaster]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_OfficeMaster_DesignationMasterId] ON [CORE].[OfficeMaster] ([DesignationMasterId]);
+END;
 GO
 
-ALTER TABLE [CORE].[OfficeMaster] WITH CHECK
-ADD CONSTRAINT [FK_OfficeMaster_DesignationMaster]
-FOREIGN KEY ([DesignationMasterId]) REFERENCES [CORE].[DesignationMaster] ([Id]);
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_OfficeMaster_DesignationMaster')
+BEGIN
+    ALTER TABLE [CORE].[OfficeMaster] WITH CHECK ADD CONSTRAINT [FK_OfficeMaster_DesignationMaster] FOREIGN KEY ([DesignationMasterId]) REFERENCES [CORE].[DesignationMaster] ([Id]);
+END;
 GO
-ALTER TABLE [CORE].[OfficeMaster] CHECK CONSTRAINT [FK_OfficeMaster_DesignationMaster];
+IF EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_OfficeMaster_DesignationMaster')
+BEGIN
+    ALTER TABLE [CORE].[OfficeMaster] CHECK CONSTRAINT [FK_OfficeMaster_DesignationMaster];
+END;
 GO
 
 /* ===========================
    [CORE].[PaymentMode]
 =========================== */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'PaymentMode')
+BEGIN
 CREATE TABLE [CORE].[PaymentMode](
     [Id]                INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [Code]              VARCHAR(50) NOT NULL,
@@ -239,11 +279,14 @@ CREATE TABLE [CORE].[PaymentMode](
     CONSTRAINT [CK_PaymentMode_TransactionCharge]
         CHECK ([TransactionCharge] IS NULL OR [TransactionCharge] >= 0)
 );
+END;
 GO
 
 /* ===========================
    [CORE].[ServiceCategoryMaster]
 =========================== */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'ServiceCategoryMaster')
+BEGIN
 CREATE TABLE [CORE].[ServiceCategoryMaster](
     [Id]                 INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [ServiceCode]        VARCHAR(50) NOT NULL,
@@ -263,22 +306,31 @@ CREATE TABLE [CORE].[ServiceCategoryMaster](
     CONSTRAINT [UQ_ServiceCategoryMaster_ServiceCode] UNIQUE ([ServiceCode]),
     CONSTRAINT [CK_ServiceCategoryMaster_ProcessingTimeDays] CHECK ([ProcessingTimeDays] >= 0)
 );
+END;
 GO
 
-CREATE NONCLUSTERED INDEX [IX_ServiceCategoryMaster_DepartmentId]
-ON [CORE].[ServiceCategoryMaster] ([DepartmentId]);
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_ServiceCategoryMaster_DepartmentId' AND object_id = OBJECT_ID(N'[CORE].[ServiceCategoryMaster]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_ServiceCategoryMaster_DepartmentId] ON [CORE].[ServiceCategoryMaster] ([DepartmentId]);
+END;
 GO
 
-ALTER TABLE [CORE].[ServiceCategoryMaster] WITH CHECK
-ADD CONSTRAINT [FK_ServiceCategoryMaster_DepartmentMaster]
-FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id]);
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_ServiceCategoryMaster_DepartmentMaster')
+BEGIN
+    ALTER TABLE [CORE].[ServiceCategoryMaster] WITH CHECK ADD CONSTRAINT [FK_ServiceCategoryMaster_DepartmentMaster] FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id]);
+END;
 GO
-ALTER TABLE [CORE].[ServiceCategoryMaster] CHECK CONSTRAINT [FK_ServiceCategoryMaster_DepartmentMaster];
+IF EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_ServiceCategoryMaster_DepartmentMaster')
+BEGIN
+    ALTER TABLE [CORE].[ServiceCategoryMaster] CHECK CONSTRAINT [FK_ServiceCategoryMaster_DepartmentMaster];
+END;
 GO
 
 /* ===========================
    [CORE].[UserRoleMaster]
   =========================== */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'UserRoleMaster')
+BEGIN
 CREATE TABLE [CORE].[UserRoleMaster](
     [Id]            INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [UserRoleName]  NVARCHAR(100) NOT NULL,
@@ -295,11 +347,14 @@ CREATE TABLE [CORE].[UserRoleMaster](
     CONSTRAINT [FK_UserRoleMaster_DepartmentMaster]
         FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id])
 );
+END;
 GO
 
 /* ===========================
    [CORE].[YearMaster]
 =========================== */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'YearMaster')
+BEGIN
 CREATE TABLE [CORE].[YearMaster](
     [Id]          INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [Year]        INT NOT NULL,
@@ -318,15 +373,21 @@ CREATE TABLE [CORE].[YearMaster](
     CONSTRAINT [CK_YearMaster_DateRange]
         CHECK ([StartDate] IS NULL OR [EndDate] IS NULL OR [EndDate] >= [StartDate])
 );
+END;
 GO
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'UX_YearMaster_OnlyOneActive' AND object_id = OBJECT_ID(N'[CORE].[YearMaster]'))
+BEGIN
 CREATE UNIQUE INDEX [UX_YearMaster_OnlyOneActive]
 ON [CORE].[YearMaster] ([IsActive])
 WHERE [IsActive] = 1;
+END;
 GO
 
 /* ===========================
    [CORE].[DepartmentYearConfigMaster]
 =========================== */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'DepartmentYearConfigMaster')
+BEGIN
 CREATE TABLE [CORE].[DepartmentYearConfigMaster](
     [Id]           INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [DepartmentId] INT NOT NULL,
@@ -343,11 +404,14 @@ CREATE TABLE [CORE].[DepartmentYearConfigMaster](
     CONSTRAINT FK_DepartmentYearConfig_YearMaster FOREIGN KEY ([YearId])
         REFERENCES [CORE].[YearMaster]([Id])
 );
+END;
 GO
 
 /* ===========================
    [CORE].[EmployeeTypeMaster]
 =========================== */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'EmployeeTypeMaster')
+BEGIN
 CREATE TABLE [CORE].[EmployeeTypeMaster](
     [Id]    INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [EmployeeType]  NVARCHAR(100) NOT NULL,
@@ -359,11 +423,14 @@ CREATE TABLE [CORE].[EmployeeTypeMaster](
     CONSTRAINT [PK_EmployeeTypeMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [UQ_EmployeeTypeMaster_EmployeeType] UNIQUE ([EmployeeType])
 );
+END;
 GO
 
 /* ===========================
-   STEP 1: [CORE].[UserMaster]  ← must come FIRST (referenced by FKs below)
+   STEP 1: [CORE].[UserMaster]  Ã¢â€ Â must come FIRST (referenced by FKs below)
 =========================== */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'UserMaster')
+BEGIN
 CREATE TABLE [CORE].[UserMaster](
     [Id]                  INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [UserName]            NVARCHAR(100) NOT NULL,
@@ -396,15 +463,20 @@ CREATE TABLE [CORE].[UserMaster](
     CONSTRAINT [FK_UserMaster_EmployeeTypeMaster]
         FOREIGN KEY ([EmployeeTypeId]) REFERENCES [CORE].[EmployeeTypeMaster] ([Id])
 );
+END;
 GO
 
-CREATE NONCLUSTERED INDEX [IX_UserMaster_EmployeeTypeId]
-    ON [CORE].[UserMaster] ([EmployeeTypeId]);
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_UserMaster_EmployeeTypeId' AND object_id = OBJECT_ID(N'[CORE].[UserMaster]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_UserMaster_EmployeeTypeId] ON [CORE].[UserMaster] ([EmployeeTypeId]);
+END;
 GO
 
 /* ===========================
-   STEP 2: [CORE].[UserDepartmentAllocation]  ← depends on UserMaster + DepartmentMaster
+   STEP 2: [CORE].[UserDepartmentAllocation]  Ã¢â€ Â depends on UserMaster + DepartmentMaster
 =========================== */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'UserDepartmentAllocation')
+BEGIN
 CREATE TABLE [CORE].[UserDepartmentAllocation](
     [Id]           INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [UserId]       INT NOT NULL,
@@ -420,24 +492,33 @@ CREATE TABLE [CORE].[UserDepartmentAllocation](
     CONSTRAINT [FK_UserDepartmentAllocation_DepartmentMaster]
         FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id])
 );
+END;
 GO
 
 -- Add FK after both tables exist
-ALTER TABLE [CORE].[UserDepartmentAllocation] WITH CHECK
-ADD CONSTRAINT [FK_UserDepartmentAllocation_UserMaster]
-FOREIGN KEY ([UserId]) REFERENCES [CORE].[UserMaster] ([Id]);
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_UserDepartmentAllocation_UserMaster')
+BEGIN
+    ALTER TABLE [CORE].[UserDepartmentAllocation] WITH CHECK ADD CONSTRAINT [FK_UserDepartmentAllocation_UserMaster] FOREIGN KEY ([UserId]) REFERENCES [CORE].[UserMaster] ([Id]);
+END;
 GO
-ALTER TABLE [CORE].[UserDepartmentAllocation] CHECK CONSTRAINT [FK_UserDepartmentAllocation_UserMaster];
+IF EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_UserDepartmentAllocation_UserMaster')
+BEGIN
+    ALTER TABLE [CORE].[UserDepartmentAllocation] CHECK CONSTRAINT [FK_UserDepartmentAllocation_UserMaster];
+END;
 GO
 
 
-CREATE NONCLUSTERED INDEX [IX_UserDepartmentAllocation_DepartmentId]
-    ON [CORE].[UserDepartmentAllocation] ([DepartmentId]);
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_UserDepartmentAllocation_DepartmentId' AND object_id = OBJECT_ID(N'[CORE].[UserDepartmentAllocation]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_UserDepartmentAllocation_DepartmentId] ON [CORE].[UserDepartmentAllocation] ([DepartmentId]);
+END;
 GO
 
 /* ===========================
-   STEP 3: [CORE].[UserModuleAllocation]  ← depends on UserMaster + DepartmentMaster + ModuleMaster
+   STEP 3: [CORE].[UserModuleAllocation]  Ã¢â€ Â depends on UserMaster + DepartmentMaster + ModuleMaster
 =========================== */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'UserModuleAllocation')
+BEGIN
 CREATE TABLE [CORE].[UserModuleAllocation](
     [Id]           INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [UserId]       INT NOT NULL,
@@ -457,19 +538,26 @@ CREATE TABLE [CORE].[UserModuleAllocation](
         FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id])
     -- Removed single-column FK to ModuleMaster(Id); composite FK will be added later
 );
+END;
 GO
 
 
-CREATE NONCLUSTERED INDEX [IX_UserModuleAllocation_DepartmentId]
-    ON [CORE].[UserModuleAllocation] ([DepartmentId]);
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_UserModuleAllocation_DepartmentId' AND object_id = OBJECT_ID(N'[CORE].[UserModuleAllocation]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_UserModuleAllocation_DepartmentId] ON [CORE].[UserModuleAllocation] ([DepartmentId]);
+END;
 GO
-CREATE NONCLUSTERED INDEX [IX_UserModuleAllocation_ModuleId]
-    ON [CORE].[UserModuleAllocation] ([ModuleId]);
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_UserModuleAllocation_ModuleId' AND object_id = OBJECT_ID(N'[CORE].[UserModuleAllocation]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_UserModuleAllocation_ModuleId] ON [CORE].[UserModuleAllocation] ([ModuleId]);
+END;
 GO
 
 /* ===========================
-   STEP 4: [CORE].[UserRoleAllocation]  ← depends on UserMaster + DepartmentMaster + UserRoleMaster
+   STEP 4: [CORE].[UserRoleAllocation]  Ã¢â€ Â depends on UserMaster + DepartmentMaster + UserRoleMaster
 =========================== */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'UserRoleAllocation')
+BEGIN
 CREATE TABLE [CORE].[UserRoleAllocation](
 
     [Id]           INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
@@ -491,13 +579,18 @@ CREATE TABLE [CORE].[UserRoleAllocation](
     CONSTRAINT [FK_UserRoleAllocation_UserRoleMaster]
         FOREIGN KEY ([UserRoleId]) REFERENCES [CORE].[UserRoleMaster] ([Id])
 );
+END;
 GO
 
-CREATE NONCLUSTERED INDEX [IX_UserRoleAllocation_DepartmentId]
-    ON [CORE].[UserRoleAllocation] ([DepartmentId]);
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_UserRoleAllocation_DepartmentId' AND object_id = OBJECT_ID(N'[CORE].[UserRoleAllocation]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_UserRoleAllocation_DepartmentId] ON [CORE].[UserRoleAllocation] ([DepartmentId]);
+END;
 GO
-CREATE NONCLUSTERED INDEX [IX_UserRoleAllocation_UserRoleId]
-    ON [CORE].[UserRoleAllocation] ([UserRoleId]);
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_UserRoleAllocation_UserRoleId' AND object_id = OBJECT_ID(N'[CORE].[UserRoleAllocation]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_UserRoleAllocation_UserRoleId] ON [CORE].[UserRoleAllocation] ([UserRoleId]);
+END;
 GO
 
 /* ===========================
@@ -520,6 +613,8 @@ GO
                    version bumps, soft-delete) is realistically edited by
                    concurrent flows.
 ============================================================================ */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'Document')
+BEGIN
 CREATE TABLE [CORE].[Document](
 
     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
@@ -557,7 +652,7 @@ CREATE TABLE [CORE].[Document](
 
     [OriginalFileName] NVARCHAR(500) NOT NULL,
         -- File name as uploaded by the user. Shown back in UI as-is.
-        -- Example: 'Owner Aadhaar Proof.pdf', 'मालमत्ता_प्रमाणपत्र.pdf'
+        -- Example: 'Owner Aadhaar Proof.pdf', 'Ã Â¤Â®Ã Â¤Â¾Ã Â¤Â²Ã Â¤Â®Ã Â¤Â¤Ã Â¥ÂÃ Â¤Â¤Ã Â¤Â¾_Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â°Ã Â¤Â®Ã Â¤Â¾Ã Â¤Â£Ã Â¤ÂªÃ Â¤Â¤Ã Â¥ÂÃ Â¤Â°.pdf'
 
     [FileExtension] VARCHAR(50) NOT NULL,
         -- Lowercased extension without leading dot. ASCII-only.
@@ -746,6 +841,7 @@ CREATE TABLE [CORE].[Document](
     CONSTRAINT [CK_Document_DepartmentEntityId_RequiresDepartmentId]
         CHECK ([DepartmentEntityId] IS NULL OR [DepartmentId] IS NOT NULL)
 );
+END;
 GO
 
 /* ---------------------------------------------------------------------------
@@ -767,37 +863,53 @@ GO
 --------------------------------------------------------------------------- */
 
 -- Self-referencing FK for versioning
-ALTER TABLE [CORE].[Document] WITH CHECK
-ADD CONSTRAINT [FK_Document_ParentDocumentId]
-FOREIGN KEY ([ParentDocumentId]) REFERENCES [CORE].[Document] ([Id]);
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_Document_ParentDocumentId')
+BEGIN
+    ALTER TABLE [CORE].[Document] WITH CHECK ADD CONSTRAINT [FK_Document_ParentDocumentId] FOREIGN KEY ([ParentDocumentId]) REFERENCES [CORE].[Document] ([Id]);
+END;
 GO
 
-ALTER TABLE [CORE].[Document] CHECK CONSTRAINT [FK_Document_ParentDocumentId];
+IF EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_Document_ParentDocumentId')
+BEGIN
+    ALTER TABLE [CORE].[Document] CHECK CONSTRAINT [FK_Document_ParentDocumentId];
+END;
 GO
 
 -- FK: DepartmentId -> DepartmentMaster
-ALTER TABLE [CORE].[Document] WITH CHECK
-ADD CONSTRAINT [FK_Document_DepartmentMaster]
-FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id]);
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_Document_DepartmentMaster')
+BEGIN
+    ALTER TABLE [CORE].[Document] WITH CHECK ADD CONSTRAINT [FK_Document_DepartmentMaster] FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id]);
+END;
 GO
 
-ALTER TABLE [CORE].[Document] CHECK CONSTRAINT [FK_Document_DepartmentMaster];
+IF EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_Document_DepartmentMaster')
+BEGIN
+    ALTER TABLE [CORE].[Document] CHECK CONSTRAINT [FK_Document_DepartmentMaster];
+END;
 GO
 
 -- Indexes
-CREATE NONCLUSTERED INDEX [IX_Document_ParentDocumentId]
-    ON [CORE].[Document] ([ParentDocumentId]);
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_Document_ParentDocumentId' AND object_id = OBJECT_ID(N'[CORE].[Document]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_Document_ParentDocumentId] ON [CORE].[Document] ([ParentDocumentId]);
+END;
 GO
 
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_Document_DepartmentId' AND object_id = OBJECT_ID(N'[CORE].[Document]'))
+BEGIN
 CREATE NONCLUSTERED INDEX [IX_Document_DepartmentId]
     ON [CORE].[Document] ([DepartmentId])
     WHERE [DepartmentId] IS NOT NULL;
+END;
 GO
 
 -- Composite index for department-specific entity filtering (prevents ID collision)
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_Document_Department_Entity' AND object_id = OBJECT_ID(N'[CORE].[Document]'))
+BEGIN
 CREATE NONCLUSTERED INDEX [IX_Document_Department_Entity]
     ON [CORE].[Document] ([DepartmentId], [DepartmentEntityId])
     WHERE [DepartmentId] IS NOT NULL AND [DepartmentEntityId] IS NOT NULL;
+END;
 GO
 
 
@@ -805,6 +917,8 @@ GO
  screen master
 =========================== */
 
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'ScreenMaster')
+BEGIN
 CREATE TABLE [CORE].[ScreenMaster](
 	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[ScreenGroupId] [int] NOT NULL,
@@ -832,6 +946,7 @@ CREATE TABLE [CORE].[ScreenMaster](
     CONSTRAINT [CK_ScreenMaster_DisplayOrder_NonNegative] CHECK ([DisplayOrder] >= 0)
 
 )
+END;
 GO
 
 /* ===========================
@@ -839,6 +954,8 @@ GO
 =========================== */
 
 
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'RoleWiseScreenAccessMaster')
+BEGIN
 CREATE TABLE [CORE].[RoleWiseScreenAccessMaster](
 	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
 	[UserRoleId] [int] NOT NULL,
@@ -858,6 +975,7 @@ CREATE TABLE [CORE].[RoleWiseScreenAccessMaster](
     CONSTRAINT [FK_RoleWiseScreenAccessMaster_UserRoleMaster] FOREIGN KEY ([UserRoleId]) REFERENCES [CORE].[UserRoleMaster] ([Id]),
     CONSTRAINT [FK_RoleWiseScreenAccessMaster_ScreenMaster] FOREIGN KEY ([ScreenId]) REFERENCES [CORE].[ScreenMaster] ([Id])
 )
+END;
 
 GO
 
@@ -886,6 +1004,8 @@ GO
               IsActive / MarkedForDeletion may be updated; RowVersion supports
               optimistic concurrency if multiple operators/processes update the same row.
 ============================================================================ */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'DocumentBinding')
+BEGIN
 CREATE TABLE [CORE].[DocumentBinding](
 
     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
@@ -1015,6 +1135,7 @@ CREATE TABLE [CORE].[DocumentBinding](
             ([ReferenceTableId] IS NULL     AND [ReferenceTableIdGuid] IS NOT NULL)
         )
 );
+END;
 GO
 
 /* ---------------------------------------------------------------------------
@@ -1031,12 +1152,16 @@ GO
 --------------------------------------------------------------------------- */
 
 -- FK: DepartmentId -> DepartmentMaster
-ALTER TABLE [CORE].[DocumentBinding] WITH CHECK
-ADD CONSTRAINT [FK_DocumentBinding_DepartmentMaster]
-FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id]);
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_DocumentBinding_DepartmentMaster')
+BEGIN
+    ALTER TABLE [CORE].[DocumentBinding] WITH CHECK ADD CONSTRAINT [FK_DocumentBinding_DepartmentMaster] FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id]);
+END;
 GO
 
-ALTER TABLE [CORE].[DocumentBinding] CHECK CONSTRAINT [FK_DocumentBinding_DepartmentMaster];
+IF EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_DocumentBinding_DepartmentMaster')
+BEGIN
+    ALTER TABLE [CORE].[DocumentBinding] CHECK CONSTRAINT [FK_DocumentBinding_DepartmentMaster];
+END;
 GO
 
 -- Composite FK: (DepartmentId, ModuleId) -> ModuleMaster(DepartmentId, Id)
@@ -1049,50 +1174,74 @@ ADD CONSTRAINT [FK_DocumentBinding_DepartmentModule]
 FOREIGN KEY ([DepartmentId], [ModuleId]) REFERENCES [CORE].[ModuleMaster] ([DepartmentId], [Id]);
 GO
 
-ALTER TABLE [CORE].[DocumentBinding] CHECK CONSTRAINT [FK_DocumentBinding_DepartmentModule];
+IF EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_DocumentBinding_DepartmentModule')
+BEGIN
+    ALTER TABLE [CORE].[DocumentBinding] CHECK CONSTRAINT [FK_DocumentBinding_DepartmentModule];
+END;
 GO
 
 -- FK: AuthDepartmentId -> DepartmentMaster
-ALTER TABLE [CORE].[DocumentBinding] WITH CHECK
-ADD CONSTRAINT [FK_DocumentBinding_AuthDepartmentMaster]
-FOREIGN KEY ([AuthDepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id]);
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_DocumentBinding_AuthDepartmentMaster')
+BEGIN
+    ALTER TABLE [CORE].[DocumentBinding] WITH CHECK ADD CONSTRAINT [FK_DocumentBinding_AuthDepartmentMaster] FOREIGN KEY ([AuthDepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id]);
+END;
 GO
 
-ALTER TABLE [CORE].[DocumentBinding] CHECK CONSTRAINT [FK_DocumentBinding_AuthDepartmentMaster];
+IF EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_DocumentBinding_AuthDepartmentMaster')
+BEGIN
+    ALTER TABLE [CORE].[DocumentBinding] CHECK CONSTRAINT [FK_DocumentBinding_AuthDepartmentMaster];
+END;
 GO
 
 -- Indexes
-CREATE NONCLUSTERED INDEX [IX_DocumentBinding_DocumentId]
-    ON [CORE].[DocumentBinding] ([DocumentId]);
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_DocumentBinding_DocumentId' AND object_id = OBJECT_ID(N'[CORE].[DocumentBinding]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_DocumentBinding_DocumentId] ON [CORE].[DocumentBinding] ([DocumentId]);
+END;
 GO
 
-CREATE NONCLUSTERED INDEX [IX_DocumentBinding_DepartmentId]
-    ON [CORE].[DocumentBinding] ([DepartmentId]);
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_DocumentBinding_DepartmentId' AND object_id = OBJECT_ID(N'[CORE].[DocumentBinding]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_DocumentBinding_DepartmentId] ON [CORE].[DocumentBinding] ([DepartmentId]);
+END;
 GO
 
-CREATE NONCLUSTERED INDEX [IX_DocumentBinding_ModuleId]
-    ON [CORE].[DocumentBinding] ([ModuleId]);
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_DocumentBinding_ModuleId' AND object_id = OBJECT_ID(N'[CORE].[DocumentBinding]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_DocumentBinding_ModuleId] ON [CORE].[DocumentBinding] ([ModuleId]);
+END;
 GO
 
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_DocumentBinding_Reference' AND object_id = OBJECT_ID(N'[CORE].[DocumentBinding]'))
+BEGIN
 CREATE NONCLUSTERED INDEX [IX_DocumentBinding_Reference]
     ON [CORE].[DocumentBinding] ([DepartmentId], [ModuleId], [ReferenceTableName], [ReferenceTableId])
     WHERE [ReferenceTableId] IS NOT NULL;
+END;
 GO
 
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_DocumentBinding_ReferenceGuid' AND object_id = OBJECT_ID(N'[CORE].[DocumentBinding]'))
+BEGIN
 CREATE NONCLUSTERED INDEX [IX_DocumentBinding_ReferenceGuid]
     ON [CORE].[DocumentBinding] ([DepartmentId], [ModuleId], [ReferenceTableName], [ReferenceTableIdGuid])
     WHERE [ReferenceTableIdGuid] IS NOT NULL;
+END;
 GO
 
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_DocumentBinding_AuthDepartment' AND object_id = OBJECT_ID(N'[CORE].[DocumentBinding]'))
+BEGIN
 CREATE NONCLUSTERED INDEX [IX_DocumentBinding_AuthDepartment]
     ON [CORE].[DocumentBinding] ([AuthDepartmentId], [AuthReferenceId])
     WHERE [AuthDepartmentId] IS NOT NULL AND [AuthReferenceId] IS NOT NULL;
+END;
 GO
 
 
  /* ===========================
  CommonRemarkTypeMaster
  =========================== */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'CommonRemarkTypeMaster')
+BEGIN
 CREATE TABLE [CORE].[CommonRemarkTypeMaster](
     [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [RemarkTypeName] VARCHAR(100) NOT NULL, -- e.g. Survey, Recovery, Notice, Mobile Remark, etc.
@@ -1104,11 +1253,14 @@ CREATE TABLE [CORE].[CommonRemarkTypeMaster](
 CONSTRAINT [PK_CommonRemarkTypeMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
 CONSTRAINT [UQ_CommonRemarkTypeMaster_RemarkTypeName] UNIQUE ([RemarkTypeName])
 );
+END;
 
 GO
 /* ===========================
  CommunicationTypeMaster
  =========================== */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'CommunicationTypeMaster')
+BEGIN
 CREATE TABLE [CORE].[CommunicationTypeMaster](
     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [TypeName] VARCHAR(100) NOT NULL,
@@ -1121,8 +1273,11 @@ CREATE TABLE [CORE].[CommunicationTypeMaster](
     CONSTRAINT [PK_CommunicationTypeMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_CommunicationTypeMaster_DepartmentMaster] FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id])
 );
+END;
 GO
 
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'UlbType')
+BEGIN
 CREATE TABLE [CORE].[UlbType](
 	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL ,
 	[UlbTypeName] [varchar](50) NOT NULL,
@@ -1134,9 +1289,11 @@ CREATE TABLE [CORE].[UlbType](
  CONSTRAINT [PK_UlbType] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
-) ON [PRIMARY]
-) ON [PRIMARY]
+) ON [PRIMARY]);
+END;
 GO
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'UlbMaster')
+BEGIN
 CREATE TABLE [CORE].[UlbMaster](
 	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL ,
 	[UlbCode] [nvarchar](50) NOT NULL,
@@ -1179,18 +1336,27 @@ CREATE TABLE [CORE].[UlbMaster](
  CONSTRAINT [UQ_UlbMaster_UlbCode] UNIQUE NONCLUSTERED
 (
 	[UlbCode] ASC
-) ON [PRIMARY]
-) ON [PRIMARY]
+) ON [PRIMARY]);
+END;
 GO
 ALTER TABLE [CORE].[UlbMaster] ADD  CONSTRAINT [DF_UlbMaster_IsActive]  DEFAULT ((1)) FOR [IsActive]
 GO
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_UlbMaster_UlbType')
+BEGIN
 ALTER TABLE [CORE].[UlbMaster]  WITH CHECK ADD  CONSTRAINT [FK_UlbMaster_UlbType] FOREIGN KEY([UlbTypeId])
-REFERENCES [CORE].[UlbType] ([Id])
-GO
+REFERENCES [CORE].[UlbType] ([Id]);
+END;
 ALTER TABLE [CORE].[UlbMaster] CHECK CONSTRAINT [FK_UlbMaster_UlbType]
 GO
-CREATE NONCLUSTERED INDEX [IX_UlbMaster_UlbTypeId] ON [CORE].[UlbMaster] ([UlbTypeId]);
-GO
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_UlbMaster_UlbTypeId' AND object_id = OBJECT_ID(N'[CORE].[UlbMaster]'))
+BEGIN
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_UlbMaster_UlbTypeId' AND object_id = OBJECT_ID(N'[CORE].[UlbMaster]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_UlbMaster_UlbTypeId] ON [CORE].[UlbMaster] ([UlbTypeId]);
+END;;
+END;
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'UlbImageMaster')
+BEGIN
 CREATE TABLE [CORE].[UlbImageMaster](
     [Id] [int] IDENTITY(1,1) NOT NULL,
     [ImageType] [nvarchar](50) NULL,
@@ -1202,8 +1368,11 @@ CREATE TABLE [CORE].[UlbImageMaster](
     [UpdatedDate] [datetime] NULL,
  CONSTRAINT [PK_UlbImageMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+END;
 GO
 
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'RefreshToken')
+BEGIN
 CREATE TABLE [CORE].[RefreshToken](
     [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL ,
     [Token] [nvarchar](400) NOT NULL,
@@ -1221,14 +1390,22 @@ CREATE TABLE [CORE].[RefreshToken](
  CONSTRAINT [PK_RefreshToken] PRIMARY KEY CLUSTERED ([Id] ASC),
  CONSTRAINT [UQ_RefreshToken_Token] UNIQUE ([Token])
 );
+END;
 
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_RefreshToken_UserMaster')
+BEGIN
 ALTER TABLE [CORE].[RefreshToken]  WITH CHECK ADD  CONSTRAINT [FK_RefreshToken_UserMaster] FOREIGN KEY([UserId])
 REFERENCES [CORE].[UserMaster] ([Id])
-ON DELETE CASCADE
-GO
-ALTER TABLE [CORE].[RefreshToken] CHECK CONSTRAINT [FK_RefreshToken_UserMaster];
+ON DELETE CASCADE;
+END;
+IF EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_RefreshToken_UserMaster')
+BEGIN
+    ALTER TABLE [CORE].[RefreshToken] CHECK CONSTRAINT [FK_RefreshToken_UserMaster];
+END;
 GO
 
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'ConfigCategoryMaster')
+BEGIN
 CREATE TABLE [CORE].[ConfigCategoryMaster](
     [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL  ,
     [CategoryCode] [varchar](30) NOT NULL,
@@ -1242,9 +1419,12 @@ CREATE TABLE [CORE].[ConfigCategoryMaster](
  CONSTRAINT [PK_ConfigCategoryMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
  CONSTRAINT [UQ_ConfigCategoryMaster_CategoryCode] UNIQUE ([CategoryCode])
 ) ON [PRIMARY]
+END;
 GO
 
 
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'ConfigKeyMaster')
+BEGIN
 CREATE TABLE [CORE].[ConfigKeyMaster](
     [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL ,
     [CategoryId] [int] NOT NULL,
@@ -1262,18 +1442,27 @@ CREATE TABLE [CORE].[ConfigKeyMaster](
  CONSTRAINT [PK_ConfigKeyMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
  CONSTRAINT [UQ_ConfigKeyMaster_ConfigCode] UNIQUE ([ConfigCode])
 ) ON [PRIMARY]
+END;
 GO
 
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_ConfigKeyMaster_ConfigCategoryMaster_CategoryId')
+BEGIN
 ALTER TABLE [CORE].[ConfigKeyMaster] WITH CHECK ADD CONSTRAINT [FK_ConfigKeyMaster_ConfigCategoryMaster_CategoryId] FOREIGN KEY([CategoryId])
 REFERENCES [CORE].[ConfigCategoryMaster] ([Id])
+END;
 GO
 ALTER TABLE [CORE].[ConfigKeyMaster] CHECK CONSTRAINT [FK_ConfigKeyMaster_ConfigCategoryMaster_CategoryId]
 GO
 
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_ConfigKeyMaster_CategoryId' AND object_id = OBJECT_ID(N'[CORE].[ConfigKeyMaster]'))
+BEGIN
 CREATE NONCLUSTERED INDEX [IX_ConfigKeyMaster_CategoryId]
 ON [CORE].[ConfigKeyMaster] ([CategoryId] ASC)
+END;
 GO
 
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'ConfigValueMaster')
+BEGIN
 CREATE TABLE [CORE].[ConfigValueMaster](
     [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [ConfigKeyId] [int] NOT NULL,
@@ -1287,41 +1476,51 @@ CREATE TABLE [CORE].[ConfigValueMaster](
     [UpdatedDate] [datetime] NULL,
     CONSTRAINT [PK_ConfigValueMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
+END;
 GO
 
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'UQ_ConfigValue_ConfigKeyId_Global' AND object_id = OBJECT_ID(N'[CORE].[ConfigValueMaster]'))
+BEGIN
 CREATE UNIQUE NONCLUSTERED INDEX [UQ_ConfigValue_ConfigKeyId_Global]
 ON [CORE].[ConfigValueMaster] ([ConfigKeyId] ASC)
-WHERE [DepartmentId] IS NULL AND [ModuleId] IS NULL
-GO
+WHERE [DepartmentId] IS NULL AND [ModuleId] IS NULL;
+END;
 
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'UQ_ConfigValue_ConfigKeyId_DepartmentId' AND object_id = OBJECT_ID(N'[CORE].[ConfigValueMaster]'))
+BEGIN
 CREATE UNIQUE NONCLUSTERED INDEX [UQ_ConfigValue_ConfigKeyId_DepartmentId]
 ON [CORE].[ConfigValueMaster] ([ConfigKeyId] ASC, [DepartmentId] ASC)
-WHERE [DepartmentId] IS NOT NULL AND [ModuleId] IS NULL
-GO
+WHERE [DepartmentId] IS NOT NULL AND [ModuleId] IS NULL;
+END;
 
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'UQ_ConfigValue_ConfigKeyId_ModuleId' AND object_id = OBJECT_ID(N'[CORE].[ConfigValueMaster]'))
+BEGIN
 CREATE UNIQUE NONCLUSTERED INDEX [UQ_ConfigValue_ConfigKeyId_ModuleId]
 ON [CORE].[ConfigValueMaster] ([ConfigKeyId] ASC, [ModuleId] ASC)
-WHERE [DepartmentId] IS NULL AND [ModuleId] IS NOT NULL
-GO
+WHERE [DepartmentId] IS NULL AND [ModuleId] IS NOT NULL;
+END;
 
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'UQ_ConfigValue_ConfigKeyId_DepartmentId_ModuleId' AND object_id = OBJECT_ID(N'[CORE].[ConfigValueMaster]'))
+BEGIN
 CREATE UNIQUE NONCLUSTERED INDEX [UQ_ConfigValue_ConfigKeyId_DepartmentId_ModuleId]
 ON [CORE].[ConfigValueMaster] ([ConfigKeyId] ASC, [DepartmentId] ASC, [ModuleId] ASC)
-WHERE [DepartmentId] IS NOT NULL AND [ModuleId] IS NOT NULL
+WHERE [DepartmentId] IS NOT NULL AND [ModuleId] IS NOT NULL;
+END;
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_ConfigValueMaster_ConfigKeyMaster_ConfigKeyId')
+BEGIN
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_ConfigValueMaster_ConfigKeyMaster_ConfigKeyId')
+BEGIN
+    ALTER TABLE [CORE].[ConfigValueMaster] WITH CHECK ADD CONSTRAINT [FK_ConfigValueMaster_ConfigKeyMaster_ConfigKeyId] FOREIGN KEY ([ConfigKeyId]) REFERENCES [CORE].[ConfigKeyMaster] ([Id]);
+END;
+END;
 GO
-
-ALTER TABLE [CORE].[ConfigValueMaster] WITH CHECK ADD CONSTRAINT [FK_ConfigValueMaster_ConfigKeyMaster_ConfigKeyId]
-FOREIGN KEY([ConfigKeyId])
-REFERENCES [CORE].[ConfigKeyMaster] ([Id]);
-GO
-
- 
-
- 
-
 /* ===========================
    SourceTable
    Stores master metadata for configurable source tables.
    =========================== */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'SourceTable')
+BEGIN
 CREATE TABLE [CORE].[SourceTable] (
     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [ModuleId] INT NOT NULL,
@@ -1336,11 +1535,14 @@ CREATE TABLE [CORE].[SourceTable] (
     CONSTRAINT [UQ_SourceTable_ModuleId_TableName] UNIQUE NONCLUSTERED ([ModuleId] ASC, [TableName] ASC),
     CONSTRAINT [FK_SourceTable_ModuleId] FOREIGN KEY ([ModuleId]) REFERENCES [CORE].[ModuleMaster] ([Id])
 );
+END;
 
 /* ===========================
    SourceTableDetails
    Stores field-level metadata for configurable source tables.
    =========================== */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'SourceTableDetails')
+BEGIN
 CREATE TABLE [CORE].[SourceTableDetails] (
     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [SourceTableId] INT NOT NULL,
@@ -1365,81 +1567,123 @@ CREATE TABLE [CORE].[SourceTableDetails] (
     CONSTRAINT [UQ_SourceTableDetails_SourceTableId_FieldName] UNIQUE NONCLUSTERED ([SourceTableId] ASC, [FieldName] ASC),
     CONSTRAINT [FK_SourceTableDetails_SourceTableId] FOREIGN KEY ([SourceTableId]) REFERENCES [CORE].[SourceTable] ([Id])
 );
-ALTER TABLE CORE.UserMaster
-        ADD TwoFactorRequired BIT NOT NULL CONSTRAINT DF_UserMaster_TwoFactorRequired DEFAULT (0),TwoFactorEnabled BIT NOT NULL CONSTRAINT DF_UserMaster_TwoFactorEnabled DEFAULT (0),
-	TwoFactorSecretEncrypted NVARCHAR(500) NULL,TwoFactorEnabledAt DATETIME NULL,SecurityStamp NVARCHAR(64) NULL,PasswordChangedAt DATETIME NULL,OtpChallengeFailCount INT NULL,OtpChallengeLockedUntilAt DATETIME NULL;
+END;
 
-         CREATE TABLE CORE.TwoFactorRecoveryCode
-    (
-        Id              INT IDENTITY(1,1)  NOT FOR REPLICATION NOT NULL,
-        UserId          INT                 NOT NULL,
-        CodeHash        NVARCHAR(255)       NOT NULL,
-        UsedAt          DATETIME           NULL,
-        RevokedAt       DATETIME           NULL,
-        CreatedBy       INT                 NULL,
-        CreatedDate     DATETIME           NULL,
-        UpdatedBy       INT                 NULL,
-        UpdatedDate     DATETIME           NULL,
-        CONSTRAINT PK_TwoFactorRecoveryCode PRIMARY KEY CLUSTERED (Id),
-        CONSTRAINT FK_TwoFactorRecoveryCode_UserMaster FOREIGN KEY (UserId)
-            REFERENCES CORE.UserMaster (Id)
-    );
-
-    CREATE INDEX IX_TwoFactorRecoveryCode_UserId_UsedAt_RevokedAt
-        ON CORE.TwoFactorRecoveryCode (UserId, UsedAt, RevokedAt);
-
-        CREATE TABLE CORE.TwoFactorChallenge
-    (
-        Id                  UNIQUEIDENTIFIER    NOT NULL,
-        ChallengeHash       NVARCHAR(64)        NOT NULL,
-        UserId              INT                 NOT NULL,
-        Purpose             NVARCHAR(50)        NOT NULL,
-        CreatedAt           DATETIME           NOT NULL,
-        ExpiresAt           DATETIME           NOT NULL,
-        FailedAttemptCount  INT                 NOT NULL CONSTRAINT DF_TwoFactorChallenge_FailedAttemptCount DEFAULT (0),
-        ConsumedAt          DATETIME           NULL,
-        RevokedAt           DATETIME           NULL,
-        IpAddress           NVARCHAR(45)        NULL,
-        UserAgent           NVARCHAR(500)       NULL,
-        CONSTRAINT PK_TwoFactorChallenge PRIMARY KEY CLUSTERED (Id),
-        CONSTRAINT FK_TwoFactorChallenge_UserMaster FOREIGN KEY (UserId)
-            REFERENCES CORE.UserMaster (Id)
-    );
-
-    CREATE UNIQUE INDEX IX_TwoFactorChallenge_ChallengeHash
-        ON CORE.TwoFactorChallenge (ChallengeHash);
-
-    CREATE INDEX IX_TwoFactorChallenge_UserId
-        ON CORE.TwoFactorChallenge (UserId);
-
-    -- Supports the periodic cleanup task that purges expired/resolved challenges.
-    CREATE INDEX IX_TwoFactorChallenge_ExpiresAt
-        ON CORE.TwoFactorChallenge (ExpiresAt);
-
-          CREATE TABLE CORE.SecurityAuditLog
-    (   
-        Id              INT IDENTITY(1,1)  NOT FOR REPLICATION NOT NULL,
-        EventType       NVARCHAR(100)          NOT NULL,
-        UserId          INT                    NULL,
-        Success         BIT                    NOT NULL,
-        CorrelationId   NVARCHAR(100)          NULL,
-        IpAddress       NVARCHAR(45)           NULL,
-        UserAgent       NVARCHAR(500)          NULL,
-        Detail          NVARCHAR(200)          NULL,
-        CreatedAt       DATETIME              NOT NULL,
-        CONSTRAINT PK_SecurityAuditLog PRIMARY KEY CLUSTERED (Id)
-        -- Intentionally no FK to UserMaster: audit rows must remain even if the user is later
-        -- hard-deleted by the cleanup task.
-    );
-
-    CREATE INDEX IX_SecurityAuditLog_UserId ON CORE.SecurityAuditLog (UserId);
-    CREATE INDEX IX_SecurityAuditLog_EventType ON CORE.SecurityAuditLog (EventType);
-    CREATE INDEX IX_SecurityAuditLog_CreatedAt ON CORE.SecurityAuditLog (CreatedAt);
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'UserMaster' AND COLUMN_NAME = 'TwoFactorRequired')
+BEGIN
+    ALTER TABLE [CORE].[UserMaster]
+        ADD [TwoFactorRequired] BIT NOT NULL CONSTRAINT [DF_UserMaster_TwoFactorRequired] DEFAULT (0),
+            [TwoFactorEnabled] BIT NOT NULL CONSTRAINT [DF_UserMaster_TwoFactorEnabled] DEFAULT (0),
+            [TwoFactorSecretEncrypted] NVARCHAR(500) NULL,
+            [TwoFactorEnabledAt] DATETIME NULL,
+            [SecurityStamp] NVARCHAR(64) NULL,
+            [PasswordChangedAt] DATETIME NULL,
+            [OtpChallengeFailCount] INT NULL,
+            [OtpChallengeLockedUntilAt] DATETIME NULL;
 END;
 GO
 
-/****** Object:Table [CORE].[AliasMaster] ******/
-IF OBJECT_ID(N'[CORE].[AliasMaster]', N'U') IS NULL
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'TwoFactorRecoveryCode')
+BEGIN
+    CREATE TABLE [CORE].[TwoFactorRecoveryCode]
+    (
+        [Id]            INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+        [UserId]        INT NOT NULL,
+        [CodeHash]      NVARCHAR(255) NOT NULL,
+        [UsedAt]        DATETIME NULL,
+        [RevokedAt]     DATETIME NULL,
+        [CreatedBy]     INT NULL,
+        [CreatedDate]   DATETIME NULL,
+        [UpdatedBy]     INT NULL,
+        [UpdatedDate]   DATETIME NULL,
+        CONSTRAINT [PK_TwoFactorRecoveryCode] PRIMARY KEY CLUSTERED ([Id] ASC),
+        CONSTRAINT [FK_TwoFactorRecoveryCode_UserMaster] FOREIGN KEY ([UserId]) REFERENCES [CORE].[UserMaster] ([Id])
+    );
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_TwoFactorRecoveryCode_UserId_UsedAt_RevokedAt' AND object_id = OBJECT_ID(N'[CORE].[TwoFactorRecoveryCode]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_TwoFactorRecoveryCode_UserId_UsedAt_RevokedAt] ON [CORE].[TwoFactorRecoveryCode] ([UserId], [UsedAt], [RevokedAt]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'TwoFactorChallenge')
+BEGIN
+    CREATE TABLE [CORE].[TwoFactorChallenge]
+    (
+        [Id]                 UNIQUEIDENTIFIER NOT NULL,
+        [ChallengeHash]      NVARCHAR(64) NOT NULL,
+        [UserId]             INT NOT NULL,
+        [Purpose]            NVARCHAR(50) NOT NULL,
+        [CreatedAt]          DATETIME NOT NULL,
+        [ExpiresAt]          DATETIME NOT NULL,
+        [FailedAttemptCount] INT NOT NULL CONSTRAINT [DF_TwoFactorChallenge_FailedAttemptCount] DEFAULT (0),
+        [ConsumedAt]         DATETIME NULL,
+        [RevokedAt]          DATETIME NULL,
+        [IpAddress]          NVARCHAR(45) NULL,
+        [UserAgent]          NVARCHAR(500) NULL,
+        CONSTRAINT [PK_TwoFactorChallenge] PRIMARY KEY CLUSTERED ([Id] ASC),
+        CONSTRAINT [FK_TwoFactorChallenge_UserMaster] FOREIGN KEY ([UserId]) REFERENCES [CORE].[UserMaster] ([Id])
+    );
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_TwoFactorChallenge_ChallengeHash' AND object_id = OBJECT_ID(N'[CORE].[TwoFactorChallenge]'))
+BEGIN
+    CREATE UNIQUE INDEX [IX_TwoFactorChallenge_ChallengeHash] ON [CORE].[TwoFactorChallenge] ([ChallengeHash]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_TwoFactorChallenge_UserId' AND object_id = OBJECT_ID(N'[CORE].[TwoFactorChallenge]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_TwoFactorChallenge_UserId] ON [CORE].[TwoFactorChallenge] ([UserId]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_TwoFactorChallenge_ExpiresAt' AND object_id = OBJECT_ID(N'[CORE].[TwoFactorChallenge]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_TwoFactorChallenge_ExpiresAt] ON [CORE].[TwoFactorChallenge] ([ExpiresAt]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'SecurityAuditLog')
+BEGIN
+    CREATE TABLE [CORE].[SecurityAuditLog]
+    (   
+        [Id]            INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+        [EventType]     NVARCHAR(100) NOT NULL,
+        [UserId]        INT NULL,
+        [Success]       BIT NOT NULL,
+        [CorrelationId] NVARCHAR(100) NULL,
+        [IpAddress]     NVARCHAR(45) NULL,
+        [UserAgent]     NVARCHAR(500) NULL,
+        [Detail]        NVARCHAR(200) NULL,
+        [CreatedAt]     DATETIME NOT NULL,
+        CONSTRAINT [PK_SecurityAuditLog] PRIMARY KEY CLUSTERED ([Id] ASC)
+    );
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_SecurityAuditLog_UserId' AND object_id = OBJECT_ID(N'[CORE].[SecurityAuditLog]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_SecurityAuditLog_UserId] ON [CORE].[SecurityAuditLog] ([UserId]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_SecurityAuditLog_EventType' AND object_id = OBJECT_ID(N'[CORE].[SecurityAuditLog]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_SecurityAuditLog_EventType] ON [CORE].[SecurityAuditLog] ([EventType]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_SecurityAuditLog_CreatedAt' AND object_id = OBJECT_ID(N'[CORE].[SecurityAuditLog]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_SecurityAuditLog_CreatedAt] ON [CORE].[SecurityAuditLog] ([CreatedAt]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'AliasMaster')
 BEGIN
     CREATE TABLE [CORE].[AliasMaster](
         [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
@@ -1455,6 +1699,6 @@ BEGIN
         [UpdatedDate] [datetime] NULL,
         CONSTRAINT [PK_AliasMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
         CONSTRAINT [UQ_AliasMaster_KeyName] UNIQUE NONCLUSTERED ([KeyName] ASC)
-    ) ON [PRIMARY];
+    );
 END;
 GO

@@ -5,7 +5,9 @@ GO
 
 /* ============================================================================
    RTS (Right to Service) - Module 07 Base Schema
-   All tables are guarded with IF NOT EXISTS to guarantee idempotent execution.
+   All tables, constraints, columns, and indexes are 100% idempotent.
+   All column definitions are directly integrated into CREATE TABLE.
+   Safe column checks ensure existing databases are updated without data loss.
    ============================================================================ */
 
 -- Ensure RTS Schema exists
@@ -15,12 +17,15 @@ BEGIN
 END;
 GO
 
-/****** Object: Table [RTS].[DepartmentMaster] ******/
+/* ----------------------------------------------------------------------------
+   1. [RTS].[DepartmentMaster]
+   ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'DepartmentMaster')
 BEGIN
     CREATE TABLE [RTS].[DepartmentMaster]
     (
         [Id]                    INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+        [DepartmentCode]        VARCHAR(20) NULL,
         [DepartmentName]        NVARCHAR(100) NOT NULL,
         [DepartmentNameLocal]   NVARCHAR(200) NULL,
         [DepartmentIcon]        NVARCHAR(200) NULL,
@@ -35,33 +40,52 @@ BEGIN
         CONSTRAINT [UQ_DepartmentMaster_DepartmentName] UNIQUE NONCLUSTERED ([DepartmentName] ASC)
     );
 END;
+ELSE
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'DepartmentMaster' AND COLUMN_NAME = 'DepartmentCode')
+        ALTER TABLE [RTS].[DepartmentMaster] ADD [DepartmentCode] VARCHAR(20) NULL;
+END;
 GO
 
-/****** Object: Table [RTS].[ServiceMaster] ******/
+/* ----------------------------------------------------------------------------
+   2. [RTS].[ServiceMaster]
+   ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceMaster')
 BEGIN
     CREATE TABLE [RTS].[ServiceMaster]
     (
-        [Id]                INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-        [DepartmentId]      INT NOT NULL,
-        [GovtServiceCode]   INT NULL,
-        [ServiceName]       NVARCHAR(200) NOT NULL,
-        [ServiceNameLocal]  NVARCHAR(MAX) NULL,
-        [Description]       NVARCHAR(500) NULL,
-        [ServiceUrl]        NVARCHAR(500) NULL,
-        [ServiceIcon]       NVARCHAR(100) NULL,
-        [DisplayOrder]      INT NOT NULL CONSTRAINT [DF_ServiceMaster_DisplayOrder] DEFAULT (0),
-        [Sla]               NVARCHAR(50) NULL,
-        [Fees]              DECIMAL(18,2) NULL,
-        [FeesRequired]      BIT NOT NULL CONSTRAINT [DF_ServiceMaster_FeesRequired] DEFAULT (0),
-        [IsActive]          BIT NOT NULL CONSTRAINT [DF_ServiceMaster_IsActive] DEFAULT (1),
-        [CreatedBy]         INT NULL,
-        [CreatedDate]       DATETIME NOT NULL CONSTRAINT [DF_ServiceMaster_CreatedDate] DEFAULT (GETDATE()),
-        [UpdatedBy]         INT NULL,
-        [UpdatedDate]       DATETIME NULL,
+        [Id]                    INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+        [DepartmentId]          INT NOT NULL,
+        [GovtServiceCode]       INT NULL,
+        [ServiceCode]           VARCHAR(20) NULL,
+        [ServiceName]           NVARCHAR(200) NOT NULL,
+        [ServiceNameLocal]      NVARCHAR(MAX) NULL,
+        [Description]           NVARCHAR(500) NULL,
+        [ServiceUrl]            NVARCHAR(500) NULL,
+        [ServiceIcon]           NVARCHAR(100) NULL,
+        [DisplayOrder]          INT NOT NULL CONSTRAINT [DF_ServiceMaster_DisplayOrder] DEFAULT (0),
+        [Sla]                   NVARCHAR(50) NULL,
+        [Fees]                  DECIMAL(18,2) NULL,
+        [FeesRequired]          BIT NOT NULL CONSTRAINT [DF_ServiceMaster_FeesRequired] DEFAULT (0),
+        [IsCertificateRequired] BIT NOT NULL CONSTRAINT [DF_ServiceMaster_IsCertificateRequired] DEFAULT (1),
+        [IsSmsEnabled]          BIT NOT NULL CONSTRAINT [DF_ServiceMaster_IsSmsEnabled] DEFAULT (1),
+        [IsActive]              BIT NOT NULL CONSTRAINT [DF_ServiceMaster_IsActive] DEFAULT (1),
+        [CreatedBy]             INT NULL,
+        [CreatedDate]           DATETIME NOT NULL CONSTRAINT [DF_ServiceMaster_CreatedDate] DEFAULT (GETDATE()),
+        [UpdatedBy]             INT NULL,
+        [UpdatedDate]           DATETIME NULL,
 
         CONSTRAINT [PK_ServiceMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
     );
+END;
+ELSE
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceMaster' AND COLUMN_NAME = 'ServiceCode')
+        ALTER TABLE [RTS].[ServiceMaster] ADD [ServiceCode] VARCHAR(20) NULL;
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceMaster' AND COLUMN_NAME = 'IsCertificateRequired')
+        ALTER TABLE [RTS].[ServiceMaster] ADD [IsCertificateRequired] BIT NOT NULL CONSTRAINT [DF_ServiceMaster_IsCertificateRequired] DEFAULT (1);
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceMaster' AND COLUMN_NAME = 'IsSmsEnabled')
+        ALTER TABLE [RTS].[ServiceMaster] ADD [IsSmsEnabled] BIT NOT NULL CONSTRAINT [DF_ServiceMaster_IsSmsEnabled] DEFAULT (1);
 END;
 GO
 
@@ -74,7 +98,9 @@ BEGIN
 END;
 GO
 
-/****** Object: Table [RTS].[FieldDefinition] ******/
+/* ----------------------------------------------------------------------------
+   3. [RTS].[FieldDefinition]
+   ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'FieldDefinition')
 BEGIN
     CREATE TABLE [RTS].[FieldDefinition]
@@ -127,7 +153,9 @@ BEGIN
 END;
 GO
 
-/****** Object: Table [RTS].[CitizenSession] ******/
+/* ----------------------------------------------------------------------------
+   4. [RTS].[CitizenSession]
+   ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'CitizenSession')
 BEGIN
     CREATE TABLE [RTS].[CitizenSession]
@@ -150,7 +178,9 @@ BEGIN
 END;
 GO
 
-/****** Object: Table [RTS].[ApplicationDetails] ******/
+/* ----------------------------------------------------------------------------
+   5. [RTS].[ApplicationDetails]
+   ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ApplicationDetails')
 BEGIN
     CREATE TABLE [RTS].[ApplicationDetails]
@@ -202,7 +232,9 @@ BEGIN
 END;
 GO
 
-/****** Object: Table [RTS].[FieldValue] ******/
+/* ----------------------------------------------------------------------------
+   6. [RTS].[FieldValue]
+   ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'FieldValue')
 BEGIN
     CREATE TABLE [RTS].[FieldValue]
@@ -247,7 +279,9 @@ BEGIN
 END;
 GO
 
-/****** Object: Table [RTS].[ApprovalFlowMaster] ******/
+/* ----------------------------------------------------------------------------
+   7. [RTS].[ApprovalFlowMaster]
+   ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ApprovalFlowMaster')
 BEGIN
     CREATE TABLE [RTS].[ApprovalFlowMaster]
@@ -275,7 +309,9 @@ BEGIN
 END;
 GO
 
-/****** Object: Table [RTS].[ApprovalFlowStageMaster] ******/
+/* ----------------------------------------------------------------------------
+   8. [RTS].[ApprovalFlowStageMaster]
+   ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ApprovalFlowStageMaster')
 BEGIN
     CREATE TABLE [RTS].[ApprovalFlowStageMaster]
@@ -301,18 +337,12 @@ BEGIN
         CONSTRAINT [UQ_ApprovalFlowStageMaster_FlowStage] UNIQUE NONCLUSTERED ([ApprovalFlowId] ASC, [StageOrder] ASC)
     );
 END;
-GO
-
--- Ensure columns exist if table already exists
-IF NOT EXISTS (SELECT 1 FROM sys.columns WHERE object_id = OBJECT_ID(N'[RTS].[ApprovalFlowStageMaster]') AND name = 'CanIssueCertificate')
+ELSE
 BEGIN
-    ALTER TABLE [RTS].[ApprovalFlowStageMaster] ADD [CanIssueCertificate] BIT NOT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_CanIssueCertificate] DEFAULT (0);
-END;
-GO
-
-IF NOT EXISTS (SELECT 1 FROM sys.columns WHERE object_id = OBJECT_ID(N'[RTS].[ApprovalFlowStageMaster]') AND name = 'CanEditCertificate')
-BEGIN
-    ALTER TABLE [RTS].[ApprovalFlowStageMaster] ADD [CanEditCertificate] BIT NOT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_CanEditCertificate] DEFAULT (0);
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ApprovalFlowStageMaster' AND COLUMN_NAME = 'CanIssueCertificate')
+        ALTER TABLE [RTS].[ApprovalFlowStageMaster] ADD [CanIssueCertificate] BIT NOT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_CanIssueCertificate] DEFAULT (0);
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ApprovalFlowStageMaster' AND COLUMN_NAME = 'CanEditCertificate')
+        ALTER TABLE [RTS].[ApprovalFlowStageMaster] ADD [CanEditCertificate] BIT NOT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_CanEditCertificate] DEFAULT (0);
 END;
 GO
 
@@ -325,7 +355,9 @@ BEGIN
 END;
 GO
 
-/****** Object: Table [RTS].[TrackApplicationHistory] ******/
+/* ----------------------------------------------------------------------------
+   9. [RTS].[TrackApplicationHistory]
+   ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'TrackApplicationHistory')
 BEGIN
     CREATE TABLE [RTS].[TrackApplicationHistory]
@@ -359,7 +391,9 @@ BEGIN
 END;
 GO
 
-/****** Object: Table [RTS].[CertificateTemplateMaster] ******/
+/* ----------------------------------------------------------------------------
+   10. [RTS].[CertificateTemplateMaster]
+   ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'CertificateTemplateMaster')
 BEGIN
     CREATE TABLE [RTS].[CertificateTemplateMaster]
@@ -396,7 +430,9 @@ BEGIN
 END;
 GO
 
-/****** Object: Table [RTS].[IssuedCertificate] ******/
+/* ----------------------------------------------------------------------------
+   11. [RTS].[IssuedCertificate]
+   ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'IssuedCertificate')
 BEGIN
     CREATE TABLE [RTS].[IssuedCertificate]
@@ -447,7 +483,9 @@ BEGIN
 END;
 GO
 
-/****** Object: Table [RTS].[AppealTypeMaster] ******/
+/* ----------------------------------------------------------------------------
+   12. [RTS].[AppealTypeMaster]
+   ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealTypeMaster')
 BEGIN
     CREATE TABLE [RTS].[AppealTypeMaster]
@@ -463,7 +501,9 @@ BEGIN
 END;
 GO
 
-/****** Object: Table [RTS].[AppealFlowMaster] ******/
+/* ----------------------------------------------------------------------------
+   13. [RTS].[AppealFlowMaster]
+   ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealFlowMaster')
 BEGIN
     CREATE TABLE [RTS].[AppealFlowMaster]
@@ -484,7 +524,9 @@ BEGIN
 END;
 GO
 
-/****** Object: Table [RTS].[AppealFlowStageMaster] ******/
+/* ----------------------------------------------------------------------------
+   14. [RTS].[AppealFlowStageMaster]
+   ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealFlowStageMaster')
 BEGIN
     CREATE TABLE [RTS].[AppealFlowStageMaster]
@@ -507,7 +549,9 @@ BEGIN
 END;
 GO
 
-/****** Object: Table [RTS].[AppealApplicationDetails] ******/
+/* ----------------------------------------------------------------------------
+   15. [RTS].[AppealApplicationDetails]
+   ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails')
 BEGIN
     CREATE TABLE [RTS].[AppealApplicationDetails]
@@ -530,7 +574,9 @@ BEGIN
 END;
 GO
 
-/****** Object: Table [RTS].[TrackAppealHistory] ******/
+/* ----------------------------------------------------------------------------
+   16. [RTS].[TrackAppealHistory]
+   ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'TrackAppealHistory')
 BEGIN
     CREATE TABLE [RTS].[TrackAppealHistory]
@@ -553,7 +599,9 @@ BEGIN
 END;
 GO
 
-/****** Object: Table [RTS].[PaymentStatusMaster] ******/
+/* ----------------------------------------------------------------------------
+   17. [RTS].[PaymentStatusMaster]
+   ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentStatusMaster')
 BEGIN
     CREATE TABLE [RTS].[PaymentStatusMaster]
@@ -576,7 +624,9 @@ BEGIN
 END;
 GO
 
-/****** Object: Table [RTS].[PaymentModeMaster] ******/
+/* ----------------------------------------------------------------------------
+   18. [RTS].[PaymentModeMaster]
+   ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentModeMaster')
 BEGIN
     CREATE TABLE [RTS].[PaymentModeMaster]
@@ -598,7 +648,9 @@ BEGIN
 END;
 GO
 
-/****** Object: Table [RTS].[PaymentGatewayConfig] ******/
+/* ----------------------------------------------------------------------------
+   19. [RTS].[PaymentGatewayConfig]
+   ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentGatewayConfig')
 BEGIN
     CREATE TABLE [RTS].[PaymentGatewayConfig]
@@ -625,7 +677,9 @@ BEGIN
 END;
 GO
 
-/****** Object: Table [RTS].[PaymentTransaction] ******/
+/* ----------------------------------------------------------------------------
+   20. [RTS].[PaymentTransaction]
+   ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentTransaction')
 BEGIN
     CREATE TABLE [RTS].[PaymentTransaction]
@@ -724,7 +778,9 @@ BEGIN
 END;
 GO
 
-/****** Object: Table [RTS].[PaymentWebhookLog] ******/
+/* ----------------------------------------------------------------------------
+   21. [RTS].[PaymentWebhookLog]
+   ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentWebhookLog')
 BEGIN
     CREATE TABLE [RTS].[PaymentWebhookLog]
@@ -756,10 +812,9 @@ END;
 GO
 
 /* ============================================================================
-   RTS High-Performance Non-Clustered Indexes (Aligned with PTIS Architecture)
+   RTS High-Performance Non-Clustered Indexes
    ============================================================================ */
 
--- 1. Index on ApplicationDetails for service, department, and status search
 IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_ApplicationDetails_Service_Status' AND object_id = OBJECT_ID(N'[RTS].[ApplicationDetails]'))
 BEGIN
     CREATE NONCLUSTERED INDEX [IX_ApplicationDetails_Service_Status]
@@ -784,17 +839,15 @@ BEGIN
 END;
 GO
 
--- 2. Index on FieldValueData for fast dynamic field retrieval
-IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_FieldValueData_ApplicationId' AND object_id = OBJECT_ID(N'[RTS].[FieldValueData]'))
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_FieldValue_ApplicationId' AND object_id = OBJECT_ID(N'[RTS].[FieldValue]'))
 BEGIN
-    CREATE NONCLUSTERED INDEX [IX_FieldValueData_ApplicationId]
-    ON [RTS].[FieldValueData] ([ApplicationId], [IsActive])
+    CREATE NONCLUSTERED INDEX [IX_FieldValue_ApplicationId]
+    ON [RTS].[FieldValue] ([ApplicationId], [IsActive])
     INCLUDE ([FieldDefinitionId], [TextValue], [NumberValue], [DateValue])
     WHERE ([MarkedForDeletion] = 0);
 END;
 GO
 
--- 3. Index on TrackApplicationHistory for fast timeline rendering
 IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_TrackApplicationHistory_App_Date' AND object_id = OBJECT_ID(N'[RTS].[TrackApplicationHistory]'))
 BEGIN
     CREATE NONCLUSTERED INDEX [IX_TrackApplicationHistory_App_Date]
@@ -802,7 +855,6 @@ BEGIN
 END;
 GO
 
--- 4. Index on IssuedCertificate for instant certificate lookup by application
 IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_IssuedCertificate_ApplicationId' AND object_id = OBJECT_ID(N'[RTS].[IssuedCertificate]'))
 BEGIN
     CREATE NONCLUSTERED INDEX [IX_IssuedCertificate_ApplicationId]
@@ -811,15 +863,13 @@ BEGIN
 END;
 GO
 
--- 5. Index on CitizenSession for OTP auth validation speed
-IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_CitizenSession_Mobile_Active' AND object_id = OBJECT_ID(N'[RTS].[CitizenSession]'))
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_CitizenSession_MobileNo' AND object_id = OBJECT_ID(N'[RTS].[CitizenSession]'))
 BEGIN
-    CREATE NONCLUSTERED INDEX [IX_CitizenSession_Mobile_Active]
-    ON [RTS].[CitizenSession] ([MobileNumber], [IsActive], [ExpiresAt]);
+    CREATE NONCLUSTERED INDEX [IX_CitizenSession_MobileNo]
+    ON [RTS].[CitizenSession] ([MobileNo], [IsActive]);
 END;
 GO
 
--- 6. Index on PaymentTransaction for application transaction queries
 IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_PaymentTransaction_ApplicationId' AND object_id = OBJECT_ID(N'[RTS].[PaymentTransaction]'))
 BEGIN
     CREATE NONCLUSTERED INDEX [IX_PaymentTransaction_ApplicationId]
