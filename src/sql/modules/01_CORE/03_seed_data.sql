@@ -1,4 +1,4 @@
-
+﻿
 -- Seed default ULB types
 IF NOT EXISTS (SELECT 1 FROM [CORE].[UlbType] WHERE [Id] = 1)
 BEGIN
@@ -19,7 +19,7 @@ BEGIN
     SET
         [UlbCode] = 'AK001',
         [UlbName] = 'AKOLA MUNICIPAL CORPORATION',
-        [UlbNameLocal] = N'अकोला महानगरपालिका अकोला',
+        [UlbNameLocal] = N'à¤…à¤•à¥‹à¤²à¤¾ à¤®à¤¹à¤¾à¤¨à¤—à¤°à¤ªà¤¾à¤²à¤¿à¤•à¤¾ à¤…à¤•à¥‹à¤²à¤¾',
         [UlbLogo] = 'https://akolamc.in/images/councilLogo/akola.png',
         [EmailId] = 'akolamc@gmail.com',
         [WebsiteUrl] = 'akolamc.in',
@@ -39,7 +39,7 @@ BEGIN
         [ContactPersonName], [ContactPersonDesignation], [UlbAddress], [State], [District], [PinCode], [IsActive]
     )
     VALUES (
-        1, 'AK001', 'AKOLA MUNICIPAL CORPORATION', N'अकोला महानगरपालिका अकोला', 1,
+        1, 'AK001', 'AKOLA MUNICIPAL CORPORATION', N'à¤…à¤•à¥‹à¤²à¤¾ à¤®à¤¹à¤¾à¤¨à¤—à¤°à¤ªà¤¾à¤²à¤¿à¤•à¤¾ à¤…à¤•à¥‹à¤²à¤¾', 1,
         'https://akolamc.in/images/councilLogo/akola.png', 'akolamc@gmail.com', '111111', '110000', 'akolamc.in',
         'abc', '01210', 'Akola', 'MH', 'Akola', '444001', 1
     );
@@ -346,7 +346,7 @@ SET IDENTITY_INSERT [CORE].[ModuleMaster] ON;
         VALUES
         (1, 1, N'PTIS_M', N'Property Tax', N'Property Tax', N'home', N'PTIS', N'Property Tax Module', 1, 1, GETDATE(), NULL, NULL),
         (1001, 2, N'TL_M', N'Trade License', N'Trade License', N'home', N'TL', N'Trade License Module', 1, 1, GETDATE(), NULL, NULL),
-        (1004, 3, N'ASSET_M', N'Asset Management', N'मालमत्ता व्यवस्थापन', N'inventory_2', N'ASSET', N'Asset Management Module', 1, 1, GETDATE(), NULL, NULL)
+        (1004, 3, N'ASSET_M', N'Asset Management', N'à¤®à¤¾à¤²à¤®à¤¤à¥à¤¤à¤¾ à¤µà¥à¤¯à¤µà¤¸à¥à¤¥à¤¾à¤ªà¤¨', N'inventory_2', N'ASSET', N'Asset Management Module', 1, 1, GETDATE(), NULL, NULL)
     ) AS V
     (
         Id, DepartmentId, ModuleCode, ModuleName, ModuleNameLocal,
@@ -405,18 +405,18 @@ SET IDENTITY_INSERT [CORE].[ScreenGroupMaster] ON;
         (2, N'Configuration Setting', N'Configuration Setting', NULL, N'FolderTree', 1, 0, NULL, CAST(N'2026-03-25T12:38:09.827' AS DATETIME), NULL, CAST(N'2026-04-06T14:37:29.003' AS DATETIME)),
         (3, N'GRP_DASHBOARD', N'Dashboard', N'GRP', N'dashboard', 1, 1, 1, CAST(N'2026-05-05T19:50:22.753' AS DATETIME), NULL, NULL),
 
-        (1003, N'SG004_A', N'वापरकर्ता व्यवस्थापन', N'वापरकर्ता व्यवस्थापन', N'user-icon', 5, 1, 1, CAST(N'2026-05-06T15:43:16.677' AS DATETIME), 1, CAST(N'2026-05-07T18:51:57.687' AS DATETIME)),
+        (1003, N'SG004_A', N'à¤µà¤¾à¤ªà¤°à¤•à¤°à¥à¤¤à¤¾ à¤µà¥à¤¯à¤µà¤¸à¥à¤¥à¤¾à¤ªà¤¨', N'à¤µà¤¾à¤ªà¤°à¤•à¤°à¥à¤¤à¤¾ à¤µà¥à¤¯à¤µà¤¸à¥à¤¥à¤¾à¤ªà¤¨', N'user-icon', 5, 1, 1, CAST(N'2026-05-06T15:43:16.677' AS DATETIME), 1, CAST(N'2026-05-07T18:51:57.687' AS DATETIME)),
 
 
         (1005, N'SG004_C', N'User Management', N'User_M', N'user-icon', 4, 1, 1, CAST(N'2026-05-06T16:10:02.513' AS DATETIME), NULL, NULL),
 
-        (1006, N'SG005', N'Reports', N'अहवाल', N'report-icon', 5, 0, 1, CAST(N'2026-05-06T17:40:53.643' AS DATETIME), NULL, CAST(N'2026-05-07T16:54:29.060' AS DATETIME)),
+        (1006, N'SG005', N'Reports', N'à¤…à¤¹à¤µà¤¾à¤²', N'report-icon', 5, 0, 1, CAST(N'2026-05-06T17:40:53.643' AS DATETIME), NULL, CAST(N'2026-05-07T16:54:29.060' AS DATETIME)),
 
         -- Asset Management screen groups
-        (4001, N'ASSET_DASHBOARD_GRP', N'Dashboard',            N'डॅशबोर्ड',              N'dashboard',       1, 1, 1, GETDATE(), NULL, NULL),
-        (4002, N'ASSET_MUNICIPAL_GRP', N'Municipal Assets',     N'महानगरपालिका मालमत्ता',  N'account_balance', 2, 1, 1, GETDATE(), NULL, NULL),
-        (4003, N'ASSET_REVENUE_GRP',   N'Revenue Management',   N'महसूल व्यवस्थापन',       N'payments',        3, 1, 1, GETDATE(), NULL, NULL),
-        (4004, N'ASSET_CONFIG_GRP',    N'Configure Masters',              N'कॉन्फिगर मास्टर्स',               N'settings',        4, 1, 1, GETDATE(), NULL, NULL)
+        (4001, N'ASSET_DASHBOARD_GRP', N'Dashboard',            N'à¤¡à¥…à¤¶à¤¬à¥‹à¤°à¥à¤¡',              N'dashboard',       1, 1, 1, GETDATE(), NULL, NULL),
+        (4002, N'ASSET_MUNICIPAL_GRP', N'Municipal Assets',     N'à¤®à¤¹à¤¾à¤¨à¤—à¤°à¤ªà¤¾à¤²à¤¿à¤•à¤¾ à¤®à¤¾à¤²à¤®à¤¤à¥à¤¤à¤¾',  N'account_balance', 2, 1, 1, GETDATE(), NULL, NULL),
+        (4003, N'ASSET_REVENUE_GRP',   N'Revenue Management',   N'à¤®à¤¹à¤¸à¥‚à¤² à¤µà¥à¤¯à¤µà¤¸à¥à¤¥à¤¾à¤ªà¤¨',       N'payments',        3, 1, 1, GETDATE(), NULL, NULL),
+        (4004, N'ASSET_CONFIG_GRP',    N'Configure Masters',              N'à¤•à¥‰à¤¨à¥à¤«à¤¿à¤—à¤° à¤®à¤¾à¤¸à¥à¤Ÿà¤°à¥à¤¸',               N'settings',        4, 1, 1, GETDATE(), NULL, NULL)
     ) AS V
     (
         Id, ScreenGroupCode, ScreenGroupName, ScreenGroupNameLocal,
@@ -479,50 +479,50 @@ SET IDENTITY_INSERT [CORE].[ScreenMaster] ON;
         (8,1,1,N'TEST',N'test',N'test',N'Monitor',N'/test',1,1,0,1,8,NULL,CAST('2026-04-06T14:38:12.743' AS DATETIME),2,CAST('2026-05-05T19:33:13.623' AS DATETIME)),
         (1008,2,1001,N'SRC101',N'Screen Name 101',N'Screen Name 101',N'Monitor',N'/scr-101',1,1,0,1,9,NULL,CAST('2026-04-09T16:03:50.443' AS DATETIME),NULL,NULL),
         (1009,1,1,N'TEST1',N'test1',N'test1',N'Monitor',N'/tst1',1,1,0,1,10,NULL,CAST('2026-04-09T19:03:11.097' AS DATETIME),NULL,NULL),
-        (1011,1,1,N'CT_01',N'Construction Type',N'बांधकाम प्रकार',NULL,N'/construction-type',1,1,0,1,1,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1012,1,1,N'FM_01',N'Floor Master',N'मजला मास्टर',NULL,N'/floor-master/floor',1,1,0,1,2,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1013,1,1,N'DM_01',N'Depreciation Master',N'घसारा मास्टर',NULL,N'/depreciationmaster',1,1,0,0,3,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,CAST('2026-05-08T16:24:38.507' AS DATETIME)),
-        (1014,1,1,N'TU_01',N'Type of Use Master',N'वापर प्रकार मास्टर',NULL,N'/typeofusemaster',1,1,0,1,4,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1015,1,1,N'TZ_01',N'Tax Zone',N'कर क्षेत्र',NULL,N'/taxzone',1,1,0,1,5,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1016,1,1,N'RS_01',N'Rate Section Master',N'दर विभाग मास्टर',NULL,N'/rate-section-master',1,1,0,1,6,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1017,1,1,N'ZM_01_A',N'Zone Master',N'झोन मास्टर',NULL,N'/zone-master',1,1,0,1,7,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1018,1,1,N'RM_01',N'Rate Master (RV)',N'दर मास्टर (RV)',NULL,N'/rate-master/rvratemaster',1,1,0,1,8,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1019,1,1,N'RP_01',N'Retention Policy (Year)',N'रिटेन्शन पॉलिसी (वर्ष)',NULL,N'/retentionpolicy/yearwise',1,1,0,1,9,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1020,1,1,N'RP_02',N'Retention Policy (Factor)',N'रिटेन्शन पॉलिसी (फॅक्टर)',NULL,N'/retentionpolicy/factorwise',1,1,0,1,10,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1021,1,1,N'WM_01',N'Weightage Master',N'वेटेज मास्टर',NULL,N'/weightage-master',1,1,0,1,11,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1022,1,1,N'TN_01',N'Tax Zoning',N'कर झोनिंग',NULL,N'/taxzoning',1,1,0,1,12,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1023,1,1,N'AY_01',N'Assessment Year Range',N'मूल्यांकन वर्ष श्रेणी',NULL,N'/assessment-year-range/capitalvalue',1,1,0,1,13,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1024,1,1,N'MJ_01',N'Mouja Master',N'मौजा मास्टर',NULL,N'/moujamaster',1,1,0,1,14,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1025,1,1,N'PY_01',N'Property Type',N'मालमत्ता प्रकार',NULL,N'/propertytype',1,1,0,1,15,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (2011,1,1,N'ZM_01_B',N'Zone Master',N'झोन मास्टर',NULL,N'/zone-master',1,1,0,1,7,1,CAST('2026-05-05T16:10:46.620' AS DATETIME),NULL,NULL),
+        (1011,1,1,N'CT_01',N'Construction Type',N'à¤¬à¤¾à¤‚à¤§à¤•à¤¾à¤® à¤ªà¥à¤°à¤•à¤¾à¤°',NULL,N'/construction-type',1,1,0,1,1,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
+        (1012,1,1,N'FM_01',N'Floor Master',N'à¤®à¤œà¤²à¤¾ à¤®à¤¾à¤¸à¥à¤Ÿà¤°',NULL,N'/floor-master/floor',1,1,0,1,2,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
+        (1013,1,1,N'DM_01',N'Depreciation Master',N'à¤˜à¤¸à¤¾à¤°à¤¾ à¤®à¤¾à¤¸à¥à¤Ÿà¤°',NULL,N'/depreciationmaster',1,1,0,0,3,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,CAST('2026-05-08T16:24:38.507' AS DATETIME)),
+        (1014,1,1,N'TU_01',N'Type of Use Master',N'à¤µà¤¾à¤ªà¤° à¤ªà¥à¤°à¤•à¤¾à¤° à¤®à¤¾à¤¸à¥à¤Ÿà¤°',NULL,N'/typeofusemaster',1,1,0,1,4,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
+        (1015,1,1,N'TZ_01',N'Tax Zone',N'à¤•à¤° à¤•à¥à¤·à¥‡à¤¤à¥à¤°',NULL,N'/taxzone',1,1,0,1,5,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
+        (1016,1,1,N'RS_01',N'Rate Section Master',N'à¤¦à¤° à¤µà¤¿à¤­à¤¾à¤— à¤®à¤¾à¤¸à¥à¤Ÿà¤°',NULL,N'/rate-section-master',1,1,0,1,6,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
+        (1017,1,1,N'ZM_01_A',N'Zone Master',N'à¤à¥‹à¤¨ à¤®à¤¾à¤¸à¥à¤Ÿà¤°',NULL,N'/zone-master',1,1,0,1,7,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
+        (1018,1,1,N'RM_01',N'Rate Master (RV)',N'à¤¦à¤° à¤®à¤¾à¤¸à¥à¤Ÿà¤° (RV)',NULL,N'/rate-master/rvratemaster',1,1,0,1,8,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
+        (1019,1,1,N'RP_01',N'Retention Policy (Year)',N'à¤°à¤¿à¤Ÿà¥‡à¤¨à¥à¤¶à¤¨ à¤ªà¥‰à¤²à¤¿à¤¸à¥€ (à¤µà¤°à¥à¤·)',NULL,N'/retentionpolicy/yearwise',1,1,0,1,9,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
+        (1020,1,1,N'RP_02',N'Retention Policy (Factor)',N'à¤°à¤¿à¤Ÿà¥‡à¤¨à¥à¤¶à¤¨ à¤ªà¥‰à¤²à¤¿à¤¸à¥€ (à¤«à¥…à¤•à¥à¤Ÿà¤°)',NULL,N'/retentionpolicy/factorwise',1,1,0,1,10,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
+        (1021,1,1,N'WM_01',N'Weightage Master',N'à¤µà¥‡à¤Ÿà¥‡à¤œ à¤®à¤¾à¤¸à¥à¤Ÿà¤°',NULL,N'/weightage-master',1,1,0,1,11,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
+        (1022,1,1,N'TN_01',N'Tax Zoning',N'à¤•à¤° à¤à¥‹à¤¨à¤¿à¤‚à¤—',NULL,N'/taxzoning',1,1,0,1,12,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
+        (1023,1,1,N'AY_01',N'Assessment Year Range',N'à¤®à¥‚à¤²à¥à¤¯à¤¾à¤‚à¤•à¤¨ à¤µà¤°à¥à¤· à¤¶à¥à¤°à¥‡à¤£à¥€',NULL,N'/assessment-year-range/capitalvalue',1,1,0,1,13,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
+        (1024,1,1,N'MJ_01',N'Mouja Master',N'à¤®à¥Œà¤œà¤¾ à¤®à¤¾à¤¸à¥à¤Ÿà¤°',NULL,N'/moujamaster',1,1,0,1,14,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
+        (1025,1,1,N'PY_01',N'Property Type',N'à¤®à¤¾à¤²à¤®à¤¤à¥à¤¤à¤¾ à¤ªà¥à¤°à¤•à¤¾à¤°',NULL,N'/propertytype',1,1,0,1,15,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
+        (2011,1,1,N'ZM_01_B',N'Zone Master',N'à¤à¥‹à¤¨ à¤®à¤¾à¤¸à¥à¤Ÿà¤°',NULL,N'/zone-master',1,1,0,1,7,1,CAST('2026-05-05T16:10:46.620' AS DATETIME),NULL,NULL),
         (2012,2,1,N'T1',N'TestTest',N'TestTest',N'Monitor',N'/testtest',0,1,0,1,0,2,CAST('2026-05-05T19:26:47.937' AS DATETIME),NULL,NULL),
-        (3011,1,1,N'SCR_DASHBOARD',N'Dashboard',N'मुख्यपृष्ठ',N'dashboard-icon',N'/dashboard',1,1,0,1,1,1,CAST('2026-05-08T11:22:48.963' AS DATETIME),NULL,NULL),
-        (3012,2,1,N'AMC_A',N'महानगरपालिका डॅशबोर्ड',N'म.न.पा. मुख्यपृष्ठ',N'AMC-icon',N'/amc',1,1,0,1,1,1,CAST('2026-05-08T12:57:11.273' AS DATETIME),NULL,NULL),
-        (3013,2,1,N'AMC_B',N'पुणे_ऑफिस-डॅशबोर्ड',N'म.न_पा',N'AMC-icon',N'/amc',1,0,0,1,1,2,CAST('2026-05-08T13:21:56.270' AS DATETIME),NULL,NULL),
+        (3011,1,1,N'SCR_DASHBOARD',N'Dashboard',N'à¤®à¥à¤–à¥à¤¯à¤ªà¥ƒà¤·à¥à¤ ',N'dashboard-icon',N'/dashboard',1,1,0,1,1,1,CAST('2026-05-08T11:22:48.963' AS DATETIME),NULL,NULL),
+        (3012,2,1,N'AMC_A',N'à¤®à¤¹à¤¾à¤¨à¤—à¤°à¤ªà¤¾à¤²à¤¿à¤•à¤¾ à¤¡à¥…à¤¶à¤¬à¥‹à¤°à¥à¤¡',N'à¤®.à¤¨.à¤ªà¤¾. à¤®à¥à¤–à¥à¤¯à¤ªà¥ƒà¤·à¥à¤ ',N'AMC-icon',N'/amc',1,1,0,1,1,1,CAST('2026-05-08T12:57:11.273' AS DATETIME),NULL,NULL),
+        (3013,2,1,N'AMC_B',N'à¤ªà¥à¤£à¥‡_à¤‘à¤«à¤¿à¤¸-à¤¡à¥…à¤¶à¤¬à¥‹à¤°à¥à¤¡',N'à¤®.à¤¨_à¤ªà¤¾',N'AMC-icon',N'/amc',1,0,0,1,1,2,CAST('2026-05-08T13:21:56.270' AS DATETIME),NULL,NULL),
 
         -- Asset Management screens (ModuleId 1004 = ASSET, groups 4001-4004)
-        (4001,4001,1004,N'ASSET_DASHBOARD',      N'Dashboard',             N'डॅशबोर्ड',                N'dashboard',       N'/assets/dashboard/master-dashboard',1,1,0,1,1,1,GETDATE(),NULL,NULL),
-        (4002,4002,1004,N'MUNICIPAL_ASSET',      N'Municipal Assets',      N'महानगरपालिका मालमत्ता',    N'account_balance', N'/assets/municipal-Asset',           1,1,0,1,1,1,GETDATE(),NULL,NULL),
-        (4003,4003,1004,N'MANAGE_RENTAL_DETAILS',N'Manage Rental Details', N'भाडे तपशील व्यवस्थापन',   N'groups',          N'/assets/revenue/manage-renters',    1,1,0,1,1,1,GETDATE(),NULL,NULL),
-        (4004,4003,1004,N'PAYMENT',              N'Payment',               N'पेमेंट',                  N'payment',         N'/assets/revenue/payment',           1,1,0,1,2,1,GETDATE(),NULL,NULL),
+        (4001,4001,1004,N'ASSET_DASHBOARD',      N'Dashboard',             N'à¤¡à¥…à¤¶à¤¬à¥‹à¤°à¥à¤¡',                N'dashboard',       N'/assets/dashboard/master-dashboard',1,1,0,1,1,1,GETDATE(),NULL,NULL),
+        (4002,4002,1004,N'MUNICIPAL_ASSET',      N'Municipal Assets',      N'à¤®à¤¹à¤¾à¤¨à¤—à¤°à¤ªà¤¾à¤²à¤¿à¤•à¤¾ à¤®à¤¾à¤²à¤®à¤¤à¥à¤¤à¤¾',    N'account_balance', N'/assets/municipal-Asset',           1,1,0,1,1,1,GETDATE(),NULL,NULL),
+        (4003,4003,1004,N'MANAGE_RENTAL_DETAILS',N'Manage Rental Details', N'à¤­à¤¾à¤¡à¥‡ à¤¤à¤ªà¤¶à¥€à¤² à¤µà¥à¤¯à¤µà¤¸à¥à¤¥à¤¾à¤ªà¤¨',   N'groups',          N'/assets/revenue/manage-renters',    1,1,0,1,1,1,GETDATE(),NULL,NULL),
+        (4004,4003,1004,N'PAYMENT',              N'Payment',               N'à¤ªà¥‡à¤®à¥‡à¤‚à¤Ÿ',                  N'payment',         N'/assets/revenue/payment',           1,1,0,1,2,1,GETDATE(),NULL,NULL),
         -- Old generic Configuration Master menu item: superseded by the 13 granular
         -- master-data screens below (4006-4018), so seeded INACTIVE (IsActive = 0).
-        (4005,4004,1004,N'CONFIGURATION_MASTER', N'Configuration Master',  N'कॉन्फिगरेशन मास्टर',      N'settings',        N'/assets/configuration/master-data', 1,1,0,0,1,1,GETDATE(),NULL,NULL),
+        (4005,4004,1004,N'CONFIGURATION_MASTER', N'Configuration Master',  N'à¤•à¥‰à¤¨à¥à¤«à¤¿à¤—à¤°à¥‡à¤¶à¤¨ à¤®à¤¾à¤¸à¥à¤Ÿà¤°',      N'settings',        N'/assets/configuration/master-data', 1,1,0,0,1,1,GETDATE(),NULL,NULL),
 
         -- Asset master-data configuration screens (group 4004 = Masters, module 1004 = ASSET)
-        (4006,4004,1004,N'ASSET_MASTER_ASSET_CATEGORY',  N'Asset Category',      N'मालमत्ता श्रेणी',       N'category',        N'/assets/configuration/master-data/asset-category',     1,1,0,1,1, 1,GETDATE(),NULL,NULL),
-        (4007,4004,1004,N'ASSET_MASTER_ASSET_PHOTO_TYPE',N'Asset Photo Type',    N'मालमत्ता फोटो प्रकार',   N'photo_camera',    N'/assets/configuration/master-data/asset-photo-type',   1,1,0,1,2, 1,GETDATE(),NULL,NULL),
-        (4008,4004,1004,N'ASSET_MASTER_ASSET_ROOM_TYPE', N'Asset Room Type',     N'मालमत्ता खोली प्रकार',   N'meeting_room',    N'/assets/configuration/master-data/asset-room-type',    1,1,0,1,3, 1,GETDATE(),NULL,NULL),
-        (4009,4004,1004,N'ASSET_MASTER_ASSET_TYPE',      N'Asset Type',          N'मालमत्ता प्रकार',        N'inventory_2',     N'/assets/configuration/master-data/asset-type',         1,1,0,1,4, 1,GETDATE(),NULL,NULL),
-        (4010,4004,1004,N'ASSET_MASTER_GST',             N'GST Master',          N'जीएसटी मास्टर',          N'receipt_long',    N'/assets/configuration/master-data/gst-master',         1,1,0,1,5, 1,GETDATE(),NULL,NULL),
-        (4011,4004,1004,N'ASSET_MASTER_INVENTORY_CATEGORY',N'Inventory Category',N'इन्व्हेंटरी श्रेणी',      N'category',        N'/assets/configuration/master-data/inventory-category', 1,1,0,1,6, 1,GETDATE(),NULL,NULL),
-        (4012,4004,1004,N'ASSET_MASTER_INVENTORY_CONDITION',N'Condition Master',N'स्थिती मास्टर',    N'fact_check',      N'/assets/configuration/master-data/inventory-condition',1,1,0,1,7, 1,GETDATE(),NULL,NULL),
-        (4013,4004,1004,N'ASSET_MASTER_INVENTORY_MODEL', N'Inventory Model',     N'इन्व्हेंटरी मॉडेल',       N'view_module',     N'/assets/configuration/master-data/inventory-model',    1,1,0,1,8, 1,GETDATE(),NULL,NULL),
-        (4014,4004,1004,N'ASSET_MASTER_INVENTORY_NAME',  N'Inventory Name',      N'इन्व्हेंटरी नाव',        N'label',           N'/assets/configuration/master-data/inventory-name',     1,1,0,1,9, 1,GETDATE(),NULL,NULL),
-        (4015,4004,1004,N'ASSET_MASTER_OWNERSHIP_TYPE',  N'Ownership Type',      N'मालकी प्रकार',           N'home',            N'/assets/configuration/master-data/ownership-type',     1,1,0,1,10,1,GETDATE(),NULL,NULL),
-        (4016,4004,1004,N'ASSET_MASTER_OWNING_DEPARTMENT',N'Owning Department',  N'मालकी विभाग',            N'account_balance', N'/assets/configuration/master-data/owning-department',  1,1,0,1,11,1,GETDATE(),NULL,NULL),
-        (4017,4004,1004,N'ASSET_MASTER_PENALTY_RULE',    N'Penalty Rule Master', N'दंड नियम मास्टर',        N'rule',            N'/assets/configuration/master-data/penalty-rule-master',1,1,0,1,12,1,GETDATE(),NULL,NULL),
-        (4018,4004,1004,N'ASSET_MASTER_TYPE_OF_USE',     N'Type of Use Master',  N'वापर प्रकार मास्टर',      N'business',        N'/assets/configuration/master-data/type-of-use-master', 1,1,0,1,13,1,GETDATE(),NULL,NULL)
+        (4006,4004,1004,N'ASSET_MASTER_ASSET_CATEGORY',  N'Asset Category',      N'à¤®à¤¾à¤²à¤®à¤¤à¥à¤¤à¤¾ à¤¶à¥à¤°à¥‡à¤£à¥€',       N'category',        N'/assets/configuration/master-data/asset-category',     1,1,0,1,1, 1,GETDATE(),NULL,NULL),
+        (4007,4004,1004,N'ASSET_MASTER_ASSET_PHOTO_TYPE',N'Asset Photo Type',    N'à¤®à¤¾à¤²à¤®à¤¤à¥à¤¤à¤¾ à¤«à¥‹à¤Ÿà¥‹ à¤ªà¥à¤°à¤•à¤¾à¤°',   N'photo_camera',    N'/assets/configuration/master-data/asset-photo-type',   1,1,0,1,2, 1,GETDATE(),NULL,NULL),
+        (4008,4004,1004,N'ASSET_MASTER_ASSET_ROOM_TYPE', N'Asset Room Type',     N'à¤®à¤¾à¤²à¤®à¤¤à¥à¤¤à¤¾ à¤–à¥‹à¤²à¥€ à¤ªà¥à¤°à¤•à¤¾à¤°',   N'meeting_room',    N'/assets/configuration/master-data/asset-room-type',    1,1,0,1,3, 1,GETDATE(),NULL,NULL),
+        (4009,4004,1004,N'ASSET_MASTER_ASSET_TYPE',      N'Asset Type',          N'à¤®à¤¾à¤²à¤®à¤¤à¥à¤¤à¤¾ à¤ªà¥à¤°à¤•à¤¾à¤°',        N'inventory_2',     N'/assets/configuration/master-data/asset-type',         1,1,0,1,4, 1,GETDATE(),NULL,NULL),
+        (4010,4004,1004,N'ASSET_MASTER_GST',             N'GST Master',          N'à¤œà¥€à¤à¤¸à¤Ÿà¥€ à¤®à¤¾à¤¸à¥à¤Ÿà¤°',          N'receipt_long',    N'/assets/configuration/master-data/gst-master',         1,1,0,1,5, 1,GETDATE(),NULL,NULL),
+        (4011,4004,1004,N'ASSET_MASTER_INVENTORY_CATEGORY',N'Inventory Category',N'à¤‡à¤¨à¥à¤µà¥à¤¹à¥‡à¤‚à¤Ÿà¤°à¥€ à¤¶à¥à¤°à¥‡à¤£à¥€',      N'category',        N'/assets/configuration/master-data/inventory-category', 1,1,0,1,6, 1,GETDATE(),NULL,NULL),
+        (4012,4004,1004,N'ASSET_MASTER_INVENTORY_CONDITION',N'Condition Master',N'à¤¸à¥à¤¥à¤¿à¤¤à¥€ à¤®à¤¾à¤¸à¥à¤Ÿà¤°',    N'fact_check',      N'/assets/configuration/master-data/inventory-condition',1,1,0,1,7, 1,GETDATE(),NULL,NULL),
+        (4013,4004,1004,N'ASSET_MASTER_INVENTORY_MODEL', N'Inventory Model',     N'à¤‡à¤¨à¥à¤µà¥à¤¹à¥‡à¤‚à¤Ÿà¤°à¥€ à¤®à¥‰à¤¡à¥‡à¤²',       N'view_module',     N'/assets/configuration/master-data/inventory-model',    1,1,0,1,8, 1,GETDATE(),NULL,NULL),
+        (4014,4004,1004,N'ASSET_MASTER_INVENTORY_NAME',  N'Inventory Name',      N'à¤‡à¤¨à¥à¤µà¥à¤¹à¥‡à¤‚à¤Ÿà¤°à¥€ à¤¨à¤¾à¤µ',        N'label',           N'/assets/configuration/master-data/inventory-name',     1,1,0,1,9, 1,GETDATE(),NULL,NULL),
+        (4015,4004,1004,N'ASSET_MASTER_OWNERSHIP_TYPE',  N'Ownership Type',      N'à¤®à¤¾à¤²à¤•à¥€ à¤ªà¥à¤°à¤•à¤¾à¤°',           N'home',            N'/assets/configuration/master-data/ownership-type',     1,1,0,1,10,1,GETDATE(),NULL,NULL),
+        (4016,4004,1004,N'ASSET_MASTER_OWNING_DEPARTMENT',N'Owning Department',  N'à¤®à¤¾à¤²à¤•à¥€ à¤µà¤¿à¤­à¤¾à¤—',            N'account_balance', N'/assets/configuration/master-data/owning-department',  1,1,0,1,11,1,GETDATE(),NULL,NULL),
+        (4017,4004,1004,N'ASSET_MASTER_PENALTY_RULE',    N'Penalty Rule Master', N'à¤¦à¤‚à¤¡ à¤¨à¤¿à¤¯à¤® à¤®à¤¾à¤¸à¥à¤Ÿà¤°',        N'rule',            N'/assets/configuration/master-data/penalty-rule-master',1,1,0,1,12,1,GETDATE(),NULL,NULL),
+        (4018,4004,1004,N'ASSET_MASTER_TYPE_OF_USE',     N'Type of Use Master',  N'à¤µà¤¾à¤ªà¤° à¤ªà¥à¤°à¤•à¤¾à¤° à¤®à¤¾à¤¸à¥à¤Ÿà¤°',      N'business',        N'/assets/configuration/master-data/type-of-use-master', 1,1,0,1,13,1,GETDATE(),NULL,NULL)
     ) AS V
     (
         Id,ScreenGroupId,ModuleId,ScreenCode,ScreenName,ScreenNameLocal,
@@ -683,7 +683,7 @@ END
 SET IDENTITY_INSERT [CORE].[CommonRemarkTypeMaster] OFF;
 
 
-  SET IDENTITY_INSERT [CORE].[ConfigCategoryMaster] ON 
+  SET IDENTITY_INSERT [CORE].[ConfigCategoryMaster] ON
 GO
 INSERT [CORE].[ConfigCategoryMaster] ([Id], [CategoryCode], [CategoryName], [DisplayOrder], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (1, N'SECURITY_AUTH', N'Security & Authentication', 1, 1, GETDATE(), 1, NULL, NULL)
 GO
@@ -695,7 +695,7 @@ INSERT [CORE].[ConfigCategoryMaster] ([Id], [CategoryCode], [CategoryName], [Dis
 GO
 SET IDENTITY_INSERT [CORE].[ConfigCategoryMaster] OFF
 GO
-SET IDENTITY_INSERT [CORE].[ConfigKeyMaster] ON 
+SET IDENTITY_INSERT [CORE].[ConfigKeyMaster] ON
 GO
 INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1, 1, N'MAXFAILEDATTEMPTS', N'Maximum Failed Login Attempts', N'Number of failed login attempts before account lockout', N'decimal', N'textbox', N'2', 1, 1, GETDATE(), 1, NULL)
 GO
@@ -775,7 +775,7 @@ INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName],
 GO
 SET IDENTITY_INSERT [CORE].[ConfigKeyMaster] OFF
 GO
-SET IDENTITY_INSERT [CORE].[ConfigValueMaster] ON 
+SET IDENTITY_INSERT [CORE].[ConfigValueMaster] ON
 GO
 INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (73, 29, 1, NULL, 1, N'2026-05-14T18:11', 1, GETDATE(), 1, NULL)
 GO
@@ -887,33 +887,33 @@ SET IDENTITY_INSERT [CORE].[AliasMaster] ON;
     FROM
     (
         VALUES
-        (47, 'Ward_No', N'Ward No', N'Sector No', N'सेक्टर क्र.1', N'सेक्टर क्र.2', 1, 1, CAST('2026-08-25T11:49:27.240' AS DATETIME), 1, CAST('2026-08-25T18:25:32.950' AS DATETIME)),
-        (48, 'Construction_Type', N'Construction Type', N'Construction Type', N'बांधकाम प्रकार', N'निर्माण प्रकार', 1, 1, CAST('2026-08-25T18:41:40.540' AS DATETIME), 1, CAST('2026-08-26T15:55:14.760' AS DATETIME)),
-        (49, 'Property_No', N'Property No', N'Property No', N'मालमत्ता क्र.', N'संपत्ति क्र.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), 1, CAST('2026-08-26T15:50:59.183' AS DATETIME)),
-        (50, 'Partition_No', N'Partition No', N'Partition No', N'विभाग क्र.', N'विभाजन क्र.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (51, 'Old_No', N'Old No', N'Old No', N'जुना क्र.', N'पुराना क्र.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (52, 'Upic_Id', N'Upic Id', N'Upic Id', N'UPIC क्र.', N'UPIC आईडी', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (53, 'Assessment_Status', N'Assessment Status', N'Assessment Status', N'आकारणी स्थिती', N'निर्धारण स्थिति', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), 1, CAST('2026-08-26T11:53:38.450' AS DATETIME)),
-        (54, 'Division', N'Division', N'Division', N'विभाग', N'प्रभाग', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (55, 'Category', N'Category', N'Category', N'वर्ग', N'श्रेणी', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (56, 'Wing', N'Wing', N'Wing', N'विंग', N'विंग', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (57, 'Flat_No_Shop_No', N'Flat No/Shop No', N'Flat No/Shop No', N'फ्लॅट क्र./दुकान क्र.', N'फ्लैट क्र./दुकान क्र.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (58, 'Tax_Zone_No', N'Tax Zone No', N'Tax Zone No', N'कर क्षेत्र क्र.', N'कर क्षेत्र क्र.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (59, 'Rate_Section_Name', N'Ratesection Name', N'Ratesection Name', N'दर विभागाचे नाव', N'दर अनुभाग का नाम', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (60, 'Mouja_Name', N'Mouja Name', N'Mouja Name', N'मौजा नाव', N'मौजा नाम', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), 1, CAST('2026-08-26T15:50:33.640' AS DATETIME)),
-        (61, 'Sub_Zone_No', N'Subzone No', N'Subzone No', N'उपक्षेत्र क्र.', N'उपक्षेत्र क्र.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (62, 'Survey_No', N'Survey No', N'Survey No', N'सर्वे क्र.', N'सर्वे क्र.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (63, 'Floor', N'Floor', N'Floor', N'मजला', N'मंजिल', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (64, 'Sub_Floor', N'Sub Floor', N'Sub Floor', N'उपमजला', N'उपमंजिल', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (65, 'Construction_Year', N'Con Year', N'Con Year', N'बांधकाम वर्ष', N'निर्माण वर्ष', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (66, 'Assessment_Year', N'Asst Year', N'Asst Year', N'आकारणी वर्ष', N'निर्धारण वर्ष', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (67, 'Use', N'Use', N'Use', N'वापर', N'उपयोग', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (68, 'Sub_Type_Of_Use', N'Sub Type Of Use', N'Sub Type Of Use', N'वापराचा उपप्रकार', N'उपयोग का उपप्रकार', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (69, 'Rooms', N'Rooms', N'Rooms', N'खोल्या', N'कमरे', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (70, 'Carpet_Area', N'Carpet Area(Ft/Mtr)', N'Carpet Area(Ft/Mtr)', N'चटई क्षेत्रफळ (फु./मी.)', N'कार्पेट क्षेत्रफल (फु./मी.)', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (71, 'Builtup_Area', N'Builtup Area(Ft/Mtr)', N'Builtup Area(Ft/Mtr)', N'बांधकाम क्षेत्रफळ (फु./मी.)', N'निर्मित क्षेत्रफल (फु./मी.)', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (72, 'OC_Number', N'Oc Number', N'Oc Number', N'ओ.सी. क्र.', N'ओ.सी. नंबर', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (73, 'OC_Date', N'Oc Date', N'Oc Date', N'ओ.सी. दिनांक', N'ओ.सी. दिनांक', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL)
+        (47, 'Ward_No', N'Ward No', N'Sector No', N'à¤¸à¥‡à¤•à¥à¤Ÿà¤° à¤•à¥à¤°.1', N'à¤¸à¥‡à¤•à¥à¤Ÿà¤° à¤•à¥à¤°.2', 1, 1, CAST('2026-08-25T11:49:27.240' AS DATETIME), 1, CAST('2026-08-25T18:25:32.950' AS DATETIME)),
+        (48, 'Construction_Type', N'Construction Type', N'Construction Type', N'à¤¬à¤¾à¤‚à¤§à¤•à¤¾à¤® à¤ªà¥à¤°à¤•à¤¾à¤°', N'à¤¨à¤¿à¤°à¥à¤®à¤¾à¤£ à¤ªà¥à¤°à¤•à¤¾à¤°', 1, 1, CAST('2026-08-25T18:41:40.540' AS DATETIME), 1, CAST('2026-08-26T15:55:14.760' AS DATETIME)),
+        (49, 'Property_No', N'Property No', N'Property No', N'à¤®à¤¾à¤²à¤®à¤¤à¥à¤¤à¤¾ à¤•à¥à¤°.', N'à¤¸à¤‚à¤ªà¤¤à¥à¤¤à¤¿ à¤•à¥à¤°.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), 1, CAST('2026-08-26T15:50:59.183' AS DATETIME)),
+        (50, 'Partition_No', N'Partition No', N'Partition No', N'à¤µà¤¿à¤­à¤¾à¤— à¤•à¥à¤°.', N'à¤µà¤¿à¤­à¤¾à¤œà¤¨ à¤•à¥à¤°.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (51, 'Old_No', N'Old No', N'Old No', N'à¤œà¥à¤¨à¤¾ à¤•à¥à¤°.', N'à¤ªà¥à¤°à¤¾à¤¨à¤¾ à¤•à¥à¤°.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (52, 'Upic_Id', N'Upic Id', N'Upic Id', N'UPIC à¤•à¥à¤°.', N'UPIC à¤†à¤ˆà¤¡à¥€', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (53, 'Assessment_Status', N'Assessment Status', N'Assessment Status', N'à¤†à¤•à¤¾à¤°à¤£à¥€ à¤¸à¥à¤¥à¤¿à¤¤à¥€', N'à¤¨à¤¿à¤°à¥à¤§à¤¾à¤°à¤£ à¤¸à¥à¤¥à¤¿à¤¤à¤¿', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), 1, CAST('2026-08-26T11:53:38.450' AS DATETIME)),
+        (54, 'Division', N'Division', N'Division', N'à¤µà¤¿à¤­à¤¾à¤—', N'à¤ªà¥à¤°à¤­à¤¾à¤—', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (55, 'Category', N'Category', N'Category', N'à¤µà¤°à¥à¤—', N'à¤¶à¥à¤°à¥‡à¤£à¥€', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (56, 'Wing', N'Wing', N'Wing', N'à¤µà¤¿à¤‚à¤—', N'à¤µà¤¿à¤‚à¤—', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (57, 'Flat_No_Shop_No', N'Flat No/Shop No', N'Flat No/Shop No', N'à¤«à¥à¤²à¥…à¤Ÿ à¤•à¥à¤°./à¤¦à¥à¤•à¤¾à¤¨ à¤•à¥à¤°.', N'à¤«à¥à¤²à¥ˆà¤Ÿ à¤•à¥à¤°./à¤¦à¥à¤•à¤¾à¤¨ à¤•à¥à¤°.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (58, 'Tax_Zone_No', N'Tax Zone No', N'Tax Zone No', N'à¤•à¤° à¤•à¥à¤·à¥‡à¤¤à¥à¤° à¤•à¥à¤°.', N'à¤•à¤° à¤•à¥à¤·à¥‡à¤¤à¥à¤° à¤•à¥à¤°.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (59, 'Rate_Section_Name', N'Ratesection Name', N'Ratesection Name', N'à¤¦à¤° à¤µà¤¿à¤­à¤¾à¤—à¤¾à¤šà¥‡ à¤¨à¤¾à¤µ', N'à¤¦à¤° à¤…à¤¨à¥à¤­à¤¾à¤— à¤•à¤¾ à¤¨à¤¾à¤®', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (60, 'Mouja_Name', N'Mouja Name', N'Mouja Name', N'à¤®à¥Œà¤œà¤¾ à¤¨à¤¾à¤µ', N'à¤®à¥Œà¤œà¤¾ à¤¨à¤¾à¤®', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), 1, CAST('2026-08-26T15:50:33.640' AS DATETIME)),
+        (61, 'Sub_Zone_No', N'Subzone No', N'Subzone No', N'à¤‰à¤ªà¤•à¥à¤·à¥‡à¤¤à¥à¤° à¤•à¥à¤°.', N'à¤‰à¤ªà¤•à¥à¤·à¥‡à¤¤à¥à¤° à¤•à¥à¤°.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (62, 'Survey_No', N'Survey No', N'Survey No', N'à¤¸à¤°à¥à¤µà¥‡ à¤•à¥à¤°.', N'à¤¸à¤°à¥à¤µà¥‡ à¤•à¥à¤°.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (63, 'Floor', N'Floor', N'Floor', N'à¤®à¤œà¤²à¤¾', N'à¤®à¤‚à¤œà¤¿à¤²', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (64, 'Sub_Floor', N'Sub Floor', N'Sub Floor', N'à¤‰à¤ªà¤®à¤œà¤²à¤¾', N'à¤‰à¤ªà¤®à¤‚à¤œà¤¿à¤²', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (65, 'Construction_Year', N'Con Year', N'Con Year', N'à¤¬à¤¾à¤‚à¤§à¤•à¤¾à¤® à¤µà¤°à¥à¤·', N'à¤¨à¤¿à¤°à¥à¤®à¤¾à¤£ à¤µà¤°à¥à¤·', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (66, 'Assessment_Year', N'Asst Year', N'Asst Year', N'à¤†à¤•à¤¾à¤°à¤£à¥€ à¤µà¤°à¥à¤·', N'à¤¨à¤¿à¤°à¥à¤§à¤¾à¤°à¤£ à¤µà¤°à¥à¤·', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (67, 'Use', N'Use', N'Use', N'à¤µà¤¾à¤ªà¤°', N'à¤‰à¤ªà¤¯à¥‹à¤—', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (68, 'Sub_Type_Of_Use', N'Sub Type Of Use', N'Sub Type Of Use', N'à¤µà¤¾à¤ªà¤°à¤¾à¤šà¤¾ à¤‰à¤ªà¤ªà¥à¤°à¤•à¤¾à¤°', N'à¤‰à¤ªà¤¯à¥‹à¤— à¤•à¤¾ à¤‰à¤ªà¤ªà¥à¤°à¤•à¤¾à¤°', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (69, 'Rooms', N'Rooms', N'Rooms', N'à¤–à¥‹à¤²à¥à¤¯à¤¾', N'à¤•à¤®à¤°à¥‡', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (70, 'Carpet_Area', N'Carpet Area(Ft/Mtr)', N'Carpet Area(Ft/Mtr)', N'à¤šà¤Ÿà¤ˆ à¤•à¥à¤·à¥‡à¤¤à¥à¤°à¤«à¤³ (à¤«à¥./à¤®à¥€.)', N'à¤•à¤¾à¤°à¥à¤ªà¥‡à¤Ÿ à¤•à¥à¤·à¥‡à¤¤à¥à¤°à¤«à¤² (à¤«à¥./à¤®à¥€.)', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (71, 'Builtup_Area', N'Builtup Area(Ft/Mtr)', N'Builtup Area(Ft/Mtr)', N'à¤¬à¤¾à¤‚à¤§à¤•à¤¾à¤® à¤•à¥à¤·à¥‡à¤¤à¥à¤°à¤«à¤³ (à¤«à¥./à¤®à¥€.)', N'à¤¨à¤¿à¤°à¥à¤®à¤¿à¤¤ à¤•à¥à¤·à¥‡à¤¤à¥à¤°à¤«à¤² (à¤«à¥./à¤®à¥€.)', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (72, 'OC_Number', N'Oc Number', N'Oc Number', N'à¤“.à¤¸à¥€. à¤•à¥à¤°.', N'à¤“.à¤¸à¥€. à¤¨à¤‚à¤¬à¤°', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
+        (73, 'OC_Date', N'Oc Date', N'Oc Date', N'à¤“.à¤¸à¥€. à¤¦à¤¿à¤¨à¤¾à¤‚à¤•', N'à¤“.à¤¸à¥€. à¤¦à¤¿à¤¨à¤¾à¤‚à¤•', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL)
     ) AS V
     (
         Id, KeyName, LabelName, EnglishName, RegionalName, HindiName,
@@ -926,14 +926,14 @@ INSERT INTO [CORE].[AliasMaster]
     [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]
 )
 
-SELECT 
+SELECT
     S.Id, S.KeyName, S.LabelName, S.EnglishName, S.RegionalName, S.HindiName,
     S.IsActive, S.CreatedBy, S.CreatedDate, S.UpdatedBy, S.UpdatedDate
 FROM SeedData S
 
 WHERE NOT EXISTS
 (
-    SELECT 1 
+    SELECT 1
     FROM [CORE].[AliasMaster] X
     WHERE X.Id = S.Id
 );

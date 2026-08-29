@@ -1,2 +1,2 @@
--- CORE Module Base Schema Changes for Version 1.0.0
+﻿-- CORE Module Base Schema Changes for Version 1.0.0
 -- Add your base schema modifications here

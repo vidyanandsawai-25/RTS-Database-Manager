@@ -1,4 +1,4 @@
-SET ANSI_NULLS ON
+﻿SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
@@ -240,7 +240,7 @@ GO
 /****** Object:  Table [PTIS].[SocietyWingMast] ******/
 CREATE TABLE [PTIS].[WingDetailsMast](
 	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-	[SocietyDetailsMastId] [int] NOT NULL, 
+	[SocietyDetailsMastId] [int] NOT NULL,
 	[WingMasterId] [int] NOT NULL,
 	[WingName] [nvarchar](30) NULL,
 	--[SocietyName] [nvarchar](500) NULL,
@@ -264,7 +264,7 @@ CREATE TABLE [PTIS].[WingDetailsMast](
 	--[BuilderMobileNo] [varchar](13) NULL,
 	--[BuilderMobileNoRemarkId] [int] NULL,
 	--[SocietyEmailId] [nvarchar](100) NULL,
-	
+
 	[ManagerEmailId] [nvarchar](100) NULL,
 	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_WingDetailsMast_MarkedForDeletion] DEFAULT (0),
     [MarkedForDeletionDate] [datetime] NULL ,
@@ -280,19 +280,19 @@ GO
 
 
 ALTER TABLE [PTIS].[WingDetailsMast] WITH CHECK ADD CONSTRAINT [FK_WingDetailsMast_SocietyDetailsMastId] FOREIGN KEY([SocietyDetailsMastId])
-REFERENCES [PTIS].[SocietyDetailsMast] ([Id]) 
+REFERENCES [PTIS].[SocietyDetailsMast] ([Id])
 GO
-ALTER TABLE [PTIS].[WingDetailsMast] CHECK CONSTRAINT [FK_WingDetailsMast_SocietyDetailsMastId] 
+ALTER TABLE [PTIS].[WingDetailsMast] CHECK CONSTRAINT [FK_WingDetailsMast_SocietyDetailsMastId]
 GO
 
 ALTER TABLE [PTIS].[WingDetailsMast] WITH CHECK ADD CONSTRAINT [FK_WingDetailsMast_WingMaster] FOREIGN KEY([WingMasterId])
-REFERENCES [PTIS].[WingMaster] ([Id]) 
+REFERENCES [PTIS].[WingMaster] ([Id])
 GO
-ALTER TABLE [PTIS].[WingDetailsMast] CHECK CONSTRAINT [FK_WingDetailsMast_WingMaster] 
+ALTER TABLE [PTIS].[WingDetailsMast] CHECK CONSTRAINT [FK_WingDetailsMast_WingMaster]
 GO
 
 
-ALTER TABLE [PTIS].[WingDetailsMast]  WITH CHECK ADD  CONSTRAINT [FK_WingDetailsMast_ManagerMobileNoRemarkMaster] FOREIGN KEY([ManagerMobileNoRemarkId])	
+ALTER TABLE [PTIS].[WingDetailsMast]  WITH CHECK ADD  CONSTRAINT [FK_WingDetailsMast_ManagerMobileNoRemarkMaster] FOREIGN KEY([ManagerMobileNoRemarkId])
 REFERENCES [CORE].[CommonRemarkTypeMaster] ([Id])
 GO
 ALTER TABLE [PTIS].[WingDetailsMast] CHECK CONSTRAINT [FK_WingDetailsMast_ManagerMobileNoRemarkMaster]
@@ -1166,7 +1166,7 @@ CREATE TABLE PTIS.TaxMaster (
     REFERENCES PTIS.TaxCategoryMaster([Id]),
 	CONSTRAINT [FK_TaxMaster_TaxCalculationModeMaster] FOREIGN KEY ([CalculationModeId])
 	REFERENCES [PTIS].[TaxCalculationModeMaster] ([Id]),
-	CONSTRAINT [FK_TaxMaster_DynamicTaxRuleMaster] FOREIGN KEY ([RuleDefinitionId]) 
+	CONSTRAINT [FK_TaxMaster_DynamicTaxRuleMaster] FOREIGN KEY ([RuleDefinitionId])
 	REFERENCES [PTIS].[DynamicTaxRuleMaster] ([Id])
 );
 GO
@@ -1235,7 +1235,7 @@ CREATE TABLE [PTIS].[TaxHybridConfig] (
     [UpdatedBy]          INT           NULL,
     [UpdatedDate]        DATETIME      NULL,
     CONSTRAINT [PK_TaxHybridConfig] PRIMARY KEY CLUSTERED ([Id]),
-    CONSTRAINT [FK_TaxHybridConfig_TaxMaster] FOREIGN KEY ([TaxId]) 
+    CONSTRAINT [FK_TaxHybridConfig_TaxMaster] FOREIGN KEY ([TaxId])
 	REFERENCES [PTIS].[TaxMaster] ([Id]) ON DELETE NO ACTION
 );
 CREATE UNIQUE INDEX [UQ_TaxHybridConfig_TaxId]
@@ -2217,7 +2217,7 @@ CREATE TABLE [PTIS].[PropertySocialDetails](
     [DecimalValue] DECIMAL(18,2) NULL,
 	[TextValue] NVARCHAR(500) NULL,
 	[DateValue] DATE NULL,
-	[DocumentBindingId] INT  NULL,                 -- FK → CORE.DocumentBinding.Id (binding contains DocumentId) | e.g. 6601
+	[DocumentBindingId] INT  NULL,                 -- FK â†’ CORE.DocumentBinding.Id (binding contains DocumentId) | e.g. 6601
 	[Remark] NVARCHAR(500) NULL,
 
 	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_PropertySocialDetails_MarkedForDeletion] DEFAULT (0),
@@ -4238,11 +4238,11 @@ GO
 CREATE TABLE [PTIS].[PropertyPhoto](
     [Id]                    INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,  -- Surrogate PK | e.g. 5001
     [EntityType]            CHAR(1)           NOT NULL,                      -- S = Society, W = Wing, P = Property | e.g. 'P'
-    [SocietyDetailId]       INT               NULL,                          -- FK → PTIS.SocietyDetailsMast.Id, set when EntityType = 'S'
-    [WingDetailId]          INT               NULL,                          -- FK → PTIS.WingDetailsMast.Id, set when EntityType = 'W'
-    [PropertyId]            INT               NULL,                          -- FK → PTIS.PropertyMast.Id, set when EntityType = 'P' | e.g. 101
-    [PhotoTypeId]           INT               NOT NULL,                      -- FK → PropertyPhotoType.Id | e.g. 1 (FRONT)
-    [DocumentBindingId]     INT               NULL,                          -- FK → CORE.DocumentBinding.Id | e.g. 7701
+    [SocietyDetailId]       INT               NULL,                          -- FK â†’ PTIS.SocietyDetailsMast.Id, set when EntityType = 'S'
+    [WingDetailId]          INT               NULL,                          -- FK â†’ PTIS.WingDetailsMast.Id, set when EntityType = 'W'
+    [PropertyId]            INT               NULL,                          -- FK â†’ PTIS.PropertyMast.Id, set when EntityType = 'P' | e.g. 101
+    [PhotoTypeId]           INT               NOT NULL,                      -- FK â†’ PropertyPhotoType.Id | e.g. 1 (FRONT)
+    [DocumentBindingId]     INT               NULL,                          -- FK â†’ CORE.DocumentBinding.Id | e.g. 7701
     [IsLatest]              BIT               NOT NULL                       -- 1=current, 0=superseded | e.g. 1
         CONSTRAINT [DF_PropertyPhoto_IsLatest] DEFAULT (1),
     [DisplayOrder]          INT               NULL,                          -- Gallery sort within (PropertyId, PhotoTypeId) | e.g. 2

@@ -1,4 +1,4 @@
-/****** Object:  Table [TLIS].[FeesStructureMaster]******/
+﻿/****** Object:  Table [TLIS].[FeesStructureMaster]******/
 
 CREATE TABLE [TLIS].[FeesStructureMaster](
 	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,

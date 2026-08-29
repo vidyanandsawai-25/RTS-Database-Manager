@@ -1650,7 +1650,7 @@ GO
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'CORE' AND TABLE_NAME = 'SecurityAuditLog')
 BEGIN
     CREATE TABLE [CORE].[SecurityAuditLog]
-    (   
+    (
         [Id]            INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
         [EventType]     NVARCHAR(100) NOT NULL,
         [UserId]        INT NULL,
