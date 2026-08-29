@@ -1,4 +1,4 @@
-﻿/****** Object:  Table [TLIS].[FeesStructureMaster]******/
+/****** Object:  Table [TLIS].[FeesStructureMaster]******/
 
 CREATE TABLE [TLIS].[FeesStructureMaster](
 	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE [TLIS].[FeesStructureMaster](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_FeesStructureMaster_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
-	CONSTRAINT [PK_FeesStructureMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
+	CONSTRAINT [PK_FeesStructureMaster] PRIMARY KEY CLUSTERED ([Id] ASC) 
 )
 /****** Object:  Table TLIS].[LicenseSpanMaster]******/
 

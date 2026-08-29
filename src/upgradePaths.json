@@ -1,7 +1,5 @@
 {
   "upgrades": {
-    "1.0.0": { "enabled": true },
-    "1.1.0": { "enabled": true },
-    "1.1.1": { "enabled": true }
+    "1.0.0": { "enabled": true }
   }
 }

@@ -1,4 +1,4 @@
-﻿-- ============================================================================
+-- ============================================================================
 -- CORE Module - Protect Triggers
 -- ============================================================================
 
@@ -44,7 +44,7 @@ BEGIN
           (
                  i.[DepartmentCode] <> d.[DepartmentCode]
               OR i.[DepartmentName] <> d.[DepartmentName]
-
+                   
               OR i.[IsActive] <> d.[IsActive]
               OR i.[IsProtected] <> d.[IsProtected]
           )

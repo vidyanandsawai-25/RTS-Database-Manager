@@ -1,4 +1,4 @@
-﻿IF COL_LENGTH('PTIS.TypeOfUseGroupMaster', 'IsProtected') IS NULL
+IF COL_LENGTH('PTIS.TypeOfUseGroupMaster', 'IsProtected') IS NULL
 BEGIN
     ALTER TABLE [PTIS].[TypeOfUseGroupMaster]
     ADD [IsProtected] [bit] NOT NULL
@@ -872,5 +872,7 @@ BEGIN
     ADD CONSTRAINT [CK_RetrospectivePenaltyRule_PenaltyMode]
     CHECK ([PenaltyMode] IN ('NONE', 'ACT_PENALTY', 'DATE_VALIDATION'));
 END;
+
+GO
 
 GO
