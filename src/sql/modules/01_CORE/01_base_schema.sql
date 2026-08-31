@@ -290,7 +290,7 @@ CREATE TABLE [CORE].[UserRoleMaster](
     [UpdatedDate]   DATETIME NULL,
 
     CONSTRAINT [PK_UserRoleMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [UQ_UserRoleMaster_UserRoleName] UNIQUE ([UserRoleName]),
+    CONSTRAINT [UQ_UserRoleMaster_Department_UserRoleName] UNIQUE ([DepartmentId], [UserRoleName]),
     CONSTRAINT [FK_UserRoleMaster_DepartmentMaster]
         FOREIGN KEY ([DepartmentId]) REFERENCES [CORE].[DepartmentMaster] ([Id])
 );

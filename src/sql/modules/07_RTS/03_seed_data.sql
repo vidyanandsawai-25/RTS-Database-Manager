@@ -1,4 +1,4 @@
-﻿SET ANSI_NULLS ON
+SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
@@ -9,71 +9,82 @@ GO
    Guaranteed 100% Idempotent and Non-Destructive to Live Application Data
    ============================================================================ */
 
-DECLARE @RtsDepartmentId INT;
-DECLARE @RtsModuleId INT;
-DECLARE @AdminUserId INT;
-
-SELECT @AdminUserId = [Id] FROM [CORE].[UserMaster] WHERE [UserName] = N'ADMIN';
-IF @AdminUserId IS NULL SELECT @AdminUserId = 1;
-
-IF NOT EXISTS (SELECT 1 FROM [CORE].[DepartmentMaster] WHERE [DepartmentCode] = 'RTS')
-BEGIN
-    INSERT INTO [CORE].[DepartmentMaster] ([DepartmentCode], [DepartmentName], [DepartmentNameLocal], [DepartmentIcon], [DepartmentDescription], [IsActive], [CreatedBy], [CreatedDate])
-    VALUES ('RTS', 'RTS Department', N'à¤²à¥‹à¤•à¤¸à¥‡à¤µà¤¾ à¤¹à¤•à¥à¤•', 'Landmark', N'Maharashtra Right to Public Services', 1, @AdminUserId, GETDATE());
-END;
-
-SELECT @RtsDepartmentId = [Id] FROM [CORE].[DepartmentMaster] WHERE [DepartmentCode] = 'RTS';
-
-UPDATE [CORE].[DepartmentMaster]
-SET [DepartmentName] = 'RTS Department',
-    [DepartmentNameLocal] = N'à¤²à¥‹à¤•à¤¸à¥‡à¤µà¤¾ à¤¹à¤•à¥à¤•',
-    [DepartmentIcon] = 'Landmark',
-    [DepartmentDescription] = N'Maharashtra Right to Public Services',
-    [IsActive] = 1,
-    [UpdatedBy] = @AdminUserId,
-    [UpdatedDate] = GETDATE()
-WHERE [Id] = @RtsDepartmentId;
-
-IF NOT EXISTS (SELECT 1 FROM [CORE].[ModuleMaster] WHERE [ModuleCode] = N'RTS_M')
-BEGIN
-    INSERT INTO [CORE].[ModuleMaster] ([DepartmentId], [ModuleCode], [ModuleName], [ModuleNameLocal], [ModuleIcon], [ModuleLabel], [ModuleDescription], [IsActive], [CreatedBy], [CreatedDate])
-    VALUES (@RtsDepartmentId, N'RTS_M', N'Right to Service', N'à¤²à¥‹à¤•à¤¸à¥‡à¤µà¤¾ à¤¹à¤•à¥à¤•', N'Landmark', N'RTS', N'Right to Service administration module', 1, @AdminUserId, GETDATE());
-END;
-
-SELECT @RtsModuleId = [Id] FROM [CORE].[ModuleMaster] WHERE [ModuleCode] = N'RTS_M';
-
-UPDATE [CORE].[ModuleMaster]
-SET [DepartmentId] = @RtsDepartmentId,
-    [ModuleName] = N'Right to Service',
-    [ModuleNameLocal] = N'à¤²à¥‹à¤•à¤¸à¥‡à¤µà¤¾ à¤¹à¤•à¥à¤•',
-    [ModuleIcon] = N'Landmark',
-    [ModuleLabel] = N'RTS',
-    [ModuleDescription] = N'Right to Service administration module',
-    [IsActive] = 1,
-    [UpdatedBy] = @AdminUserId,
-    [UpdatedDate] = GETDATE()
-WHERE [Id] = @RtsModuleId;
-GO
 /* ----------------------------------------------------------------------------
-   Table: [CORE].[ScreenGroupMaster] (13 rows)
+   Table: [CORE].[DepartmentMaster] (1 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[DepartmentMaster] ON;
+GO
+MERGE INTO [CORE].[DepartmentMaster] AS target
+USING (VALUES
+    (5, N'RTS', N'RTS Department', N'लोकसेवा हक्क', N'Landmark', N'Maharashtra Right to Public Services', 0, 1, 1, '2026-07-17T12:47:46.777', 1002, '2026-08-28T13:47:16.937')
+) AS source ([Id], [DepartmentCode], [DepartmentName], [DepartmentNameLocal], [DepartmentIcon], [DepartmentDescription], [IsProtected], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[DepartmentCode] = source.[DepartmentCode],
+        target.[DepartmentName] = source.[DepartmentName],
+        target.[DepartmentNameLocal] = source.[DepartmentNameLocal],
+        target.[DepartmentIcon] = source.[DepartmentIcon],
+        target.[DepartmentDescription] = source.[DepartmentDescription],
+        target.[IsProtected] = ISNULL(source.[IsProtected], 0),
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [DepartmentCode], [DepartmentName], [DepartmentNameLocal], [DepartmentIcon], [DepartmentDescription], [IsProtected], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[DepartmentCode], source.[DepartmentName], source.[DepartmentNameLocal], source.[DepartmentIcon], source.[DepartmentDescription], ISNULL(source.[IsProtected], 0), ISNULL(source.[IsActive], 1), source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
+
+SET IDENTITY_INSERT [CORE].[DepartmentMaster] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[ModuleMaster] (1 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[ModuleMaster] ON;
+GO
+MERGE INTO [CORE].[ModuleMaster] AS target
+USING (VALUES
+    (1005, 5, N'RTS_M', N'Right to Service', N'लोकसेवा हक्क', N'Landmark', N'RTS', N'Right to Service administration module', 1, 1, '2026-07-17T12:47:46.783', 1002, '2026-08-28T13:47:16.953')
+) AS source ([Id], [DepartmentId], [ModuleCode], [ModuleName], [ModuleNameLocal], [ModuleIcon], [ModuleLabel], [ModuleDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[DepartmentId] = source.[DepartmentId],
+        target.[ModuleCode] = source.[ModuleCode],
+        target.[ModuleName] = source.[ModuleName],
+        target.[ModuleNameLocal] = source.[ModuleNameLocal],
+        target.[ModuleIcon] = source.[ModuleIcon],
+        target.[ModuleLabel] = source.[ModuleLabel],
+        target.[ModuleDescription] = source.[ModuleDescription],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [DepartmentId], [ModuleCode], [ModuleName], [ModuleNameLocal], [ModuleIcon], [ModuleLabel], [ModuleDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[DepartmentId], source.[ModuleCode], source.[ModuleName], source.[ModuleNameLocal], source.[ModuleIcon], source.[ModuleLabel], source.[ModuleDescription], ISNULL(source.[IsActive], 1), source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
+
+SET IDENTITY_INSERT [CORE].[ModuleMaster] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[ScreenGroupMaster] (6 rows)
    ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [CORE].[ScreenGroupMaster] ON;
 GO
 MERGE INTO [CORE].[ScreenGroupMaster] AS target
 USING (VALUES
-    (1, N'Masters', N'Masters', N'Masters', N'one', 1, N'False', NULL, '2026-01-09T11:06:52.080', NULL, '2026-05-07T16:26:08.887'),
-    (2, N'Configuration Setting', N'Configuration Setting', NULL, N'FolderTree', 1, N'False', NULL, '2026-03-25T12:38:09.827', NULL, '2026-04-06T14:37:29.003'),
-    (3, N'GRP_DASHBOARD', N'Dashboard', N'GRP', N'dashboard', 1, NULL, 1, '2026-05-05T19:50:22.753', NULL, NULL),
-    (1003, N'SG004_A', N'????????? ??????????', N'वापरकर्ता व्यवस्थापन', N'user-icon', 5, NULL, 1, '2026-05-06T15:43:16.677', 1, '2026-05-07T18:51:57.687'),
-    (1004, N'SG004_B', N'User Management', N'User_M', N'user-icon', 4, NULL, 1, '2026-05-06T16:07:02.837', NULL, NULL),
-    (1005, N'SG004_C', N'User Management', N'User_M', N'user-icon', 4, NULL, 1, '2026-05-06T16:10:02.513', NULL, NULL),
-    (1006, N'SG005', N'Reports', N'अहवाल', N'report-icon', 5, N'False', 1, '2026-05-06T17:40:53.643', NULL, '2026-05-07T16:54:29.060'),
-    (2003, N'RTS_DASHBOARD', N'RTS Dashboard', N'आरटीएस डॅशबोर्ड', N'LayoutDashboard', 70, NULL, 1, '2026-07-27T17:15:41.550', 1002, '2026-08-26T15:31:32.030'),
-    (2004, N'RTS_OPERATIONS', N'RTS Operations', N'आरटीएस कामकाज', N'Files', 71, NULL, 1, '2026-07-27T17:15:41.550', 1002, '2026-08-26T15:31:32.030'),
-    (2005, N'RTS_CONFIGURATION', N'System Configuration', N'प्रणाली संरचना', N'Settings', 3, NULL, 1, '2026-07-27T17:15:41.550', 1002, '2026-08-28T13:47:16.957'),
-    (3003, N'RTS_CITIZEN', N'Citizen Services', N'नागरिक सेवा', N'Users', 1, NULL, 1002, '2026-08-26T16:07:54.227', 1002, '2026-08-28T13:47:16.957'),
-    (3004, N'RTS_OFFICER', N'Officer Workplace', N'अधिकारी कार्यस्थळ', N'Briefcase', 2, NULL, 1002, '2026-08-26T16:07:54.227', 1002, '2026-08-28T13:47:16.957'),
-    (3005, N'RTS_REPORTS', N'Reports & Analytics', N'अहवाल व विश्लेषण', N'BarChart3', 4, NULL, 1002, '2026-08-26T16:07:54.227', 1002, '2026-08-28T13:47:16.957')
+    (2003, N'RTS_DASHBOARD', N'RTS Dashboard', N'आरटीएस डॅशबोर्ड', N'LayoutDashboard', 70, 1, 1, '2026-07-27T17:15:41.550', 1002, '2026-08-26T15:31:32.030'),
+    (2004, N'RTS_OPERATIONS', N'RTS Operations', N'आरटीएस कामकाज', N'Files', 71, 1, 1, '2026-07-27T17:15:41.550', 1002, '2026-08-26T15:31:32.030'),
+    (2005, N'RTS_CONFIGURATION', N'System Configuration', N'प्रणाली संरचना', N'Settings', 3, 1, 1, '2026-07-27T17:15:41.550', 1002, '2026-08-28T13:47:16.957'),
+    (3003, N'RTS_CITIZEN', N'Citizen Services', N'नागरिक सेवा', N'Users', 1, 1, 1002, '2026-08-26T16:07:54.227', 1002, '2026-08-28T13:47:16.957'),
+    (3004, N'RTS_OFFICER', N'Officer Workplace', N'अधिकारी कार्यस्थळ', N'Briefcase', 2, 1, 1002, '2026-08-26T16:07:54.227', 1002, '2026-08-28T13:47:16.957'),
+    (3005, N'RTS_REPORTS', N'Reports & Analytics', N'अहवाल व विश्लेषण', N'BarChart3', 4, 1, 1002, '2026-08-26T16:07:54.227', 1002, '2026-08-28T13:47:16.957')
 ) AS source ([Id], [ScreenGroupCode], [ScreenGroupName], [ScreenGroupNameLocal], [ScreenGroupIcon], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -82,72 +93,41 @@ WHEN MATCHED THEN
         target.[ScreenGroupName] = source.[ScreenGroupName],
         target.[ScreenGroupNameLocal] = source.[ScreenGroupNameLocal],
         target.[ScreenGroupIcon] = source.[ScreenGroupIcon],
-        target.[DisplayOrder] = source.[DisplayOrder],
-        target.[IsActive] = source.[IsActive],
+        target.[DisplayOrder] = ISNULL(source.[DisplayOrder], 0),
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
         target.[UpdatedBy] = source.[UpdatedBy],
         target.[UpdatedDate] = source.[UpdatedDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [ScreenGroupCode], [ScreenGroupName], [ScreenGroupNameLocal], [ScreenGroupIcon], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[Id], source.[ScreenGroupCode], source.[ScreenGroupName], source.[ScreenGroupNameLocal], source.[ScreenGroupIcon], source.[DisplayOrder], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+    VALUES (source.[Id], source.[ScreenGroupCode], source.[ScreenGroupName], source.[ScreenGroupNameLocal], source.[ScreenGroupIcon], source.[DisplayOrder], ISNULL(source.[IsActive], 1), source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
 GO
 
 SET IDENTITY_INSERT [CORE].[ScreenGroupMaster] OFF;
 GO
 
 /* ----------------------------------------------------------------------------
-   Table: [CORE].[ScreenMaster] (44 rows)
+   Table: [CORE].[ScreenMaster] (13 rows)
    ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [CORE].[ScreenMaster] ON;
 GO
 MERGE INTO [CORE].[ScreenMaster] AS target
 USING (VALUES
-    (1, 1, 1, N'M', N'Data Analytics', N'Data Analytics', NULL, N'proprtytax/departmentmaster', NULL, N'False', N'False', 1, NULL, NULL, '2026-01-09T11:08:13.743', NULL, '2026-04-06T15:24:22.910', 1),
-    (2, 2, 1, N'BM', N'Search Property', N'Search Property', NULL, N'/bank-master', NULL, N'False', N'False', 2, NULL, NULL, '2026-03-25T12:38:22.990', NULL, NULL, 1),
-    (3, 2, 1, N'SM', N'PTIS', N'PTIS', NULL, N'/screen-access', NULL, NULL, N'False', 3, NULL, NULL, '2026-03-25T12:38:22.990', NULL, NULL, 1),
-    (4, 2, 1, N'OM', N'Report Engine', N'Report Engine', NULL, N'/office-master', NULL, NULL, N'False', 4, NULL, NULL, '2026-03-25T12:38:22.990', NULL, NULL, 1),
-    (5, 2, 1, N'UC', N'GIS', N'GIS', NULL, N'/ulb-configuration', NULL, NULL, N'False', 5, NULL, NULL, '2026-03-25T12:38:22.990', NULL, NULL, 1),
-    (6, 2, 1, N'FY', N'Master', N'Master', NULL, N'/financial-year-master', NULL, NULL, N'False', 6, NULL, NULL, '2026-03-25T12:38:22.990', NULL, NULL, 1),
-    (7, 2, 1, N'PM', N'User Management', N'User Management', NULL, N'/payment-mode-master', NULL, NULL, N'False', 7, NULL, NULL, '2026-03-25T12:38:22.990', NULL, NULL, 1),
-    (8, 1, 1, N'TEST', N'test', N'test', N'Monitor', N'/test', NULL, NULL, N'False', 8, NULL, NULL, '2026-04-06T14:38:12.743', 2, '2026-05-05T19:33:13.623', 1),
-    (1008, 2, 1001, N'SRC101', N'Screen Name 101', N'Screen Name 101', N'Monitor', N'/scr-101', NULL, NULL, N'False', 9, NULL, NULL, '2026-04-09T16:03:50.443', NULL, NULL, 1),
-    (1009, 1, 1, N'TEST1', N'test1', N'test1', N'Monitor', N'/tst1', NULL, NULL, N'False', 10, NULL, NULL, '2026-04-09T19:03:11.097', NULL, NULL, 1),
-    (1010, 2, 1004, N'SRC103', N'Screen Name 103', N'Screen Name 103', N'Monitor', N'/scr-103', NULL, NULL, N'False', 11, NULL, NULL, '2026-04-09T16:03:50.443', NULL, NULL, 1),
-    (1011, 1, 1, N'CT_01', N'Construction Type', N'बांधकाम प्रकार', NULL, N'/construction-type', NULL, NULL, N'False', 1, NULL, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
-    (1012, 1, 1, N'FM_01', N'Floor Master', N'मजला मास्टर', NULL, N'/floor-master/floor', NULL, NULL, N'False', 2, NULL, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
-    (1013, 1, 1, N'DM_01', N'Depreciation Master', N'घसारा मास्टर', NULL, N'/depreciationmaster', NULL, NULL, N'False', 3, N'False', NULL, '2026-04-28T15:46:49.360', NULL, '2026-05-08T16:24:38.507', 1),
-    (1014, 1, 1, N'TU_01', N'Type of Use Master', N'वापर प्रकार मास्टर', NULL, N'/typeofusemaster', NULL, NULL, N'False', 4, NULL, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
-    (1015, 1, 1, N'TZ_01', N'Tax Zone', N'कर क्षेत्र', NULL, N'/taxzone', NULL, NULL, N'False', 5, NULL, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
-    (1016, 1, 1, N'RS_01', N'Rate Section Master', N'दर विभाग मास्टर', NULL, N'/rate-section-master', NULL, NULL, N'False', 6, NULL, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
-    (1017, 1, 1, N'ZM_01_A', N'Zone Master', N'झोन मास्टर', NULL, N'/zone-master', NULL, NULL, N'False', 7, NULL, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
-    (1018, 1, 1, N'RM_01', N'Rate Master (RV)', N'दर मास्टर (RV)', NULL, N'/rate-master/rvratemaster', NULL, NULL, N'False', 8, NULL, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
-    (1019, 1, 1, N'RP_01', N'Retention Policy (Year)', N'रिटेन्शन पॉलिसी (वर्ष)', NULL, N'/retentionpolicy/yearwise', NULL, NULL, N'False', 9, NULL, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
-    (1020, 1, 1, N'RP_02', N'Retention Policy (Factor)', N'रिटेन्शन पॉलिसी (फॅक्टर)', NULL, N'/retentionpolicy/factorwise', NULL, NULL, N'False', 10, NULL, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
-    (1021, 1, 1, N'WM_01', N'Weightage Master', N'वेटेज मास्टर', NULL, N'/weightage-master', NULL, NULL, N'False', 11, NULL, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
-    (1022, 1, 1, N'TN_01', N'Tax Zoning', N'कर झोनिंग', NULL, N'/taxzoning', NULL, NULL, N'False', 12, NULL, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
-    (1023, 1, 1, N'AY_01', N'Assessment Year Range', N'मूल्यांकन वर्ष श्रेणी', NULL, N'/assessment-year-range/capitalvalue', NULL, NULL, N'False', 13, NULL, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
-    (1024, 1, 1, N'MJ_01', N'Mouja Master', N'मौजा मास्टर', NULL, N'/moujamaster', NULL, NULL, N'False', 14, NULL, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
-    (1025, 1, 1, N'PY_01', N'Property Type', N'मालमत्ता प्रकार', NULL, N'/propertytype', NULL, NULL, N'False', 15, NULL, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
-    (2011, 1, 1, N'ZM_01_B', N'Zone Master', N'झोन मास्टर', NULL, N'/zone-master', NULL, NULL, N'False', 7, NULL, 1, '2026-05-05T16:10:46.620', NULL, NULL, 1),
-    (2012, 2, 1, N'T1', N'TestTest', N'TestTest', N'Monitor', N'/testtest', N'False', NULL, N'False', 0, NULL, 2, '2026-05-05T19:26:47.937', NULL, NULL, 1),
-    (3011, 1, 1, N'SCR_DASHBOARD', N'Dashboard', N'मुख्यपृष्ठ', N'dashboard-icon', N'/dashboard', NULL, NULL, N'False', 1, NULL, 1, '2026-05-08T11:22:48.963', NULL, NULL, 1),
-    (3012, 2, 1, N'AMC_A', N'???????????? ????????', N'म.न.पा. मुख्यपृष्ठ', N'AMC-icon', N'/amc', NULL, NULL, N'False', 1, NULL, 1, '2026-05-08T12:57:11.273', NULL, NULL, 1),
-    (3013, 2, 1, N'AMC_B', N'????_????-????????', N'म.न_पा', N'AMC-icon', N'/amc', NULL, N'False', N'False', 1, NULL, 2, '2026-05-08T13:21:56.270', NULL, NULL, 1),
-    (4016, 2003, 1005, N'RTS_MIS', N'RTS MIS Dashboard', N'आरटीएस एमआयएस डॅशबोर्ड', N'LayoutDashboard', N'/rts/dashboard/rts-mis', NULL, NULL, N'False', 1, NULL, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030', 5),
-    (4017, 2004, 1005, N'RTS_APP', N'RTS Applications', N'आरटीएस अर्ज', N'Files', N'/rts/dashboard/rts-applications', NULL, NULL, N'False', 1, NULL, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030', 5),
-    (4018, 2005, 1005, N'RTS_DEPT', N'RTS Departments', N'आरटीएस विभाग', N'Building2', N'/rts/configuration-settings/rts-departments', NULL, NULL, N'False', 1, NULL, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030', 5),
-    (4019, 2005, 1005, N'RTS_SERVICES', N'RTS Services', N'आरटीएस सेवा', N'Activity', N'/rts/configuration-settings/rts-services', NULL, NULL, N'False', 2, NULL, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030', 5),
-    (4020, 2005, 1005, N'RTS_FIELDS', N'RTS Fields', N'आरटीएस फील्ड्स', N'Sliders', N'/rts/configuration-settings/rts-fields', NULL, NULL, N'False', 3, NULL, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030', 5),
-    (4021, 2005, 1005, N'RTS_APPROVAL_FLOW', N'Approval Flow Master', N'मंजुरी प्रवाह मास्टर', N'GitMerge', N'/rts/configuration-settings/rts-workflows', NULL, NULL, N'False', 4, NULL, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030', 5),
-    (4022, 2005, 1005, N'RTS_USERS', N'RTS User Management', N'आरटीएस वापरकर्ता व्यवस्थापन', N'Users', N'/rts/users', NULL, NULL, N'False', 6, NULL, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030', 5),
-    (5014, 2005, 1005, N'RTS_CERTIFICATES', N'Certificate Master', N'प्रमाणपत्र संरचना', N'Award', N'/rts/configuration-settings/rts-certificates', NULL, NULL, N'False', 5, NULL, 1002, '2026-08-26T14:56:19.947', 1002, '2026-08-26T15:31:32.030', 5),
-    (5015, 3003, 1005, N'RTS_SERVICES_PORTAL', N'Service Catalog', N'सेवा सूची', N'LayoutGrid', N'/rts/services', NULL, N'False', N'False', 1, NULL, 1002, '2026-08-26T16:07:54.230', NULL, NULL, 5),
-    (5016, 3003, 1005, N'RTS_TRACK_STATUS', N'Track Application', N'अर्जाची स्थिती ट्रॅक करा', N'Search', N'/rts/track', NULL, N'False', N'False', 2, NULL, 1002, '2026-08-26T16:07:54.230', NULL, NULL, 5),
-    (5017, 3004, 1005, N'RTS_OFFICER_DASHBOARD', N'Officer Dashboard', N'अधिकारी डॅशबोर्ड', N'LayoutDashboard', N'/rts/officer-dashboard', NULL, N'False', N'False', 1, NULL, 1002, '2026-08-26T16:07:54.230', NULL, NULL, 5),
-    (5018, 3004, 1005, N'RTS_APPEAL_DASHBOARD', N'Appeals Management', N'अपील व्यवस्थापन', N'Gavel', N'/rts/appeals', NULL, N'False', N'False', 2, NULL, 1002, '2026-08-26T16:07:54.230', NULL, NULL, 5),
-    (5019, 2005, 1005, N'RTS_DEPARTMENTS', N'Department Master', N'विभाग व्यवस्थापन', N'Building2', N'/rts/configuration-settings/rts-departments', NULL, N'False', N'False', 1, NULL, 1002, '2026-08-26T16:07:54.230', NULL, NULL, 5)
-) AS source ([Id], [ScreenGroupId], [ModuleId], [ScreenCode], [ScreenName], [ScreenNameLocal], [ScreenIcon], [RoutePath], [IsMenu], [IsAuthenticationRequired], [IsPropertyLockable], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DepartmentId])
+    (4016, 2003, 1005, N'RTS_MIS', N'RTS MIS Dashboard', N'आरटीएस एमआयएस डॅशबोर्ड', N'LayoutDashboard', N'/rts/dashboard/rts-mis', 1, 1, 0, 1, 1, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030'),
+    (4017, 2004, 1005, N'RTS_APP', N'RTS Applications', N'आरटीएस अर्ज', N'Files', N'/rts/dashboard/rts-applications', 1, 1, 0, 1, 1, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030'),
+    (4018, 2005, 1005, N'RTS_DEPT', N'RTS Departments', N'आरटीएस विभाग', N'Building2', N'/rts/configuration-settings/rts-departments', 1, 1, 0, 1, 1, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030'),
+    (4019, 2005, 1005, N'RTS_SERVICES', N'RTS Services', N'आरटीएस सेवा', N'Activity', N'/rts/configuration-settings/rts-services', 1, 1, 0, 2, 1, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030'),
+    (4020, 2005, 1005, N'RTS_FIELDS', N'RTS Fields', N'आरटीएस फील्ड्स', N'Sliders', N'/rts/configuration-settings/rts-fields', 1, 1, 0, 3, 1, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030'),
+    (4021, 2005, 1005, N'RTS_APPROVAL_FLOW', N'Approval Flow Master', N'मंजुरी प्रवाह मास्टर', N'GitMerge', N'/rts/configuration-settings/rts-workflows', 1, 1, 0, 4, 1, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030'),
+    (4022, 2005, 1005, N'RTS_USERS', N'RTS User Management', N'आरटीएस वापरकर्ता व्यवस्थापन', N'Users', N'/rts/users', 1, 1, 0, 6, 1, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030'),
+    (5014, 2005, 1005, N'RTS_CERTIFICATES', N'Certificate Master', N'प्रमाणपत्र संरचना', N'Award', N'/rts/configuration-settings/rts-certificates', 1, 1, 0, 5, 1, 1002, '2026-08-26T14:56:19.947', 1002, '2026-08-26T15:31:32.030'),
+    (5015, 3003, 1005, N'RTS_SERVICES_PORTAL', N'Service Catalog', N'सेवा सूची', N'LayoutGrid', N'/rts/services', 1, 0, 0, 1, 1, 1002, '2026-08-26T16:07:54.230', NULL, NULL),
+    (5016, 3003, 1005, N'RTS_TRACK_STATUS', N'Track Application', N'अर्जाची स्थिती ट्रॅक करा', N'Search', N'/rts/track', 1, 0, 0, 2, 1, 1002, '2026-08-26T16:07:54.230', NULL, NULL),
+    (5017, 3004, 1005, N'RTS_OFFICER_DASHBOARD', N'Officer Dashboard', N'अधिकारी डॅशबोर्ड', N'LayoutDashboard', N'/rts/officer-dashboard', 1, 0, 0, 1, 1, 1002, '2026-08-26T16:07:54.230', NULL, NULL),
+    (5018, 3004, 1005, N'RTS_APPEAL_DASHBOARD', N'Appeals Management', N'अपील व्यवस्थापन', N'Gavel', N'/rts/appeals', 1, 0, 0, 2, 1, 1002, '2026-08-26T16:07:54.230', NULL, NULL),
+    (5019, 2005, 1005, N'RTS_DEPARTMENTS', N'Department Master', N'विभाग व्यवस्थापन', N'Building2', N'/rts/configuration-settings/rts-departments', 1, 0, 0, 1, 1, 1002, '2026-08-26T16:07:54.230', NULL, NULL)
+) AS source ([Id], [ScreenGroupId], [ModuleId], [ScreenCode], [ScreenName], [ScreenNameLocal], [ScreenIcon], [RoutePath], [IsMenu], [IsAuthenticationRequired], [IsPropertyLockable], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
     UPDATE SET
@@ -161,68 +141,80 @@ WHEN MATCHED THEN
         target.[IsMenu] = source.[IsMenu],
         target.[IsAuthenticationRequired] = source.[IsAuthenticationRequired],
         target.[IsPropertyLockable] = source.[IsPropertyLockable],
-        target.[DisplayOrder] = source.[DisplayOrder],
-        target.[IsActive] = source.[IsActive],
+        target.[DisplayOrder] = ISNULL(source.[DisplayOrder], 0),
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
         target.[UpdatedBy] = source.[UpdatedBy],
-        target.[UpdatedDate] = source.[UpdatedDate],
-        target.[DepartmentId] = source.[DepartmentId]
+        target.[UpdatedDate] = source.[UpdatedDate]
 WHEN NOT MATCHED BY TARGET THEN
-    INSERT ([Id], [ScreenGroupId], [ModuleId], [ScreenCode], [ScreenName], [ScreenNameLocal], [ScreenIcon], [RoutePath], [IsMenu], [IsAuthenticationRequired], [IsPropertyLockable], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DepartmentId])
-    VALUES (source.[Id], source.[ScreenGroupId], source.[ModuleId], source.[ScreenCode], source.[ScreenName], source.[ScreenNameLocal], source.[ScreenIcon], source.[RoutePath], source.[IsMenu], source.[IsAuthenticationRequired], source.[IsPropertyLockable], source.[DisplayOrder], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], source.[DepartmentId]);
+    INSERT ([Id], [ScreenGroupId], [ModuleId], [ScreenCode], [ScreenName], [ScreenNameLocal], [ScreenIcon], [RoutePath], [IsMenu], [IsAuthenticationRequired], [IsPropertyLockable], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[ScreenGroupId], source.[ModuleId], source.[ScreenCode], source.[ScreenName], source.[ScreenNameLocal], source.[ScreenIcon], source.[RoutePath], source.[IsMenu], source.[IsAuthenticationRequired], source.[IsPropertyLockable], source.[DisplayOrder], ISNULL(source.[IsActive], 1), source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
 GO
 
 SET IDENTITY_INSERT [CORE].[ScreenMaster] OFF;
 GO
 
 /* ----------------------------------------------------------------------------
-   Table: [CORE].[RoleWiseScreenAccessMaster] (21 rows)
+   Table: [CORE].[UserRoleMaster] (1 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[UserRoleMaster] ON;
+GO
+MERGE INTO [CORE].[UserRoleMaster] AS target
+USING (VALUES
+    (2, N'Admin', 5, 1, 1, '2026-07-27T17:15:41.577', NULL, NULL)
+) AS source ([Id], [UserRoleName], [DepartmentId], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[UserRoleName] = source.[UserRoleName],
+        target.[DepartmentId] = source.[DepartmentId],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [UserRoleName], [DepartmentId], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[UserRoleName], source.[DepartmentId], ISNULL(source.[IsActive], 1), source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
+SET IDENTITY_INSERT [CORE].[UserRoleMaster] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[RoleWiseScreenAccessMaster] (8 rows)
    ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [CORE].[RoleWiseScreenAccessMaster] ON;
 GO
 MERGE INTO [CORE].[RoleWiseScreenAccessMaster] AS target
 USING (VALUES
-    (1, 1, 1, NULL, N'False', N'False', N'False', N'False', NULL, NULL, '2026-07-15T16:26:53.540', 2, '2026-05-05T17:13:17.827'),
-    (2, 1, 2, NULL, N'False', N'False', N'False', N'False', NULL, NULL, '2026-07-15T16:26:53.540', 2, '2026-04-23T16:23:59.647'),
-    (3, 1, 3, NULL, NULL, N'False', N'False', N'False', NULL, NULL, '2026-07-15T16:26:53.540', 2, '2026-04-23T16:24:04.193'),
-    (4, 1, 4, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-07-15T16:26:53.540', NULL, NULL),
-    (5, 1, 5, NULL, NULL, N'False', N'False', N'False', NULL, NULL, '2026-07-15T16:26:53.540', 2, '2026-04-23T16:23:59.647'),
-    (6, 1, 6, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-07-15T16:26:53.540', NULL, NULL),
-    (7, 1, 7, NULL, N'False', N'False', N'False', N'False', NULL, NULL, '2026-07-15T16:26:53.540', 2, '2026-04-23T16:23:59.647'),
-    (8, 1, 8, NULL, N'False', N'False', N'False', N'False', NULL, 2, '2026-04-23T16:24:04.243', NULL, NULL),
-    (9, 1, 1010, NULL, NULL, NULL, N'False', N'False', NULL, 2, '2026-04-23T16:24:04.243', 2, '2026-05-05T17:13:17.827'),
-    (10, 1, 1008, NULL, N'False', N'False', N'False', N'False', NULL, 2, '2026-04-23T16:24:04.243', NULL, NULL),
-    (11, 1, 1009, NULL, NULL, N'False', N'False', N'False', NULL, 2, '2026-04-23T16:24:04.243', NULL, NULL),
-    (1008, 1, 1012, NULL, N'False', N'False', N'False', N'False', NULL, 3, '2026-05-05T11:45:44.033', NULL, NULL),
-    (1009, 1, 2012, NULL, NULL, N'False', N'False', N'False', NULL, 2, '2026-05-05T19:32:49.543', NULL, NULL),
-    (3010, 2, 4016, NULL, NULL, NULL, NULL, N'False', NULL, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
-    (3011, 2, 4017, NULL, NULL, NULL, NULL, N'False', NULL, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
-    (3012, 2, 4018, NULL, NULL, NULL, NULL, N'False', NULL, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
-    (3013, 2, 4019, NULL, NULL, NULL, NULL, N'False', NULL, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
-    (3014, 2, 4020, NULL, NULL, NULL, NULL, N'False', NULL, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
-    (3015, 2, 4021, NULL, NULL, NULL, NULL, N'False', NULL, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
-    (3016, 2, 4022, NULL, NULL, NULL, NULL, N'False', NULL, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
-    (4008, 2, 5014, NULL, NULL, NULL, NULL, N'False', NULL, 1002, '2026-08-26T14:56:19.960', 1002, '2026-08-26T15:31:32.030')
+    (3010, 2, 4016, 1, 1, 1, 1, 0, 1, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
+    (3011, 2, 4017, 1, 1, 1, 1, 0, 1, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
+    (3012, 2, 4018, 1, 1, 1, 1, 0, 1, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
+    (3013, 2, 4019, 1, 1, 1, 1, 0, 1, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
+    (3014, 2, 4020, 1, 1, 1, 1, 0, 1, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
+    (3015, 2, 4021, 1, 1, 1, 1, 0, 1, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
+    (3016, 2, 4022, 1, 1, 1, 1, 0, 1, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
+    (4008, 2, 5014, 1, 1, 1, 1, 0, 1, 1002, '2026-08-26T14:56:19.960', 1002, '2026-08-26T15:31:32.030')
 ) AS source ([Id], [UserRoleId], [ScreenId], [CanView], [CanEdit], [CanDelete], [HaveFullAccess], [HaveNoAccess], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
     UPDATE SET
         target.[UserRoleId] = source.[UserRoleId],
         target.[ScreenId] = source.[ScreenId],
-        target.[CanView] = source.[CanView],
-        target.[CanEdit] = source.[CanEdit],
-        target.[CanDelete] = source.[CanDelete],
-        target.[HaveFullAccess] = source.[HaveFullAccess],
-        target.[HaveNoAccess] = source.[HaveNoAccess],
-        target.[IsActive] = source.[IsActive],
+        target.[CanView] = ISNULL(source.[CanView], 1),
+        target.[CanEdit] = ISNULL(source.[CanEdit], 1),
+        target.[CanDelete] = ISNULL(source.[CanDelete], 1),
+        target.[HaveFullAccess] = ISNULL(source.[HaveFullAccess], 1),
+        target.[HaveNoAccess] = ISNULL(source.[HaveNoAccess], 0),
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
         target.[UpdatedBy] = source.[UpdatedBy],
         target.[UpdatedDate] = source.[UpdatedDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [UserRoleId], [ScreenId], [CanView], [CanEdit], [CanDelete], [HaveFullAccess], [HaveNoAccess], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[Id], source.[UserRoleId], source.[ScreenId], source.[CanView], source.[CanEdit], source.[CanDelete], source.[HaveFullAccess], source.[HaveNoAccess], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+    VALUES (source.[Id], source.[UserRoleId], source.[ScreenId], ISNULL(source.[CanView], 1), ISNULL(source.[CanEdit], 1), ISNULL(source.[CanDelete], 1), ISNULL(source.[HaveFullAccess], 1), ISNULL(source.[HaveNoAccess], 0), ISNULL(source.[IsActive], 1), source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
 GO
 
 SET IDENTITY_INSERT [CORE].[RoleWiseScreenAccessMaster] OFF;
@@ -241,12 +233,12 @@ ON (target.[SMSGatewayMasterID] = source.[SMSGatewayMasterID])
 WHEN MATCHED THEN
     UPDATE SET
         target.[ProviderName] = source.[ProviderName],
-        target.[IsActive] = source.[IsActive],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([SMSGatewayMasterID], [ProviderName], [IsActive], [CreatedBy], [CreatedDate])
-    VALUES (source.[SMSGatewayMasterID], source.[ProviderName], source.[IsActive], source.[CreatedBy], source.[CreatedDate]);
+    VALUES (source.[SMSGatewayMasterID], source.[ProviderName], ISNULL(source.[IsActive], 1), source.[CreatedBy], source.[CreatedDate]);
 GO
 
 SET IDENTITY_INSERT [CORE].[SMSGatewayMaster] OFF;
@@ -259,17 +251,17 @@ SET IDENTITY_INSERT [CORE].[SmsGatewayDetails] ON;
 GO
 MERGE INTO [CORE].[SmsGatewayDetails] AS target
 USING (VALUES
-    (1, 1, N'BaseURL', N'http://sms.ptaxcollection.com/sendsms.jsp', 1, NULL, N'False', N'False', N'False', N'False', NULL, 1, '2026-08-17T16:57:18.420'),
-    (2, 1, N'user', N'payakl', 2, N'False', N'False', N'False', N'False', N'False', NULL, 1, '2026-08-17T16:57:18.420'),
-    (3, 1, N'password', N'fb05b4a701XX', 3, N'False', N'False', N'False', N'False', N'False', NULL, 1, '2026-08-17T16:57:18.420'),
-    (4, 1, N'senderid', N'AKOLMC', 4, N'False', N'False', N'False', N'False', N'False', NULL, 1, '2026-08-17T16:57:18.420'),
-    (5, 1, N'mobiles', NULL, 5, N'False', N'False', NULL, N'False', N'False', NULL, 1, '2026-08-17T16:57:18.420'),
-    (6, 1, N'sms', NULL, 6, N'False', NULL, N'False', N'False', N'False', NULL, 1, '2026-08-17T16:57:18.420'),
-    (7, 1, N'tempid', NULL, 7, N'False', N'False', N'False', NULL, N'False', NULL, 1, '2026-08-17T16:57:18.420'),
-    (8, 1, N'unicode', N'0', 8, N'False', N'False', N'False', N'False', NULL, NULL, 1, '2026-08-17T16:57:18.420'),
-    (9, 1, N'accusage', N'1', 8, N'False', N'False', N'False', N'False', N'False', NULL, 1, '2026-08-20T14:25:08.470'),
-    (10, 1, N'entityid', N'1701161970302682421', 9, N'False', N'False', N'False', N'False', N'False', NULL, 1, '2026-08-20T14:25:08.470'),
-    (11, 1, N'responsein', N'json', 10, N'False', N'False', N'False', N'False', N'False', NULL, 1, '2026-08-20T14:25:08.470')
+    (1, 1, N'BaseURL', N'http://sms.ptaxcollection.com/sendsms.jsp', 1, 1, 0, 0, 0, 0, 1, 1, '2026-08-17T16:57:18.420'),
+    (2, 1, N'user', N'payakl', 2, 0, 0, 0, 0, 0, 1, 1, '2026-08-17T16:57:18.420'),
+    (3, 1, N'password', N'fb05b4a701XX', 3, 0, 0, 0, 0, 0, 1, 1, '2026-08-17T16:57:18.420'),
+    (4, 1, N'senderid', N'AKOLMC', 4, 0, 0, 0, 0, 0, 1, 1, '2026-08-17T16:57:18.420'),
+    (5, 1, N'mobiles', N'', 5, 0, 0, 1, 0, 0, 1, 1, '2026-08-17T16:57:18.420'),
+    (6, 1, N'sms', N'', 6, 0, 1, 0, 0, 0, 1, 1, '2026-08-17T16:57:18.420'),
+    (7, 1, N'tempid', N'', 7, 0, 0, 0, 1, 0, 1, 1, '2026-08-17T16:57:18.420'),
+    (8, 1, N'unicode', N'0', 8, 0, 0, 0, 0, 1, 1, 1, '2026-08-17T16:57:18.420'),
+    (9, 1, N'accusage', N'1', 8, 0, 0, 0, 0, 0, 1, 1, '2026-08-20T14:25:08.470'),
+    (10, 1, N'entityid', N'1701161970302682421', 9, 0, 0, 0, 0, 0, 1, 1, '2026-08-20T14:25:08.470'),
+    (11, 1, N'responsein', N'json', 10, 0, 0, 0, 0, 0, 1, 1, '2026-08-20T14:25:08.470')
 ) AS source ([SMSGatewayDetailsID], [SMSGatewayMasterID], [PropertyName], [Value], [SequenceNo], [IsURL], [IsMessage], [IsMobile], [IsTemplateID], [IsUnicode], [IsActive], [CreatedBy], [CreatedDate])
 ON (target.[SMSGatewayDetailsID] = source.[SMSGatewayDetailsID])
 WHEN MATCHED THEN
@@ -278,17 +270,17 @@ WHEN MATCHED THEN
         target.[PropertyName] = source.[PropertyName],
         target.[Value] = source.[Value],
         target.[SequenceNo] = source.[SequenceNo],
-        target.[IsURL] = source.[IsURL],
-        target.[IsMessage] = source.[IsMessage],
-        target.[IsMobile] = source.[IsMobile],
-        target.[IsTemplateID] = source.[IsTemplateID],
-        target.[IsUnicode] = source.[IsUnicode],
-        target.[IsActive] = source.[IsActive],
+        target.[IsURL] = ISNULL(source.[IsURL], 0),
+        target.[IsMessage] = ISNULL(source.[IsMessage], 0),
+        target.[IsMobile] = ISNULL(source.[IsMobile], 0),
+        target.[IsTemplateID] = ISNULL(source.[IsTemplateID], 0),
+        target.[IsUnicode] = ISNULL(source.[IsUnicode], 0),
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([SMSGatewayDetailsID], [SMSGatewayMasterID], [PropertyName], [Value], [SequenceNo], [IsURL], [IsMessage], [IsMobile], [IsTemplateID], [IsUnicode], [IsActive], [CreatedBy], [CreatedDate])
-    VALUES (source.[SMSGatewayDetailsID], source.[SMSGatewayMasterID], source.[PropertyName], source.[Value], source.[SequenceNo], source.[IsURL], source.[IsMessage], source.[IsMobile], source.[IsTemplateID], source.[IsUnicode], source.[IsActive], source.[CreatedBy], source.[CreatedDate]);
+    VALUES (source.[SMSGatewayDetailsID], source.[SMSGatewayMasterID], source.[PropertyName], source.[Value], source.[SequenceNo], ISNULL(source.[IsURL], 0), ISNULL(source.[IsMessage], 0), ISNULL(source.[IsMobile], 0), ISNULL(source.[IsTemplateID], 0), ISNULL(source.[IsUnicode], 0), ISNULL(source.[IsActive], 1), source.[CreatedBy], source.[CreatedDate]);
 GO
 
 SET IDENTITY_INSERT [CORE].[SmsGatewayDetails] OFF;
@@ -315,10 +307,10 @@ WHEN MATCHED THEN
     UPDATE SET
         target.[TypeName] = source.[TypeName],
         target.[Description] = source.[Description],
-        target.[IsActive] = source.[IsActive]
+        target.[IsActive] = ISNULL(source.[IsActive], 1)
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([SMSTypeID], [TypeName], [Description], [IsActive])
-    VALUES (source.[SMSTypeID], source.[TypeName], source.[Description], source.[IsActive]);
+    VALUES (source.[SMSTypeID], source.[TypeName], source.[Description], ISNULL(source.[IsActive], 1));
 GO
 
 SET IDENTITY_INSERT [CORE].[SMSType] OFF;
@@ -351,14 +343,14 @@ WHEN MATCHED THEN
         target.[TemplateName] = source.[TemplateName],
         target.[TemplateID] = source.[TemplateID],
         target.[SmsText] = source.[SmsText],
-        target.[IsActive] = source.[IsActive],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
         target.[UpdatedBy] = source.[UpdatedBy],
         target.[UpdatedDate] = source.[UpdatedDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([SmsID], [SMSGatewayMasterID], [SMSTypeID], [TemplateName], [TemplateID], [SmsText], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[SmsID], source.[SMSGatewayMasterID], source.[SMSTypeID], source.[TemplateName], source.[TemplateID], source.[SmsText], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+    VALUES (source.[SmsID], source.[SMSGatewayMasterID], source.[SMSTypeID], source.[TemplateName], source.[TemplateID], source.[SmsText], ISNULL(source.[IsActive], 1), source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
 GO
 
 SET IDENTITY_INSERT [CORE].[SMSMaster] OFF;
@@ -387,14 +379,14 @@ WHEN MATCHED THEN
         target.[ModeNameEn] = source.[ModeNameEn],
         target.[ModeNameMr] = source.[ModeNameMr],
         target.[IconName] = source.[IconName],
-        target.[IsActive] = source.[IsActive],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
         target.[CreatedDate] = source.[CreatedDate],
         target.[CreatedBy] = source.[CreatedBy],
         target.[UpdatedBy] = source.[UpdatedBy],
         target.[UpdatedDate] = source.[UpdatedDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [ModeCode], [ModeNameEn], [ModeNameMr], [IconName], [IsActive], [CreatedDate], [CreatedBy], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[Id], source.[ModeCode], source.[ModeNameEn], source.[ModeNameMr], source.[IconName], source.[IsActive], source.[CreatedDate], source.[CreatedBy], source.[UpdatedBy], source.[UpdatedDate]);
+    VALUES (source.[Id], source.[ModeCode], source.[ModeNameEn], source.[ModeNameMr], source.[IconName], ISNULL(source.[IsActive], 1), source.[CreatedDate], source.[CreatedBy], source.[UpdatedBy], source.[UpdatedDate]);
 GO
 
 SET IDENTITY_INSERT [RTS].[PaymentModeMaster] OFF;
@@ -421,15 +413,15 @@ WHEN MATCHED THEN
         target.[StatusNameEn] = source.[StatusNameEn],
         target.[StatusNameMr] = source.[StatusNameMr],
         target.[BadgeColor] = source.[BadgeColor],
-        target.[DisplayOrder] = source.[DisplayOrder],
-        target.[IsActive] = source.[IsActive],
+        target.[DisplayOrder] = ISNULL(source.[DisplayOrder], 0),
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
         target.[CreatedDate] = source.[CreatedDate],
         target.[CreatedBy] = source.[CreatedBy],
         target.[UpdatedBy] = source.[UpdatedBy],
         target.[UpdatedDate] = source.[UpdatedDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [StatusCode], [StatusNameEn], [StatusNameMr], [BadgeColor], [DisplayOrder], [IsActive], [CreatedDate], [CreatedBy], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[Id], source.[StatusCode], source.[StatusNameEn], source.[StatusNameMr], source.[BadgeColor], source.[DisplayOrder], source.[IsActive], source.[CreatedDate], source.[CreatedBy], source.[UpdatedBy], source.[UpdatedDate]);
+    VALUES (source.[Id], source.[StatusCode], source.[StatusNameEn], source.[StatusNameMr], source.[BadgeColor], source.[DisplayOrder], ISNULL(source.[IsActive], 1), source.[CreatedDate], source.[CreatedBy], source.[UpdatedBy], source.[UpdatedDate]);
 GO
 
 SET IDENTITY_INSERT [RTS].[PaymentStatusMaster] OFF;
@@ -455,15 +447,15 @@ WHEN MATCHED THEN
         target.[WebhookSecret] = source.[WebhookSecret],
         target.[ServiceUrl] = source.[ServiceUrl],
         target.[Currency] = source.[Currency],
-        target.[IsActive] = source.[IsActive],
-        target.[IsDefault] = source.[IsDefault],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
+        target.[IsDefault] = ISNULL(source.[IsDefault], 1),
         target.[CreatedDate] = source.[CreatedDate],
         target.[CreatedBy] = source.[CreatedBy],
         target.[UpdatedDate] = source.[UpdatedDate],
         target.[UpdatedBy] = source.[UpdatedBy]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [GatewayCode], [GatewayName], [MerchantId], [KeyId], [SecretKey], [WebhookSecret], [ServiceUrl], [Currency], [IsActive], [IsDefault], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy])
-    VALUES (source.[Id], source.[GatewayCode], source.[GatewayName], source.[MerchantId], source.[KeyId], source.[SecretKey], source.[WebhookSecret], source.[ServiceUrl], source.[Currency], source.[IsActive], source.[IsDefault], source.[CreatedDate], source.[CreatedBy], source.[UpdatedDate], source.[UpdatedBy]);
+    VALUES (source.[Id], source.[GatewayCode], source.[GatewayName], source.[MerchantId], source.[KeyId], source.[SecretKey], source.[WebhookSecret], source.[ServiceUrl], source.[Currency], ISNULL(source.[IsActive], 1), ISNULL(source.[IsDefault], 1), source.[CreatedDate], source.[CreatedBy], source.[UpdatedDate], source.[UpdatedBy]);
 GO
 
 SET IDENTITY_INSERT [RTS].[PaymentGatewayConfig] OFF;
@@ -496,8 +488,8 @@ WHEN MATCHED THEN
         target.[DepartmentName] = source.[DepartmentName],
         target.[DepartmentNameLocal] = source.[DepartmentNameLocal],
         target.[DepartmentIcon] = source.[DepartmentIcon],
-        target.[DisplayOrder] = source.[DisplayOrder],
-        target.[IsActive] = source.[IsActive],
+        target.[DisplayOrder] = ISNULL(source.[DisplayOrder], 0),
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
         target.[UpdatedBy] = source.[UpdatedBy],
@@ -505,7 +497,7 @@ WHEN MATCHED THEN
         target.[DepartmentCode] = source.[DepartmentCode]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [DepartmentName], [DepartmentNameLocal], [DepartmentIcon], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DepartmentCode])
-    VALUES (source.[Id], source.[DepartmentName], source.[DepartmentNameLocal], source.[DepartmentIcon], source.[DisplayOrder], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], source.[DepartmentCode]);
+    VALUES (source.[Id], source.[DepartmentName], source.[DepartmentNameLocal], source.[DepartmentIcon], source.[DisplayOrder], ISNULL(source.[IsActive], 1), source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], source.[DepartmentCode]);
 GO
 
 SET IDENTITY_INSERT [RTS].[DepartmentMaster] OFF;
@@ -594,28 +586,28 @@ WHEN MATCHED THEN
         target.[Description] = source.[Description],
         target.[ServiceUrl] = source.[ServiceUrl],
         target.[ServiceIcon] = source.[ServiceIcon],
-        target.[DisplayOrder] = source.[DisplayOrder],
+        target.[DisplayOrder] = ISNULL(source.[DisplayOrder], 0),
         target.[Sla] = source.[Sla],
         target.[Fees] = source.[Fees],
-        target.[FeesRequired] = source.[FeesRequired],
-        target.[IsActive] = source.[IsActive],
+        target.[FeesRequired] = ISNULL(source.[FeesRequired], 0),
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
         target.[UpdatedBy] = source.[UpdatedBy],
         target.[UpdatedDate] = source.[UpdatedDate],
-        target.[IsCertificateRequired] = source.[IsCertificateRequired],
-        target.[IsSmsEnabled] = source.[IsSmsEnabled],
+        target.[IsCertificateRequired] = ISNULL(source.[IsCertificateRequired], 1),
+        target.[IsSmsEnabled] = ISNULL(source.[IsSmsEnabled], 1),
         target.[ServiceCode] = source.[ServiceCode]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [DepartmentId], [GovtServiceCode], [ServiceName], [ServiceNameLocal], [Description], [ServiceUrl], [ServiceIcon], [DisplayOrder], [Sla], [Fees], [FeesRequired], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [IsCertificateRequired], [IsSmsEnabled], [ServiceCode])
-    VALUES (source.[Id], source.[DepartmentId], source.[GovtServiceCode], source.[ServiceName], source.[ServiceNameLocal], source.[Description], source.[ServiceUrl], source.[ServiceIcon], source.[DisplayOrder], source.[Sla], source.[Fees], source.[FeesRequired], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], source.[IsCertificateRequired], source.[IsSmsEnabled], source.[ServiceCode]);
+    VALUES (source.[Id], source.[DepartmentId], source.[GovtServiceCode], source.[ServiceName], source.[ServiceNameLocal], source.[Description], source.[ServiceUrl], source.[ServiceIcon], source.[DisplayOrder], source.[Sla], source.[Fees], ISNULL(source.[FeesRequired], 0), ISNULL(source.[IsActive], 1), source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], ISNULL(source.[IsCertificateRequired], 1), ISNULL(source.[IsSmsEnabled], 1), source.[ServiceCode]);
 GO
 
 SET IDENTITY_INSERT [RTS].[ServiceMaster] OFF;
 GO
 
 /* ----------------------------------------------------------------------------
-   Table: [RTS].[FieldDefinition] (843 rows)
+   Table: [RTS].[FieldDefinition] (834 rows)
    ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [RTS].[FieldDefinition] ON;
 GO
@@ -724,13 +716,13 @@ WHEN MATCHED THEN
         target.[OptionsJson] = source.[OptionsJson],
         target.[DefaultValue] = source.[DefaultValue],
         target.[ValidationRules] = source.[ValidationRules],
-        target.[IsRequired] = source.[IsRequired],
-        target.[DisplayOrder] = source.[DisplayOrder],
+        target.[IsRequired] = ISNULL(source.[IsRequired], 0),
+        target.[DisplayOrder] = ISNULL(source.[DisplayOrder], 0),
         target.[MinValue] = source.[MinValue],
         target.[MaxValue] = source.[MaxValue],
         target.[MaxLength] = source.[MaxLength],
-        target.[IsActive] = source.[IsActive],
-        target.[MarkedForDeletion] = source.[MarkedForDeletion],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
+        target.[MarkedForDeletion] = ISNULL(source.[MarkedForDeletion], 0),
         target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
@@ -738,7 +730,7 @@ WHEN MATCHED THEN
         target.[UpdatedDate] = source.[UpdatedDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], source.[IsRequired], source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], source.[IsActive], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], ISNULL(source.[IsRequired], 0), source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], ISNULL(source.[IsActive], 1), ISNULL(source.[MarkedForDeletion], 0), source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
 GO
 
 MERGE INTO [RTS].[FieldDefinition] AS target
@@ -879,13 +871,13 @@ WHEN MATCHED THEN
         target.[OptionsJson] = source.[OptionsJson],
         target.[DefaultValue] = source.[DefaultValue],
         target.[ValidationRules] = source.[ValidationRules],
-        target.[IsRequired] = source.[IsRequired],
-        target.[DisplayOrder] = source.[DisplayOrder],
+        target.[IsRequired] = ISNULL(source.[IsRequired], 0),
+        target.[DisplayOrder] = ISNULL(source.[DisplayOrder], 0),
         target.[MinValue] = source.[MinValue],
         target.[MaxValue] = source.[MaxValue],
         target.[MaxLength] = source.[MaxLength],
-        target.[IsActive] = source.[IsActive],
-        target.[MarkedForDeletion] = source.[MarkedForDeletion],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
+        target.[MarkedForDeletion] = ISNULL(source.[MarkedForDeletion], 0),
         target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
@@ -893,7 +885,7 @@ WHEN MATCHED THEN
         target.[UpdatedDate] = source.[UpdatedDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], source.[IsRequired], source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], source.[IsActive], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], ISNULL(source.[IsRequired], 0), source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], ISNULL(source.[IsActive], 1), ISNULL(source.[MarkedForDeletion], 0), source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
 GO
 
 MERGE INTO [RTS].[FieldDefinition] AS target
@@ -901,21 +893,16 @@ USING (VALUES
     (101, 4, 61, N'fireNocUpdated', N'Fire NOC Up-to-date?', N'अग्निशामक परवाना अद्ययावत आहे का?', N'select', N'Compliance & Approval Details', N'[{"value":"yes","label":{"en":"Yes","hi":"हाँ","mr":"होय"}},{"value":"no","label":{"en":"No","hi":"नहीं","mr":"नाही"}}]', NULL, N'{"minDate":"1900-01-01","maxDate":"today"}', NULL, 30, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
     (102, 4, 61, N'policeNocSubmitted', N'Police NOC Submitted?', N'पोलीस परवाना सादर केला आहे का?', N'select', N'Compliance & Approval Details', N'[{"value":"yes","label":{"en":"Yes","hi":"हाँ","mr":"होय"}},{"value":"no","label":{"en":"No","hi":"नहीं","mr":"नाही"}}]', NULL, NULL, NULL, 31, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
     (103, 4, 61, N'declaration', N'I hereby declare that the information provided is true and correct.', N'घोषणापत्र / मी सहमत आहे', N'checkbox', N'Declaration', NULL, NULL, NULL, NULL, 32, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
-    (120, 4, 62, N'registrationNo', N'Registration Number', N'नोंदणी क्रमांक', N'text', N'Event & Permission Info', NULL, NULL, NULL, N'False', 17, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
-    (121, 4, 62, N'registrationYear', N'Registration Year', N'नोंदणी वर्ष', N'year', N'Event & Permission Info', NULL, NULL, NULL, N'False', 18, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
-    (122, 4, 62, N'chairmanName', N'Name of Chairman/Secretary', N'अध्यक्ष / सचिव यांचे नाव', N'text', N'Applicant Information', NULL, NULL, NULL, N'False', 19, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
-    (123, 4, 62, N'contactNo', N'Contact No. (President/Secretary)', N'संपर्क क्रमांक (अध्यक्ष / सचिव)', N'tel', N'Event & Permission Info', NULL, NULL, NULL, N'False', 20, NULL, NULL, 10, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
-    (128, 4, 62, N'zoneNo', N'Zone', N'झोन', N'select', N'Event & Permission Info', N'[
-  {"value":"A","label":{"en":"A","hi":"A","mr":"प्रभाग समिती अ"}},
-  {"value":"B","label":{"en":"B","hi":"B","mr":"प्रभाग समिती ब"}},
-  {"value":"C","label":{"en":"C","hi":"C","mr":"प्रभाग समिती क"}},
-  {"value":"D","label":{"en":"D","hi":"D","mr":"प्रभाग समिती ड"}}
-]', NULL, NULL, NULL, 25, NULL, NULL, NULL, N'False', N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
-    (130, 4, 62, N'plotNo', N'Plot No', N'प्लॉट क्रमांक', N'text', N'Event & Permission Info', NULL, NULL, N'{
-  "maxLength": 6,
-  "pattern": "^[A-Za-z0-9/-]+$"
-}', NULL, 27, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
-    (158, 4, 62, N'trafficPoliceStation', N'Concerned Traffic Police Station', N'संबंधित वाहतूक पोलीस स्टेशन', N'textarea', N'Applicant Undertaking & Compliance', NULL, NULL, NULL, NULL, 55, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
+    (158, 4, 62, N'trafficPoliceStation', N'Concerned Traffic Police Station', N'संबंधित वाहतूक पोलीस स्टेशन', N'select', N'Applicant Undertaking & Compliance', N'[
+  {
+    "value": "Akola City Traffic Police Branch",
+    "label": {
+      "en": "Akola City Traffic Police Branch",
+      "hi": "????? ??? ??????? ????? ????",
+      "mr": "????? ??? ?????? ????? ????"
+    }
+  }
+]', NULL, NULL, NULL, 55, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
     (163, 8, 63, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Information', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
     (164, 8, 63, N'middleName', N'Middle Name', N'मधले नाव', N'text', N'Applicant Information', NULL, NULL, NULL, N'False', 2, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
     (165, 8, 63, N'lastName', N'Last Name', N'आडनाव', N'text', N'Applicant Information', NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
@@ -1031,7 +1018,19 @@ USING (VALUES
     (199, 8, 64, N'businessState', N'business State', N'व्यवसायाचे राज्य', N'select', N'Owner & Premises details', N'[{"value":"Maharashtra","label":{"en":"Maharashtra"}}]', NULL, NULL, NULL, 12, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', 0, '2026-08-18T19:12:38.640'),
     (200, 8, 64, N'propertyTaxNo', N'Property Tax Assessment No.', N'मालमत्ता कर आकारणी क्रमांक', N'text', N'Owner & Premises details', NULL, NULL, NULL, NULL, 13, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
     (201, 5, 53, N'dateOfBirth', N'Date of Birth (DD-MM-YYYY)', N'जन्मतारीख (दि-महा-वर्ष)', N'date', N'Child, Birth & Registrar Details', NULL, NULL, N'{"minDate":"1900-01-01","maxDate":"today"}', NULL, 7, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
-    (202, 5, 53, N'gender', N'Sex', N'लिंग', N'select', N'Child, Birth & Registrar Details', N'[{"value":"Male","label":{"en":"Male","hi":"पुरुष","mr":"पुरुष"}},{"value":"Female","label":{"en":"Female","hi":"महिला","mr":"महिला"}},{"value":"Transgender Person","label":{"en":"Transgender","hi":"ट्रांसजेंडर","mr":"ट्रान्सजेंडर"}}]', NULL, NULL, NULL, 8, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL)
+    (202, 5, 53, N'gender', N'Sex', N'लिंग', N'select', N'Child, Birth & Registrar Details', N'[{"value":"Male","label":{"en":"Male","hi":"पुरुष","mr":"पुरुष"}},{"value":"Female","label":{"en":"Female","hi":"महिला","mr":"महिला"}},{"value":"Transgender Person","label":{"en":"Transgender","hi":"ट्रांसजेंडर","mr":"ट्रान्सजेंडर"}}]', NULL, NULL, NULL, 8, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
+    (203, 5, 53, N'childFirstName', N'Child First Name', N'बालकाचे पहिले नाव', N'text', N'Child, Birth & Registrar Details', NULL, NULL, NULL, NULL, 9, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
+    (204, 5, 53, N'childMiddleName', N'Child Middle Name', N'बालकाचे मधले नाव', N'text', N'Child, Birth & Registrar Details', NULL, NULL, NULL, N'False', 10, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
+    (205, 5, 53, N'childLastName', N'Child Last Name', N'बालकाचे आडनाव', N'text', N'Child, Birth & Registrar Details', NULL, NULL, NULL, N'False', 11, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
+    (206, 5, 53, N'childAadhaar', N'Aadhaar No. (Optional)', N'बालकाचा आधार क्रमांक (ऐच्छिक)', N'text', N'Child, Birth & Registrar Details', NULL, NULL, N'{
+  "inputMode": "numeric",
+  "allow": "numeric",
+  "exactLength": 12,
+  "pattern": "^[2-9][0-9]{11}$",
+  "message": "Enter a valid 12-digit Aadhaar number."
+}', N'False', 12, NULL, NULL, 14, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
+    (207, 5, 53, N'placeOfBirthType', N'Place of Birth Type', N'जन्मस्थळाचा प्रकार', N'select', N'Child, Birth & Registrar Details', N'[{"value":"hospital","label":{"en":"Hospital / Institution","hi":"अस्पताल","mr":"रुग्णालय"}},{"value":"house","label":{"en":"House","hi":"घर","mr":"घर"}},{"value":"other","label":{"en":"Other Place","hi":"अन्य स्थान","mr":"इतर ठिकाण"}}]', NULL, NULL, NULL, 13, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
+    (208, 5, 53, N'hospitalName', N'Hospital / Institution Name', N'रुग्णालय / संस्थेचे नाव', N'text', N'Child, Birth & Registrar Details', NULL, NULL, NULL, N'False', 14, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL)
 ) AS source ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -1046,13 +1045,13 @@ WHEN MATCHED THEN
         target.[OptionsJson] = source.[OptionsJson],
         target.[DefaultValue] = source.[DefaultValue],
         target.[ValidationRules] = source.[ValidationRules],
-        target.[IsRequired] = source.[IsRequired],
-        target.[DisplayOrder] = source.[DisplayOrder],
+        target.[IsRequired] = ISNULL(source.[IsRequired], 0),
+        target.[DisplayOrder] = ISNULL(source.[DisplayOrder], 0),
         target.[MinValue] = source.[MinValue],
         target.[MaxValue] = source.[MaxValue],
         target.[MaxLength] = source.[MaxLength],
-        target.[IsActive] = source.[IsActive],
-        target.[MarkedForDeletion] = source.[MarkedForDeletion],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
+        target.[MarkedForDeletion] = ISNULL(source.[MarkedForDeletion], 0),
         target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
@@ -1060,23 +1059,11 @@ WHEN MATCHED THEN
         target.[UpdatedDate] = source.[UpdatedDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], source.[IsRequired], source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], source.[IsActive], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], ISNULL(source.[IsRequired], 0), source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], ISNULL(source.[IsActive], 1), ISNULL(source.[MarkedForDeletion], 0), source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
 GO
 
 MERGE INTO [RTS].[FieldDefinition] AS target
 USING (VALUES
-    (203, 5, 53, N'childFirstName', N'Child First Name', N'बालकाचे पहिले नाव', N'text', N'Child, Birth & Registrar Details', NULL, NULL, NULL, NULL, 9, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
-    (204, 5, 53, N'childMiddleName', N'Child Middle Name', N'बालकाचे मधले नाव', N'text', N'Child, Birth & Registrar Details', NULL, NULL, NULL, N'False', 10, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
-    (205, 5, 53, N'childLastName', N'Child Last Name', N'बालकाचे आडनाव', N'text', N'Child, Birth & Registrar Details', NULL, NULL, NULL, N'False', 11, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
-    (206, 5, 53, N'childAadhaar', N'Aadhaar No. (Optional)', N'बालकाचा आधार क्रमांक (ऐच्छिक)', N'text', N'Child, Birth & Registrar Details', NULL, NULL, N'{
-  "inputMode": "numeric",
-  "allow": "numeric",
-  "exactLength": 12,
-  "pattern": "^[2-9][0-9]{11}$",
-  "message": "Enter a valid 12-digit Aadhaar number."
-}', N'False', 12, NULL, NULL, 14, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
-    (207, 5, 53, N'placeOfBirthType', N'Place of Birth Type', N'जन्मस्थळाचा प्रकार', N'select', N'Child, Birth & Registrar Details', N'[{"value":"hospital","label":{"en":"Hospital / Institution","hi":"अस्पताल","mr":"रुग्णालय"}},{"value":"house","label":{"en":"House","hi":"घर","mr":"घर"}},{"value":"other","label":{"en":"Other Place","hi":"अन्य स्थान","mr":"इतर ठिकाण"}}]', NULL, NULL, NULL, 13, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
-    (208, 5, 53, N'hospitalName', N'Hospital / Institution Name', N'रुग्णालय / संस्थेचे नाव', N'text', N'Child, Birth & Registrar Details', NULL, NULL, NULL, N'False', 14, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
     (209, 5, 53, N'birthPlaceAddress', N'Complete Birth Address', N'संपूर्ण जन्मस्थळाचा पत्ता', N'textarea', N'Child, Birth & Registrar Details', NULL, NULL, NULL, NULL, 15, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
     (210, 5, 53, N'birthPlaceSubDistrict', N'Sub-district', N'उपजिल्हा', N'text', N'Child, Birth & Registrar Details', NULL, NULL, NULL, NULL, 16, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
     (211, 5, 53, N'birthPlaceDistrict', N'District', N'जिल्हा', N'text', N'Child, Birth & Registrar Details', NULL, NULL, NULL, NULL, 17, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
@@ -1138,7 +1125,13 @@ USING (VALUES
     (249, 5, 53, N'informantFirstName', N'Informant First Name', N'माहिती देणाऱ्याचे पहिले नाव', N'text', N'Informant Details', NULL, NULL, NULL, NULL, 55, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
     (250, 5, 53, N'informantMiddleName', N'Informant Middle Name', N'माहिती देणाऱ्याचे मधले नाव', N'text', N'Informant Details', NULL, NULL, NULL, N'False', 56, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
     (251, 5, 53, N'informantLastName', N'Informant Last Name', N'माहिती देणाऱ्याचे आडनाव', N'text', N'Informant Details', NULL, NULL, NULL, N'False', 57, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
-    (252, 5, 53, N'informantMobile', N'Informant Mobile', N'माहिती देणाऱ्याचा मोबाईल क्रमांक', N'tel', N'Informant Details', NULL, NULL, NULL, NULL, 58, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL)
+    (252, 5, 53, N'informantMobile', N'Informant Mobile', N'माहिती देणाऱ्याचा मोबाईल क्रमांक', N'tel', N'Informant Details', NULL, NULL, NULL, NULL, 58, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
+    (253, 5, 53, N'informantAddress', N'Informant Address', N'माहिती देणाऱ्याचा पत्ता', N'textarea', N'Informant Details', NULL, NULL, NULL, NULL, 59, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
+    (254, 5, 53, N'declarationAccuracy', N'I confirm info is accurate', N'मी पुष्टी करतो / करते की दिलेली माहिती अचूक आहे', N'select', N'Informant Details', N'[{"value":"yes","label":{"en":"Yes","hi":"हाँ","mr":"होय"}}]', NULL, NULL, NULL, 60, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
+    (255, 5, 53, N'declaration', N'I hereby declare that the information provided is true and correct.', N'घोषणापत्र / मी सहमत आहे', N'checkbox', N'Declaration', NULL, NULL, NULL, NULL, 61, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
+    (256, 5, 54, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Information', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
+    (257, 5, 54, N'middleName', N'Middle Name', N'मधले नाव', N'text', N'Applicant Information', NULL, NULL, NULL, N'False', 2, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
+    (258, 5, 54, N'lastName', N'Last Name', N'आडनाव', N'text', N'Applicant Information', NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL)
 ) AS source ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -1153,13 +1146,13 @@ WHEN MATCHED THEN
         target.[OptionsJson] = source.[OptionsJson],
         target.[DefaultValue] = source.[DefaultValue],
         target.[ValidationRules] = source.[ValidationRules],
-        target.[IsRequired] = source.[IsRequired],
-        target.[DisplayOrder] = source.[DisplayOrder],
+        target.[IsRequired] = ISNULL(source.[IsRequired], 0),
+        target.[DisplayOrder] = ISNULL(source.[DisplayOrder], 0),
         target.[MinValue] = source.[MinValue],
         target.[MaxValue] = source.[MaxValue],
         target.[MaxLength] = source.[MaxLength],
-        target.[IsActive] = source.[IsActive],
-        target.[MarkedForDeletion] = source.[MarkedForDeletion],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
+        target.[MarkedForDeletion] = ISNULL(source.[MarkedForDeletion], 0),
         target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
@@ -1167,17 +1160,11 @@ WHEN MATCHED THEN
         target.[UpdatedDate] = source.[UpdatedDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], source.[IsRequired], source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], source.[IsActive], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], ISNULL(source.[IsRequired], 0), source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], ISNULL(source.[IsActive], 1), ISNULL(source.[MarkedForDeletion], 0), source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
 GO
 
 MERGE INTO [RTS].[FieldDefinition] AS target
 USING (VALUES
-    (253, 5, 53, N'informantAddress', N'Informant Address', N'माहिती देणाऱ्याचा पत्ता', N'textarea', N'Informant Details', NULL, NULL, NULL, NULL, 59, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
-    (254, 5, 53, N'declarationAccuracy', N'I confirm info is accurate', N'मी पुष्टी करतो / करते की दिलेली माहिती अचूक आहे', N'select', N'Informant Details', N'[{"value":"yes","label":{"en":"Yes","hi":"हाँ","mr":"होय"}}]', NULL, NULL, NULL, 60, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
-    (255, 5, 53, N'declaration', N'I hereby declare that the information provided is true and correct.', N'घोषणापत्र / मी सहमत आहे', N'checkbox', N'Declaration', NULL, NULL, NULL, NULL, 61, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
-    (256, 5, 54, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Information', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
-    (257, 5, 54, N'middleName', N'Middle Name', N'मधले नाव', N'text', N'Applicant Information', NULL, NULL, NULL, N'False', 2, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
-    (258, 5, 54, N'lastName', N'Last Name', N'आडनाव', N'text', N'Applicant Information', NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
     (259, 5, 54, N'mobileNumber', N'Mobile Number', N'मोबाईल नंबर', N'tel', N'Applicant Information', NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
     (260, 5, 54, N'aadharNo', N'Aadhar Card No', N'आधार कार्ड क्रमांक', N'text', N'Applicant Information', NULL, NULL, N'{
   "inputMode": "numeric",
@@ -1282,40 +1269,7 @@ USING (VALUES
     (299, 8, 64, N'buildingDetailsAsMap', N'Details as per Approved/Proposed Map (Signed by Architect & Owner)', N'मंजूर / प्रस्तावित नकाशानुसार इमारतीचा तपशील (वास्तुविशारद व मालक स्वाक्षरीसह)', N'text', N'Fire Safety & Building Details', NULL, NULL, NULL, NULL, 36, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
     (300, 8, 64, N'declaration', N'I hereby declare that the information provided is true and correct.', N'घोषणापत्र / मी सहमत आहे', N'checkbox', N'Declaration', NULL, NULL, NULL, NULL, 37, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
     (301, 4, 43, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL),
-    (302, 4, 43, N'mobileNo', N'Mobile Number', N'मोबाईल नंबर', N'tel', N'Applicant Details', NULL, NULL, NULL, NULL, 2, NULL, NULL, 10, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL)
-) AS source ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-ON (target.[Id] = source.[Id])
-WHEN MATCHED THEN
-    UPDATE SET
-        target.[DepartmentId] = source.[DepartmentId],
-        target.[ServiceId] = source.[ServiceId],
-        target.[FieldCode] = source.[FieldCode],
-        target.[FieldLabel] = source.[FieldLabel],
-        target.[FieldLabelLocal] = source.[FieldLabelLocal],
-        target.[FieldType] = source.[FieldType],
-        target.[FieldGroup] = source.[FieldGroup],
-        target.[OptionsJson] = source.[OptionsJson],
-        target.[DefaultValue] = source.[DefaultValue],
-        target.[ValidationRules] = source.[ValidationRules],
-        target.[IsRequired] = source.[IsRequired],
-        target.[DisplayOrder] = source.[DisplayOrder],
-        target.[MinValue] = source.[MinValue],
-        target.[MaxValue] = source.[MaxValue],
-        target.[MaxLength] = source.[MaxLength],
-        target.[IsActive] = source.[IsActive],
-        target.[MarkedForDeletion] = source.[MarkedForDeletion],
-        target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
-        target.[CreatedBy] = source.[CreatedBy],
-        target.[CreatedDate] = source.[CreatedDate],
-        target.[UpdatedBy] = source.[UpdatedBy],
-        target.[UpdatedDate] = source.[UpdatedDate]
-WHEN NOT MATCHED BY TARGET THEN
-    INSERT ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], source.[IsRequired], source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], source.[IsActive], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
-GO
-
-MERGE INTO [RTS].[FieldDefinition] AS target
-USING (VALUES
+    (302, 4, 43, N'mobileNo', N'Mobile Number', N'मोबाईल नंबर', N'tel', N'Applicant Details', NULL, NULL, NULL, NULL, 2, NULL, NULL, 10, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL),
     (303, 4, 43, N'email', N'Email', N'ईमेल', N'email', N'Applicant Details', NULL, NULL, N'{
   "pattern":"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
   "inputMode":"email"
@@ -1382,7 +1336,40 @@ USING (VALUES
   {"value":"D10","label":{"en":"D10","hi":"D10","mr":"D10"}},
   {"value":"D11","label":{"en":"D11","hi":"D11","mr":"D11"}},
   {"value":"D12","label":{"en":"D12","hi":"D12","mr":"D12"}}
-]', NULL, NULL, NULL, 8, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL),
+]', NULL, NULL, NULL, 8, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL)
+) AS source ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[DepartmentId] = source.[DepartmentId],
+        target.[ServiceId] = source.[ServiceId],
+        target.[FieldCode] = source.[FieldCode],
+        target.[FieldLabel] = source.[FieldLabel],
+        target.[FieldLabelLocal] = source.[FieldLabelLocal],
+        target.[FieldType] = source.[FieldType],
+        target.[FieldGroup] = source.[FieldGroup],
+        target.[OptionsJson] = source.[OptionsJson],
+        target.[DefaultValue] = source.[DefaultValue],
+        target.[ValidationRules] = source.[ValidationRules],
+        target.[IsRequired] = ISNULL(source.[IsRequired], 0),
+        target.[DisplayOrder] = ISNULL(source.[DisplayOrder], 0),
+        target.[MinValue] = source.[MinValue],
+        target.[MaxValue] = source.[MaxValue],
+        target.[MaxLength] = source.[MaxLength],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
+        target.[MarkedForDeletion] = ISNULL(source.[MarkedForDeletion], 0),
+        target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], ISNULL(source.[IsRequired], 0), source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], ISNULL(source.[IsActive], 1), ISNULL(source.[MarkedForDeletion], 0), source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
+
+MERGE INTO [RTS].[FieldDefinition] AS target
+USING (VALUES
     (309, 4, 43, N'zoneId', N'Zone', N'झोन (प्रणालीद्वारे)', N'select', N'Ward / Zone & Property Details', N'[
   {"value":"A","label":{"en":"A","hi":"A","mr":"प्रभाग समिती अ"}},
   {"value":"B","label":{"en":"B","hi":"B","mr":"प्रभाग समिती ब"}},
@@ -1563,7 +1550,19 @@ USING (VALUES
     (349, 4, 45, N'briefWorkDescription', N'Brief Description (optional)', N'कामाचे संक्षिप्त वर्णन (ऐच्छिक)', N'number', N'Construction Proposal Details', NULL, NULL, N'{"min":0}', N'False', 20, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL),
     (350, 4, 45, N'submittedThroughLicensedPerson', N'Submitted through Licensed Architect/Engineer?', N'परवानाधारक वास्तुविशारद / अभियंत्यामार्फत सादर केले आहे का?', N'select', N'Architect / Engineer Details', N'[{"value":"yes","label":{"en":"Yes","hi":"हाँ","mr":"होय"}},{"value":"no","label":{"en":"No","hi":"नहीं","mr":"नाही"}}]', NULL, NULL, N'False', 21, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL),
     (351, 4, 45, N'architectName', N'Architect/Engineer Name', N'वास्तुविशारद / अभियंत्याचे नाव', N'text', N'Architect / Engineer Details', NULL, NULL, NULL, N'False', 22, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL),
-    (352, 4, 45, N'architectLicenseNo', N'License / Registration No', N'परवाना / नोंदणी क्रमांक', N'text', N'Architect / Engineer Details', NULL, NULL, NULL, N'False', 23, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL)
+    (352, 4, 45, N'architectLicenseNo', N'License / Registration No', N'परवाना / नोंदणी क्रमांक', N'text', N'Architect / Engineer Details', NULL, NULL, NULL, N'False', 23, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL),
+    (353, 4, 45, N'architectMobile', N'Mobile Number', N'मोबाईल नंबर', N'tel', N'Architect / Engineer Details', NULL, NULL, NULL, NULL, 24, NULL, NULL, 10, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL),
+    (354, 4, 45, N'architectEmail', N'Email (optional)', N'ईमेल', N'email', N'Architect / Engineer Details', NULL, NULL, N'{
+  "pattern":"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
+  "inputMode":"email"
+}', N'False', 25, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL),
+    (355, 4, 45, N'declaration', N'I hereby declare that the information provided is true and correct.', N'घोषणापत्र / मी सहमत आहे', N'checkbox', N'Declaration', NULL, NULL, NULL, NULL, 26, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL),
+    (356, 4, 47, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL),
+    (357, 4, 47, N'mobileNo', N'Mobile Number', N'मोबाईल क्रमांक', N'tel', N'Applicant Details', NULL, NULL, NULL, NULL, 2, NULL, NULL, 10, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL),
+    (358, 4, 47, N'email', N'Email', N'ईमेल', N'email', N'Applicant Details', NULL, NULL, N'{
+  "pattern":"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
+  "inputMode":"email"
+}', N'False', 3, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL)
 ) AS source ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -1578,13 +1577,13 @@ WHEN MATCHED THEN
         target.[OptionsJson] = source.[OptionsJson],
         target.[DefaultValue] = source.[DefaultValue],
         target.[ValidationRules] = source.[ValidationRules],
-        target.[IsRequired] = source.[IsRequired],
-        target.[DisplayOrder] = source.[DisplayOrder],
+        target.[IsRequired] = ISNULL(source.[IsRequired], 0),
+        target.[DisplayOrder] = ISNULL(source.[DisplayOrder], 0),
         target.[MinValue] = source.[MinValue],
         target.[MaxValue] = source.[MaxValue],
         target.[MaxLength] = source.[MaxLength],
-        target.[IsActive] = source.[IsActive],
-        target.[MarkedForDeletion] = source.[MarkedForDeletion],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
+        target.[MarkedForDeletion] = ISNULL(source.[MarkedForDeletion], 0),
         target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
@@ -1592,23 +1591,11 @@ WHEN MATCHED THEN
         target.[UpdatedDate] = source.[UpdatedDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], source.[IsRequired], source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], source.[IsActive], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], ISNULL(source.[IsRequired], 0), source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], ISNULL(source.[IsActive], 1), ISNULL(source.[MarkedForDeletion], 0), source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
 GO
 
 MERGE INTO [RTS].[FieldDefinition] AS target
 USING (VALUES
-    (353, 4, 45, N'architectMobile', N'Mobile Number', N'मोबाईल नंबर', N'tel', N'Architect / Engineer Details', NULL, NULL, NULL, NULL, 24, NULL, NULL, 10, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL),
-    (354, 4, 45, N'architectEmail', N'Email (optional)', N'ईमेल', N'email', N'Architect / Engineer Details', NULL, NULL, N'{
-  "pattern":"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
-  "inputMode":"email"
-}', N'False', 25, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL),
-    (355, 4, 45, N'declaration', N'I hereby declare that the information provided is true and correct.', N'घोषणापत्र / मी सहमत आहे', N'checkbox', N'Declaration', NULL, NULL, NULL, NULL, 26, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL),
-    (356, 4, 47, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL),
-    (357, 4, 47, N'mobileNo', N'Mobile Number', N'मोबाईल क्रमांक', N'tel', N'Applicant Details', NULL, NULL, NULL, NULL, 2, NULL, NULL, 10, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL),
-    (358, 4, 47, N'email', N'Email', N'ईमेल', N'email', N'Applicant Details', NULL, NULL, N'{
-  "pattern":"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
-  "inputMode":"email"
-}', N'False', 3, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL),
     (359, 4, 47, N'applicantAddress', N'Residential Address', N'निवासी पत्ता', N'textarea', N'Applicant Details', NULL, NULL, NULL, N'False', 4, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL),
     (360, 4, 47, N'idProofType', N'ID Proof Type', N'ओळखपत्राचा प्रकार', N'select', N'Applicant Details', N'[{"value":"aadhaar","label":{"en":"Aadhaar","hi":"आधार","mr":"आधार"}},{"value":"voter","label":{"en":"Voter ID","hi":"वोटर आईडी","mr":"मतदार ओळखपत्र"}},{"value":"pan","label":{"en":"PAN","hi":"पैन","mr":"पॅन"}},{"value":"dl","label":{"en":"Driving License","hi":"ड्राइविंग लाइसेंस","mr":"ड्रायव्हिंग लायसन्स"}},{"value":"passport","label":{"en":"Passport","hi":"पासपोर्ट","mr":"पासपोर्ट"}}]', NULL, NULL, NULL, 5, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.690', NULL, NULL),
     (361, 4, 47, N'idProofNumber', N'ID Proof Number', N'ओळखपत्र क्रमांक', N'text', N'Applicant Details', NULL, NULL, N'{
@@ -1718,7 +1705,16 @@ USING (VALUES
     (402, 4, 47, N'architectEmail', N'Email (optional)', N'ई-मेल (ऐच्छिक)', N'email', N'Architect / Engineer Details', NULL, NULL, N'{
   "pattern":"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
   "inputMode":"email"
-}', N'False', 23, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL)
+}', N'False', 23, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
+    (403, 4, 47, N'declaration', N'I hereby declare that the construction has been completed as per the approved plan and applicable rules.', N'मी घोषित करतो की बांधकाम मंजूर नकाशा व लागू नियमांनुसार पूर्ण झाले आहे.', N'checkbox', N'Declaration', NULL, NULL, NULL, NULL, 24, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
+    (404, 12, 48, N'applicantType', N'Applicant Type', N'अर्जदाराचा प्रकार', N'select', N'Applicant / Organization Details', N'[{"value":"telecom_isp","label":{"en":"Telecom / ISP","hi":"टेलिकॉम / ISP","mr":"टेलिकॉम / ISP"}},{"value":"contractor","label":{"en":"Contractor","hi":"कॉन्ट्रॅक्टर","mr":"कॉन्ट्रॅक्टर"}},{"value":"government","label":{"en":"Government","hi":"शासकीय","mr":"शासकीय"}},{"value":"other","label":{"en":"Other","hi":"अन्य","mr":"इतर"}}]', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
+    (405, 12, 48, N'organizationName', N'Organization / Company Name', N'संस्था / कंपनीचे नाव', N'text', N'Applicant / Organization Details', NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
+    (406, 12, 48, N'authorizedSignatoryName', N'Authorized Signatory Name', N'अधिकृत स्वाक्षरीकर्त्याचे नाव', N'text', N'Applicant / Organization Details', NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
+    (407, 12, 48, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant / Organization Details', NULL, NULL, NULL, NULL, 4, NULL, NULL, 10, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
+    (408, 12, 48, N'email', N'Email', N'ईमेल', N'email', N'Applicant / Organization Details', NULL, NULL, N'{
+  "pattern":"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
+  "inputMode":"email"
+}', N'False', 5, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL)
 ) AS source ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -1733,13 +1729,13 @@ WHEN MATCHED THEN
         target.[OptionsJson] = source.[OptionsJson],
         target.[DefaultValue] = source.[DefaultValue],
         target.[ValidationRules] = source.[ValidationRules],
-        target.[IsRequired] = source.[IsRequired],
-        target.[DisplayOrder] = source.[DisplayOrder],
+        target.[IsRequired] = ISNULL(source.[IsRequired], 0),
+        target.[DisplayOrder] = ISNULL(source.[DisplayOrder], 0),
         target.[MinValue] = source.[MinValue],
         target.[MaxValue] = source.[MaxValue],
         target.[MaxLength] = source.[MaxLength],
-        target.[IsActive] = source.[IsActive],
-        target.[MarkedForDeletion] = source.[MarkedForDeletion],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
+        target.[MarkedForDeletion] = ISNULL(source.[MarkedForDeletion], 0),
         target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
@@ -1747,20 +1743,11 @@ WHEN MATCHED THEN
         target.[UpdatedDate] = source.[UpdatedDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], source.[IsRequired], source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], source.[IsActive], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], ISNULL(source.[IsRequired], 0), source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], ISNULL(source.[IsActive], 1), ISNULL(source.[MarkedForDeletion], 0), source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
 GO
 
 MERGE INTO [RTS].[FieldDefinition] AS target
 USING (VALUES
-    (403, 4, 47, N'declaration', N'I hereby declare that the construction has been completed as per the approved plan and applicable rules.', N'मी घोषित करतो की बांधकाम मंजूर नकाशा व लागू नियमांनुसार पूर्ण झाले आहे.', N'checkbox', N'Declaration', NULL, NULL, NULL, NULL, 24, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
-    (404, 12, 48, N'applicantType', N'Applicant Type', N'अर्जदाराचा प्रकार', N'select', N'Applicant / Organization Details', N'[{"value":"telecom_isp","label":{"en":"Telecom / ISP","hi":"टेलिकॉम / ISP","mr":"टेलिकॉम / ISP"}},{"value":"contractor","label":{"en":"Contractor","hi":"कॉन्ट्रॅक्टर","mr":"कॉन्ट्रॅक्टर"}},{"value":"government","label":{"en":"Government","hi":"शासकीय","mr":"शासकीय"}},{"value":"other","label":{"en":"Other","hi":"अन्य","mr":"इतर"}}]', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
-    (405, 12, 48, N'organizationName', N'Organization / Company Name', N'संस्था / कंपनीचे नाव', N'text', N'Applicant / Organization Details', NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
-    (406, 12, 48, N'authorizedSignatoryName', N'Authorized Signatory Name', N'अधिकृत स्वाक्षरीकर्त्याचे नाव', N'text', N'Applicant / Organization Details', NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
-    (407, 12, 48, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant / Organization Details', NULL, NULL, NULL, NULL, 4, NULL, NULL, 10, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
-    (408, 12, 48, N'email', N'Email', N'ईमेल', N'email', N'Applicant / Organization Details', NULL, NULL, N'{
-  "pattern":"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
-  "inputMode":"email"
-}', N'False', 5, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
     (409, 12, 48, N'officeAddress', N'Office Address', N'कार्यालयाचा पत्ता', N'textarea', N'Applicant / Organization Details', NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
     (410, 12, 48, N'licenseOrRegistrationNo', N'License / Registration No (if any)', N'परवाना / नोंदणी क्रमांक (असल्यास)', N'text', N'Applicant / Organization Details', NULL, NULL, NULL, N'False', 7, NULL, NULL, 50, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
     (411, 12, 48, N'gstNo', N'GST No (if any)', N'जीएसटी क्रमांक (असल्यास)', N'number', N'Applicant / Organization Details', NULL, NULL, N'{"min":0}', N'False', 8, NULL, NULL, 20, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
@@ -1872,14 +1859,275 @@ USING (VALUES
   "pattern": "^[2-9][0-9]{11}$",
   "message": "Enter a valid 12-digit Aadhaar number."
 }', N'False', 15, NULL, NULL, 4, N'False', N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
-    (445, 6, 55, N'schoolName', N'School Name', N'शाळेचे नाव', N'select', N'School Details', NULL, NULL, NULL, NULL, 16, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
+    (445, 6, 55, N'schoolName', N'School Name', N'शाळेचे नाव', N'select', N'School Details', N'[
+  {
+    "value": "Marathi Boys School No. 4",
+    "label": {
+      "en": "Marathi Boys School No. 4",
+      "hi": "????? ???? ???????? ???. ?",
+      "mr": "????? ??????? ???? ???. ?"
+    }
+  },
+  {
+    "value": "Marathi Boys School No. 7",
+    "label": {
+      "en": "Marathi Boys School No. 7",
+      "hi": "????? ???? ???????? ???. ?",
+      "mr": "????? ??????? ???? ???. ?"
+    }
+  },
+  {
+    "value": "Marathi Boys School No. 9",
+    "label": {
+      "en": "Marathi Boys School No. 9",
+      "hi": "????? ???? ???????? ???. ?",
+      "mr": "????? ??????? ???? ???. ?"
+    }
+  },
+  {
+    "value": "Marathi Boys School No. 12",
+    "label": {
+      "en": "Marathi Boys School No. 12",
+      "hi": "????? ???? ???????? ???. ??",
+      "mr": "????? ??????? ???? ???. ??"
+    }
+  },
+  {
+    "value": "Marathi Boys School No. 14",
+    "label": {
+      "en": "Marathi Boys School No. 14",
+      "hi": "????? ???? ???????? ???. ??",
+      "mr": "????? ??????? ???? ???. ??"
+    }
+  },
+  {
+    "value": "Marathi Boys School No. 16",
+    "label": {
+      "en": "Marathi Boys School No. 16",
+      "hi": "????? ???? ???????? ???. ??",
+      "mr": "????? ??????? ???? ???. ??"
+    }
+  },
+  {
+    "value": "Marathi Boys School No. 17",
+    "label": {
+      "en": "Marathi Boys School No. 17",
+      "hi": "????? ???? ???????? ???. ??",
+      "mr": "????? ??????? ???? ???. ??"
+    }
+  },
+  {
+    "value": "Marathi Boys School No. 18",
+    "label": {
+      "en": "Marathi Boys School No. 18",
+      "hi": "????? ???? ???????? ???. ??",
+      "mr": "????? ??????? ???? ???. ??"
+    }
+  },
+  {
+    "value": "Marathi Boys School No. 19",
+    "label": {
+      "en": "Marathi Boys School No. 19",
+      "hi": "????? ???? ???????? ???. ??",
+      "mr": "????? ??????? ???? ???. ??"
+    }
+  },
+  {
+    "value": "Marathi Boys School No. 22",
+    "label": {
+      "en": "Marathi Boys School No. 22",
+      "hi": "????? ???? ???????? ???. ??",
+      "mr": "????? ??????? ???? ???. ??"
+    }
+  },
+  {
+    "value": "Marathi Boys School No. 26",
+    "label": {
+      "en": "Marathi Boys School No. 26",
+      "hi": "????? ???? ???????? ???. ??",
+      "mr": "????? ??????? ???? ???. ??"
+    }
+  },
+  {
+    "value": "Marathi Girls School No. 7",
+    "label": {
+      "en": "Marathi Girls School No. 7",
+      "hi": "????? ?????? ???????? ???. ?",
+      "mr": "????? ????? ???? ???. ?"
+    }
+  },
+  {
+    "value": "Hindi Boys School No. 1",
+    "label": {
+      "en": "Hindi Boys School No. 1",
+      "hi": "????? ???? ???????? ???. ?",
+      "mr": "????? ???? ???? ???. ?"
+    }
+  },
+  {
+    "value": "Hindi Boys School No. 2",
+    "label": {
+      "en": "Hindi Boys School No. 2",
+      "hi": "????? ???? ???????? ???. ?",
+      "mr": "????? ???? ???? ???. ?"
+    }
+  },
+  {
+    "value": "Hindi Boys School No. 6",
+    "label": {
+      "en": "Hindi Boys School No. 6",
+      "hi": "????? ???? ???????? ???. ?",
+      "mr": "????? ???? ???? ???. ?"
+    }
+  },
+  {
+    "value": "Hindi Boys School No. 8",
+    "label": {
+      "en": "Hindi Boys School No. 8",
+      "hi": "????? ???? ???????? ???. ?",
+      "mr": "????? ???? ???? ???. ?"
+    }
+  },
+  {
+    "value": "Sindhi Hindi School No. 1",
+    "label": {
+      "en": "Sindhi Hindi School No. 1",
+      "hi": "????? ????? ???? ???????? ???. ?",
+      "mr": "????? ????? ???? ???. ?"
+    }
+  },
+  {
+    "value": "Gujarati Boys School No. 1",
+    "label": {
+      "en": "Gujarati Boys School No. 1",
+      "hi": "??????? ???? ???????? ???. ?",
+      "mr": "??????? ???? ???? ???. ?"
+    }
+  },
+  {
+    "value": "Urdu Boys School No. 1",
+    "label": {
+      "en": "Urdu Boys School No. 1",
+      "hi": "????? ???? ???????? ???. ?",
+      "mr": "????? ??????? ???? ???. ?"
+    }
+  },
+  {
+    "value": "Urdu Boys School No. 2",
+    "label": {
+      "en": "Urdu Boys School No. 2",
+      "hi": "????? ???? ???????? ???. ?",
+      "mr": "????? ??????? ???? ???. ?"
+    }
+  },
+  {
+    "value": "Urdu Boys School No. 6",
+    "label": {
+      "en": "Urdu Boys School No. 6",
+      "hi": "????? ???? ???????? ???. ?",
+      "mr": "????? ??????? ???? ???. ?"
+    }
+  },
+  {
+    "value": "Urdu Boys School No. 7",
+    "label": {
+      "en": "Urdu Boys School No. 7",
+      "hi": "????? ???? ???????? ???. ?",
+      "mr": "????? ??????? ???? ???. ?"
+    }
+  },
+  {
+    "value": "Urdu Boys School No. 8",
+    "label": {
+      "en": "Urdu Boys School No. 8",
+      "hi": "????? ???? ???????? ???. ?",
+      "mr": "????? ??????? ???? ???. ?"
+    }
+  },
+  {
+    "value": "Urdu Boys School No. 9",
+    "label": {
+      "en": "Urdu Boys School No. 9",
+      "hi": "????? ???? ???????? ???. ?",
+      "mr": "????? ??????? ???? ???. ?"
+    }
+  },
+  {
+    "value": "Urdu Boys School No. 10",
+    "label": {
+      "en": "Urdu Boys School No. 10",
+      "hi": "????? ???? ???????? ???. ??",
+      "mr": "????? ??????? ???? ???. ??"
+    }
+  },
+  {
+    "value": "Urdu Boys School No. 11",
+    "label": {
+      "en": "Urdu Boys School No. 11",
+      "hi": "????? ???? ???????? ???. ??",
+      "mr": "????? ??????? ???? ???. ??"
+    }
+  },
+  {
+    "value": "Urdu Boys School No. 12",
+    "label": {
+      "en": "Urdu Boys School No. 12",
+      "hi": "????? ???? ???????? ???. ??",
+      "mr": "????? ??????? ???? ???. ??"
+    }
+  },
+  {
+    "value": "Urdu Girls School No. 1",
+    "label": {
+      "en": "Urdu Girls School No. 1",
+      "hi": "????? ???? ???????? ???. ?",
+      "mr": "????? ????? ???? ???. ?"
+    }
+  },
+  {
+    "value": "Urdu Girls School No. 3",
+    "label": {
+      "en": "Urdu Girls School No. 3",
+      "hi": "????? ???? ???????? ???. ?",
+      "mr": "????? ????? ???? ???. ?"
+    }
+  },
+  {
+    "value": "Urdu Girls School No. 4",
+    "label": {
+      "en": "Urdu Girls School No. 4",
+      "hi": "????? ???? ???????? ???. ?",
+      "mr": "????? ????? ???? ???. ?"
+    }
+  },
+  {
+    "value": "Urdu Girls School No. 5",
+    "label": {
+      "en": "Urdu Girls School No. 5",
+      "hi": "????? ???? ???????? ???. ?",
+      "mr": "????? ????? ???? ???. ?"
+    }
+  }
+]', NULL, NULL, NULL, 16, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
     (446, 6, 55, N'lastStandardStudied', N'Last Standard/Class Studied', N'शेवटची शिकलेली इयत्ता / वर्ग', N'select', N'School Details', N'[{"value":"std_1","label":{"en":"1st Std","hi":"१ ली","mr":"इयत्ता १ ली"}},{"value":"std_2","label":{"en":"2nd Std","hi":"२ री","mr":"इयत्ता २ री"}},{"value":"std_3","label":{"en":"3rd Std","hi":"३ री","mr":"इयत्ता ३ री"}},{"value":"std_4","label":{"en":"4th Std","hi":"४ थी","mr":"इयत्ता ४ थी"}},{"value":"std_5","label":{"en":"5th Std","hi":"५ वी","mr":"इयत्ता ५ वी"}},{"value":"std_6","label":{"en":"6th Std","hi":"६ वी","mr":"इयत्ता ६ वी"}},{"value":"std_7","label":{"en":"7th Std","hi":"७ वी","mr":"इयत्ता ७ वी"}},{"value":"std_8","label":{"en":"8th Std","hi":"८ वी","mr":"इयत्ता ८ वी"}},{"value":"std_9","label":{"en":"9th Std","hi":"९ वी","mr":"इयत्ता ९ वी"}},{"value":"std_10","label":{"en":"10th Std","hi":"१० वी","mr":"इयत्ता १० वी"}}]', NULL, NULL, NULL, 17, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
     (447, 6, 55, N'yearOfLeaving', N'Year of Leaving', N'शाळा सोडल्याचे वर्ष', N'number', N'School Details', NULL, NULL, N'{"min":0}', NULL, 18, NULL, NULL, 4, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
     (448, 6, 55, N'certificateType', N'Certificate Type', N'प्रमाणपत्राचा प्रकार', N'select', N'School Details', N'[{"value":"leaving","label":{"en":"Leaving Certificate","hi":"शालांत प्रमाणपत्र","mr":"शाळा सोडल्याचा दाखला"}},{"value":"duplicate","label":{"en":"Duplicate Certificate","hi":"दुय्यम प्रमाणपत्र","mr":"द्वितीय दाखला"}},{"value":"migration","label":{"en":"Migration Certificate","hi":"स्थानांतरण प्रमाणपत्र","mr":"स्थलांतर प्रमाणपत्र"}}]', NULL, NULL, NULL, 19, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
     (449, 6, 55, N'lastAttendanceDate', N'Last Attendance Date', N'शेवटची उपस्थिती तारीख', N'date', N'School Details', NULL, NULL, N'{"minDate":"1900-01-01","maxDate":"today"}', N'False', 20, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
     (450, 6, 55, N'boardOrUniversity', N'Board / University', N'मंडळ / विद्यापीठ', N'text', N'School Details', NULL, NULL, NULL, N'False', 21, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
     (451, 6, 55, N'reasonForLeaving', N'Reason for Leaving', N'शाळा सोडण्याचे कारण', N'select', N'Certificate Details', N'[{"value":"transfer","label":{"en":"Transfer","hi":"स्थानांतरण","mr":"बदली"}},{"value":"higherStudies","label":{"en":"Higher Studies","hi":"उच्च शिक्षा","mr":"उच्च शिक्षण"}},{"value":"familyShift","label":{"en":"Family Shift","hi":"परिवार स्थानांतरण","mr":"कुटुंब स्थलांतर"}},{"value":"other","label":{"en":"Other","hi":"अन्य","mr":"इतर"}}]', NULL, NULL, NULL, 22, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
-    (452, 6, 55, N'pendingDuesCleared', N'Any Pending Dues Cleared?', N'सर्व थकीत देणी भरली आहेत का?', N'select', N'Certificate Details', N'[{"value":"yes","label":{"en":"Yes","hi":"हाँ","mr":"होय"}},{"value":"no","label":{"en":"No","hi":"नहीं","mr":"नाही"}}]', NULL, NULL, NULL, 23, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL)
+    (452, 6, 55, N'pendingDuesCleared', N'Any Pending Dues Cleared?', N'सर्व थकीत देणी भरली आहेत का?', N'select', N'Certificate Details', N'[{"value":"yes","label":{"en":"Yes","hi":"हाँ","mr":"होय"}},{"value":"no","label":{"en":"No","hi":"नहीं","mr":"नाही"}}]', NULL, NULL, NULL, 23, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
+    (453, 6, 55, N'duplicateReason', N'Reason for Duplicate', N'डुप्लिकेट प्रमाणपत्राचे कारण', N'select', N'Certificate Details', N'[{"value":"lost","label":{"en":"Original Certificate Lost","hi":"मूल प्रमाणपत्र खो गया","mr":"मूळ प्रमाणपत्र हरवले"}},{"value":"damaged","label":{"en":"Original Certificate Damaged","hi":"मूल प्रमाणपत्र क्षतिग्रस्त हो गया","mr":"मूळ प्रमाणपत्र खराब झाले"}},{"value":"destroyed","label":{"en":"Original Certificate Destroyed","hi":"मूल प्रमाणपत्र नष्ट हो गया","mr":"मूळ प्रमाणपत्र नष्ट झाले"}},{"value":"misplaced","label":{"en":"Certificate Misplaced","hi":"प्रमाणपत्र गुम हो गया","mr":"प्रमाणपत्र सापडत नाही"}},{"value":"correction","label":{"en":"Name / Details Correction","hi":"नाम / विवरण सुधार","mr":"नाव / माहिती दुरुस्ती"}},{"value":"other","label":{"en":"Other","hi":"अन्य","mr":"इतर"}}]', NULL, NULL, NULL, 24, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
+    (454, 6, 55, N'originalCertificateNumber', N'Original Certificate No. (if known)', NULL, N'text', N'Certificate Details', NULL, NULL, N'{
+  "maxLength": 13,
+  "pattern": "^[A-Za-z0-9/-]+$"
+}', N'False', 25, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
+    (455, 6, 55, N'policeComplaintFiled', N'Police Complaint Filed?', N'पोलीस तक्रार दाखल केली आहे का?', N'select', N'Certificate Details', N'[{"value":"yes","label":{"en":"Yes","hi":"हाँ","mr":"होय"}},{"value":"no","label":{"en":"No","hi":"नहीं","mr":"नाही"}}]', NULL, NULL, NULL, 26, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
+    (456, 6, 55, N'affidavitProvided', N'Affidavit Provided?', N'प्रतिज्ञापत्र सादर केले आहे का?', N'select', N'Certificate Details', N'[{"value":"yes","label":{"en":"Yes","hi":"हाँ","mr":"होय"}},{"value":"no","label":{"en":"No","hi":"नहीं","mr":"नाही"}}]', NULL, NULL, NULL, 27, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
+    (457, 6, 55, N'lastExamPassed', N'Last Exam Passed', N'शेवटची उत्तीर्ण परीक्षा', N'number', N'Certificate Details', NULL, NULL, N'{"min":0}', N'False', 28, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
+    (458, 6, 55, N'seatOrRegNo', N'Seat No / Registration No', N'आसन क्रमांक / नोंदणी क्रमांक', N'text', N'Certificate Details', NULL, NULL, N'{
+  "maxLength": 13,
+  "pattern": "^[A-Za-z0-9/-]+$"
+}', N'False', 29, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL)
 ) AS source ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -1894,13 +2142,13 @@ WHEN MATCHED THEN
         target.[OptionsJson] = source.[OptionsJson],
         target.[DefaultValue] = source.[DefaultValue],
         target.[ValidationRules] = source.[ValidationRules],
-        target.[IsRequired] = source.[IsRequired],
-        target.[DisplayOrder] = source.[DisplayOrder],
+        target.[IsRequired] = ISNULL(source.[IsRequired], 0),
+        target.[DisplayOrder] = ISNULL(source.[DisplayOrder], 0),
         target.[MinValue] = source.[MinValue],
         target.[MaxValue] = source.[MaxValue],
         target.[MaxLength] = source.[MaxLength],
-        target.[IsActive] = source.[IsActive],
-        target.[MarkedForDeletion] = source.[MarkedForDeletion],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
+        target.[MarkedForDeletion] = ISNULL(source.[MarkedForDeletion], 0),
         target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
@@ -1908,23 +2156,11 @@ WHEN MATCHED THEN
         target.[UpdatedDate] = source.[UpdatedDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], source.[IsRequired], source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], source.[IsActive], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], ISNULL(source.[IsRequired], 0), source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], ISNULL(source.[IsActive], 1), ISNULL(source.[MarkedForDeletion], 0), source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
 GO
 
 MERGE INTO [RTS].[FieldDefinition] AS target
 USING (VALUES
-    (453, 6, 55, N'duplicateReason', N'Reason for Duplicate', N'डुप्लिकेट प्रमाणपत्राचे कारण', N'select', N'Certificate Details', N'[{"value":"lost","label":{"en":"Original Certificate Lost","hi":"मूल प्रमाणपत्र खो गया","mr":"मूळ प्रमाणपत्र हरवले"}},{"value":"damaged","label":{"en":"Original Certificate Damaged","hi":"मूल प्रमाणपत्र क्षतिग्रस्त हो गया","mr":"मूळ प्रमाणपत्र खराब झाले"}},{"value":"destroyed","label":{"en":"Original Certificate Destroyed","hi":"मूल प्रमाणपत्र नष्ट हो गया","mr":"मूळ प्रमाणपत्र नष्ट झाले"}},{"value":"misplaced","label":{"en":"Certificate Misplaced","hi":"प्रमाणपत्र गुम हो गया","mr":"प्रमाणपत्र सापडत नाही"}},{"value":"correction","label":{"en":"Name / Details Correction","hi":"नाम / विवरण सुधार","mr":"नाव / माहिती दुरुस्ती"}},{"value":"other","label":{"en":"Other","hi":"अन्य","mr":"इतर"}}]', NULL, NULL, NULL, 24, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
-    (454, 6, 55, N'originalCertificateNumber', N'Original Certificate No. (if known)', NULL, N'text', N'Certificate Details', NULL, NULL, N'{
-  "maxLength": 13,
-  "pattern": "^[A-Za-z0-9/-]+$"
-}', N'False', 25, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
-    (455, 6, 55, N'policeComplaintFiled', N'Police Complaint Filed?', N'पोलीस तक्रार दाखल केली आहे का?', N'select', N'Certificate Details', N'[{"value":"yes","label":{"en":"Yes","hi":"हाँ","mr":"होय"}},{"value":"no","label":{"en":"No","hi":"नहीं","mr":"नाही"}}]', NULL, NULL, NULL, 26, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
-    (456, 6, 55, N'affidavitProvided', N'Affidavit Provided?', N'प्रतिज्ञापत्र सादर केले आहे का?', N'select', N'Certificate Details', N'[{"value":"yes","label":{"en":"Yes","hi":"हाँ","mr":"होय"}},{"value":"no","label":{"en":"No","hi":"नहीं","mr":"नाही"}}]', NULL, NULL, NULL, 27, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
-    (457, 6, 55, N'lastExamPassed', N'Last Exam Passed', N'शेवटची उत्तीर्ण परीक्षा', N'number', N'Certificate Details', NULL, NULL, N'{"min":0}', N'False', 28, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
-    (458, 6, 55, N'seatOrRegNo', N'Seat No / Registration No', N'आसन क्रमांक / नोंदणी क्रमांक', N'text', N'Certificate Details', NULL, NULL, N'{
-  "maxLength": 13,
-  "pattern": "^[A-Za-z0-9/-]+$"
-}', N'False', 29, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
     (459, 6, 55, N'destinationInstituteName', N'Destination Institute (optional)', NULL, N'text', N'Certificate Details', NULL, NULL, NULL, N'False', 30, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
     (460, 6, 55, N'declaration', N'I hereby declare that the information provided is true and correct.', N'घोषणापत्र / मी सहमत आहे', N'checkbox', N'Declaration', NULL, NULL, NULL, NULL, 31, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
     (461, 10, 66, N'applicantType', N'Applicant Type', N'अर्जदाराचा प्रकार', N'select', N'Applicant Details', N'[{"value":"individual","label":{"en":"Individual","hi":"वैयक्तिक","mr":"वैयक्तिक"}},{"value":"society","label":{"en":"Society","hi":"सोसायटी","mr":"सोसायटी"}},{"value":"company","label":{"en":"Company","hi":"कंपनी","mr":"कंपनी"}},{"value":"contractor","label":{"en":"Contractor","hi":"कॉन्ट्रॅक्टर","mr":"कॉन्ट्रॅक्टर"}},{"value":"other","label":{"en":"Other","hi":"अन्य","mr":"इतर"}}]', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
@@ -2037,40 +2273,7 @@ USING (VALUES
     (514, 12, 49, N'mobileNo', N'Mobile Number', N'मोबाईल नंबर', N'tel', N'Citizen Details', NULL, NULL, NULL, NULL, 2, NULL, NULL, 10, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.763', NULL, NULL),
     (515, 12, 49, N'potholeCount', N'Number of Potholes', N'खड्ड्यांची संख्या', N'number', N'Pothole Details', NULL, NULL, N'{"min":0}', NULL, 12, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.763', NULL, NULL),
     (516, 12, 49, N'potholeSize', N'Pothole Size', N'खड्ड्याचा आकार', N'select', N'Pothole Details', N'[{"value":"small","label":{"en":"Small","hi":"लहान","mr":"लहान"}},{"value":"medium","label":{"en":"Medium","hi":"मध्यम","mr":"मध्यम"}},{"value":"large","label":{"en":"Large","hi":"मोठा","mr":"मोठा"}}]', NULL, NULL, NULL, 13, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.763', NULL, NULL),
-    (517, 12, 49, N'remarks', N'Remarks (optional)', N'शेरा (ऐच्छिक)', N'text', N'Pothole Details', NULL, NULL, NULL, N'False', 16, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.763', NULL, NULL)
-) AS source ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-ON (target.[Id] = source.[Id])
-WHEN MATCHED THEN
-    UPDATE SET
-        target.[DepartmentId] = source.[DepartmentId],
-        target.[ServiceId] = source.[ServiceId],
-        target.[FieldCode] = source.[FieldCode],
-        target.[FieldLabel] = source.[FieldLabel],
-        target.[FieldLabelLocal] = source.[FieldLabelLocal],
-        target.[FieldType] = source.[FieldType],
-        target.[FieldGroup] = source.[FieldGroup],
-        target.[OptionsJson] = source.[OptionsJson],
-        target.[DefaultValue] = source.[DefaultValue],
-        target.[ValidationRules] = source.[ValidationRules],
-        target.[IsRequired] = source.[IsRequired],
-        target.[DisplayOrder] = source.[DisplayOrder],
-        target.[MinValue] = source.[MinValue],
-        target.[MaxValue] = source.[MaxValue],
-        target.[MaxLength] = source.[MaxLength],
-        target.[IsActive] = source.[IsActive],
-        target.[MarkedForDeletion] = source.[MarkedForDeletion],
-        target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
-        target.[CreatedBy] = source.[CreatedBy],
-        target.[CreatedDate] = source.[CreatedDate],
-        target.[UpdatedBy] = source.[UpdatedBy],
-        target.[UpdatedDate] = source.[UpdatedDate]
-WHEN NOT MATCHED BY TARGET THEN
-    INSERT ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], source.[IsRequired], source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], source.[IsActive], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
-GO
-
-MERGE INTO [RTS].[FieldDefinition] AS target
-USING (VALUES
+    (517, 12, 49, N'remarks', N'Remarks (optional)', N'शेरा (ऐच्छिक)', N'text', N'Pothole Details', NULL, NULL, NULL, N'False', 16, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.763', NULL, NULL),
     (518, 12, 49, N'riskLevel', N'Risk Level', N'धोक्याची पातळी', N'select', N'Pothole Details', N'[{"value":"low","label":{"en":"Low","hi":"कमी","mr":"कमी"}},{"value":"medium","label":{"en":"Medium","hi":"मध्यम","mr":"मध्यम"}},{"value":"high","label":{"en":"High","hi":"जास्त","mr":"जास्त"}}]', NULL, NULL, NULL, 14, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.763', NULL, NULL),
     (519, 12, 49, N'roadStreetName', N'Road / Street Name', N'रस्ता / गल्लीचे नाव', N'text', N'Pothole Location Details', NULL, NULL, NULL, NULL, 7, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.763', NULL, NULL),
     (520, 12, 49, N'toLocation', N'To (optional)', N'अंतिम ठिकाण (ऐच्छिक)', N'text', N'Pothole Location Details', NULL, NULL, NULL, N'False', 10, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.763', NULL, NULL),
@@ -2136,7 +2339,40 @@ USING (VALUES
     (523, 12, 50, N'email', N'Email', N'ईमेल', N'email', N'Citizen Details', NULL, NULL, N'{
   "pattern":"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
   "inputMode":"email"
-}', N'False', 3, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.763', NULL, NULL),
+}', N'False', 3, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.763', NULL, NULL)
+) AS source ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[DepartmentId] = source.[DepartmentId],
+        target.[ServiceId] = source.[ServiceId],
+        target.[FieldCode] = source.[FieldCode],
+        target.[FieldLabel] = source.[FieldLabel],
+        target.[FieldLabelLocal] = source.[FieldLabelLocal],
+        target.[FieldType] = source.[FieldType],
+        target.[FieldGroup] = source.[FieldGroup],
+        target.[OptionsJson] = source.[OptionsJson],
+        target.[DefaultValue] = source.[DefaultValue],
+        target.[ValidationRules] = source.[ValidationRules],
+        target.[IsRequired] = ISNULL(source.[IsRequired], 0),
+        target.[DisplayOrder] = ISNULL(source.[DisplayOrder], 0),
+        target.[MinValue] = source.[MinValue],
+        target.[MaxValue] = source.[MaxValue],
+        target.[MaxLength] = source.[MaxLength],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
+        target.[MarkedForDeletion] = ISNULL(source.[MarkedForDeletion], 0),
+        target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], ISNULL(source.[IsRequired], 0), source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], ISNULL(source.[IsActive], 1), ISNULL(source.[MarkedForDeletion], 0), source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
+
+MERGE INTO [RTS].[FieldDefinition] AS target
+USING (VALUES
     (524, 12, 50, N'areaName', N'Area / Locality', N'भाग / परिसर', N'text', N'Sewer Cover Location Details', NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.763', NULL, NULL),
     (525, 12, 50, N'citizenFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Citizen Details', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.763', NULL, NULL),
     (526, 12, 50, N'coverCount', N'Number of Covers', N'झाकणांची संख्या', N'number', N'Sewer Cover Issue Details', NULL, NULL, N'{"min":0}', NULL, 12, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.763', NULL, NULL),
@@ -2240,40 +2476,7 @@ USING (VALUES
   "pattern": "^[A-Za-z0-9/-]+$"
 }', NULL, 6, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:45:34.910', NULL, NULL),
     (1144, 4, 46, N'declaration', N'I hereby declare that the information provided is true and correct.', N'घोषणापत्र / मी सहमत आहे', N'checkbox', N'Declaration', NULL, NULL, NULL, NULL, 8, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:45:34.910', NULL, NULL),
-    (1145, 4, 46, N'mobileNo', N'Mobile Number', N'मोबाईल नंबर', N'tel', N'Applicant Details', NULL, NULL, NULL, NULL, 2, NULL, NULL, 10, NULL, N'False', NULL, 0, '2026-07-21T18:45:34.910', NULL, NULL)
-) AS source ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-ON (target.[Id] = source.[Id])
-WHEN MATCHED THEN
-    UPDATE SET
-        target.[DepartmentId] = source.[DepartmentId],
-        target.[ServiceId] = source.[ServiceId],
-        target.[FieldCode] = source.[FieldCode],
-        target.[FieldLabel] = source.[FieldLabel],
-        target.[FieldLabelLocal] = source.[FieldLabelLocal],
-        target.[FieldType] = source.[FieldType],
-        target.[FieldGroup] = source.[FieldGroup],
-        target.[OptionsJson] = source.[OptionsJson],
-        target.[DefaultValue] = source.[DefaultValue],
-        target.[ValidationRules] = source.[ValidationRules],
-        target.[IsRequired] = source.[IsRequired],
-        target.[DisplayOrder] = source.[DisplayOrder],
-        target.[MinValue] = source.[MinValue],
-        target.[MaxValue] = source.[MaxValue],
-        target.[MaxLength] = source.[MaxLength],
-        target.[IsActive] = source.[IsActive],
-        target.[MarkedForDeletion] = source.[MarkedForDeletion],
-        target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
-        target.[CreatedBy] = source.[CreatedBy],
-        target.[CreatedDate] = source.[CreatedDate],
-        target.[UpdatedBy] = source.[UpdatedBy],
-        target.[UpdatedDate] = source.[UpdatedDate]
-WHEN NOT MATCHED BY TARGET THEN
-    INSERT ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], source.[IsRequired], source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], source.[IsActive], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
-GO
-
-MERGE INTO [RTS].[FieldDefinition] AS target
-USING (VALUES
+    (1145, 4, 46, N'mobileNo', N'Mobile Number', N'मोबाईल नंबर', N'tel', N'Applicant Details', NULL, NULL, NULL, NULL, 2, NULL, NULL, 10, NULL, N'False', NULL, 0, '2026-07-21T18:45:34.910', NULL, NULL),
     (1146, 4, 46, N'propertyNo', N'Property No / UPIC', N'मालमत्ता क्रमांक / युपीआयसी निवडा', N'text', N'Property Details', NULL, NULL, N'{
   "maxLength": 15,
   "pattern": "^[A-Za-z0-9/-]+$"
@@ -2339,7 +2542,40 @@ USING (VALUES
 ]', NULL, NULL, N'False', 5, NULL, NULL, NULL, N'False', N'False', NULL, 0, '2026-07-21T18:45:34.910', NULL, NULL),
     (1149, 7, 58, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:45:34.910', NULL, NULL),
     (1150, 7, 58, N'bmwClearanceNo', N'Bio Medical Waste Clearance No', N'जैव वैद्यकीय कचरा मंजुरी क्रमांक', N'text', N'Compliance Details', NULL, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:45:34.910', NULL, NULL),
-    (1151, 7, 58, N'declaration', N'I hereby declare that the information provided is true and correct.', N'घोषणापत्र / मी सहमत आहे', N'checkbox', N'Declaration', NULL, NULL, NULL, NULL, 13, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:45:34.910', NULL, NULL),
+    (1151, 7, 58, N'declaration', N'I hereby declare that the information provided is true and correct.', N'घोषणापत्र / मी सहमत आहे', N'checkbox', N'Declaration', NULL, NULL, NULL, NULL, 13, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:45:34.910', NULL, NULL)
+) AS source ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[DepartmentId] = source.[DepartmentId],
+        target.[ServiceId] = source.[ServiceId],
+        target.[FieldCode] = source.[FieldCode],
+        target.[FieldLabel] = source.[FieldLabel],
+        target.[FieldLabelLocal] = source.[FieldLabelLocal],
+        target.[FieldType] = source.[FieldType],
+        target.[FieldGroup] = source.[FieldGroup],
+        target.[OptionsJson] = source.[OptionsJson],
+        target.[DefaultValue] = source.[DefaultValue],
+        target.[ValidationRules] = source.[ValidationRules],
+        target.[IsRequired] = ISNULL(source.[IsRequired], 0),
+        target.[DisplayOrder] = ISNULL(source.[DisplayOrder], 0),
+        target.[MinValue] = source.[MinValue],
+        target.[MaxValue] = source.[MaxValue],
+        target.[MaxLength] = source.[MaxLength],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
+        target.[MarkedForDeletion] = ISNULL(source.[MarkedForDeletion], 0),
+        target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], ISNULL(source.[IsRequired], 0), source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], ISNULL(source.[IsActive], 1), ISNULL(source.[MarkedForDeletion], 0), source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
+
+MERGE INTO [RTS].[FieldDefinition] AS target
+USING (VALUES
     (1152, 7, 58, N'doctorName', N'Chief Medical Officer / Doctor Name', N'मुख्य वैद्यकीय अधिकारी / डॉक्टरचे नाव', N'text', N'Medical Staff Details', NULL, NULL, NULL, NULL, 8, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:45:34.910', NULL, NULL),
     (1153, 7, 58, N'doctorRegNo', N'Doctor MMC/Medical Reg No', N'डॉक्टर एमएमसी / वैद्यकीय नोंदणी क्रमांक', N'text', N'Medical Staff Details', NULL, NULL, NULL, NULL, 9, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:45:34.910', NULL, NULL),
     (1154, 7, 58, N'email', N'Email', N'ईमेल', N'email', N'Applicant Details', NULL, NULL, N'{
@@ -2601,7 +2837,16 @@ USING (VALUES
   {"value":"Urdu Girls School No. 3","label":{"en":"Urdu Girls School No. 3","hi":"उर्दु बालक विद्यालय क्र. ३","mr":"उर्दु कन्या शाळा क्र. ३"}},
   {"value":"Urdu Girls School No. 4","label":{"en":"Urdu Girls School No. 4","hi":"उर्दु बालक विद्यालय क्र. ४","mr":"उर्दु कन्या शाळा क्र. ४"}},
   {"value":"Urdu Girls School No. 5","label":{"en":"Urdu Girls School No. 5","hi":"उर्दु बालक विद्यालय क्र. ५","mr":"उर्दु कन्या शाळा क्र. ५"}}
-]', NULL, NULL, NULL, 8, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:51:28.123', NULL, NULL)
+]', NULL, NULL, NULL, 8, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:51:28.123', NULL, NULL),
+    (1196, 6, 56, N'studentFullName', N'Student Full Name', N'विद्यार्थ्याचे पूर्ण नाव', N'text', N'Student Details', NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:51:28.123', NULL, NULL),
+    (1197, 6, 57, N'affidavitDetails', N'FIR / Affidavit Registration Details', N'एफआयआर / प्रतिज्ञापत्र नोंदणी तपशील', N'textarea', N'Request Details', NULL, NULL, NULL, NULL, 10, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:51:28.123', NULL, NULL),
+    (1198, 6, 57, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:51:28.123', NULL, NULL),
+    (1199, 6, 57, N'declaration', N'I hereby declare that the information provided is true and correct.', N'घोषणापत्र / मी सहमत आहे', N'checkbox', N'Declaration', NULL, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:51:28.123', NULL, NULL),
+    (1200, 6, 57, N'email', N'Email', N'ईमेल', N'email', N'Applicant Details', NULL, NULL, N'{
+  "pattern":"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
+  "inputMode":"email"
+}', N'False', 3, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:51:28.123', NULL, NULL),
+    (1201, 6, 57, N'examinationPassed', N'Examination Name', N'परीक्षेचे नाव', N'select', N'Exam Details', N'[{"value":"ssc","label":{"en":"10th Board (SSC)","hi":"10वीं बोर्ड (SSC)","mr":"इयत्ता १० वी (SSC)"}},{"value":"std_5_scholarship","label":{"en":"5th Std Scholarship Exam","hi":"5वीं शिष्यवृत्ती","mr":"इयत्ता ५ वी शिष्यवृत्ती"}},{"value":"std_8_scholarship","label":{"en":"8th Std Scholarship Exam","hi":"8वीं शिष्यवृत्ती","mr":"इयत्ता ८ वी शिष्यवृत्ती"}},{"value":"primary_exam","label":{"en":"Annual Primary Exam","hi":"वार्षिक परीक्षा","mr":"वार्षिक परीक्षा"}},{"value":"other","label":{"en":"Other Exam","hi":"अन्य","mr":"इतर परीक्षा"}}]', NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:51:28.123', NULL, NULL)
 ) AS source ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -2616,13 +2861,13 @@ WHEN MATCHED THEN
         target.[OptionsJson] = source.[OptionsJson],
         target.[DefaultValue] = source.[DefaultValue],
         target.[ValidationRules] = source.[ValidationRules],
-        target.[IsRequired] = source.[IsRequired],
-        target.[DisplayOrder] = source.[DisplayOrder],
+        target.[IsRequired] = ISNULL(source.[IsRequired], 0),
+        target.[DisplayOrder] = ISNULL(source.[DisplayOrder], 0),
         target.[MinValue] = source.[MinValue],
         target.[MaxValue] = source.[MaxValue],
         target.[MaxLength] = source.[MaxLength],
-        target.[IsActive] = source.[IsActive],
-        target.[MarkedForDeletion] = source.[MarkedForDeletion],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
+        target.[MarkedForDeletion] = ISNULL(source.[MarkedForDeletion], 0),
         target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
@@ -2630,20 +2875,11 @@ WHEN MATCHED THEN
         target.[UpdatedDate] = source.[UpdatedDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], source.[IsRequired], source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], source.[IsActive], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], ISNULL(source.[IsRequired], 0), source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], ISNULL(source.[IsActive], 1), ISNULL(source.[MarkedForDeletion], 0), source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
 GO
 
 MERGE INTO [RTS].[FieldDefinition] AS target
 USING (VALUES
-    (1196, 6, 56, N'studentFullName', N'Student Full Name', N'विद्यार्थ्याचे पूर्ण नाव', N'text', N'Student Details', NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:51:28.123', NULL, NULL),
-    (1197, 6, 57, N'affidavitDetails', N'FIR / Affidavit Registration Details', N'एफआयआर / प्रतिज्ञापत्र नोंदणी तपशील', N'textarea', N'Request Details', NULL, NULL, NULL, NULL, 10, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:51:28.123', NULL, NULL),
-    (1198, 6, 57, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:51:28.123', NULL, NULL),
-    (1199, 6, 57, N'declaration', N'I hereby declare that the information provided is true and correct.', N'घोषणापत्र / मी सहमत आहे', N'checkbox', N'Declaration', NULL, NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:51:28.123', NULL, NULL),
-    (1200, 6, 57, N'email', N'Email', N'ईमेल', N'email', N'Applicant Details', NULL, NULL, N'{
-  "pattern":"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
-  "inputMode":"email"
-}', N'False', 3, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:51:28.123', NULL, NULL),
-    (1201, 6, 57, N'examinationPassed', N'Examination Name', N'परीक्षेचे नाव', N'select', N'Exam Details', N'[{"value":"ssc","label":{"en":"10th Board (SSC)","hi":"10वीं बोर्ड (SSC)","mr":"इयत्ता १० वी (SSC)"}},{"value":"std_5_scholarship","label":{"en":"5th Std Scholarship Exam","hi":"5वीं शिष्यवृत्ती","mr":"इयत्ता ५ वी शिष्यवृत्ती"}},{"value":"std_8_scholarship","label":{"en":"8th Std Scholarship Exam","hi":"8वीं शिष्यवृत्ती","mr":"इयत्ता ८ वी शिष्यवृत्ती"}},{"value":"primary_exam","label":{"en":"Annual Primary Exam","hi":"वार्षिक परीक्षा","mr":"वार्षिक परीक्षा"}},{"value":"other","label":{"en":"Other Exam","hi":"अन्य","mr":"इतर परीक्षा"}}]', NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:51:28.123', NULL, NULL),
     (1202, 6, 57, N'mobileNo', N'Mobile Number', N'मोबाईल नंबर', N'tel', N'Applicant Details', NULL, NULL, NULL, NULL, 2, NULL, NULL, 10, NULL, N'False', NULL, 0, '2026-07-21T18:51:28.123', NULL, NULL),
     (1203, 6, 57, N'passingYear', N'Passing Year', N'उत्तीर्ण वर्ष', N'number', N'Exam Details', NULL, NULL, N'{"min":0}', NULL, 8, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:51:28.123', NULL, NULL),
     (1204, 6, 57, N'reasonForDuplicate', N'Reason for Duplicate Marksheet', N'डुप्लिकेट गुणपत्रिकेचे कारण', N'select', N'Request Details', N'[{"value":"lost","label":{"en":"Original Lost","hi":"गहाळ झाले","mr":"मूळ गुणपत्रक गहाळ झाले"}},{"value":"damaged","label":{"en":"Original Damaged / Torn","hi":"खराब / फाटले","mr":"खराब / फाटले आहे"}},{"value":"misplaced","label":{"en":"Misplaced","hi":"सापडत नाही","mr":"सापडत नाही"}}]', NULL, NULL, NULL, 9, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:51:28.123', NULL, NULL),
@@ -2727,7 +2963,13 @@ USING (VALUES
     (3025, 3, 142, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, N'False', 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-12T17:59:44.977', NULL, NULL),
     (3026, 3, 143, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, N'False', 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-12T17:59:44.977', NULL, NULL),
     (3027, 3, 144, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, N'False', 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-12T17:59:44.977', NULL, NULL),
-    (3028, 3, 158, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, N'False', 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-12T17:59:44.977', NULL, NULL)
+    (3028, 3, 158, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, N'False', 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-12T17:59:44.977', NULL, NULL),
+    (3029, 3, 159, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, N'False', 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-12T17:59:44.977', NULL, NULL),
+    (3030, 3, 160, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, N'False', 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-12T17:59:44.977', NULL, NULL),
+    (3031, 3, 161, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, N'False', 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-12T17:59:44.977', NULL, NULL),
+    (3032, 13, 162, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, N'False', 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-12T17:59:44.977', NULL, NULL),
+    (3033, 1, 145, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, N'False', 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-12T18:00:25.820', NULL, NULL),
+    (3034, 1, 146, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, N'False', 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-12T18:00:25.820', NULL, NULL)
 ) AS source ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -2742,13 +2984,13 @@ WHEN MATCHED THEN
         target.[OptionsJson] = source.[OptionsJson],
         target.[DefaultValue] = source.[DefaultValue],
         target.[ValidationRules] = source.[ValidationRules],
-        target.[IsRequired] = source.[IsRequired],
-        target.[DisplayOrder] = source.[DisplayOrder],
+        target.[IsRequired] = ISNULL(source.[IsRequired], 0),
+        target.[DisplayOrder] = ISNULL(source.[DisplayOrder], 0),
         target.[MinValue] = source.[MinValue],
         target.[MaxValue] = source.[MaxValue],
         target.[MaxLength] = source.[MaxLength],
-        target.[IsActive] = source.[IsActive],
-        target.[MarkedForDeletion] = source.[MarkedForDeletion],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
+        target.[MarkedForDeletion] = ISNULL(source.[MarkedForDeletion], 0),
         target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
@@ -2756,17 +2998,11 @@ WHEN MATCHED THEN
         target.[UpdatedDate] = source.[UpdatedDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], source.[IsRequired], source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], source.[IsActive], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], ISNULL(source.[IsRequired], 0), source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], ISNULL(source.[IsActive], 1), ISNULL(source.[MarkedForDeletion], 0), source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
 GO
 
 MERGE INTO [RTS].[FieldDefinition] AS target
 USING (VALUES
-    (3029, 3, 159, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, N'False', 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-12T17:59:44.977', NULL, NULL),
-    (3030, 3, 160, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, N'False', 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-12T17:59:44.977', NULL, NULL),
-    (3031, 3, 161, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, N'False', 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-12T17:59:44.977', NULL, NULL),
-    (3032, 13, 162, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, N'False', 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-12T17:59:44.977', NULL, NULL),
-    (3033, 1, 145, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, N'False', 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-12T18:00:25.820', NULL, NULL),
-    (3034, 1, 146, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, N'False', 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-12T18:00:25.820', NULL, NULL),
     (3035, 1, 147, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, N'False', 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-12T18:00:25.820', NULL, NULL),
     (3036, 1, 148, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, N'False', 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-12T18:00:25.820', NULL, NULL),
     (3037, 1, 149, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, N'False', 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-12T18:00:25.820', NULL, NULL),
@@ -2810,7 +3046,13 @@ USING (VALUES
     (4037, 3, 137, N'DOC_APPLICANT_ID_137', N'Applicant Identity Proof (Aadhaar / PAN)', N'अर्जदाराचा ओळख पुरावा (आधार / पॅन कार्ड)', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.487', NULL, NULL),
     (4038, 3, 137, N'DOC_NOC_CERTIFICATE_137', N'NOC Certificate / Shop Act Copy', N'ना-हरकत प्रमाणपत्र / गुमास्ता परवाना प्रत', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.490', NULL, NULL),
     (4039, 3, 138, N'DOC_RENT_AGREEMENT_138', N'Premises Rent Agreement / Ownership Deed', N'जागेचा भाडे करारनामा / मालकी हक्क पुरावा', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.493', NULL, NULL),
-    (4040, 3, 138, N'DOC_APPLICANT_ID_138', N'Applicant Identity Proof (Aadhaar / PAN)', N'अर्जदाराचा ओळख पुरावा (आधार / पॅन कार्ड)', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.493', NULL, NULL)
+    (4040, 3, 138, N'DOC_APPLICANT_ID_138', N'Applicant Identity Proof (Aadhaar / PAN)', N'अर्जदाराचा ओळख पुरावा (आधार / पॅन कार्ड)', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.493', NULL, NULL),
+    (4041, 3, 138, N'DOC_NOC_CERTIFICATE_138', N'NOC Certificate / Shop Act Copy', N'ना-हरकत प्रमाणपत्र / गुमास्ता परवाना प्रत', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.497', NULL, NULL),
+    (4042, 3, 139, N'DOC_RENT_AGREEMENT_139', N'Premises Rent Agreement / Ownership Deed', N'जागेचा भाडे करारनामा / मालकी हक्क पुरावा', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.503', NULL, NULL),
+    (4043, 3, 139, N'DOC_APPLICANT_ID_139', N'Applicant Identity Proof (Aadhaar / PAN)', N'अर्जदाराचा ओळख पुरावा (आधार / पॅन कार्ड)', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.503', NULL, NULL),
+    (4044, 3, 139, N'DOC_NOC_CERTIFICATE_139', N'NOC Certificate / Shop Act Copy', N'ना-हरकत प्रमाणपत्र / गुमास्ता परवाना प्रत', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.507', NULL, NULL),
+    (4045, 3, 140, N'DOC_RENT_AGREEMENT_140', N'Premises Rent Agreement / Ownership Deed', N'जागेचा भाडे करारनामा / मालकी हक्क पुरावा', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.510', NULL, NULL),
+    (4048, 3, 141, N'DOC_RENT_AGREEMENT_141', N'Premises Rent Agreement / Ownership Deed', N'जागेचा भाडे करारनामा / मालकी हक्क पुरावा', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.517', NULL, NULL)
 ) AS source ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -2825,13 +3067,13 @@ WHEN MATCHED THEN
         target.[OptionsJson] = source.[OptionsJson],
         target.[DefaultValue] = source.[DefaultValue],
         target.[ValidationRules] = source.[ValidationRules],
-        target.[IsRequired] = source.[IsRequired],
-        target.[DisplayOrder] = source.[DisplayOrder],
+        target.[IsRequired] = ISNULL(source.[IsRequired], 0),
+        target.[DisplayOrder] = ISNULL(source.[DisplayOrder], 0),
         target.[MinValue] = source.[MinValue],
         target.[MaxValue] = source.[MaxValue],
         target.[MaxLength] = source.[MaxLength],
-        target.[IsActive] = source.[IsActive],
-        target.[MarkedForDeletion] = source.[MarkedForDeletion],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
+        target.[MarkedForDeletion] = ISNULL(source.[MarkedForDeletion], 0),
         target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
@@ -2839,17 +3081,11 @@ WHEN MATCHED THEN
         target.[UpdatedDate] = source.[UpdatedDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], source.[IsRequired], source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], source.[IsActive], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], ISNULL(source.[IsRequired], 0), source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], ISNULL(source.[IsActive], 1), ISNULL(source.[MarkedForDeletion], 0), source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
 GO
 
 MERGE INTO [RTS].[FieldDefinition] AS target
 USING (VALUES
-    (4041, 3, 138, N'DOC_NOC_CERTIFICATE_138', N'NOC Certificate / Shop Act Copy', N'ना-हरकत प्रमाणपत्र / गुमास्ता परवाना प्रत', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.497', NULL, NULL),
-    (4042, 3, 139, N'DOC_RENT_AGREEMENT_139', N'Premises Rent Agreement / Ownership Deed', N'जागेचा भाडे करारनामा / मालकी हक्क पुरावा', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.503', NULL, NULL),
-    (4043, 3, 139, N'DOC_APPLICANT_ID_139', N'Applicant Identity Proof (Aadhaar / PAN)', N'अर्जदाराचा ओळख पुरावा (आधार / पॅन कार्ड)', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.503', NULL, NULL),
-    (4044, 3, 139, N'DOC_NOC_CERTIFICATE_139', N'NOC Certificate / Shop Act Copy', N'ना-हरकत प्रमाणपत्र / गुमास्ता परवाना प्रत', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.507', NULL, NULL),
-    (4045, 3, 140, N'DOC_RENT_AGREEMENT_140', N'Premises Rent Agreement / Ownership Deed', N'जागेचा भाडे करारनामा / मालकी हक्क पुरावा', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.510', NULL, NULL),
-    (4048, 3, 141, N'DOC_RENT_AGREEMENT_141', N'Premises Rent Agreement / Ownership Deed', N'जागेचा भाडे करारनामा / मालकी हक्क पुरावा', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.517', NULL, NULL),
     (4049, 3, 141, N'DOC_APPLICANT_ID_141', N'Applicant Identity Proof (Aadhaar / PAN)', N'अर्जदाराचा ओळख पुरावा (आधार / पॅन कार्ड)', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.520', NULL, NULL),
     (4051, 3, 142, N'DOC_RENT_AGREEMENT_142', N'Premises Rent Agreement / Ownership Deed', N'जागेचा भाडे करारनामा / मालकी हक्क पुरावा', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.527', NULL, NULL),
     (4052, 3, 142, N'DOC_APPLICANT_ID_142', N'Applicant Identity Proof (Aadhaar / PAN)', N'अर्जदाराचा ओळख पुरावा (आधार / पॅन कार्ड)', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.530', NULL, NULL),
@@ -2893,7 +3129,13 @@ USING (VALUES
     (4097, 3, 161, N'DOC_NOC_CERTIFICATE_161', N'NOC Certificate / Shop Act Copy', N'ना-हरकत प्रमाणपत्र / गुमास्ता परवाना प्रत', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.760', NULL, NULL),
     (4099, 13, 162, N'DOC_APPLICANT_ID_162', N'Applicant Identity Proof (Aadhaar / PAN)', N'अर्जदाराचा ओळख पुरावा (आधार / पॅन कार्ड)', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 5, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.767', NULL, NULL),
     (4101, 4, 61, N'approvedPlanDocument', N'Approved Plan / Map', N'मंजूर नकाशाची प्रत', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', NULL, 52, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-17T21:57:15.420', NULL, NULL),
-    (4102, 4, 61, N'sevenTwelveOrSaleDeedDocument', N'7/12 Extract / Sale Deed', N'७/१२ उतारा / खरेदी खत', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', NULL, 53, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-17T21:57:15.420', NULL, NULL)
+    (4102, 4, 61, N'sevenTwelveOrSaleDeedDocument', N'7/12 Extract / Sale Deed', N'७/१२ उतारा / खरेदी खत', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', NULL, 53, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-17T21:57:15.420', NULL, NULL),
+    (4103, 4, 61, N'rentAgreementDocument', N'Rent Agreement', N'भाडे करार', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', N'False', 54, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-17T21:57:15.420', NULL, NULL),
+    (4104, 4, 44, N'measurementMapDocument', N'Measurement Map / City Survey Map', N'मोजणी नकाशा / सिटी सर्व्हे नकाशा', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', NULL, 51, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-17T22:31:22.380', NULL, NULL),
+    (4105, 4, 45, N'buildingPlanDrawingDoc', N'Building Plan / Construction Drawing', N'बांधकाम आराखडा / नकाशा', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', NULL, 52, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-17T22:56:11.760', NULL, NULL),
+    (4106, 4, 45, N'approvedDrawingCopyDoc', N'Copy of Approved Drawing', N'मंजूर रेखांकनाची प्रत', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', NULL, 53, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-17T22:56:11.760', NULL, NULL),
+    (5102, 5, 53, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Information', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-22T19:09:03.640', NULL, NULL),
+    (5103, 5, 53, N'middleName', N'Middle Name', N'मधले नाव', N'text', N'Applicant Information', NULL, NULL, NULL, N'False', 2, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-22T19:09:03.640', NULL, NULL)
 ) AS source ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -2908,13 +3150,13 @@ WHEN MATCHED THEN
         target.[OptionsJson] = source.[OptionsJson],
         target.[DefaultValue] = source.[DefaultValue],
         target.[ValidationRules] = source.[ValidationRules],
-        target.[IsRequired] = source.[IsRequired],
-        target.[DisplayOrder] = source.[DisplayOrder],
+        target.[IsRequired] = ISNULL(source.[IsRequired], 0),
+        target.[DisplayOrder] = ISNULL(source.[DisplayOrder], 0),
         target.[MinValue] = source.[MinValue],
         target.[MaxValue] = source.[MaxValue],
         target.[MaxLength] = source.[MaxLength],
-        target.[IsActive] = source.[IsActive],
-        target.[MarkedForDeletion] = source.[MarkedForDeletion],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
+        target.[MarkedForDeletion] = ISNULL(source.[MarkedForDeletion], 0),
         target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
@@ -2922,17 +3164,11 @@ WHEN MATCHED THEN
         target.[UpdatedDate] = source.[UpdatedDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], source.[IsRequired], source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], source.[IsActive], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], ISNULL(source.[IsRequired], 0), source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], ISNULL(source.[IsActive], 1), ISNULL(source.[MarkedForDeletion], 0), source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
 GO
 
 MERGE INTO [RTS].[FieldDefinition] AS target
 USING (VALUES
-    (4103, 4, 61, N'rentAgreementDocument', N'Rent Agreement', N'भाडे करार', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', N'False', 54, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-17T21:57:15.420', NULL, NULL),
-    (4104, 4, 44, N'measurementMapDocument', N'Measurement Map / City Survey Map', N'मोजणी नकाशा / सिटी सर्व्हे नकाशा', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', NULL, 51, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-17T22:31:22.380', NULL, NULL),
-    (4105, 4, 45, N'buildingPlanDrawingDoc', N'Building Plan / Construction Drawing', N'बांधकाम आराखडा / नकाशा', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', NULL, 52, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-17T22:56:11.760', NULL, NULL),
-    (4106, 4, 45, N'approvedDrawingCopyDoc', N'Copy of Approved Drawing', N'मंजूर रेखांकनाची प्रत', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', NULL, 53, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-17T22:56:11.760', NULL, NULL),
-    (5102, 5, 53, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Information', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-22T19:09:03.640', NULL, NULL),
-    (5103, 5, 53, N'middleName', N'Middle Name', N'मधले नाव', N'text', N'Applicant Information', NULL, NULL, NULL, N'False', 2, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-22T19:09:03.640', NULL, NULL),
     (5104, 5, 53, N'lastName', N'Last Name', N'आडनाव', N'text', N'Applicant Information', NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-22T19:09:03.640', NULL, NULL),
     (5105, 5, 53, N'mobileNumber', N'Mobile Number', N'मोबाईल नंबर', N'tel', N'Applicant Information', NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-22T19:09:03.640', NULL, NULL),
     (5106, 5, 53, N'aadharNo', N'Aadhar Card No', N'आधार कार्ड क्रमांक', N'text', N'Applicant Information', NULL, NULL, N'{
@@ -2997,7 +3233,13 @@ USING (VALUES
     (7430, 3, 159, N'DOC_REQUIRED_06_159', N'Previous Lodging House Licence', N'मागील निवासगृह परवाना', N'file', NULL, NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-26T18:10:42.937', NULL, NULL),
     (7431, 3, 160, N'DOC_REQUIRED_04_160', N'Photograph of the Marriage Hall / Auditorium Premises', N'विवाह सभागृह / प्रेक्षागृहाच्या जागेचा फोटो', N'file', NULL, NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-26T18:10:42.937', NULL, NULL),
     (7432, 3, 160, N'DOC_REQUIRED_05_160', N'Rent Agreement or Property Owner''s Consent Letter / NOC if the premises are rented', N'भाडे करारनामा किंवा मालमत्ता मालकाचे संमतीपत्र / ना हरकत प्रमाणपत्र', N'file', NULL, NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-26T18:10:42.937', NULL, NULL),
-    (7433, 3, 160, N'DOC_REQUIRED_06_160', N'Fire Department Certificate / Fire NOC', N'अग्निशमन विभागाचे प्रमाणपत्र / अग्निशमन ना हरकत प्रमाणपत्र', N'file', NULL, NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-26T18:10:42.937', NULL, NULL)
+    (7433, 3, 160, N'DOC_REQUIRED_06_160', N'Fire Department Certificate / Fire NOC', N'अग्निशमन विभागाचे प्रमाणपत्र / अग्निशमन ना हरकत प्रमाणपत्र', N'file', NULL, NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-26T18:10:42.937', NULL, NULL),
+    (7434, 3, 160, N'DOC_REQUIRED_07_160', N'Photographs of Parking Facilities', N'पार्किंग सुविधांचे फोटो', N'file', NULL, NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-26T18:10:42.937', NULL, NULL),
+    (7435, 3, 160, N'DOC_REQUIRED_08_160', N'Sanitation Certificate from the Health Department', N'आरोग्य विभागाचे स्वच्छता प्रमाणपत्र', N'file', NULL, NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-26T18:10:42.937', NULL, NULL),
+    (7436, 3, 160, N'DOC_REQUIRED_09_160', N'Building Permission', N'बांधकाम परवानगी', N'file', NULL, NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-26T18:10:42.937', NULL, NULL),
+    (7437, 3, 160, N'DOC_REQUIRED_10_160', N'Copy of the Sanctioned Building Plan', N'मंजूर बांधकाम नकाशाची प्रत', N'file', NULL, NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-26T18:10:42.937', NULL, NULL),
+    (7438, 3, 160, N'DOC_REQUIRED_11_160', N'Water Conservation Certificate.', N'जलसंधारण प्रमाणपत्र', N'file', NULL, NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-26T18:10:42.937', NULL, NULL),
+    (7439, 3, 161, N'DOC_REQUIRED_04_161', N'Photograph of the Marriage Hall / Auditorium Premises', N'विवाह सभागृह / प्रेक्षागृहाच्या जागेचा फोटो', N'file', NULL, NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-26T18:10:42.940', NULL, NULL)
 ) AS source ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -3012,13 +3254,13 @@ WHEN MATCHED THEN
         target.[OptionsJson] = source.[OptionsJson],
         target.[DefaultValue] = source.[DefaultValue],
         target.[ValidationRules] = source.[ValidationRules],
-        target.[IsRequired] = source.[IsRequired],
-        target.[DisplayOrder] = source.[DisplayOrder],
+        target.[IsRequired] = ISNULL(source.[IsRequired], 0),
+        target.[DisplayOrder] = ISNULL(source.[DisplayOrder], 0),
         target.[MinValue] = source.[MinValue],
         target.[MaxValue] = source.[MaxValue],
         target.[MaxLength] = source.[MaxLength],
-        target.[IsActive] = source.[IsActive],
-        target.[MarkedForDeletion] = source.[MarkedForDeletion],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
+        target.[MarkedForDeletion] = ISNULL(source.[MarkedForDeletion], 0),
         target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
@@ -3026,17 +3268,11 @@ WHEN MATCHED THEN
         target.[UpdatedDate] = source.[UpdatedDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], source.[IsRequired], source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], source.[IsActive], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], ISNULL(source.[IsRequired], 0), source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], ISNULL(source.[IsActive], 1), ISNULL(source.[MarkedForDeletion], 0), source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
 GO
 
 MERGE INTO [RTS].[FieldDefinition] AS target
 USING (VALUES
-    (7434, 3, 160, N'DOC_REQUIRED_07_160', N'Photographs of Parking Facilities', N'पार्किंग सुविधांचे फोटो', N'file', NULL, NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-26T18:10:42.937', NULL, NULL),
-    (7435, 3, 160, N'DOC_REQUIRED_08_160', N'Sanitation Certificate from the Health Department', N'आरोग्य विभागाचे स्वच्छता प्रमाणपत्र', N'file', NULL, NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-26T18:10:42.937', NULL, NULL),
-    (7436, 3, 160, N'DOC_REQUIRED_09_160', N'Building Permission', N'बांधकाम परवानगी', N'file', NULL, NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-26T18:10:42.937', NULL, NULL),
-    (7437, 3, 160, N'DOC_REQUIRED_10_160', N'Copy of the Sanctioned Building Plan', N'मंजूर बांधकाम नकाशाची प्रत', N'file', NULL, NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-26T18:10:42.937', NULL, NULL),
-    (7438, 3, 160, N'DOC_REQUIRED_11_160', N'Water Conservation Certificate.', N'जलसंधारण प्रमाणपत्र', N'file', NULL, NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-26T18:10:42.937', NULL, NULL),
-    (7439, 3, 161, N'DOC_REQUIRED_04_161', N'Photograph of the Marriage Hall / Auditorium Premises', N'विवाह सभागृह / प्रेक्षागृहाच्या जागेचा फोटो', N'file', NULL, NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-26T18:10:42.940', NULL, NULL),
     (7440, 3, 161, N'DOC_REQUIRED_05_161', N'Rent Agreement or Property Owner Consent Letter / NOC if the premises are rented', N'भाडे करारनामा किंवा मालमत्ता मालकाचे संमतीपत्र / ना हरकत प्रमाणपत्र', N'file', NULL, NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-26T18:10:42.940', NULL, NULL),
     (7441, 3, 161, N'DOC_REQUIRED_06_161', N'Fire Department Certificate / Fire NOC', N'अग्निशमन विभागाचे प्रमाणपत्र / अग्निशमन ना हरकत प्रमाणपत्र', N'file', NULL, NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-26T18:10:42.940', NULL, NULL),
     (7442, 3, 161, N'DOC_REQUIRED_07_161', N'Photographs of Parking Facilities', N'पार्किंग सुविधांचे फोटो', N'file', NULL, NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-26T18:10:42.940', NULL, NULL),
@@ -3046,22 +3282,22 @@ USING (VALUES
     (7446, 3, 161, N'DOC_REQUIRED_11_161', N'Water Conservation Certificate', N'जलसंधारण प्रमाणपत्र', N'file', NULL, NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-26T18:10:42.940', NULL, NULL),
     (7447, 3, 161, N'DOC_REQUIRED_12_161', N'Previous Marriage Hall / Auditorium Licence', N'मागील विवाह सभागृह / प्रेक्षागृह परवाना', N'file', NULL, NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-26T18:10:42.940', NULL, NULL),
     (8283, 4, 62, N'applicantFullName', N'Full Name', N'पूर्ण नाव', N'text', N'Applicant Information', NULL, NULL, NULL, NULL, 1, NULL, NULL, 200, NULL, N'False', NULL, 0, '2026-08-27T16:44:50.810', NULL, NULL),
-    (8284, 4, 62, N'mandalOrganizationName', N'Organization / Mandal Name', N'संस्था / मंडळाचे नाव', N'text', N'Applicant Information', NULL, NULL, NULL, N'False', 2, NULL, NULL, 200, NULL, N'False', NULL, 0, '2026-08-27T16:44:50.810', NULL, NULL),
-    (8285, 4, 62, N'mobileNumber', N'Mobile Number', N'मोबाईल नंबर', N'tel', N'Applicant Information', NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:44:50.810', NULL, NULL),
+    (8284, 4, 62, N'mandalOrganizationName', N'Organization / Mandal Name', N'संस्था / मंडळाचे नाव', N'text', N'Applicant Information', NULL, NULL, NULL, N'False', 1, NULL, NULL, 200, NULL, N'False', NULL, 0, '2026-08-27T16:44:50.810', NULL, NULL),
+    (8285, 4, 62, N'mobileNumber', N'Mobile Number', N'मोबाईल नंबर', N'tel', N'Applicant Information', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:44:50.810', NULL, NULL),
     (8286, 4, 62, N'email', N'Email', N'ईमेल', N'email', N'Applicant Information', NULL, NULL, N'{
   "pattern":"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
   "inputMode":"email"
-}', N'False', 6, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:44:50.810', NULL, NULL),
+}', N'False', 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:44:50.810', NULL, NULL),
     (8287, 4, 62, N'aadharNo', N'Aadhar Card No', N'आधार कार्ड क्रमांक', N'text', N'Applicant Information', NULL, NULL, N'{
   "inputMode": "numeric",
   "allow": "numeric",
   "exactLength": 12,
   "pattern": "^[2-9][0-9]{11}$",
   "message": "Enter a valid 12-digit Aadhaar number."
-}', NULL, 5, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:44:50.810', NULL, NULL),
-    (8288, 4, 62, N'fullPostalAddress', N'Full Postal Address', N'पूर्ण टपाल पत्ता', N'textarea', N'Applicant Information', NULL, NULL, N'{"maxLength":500}', NULL, 6, NULL, NULL, 500, NULL, N'False', NULL, 0, '2026-08-27T16:44:50.810', NULL, NULL),
-    (8289, 4, 62, N'eventType', N'Type of Event', N'कार्यक्रमाचा प्रकार', N'select', N'Event & Venue Details', N'[{"value":"marriage","label":{"en":"Marriage","hi":"विवाह","mr":"लग्न"}},{"value":"festival","label":{"en":"Festival","hi":"त्योहार","mr":"सण"}},{"value":"cultural","label":{"en":"Cultural Program","hi":"सांस्कृतिक कार्यक्रम","mr":"सांस्कृतिक कार्यक्रम"}},{"value":"political","label":{"en":"Political Rally","hi":"राजनीतिक सभा","mr":"राजकीय सभा"}},{"value":"exhibition","label":{"en":"Exhibition","hi":"प्रदर्शनी","mr":"प्रदर्शनी"}},{"value":"commercial","label":{"en":"Commercial Event","hi":"व्यावसायिक कार्यक्रम","mr":"व्यावसायिक कार्यक्रम"}}]', NULL, NULL, NULL, 21, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:46:37.340', NULL, NULL),
-    (8290, 4, 62, N'mandapLocationAddress', N'Exact Location / Address of Proposed Mandap', N'प्रस्तावित मंडपाचे अचूक ठिकाण / पत्ता', N'textarea', N'Event & Venue Details', NULL, NULL, N'{"maxLength":500}', NULL, 2, NULL, NULL, 500, NULL, N'False', NULL, 0, '2026-08-27T16:46:37.340', NULL, NULL),
+}', NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:44:50.810', NULL, NULL),
+    (8288, 4, 62, N'fullPostalAddress', N'Full Postal Address', N'पूर्ण टपाल पत्ता', N'textarea', N'Applicant Information', NULL, NULL, N'{"maxLength":500}', NULL, 1, NULL, NULL, 500, NULL, N'False', NULL, 0, '2026-08-27T16:44:50.810', NULL, NULL),
+    (8289, 4, 62, N'eventType', N'Type of Event', N'कार्यक्रमाचा प्रकार', N'select', N'Event & Venue Details', N'[{"value":"marriage","label":{"en":"Marriage","hi":"विवाह","mr":"लग्न"}},{"value":"festival","label":{"en":"Festival","hi":"त्योहार","mr":"सण"}},{"value":"cultural","label":{"en":"Cultural Program","hi":"सांस्कृतिक कार्यक्रम","mr":"सांस्कृतिक कार्यक्रम"}},{"value":"political","label":{"en":"Political Rally","hi":"राजनीतिक सभा","mr":"राजकीय सभा"}},{"value":"exhibition","label":{"en":"Exhibition","hi":"प्रदर्शनी","mr":"प्रदर्शनी"}},{"value":"commercial","label":{"en":"Commercial Event","hi":"व्यावसायिक कार्यक्रम","mr":"व्यावसायिक कार्यक्रम"}}]', NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:46:37.340', NULL, NULL),
+    (8290, 4, 62, N'mandapLocationAddress', N'Exact Location / Address of Proposed Mandap', N'प्रस्तावित मंडपाचे अचूक ठिकाण / पत्ता', N'textarea', N'Event & Venue Details', NULL, NULL, N'{"maxLength":500}', NULL, 22, NULL, NULL, 500, NULL, N'False', NULL, 0, '2026-08-27T16:46:37.340', NULL, NULL),
     (8291, 4, 62, N'wardNo', N'Ward', N'प्रभागाचे नाव / क्रमांक', N'select', N'Event & Venue Details', N'[
   {
     "value": "A1",
@@ -3447,34 +3683,34 @@ USING (VALUES
       "mr": "D12"
     }
   }
-]', NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:46:37.340', NULL, NULL),
+]', NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:46:37.340', NULL, NULL),
     (8292, 4, 62, N'landOwnershipType', N'Land Ownership Type', N'जमिनीच्या मालकीचा प्रकार', N'select', N'Event & Venue Details', N'[
       {"value":"municipalRoad","label":{"en":"Municipal Road","hi":"नगरपालिका सड़क","mr":"महानगरपालिका रस्ता"}},
       {"value":"publicFootpath","label":{"en":"Public Footpath","hi":"सार्वजनिक फुटपाथ","mr":"सार्वजनिक पदपथ"}},
       {"value":"municipalGround","label":{"en":"Municipal Ground","hi":"नगरपालिका मैदान","mr":"महानगरपालिका मैदान"}},
       {"value":"privateProperty","label":{"en":"Private Property","hi":"निजी संपत्ति","mr":"खाजगी मालमत्ता"}},
       {"value":"societyOpenArea","label":{"en":"Society Open Area","hi":"सोसाइटी खुला क्षेत्र","mr":"सोसायटी मोकळी जागा"}}
-    ]', NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:46:37.340', NULL, NULL),
-    (8293, 4, 62, N'nearestLandmark', N'Nearest Landmark', N'जवळचे ओळखण्याजोगे ठिकाण', N'text', N'Event & Venue Details', NULL, NULL, N'{"maxLength":200}', NULL, 5, NULL, NULL, 200, NULL, N'False', NULL, 0, '2026-08-27T16:46:37.340', NULL, NULL),
-    (8294, 4, 62, N'eventStartDate', N'Event Start Date', N'कार्यक्रम सुरू होण्याची तारीख', N'date', N'Schedule & Dimensions', NULL, NULL, N'{"minDate":"1900-01-01","maxDate":"2099-12-31"}', NULL, 22, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:50:10.290', NULL, NULL),
-    (8295, 4, 62, N'eventEndDate', N'Event End Date', N'कार्यक्रम समाप्तीची तारीख', N'date', N'Schedule & Dimensions', NULL, NULL, N'{"minDate":"1900-01-01","maxDate":"2099-12-31"}', NULL, 23, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:50:10.290', NULL, NULL),
-    (8296, 4, 62, N'totalDays', N'Total Number of Days', N'एकूण दिवसांची संख्या', N'text', N'Schedule & Dimensions', NULL, NULL, N'{    "inputMode": "numeric",    "allow": "numeric",    "exactLength": 3,    "pattern": "^[2-9][0-9]{11}$",    "message": "Enter a valid 12-digit Aadhaar number."  }', NULL, 3, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:50:10.290', NULL, NULL),
-    (8297, 4, 62, N'mandapLengthFt', N'Mandap Length (feet)', N'मंडपाची लांबी (फूट)', N'text', N'Schedule & Dimensions', NULL, NULL, N'{    "inputMode": "numeric",    "allow": "numeric",    "exactLength": 5,    "pattern": "^[2-9][0-9]{11}$",    "message": "Enter a valid 12-digit Aadhaar number."  }', NULL, 4, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:50:10.290', NULL, NULL),
-    (8298, 4, 62, N'mandapWidthFt', N'Mandap Width (feet)', N'मंडपाची रुंदी (फूट)', N'text', N'Schedule & Dimensions', NULL, NULL, N'{    "inputMode": "numeric",    "allow": "numeric",    "exactLength": 5,    "pattern": "^[2-9][0-9]{11}$",    "message": "Enter a valid 12-digit Aadhaar number."  }', NULL, 5, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:50:10.290', NULL, NULL),
-    (8299, 4, 62, N'totalOccupiedAreaSqFt', N'Total Occupied Area (Sq. Ft.)', N'एकूण व्यापलेले क्षेत्रफळ (चौ. फूट)', N'text', N'Schedule & Dimensions', NULL, NULL, N'{    "inputMode": "numeric",    "allow": "numeric",    "exactLength": 5,    "pattern": "^[2-9][0-9]{11}$",    "message": "Enter a valid 12-digit Aadhaar number."  }', NULL, 6, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:50:10.290', NULL, NULL),
+    ]', NULL, NULL, NULL, 11, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:46:37.340', NULL, NULL),
+    (8293, 4, 62, N'nearestLandmark', N'Nearest Landmark', N'जवळचे ओळखण्याजोगे ठिकाण', N'text', N'Event & Venue Details', NULL, NULL, N'{"maxLength":200}', NULL, 11, NULL, NULL, 200, NULL, N'False', NULL, 0, '2026-08-27T16:46:37.340', NULL, NULL),
+    (8294, 4, 62, N'eventStartDate', N'Event Start Date', N'कार्यक्रम सुरू होण्याची तारीख', N'date', N'Schedule & Dimensions', NULL, NULL, N'{"minDate":"1900-01-01","maxDate":"2099-12-31"}', NULL, 21, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:50:10.290', NULL, NULL),
+    (8295, 4, 62, N'eventEndDate', N'Event End Date', N'कार्यक्रम समाप्तीची तारीख', N'date', N'Schedule & Dimensions', NULL, NULL, N'{"minDate":"1900-01-01","maxDate":"2099-12-31"}', NULL, 21, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:50:10.290', NULL, NULL),
+    (8296, 4, 62, N'totalDays', N'Total Number of Days', N'एकूण दिवसांची संख्या', N'text', N'Schedule & Dimensions', NULL, NULL, N'{    "inputMode": "numeric",    "allow": "numeric",    "exactLength": 3,    "pattern": "^[2-9][0-9]{11}$",    "message": "Enter a valid 12-digit Aadhaar number."  }', NULL, 21, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:50:10.290', NULL, NULL),
+    (8297, 4, 62, N'mandapLengthFt', N'Mandap Length (feet)', N'मंडपाची लांबी (फूट)', N'text', N'Schedule & Dimensions', NULL, NULL, N'{    "inputMode": "numeric",    "allow": "numeric",    "exactLength": 5,    "pattern": "^[2-9][0-9]{11}$",    "message": "Enter a valid 12-digit Aadhaar number."  }', NULL, 21, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:50:10.290', NULL, NULL),
+    (8298, 4, 62, N'mandapWidthFt', N'Mandap Width (feet)', N'मंडपाची रुंदी (फूट)', N'text', N'Schedule & Dimensions', NULL, NULL, N'{    "inputMode": "numeric",    "allow": "numeric",    "exactLength": 5,    "pattern": "^[2-9][0-9]{11}$",    "message": "Enter a valid 12-digit Aadhaar number."  }', NULL, 21, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:50:10.290', NULL, NULL),
+    (8299, 4, 62, N'totalOccupiedAreaSqFt', N'Total Occupied Area (Sq. Ft.)', N'एकूण व्यापलेले क्षेत्रफळ (चौ. फूट)', N'text', N'Schedule & Dimensions', NULL, NULL, N'{    "inputMode": "numeric",    "allow": "numeric",    "exactLength": 5,    "pattern": "^[2-9][0-9]{11}$",    "message": "Enter a valid 12-digit Aadhaar number."  }', NULL, 21, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:50:10.290', NULL, NULL),
     (8300, 4, 62, N'loudspeakerUsage', N'Loudspeaker Usage', N'ध्वनिक्षेपकाचा वापर', N'select', N'Safety & Activity Checklists', N'[
       {"value":"yes","label":{"en":"Yes","hi":"हाँ","mr":"होय"}},
       {"value":"no","label":{"en":"No","hi":"नहीं","mr":"नाही"}}
-    ]', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:52:03.687', NULL, NULL),
+    ]', NULL, NULL, NULL, 31, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:52:03.687', NULL, NULL),
     (8301, 4, 62, N'liveFoodCookingInsidePandal', N'Live Food Cooking Inside Pandal', N'मंडपामध्ये प्रत्यक्ष अन्न शिजविण्यात येणार आहे का?', N'select', N'Safety & Activity Checklists', N'[
       {"value":"yes","label":{"en":"Yes","hi":"हाँ","mr":"होय"}},
       {"value":"no","label":{"en":"No","hi":"नहीं","mr":"नाही"}}
-    ]', NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:52:03.687', NULL, NULL),
+    ]', NULL, NULL, NULL, 31, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:52:03.687', NULL, NULL),
     (8302, 4, 62, N'restrictsPublicTrafficFlow', N'Restricts Public Traffic Flow', N'सार्वजनिक वाहतुकीच्या प्रवाहास अडथळा होणार आहे का?', N'select', N'Safety & Activity Checklists', N'[
       {"value":"yes","label":{"en":"Yes","hi":"हाँ","mr":"होय"}},
       {"value":"no","label":{"en":"No","hi":"नहीं","mr":"नाही"}}
-    ]', NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:52:03.687', NULL, NULL),
-    (8303, 4, 62, N'siteLayoutPlanDoc', N'Site Layout Plan / Sketch Map', N'स्थळ आराखडा / स्केच नकाशा', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats":["pdf","jpg"],"accept":".pdf,.jpg","maxFileSizeMb":2}', NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:53:07.390', NULL, NULL),
+    ]', NULL, NULL, NULL, 31, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:52:03.687', NULL, NULL),
+    (8303, 4, 62, N'siteLayoutPlanDoc', N'Site Layout Plan / Sketch Map', N'स्थळ आराखडा / स्केच नकाशा', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats":["pdf","jpg"],"accept":".pdf,.jpg","maxFileSizeMb":2}', NULL, 60, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T16:53:07.390', NULL, NULL),
     (8304, 4, 62, N'declaration', N'I hereby declare that the information provided is true and correct.', N'मी घोषित करतो / करते की दिलेली माहिती खरी व अचूक आहे.', N'checkbox', N'Declaration', NULL, NULL, NULL, NULL, 59, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-27T17:05:27.567', NULL, NULL),
     (8305, 13, 162, N'Fathers/husbandname', N'Father / Husband Name', N'वडील / पतीचे नाव', N'text', N'Applicant Details', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-27T19:43:39.547', NULL, NULL),
     (8306, 13, 162, N'Dateofbirth', N'Date of Birth', N'जन्मतारीख', N'Date', N'Applicant Details', NULL, NULL, N'{
@@ -3647,40 +3883,7 @@ USING (VALUES
     }
   }
 ]', NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-28T11:12:22.490', NULL, NULL),
-    (8318, 13, 162, N'itemdescription', N'Specific Item Description', N'विक्रीच्या वस्तूचे तपशीलवार वर्णन', N'text', N'Vending / Hawking Details', NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-28T11:13:37.073', NULL, NULL)
-) AS source ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-ON (target.[Id] = source.[Id])
-WHEN MATCHED THEN
-    UPDATE SET
-        target.[DepartmentId] = source.[DepartmentId],
-        target.[ServiceId] = source.[ServiceId],
-        target.[FieldCode] = source.[FieldCode],
-        target.[FieldLabel] = source.[FieldLabel],
-        target.[FieldLabelLocal] = source.[FieldLabelLocal],
-        target.[FieldType] = source.[FieldType],
-        target.[FieldGroup] = source.[FieldGroup],
-        target.[OptionsJson] = source.[OptionsJson],
-        target.[DefaultValue] = source.[DefaultValue],
-        target.[ValidationRules] = source.[ValidationRules],
-        target.[IsRequired] = source.[IsRequired],
-        target.[DisplayOrder] = source.[DisplayOrder],
-        target.[MinValue] = source.[MinValue],
-        target.[MaxValue] = source.[MaxValue],
-        target.[MaxLength] = source.[MaxLength],
-        target.[IsActive] = source.[IsActive],
-        target.[MarkedForDeletion] = source.[MarkedForDeletion],
-        target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
-        target.[CreatedBy] = source.[CreatedBy],
-        target.[CreatedDate] = source.[CreatedDate],
-        target.[UpdatedBy] = source.[UpdatedBy],
-        target.[UpdatedDate] = source.[UpdatedDate]
-WHEN NOT MATCHED BY TARGET THEN
-    INSERT ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], source.[IsRequired], source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], source.[IsActive], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
-GO
-
-MERGE INTO [RTS].[FieldDefinition] AS target
-USING (VALUES
+    (8318, 13, 162, N'itemdescription', N'Specific Item Description', N'विक्रीच्या वस्तूचे तपशीलवार वर्णन', N'text', N'Vending / Hawking Details', NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-28T11:13:37.073', NULL, NULL),
     (8319, 13, 162, N'ward', N'Preferred Ward', N'प्राधान्याचा प्रभाग', N'select', N'Vending / Hawking Details', N'[
   {
     "value": "A1",
@@ -4104,7 +4307,40 @@ USING (VALUES
   }
 ]', NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-28T11:19:25.490', NULL, NULL),
     (8324, 13, 162, N'DOC_PASSPORT_PHOTO', N'Passport Size Photograph', N'पासपोर्ट आकाराचा फोटो', N'file', N'Document Uploads', NULL, NULL, NULL, NULL, 5, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-28T11:23:18.217', NULL, NULL),
-    (8325, 13, 162, N'DOC_RESIDENTIALPROOF', N'Residential Proof (Voter ID, Ration Card, or Electricity Bill)', N'रहिवासी पुरावा (मतदार ओळखपत्र, शिधापत्रिका किंवा वीज बिल)', N'file', N'Document Uploads', NULL, NULL, NULL, NULL, 5, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-28T11:24:58.003', NULL, NULL),
+    (8325, 13, 162, N'DOC_RESIDENTIALPROOF', N'Residential Proof (Voter ID, Ration Card, or Electricity Bill)', N'रहिवासी पुरावा (मतदार ओळखपत्र, शिधापत्रिका किंवा वीज बिल)', N'file', N'Document Uploads', NULL, NULL, NULL, NULL, 5, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-28T11:24:58.003', NULL, NULL)
+) AS source ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[DepartmentId] = source.[DepartmentId],
+        target.[ServiceId] = source.[ServiceId],
+        target.[FieldCode] = source.[FieldCode],
+        target.[FieldLabel] = source.[FieldLabel],
+        target.[FieldLabelLocal] = source.[FieldLabelLocal],
+        target.[FieldType] = source.[FieldType],
+        target.[FieldGroup] = source.[FieldGroup],
+        target.[OptionsJson] = source.[OptionsJson],
+        target.[DefaultValue] = source.[DefaultValue],
+        target.[ValidationRules] = source.[ValidationRules],
+        target.[IsRequired] = ISNULL(source.[IsRequired], 0),
+        target.[DisplayOrder] = ISNULL(source.[DisplayOrder], 0),
+        target.[MinValue] = source.[MinValue],
+        target.[MaxValue] = source.[MaxValue],
+        target.[MaxLength] = source.[MaxLength],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
+        target.[MarkedForDeletion] = ISNULL(source.[MarkedForDeletion], 0),
+        target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], ISNULL(source.[IsRequired], 0), source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], ISNULL(source.[IsActive], 1), ISNULL(source.[MarkedForDeletion], 0), source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
+
+MERGE INTO [RTS].[FieldDefinition] AS target
+USING (VALUES
     (8326, 13, 162, N'DOC_MEDICALCERTIFICATE', N'Medical Fitness Certificate / Health Certificate', N'वैद्यकीय तंदुरुस्ती प्रमाणपत्र / आरोग्य प्रमाणपत्र', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 5, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-28T11:26:05.387', NULL, NULL),
     (8327, 13, 162, N'declaration', N'I hereby declare that the information provided is true and correct.', N'मी याद्वारे घोषित करतो/करते की प्रदान केलेली माहिती सत्य आणि अचूक आहे.', N'Checkbox', N'Declaration', NULL, NULL, NULL, NULL, 5, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-28T11:54:05.720', NULL, NULL),
     (9281, 1, 147, N'DOC_APPLICANT_ID_147', N'Applicant ID Proof (Aadhaar / Voter ID)', N'अर्जदाराचा ओळख पुरावा (आधार / मतदार ओळखपत्र)', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.570', NULL, NULL),
@@ -4125,15 +4361,85 @@ USING (VALUES
     (9296, 3, 144, N'DOC_NOC_CERTIFICATE_144', N'NOC Certificate / Shop Act Copy', N'ना-हरकत प्रमाणपत्र / गुमास्ता परवाना प्रत', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 0, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.547', NULL, NULL),
     (9297, 4, 61, N'firstName', N'First Name', N'पहिले नाव', N'text', N'Applicant Information', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.547', NULL, NULL),
     (9299, 4, 62, N'cleanlinessAssurance', N'Assurance to Clean the Area After Event', N'कार्यक्रमानंतर परिसर स्वच्छ करण्याची हमी', N'select', N'Applicant Undertaking & Compliance', N'[{"value":"yes","label":{"en":"Yes","hi":"हाँ","mr":"होय"}},{"value":"no","label":{"en":"No","hi":"नहीं","mr":"नाही"}}]', NULL, NULL, NULL, 58, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
-    (9302, 4, 62, N'fireStation', N'Nearest Fire Station', N'जवळचे अग्निशमन केंद्र', N'textarea', N'Applicant Undertaking & Compliance', NULL, NULL, NULL, NULL, 56, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
-    (9306, 4, 62, N'mandalName', N'Mandal Name (Reg. Charity Comm.)', N'मंडळाचे नाव (नोंदणीकृत धर्मादाय संस्था)', N'text', N'Event & Permission Info', NULL, NULL, NULL, N'False', 16, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
-    (9308, 4, 62, N'mandapLayoutDoc', N'Mandap Site Layout Diagram', N'मंडप स्थळाचा आराखडा', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', NULL, 50, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:44:51.360', NULL, NULL),
-    (9309, 4, 62, N'mandapType', N'Mandap Type', N'मंडपाचा प्रकार', N'select', N'Schedule & Dimensions', N'[{"value":"temporary","label":{"en":"Temporary Mandap","hi":"अस्थायी मंडप","mr":"तात्पुरता मंडप"}},{"value":"stage","label":{"en":"Stage / Platform","hi":"स्टेज / मंच","mr":"स्टेज / व्यासपीठ"}},{"value":"shamiyana","label":{"en":"Shamiyana / Tent","hi":"शामियाना / तंबू","mr":"शामियाना / तंबू"}}]', NULL, NULL, NULL, 29, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
+    (9302, 4, 62, N'fireStation', N'Nearest Fire Station', N'जवळचे अग्निशमन केंद्र', N'select', N'Applicant Undertaking & Compliance', N'[
+  {
+    "value": "Akola Municipal Corporation Fire Station",
+    "label": {
+      "en": "Akola Municipal Corporation Fire Station",
+      "hi": "????? ??? ???? ???????? ??????",
+      "mr": "????? ???????????? ???????? ??????"
+    }
+  }
+]', NULL, NULL, NULL, 56, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
+    (9308, 4, 62, N'mandapLayoutDoc', N'Local Police Station NOC', N'मंडप स्थळाचा आराखडा', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', NULL, 60, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-21T18:44:51.360', NULL, NULL),
+    (9309, 4, 62, N'mandapType', N'Mandap Type', N'मंडपाचा प्रकार', N'select', N'Schedule & Dimensions', N'[{"value":"temporary","label":{"en":"Temporary Mandap","hi":"अस्थायी मंडप","mr":"तात्पुरता मंडप"}},{"value":"stage","label":{"en":"Stage / Platform","hi":"स्टेज / मंच","mr":"स्टेज / व्यासपीठ"}},{"value":"shamiyana","label":{"en":"Shamiyana / Tent","hi":"शामियाना / तंबू","mr":"शामियाना / तंबू"}}]', NULL, NULL, NULL, 21, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
     (9311, 4, 62, N'noDamageGuarantee', N'Guarantee that No Damage Will Be Caused to Public Property', N'सार्वजनिक मालमत्तेचे कोणतेही नुकसान होणार नाही याची हमी', N'select', N'Applicant Undertaking & Compliance', N'[{"value":"yes","label":{"en":"Yes","hi":"हाँ","mr":"होय"}},{"value":"no","label":{"en":"No","hi":"नहीं","mr":"नाही"}}]', NULL, NULL, NULL, 57, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
-    (9312, 4, 62, N'pandolAddress', N'Pandol / Stage Address', N'मंडप / स्टेजचा पत्ता', N'textarea', N'Event & Permission Info', NULL, NULL, NULL, NULL, 28, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
-    (9313, 4, 62, N'placeOwnership', N'Ownership of Tent Place', N'कार्यक्रम स्थळाची मालकी', N'select', N'Event & Permission Info', N'[{"value":"Private","label":{"en":"Private","hi":"निजी","mr":"खाजगी"}},{"value":"Municipal","label":{"en":"Municipal/Council","hi":"नगर निगम","mr":"महापालिका/परिषद"}},{"value":"Public","label":{"en":"Public Road","hi":"सार्वजनिक सड़क","mr":"सार्वजनिक रस्ता"}}]', NULL, NULL, NULL, 24, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
-    (9314, 4, 62, N'policeStation', N'Concerned Police Station', N'संबंधित पोलीस स्टेशन', N'textarea', N'Applicant Undertaking & Compliance', NULL, NULL, NULL, NULL, 54, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
-    (9316, 4, 62, N'wardArea', N'Ward Area', N'प्रभाग क्षेत्र', N'text', N'Event & Permission Info', NULL, NULL, NULL, NULL, 26, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
+    (9314, 4, 62, N'policeStation', N'Concerned Police Station', N'संबंधित पोलीस स्टेशन', N'select', N'Applicant Undertaking & Compliance', N'[
+  {
+    "value": "City Kotwali Police Station",
+    "label": {
+      "en": "City Kotwali Police Station",
+      "hi": "???? ??????? ????? ??????",
+      "mr": "???? ??????? ????? ??????"
+    }
+  },
+  {
+    "value": "Ramdaspeth Police Station",
+    "label": {
+      "en": "Ramdaspeth Police Station",
+      "hi": "????????? ????? ??????",
+      "mr": "????????? ????? ??????"
+    }
+  },
+  {
+    "value": "Civil Lines Police Station",
+    "label": {
+      "en": "Civil Lines Police Station",
+      "hi": "??????? ?????? ????? ??????",
+      "mr": "??????? ?????? ????? ??????"
+    }
+  },
+  {
+    "value": "Old City Police Station",
+    "label": {
+      "en": "Old City Police Station",
+      "hi": "?????? ??? ????? ??????",
+      "mr": "???? ??? ????? ??????"
+    }
+  },
+  {
+    "value": "Akot File Police Station",
+    "label": {
+      "en": "Akot File Police Station",
+      "hi": "???? ???? ????? ??????",
+      "mr": "???? ???? ????? ??????"
+    }
+  },
+  {
+    "value": "Khadan Police Station",
+    "label": {
+      "en": "Khadan Police Station",
+      "hi": "???? ????? ??????",
+      "mr": "???? ????? ??????"
+    }
+  },
+  {
+    "value": "Dabki Road Police Station",
+    "label": {
+      "en": "Dabki Road Police Station",
+      "hi": "????? ??? ????? ??????",
+      "mr": "????? ??? ????? ??????"
+    }
+  },
+  {
+    "value": "MIDC Police Station",
+    "label": {
+      "en": "MIDC Police Station",
+      "hi": "??.??.??.??. ????? ??????",
+      "mr": "??.??.??.??. ????? ??????"
+    }
+  }
+]', NULL, NULL, NULL, 54, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
     (9317, 5, 53, N'firstName', N'First Name', N'पहिले नाव', N'text', N'Applicant Information', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-22T19:09:03.640', NULL, NULL),
     (9318, 5, 54, N'firstName', N'First Name', N'पहिले नाव', N'text', N'Applicant Information', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.647', NULL, NULL),
     (9319, 6, 55, N'firstName', N'First Name', N'पहिले नाव', N'text', N'Applicant Information', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.730', NULL, NULL),
@@ -4141,7 +4447,8 @@ USING (VALUES
     (9321, 8, 64, N'firstName', N'First Name', N'पहिले नाव', N'text', N'Applicant Information', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.597', NULL, NULL),
     (9322, 9, 65, N'firstName', N'First Name', N'पहिले नाव', N'text', N'Applicant Information', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-07-15T16:26:57.547', NULL, NULL),
     (9323, 13, 162, N'DOC_NOC_CERTIFICATE_162', N'NOC Certificate / Shop Act Copy', N'ना-हरकत प्रमाणपत्र / गुमास्ता परवाना प्रत', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 5, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.770', NULL, NULL),
-    (9324, 13, 162, N'DOC_RENT_AGREEMENT_162', N'Premises Rent Agreement / Ownership Deed', N'जागेचा भाडे करारनामा / मालकी हक्क पुरावा', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 5, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.763', NULL, NULL)
+    (9324, 13, 162, N'DOC_RENT_AGREEMENT_162', N'Premises Rent Agreement / Ownership Deed', N'जागेचा भाडे करारनामा / मालकी हक्क पुरावा', N'file', N'Document Uploads', NULL, NULL, NULL, N'False', 5, NULL, NULL, NULL, NULL, N'False', NULL, NULL, '2026-08-17T13:01:13.763', NULL, NULL),
+    (9325, 4, 62, N'idproof', N'Identity Proof', N'ओळख पुरावा', N'file', N'Document Uploads', NULL, NULL, NULL, NULL, 60, NULL, NULL, NULL, NULL, N'False', NULL, 0, '2026-08-29T13:42:10.413', NULL, NULL)
 ) AS source ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -4156,13 +4463,13 @@ WHEN MATCHED THEN
         target.[OptionsJson] = source.[OptionsJson],
         target.[DefaultValue] = source.[DefaultValue],
         target.[ValidationRules] = source.[ValidationRules],
-        target.[IsRequired] = source.[IsRequired],
-        target.[DisplayOrder] = source.[DisplayOrder],
+        target.[IsRequired] = ISNULL(source.[IsRequired], 0),
+        target.[DisplayOrder] = ISNULL(source.[DisplayOrder], 0),
         target.[MinValue] = source.[MinValue],
         target.[MaxValue] = source.[MaxValue],
         target.[MaxLength] = source.[MaxLength],
-        target.[IsActive] = source.[IsActive],
-        target.[MarkedForDeletion] = source.[MarkedForDeletion],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
+        target.[MarkedForDeletion] = ISNULL(source.[MarkedForDeletion], 0),
         target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
@@ -4170,7 +4477,7 @@ WHEN MATCHED THEN
         target.[UpdatedDate] = source.[UpdatedDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], source.[IsRequired], source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], source.[IsActive], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+    VALUES (source.[Id], source.[DepartmentId], source.[ServiceId], source.[FieldCode], source.[FieldLabel], source.[FieldLabelLocal], source.[FieldType], source.[FieldGroup], source.[OptionsJson], source.[DefaultValue], source.[ValidationRules], ISNULL(source.[IsRequired], 0), source.[DisplayOrder], source.[MinValue], source.[MaxValue], source.[MaxLength], ISNULL(source.[IsActive], 1), ISNULL(source.[MarkedForDeletion], 0), source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
 GO
 
 SET IDENTITY_INSERT [RTS].[FieldDefinition] OFF;
@@ -4254,14 +4561,14 @@ WHEN MATCHED THEN
     UPDATE SET
         target.[ServiceId] = source.[ServiceId],
         target.[ApprovalFlowName] = source.[ApprovalFlowName],
-        target.[IsActive] = source.[IsActive],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
         target.[UpdatedBy] = source.[UpdatedBy],
         target.[UpdatedDate] = source.[UpdatedDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [ServiceId], [ApprovalFlowName], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[Id], source.[ServiceId], source.[ApprovalFlowName], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+    VALUES (source.[Id], source.[ServiceId], source.[ApprovalFlowName], ISNULL(source.[IsActive], 1), source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
 GO
 
 SET IDENTITY_INSERT [RTS].[ApprovalFlowMaster] OFF;
@@ -4332,20 +4639,20 @@ WHEN MATCHED THEN
         target.[StageOrder] = source.[StageOrder],
         target.[StageName] = source.[StageName],
         target.[UserId] = source.[UserId],
-        target.[SLADays] = source.[SLADays],
-        target.[CanVerifyDocument] = source.[CanVerifyDocument],
-        target.[CanApprove] = source.[CanApprove],
-        target.[CanReject] = source.[CanReject],
-        target.[CanReturn] = source.[CanReturn],
-        target.[CanPay] = source.[CanPay],
-        target.[IsFinalStage] = source.[IsFinalStage],
-        target.[CanEdit] = source.[CanEdit],
-        target.[CanViewNoteSheet] = source.[CanViewNoteSheet],
-        target.[CanIssueCertificate] = source.[CanIssueCertificate],
-        target.[CanEditCertificate] = source.[CanEditCertificate]
+        target.[SLADays] = ISNULL(source.[SLADays], 3),
+        target.[CanVerifyDocument] = ISNULL(source.[CanVerifyDocument], 0),
+        target.[CanApprove] = ISNULL(source.[CanApprove], 0),
+        target.[CanReject] = ISNULL(source.[CanReject], 0),
+        target.[CanReturn] = ISNULL(source.[CanReturn], 0),
+        target.[CanPay] = ISNULL(source.[CanPay], 0),
+        target.[IsFinalStage] = ISNULL(source.[IsFinalStage], 0),
+        target.[CanEdit] = ISNULL(source.[CanEdit], 0),
+        target.[CanViewNoteSheet] = ISNULL(source.[CanViewNoteSheet], 0),
+        target.[CanIssueCertificate] = ISNULL(source.[CanIssueCertificate], 0),
+        target.[CanEditCertificate] = ISNULL(source.[CanEditCertificate], 0)
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [ApprovalFlowId], [StageOrder], [StageName], [UserId], [SLADays], [CanVerifyDocument], [CanApprove], [CanReject], [CanReturn], [CanPay], [IsFinalStage], [CanEdit], [CanViewNoteSheet], [CanIssueCertificate], [CanEditCertificate])
-    VALUES (source.[Id], source.[ApprovalFlowId], source.[StageOrder], source.[StageName], source.[UserId], source.[SLADays], source.[CanVerifyDocument], source.[CanApprove], source.[CanReject], source.[CanReturn], source.[CanPay], source.[IsFinalStage], source.[CanEdit], source.[CanViewNoteSheet], source.[CanIssueCertificate], source.[CanEditCertificate]);
+    VALUES (source.[Id], source.[ApprovalFlowId], source.[StageOrder], source.[StageName], source.[UserId], source.[SLADays], ISNULL(source.[CanVerifyDocument], 0), ISNULL(ISNULL(source.[CanApprove], 0), 1), ISNULL(ISNULL(source.[CanReject], 0), 1), ISNULL(source.[CanReturn], 0), ISNULL(source.[CanPay], 0), ISNULL(source.[IsFinalStage], 0), source.[CanEdit], ISNULL(source.[CanViewNoteSheet], 0), ISNULL(source.[CanIssueCertificate], 0), ISNULL(source.[CanEditCertificate], 0));
 GO
 
 MERGE INTO [RTS].[ApprovalFlowStageMaster] AS target
@@ -4408,20 +4715,20 @@ WHEN MATCHED THEN
         target.[StageOrder] = source.[StageOrder],
         target.[StageName] = source.[StageName],
         target.[UserId] = source.[UserId],
-        target.[SLADays] = source.[SLADays],
-        target.[CanVerifyDocument] = source.[CanVerifyDocument],
-        target.[CanApprove] = source.[CanApprove],
-        target.[CanReject] = source.[CanReject],
-        target.[CanReturn] = source.[CanReturn],
-        target.[CanPay] = source.[CanPay],
-        target.[IsFinalStage] = source.[IsFinalStage],
-        target.[CanEdit] = source.[CanEdit],
-        target.[CanViewNoteSheet] = source.[CanViewNoteSheet],
-        target.[CanIssueCertificate] = source.[CanIssueCertificate],
-        target.[CanEditCertificate] = source.[CanEditCertificate]
+        target.[SLADays] = ISNULL(source.[SLADays], 3),
+        target.[CanVerifyDocument] = ISNULL(source.[CanVerifyDocument], 0),
+        target.[CanApprove] = ISNULL(source.[CanApprove], 0),
+        target.[CanReject] = ISNULL(source.[CanReject], 0),
+        target.[CanReturn] = ISNULL(source.[CanReturn], 0),
+        target.[CanPay] = ISNULL(source.[CanPay], 0),
+        target.[IsFinalStage] = ISNULL(source.[IsFinalStage], 0),
+        target.[CanEdit] = ISNULL(source.[CanEdit], 0),
+        target.[CanViewNoteSheet] = ISNULL(source.[CanViewNoteSheet], 0),
+        target.[CanIssueCertificate] = ISNULL(source.[CanIssueCertificate], 0),
+        target.[CanEditCertificate] = ISNULL(source.[CanEditCertificate], 0)
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [ApprovalFlowId], [StageOrder], [StageName], [UserId], [SLADays], [CanVerifyDocument], [CanApprove], [CanReject], [CanReturn], [CanPay], [IsFinalStage], [CanEdit], [CanViewNoteSheet], [CanIssueCertificate], [CanEditCertificate])
-    VALUES (source.[Id], source.[ApprovalFlowId], source.[StageOrder], source.[StageName], source.[UserId], source.[SLADays], source.[CanVerifyDocument], source.[CanApprove], source.[CanReject], source.[CanReturn], source.[CanPay], source.[IsFinalStage], source.[CanEdit], source.[CanViewNoteSheet], source.[CanIssueCertificate], source.[CanEditCertificate]);
+    VALUES (source.[Id], source.[ApprovalFlowId], source.[StageOrder], source.[StageName], source.[UserId], source.[SLADays], ISNULL(source.[CanVerifyDocument], 0), ISNULL(ISNULL(source.[CanApprove], 0), 1), ISNULL(ISNULL(source.[CanReject], 0), 1), ISNULL(source.[CanReturn], 0), ISNULL(source.[CanPay], 0), ISNULL(source.[IsFinalStage], 0), source.[CanEdit], ISNULL(source.[CanViewNoteSheet], 0), ISNULL(source.[CanIssueCertificate], 0), ISNULL(source.[CanEditCertificate], 0));
 GO
 
 MERGE INTO [RTS].[ApprovalFlowStageMaster] AS target
@@ -4484,20 +4791,20 @@ WHEN MATCHED THEN
         target.[StageOrder] = source.[StageOrder],
         target.[StageName] = source.[StageName],
         target.[UserId] = source.[UserId],
-        target.[SLADays] = source.[SLADays],
-        target.[CanVerifyDocument] = source.[CanVerifyDocument],
-        target.[CanApprove] = source.[CanApprove],
-        target.[CanReject] = source.[CanReject],
-        target.[CanReturn] = source.[CanReturn],
-        target.[CanPay] = source.[CanPay],
-        target.[IsFinalStage] = source.[IsFinalStage],
-        target.[CanEdit] = source.[CanEdit],
-        target.[CanViewNoteSheet] = source.[CanViewNoteSheet],
-        target.[CanIssueCertificate] = source.[CanIssueCertificate],
-        target.[CanEditCertificate] = source.[CanEditCertificate]
+        target.[SLADays] = ISNULL(source.[SLADays], 3),
+        target.[CanVerifyDocument] = ISNULL(source.[CanVerifyDocument], 0),
+        target.[CanApprove] = ISNULL(source.[CanApprove], 0),
+        target.[CanReject] = ISNULL(source.[CanReject], 0),
+        target.[CanReturn] = ISNULL(source.[CanReturn], 0),
+        target.[CanPay] = ISNULL(source.[CanPay], 0),
+        target.[IsFinalStage] = ISNULL(source.[IsFinalStage], 0),
+        target.[CanEdit] = ISNULL(source.[CanEdit], 0),
+        target.[CanViewNoteSheet] = ISNULL(source.[CanViewNoteSheet], 0),
+        target.[CanIssueCertificate] = ISNULL(source.[CanIssueCertificate], 0),
+        target.[CanEditCertificate] = ISNULL(source.[CanEditCertificate], 0)
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [ApprovalFlowId], [StageOrder], [StageName], [UserId], [SLADays], [CanVerifyDocument], [CanApprove], [CanReject], [CanReturn], [CanPay], [IsFinalStage], [CanEdit], [CanViewNoteSheet], [CanIssueCertificate], [CanEditCertificate])
-    VALUES (source.[Id], source.[ApprovalFlowId], source.[StageOrder], source.[StageName], source.[UserId], source.[SLADays], source.[CanVerifyDocument], source.[CanApprove], source.[CanReject], source.[CanReturn], source.[CanPay], source.[IsFinalStage], source.[CanEdit], source.[CanViewNoteSheet], source.[CanIssueCertificate], source.[CanEditCertificate]);
+    VALUES (source.[Id], source.[ApprovalFlowId], source.[StageOrder], source.[StageName], source.[UserId], source.[SLADays], ISNULL(source.[CanVerifyDocument], 0), ISNULL(ISNULL(source.[CanApprove], 0), 1), ISNULL(ISNULL(source.[CanReject], 0), 1), ISNULL(source.[CanReturn], 0), ISNULL(source.[CanPay], 0), ISNULL(source.[IsFinalStage], 0), source.[CanEdit], ISNULL(source.[CanViewNoteSheet], 0), ISNULL(source.[CanIssueCertificate], 0), ISNULL(source.[CanEditCertificate], 0));
 GO
 
 MERGE INTO [RTS].[ApprovalFlowStageMaster] AS target
@@ -4558,20 +4865,20 @@ WHEN MATCHED THEN
         target.[StageOrder] = source.[StageOrder],
         target.[StageName] = source.[StageName],
         target.[UserId] = source.[UserId],
-        target.[SLADays] = source.[SLADays],
-        target.[CanVerifyDocument] = source.[CanVerifyDocument],
-        target.[CanApprove] = source.[CanApprove],
-        target.[CanReject] = source.[CanReject],
-        target.[CanReturn] = source.[CanReturn],
-        target.[CanPay] = source.[CanPay],
-        target.[IsFinalStage] = source.[IsFinalStage],
-        target.[CanEdit] = source.[CanEdit],
-        target.[CanViewNoteSheet] = source.[CanViewNoteSheet],
-        target.[CanIssueCertificate] = source.[CanIssueCertificate],
-        target.[CanEditCertificate] = source.[CanEditCertificate]
+        target.[SLADays] = ISNULL(source.[SLADays], 3),
+        target.[CanVerifyDocument] = ISNULL(source.[CanVerifyDocument], 0),
+        target.[CanApprove] = ISNULL(source.[CanApprove], 0),
+        target.[CanReject] = ISNULL(source.[CanReject], 0),
+        target.[CanReturn] = ISNULL(source.[CanReturn], 0),
+        target.[CanPay] = ISNULL(source.[CanPay], 0),
+        target.[IsFinalStage] = ISNULL(source.[IsFinalStage], 0),
+        target.[CanEdit] = ISNULL(source.[CanEdit], 0),
+        target.[CanViewNoteSheet] = ISNULL(source.[CanViewNoteSheet], 0),
+        target.[CanIssueCertificate] = ISNULL(source.[CanIssueCertificate], 0),
+        target.[CanEditCertificate] = ISNULL(source.[CanEditCertificate], 0)
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [ApprovalFlowId], [StageOrder], [StageName], [UserId], [SLADays], [CanVerifyDocument], [CanApprove], [CanReject], [CanReturn], [CanPay], [IsFinalStage], [CanEdit], [CanViewNoteSheet], [CanIssueCertificate], [CanEditCertificate])
-    VALUES (source.[Id], source.[ApprovalFlowId], source.[StageOrder], source.[StageName], source.[UserId], source.[SLADays], source.[CanVerifyDocument], source.[CanApprove], source.[CanReject], source.[CanReturn], source.[CanPay], source.[IsFinalStage], source.[CanEdit], source.[CanViewNoteSheet], source.[CanIssueCertificate], source.[CanEditCertificate]);
+    VALUES (source.[Id], source.[ApprovalFlowId], source.[StageOrder], source.[StageName], source.[UserId], source.[SLADays], ISNULL(source.[CanVerifyDocument], 0), ISNULL(ISNULL(source.[CanApprove], 0), 1), ISNULL(ISNULL(source.[CanReject], 0), 1), ISNULL(source.[CanReturn], 0), ISNULL(source.[CanPay], 0), ISNULL(source.[IsFinalStage], 0), source.[CanEdit], ISNULL(source.[CanViewNoteSheet], 0), ISNULL(source.[CanIssueCertificate], 0), ISNULL(source.[CanEditCertificate], 0));
 GO
 
 SET IDENTITY_INSERT [RTS].[ApprovalFlowStageMaster] OFF;
@@ -4593,11 +4900,11 @@ WHEN MATCHED THEN
     UPDATE SET
         target.[AppealTypeName] = source.[AppealTypeName],
         target.[Code] = source.[Code],
-        target.[IsActive] = source.[IsActive],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
         target.[CreatedDate] = source.[CreatedDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [AppealTypeName], [Code], [IsActive], [CreatedDate])
-    VALUES (source.[Id], source.[AppealTypeName], source.[Code], source.[IsActive], source.[CreatedDate]);
+    VALUES (source.[Id], source.[AppealTypeName], source.[Code], ISNULL(source.[IsActive], 1), source.[CreatedDate]);
 GO
 
 SET IDENTITY_INSERT [RTS].[AppealTypeMaster] OFF;
@@ -4626,14 +4933,14 @@ WHEN MATCHED THEN
     UPDATE SET
         target.[ServiceId] = source.[ServiceId],
         target.[AppealFlowName] = source.[AppealFlowName],
-        target.[IsActive] = source.[IsActive],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
         target.[UpdatedBy] = source.[UpdatedBy],
         target.[UpdatedDate] = source.[UpdatedDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [ServiceId], [AppealFlowName], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
-    VALUES (source.[Id], source.[ServiceId], source.[AppealFlowName], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+    VALUES (source.[Id], source.[ServiceId], source.[AppealFlowName], ISNULL(source.[IsActive], 1), source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
 GO
 
 SET IDENTITY_INSERT [RTS].[AppealFlowMaster] OFF;
@@ -4704,16 +5011,16 @@ WHEN MATCHED THEN
         target.[StageOrder] = source.[StageOrder],
         target.[StageName] = source.[StageName],
         target.[UserId] = source.[UserId],
-        target.[SLADays] = source.[SLADays],
-        target.[CanVerifyDocument] = source.[CanVerifyDocument],
-        target.[CanApprove] = source.[CanApprove],
-        target.[CanReject] = source.[CanReject],
-        target.[CanReturn] = source.[CanReturn],
-        target.[IsFinalStage] = source.[IsFinalStage],
-        target.[CanEdit] = source.[CanEdit]
+        target.[SLADays] = ISNULL(source.[SLADays], 3),
+        target.[CanVerifyDocument] = ISNULL(source.[CanVerifyDocument], 0),
+        target.[CanApprove] = ISNULL(source.[CanApprove], 0),
+        target.[CanReject] = ISNULL(source.[CanReject], 0),
+        target.[CanReturn] = ISNULL(source.[CanReturn], 0),
+        target.[IsFinalStage] = ISNULL(source.[IsFinalStage], 0),
+        target.[CanEdit] = ISNULL(source.[CanEdit], 0)
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [AppealFlowId], [StageOrder], [StageName], [UserId], [SLADays], [CanVerifyDocument], [CanApprove], [CanReject], [CanReturn], [IsFinalStage], [CanEdit])
-    VALUES (source.[Id], source.[AppealFlowId], source.[StageOrder], source.[StageName], source.[UserId], source.[SLADays], source.[CanVerifyDocument], source.[CanApprove], source.[CanReject], source.[CanReturn], source.[IsFinalStage], source.[CanEdit]);
+    VALUES (source.[Id], source.[AppealFlowId], source.[StageOrder], source.[StageName], source.[UserId], source.[SLADays], ISNULL(source.[CanVerifyDocument], 0), ISNULL(ISNULL(source.[CanApprove], 0), 1), ISNULL(ISNULL(source.[CanReject], 0), 1), ISNULL(source.[CanReturn], 0), ISNULL(source.[IsFinalStage], 0), ISNULL(source.[CanEdit], 0));
 GO
 
 MERGE INTO [RTS].[AppealFlowStageMaster] AS target
@@ -4744,16 +5051,16 @@ WHEN MATCHED THEN
         target.[StageOrder] = source.[StageOrder],
         target.[StageName] = source.[StageName],
         target.[UserId] = source.[UserId],
-        target.[SLADays] = source.[SLADays],
-        target.[CanVerifyDocument] = source.[CanVerifyDocument],
-        target.[CanApprove] = source.[CanApprove],
-        target.[CanReject] = source.[CanReject],
-        target.[CanReturn] = source.[CanReturn],
-        target.[IsFinalStage] = source.[IsFinalStage],
-        target.[CanEdit] = source.[CanEdit]
+        target.[SLADays] = ISNULL(source.[SLADays], 3),
+        target.[CanVerifyDocument] = ISNULL(source.[CanVerifyDocument], 0),
+        target.[CanApprove] = ISNULL(source.[CanApprove], 0),
+        target.[CanReject] = ISNULL(source.[CanReject], 0),
+        target.[CanReturn] = ISNULL(source.[CanReturn], 0),
+        target.[IsFinalStage] = ISNULL(source.[IsFinalStage], 0),
+        target.[CanEdit] = ISNULL(source.[CanEdit], 0)
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [AppealFlowId], [StageOrder], [StageName], [UserId], [SLADays], [CanVerifyDocument], [CanApprove], [CanReject], [CanReturn], [IsFinalStage], [CanEdit])
-    VALUES (source.[Id], source.[AppealFlowId], source.[StageOrder], source.[StageName], source.[UserId], source.[SLADays], source.[CanVerifyDocument], source.[CanApprove], source.[CanReject], source.[CanReturn], source.[IsFinalStage], source.[CanEdit]);
+    VALUES (source.[Id], source.[AppealFlowId], source.[StageOrder], source.[StageName], source.[UserId], source.[SLADays], ISNULL(source.[CanVerifyDocument], 0), ISNULL(ISNULL(source.[CanApprove], 0), 1), ISNULL(ISNULL(source.[CanReject], 0), 1), ISNULL(source.[CanReturn], 0), ISNULL(source.[IsFinalStage], 0), ISNULL(source.[CanEdit], 0));
 GO
 
 SET IDENTITY_INSERT [RTS].[AppealFlowStageMaster] OFF;
@@ -4772,9 +5079,9 @@ USING (VALUES
         <div class=''absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden''>
                  <img src=''/logo.png'' alt=''ULB Watermark'' style=''opacity: 0.06;'' class=''w-72 h-72 object-contain filter grayscale'' onerror="this.style.display=''none''"/>
                </div>
-
+    
             <div class=''header-letterhead relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 14px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: center !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 8px !important; padding-bottom: 8px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 12px !important;  ''>
-
+              
               <div class=''flex justify-between items-center font-mono mb-1 opacity-80'' style=''font-size: 0.75em;''><div>RTS/2026/DOC-VERIFIED</div><div>{{ApplicationNo}}</div></div>
               <div class=''flex items-center justify-between gap-4''>
                 <div class=''shrink-0 text-left'' style=''width: 85px;''><img src=''/logo.png'' alt=''ULB Logo'' style=''max-height: 75px; max-width: 75px;'' class=''object-contain'' onerror="this.style.display=''none''"/><div style=''font-size: 0.72em; font-weight: bold; margin-top: 2px; text-align: left; color: #0f172a !important; font-size: 14px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: center !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>अकोला महानगरपालिका अकोला</div></div>
@@ -4788,56 +5095,56 @@ USING (VALUES
               </div>
               <div class=''w-full border-b-2 border-current mt-2 mb-2''></div>
             </div>
-
+          
             <div class=''dispatch-bar flex justify-between items-center relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 4px !important; padding-bottom: 4px !important; padding-left: 4px !important; padding-right: 4px !important; margin-bottom: 8px !important;  ''>
-
+              
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>जा.क्र. मनपा/आर.टी.एस./२०२६/{{ApplicationNo}}</div>
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>दिनांक: {{ApprovalDate}}</div>
             </div>
-
+          
             <div class=''recipient-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 10px !important;  ''>
-
+              
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>प्रति,</div>
               <div style=''padding-left: 1.5rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>{{ApplicantName}}</div>
               <div style=''padding-left: 1.5rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>{{ApplicantAddress}}</div>
               <div style=''padding-left: 1.5rem; font-family: monospace; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>{{ApplicantMobile}}</div>
             </div>
-
+          
             <div class=''subject-ref-block relative z-10 transition-all  relative''  style=''padding-left: 1.5rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 10px !important;  ''>
-
+              
               <div style=''margin-bottom: 0.25rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>विषय :- झोन दाखला देणे बाबत अधिकृत प्रमाणपत्र पुरविणेबाबत.</div>
               <div style=''opacity: 0.95; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>संदर्भ :- आपला ऑनलाईन RTS अर्ज क्र. {{ApplicationNo}} दिनांक {{ApplicationDate}}</div>
             </div>
-
+          
             <div class=''salutation-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 2px !important; padding-bottom: 2px !important; padding-left: 4px !important; padding-right: 4px !important; margin-bottom: 6px !important;  ''>
-
+              
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>महोदय / महोदया,</div>
             </div>
-
+          
             <div class=''narrative-body relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.6 !important; text-align: justify !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 8px !important; padding-bottom: 8px !important; padding-left: 6px !important; padding-right: 6px !important; margin-bottom: 12px !important;  ''>
-
+              
               <p style=''text-indent: 2rem; margin-bottom: 0.5em; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.6 !important; text-align: justify !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>नगररचना व विकास योजना नियमांनुसार सादर केलेल्या झोन दाखला अर्जाची (अर्ज क्र. {{ApplicationNo}} दि. {{ApplicationDate}}) नगररचना विभागामार्फत पडताळणी करण्यात आली आहे.</p>
               <p style=''text-indent: 2rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.6 !important; text-align: justify !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>अधिकृत नगररचना अभिलेखानुसार सदर जागेचा झोन तपशील दाखला {{ApplicantName}} (जागा: {{ApplicantAddress}}) यांना दिनांक {{ApprovalDate}} रोजी निर्गमित करण्यात येत आहे.</p>
             </div>
-
+          
             {{OfficerFieldsBlock}}
-
+          
               <div class=''conditions-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 8px !important; padding-bottom: 8px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 12px !important;  ''>
-
+                
                 <div style=''margin-bottom: 0.5rem; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>शर्ती व अटी:</div>
                 <ol style=''list-style-type: decimal; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.35rem; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>
                   <li style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>सदर दाखला केवळ विकास योजना व नगररचना नियमावलीच्या अनुषंगाने माहितीस्तव जारी केला आहे.</li><li style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>सदर दाखल्यावरून जागेच्या मालकी हक्काचा किंवा कब्जेवहिवाटीचा कोणताही दावा करता येणार नाही.</li>
                   {{CustomConditionsList}}
                 </ol>
               </div>
-
+            
             <div class=''custom-text-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 12px !important; background-color: #f8fafc !important; border: 1px solid #94a3b8; border-radius: 10px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);''>
-
+              
               <div style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>टिप :- सदर दाखल्याचा कालावधी हा दाखला दिलेल्या तारखेपासून ९० दिवसांपर्यंत ग्राह्य धरता येईल.</div>
             </div>
-
+          
             <div class=''signature-stamp-block flex justify-between items-end gap-4 relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 10px !important; padding-bottom: 10px !important; padding-left: 6px !important; padding-right: 6px !important; margin-bottom: 14px !important;  ''>
-
+              
               <div class=''left-sign text-center'' style=''font-size: 0.9em; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>
                 <div class=''h-12 flex items-center justify-center italic border-b border-slate-400 pb-1'' style=''font-family: Georgia, serif; font-size: 1.1em;''>
                   {{ApprovalDate}}
@@ -4866,9 +5173,9 @@ USING (VALUES
                 <div style=''font-size: 0.85em; opacity: 0.9; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>अकोला महानगरपालिका अकोला</div>
               </div>
             </div>
-
+          
             <div class=''security-footer-block border-t border-slate-400 flex justify-between items-center relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 10px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 6px !important; padding-right: 6px !important; margin-bottom: 8px !important;  ''>
-
+              
               <div class=''flex items-center gap-2''>
                 <div class=''inline-flex flex-col items-center justify-center p-1 bg-white border border-slate-300 rounded shadow-xs text-center'' style=''width: 70px;''>
                   <div style=''width: 55px; height: 55px;'' class=''flex items-center justify-center bg-white''>
@@ -4942,9 +5249,9 @@ USING (VALUES
         <div class=''absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden''>
                  <img src=''/logo.png'' alt=''ULB Watermark'' style=''opacity: 0.06;'' class=''w-72 h-72 object-contain filter grayscale'' onerror="this.style.display=''none''"/>
                </div>
-
+    
             <div class=''header-letterhead relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 14px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: center !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 8px !important; padding-bottom: 8px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 12px !important;  ''>
-
+              
               <div class=''flex justify-between items-center font-mono mb-1 opacity-80'' style=''font-size: 0.75em;''><div>RTS/2026/DOC-VERIFIED</div><div>{{ApplicationNo}}</div></div>
               <div class=''flex items-center justify-between gap-4''>
                 <div class=''shrink-0 text-left'' style=''width: 85px;''><img src=''/logo.png'' alt=''ULB Logo'' style=''max-height: 75px; max-width: 75px;'' class=''object-contain'' onerror="this.style.display=''none''"/><div style=''font-size: 0.72em; font-weight: bold; margin-top: 2px; text-align: left; color: #0f172a !important; font-size: 14px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: center !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>अकोला महानगरपालिका अकोला</div></div>
@@ -4958,56 +5265,56 @@ USING (VALUES
               </div>
               <div class=''w-full border-b-2 border-current mt-2 mb-2''></div>
             </div>
-
+          
             <div class=''dispatch-bar flex justify-between items-center relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 4px !important; padding-bottom: 4px !important; padding-left: 4px !important; padding-right: 4px !important; margin-bottom: 8px !important;  ''>
-
+              
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>जा.क्र. मनपा/आर.टी.एस./२०२६/{{ApplicationNo}}</div>
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>दिनांक: {{ApprovalDate}}</div>
             </div>
-
+          
             <div class=''recipient-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 10px !important;  ''>
-
+              
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>प्रति,</div>
               <div style=''padding-left: 1.5rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>{{ApplicantName}}</div>
               <div style=''padding-left: 1.5rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>{{ApplicantAddress}}</div>
               <div style=''padding-left: 1.5rem; font-family: monospace; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>{{ApplicantMobile}}</div>
             </div>
-
+          
             <div class=''subject-ref-block relative z-10 transition-all  relative''  style=''padding-left: 1.5rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 10px !important;  ''>
-
+              
               <div style=''margin-bottom: 0.25rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>विषय :- व्यापार/व्यवसाय/साठा करण्यासाठी ना-हरकत प्रमाणपत्र बाबत अधिकृत प्रमाणपत्र पुरविणेबाबत.</div>
               <div style=''opacity: 0.95; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>संदर्भ :- आपला ऑनलाईन RTS अर्ज क्र. {{ApplicationNo}} दिनांक {{ApplicationDate}}</div>
             </div>
-
+          
             <div class=''salutation-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 2px !important; padding-bottom: 2px !important; padding-left: 4px !important; padding-right: 4px !important; margin-bottom: 6px !important;  ''>
-
+              
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>महोदय / महोदया,</div>
             </div>
-
+          
             <div class=''narrative-body relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.6 !important; text-align: justify !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 8px !important; padding-bottom: 8px !important; padding-left: 6px !important; padding-right: 6px !important; margin-bottom: 12px !important;  ''>
-
+              
               <p style=''text-indent: 2rem; margin-bottom: 0.5em; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.6 !important; text-align: justify !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>महाराष्ट्र महानगरपालिका अधिनियम कलम ३७६/३८६ अन्वये सादर केलेल्या व्यवसाय परवाना अर्जाची (अर्ज क्र. {{ApplicationNo}} दि. {{ApplicationDate}}) आरोग्य व परवाना विभागामार्फत छाननी व स्थळ पाहणी पूर्ण करण्यात आली आहे.</p>
               <p style=''text-indent: 2rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.6 !important; text-align: justify !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>विहित नियमांच्या अधीन राहून {{ApplicantName}} (रा. {{ApplicantAddress}}) यांना ''व्यापार/व्यवसाय/साठा करण्यासाठी ना-हरकत प्रमाणपत्र'' साठीचा अधिकृत व्यवसाय परवाना दिनांक {{ApprovalDate}} रोजी पुढील अटींवर मंजूर करण्यात येत आहे.</p>
             </div>
-
+          
             {{OfficerFieldsBlock}}
-
+          
               <div class=''conditions-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 8px !important; padding-bottom: 8px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 12px !important;  ''>
-
+                
                 <div style=''margin-bottom: 0.5rem; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>शर्ती व अटी:</div>
                 <ol style=''list-style-type: decimal; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.35rem; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>
                   <li style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>परिसरातील नागरिकांना किंवा वाहतुकीस कोणताही त्रास होणार नाही याची दक्षता घ्यावी.</li><li style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>प्रदूषण नियंत्रण, अग्निशमन व मनपाच्या सर्व नियमांचे पालन करणे बंधनकारक राहील.</li>
                   {{CustomConditionsList}}
                 </ol>
               </div>
-
+            
             <div class=''custom-text-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 12px !important; background-color: #f8fafc !important; border: 1px solid #94a3b8; border-radius: 10px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);''>
-
+              
               <div style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>टिप :- सदर दाखल्याचा कालावधी हा दाखला दिलेल्या तारखेपासून ९० दिवसांपर्यंत ग्राह्य धरता येईल.</div>
             </div>
-
+          
             <div class=''signature-stamp-block flex justify-between items-end gap-4 relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 10px !important; padding-bottom: 10px !important; padding-left: 6px !important; padding-right: 6px !important; margin-bottom: 14px !important;  ''>
-
+              
               <div class=''left-sign text-center'' style=''font-size: 0.9em; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>
                 <div class=''h-12 flex items-center justify-center italic border-b border-slate-400 pb-1'' style=''font-family: Georgia, serif; font-size: 1.1em;''>
                   {{ApprovalDate}}
@@ -5036,9 +5343,9 @@ USING (VALUES
                 <div style=''font-size: 0.85em; opacity: 0.9; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>अकोला महानगरपालिका अकोला</div>
               </div>
             </div>
-
+          
             <div class=''security-footer-block border-t border-slate-400 flex justify-between items-center relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 10px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 6px !important; padding-right: 6px !important; margin-bottom: 8px !important;  ''>
-
+              
               <div class=''flex items-center gap-2''>
                 <div class=''inline-flex flex-col items-center justify-center p-1 bg-white border border-slate-300 rounded shadow-xs text-center'' style=''width: 70px;''>
                   <div style=''width: 55px; height: 55px;'' class=''flex items-center justify-center bg-white''>
@@ -5113,16 +5420,16 @@ WHEN MATCHED THEN
         target.[FooterContent] = source.[FooterContent],
         target.[DefaultConditionsJson] = source.[DefaultConditionsJson],
         target.[OfficerFieldsConfigJson] = source.[OfficerFieldsConfigJson],
-        target.[IsActive] = source.[IsActive],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
         target.[UpdatedBy] = source.[UpdatedBy],
         target.[UpdatedDate] = source.[UpdatedDate],
-        target.[MarkedForDeletion] = source.[MarkedForDeletion],
+        target.[MarkedForDeletion] = ISNULL(source.[MarkedForDeletion], 0),
         target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [ServiceId], [TemplateName], [TemplateCode], [HeaderContent], [BodyContent], [FooterContent], [DefaultConditionsJson], [OfficerFieldsConfigJson], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [MarkedForDeletion], [MarkedForDeletionDate])
-    VALUES (source.[Id], source.[ServiceId], source.[TemplateName], source.[TemplateCode], source.[HeaderContent], source.[BodyContent], source.[FooterContent], source.[DefaultConditionsJson], source.[OfficerFieldsConfigJson], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], source.[MarkedForDeletion], source.[MarkedForDeletionDate]);
+    VALUES (source.[Id], source.[ServiceId], source.[TemplateName], source.[TemplateCode], source.[HeaderContent], source.[BodyContent], source.[FooterContent], source.[DefaultConditionsJson], source.[OfficerFieldsConfigJson], ISNULL(source.[IsActive], 1), source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], ISNULL(source.[MarkedForDeletion], 0), source.[MarkedForDeletionDate]);
 GO
 
 MERGE INTO [RTS].[CertificateTemplateMaster] AS target
@@ -5266,9 +5573,9 @@ USING (VALUES
         <div class=''absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden''>
                  <img src=''/logo.png'' alt=''ULB Watermark'' style=''opacity: 0.06;'' class=''w-72 h-72 object-contain filter grayscale'' onerror="this.style.display=''none''"/>
                </div>
-
+    
             <div class=''header-letterhead relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 14px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: center !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 8px !important; padding-bottom: 8px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 12px !important;  ''>
-
+              
               <div class=''flex justify-between items-center font-mono mb-1 opacity-80'' style=''font-size: 0.75em;''><div>RTS/2026/DOC-VERIFIED</div><div>{{ApplicationNo}}</div></div>
               <div class=''flex items-center justify-between gap-4''>
                 <div class=''shrink-0 text-left'' style=''width: 85px;''><img src=''/logo.png'' alt=''ULB Logo'' style=''max-height: 75px; max-width: 75px;'' class=''object-contain'' onerror="this.style.display=''none''"/><div style=''font-size: 0.72em; font-weight: bold; margin-top: 2px; text-align: left; color: #0f172a !important; font-size: 14px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: center !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>अकोला महानगरपालिका अकोला</div></div>
@@ -5282,56 +5589,56 @@ USING (VALUES
               </div>
               <div class=''w-full border-b-2 border-current mt-2 mb-2''></div>
             </div>
-
+          
             <div class=''dispatch-bar flex justify-between items-center relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 4px !important; padding-bottom: 4px !important; padding-left: 4px !important; padding-right: 4px !important; margin-bottom: 8px !important;  ''>
-
+              
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>जा.क्र. मनपा/आर.टी.एस./२०२६/{{ApplicationNo}}</div>
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>दिनांक: {{ApprovalDate}}</div>
             </div>
-
+          
             <div class=''recipient-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 10px !important;  ''>
-
+              
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>प्रति,</div>
               <div style=''padding-left: 1.5rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>{{ApplicantName}}</div>
               <div style=''padding-left: 1.5rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>{{ApplicantAddress}}</div>
               <div style=''padding-left: 1.5rem; font-family: monospace; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>{{ApplicantMobile}}</div>
             </div>
-
+          
             <div class=''subject-ref-block relative z-10 transition-all  relative''  style=''padding-left: 1.5rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 10px !important;  ''>
-
+              
               <div style=''margin-bottom: 0.25rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>विषय :- रस्त्यांवरील खड्डे बुजविणे बाबत अधिकृत प्रमाणपत्र पुरविणेबाबत.</div>
               <div style=''opacity: 0.95; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>संदर्भ :- आपला ऑनलाईन RTS अर्ज क्र. {{ApplicationNo}} दिनांक {{ApplicationDate}}</div>
             </div>
-
+          
             <div class=''salutation-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 2px !important; padding-bottom: 2px !important; padding-left: 4px !important; padding-right: 4px !important; margin-bottom: 6px !important;  ''>
-
+              
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>महोदय / महोदया,</div>
             </div>
-
+          
             <div class=''narrative-body relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.6 !important; text-align: justify !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 8px !important; padding-bottom: 8px !important; padding-left: 6px !important; padding-right: 6px !important; margin-bottom: 12px !important;  ''>
-
+              
               <p style=''text-indent: 2rem; margin-bottom: 0.5em; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.6 !important; text-align: justify !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>उपरोक्त विषयान्वये आपणास कळविण्यात येते की, आपण महाराष्ट्र लोकसेवा हक्क अधिनियमान्वये केलेल्या अर्जानुसार (अर्ज क्र. {{ApplicationNo}} दि. {{ApplicationDate}}), संबंधित कागदपत्रांची छाननी व स्थळ पाहणी नियमानुसार पूर्ण करण्यात आली आहे.</p>
               <p style=''text-indent: 2rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.6 !important; text-align: justify !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>सबब, विहित नियमांच्या अधीन राहून {{ApplicantName}} (रा. {{ApplicantAddress}}) यांना रस्त्यांवरील खड्डे बुजविणे प्रमाणपत्र दिनांक {{ApprovalDate}} रोजी खालील अटी व शर्तींच्या अधीन राहून निर्गमित करण्यात येत आहे.</p>
             </div>
-
+          
             {{OfficerFieldsBlock}}
-
+          
               <div class=''conditions-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 8px !important; padding-bottom: 8px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 12px !important;  ''>
-
+                
                 <div style=''margin-bottom: 0.5rem; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>शर्ती व अटी:</div>
                 <ol style=''list-style-type: decimal; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.35rem; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>
                   <li style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>सदर दुरुस्तीचे काम मनपा बांधकाम विभागाच्या देखरेखीखाली दर्जेदार साहित्यासह पूर्ण करण्यात आले आहे.</li>
                   {{CustomConditionsList}}
                 </ol>
               </div>
-
+            
             <div class=''custom-text-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 12px !important; background-color: #f8fafc !important; border: 1px solid #94a3b8; border-radius: 10px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);''>
-
+              
               <div style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>टिप :- सदर दाखल्याचा कालावधी हा दाखला दिलेल्या तारखेपासून ९० दिवसांपर्यंत ग्राह्य धरता येईल.</div>
             </div>
-
+          
             <div class=''signature-stamp-block flex justify-between items-end gap-4 relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 10px !important; padding-bottom: 10px !important; padding-left: 6px !important; padding-right: 6px !important; margin-bottom: 14px !important;  ''>
-
+              
               <div class=''left-sign text-center'' style=''font-size: 0.9em; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>
                 <div class=''h-12 flex items-center justify-center italic border-b border-slate-400 pb-1'' style=''font-family: Georgia, serif; font-size: 1.1em;''>
                   {{ApprovalDate}}
@@ -5360,9 +5667,9 @@ USING (VALUES
                 <div style=''font-size: 0.85em; opacity: 0.9; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>अकोला महानगरपालिका अकोला</div>
               </div>
             </div>
-
+          
             <div class=''security-footer-block border-t border-slate-400 flex justify-between items-center relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 10px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 6px !important; padding-right: 6px !important; margin-bottom: 8px !important;  ''>
-
+              
               <div class=''flex items-center gap-2''>
                 <div class=''inline-flex flex-col items-center justify-center p-1 bg-white border border-slate-300 rounded shadow-xs text-center'' style=''width: 70px;''>
                   <div style=''width: 55px; height: 55px;'' class=''flex items-center justify-center bg-white''>
@@ -5410,16 +5717,16 @@ WHEN MATCHED THEN
         target.[FooterContent] = source.[FooterContent],
         target.[DefaultConditionsJson] = source.[DefaultConditionsJson],
         target.[OfficerFieldsConfigJson] = source.[OfficerFieldsConfigJson],
-        target.[IsActive] = source.[IsActive],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
         target.[UpdatedBy] = source.[UpdatedBy],
         target.[UpdatedDate] = source.[UpdatedDate],
-        target.[MarkedForDeletion] = source.[MarkedForDeletion],
+        target.[MarkedForDeletion] = ISNULL(source.[MarkedForDeletion], 0),
         target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [ServiceId], [TemplateName], [TemplateCode], [HeaderContent], [BodyContent], [FooterContent], [DefaultConditionsJson], [OfficerFieldsConfigJson], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [MarkedForDeletion], [MarkedForDeletionDate])
-    VALUES (source.[Id], source.[ServiceId], source.[TemplateName], source.[TemplateCode], source.[HeaderContent], source.[BodyContent], source.[FooterContent], source.[DefaultConditionsJson], source.[OfficerFieldsConfigJson], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], source.[MarkedForDeletion], source.[MarkedForDeletionDate]);
+    VALUES (source.[Id], source.[ServiceId], source.[TemplateName], source.[TemplateCode], source.[HeaderContent], source.[BodyContent], source.[FooterContent], source.[DefaultConditionsJson], source.[OfficerFieldsConfigJson], ISNULL(source.[IsActive], 1), source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], ISNULL(source.[MarkedForDeletion], 0), source.[MarkedForDeletionDate]);
 GO
 
 MERGE INTO [RTS].[CertificateTemplateMaster] AS target
@@ -5482,17 +5789,18 @@ WHEN MATCHED THEN
         target.[FooterContent] = source.[FooterContent],
         target.[DefaultConditionsJson] = source.[DefaultConditionsJson],
         target.[OfficerFieldsConfigJson] = source.[OfficerFieldsConfigJson],
-        target.[IsActive] = source.[IsActive],
+        target.[IsActive] = ISNULL(source.[IsActive], 1),
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
         target.[UpdatedBy] = source.[UpdatedBy],
         target.[UpdatedDate] = source.[UpdatedDate],
-        target.[MarkedForDeletion] = source.[MarkedForDeletion],
+        target.[MarkedForDeletion] = ISNULL(source.[MarkedForDeletion], 0),
         target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate]
 WHEN NOT MATCHED BY TARGET THEN
     INSERT ([Id], [ServiceId], [TemplateName], [TemplateCode], [HeaderContent], [BodyContent], [FooterContent], [DefaultConditionsJson], [OfficerFieldsConfigJson], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [MarkedForDeletion], [MarkedForDeletionDate])
-    VALUES (source.[Id], source.[ServiceId], source.[TemplateName], source.[TemplateCode], source.[HeaderContent], source.[BodyContent], source.[FooterContent], source.[DefaultConditionsJson], source.[OfficerFieldsConfigJson], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], source.[MarkedForDeletion], source.[MarkedForDeletionDate]);
+    VALUES (source.[Id], source.[ServiceId], source.[TemplateName], source.[TemplateCode], source.[HeaderContent], source.[BodyContent], source.[FooterContent], source.[DefaultConditionsJson], source.[OfficerFieldsConfigJson], ISNULL(source.[IsActive], 1), source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], ISNULL(source.[MarkedForDeletion], 0), source.[MarkedForDeletionDate]);
 GO
 
 SET IDENTITY_INSERT [RTS].[CertificateTemplateMaster] OFF;
 GO
+

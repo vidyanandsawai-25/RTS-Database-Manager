@@ -1,4 +1,4 @@
-﻿SET ANSI_NULLS ON
+SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
@@ -510,9 +510,7 @@ BEGIN
     (
         [Id]                INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
         [ServiceId]         INT NOT NULL,
-        [AppealTypeId]      INT NOT NULL,
-        [DepartmentId]      INT NOT NULL,
-        [ApprovalFlowName]  NVARCHAR(100) NOT NULL,
+        [AppealFlowName]    NVARCHAR(100) NOT NULL,
         [IsActive]          BIT NOT NULL CONSTRAINT [DF_AppealFlowMaster_IsActive] DEFAULT (1),
         [CreatedDate]       DATETIME NOT NULL CONSTRAINT [DF_AppealFlowMaster_CreatedDate] DEFAULT (GETDATE()),
         [CreatedBy]         INT NULL,
@@ -532,10 +530,10 @@ BEGIN
     CREATE TABLE [RTS].[AppealFlowStageMaster]
     (
         [Id]                INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-        [ApprovalFlowId]    INT NOT NULL,
+        [AppealFlowId]      INT NOT NULL,
         [StageOrder]        INT NOT NULL,
         [StageName]         NVARCHAR(100) NOT NULL,
-        [UserId]            INT NOT NULL,
+        [UserId]            INT NULL,
         [SLADays]           INT NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_SLADays] DEFAULT (3),
         [CanVerifyDocument] BIT NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_CanVerifyDocument] DEFAULT (0),
         [CanApprove]        BIT NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_CanApprove] DEFAULT (0),

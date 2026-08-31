@@ -889,3 +889,33 @@ WHERE NOT EXISTS
 );
 
 SET IDENTITY_INSERT [CORE].[AliasMaster] OFF;
+
+-- ==========================================================
+-- 08. ULB Type & Master Seed Data
+-- ==========================================================
+IF NOT EXISTS (SELECT 1 FROM [CORE].[UlbType] WHERE [Id] = 1)
+BEGIN
+    SET IDENTITY_INSERT [CORE].[UlbType] ON;
+    INSERT INTO [CORE].[UlbType] ([Id], [UlbTypeName], [IsActive], [CreatedDate]) VALUES (1, N'Corporation', 1, GETDATE());
+    INSERT INTO [CORE].[UlbType] ([Id], [UlbTypeName], [IsActive], [CreatedDate]) VALUES (2, N'Council', 1, GETDATE());
+    INSERT INTO [CORE].[UlbType] ([Id], [UlbTypeName], [IsActive], [CreatedDate]) VALUES (3, N'Nagar Panchayat', 1, GETDATE());
+    SET IDENTITY_INSERT [CORE].[UlbType] OFF;
+END;
+
+IF NOT EXISTS (SELECT 1 FROM [CORE].[UlbMaster] WHERE [Id] = 1)
+BEGIN
+    SET IDENTITY_INSERT [CORE].[UlbMaster] ON;
+    INSERT INTO [CORE].[UlbMaster] (
+        [Id], [UlbCode], [UlbName], [UlbNameLocal], [UlbTypeId], [UlbLogo],
+        [EmailId], [MobileNo], [AlternateMobileNo], [WebsiteUrl], [ContactPersonName],
+        [ContactPersonDesignation], [UlbAddress], [State], [District], [PinCode],
+        [IsActive], [CreatedDate]
+    ) VALUES (
+        1, N'AK001', N'AKOLA MUNICIPAL CORPORATION', N'अकोला महानगरपालिका, अकोला', 1, N'/images/akola-seal.png',
+        N'akolamc@gmail.com', N'07242434412', N'110000', N'https://citizen.scipl.info.in', N'सक्षम अधिकारी',
+        N'Competent Officer', N'एम. जी. रोड, मुख्य प्रशासकीय इमारत, नगर वाचनालय, शास्त्री पुतळ्याजवळ, जुना कापड बाजार, अकोला, महाराष्ट्र - ४४४००१', N'MH', N'Akola', N'444001',
+        1, GETDATE()
+    );
+    SET IDENTITY_INSERT [CORE].[UlbMaster] OFF;
+END;
+
