@@ -1,4 +1,4 @@
--- ============================================================================
+﻿-- ============================================================================
 -- AMS MODULE: CORE / LOOKUP / MASTER-DATA SEED DATA
 -- Dumped from live AMS schema (NewAssetDB @ 192.168.1.21) on 2026-07-17.
 -- One-to-one snapshot of live table contents at generation time; re-running
@@ -42923,4 +42923,3 @@ INSERT [AMS].[CVRateMaster] ([Id], [SubZoneId], [TypeOfUseGroupCVId], [FloorGrou
 GO
 SET IDENTITY_INSERT [AMS].[CVRateMaster] OFF
 GO
-

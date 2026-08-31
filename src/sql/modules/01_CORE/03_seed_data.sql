@@ -1,4 +1,4 @@
-
+﻿
 SET IDENTITY_INSERT [CORE].[DepartmentMaster] ON;
 
 INSERT INTO [CORE].[DepartmentMaster]
@@ -633,7 +633,7 @@ END
 SET IDENTITY_INSERT [CORE].[CommonRemarkTypeMaster] OFF;
 
 
-  SET IDENTITY_INSERT [CORE].[ConfigCategoryMaster] ON 
+  SET IDENTITY_INSERT [CORE].[ConfigCategoryMaster] ON
 GO
 INSERT [CORE].[ConfigCategoryMaster] ([Id], [CategoryCode], [CategoryName], [DisplayOrder], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (1, N'SECURITY_AUTH', N'Security & Authentication', 1, 1, GETDATE(), 1, NULL, NULL)
 GO
@@ -645,7 +645,7 @@ INSERT [CORE].[ConfigCategoryMaster] ([Id], [CategoryCode], [CategoryName], [Dis
 GO
 SET IDENTITY_INSERT [CORE].[ConfigCategoryMaster] OFF
 GO
-SET IDENTITY_INSERT [CORE].[ConfigKeyMaster] ON 
+SET IDENTITY_INSERT [CORE].[ConfigKeyMaster] ON
 GO
 INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1, 1, N'MAXFAILEDATTEMPTS', N'Maximum Failed Login Attempts', N'Number of failed login attempts before account lockout', N'decimal', N'textbox', N'2', 1, 1, GETDATE(), 1, NULL)
 GO
@@ -725,7 +725,7 @@ INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName],
 GO
 SET IDENTITY_INSERT [CORE].[ConfigKeyMaster] OFF
 GO
-SET IDENTITY_INSERT [CORE].[ConfigValueMaster] ON 
+SET IDENTITY_INSERT [CORE].[ConfigValueMaster] ON
 GO
 INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (73, 29, 1, NULL, 1, N'2026-05-14T18:11', 1, GETDATE(), 1, NULL)
 GO
@@ -876,14 +876,14 @@ INSERT INTO [CORE].[AliasMaster]
     [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]
 )
 
-SELECT 
+SELECT
     S.Id, S.KeyName, S.LabelName, S.EnglishName, S.RegionalName, S.HindiName,
     S.IsActive, S.CreatedBy, S.CreatedDate, S.UpdatedBy, S.UpdatedDate
 FROM SeedData S
 
 WHERE NOT EXISTS
 (
-    SELECT 1 
+    SELECT 1
     FROM [CORE].[AliasMaster] X
     WHERE X.Id = S.Id
 );
@@ -918,4 +918,3 @@ BEGIN
     );
     SET IDENTITY_INSERT [CORE].[UlbMaster] OFF;
 END;
-

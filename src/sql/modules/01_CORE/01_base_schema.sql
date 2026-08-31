@@ -1,4 +1,4 @@
-SET ANSI_NULLS ON
+﻿SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
@@ -470,7 +470,7 @@ GO
    STEP 4: [CORE].[UserRoleAllocation]  ← depends on UserMaster + DepartmentMaster + UserRoleMaster
 =========================== */
 CREATE TABLE [CORE].[UserRoleAllocation](
-    
+
     [Id]           INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [UserId]       INT NOT NULL,
     [DepartmentId] INT NOT NULL,
@@ -826,7 +826,7 @@ CREATE TABLE [CORE].[ScreenMaster](
     CONSTRAINT [UQ_ScreenMaster_ScreenCode] UNIQUE ([ScreenCode]),
     CONSTRAINT [FK_ScreenMaster_ScreenGroupMaster] FOREIGN KEY ([ScreenGroupId]) REFERENCES [CORE].[ScreenGroupMaster] ([Id]),
     CONSTRAINT [FK_ScreenMaster_ModuleMaster] FOREIGN KEY ([ModuleId]) REFERENCES [CORE].[ModuleMaster] ([Id] ) ,
-    CONSTRAINT [CK_ScreenMaster_DisplayOrder_NonNegative] CHECK ([DisplayOrder] >= 0)   
+    CONSTRAINT [CK_ScreenMaster_DisplayOrder_NonNegative] CHECK ([DisplayOrder] >= 0)
 
 )
 GO
@@ -1128,7 +1128,7 @@ CREATE TABLE [CORE].[UlbType](
  	[CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_UlbType_CreatedDate] DEFAULT (GETDATE()),
  	[UpdatedBy] INT NULL,
  	[UpdatedDate] DATETIME NULL,
- CONSTRAINT [PK_UlbType] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_UlbType] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 ) ON [PRIMARY]
@@ -1169,11 +1169,11 @@ CREATE TABLE [CORE].[UlbMaster](
 	[UpdatedDate] [datetime] NULL,
 	[CreatedBy] [int] NULL,
 	[UpdatedBy] [int] NULL,
- CONSTRAINT [PK_UlbMaster] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_UlbMaster] PRIMARY KEY CLUSTERED
 (
 	[Id] ASC
 ) ON [PRIMARY],
- CONSTRAINT [UQ_UlbMaster_UlbCode] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UQ_UlbMaster_UlbCode] UNIQUE NONCLUSTERED
 (
 	[UlbCode] ASC
 ) ON [PRIMARY]
@@ -1204,16 +1204,16 @@ CREATE TABLE [CORE].[RefreshToken](
     [UpdatedBy] INT NULL,
     [UpdatedDate] DATETIME NULL,
  CONSTRAINT [PK_RefreshToken] PRIMARY KEY CLUSTERED ([Id] ASC),
- CONSTRAINT [UQ_RefreshToken_Token] UNIQUE ([Token])    
+ CONSTRAINT [UQ_RefreshToken_Token] UNIQUE ([Token])
 );
- 
+
 ALTER TABLE [CORE].[RefreshToken]  WITH CHECK ADD  CONSTRAINT [FK_RefreshToken_UserMaster] FOREIGN KEY([UserId])
 REFERENCES [CORE].[UserMaster] ([Id])
 ON DELETE CASCADE
 GO
 ALTER TABLE [CORE].[RefreshToken] CHECK CONSTRAINT [FK_RefreshToken_UserMaster];
 GO
- 
+
 CREATE TABLE [CORE].[ConfigCategoryMaster](
     [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL  ,
     [CategoryCode] [varchar](30) NOT NULL,
@@ -1228,7 +1228,7 @@ CREATE TABLE [CORE].[ConfigCategoryMaster](
  CONSTRAINT [UQ_ConfigCategoryMaster_CategoryCode] UNIQUE ([CategoryCode])
 ) ON [PRIMARY]
 GO
- 
+
 
 CREATE TABLE [CORE].[ConfigKeyMaster](
     [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL ,
@@ -1243,22 +1243,22 @@ CREATE TABLE [CORE].[ConfigKeyMaster](
     [CreatedBy] [int] NULL,
     [CreatedDate] [datetime] NOT NULL CONSTRAINT DF_ConfigKeyMaster_CreatedDate DEFAULT(GETDATE()),
     [UpdatedBy] [int] NULL,
-    [UpdatedDate] [datetime] NULL, 
+    [UpdatedDate] [datetime] NULL,
  CONSTRAINT [PK_ConfigKeyMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
  CONSTRAINT [UQ_ConfigKeyMaster_ConfigCode] UNIQUE ([ConfigCode])
 ) ON [PRIMARY]
 GO
- 
+
 ALTER TABLE [CORE].[ConfigKeyMaster] WITH CHECK ADD CONSTRAINT [FK_ConfigKeyMaster_ConfigCategoryMaster_CategoryId] FOREIGN KEY([CategoryId])
 REFERENCES [CORE].[ConfigCategoryMaster] ([Id])
 GO
 ALTER TABLE [CORE].[ConfigKeyMaster] CHECK CONSTRAINT [FK_ConfigKeyMaster_ConfigCategoryMaster_CategoryId]
 GO
- 
+
 CREATE NONCLUSTERED INDEX [IX_ConfigKeyMaster_CategoryId]
 ON [CORE].[ConfigKeyMaster] ([CategoryId] ASC)
 GO
- 
+
 CREATE TABLE [CORE].[ConfigValueMaster](
     [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
     [ConfigKeyId] [int] NOT NULL,
@@ -1293,62 +1293,62 @@ CREATE UNIQUE NONCLUSTERED INDEX [UQ_ConfigValue_ConfigKeyId_DepartmentId_Module
 ON [CORE].[ConfigValueMaster] ([ConfigKeyId] ASC, [DepartmentId] ASC, [ModuleId] ASC)
 WHERE [DepartmentId] IS NOT NULL AND [ModuleId] IS NOT NULL
 GO
- 
+
 ALTER TABLE [CORE].[ConfigValueMaster] WITH CHECK ADD CONSTRAINT [FK_ConfigValueMaster_ConfigKeyMaster_ConfigKeyId]
 FOREIGN KEY([ConfigKeyId])
 REFERENCES [CORE].[ConfigKeyMaster] ([Id]);
 GO
 
- 
 
- 
+
+
 
 /* ===========================
    SourceTable
    Stores master metadata for configurable source tables.
    =========================== */
-CREATE TABLE [CORE].[SourceTable] ( 
-    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL, 
-    [ModuleId] INT NOT NULL, 
-    [TableName] VARCHAR(200) NOT NULL, 
-    [TableAliasName] NVARCHAR(200) NULL, 
-    [IsActive] BIT NOT NULL CONSTRAINT [DF_SourceTable_IsActive] DEFAULT (1), 
-    [CreatedBy] INT NULL, 
-    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_SourceTable_CreatedDate] DEFAULT (GETDATE()), 
-    [UpdatedBy] INT NULL, 
-    [UpdatedDate] DATETIME NULL, 
-    CONSTRAINT [PK_SourceTable] PRIMARY KEY CLUSTERED ([Id] ASC), 
-    CONSTRAINT [UQ_SourceTable_ModuleId_TableName] UNIQUE NONCLUSTERED ([ModuleId] ASC, [TableName] ASC), 
-    CONSTRAINT [FK_SourceTable_ModuleId] FOREIGN KEY ([ModuleId]) REFERENCES [CORE].[ModuleMaster] ([Id]) 
+CREATE TABLE [CORE].[SourceTable] (
+    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [ModuleId] INT NOT NULL,
+    [TableName] VARCHAR(200) NOT NULL,
+    [TableAliasName] NVARCHAR(200) NULL,
+    [IsActive] BIT NOT NULL CONSTRAINT [DF_SourceTable_IsActive] DEFAULT (1),
+    [CreatedBy] INT NULL,
+    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_SourceTable_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy] INT NULL,
+    [UpdatedDate] DATETIME NULL,
+    CONSTRAINT [PK_SourceTable] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_SourceTable_ModuleId_TableName] UNIQUE NONCLUSTERED ([ModuleId] ASC, [TableName] ASC),
+    CONSTRAINT [FK_SourceTable_ModuleId] FOREIGN KEY ([ModuleId]) REFERENCES [CORE].[ModuleMaster] ([Id])
 );
 
 /* ===========================
    SourceTableDetails
    Stores field-level metadata for configurable source tables.
    =========================== */
-CREATE TABLE [CORE].[SourceTableDetails] ( 
-    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL, 
-    [SourceTableId] INT NOT NULL, 
-    [FieldName] VARCHAR(200) NOT NULL, 
-    [DisplayName] NVARCHAR(200) NULL, 
-    [ControlType] VARCHAR(50) NULL, 
-    [DataType] VARCHAR(50) NULL, 
-    [Placeholder] NVARCHAR(500) NULL, 
-    [MaxLength] INT NULL, 
-    [ValidationRegex] VARCHAR(500) NULL, 
-    [DefaultValue] VARCHAR(500) NULL, 
-    [IsRequired] BIT NOT NULL CONSTRAINT [DF_SourceTableDetails_IsRequired] DEFAULT (0), 
-    [SequenceNo] INT NOT NULL CONSTRAINT [DF_SourceTableDetails_SequenceNo] DEFAULT (0), 
-    [BindApi] VARCHAR(500) NULL, 
-    [ApiResponse] VARCHAR(500) NULL, 
-    [IsActive] BIT NOT NULL CONSTRAINT [DF_SourceTableDetails_IsActive] DEFAULT (1), 
-    [CreatedBy] INT NULL, 
-    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_SourceTableDetails_CreatedDate] DEFAULT (GETDATE()), 
-    [UpdatedBy] INT NULL, 
-    [UpdatedDate] DATETIME NULL, 
-    CONSTRAINT [PK_SourceTableDetails] PRIMARY KEY CLUSTERED ([Id] ASC), 
-    CONSTRAINT [UQ_SourceTableDetails_SourceTableId_FieldName] UNIQUE NONCLUSTERED ([SourceTableId] ASC, [FieldName] ASC), 
-    CONSTRAINT [FK_SourceTableDetails_SourceTableId] FOREIGN KEY ([SourceTableId]) REFERENCES [CORE].[SourceTable] ([Id]) 
+CREATE TABLE [CORE].[SourceTableDetails] (
+    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [SourceTableId] INT NOT NULL,
+    [FieldName] VARCHAR(200) NOT NULL,
+    [DisplayName] NVARCHAR(200) NULL,
+    [ControlType] VARCHAR(50) NULL,
+    [DataType] VARCHAR(50) NULL,
+    [Placeholder] NVARCHAR(500) NULL,
+    [MaxLength] INT NULL,
+    [ValidationRegex] VARCHAR(500) NULL,
+    [DefaultValue] VARCHAR(500) NULL,
+    [IsRequired] BIT NOT NULL CONSTRAINT [DF_SourceTableDetails_IsRequired] DEFAULT (0),
+    [SequenceNo] INT NOT NULL CONSTRAINT [DF_SourceTableDetails_SequenceNo] DEFAULT (0),
+    [BindApi] VARCHAR(500) NULL,
+    [ApiResponse] VARCHAR(500) NULL,
+    [IsActive] BIT NOT NULL CONSTRAINT [DF_SourceTableDetails_IsActive] DEFAULT (1),
+    [CreatedBy] INT NULL,
+    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_SourceTableDetails_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy] INT NULL,
+    [UpdatedDate] DATETIME NULL,
+    CONSTRAINT [PK_SourceTableDetails] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_SourceTableDetails_SourceTableId_FieldName] UNIQUE NONCLUSTERED ([SourceTableId] ASC, [FieldName] ASC),
+    CONSTRAINT [FK_SourceTableDetails_SourceTableId] FOREIGN KEY ([SourceTableId]) REFERENCES [CORE].[SourceTable] ([Id])
 );
 
 ALTER TABLE CORE.UserMaster
@@ -1403,7 +1403,7 @@ ALTER TABLE CORE.UserMaster
         ON CORE.TwoFactorChallenge (ExpiresAt);
 
           CREATE TABLE CORE.SecurityAuditLog
-    (   
+    (
         Id              INT IDENTITY(1,1)  NOT FOR REPLICATION NOT NULL,
         EventType       NVARCHAR(100)          NOT NULL,
         UserId          INT                    NULL,

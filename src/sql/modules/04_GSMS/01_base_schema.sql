@@ -1,4 +1,4 @@
-/* ===========================
+﻿/* ===========================
  CommunicationDetails
 =========================== */
 
@@ -43,7 +43,7 @@ CREATE TABLE [GSMS].[CommonRemarkDetails](
 );
 GO
  /****** Added here because [GSMS].[CommonRemarkDetails] is created after [PTIS].[PropertyMast], which avoids an execution error. ******/
-ALTER TABLE [PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_MobileNoRemarkMaster] FOREIGN KEY([MobileNoRemarkId])		
+ALTER TABLE [PTIS].[PropertyMast]  WITH CHECK ADD  CONSTRAINT [FK_PropertyMast_MobileNoRemarkMaster] FOREIGN KEY([MobileNoRemarkId])
 REFERENCES [GSMS].[CommonRemarkDetails] ([Id])
 GO
 ALTER TABLE [PTIS].[PropertyMast] CHECK CONSTRAINT [FK_PropertyMast_MobileNoRemarkMaster]
@@ -130,7 +130,7 @@ SET QUOTED_IDENTIFIER ON;
 GO
 
 /* ===========================
-   STEP 1: [GSMS].[WardAllocation]  
+   STEP 1: [GSMS].[WardAllocation]
 =========================== */
 
 CREATE TABLE [GSMS].[WardAllocation](
@@ -212,16 +212,16 @@ CREATE TABLE [GSMS].[PropertySurveyVisit]
     [UpdatedBy] INT NULL,
     [UpdatedDate] DATETIME NULL,
     CONSTRAINT [PK_PropertySurveyVisit] PRIMARY KEY CLUSTERED ([Id]),
-    CONSTRAINT [FK_PropertySurveyVisit_PropertyWorkflowDetails] FOREIGN KEY ([PropertyWorkflowDetailsId]) 
+    CONSTRAINT [FK_PropertySurveyVisit_PropertyWorkflowDetails] FOREIGN KEY ([PropertyWorkflowDetailsId])
                 REFERENCES [PTIS].[PropertyWorkflowDetails] ([Id])
-);  
+);
 GO
 
 ALTER TABLE [GSMS].[PropertySurveyVisit]  WITH CHECK ADD  CONSTRAINT [FK_PropertySurveyVisit_CommonRemarkDetails] FOREIGN KEY([RemarkId])
 REFERENCES [GSMS].[CommonRemarkDetails] ([Id])
 GO
- 
- 
+
+
 CREATE TABLE [GSMS].[OldWardMaster]
 (
     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
@@ -236,7 +236,7 @@ CREATE TABLE [GSMS].[OldWardMaster]
     CONSTRAINT [UQ_OldWardMaster_OldZoneName_OldWardNo] UNIQUE ([OldZoneName], [OldWardNo])
 );
 GO
- 
+
  ALTER TABLE [GSMS].[WardAllocation] WITH CHECK ADD CONSTRAINT [FK_WardAllocation_OldWardMaster_OldWardId]
      FOREIGN KEY ([OldWardId]) REFERENCES [GSMS].[OldWardMaster] ([Id]);
 GO

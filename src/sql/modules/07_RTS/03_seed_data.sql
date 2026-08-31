@@ -1,4 +1,4 @@
-SET ANSI_NULLS ON
+﻿SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
@@ -5079,9 +5079,9 @@ USING (VALUES
         <div class=''absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden''>
                  <img src=''/logo.png'' alt=''ULB Watermark'' style=''opacity: 0.06;'' class=''w-72 h-72 object-contain filter grayscale'' onerror="this.style.display=''none''"/>
                </div>
-    
+
             <div class=''header-letterhead relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 14px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: center !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 8px !important; padding-bottom: 8px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 12px !important;  ''>
-              
+
               <div class=''flex justify-between items-center font-mono mb-1 opacity-80'' style=''font-size: 0.75em;''><div>RTS/2026/DOC-VERIFIED</div><div>{{ApplicationNo}}</div></div>
               <div class=''flex items-center justify-between gap-4''>
                 <div class=''shrink-0 text-left'' style=''width: 85px;''><img src=''/logo.png'' alt=''ULB Logo'' style=''max-height: 75px; max-width: 75px;'' class=''object-contain'' onerror="this.style.display=''none''"/><div style=''font-size: 0.72em; font-weight: bold; margin-top: 2px; text-align: left; color: #0f172a !important; font-size: 14px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: center !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>अकोला महानगरपालिका अकोला</div></div>
@@ -5095,56 +5095,56 @@ USING (VALUES
               </div>
               <div class=''w-full border-b-2 border-current mt-2 mb-2''></div>
             </div>
-          
+
             <div class=''dispatch-bar flex justify-between items-center relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 4px !important; padding-bottom: 4px !important; padding-left: 4px !important; padding-right: 4px !important; margin-bottom: 8px !important;  ''>
-              
+
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>जा.क्र. मनपा/आर.टी.एस./२०२६/{{ApplicationNo}}</div>
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>दिनांक: {{ApprovalDate}}</div>
             </div>
-          
+
             <div class=''recipient-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 10px !important;  ''>
-              
+
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>प्रति,</div>
               <div style=''padding-left: 1.5rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>{{ApplicantName}}</div>
               <div style=''padding-left: 1.5rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>{{ApplicantAddress}}</div>
               <div style=''padding-left: 1.5rem; font-family: monospace; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>{{ApplicantMobile}}</div>
             </div>
-          
+
             <div class=''subject-ref-block relative z-10 transition-all  relative''  style=''padding-left: 1.5rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 10px !important;  ''>
-              
+
               <div style=''margin-bottom: 0.25rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>विषय :- झोन दाखला देणे बाबत अधिकृत प्रमाणपत्र पुरविणेबाबत.</div>
               <div style=''opacity: 0.95; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>संदर्भ :- आपला ऑनलाईन RTS अर्ज क्र. {{ApplicationNo}} दिनांक {{ApplicationDate}}</div>
             </div>
-          
+
             <div class=''salutation-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 2px !important; padding-bottom: 2px !important; padding-left: 4px !important; padding-right: 4px !important; margin-bottom: 6px !important;  ''>
-              
+
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>महोदय / महोदया,</div>
             </div>
-          
+
             <div class=''narrative-body relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.6 !important; text-align: justify !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 8px !important; padding-bottom: 8px !important; padding-left: 6px !important; padding-right: 6px !important; margin-bottom: 12px !important;  ''>
-              
+
               <p style=''text-indent: 2rem; margin-bottom: 0.5em; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.6 !important; text-align: justify !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>नगररचना व विकास योजना नियमांनुसार सादर केलेल्या झोन दाखला अर्जाची (अर्ज क्र. {{ApplicationNo}} दि. {{ApplicationDate}}) नगररचना विभागामार्फत पडताळणी करण्यात आली आहे.</p>
               <p style=''text-indent: 2rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.6 !important; text-align: justify !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>अधिकृत नगररचना अभिलेखानुसार सदर जागेचा झोन तपशील दाखला {{ApplicantName}} (जागा: {{ApplicantAddress}}) यांना दिनांक {{ApprovalDate}} रोजी निर्गमित करण्यात येत आहे.</p>
             </div>
-          
+
             {{OfficerFieldsBlock}}
-          
+
               <div class=''conditions-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 8px !important; padding-bottom: 8px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 12px !important;  ''>
-                
+
                 <div style=''margin-bottom: 0.5rem; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>शर्ती व अटी:</div>
                 <ol style=''list-style-type: decimal; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.35rem; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>
                   <li style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>सदर दाखला केवळ विकास योजना व नगररचना नियमावलीच्या अनुषंगाने माहितीस्तव जारी केला आहे.</li><li style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>सदर दाखल्यावरून जागेच्या मालकी हक्काचा किंवा कब्जेवहिवाटीचा कोणताही दावा करता येणार नाही.</li>
                   {{CustomConditionsList}}
                 </ol>
               </div>
-            
+
             <div class=''custom-text-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 12px !important; background-color: #f8fafc !important; border: 1px solid #94a3b8; border-radius: 10px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);''>
-              
+
               <div style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>टिप :- सदर दाखल्याचा कालावधी हा दाखला दिलेल्या तारखेपासून ९० दिवसांपर्यंत ग्राह्य धरता येईल.</div>
             </div>
-          
+
             <div class=''signature-stamp-block flex justify-between items-end gap-4 relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 10px !important; padding-bottom: 10px !important; padding-left: 6px !important; padding-right: 6px !important; margin-bottom: 14px !important;  ''>
-              
+
               <div class=''left-sign text-center'' style=''font-size: 0.9em; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>
                 <div class=''h-12 flex items-center justify-center italic border-b border-slate-400 pb-1'' style=''font-family: Georgia, serif; font-size: 1.1em;''>
                   {{ApprovalDate}}
@@ -5173,9 +5173,9 @@ USING (VALUES
                 <div style=''font-size: 0.85em; opacity: 0.9; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>अकोला महानगरपालिका अकोला</div>
               </div>
             </div>
-          
+
             <div class=''security-footer-block border-t border-slate-400 flex justify-between items-center relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 10px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 6px !important; padding-right: 6px !important; margin-bottom: 8px !important;  ''>
-              
+
               <div class=''flex items-center gap-2''>
                 <div class=''inline-flex flex-col items-center justify-center p-1 bg-white border border-slate-300 rounded shadow-xs text-center'' style=''width: 70px;''>
                   <div style=''width: 55px; height: 55px;'' class=''flex items-center justify-center bg-white''>
@@ -5249,9 +5249,9 @@ USING (VALUES
         <div class=''absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden''>
                  <img src=''/logo.png'' alt=''ULB Watermark'' style=''opacity: 0.06;'' class=''w-72 h-72 object-contain filter grayscale'' onerror="this.style.display=''none''"/>
                </div>
-    
+
             <div class=''header-letterhead relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 14px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: center !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 8px !important; padding-bottom: 8px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 12px !important;  ''>
-              
+
               <div class=''flex justify-between items-center font-mono mb-1 opacity-80'' style=''font-size: 0.75em;''><div>RTS/2026/DOC-VERIFIED</div><div>{{ApplicationNo}}</div></div>
               <div class=''flex items-center justify-between gap-4''>
                 <div class=''shrink-0 text-left'' style=''width: 85px;''><img src=''/logo.png'' alt=''ULB Logo'' style=''max-height: 75px; max-width: 75px;'' class=''object-contain'' onerror="this.style.display=''none''"/><div style=''font-size: 0.72em; font-weight: bold; margin-top: 2px; text-align: left; color: #0f172a !important; font-size: 14px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: center !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>अकोला महानगरपालिका अकोला</div></div>
@@ -5265,56 +5265,56 @@ USING (VALUES
               </div>
               <div class=''w-full border-b-2 border-current mt-2 mb-2''></div>
             </div>
-          
+
             <div class=''dispatch-bar flex justify-between items-center relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 4px !important; padding-bottom: 4px !important; padding-left: 4px !important; padding-right: 4px !important; margin-bottom: 8px !important;  ''>
-              
+
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>जा.क्र. मनपा/आर.टी.एस./२०२६/{{ApplicationNo}}</div>
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>दिनांक: {{ApprovalDate}}</div>
             </div>
-          
+
             <div class=''recipient-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 10px !important;  ''>
-              
+
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>प्रति,</div>
               <div style=''padding-left: 1.5rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>{{ApplicantName}}</div>
               <div style=''padding-left: 1.5rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>{{ApplicantAddress}}</div>
               <div style=''padding-left: 1.5rem; font-family: monospace; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>{{ApplicantMobile}}</div>
             </div>
-          
+
             <div class=''subject-ref-block relative z-10 transition-all  relative''  style=''padding-left: 1.5rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 10px !important;  ''>
-              
+
               <div style=''margin-bottom: 0.25rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>विषय :- व्यापार/व्यवसाय/साठा करण्यासाठी ना-हरकत प्रमाणपत्र बाबत अधिकृत प्रमाणपत्र पुरविणेबाबत.</div>
               <div style=''opacity: 0.95; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>संदर्भ :- आपला ऑनलाईन RTS अर्ज क्र. {{ApplicationNo}} दिनांक {{ApplicationDate}}</div>
             </div>
-          
+
             <div class=''salutation-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 2px !important; padding-bottom: 2px !important; padding-left: 4px !important; padding-right: 4px !important; margin-bottom: 6px !important;  ''>
-              
+
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>महोदय / महोदया,</div>
             </div>
-          
+
             <div class=''narrative-body relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.6 !important; text-align: justify !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 8px !important; padding-bottom: 8px !important; padding-left: 6px !important; padding-right: 6px !important; margin-bottom: 12px !important;  ''>
-              
+
               <p style=''text-indent: 2rem; margin-bottom: 0.5em; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.6 !important; text-align: justify !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>महाराष्ट्र महानगरपालिका अधिनियम कलम ३७६/३८६ अन्वये सादर केलेल्या व्यवसाय परवाना अर्जाची (अर्ज क्र. {{ApplicationNo}} दि. {{ApplicationDate}}) आरोग्य व परवाना विभागामार्फत छाननी व स्थळ पाहणी पूर्ण करण्यात आली आहे.</p>
               <p style=''text-indent: 2rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.6 !important; text-align: justify !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>विहित नियमांच्या अधीन राहून {{ApplicantName}} (रा. {{ApplicantAddress}}) यांना ''व्यापार/व्यवसाय/साठा करण्यासाठी ना-हरकत प्रमाणपत्र'' साठीचा अधिकृत व्यवसाय परवाना दिनांक {{ApprovalDate}} रोजी पुढील अटींवर मंजूर करण्यात येत आहे.</p>
             </div>
-          
+
             {{OfficerFieldsBlock}}
-          
+
               <div class=''conditions-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 8px !important; padding-bottom: 8px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 12px !important;  ''>
-                
+
                 <div style=''margin-bottom: 0.5rem; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>शर्ती व अटी:</div>
                 <ol style=''list-style-type: decimal; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.35rem; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>
                   <li style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>परिसरातील नागरिकांना किंवा वाहतुकीस कोणताही त्रास होणार नाही याची दक्षता घ्यावी.</li><li style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>प्रदूषण नियंत्रण, अग्निशमन व मनपाच्या सर्व नियमांचे पालन करणे बंधनकारक राहील.</li>
                   {{CustomConditionsList}}
                 </ol>
               </div>
-            
+
             <div class=''custom-text-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 12px !important; background-color: #f8fafc !important; border: 1px solid #94a3b8; border-radius: 10px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);''>
-              
+
               <div style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>टिप :- सदर दाखल्याचा कालावधी हा दाखला दिलेल्या तारखेपासून ९० दिवसांपर्यंत ग्राह्य धरता येईल.</div>
             </div>
-          
+
             <div class=''signature-stamp-block flex justify-between items-end gap-4 relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 10px !important; padding-bottom: 10px !important; padding-left: 6px !important; padding-right: 6px !important; margin-bottom: 14px !important;  ''>
-              
+
               <div class=''left-sign text-center'' style=''font-size: 0.9em; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>
                 <div class=''h-12 flex items-center justify-center italic border-b border-slate-400 pb-1'' style=''font-family: Georgia, serif; font-size: 1.1em;''>
                   {{ApprovalDate}}
@@ -5343,9 +5343,9 @@ USING (VALUES
                 <div style=''font-size: 0.85em; opacity: 0.9; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>अकोला महानगरपालिका अकोला</div>
               </div>
             </div>
-          
+
             <div class=''security-footer-block border-t border-slate-400 flex justify-between items-center relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 10px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 6px !important; padding-right: 6px !important; margin-bottom: 8px !important;  ''>
-              
+
               <div class=''flex items-center gap-2''>
                 <div class=''inline-flex flex-col items-center justify-center p-1 bg-white border border-slate-300 rounded shadow-xs text-center'' style=''width: 70px;''>
                   <div style=''width: 55px; height: 55px;'' class=''flex items-center justify-center bg-white''>
@@ -5573,9 +5573,9 @@ USING (VALUES
         <div class=''absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden''>
                  <img src=''/logo.png'' alt=''ULB Watermark'' style=''opacity: 0.06;'' class=''w-72 h-72 object-contain filter grayscale'' onerror="this.style.display=''none''"/>
                </div>
-    
+
             <div class=''header-letterhead relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 14px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: center !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 8px !important; padding-bottom: 8px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 12px !important;  ''>
-              
+
               <div class=''flex justify-between items-center font-mono mb-1 opacity-80'' style=''font-size: 0.75em;''><div>RTS/2026/DOC-VERIFIED</div><div>{{ApplicationNo}}</div></div>
               <div class=''flex items-center justify-between gap-4''>
                 <div class=''shrink-0 text-left'' style=''width: 85px;''><img src=''/logo.png'' alt=''ULB Logo'' style=''max-height: 75px; max-width: 75px;'' class=''object-contain'' onerror="this.style.display=''none''"/><div style=''font-size: 0.72em; font-weight: bold; margin-top: 2px; text-align: left; color: #0f172a !important; font-size: 14px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: center !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>अकोला महानगरपालिका अकोला</div></div>
@@ -5589,56 +5589,56 @@ USING (VALUES
               </div>
               <div class=''w-full border-b-2 border-current mt-2 mb-2''></div>
             </div>
-          
+
             <div class=''dispatch-bar flex justify-between items-center relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 4px !important; padding-bottom: 4px !important; padding-left: 4px !important; padding-right: 4px !important; margin-bottom: 8px !important;  ''>
-              
+
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>जा.क्र. मनपा/आर.टी.एस./२०२६/{{ApplicationNo}}</div>
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>दिनांक: {{ApprovalDate}}</div>
             </div>
-          
+
             <div class=''recipient-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 10px !important;  ''>
-              
+
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>प्रति,</div>
               <div style=''padding-left: 1.5rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>{{ApplicantName}}</div>
               <div style=''padding-left: 1.5rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>{{ApplicantAddress}}</div>
               <div style=''padding-left: 1.5rem; font-family: monospace; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>{{ApplicantMobile}}</div>
             </div>
-          
+
             <div class=''subject-ref-block relative z-10 transition-all  relative''  style=''padding-left: 1.5rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 10px !important;  ''>
-              
+
               <div style=''margin-bottom: 0.25rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>विषय :- रस्त्यांवरील खड्डे बुजविणे बाबत अधिकृत प्रमाणपत्र पुरविणेबाबत.</div>
               <div style=''opacity: 0.95; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>संदर्भ :- आपला ऑनलाईन RTS अर्ज क्र. {{ApplicationNo}} दिनांक {{ApplicationDate}}</div>
             </div>
-          
+
             <div class=''salutation-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 2px !important; padding-bottom: 2px !important; padding-left: 4px !important; padding-right: 4px !important; margin-bottom: 6px !important;  ''>
-              
+
               <div style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>महोदय / महोदया,</div>
             </div>
-          
+
             <div class=''narrative-body relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.6 !important; text-align: justify !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 8px !important; padding-bottom: 8px !important; padding-left: 6px !important; padding-right: 6px !important; margin-bottom: 12px !important;  ''>
-              
+
               <p style=''text-indent: 2rem; margin-bottom: 0.5em; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.6 !important; text-align: justify !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>उपरोक्त विषयान्वये आपणास कळविण्यात येते की, आपण महाराष्ट्र लोकसेवा हक्क अधिनियमान्वये केलेल्या अर्जानुसार (अर्ज क्र. {{ApplicationNo}} दि. {{ApplicationDate}}), संबंधित कागदपत्रांची छाननी व स्थळ पाहणी नियमानुसार पूर्ण करण्यात आली आहे.</p>
               <p style=''text-indent: 2rem; color: #0f172a !important; font-size: 13px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.6 !important; text-align: justify !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>सबब, विहित नियमांच्या अधीन राहून {{ApplicantName}} (रा. {{ApplicantAddress}}) यांना रस्त्यांवरील खड्डे बुजविणे प्रमाणपत्र दिनांक {{ApprovalDate}} रोजी खालील अटी व शर्तींच्या अधीन राहून निर्गमित करण्यात येत आहे.</p>
             </div>
-          
+
             {{OfficerFieldsBlock}}
-          
+
               <div class=''conditions-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 8px !important; padding-bottom: 8px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 12px !important;  ''>
-                
+
                 <div style=''margin-bottom: 0.5rem; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>शर्ती व अटी:</div>
                 <ol style=''list-style-type: decimal; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.35rem; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>
                   <li style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.5 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>सदर दुरुस्तीचे काम मनपा बांधकाम विभागाच्या देखरेखीखाली दर्जेदार साहित्यासह पूर्ण करण्यात आले आहे.</li>
                   {{CustomConditionsList}}
                 </ol>
               </div>
-            
+
             <div class=''custom-text-block relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 8px !important; padding-right: 8px !important; margin-bottom: 12px !important; background-color: #f8fafc !important; border: 1px solid #94a3b8; border-radius: 10px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);''>
-              
+
               <div style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: bold !important; font-style: normal !important; text-decoration: none !important;''>टिप :- सदर दाखल्याचा कालावधी हा दाखला दिलेल्या तारखेपासून ९० दिवसांपर्यंत ग्राह्य धरता येईल.</div>
             </div>
-          
+
             <div class=''signature-stamp-block flex justify-between items-end gap-4 relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 10px !important; padding-bottom: 10px !important; padding-left: 6px !important; padding-right: 6px !important; margin-bottom: 14px !important;  ''>
-              
+
               <div class=''left-sign text-center'' style=''font-size: 0.9em; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>
                 <div class=''h-12 flex items-center justify-center italic border-b border-slate-400 pb-1'' style=''font-family: Georgia, serif; font-size: 1.1em;''>
                   {{ApprovalDate}}
@@ -5667,9 +5667,9 @@ USING (VALUES
                 <div style=''font-size: 0.85em; opacity: 0.9; color: #0f172a !important; font-size: 12px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important;''>अकोला महानगरपालिका अकोला</div>
               </div>
             </div>
-          
+
             <div class=''security-footer-block border-t border-slate-400 flex justify-between items-center relative z-10 transition-all  relative''  style=''color: #0f172a !important; font-size: 10px !important; font-family: ''Noto Sans Devanagari'', ''Segoe UI'', Arial, sans-serif !important; line-height: 1.4 !important; text-align: left !important; font-weight: normal !important; font-style: normal !important; text-decoration: none !important; width: 100%; padding-top: 6px !important; padding-bottom: 6px !important; padding-left: 6px !important; padding-right: 6px !important; margin-bottom: 8px !important;  ''>
-              
+
               <div class=''flex items-center gap-2''>
                 <div class=''inline-flex flex-col items-center justify-center p-1 bg-white border border-slate-300 rounded shadow-xs text-center'' style=''width: 70px;''>
                   <div style=''width: 55px; height: 55px;'' class=''flex items-center justify-center bg-white''>
@@ -5803,4 +5803,3 @@ GO
 
 SET IDENTITY_INSERT [RTS].[CertificateTemplateMaster] OFF;
 GO
-

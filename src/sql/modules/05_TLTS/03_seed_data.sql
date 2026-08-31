@@ -1,6 +1,6 @@
-------------------- [TLIS].[FeesStructureMaster] ---------------
+﻿------------------- [TLIS].[FeesStructureMaster] ---------------
 
-SET IDENTITY_INSERT [TLIS].[FeesStructureMaster] ON 
+SET IDENTITY_INSERT [TLIS].[FeesStructureMaster] ON
 GO
 
 INSERT [TLIS].[FeesStructureMaster] ([Id], [FeesStructure], [Description], [CreatedDate], [UpdatedDate], [CreatedBy], [UpdatedBy], [IsActive]) VALUES (1, N'System Define (Pre-Configured) ', N'System Define', 1, NULL, NULL, NULL, 1)
@@ -14,7 +14,7 @@ GO
 
 ------------------- [TLIS].[LicenseSpanMaster] -----------------
 
-SET IDENTITY_INSERT [TLIS].[LicenseSpanMaster] ON 
+SET IDENTITY_INSERT [TLIS].[LicenseSpanMaster] ON
 GO
 INSERT [TLIS].[LicenseSpanMaster] ([Id], [LicenseSpan], [Description], [CreatedDate], [UpdatedDate], [CreatedBy], [UpdatedBy], [IsActive]) VALUES (1, N'1 January to 31 December ', N'New Year', 1, NULL, NULL, NULL, 1)
 GO
@@ -28,5 +28,3 @@ INSERT [TLIS].[LicenseSpanMaster] ([Id], [LicenseSpan], [Description], [CreatedD
 GO
 SET IDENTITY_INSERT [TLIS].[LicenseSpanMaster] OFF
 GO
-
-

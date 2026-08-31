@@ -1,4 +1,4 @@
--- ============================================================================
+﻿-- ============================================================================
 -- AMS MODULE: BUSINESS / TRANSACTIONAL SEED DATA
 -- Dumped from live AMS schema (NewAssetDB @ 192.168.1.21) on 2026-07-17.
 -- AssetMaster and everything hanging off it. Tables with zero live rows

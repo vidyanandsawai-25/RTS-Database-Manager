@@ -1,4 +1,4 @@
- INSERT PTIS.ZoneMaster ([ZoneNo], [Description], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
+﻿ INSERT PTIS.ZoneMaster ([ZoneNo], [Description], [CreatedBy], [UpdatedBy], [UpdatedDate]) VALUES
    (N'UT', N'उथळसर', NULL, NULL, NULL),
    (N'NK', N'नौपाडा - कोपरी', NULL, NULL, NULL),
    (N'KL', N'कळवा', NULL, NULL, NULL),
@@ -120,7 +120,7 @@
 INSERT PTIS.WardMaster (ZoneId, WardNo, [Description])
 SELECT z.Id,
        w.WardNo,
-       w.WardNo  
+       w.WardNo
 FROM WardSeed w
 JOIN PTIS.ZoneMaster z
   ON z.ZoneNo = w.ZoneNo;
@@ -255,7 +255,7 @@ GO
 
 
 
-    
+
 
 SET IDENTITY_INSERT [PTIS].[TypeOfUseMaster] ON;
 GO
@@ -263,15 +263,15 @@ GO
 ;WITH GroupMap AS
 (
     SELECT
-        g.Id AS TypeOfUseGroupId,      
-        g.TypeOfUseGroupCode              
+        g.Id AS TypeOfUseGroupId,
+        g.TypeOfUseGroupCode
     FROM PTIS.TypeOfUseGroupMaster g
 ),
 GroupMapCV AS
 (
     SELECT
-        gcv.Id AS TypeOfUseGroupCVId,      
-        gcv.TypeOfUseGroupCVCode              
+        gcv.Id AS TypeOfUseGroupCVId,
+        gcv.TypeOfUseGroupCVCode
     FROM PTIS.TypeOfUseGroupMasterCV gcv
 ),
 TypeSeed AS
@@ -509,7 +509,7 @@ TypeOfUseIdMap AS
         (N'AWC', 109),
         (N'CCO', 110),
         (N'CCR', 111)
-       
+
     ) v(TypeOfUseCode, Id)
 )
 
@@ -1607,7 +1607,7 @@ INSERT PTIS.SubTypeOfUseMaster
 SELECT
     s.Id,
     s.[Description],
-    t.Id,         
+    t.Id,
     s.CreatedBy,
     s.UpdatedBy,
     s.UpdatedDate,
@@ -1969,7 +1969,7 @@ INSERT PTIS.SubTypeOfUseMaster
 SELECT
     s.Id,
     s.[Description],
-    t.Id,          
+    t.Id,
     s.CreatedBy,
     s.UpdatedBy,
     s.UpdatedDate,
@@ -2313,7 +2313,7 @@ WHERE NOT EXISTS (
 
 INSERT INTO PTIS.AgeFactorCVMaster
 (ConstructionTypeId, AgeFrom, AgeTo, Factor, YearRangeCVId, IsActive, CreatedBy, CreatedDate)
-SELECT 
+SELECT
     ct.Id,
     v.AgeFrom,
     v.AgeTo,
@@ -2372,7 +2372,7 @@ JOIN PTIS.AssessmentYearRangeMasterCV yr
       (N'WB1', 1.30, NULL, NULL, NULL, NULL),
       (N'WC1', 1.00, NULL, NULL, NULL, NULL)
 
-     
+
     ) v(ConstructionCode, Factor, Code, CreatedBy, UpdatedBy, UpdatedDate)
 )
 
@@ -2413,7 +2413,7 @@ INSERT INTO PTIS.UseFactorCVMaster
 SELECT
     tu.Id,
     stu.Id,
-    1.00 AS Factor,                
+    1.00 AS Factor,
     yr.Id,
     1,
     NULL,
@@ -2454,7 +2454,7 @@ WHERE NOT EXISTS
 --     SELECT 1
 --     FROM PTIS.ParkingTypeMaster x
 --     WHERE x.TypeOfUseId = tou.Id
-     
+
 --       AND x.[Description] = s.[Description]
 -- );
 
@@ -2525,7 +2525,7 @@ WHERE NOT EXISTS (
 ;WITH Seed AS
 (
     SELECT
-       
+
         v.TaxZoneNo,
         v.ConstructionCode,
         v.UseGroupCode,
@@ -2535,11 +2535,11 @@ WHERE NOT EXISTS (
         v.Col8,
         v.Col9,
         v.Col10,
-        v.RateType,       
+        v.RateType,
         v.MinYear,
         v.MaxYear,
         v.RateSectionCode,
-        v.OldId            
+        v.OldId
     FROM (VALUES
      ( N'1', N'A', N'R', 167.9200, 1807.4909, N'G', NULL, NULL, NULL, N'YearWise Rate', 2005, 2015, N'12', 2824357),
 ( N'1', N'B', N'R', 142.0800, 1529.3491, N'G', NULL, NULL, NULL, N'YearWise Rate', 1998, 1998, N'1', 2824358),
@@ -3542,7 +3542,7 @@ WHERE NOT EXISTS (
 ( N'1', N'B', N'R', 116.2500, 1251.3150, N'G', NULL, NULL, NULL, N'YearWise Rate', 1998, 1998, N'12', 2825431),
 ( N'1', N'C', N'R', 103.3300, 1112.2441, N'G', NULL, NULL, NULL, N'YearWise Rate', 2005, 2015, N'4', 2825432)
     ) AS v(
-       
+
         TaxZoneNo,
         ConstructionCode,
         UseGroupCode,
@@ -3564,7 +3564,7 @@ WHERE NOT EXISTS (
 
 INSERT INTO PTIS.RateMaster
 (
-   
+
     TaxZoneId,
     FloorId,
     ConstructionTypeId,
@@ -3582,7 +3582,7 @@ INSERT INTO PTIS.RateMaster
 
 SELECT
 
-   
+
     tz.Id,
     f.Id,
     ct.Id,
@@ -3613,7 +3613,7 @@ JOIN PTIS.AssessmentYearRangeMasterRV yr
 	;WITH Seed AS
 (
     SELECT
-        
+
         v.TaxZoneNo,
         v.ConstructionCode,
         v.UseGroupCode,
@@ -3623,11 +3623,11 @@ JOIN PTIS.AssessmentYearRangeMasterRV yr
         v.Col8,
         v.Col9,
         v.Col10,
-        v.RateType,      
+        v.RateType,
         v.MinYear,
         v.MaxYear,
         v.RateSectionId,
-        v.OldId            
+        v.OldId
     FROM (VALUES
     ( N'1', N'E', N'R', 83.9600, 903.7454, N'G', NULL, NULL, NULL, N'YearWise Rate', 1998, 1998, N'12', 2825433),
 ( N'1', N'D', N'R', 90.4200, 973.2809, N'G', NULL, NULL, NULL, N'YearWise Rate', 2005, 2015, N'4', 2825434),
@@ -3854,7 +3854,7 @@ JOIN PTIS.AssessmentYearRangeMasterRV yr
 ( N'1', N'A', N'C', 322.9200, 3475.9109, N'G', NULL, NULL, NULL, N'YearWise Rate', 1700, 1997, N'4', 2825579),
 ( N'1', N'E', N'R', 142.0800, 1529.3491, N'G', NULL, NULL, NULL, N'YearWise Rate', 2005, 2015, N'1', 2825580)
     ) AS v(
-       
+
         TaxZoneNo,
         ConstructionCode,
         UseGroupCode,
@@ -3876,7 +3876,7 @@ JOIN PTIS.AssessmentYearRangeMasterRV yr
 
 INSERT INTO PTIS.RateMaster
 (
-   
+
     TaxZoneId,
     FloorId,
     ConstructionTypeId,
@@ -3894,7 +3894,7 @@ INSERT INTO PTIS.RateMaster
 
 SELECT
 
-    
+
     tz.Id,
     f.Id,
     ct.Id,
@@ -4136,7 +4136,7 @@ WHERE NOT EXISTS
 
 
 
-	
+
 
 -- SET IDENTITY_INSERT [PTIS].[ActiveTaxesMaster] ON;
 -- GO
@@ -4198,19 +4198,19 @@ INSERT INTO [CORE].[YearMaster] ([Year], [IsActive]) VALUES ( '2025','1');
 --     OldPenalty,IsActive,CreatedBy,CreatedDate,UpdatedBy, UpdatedDate
 -- )
 -- SELECT
-    
+
 --     tum.TypeOfUseId,
 --     2,
 --    15.0000, 1.0000, 2.0000, 5.0000, 0.0000, 0.0000, 10.0000, 8.0000, 1.0000,
 --     0.0000, 1.0000, 0.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
 --     1.0000, 1.0000, 0.0000, 0.0000, 10.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
---     1,   
+--     1,
 --     NULL,
 --     GETDATE(),
 --     NULL,
 --     NULL
 -- FROM  PTIS.TypeOfUseMaster tum
-   
+
 
 -- SET IDENTITY_INSERT PTIS.TaxPercentageMasterCV OFF;
 
@@ -4226,19 +4226,19 @@ INSERT INTO [CORE].[YearMaster] ([Year], [IsActive]) VALUES ( '2025','1');
 --     OldPenalty,IsActive,CreatedBy,CreatedDate,UpdatedBy, UpdatedDate
 -- )
 -- SELECT
-    
+
 --     tum.TypeOfUseId,
 --     2,
 --     15.0000, 1.0000, 2.0000, 5.0000, 0.0000, 0.0000, 10.0000, 8.0000, 1.0000,
 --     0.0000, 1.0000, 0.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000,
 --     1.0000, 1.0000, 0.0000, 0.0000, 10.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,
---     1,   
+--     1,
 --     NULL,
 --     GETDATE(),
 --     NULL,
 --     NULL
 -- FROM  PTIS.TypeOfUseMaster tum
-   
+
 
 -- SET IDENTITY_INSERT PTIS.TaxPercentageMasterRV OFF;
 
@@ -4254,7 +4254,7 @@ INSERT INTO [CORE].[YearMaster] ([Year], [IsActive]) VALUES ( '2025','1');
 
 
  GO
- SET IDENTITY_INSERT [PTIS].[GenderMaster] ON 
+ SET IDENTITY_INSERT [PTIS].[GenderMaster] ON
  GO
  INSERT [PTIS].[GenderMaster] ([Id], [GenderName]) VALUES (1, N'Female')
  GO
@@ -4268,7 +4268,7 @@ INSERT INTO [CORE].[YearMaster] ([Year], [IsActive]) VALUES ( '2025','1');
 
 
 
- SET IDENTITY_INSERT [PTIS].[DocumentMaster] ON 
+ SET IDENTITY_INSERT [PTIS].[DocumentMaster] ON
  GO
  INSERT [PTIS].[DocumentMaster] ([Id], [DocumentName], [DocPrefix]) VALUES (1, N'Aadhar Card', N'ADR')
  GO
@@ -4339,7 +4339,7 @@ INSERT INTO [CORE].[YearMaster] ([Year], [IsActive]) VALUES ( '2025','1');
  GO
 
 
- SET IDENTITY_INSERT [PTIS].[MobileScreenValidationMaster] ON 
+ SET IDENTITY_INSERT [PTIS].[MobileScreenValidationMaster] ON
  GO
  INSERT [PTIS].[MobileScreenValidationMaster] ([Id], [TabScreenName], [Flag], [Alias], [DefaultSequenceNo], [CreatedBy], [UpdatedBy], [UpdatedDate], [DefaultNumberingAccess], [DefaultSurveyAccess]) VALUES (1, N'Pilot', N'SocietyName', N'SocietyName', 1, NULL, NULL, NULL, 1, 1)
  GO
@@ -4491,7 +4491,7 @@ FROM (VALUES
 JOIN PTIS.WardMaster wm
   ON wm.WardNo = v.WardNo;
  --- global master-- end---
- 
+
  SET IDENTITY_INSERT [PTIS].[PolicyConfiguration] ON;
 
  INSERT INTO [PTIS].[PolicyConfiguration]
@@ -4517,7 +4517,7 @@ JOIN PTIS.WardMaster wm
      (3, N'RateableValueAreaType', N'Calculation', N'Rateable Value Area Type',
        N'Determines the area type used for Rateable Value calculation. PolicyValue: CarpetArea or BuiltUpArea. Example: CarpetArea.',
       N'VARCHAR', N'BuiltUpArea', N'CarpetArea', 1, 1, NULL, 'CarpetArea,BuiltUpArea', GETDATE()),
-      
+
      (4, N'EducationEmploymentTaxCalculationMethod', N'Calculation',
       N'Education / Employment Tax On RV or ALV',
       N'Controls Education and Employment Tax calculation on Rateable Value Or Annual Letting Value.',
@@ -4540,7 +4540,7 @@ JOIN PTIS.WardMaster wm
          (10, N'MaxPropertyTransferLimit', N'Validation', N'Maximum Property Transfer Limit',
         N'Purpose: Updated maximum property transfer limit.',
         N'INT', N'8', N'5', 0, 1, NULL, NULL, CAST(N'2026-06-18T14:20:31.163' AS DATETIME))
-    
+
   ) v
   (
       Id,
@@ -4630,33 +4630,33 @@ SET IDENTITY_INSERT [PTIS].[TaxMaster] OFF;
 
 GO
 
-SET IDENTITY_INSERT [PTIS].[WingMaster] ON 
-INSERT [PTIS].[WingMaster] ([Id], [WingNo], [SequenceNo], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES 
+SET IDENTITY_INSERT [PTIS].[WingMaster] ON
+INSERT [PTIS].[WingMaster] ([Id], [WingNo], [SequenceNo], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES
 (1, N'A', 1, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
-(2, N'B', 2, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(3, N'C', 3, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(4, N'D', 4, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(5, N'E', 5, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(6, N'F', 6, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(7, N'G', 7, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(8, N'H', 8, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(9, N'I', 9, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(10, N'J', 10, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(11, N'K', 11, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(12, N'L', 12, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(13, N'M', 13, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(14, N'N', 14, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(15, N'O', 15, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(16, N'P', 16, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(17, N'Q', 17, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(18, N'R', 18, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(19, N'S', 19, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(20, N'T', 20, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(21, N'U', 21, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
-(22, N'V', 22, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
+(2, N'B', 2, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(3, N'C', 3, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(4, N'D', 4, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(5, N'E', 5, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(6, N'F', 6, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(7, N'G', 7, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(8, N'H', 8, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(9, N'I', 9, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(10, N'J', 10, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(11, N'K', 11, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(12, N'L', 12, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(13, N'M', 13, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(14, N'N', 14, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(15, N'O', 15, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(16, N'P', 16, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(17, N'Q', 17, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(18, N'R', 18, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(19, N'S', 19, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(20, N'T', 20, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(21, N'U', 21, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
+(22, N'V', 22, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
 (23, N'W', 23, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
 (24, N'X', 24, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
-(25, N'Y', 25, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL), 
+(25, N'Y', 25, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL),
 (26, N'Z', 26, 1, NULL, CAST(N'2026-03-25T12:44:07.727' AS DateTime), NULL, NULL)
 SET IDENTITY_INSERT [PTIS].[WingMaster] OFF
 
@@ -4746,7 +4746,7 @@ GO
 -- Rules Engine Configuration Seed Data
 -- ==========================================
 
-SET IDENTITY_INSERT [PTIS].[RuleScopeMaster] ON 
+SET IDENTITY_INSERT [PTIS].[RuleScopeMaster] ON
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeMaster] WHERE [RuleScope] = N'Property Level')
     INSERT [PTIS].[RuleScopeMaster] ([Id], [RuleScope], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1, N'Property Level', 1, 1, CAST(N'2026-05-04T15:43:57.587' AS DateTime), 0, CAST(N'2026-05-04T15:44:33.573' AS DateTime))
@@ -4757,7 +4757,7 @@ GO
 SET IDENTITY_INSERT [PTIS].[RuleScopeMaster] OFF
 GO
 
-SET IDENTITY_INSERT [PTIS].[RulesFieldMaster] ON 
+SET IDENTITY_INSERT [PTIS].[RulesFieldMaster] ON
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RulesFieldMaster] WHERE [FieldName] = N'Floor')
     INSERT [PTIS].[RulesFieldMaster] ([Id], [FieldName], [FieldType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DatabaseColumnName]) VALUES (1, N'Floor', N'Int', 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL, N'FloorId')
@@ -4838,7 +4838,7 @@ GO
 SET IDENTITY_INSERT [PTIS].[RulesFieldMaster] OFF
 GO
 
-SET IDENTITY_INSERT [PTIS].[RuleCategoryMaster] ON 
+SET IDENTITY_INSERT [PTIS].[RuleCategoryMaster] ON
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleCategoryMaster] WHERE [CategoryCode] = N'RV')
     INSERT [PTIS].[RuleCategoryMaster] ([Id], [CategoryCode], [CategoryName], [Description], [SortOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1, N'RV', N'RV (Rateable Value)', N'Rules applicable to Rateable Value method', 1, 1, 1, CAST(N'2026-05-28T14:31:42.670' AS DateTime), NULL, NULL)
@@ -4849,7 +4849,7 @@ GO
 SET IDENTITY_INSERT [PTIS].[RuleCategoryMaster] OFF
 GO
 
-SET IDENTITY_INSERT [PTIS].[RuleEffectTypeMaster] ON 
+SET IDENTITY_INSERT [PTIS].[RuleEffectTypeMaster] ON
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleEffectTypeMaster] WHERE [EffectType] = N'Increase %')
     INSERT [PTIS].[RuleEffectTypeMaster] ([Id], [EffectType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1, N'Increase %', 1, 1, CAST(N'2026-05-05T19:03:44.857' AS DateTime), 1, CAST(N'2026-05-05T19:04:14.420' AS DateTime))
@@ -4858,11 +4858,11 @@ IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleEffectTypeMaster] WHERE [EffectType] = 
     INSERT [PTIS].[RuleEffectTypeMaster] ([Id], [EffectType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2, N'Decrease %', 1, 1, CAST(N'2026-05-18T14:22:05.493' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleEffectTypeMaster] WHERE [EffectType] = N'Multiply')
-    INSERT [PTIS].[RuleEffectTypeMaster] ([Id], [EffectType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) 
+    INSERT [PTIS].[RuleEffectTypeMaster] ([Id], [EffectType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
     VALUES (3, N'Multiply', 1, 1, CAST(N'2026-07-18T15:57:24.273' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleEffectTypeMaster] WHERE [EffectType] = N'RateLookup')
-    INSERT [PTIS].[RuleEffectTypeMaster] ([Id], [EffectType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) 
+    INSERT [PTIS].[RuleEffectTypeMaster] ([Id], [EffectType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
     VALUES (4, N'RateLookup', 1, 1, CAST(N'2026-07-22T12:02:34.953' AS DateTime), NULL, NULL)
 GO
 SET IDENTITY_INSERT [PTIS].[RuleEffectTypeMaster] OFF
@@ -4932,7 +4932,7 @@ BEGIN CATCH
 END CATCH;
 GO
 
-SET IDENTITY_INSERT [PTIS].[EffectTypeConfiguration] ON 
+SET IDENTITY_INSERT [PTIS].[EffectTypeConfiguration] ON
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[EffectTypeConfiguration] WHERE [EffectTypeId] = 1)
     INSERT [PTIS].[EffectTypeConfiguration] ([Id], [EffectTypeId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ExpressionTemplate], [StaticApiEndpoint], [StaticApiInputType], [StaticApiMethod], [StaticApiParamter], [StaticApiResponseMapping]) VALUES (1, 1, N'String', N'TextBox', 0, N'', N'', N'', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-27T16:36:11.117' AS DateTime), NULL, NULL, NULL, N'PropertyRuleEvaluationMaster', N'dropdown', N'GET', N'{"PageSize":"-1"}', N'{"responsePath":"data","valuePath":"id","labelPath":"parameterName","displayTemplate":"{parameterCode} - {parameterName}","additionalFields":{"parameterCode":"parameterCode"}}')
@@ -4941,7 +4941,7 @@ IF NOT EXISTS (SELECT 1 FROM [PTIS].[EffectTypeConfiguration] WHERE [EffectTypeI
     INSERT [PTIS].[EffectTypeConfiguration] ([Id], [EffectTypeId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ExpressionTemplate], [StaticApiEndpoint], [StaticApiInputType], [StaticApiMethod], [StaticApiParamter], [StaticApiResponseMapping]) VALUES (2, 2, N'String', N'TextBox', 0, N'', N'', N'', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-27T16:36:11.117' AS DateTime), NULL, NULL, NULL, N'PropertyRuleEvaluationMaster', N'dropdown', N'GET', N'{"PageSize":"-1"}', N'{"responsePath":"data","valuePath":"id","labelPath":"parameterName","displayTemplate":"{parameterCode} - {parameterName}","additionalFields":{"parameterCode":"parameterCode"}}')
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[EffectTypeConfiguration] WHERE [EffectTypeId] = 3)
-    INSERT [PTIS].[EffectTypeConfiguration] ([Id], [EffectTypeId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ExpressionTemplate], [StaticApiEndpoint], [StaticApiInputType], [StaticApiMethod], [StaticApiParamter], [StaticApiResponseMapping]) 
+    INSERT [PTIS].[EffectTypeConfiguration] ([Id], [EffectTypeId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ExpressionTemplate], [StaticApiEndpoint], [StaticApiInputType], [StaticApiMethod], [StaticApiParamter], [StaticApiResponseMapping])
     VALUES (3, 3, N'string', N'TextBox', 0, N'', N'', N'', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-27T16:36:11.117' AS DateTime), NULL, NULL, NULL, N'PropertyRuleEvaluationMaster', N'dropdown', N'GET', N'{"PageSize":"-1"}', N'{"responsePath":"data","valuePath":"id","labelPath":"parameterName","displayTemplate":"{parameterCode} - {parameterName}","additionalFields":{"parameterCode":"parameterCode"}}')
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[EffectTypeConfiguration] WHERE [EffectTypeId] = 4)
@@ -4951,7 +4951,7 @@ GO
 SET IDENTITY_INSERT [PTIS].[EffectTypeConfiguration] OFF
 GO
 
-SET IDENTITY_INSERT [PTIS].[FieldConfiguration] ON 
+SET IDENTITY_INSERT [PTIS].[FieldConfiguration] ON
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[FieldConfiguration] WHERE [RulesFieldId] = 1)
     INSERT [PTIS].[FieldConfiguration] ([Id], [RulesFieldId], [DataType], [InputType], [HasApiSource], [ApiEndpoint], [ApiMethod], [ApiParameters], [HasStaticValues], [StaticValuesJson], [IsRequired], [DefaultValue], [ValidationRegex], [MinValue], [MaxValue], [MinLength], [MaxLength], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ApiResponseMapping]) VALUES (3, 1, N'Int', N'Dropdown', 1, N'Floor', N'Get', N'{"PageSize":"-1"}', 0, N'', 1, N'', N'', CAST(0.0000 AS Decimal(18, 4)), CAST(0.0000 AS Decimal(18, 4)), 0, 0, 1, 1, CAST(N'2026-05-21T11:51:26.163' AS DateTime), NULL, NULL, N'{"responsePath":"items","valuePath":"id","labelPath":"description","displayTemplate":"{floorCode} - {description}","additionalFields":{"floorCode":"floorCode","sequenceNo":"sequenceNo"}}')
@@ -5049,7 +5049,7 @@ GO
 SET IDENTITY_INSERT [PTIS].[FieldConfiguration] OFF
 GO
 
-SET IDENTITY_INSERT [PTIS].[RuleScopeFieldMapping] ON 
+SET IDENTITY_INSERT [PTIS].[RuleScopeFieldMapping] ON
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 1 AND [RulesFieldId] = 1)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1, 1, 1, 1, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
@@ -5128,77 +5128,77 @@ IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] 
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 1)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (26, 2, 1, 1, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
-GO                                                                                                                                                                             
-IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 2)                                                                    
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 2)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (27, 2, 2, 2, 1, 1, CAST(N'2026-05-18T11:30:10.320' AS DateTime), NULL, NULL)
-GO                                                                                                                                                                             
-IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 3)                                                                    
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 3)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (28, 2, 3, 3, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
-GO                                                                                                                                                                             
-IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 4)                                                                    
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 4)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (29, 2, 4, 4, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
-GO                                                                                                                                                                             
-IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 5)                                                                    
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 5)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (30, 2, 5, 5, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
-GO                                                                                                                                                                             
-IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 6)                                                                    
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 6)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (31, 2, 6, 6, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
-GO                                                                                                                                                                             
-IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 7)                                                                    
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 7)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (32, 2, 7, 7, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
-GO                                                                                                                                                                             
-IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 8)                                                                    
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 8)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (33, 2, 8, 8, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
-GO                                                                                                                                                                             
-IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 9)                                                                    
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 9)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (34, 2, 9, 9, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
 GO
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 10)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (35, 2, 10, 10, 1, 1, CAST(N'2026-05-27T15:13:01.553' AS DateTime), NULL, NULL)
-GO                                                                                                                                                                              
-IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 11)                                                                    
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 11)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (36, 2, 11, 11, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
-GO                                                                                                                                                                              
-IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 13)                                                                    
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 13)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (37, 2, 13, 13, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
-GO                                                                                                                                                                              
-IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 14)                                                                    
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 14)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (38, 2, 14, 14, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
-GO                                                                                                                                                                              
-IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 15)                                                                    
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 15)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (39, 2, 15, 15, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
-GO                                                                                                                                                                              
-IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 16)                                                                    
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 16)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (40, 2, 16, 16, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
-GO                                                                                                                                                                              
-IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 17)                                                                    
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 17)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (41, 2, 17, 17, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
-GO                                                                                                                                                                              
-IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 18)                                                                    
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 18)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (42, 2, 18, 18, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
-GO                                                                                                                                                                              
-IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 19)                                                                    
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 19)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (43, 2, 19, 19, 1, 1, CAST(N'2026-05-15T11:19:01.650' AS DateTime), NULL, NULL)
-GO                                                                                                                                                                              
-IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 1011)                                                                  
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 1011)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (44, 2, 1011, 1011, 1, 1, CAST(N'2026-06-09T12:42:27.143' AS DateTime), NULL, NULL)
-GO                                                                                                                                                                              
-IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 1013)                                                                  
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 1013)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (45, 2, 1013, 1013, 1, 1, CAST(N'2026-06-17T15:24:15.270' AS DateTime), NULL, NULL)
-GO                                                                                                                                                                              
-IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 2013)                                                                  
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 2013)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (46, 2, 2013, 2013, 1, 1, CAST(N'2026-06-19T18:41:24.770' AS DateTime), NULL, NULL)
-GO                                                                                                                                                                              
-IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 3013)                                                                  
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 3013)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (47, 2, 3013, 3013, 1, 1, CAST(N'2026-07-06T12:33:19.597' AS DateTime), NULL, NULL)
-GO                                                                                                                                                                              
-IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 3014)                                                                  
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 3014)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (48, 2, 3014, 3014, 1, 1, CAST(N'2026-07-06T12:33:19.597' AS DateTime), NULL, NULL)
-GO                                                                                                                                                                              
-IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 3015)                                                                  
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 3015)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (49, 2, 3015, 3015, 1, 1, CAST(N'2026-07-06T12:33:19.597' AS DateTime), NULL, NULL)
-GO                                                                                                                                                                              
-IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 3016)                                                                  
+GO
+IF NOT EXISTS (SELECT 1 FROM [PTIS].[RuleScopeFieldMapping] WHERE [RuleScopeId] = 2 AND [RulesFieldId] = 3016)
     INSERT [PTIS].[RuleScopeFieldMapping] ([Id], [RuleScopeId], [RulesFieldId], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (50, 2, 3016, 3016, 1, 1, CAST(N'2026-07-06T12:33:19.597' AS DateTime), NULL, NULL)
 GO
 SET IDENTITY_INSERT [PTIS].[RuleScopeFieldMapping] OFF
@@ -5460,7 +5460,7 @@ GO
     VALUES (2, N'RULE-20260718-0001', N'Basement Property Rule', N'If Commercial use in Basement floor then decrees rate by 20%', N'RV', N'{"RuleName":"Basement Property Rule","isActive":true,"RuleCategory":"RV","rules":[{"RuleCode":"b12107d8-f611-4362-a65f-adc25f0b21a6","errorMessage":"If lower ground  floor use as Commercial  then decrees rate by 20%","enabled":true,"ruleExpressionType":"LambdaExpression","expression":"(input.FloorId == 70 || input.FloorId == 71 || input.FloorId == 72 || input.FloorId == 73 || input.FloorId == 74 || input.FloorId == 75 || input.FloorId == 66) && (input.TypeOfUseGroupId == 2 || input.TypeOfUseGroupId == 3)","Actions":{"OnSuccess":{"Name":"MultiEffect","Context":{"effects":[{"Expression":"input.Rate * (1 - 20 / 100)","effectType":"Decrease %","value":"20","ParameterCode":"input.Rate"}]}}},"stopProcessing":false},{"RuleCode":"178071ab-9b1f-4fad-a3b9-dc001e87cb57","errorMessage":"if floor is basment then decrease rate 40%","enabled":true,"ruleExpressionType":"LambdaExpression","expression":"input.FloorId == (65)","Actions":{"OnSuccess":{"Name":"MultiEffect","Context":{"effects":[{"Expression":"input.Rate * (1 - 40 / 100)","effectType":"Decrease %","value":"40","ParameterCode":"input.Rate"}]}}},"stopProcessing":false}]}', 3, 1, 1, 1, CAST(N'2026-07-18T13:23:26.083' AS DateTime), 1, CAST(N'2026-07-20T16:09:54.283' AS DateTime), N'[{"id":"b12107d8-f611-4362-a65f-adc25f0b21a6","description":"If lower ground  floor use as Commercial  then decrees rate by 20%","conditions":{"id":"1199c91b-64f8-45ea-9be1-61a65cc43f37","logicalOperator":"AND","conditions":[{"id":"a7d96501-c76d-4821-aae2-1f90db2632f5","fieldId":"FloorId","operator":"In","value":["70","71","72","73","74","75","66"],"valueLabel":["P1 - पोडियम1","P2 - पोडियम2","P3 - पोडियम3","P4 - पोडियम4","P5 - पोडियम5","P6 - पोडियम6","L - लोअर तळमजला"]},{"id":"2a899496-e3c4-44e1-a697-5001ad33214e","fieldId":"TypeOfUseGroupId","operator":"In","value":["2","3"],"valueLabel":["C - व्यावसायिक","I - औद्योगिक"]}],"groups":[]},"effect":[{"effectType":"Decrease %","value":20,"isPercentage":true,"overrideRate":1}],"effects":[{"effectType":"Decrease %","value":20,"isPercentage":true,"overrideRate":1}],"stopProcessing":false,"ruleScopeName":"Property Level"},{"id":"178071ab-9b1f-4fad-a3b9-dc001e87cb57","description":"if floor is basment then decrease rate 40%","conditions":{"id":"6d8e28db-e68e-41c8-a59e-2d3d81471bfe","logicalOperator":"AND","conditions":[{"id":"9a5acf8e-fba4-4e52-bdc6-51829c91da5c","fieldId":"FloorId","operator":"=","value":["65"],"valueLabel":["B - तळघर"]}],"groups":[]},"effect":[{"effectType":"Decrease %","value":40,"isPercentage":true,"overrideRate":1}],"effects":[{"effectType":"Decrease %","value":40,"isPercentage":true,"overrideRate":1}],"stopProcessing":false,"ruleScopeName":"Property Level"}]', N'[{"effectType":"Decrease %","value":20,"isPercentage":true,"overrideRate":1}]', N'{}', 0, 1, 0, NULL,1)
 GO
 
-    INSERT [PTIS].[RuleEngineMaster] ([Id], [RuleCode], [RuleName], [Description], [RuleCategory], [RuleJson], [Priority], [IsEnabled], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ConditionsJson], [EffectJson], [TargetFiltersJson], [StopProcessing], [RuleScopeId], [MarkedForDeletion], [MarkedForDeletionDate],[PropertyRuleEvaluationMasterId]) 
+    INSERT [PTIS].[RuleEngineMaster] ([Id], [RuleCode], [RuleName], [Description], [RuleCategory], [RuleJson], [Priority], [IsEnabled], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [ConditionsJson], [EffectJson], [TargetFiltersJson], [StopProcessing], [RuleScopeId], [MarkedForDeletion], [MarkedForDeletionDate],[PropertyRuleEvaluationMasterId])
     VALUES (3, N'RULE-20260718-0002', N'Commercial Floor Wise Decrees  20% Rate', N'Commercial Floor Wise Decrees  20% Rate', N'RV', N'{"RuleName":"Commercial Floor Wise Decrees  20% Rate","isActive":true,"RuleCategory":"RV","rules":[{"RuleCode":"a97af7b4-c73b-47ff-8182-edc5edaacf5d","errorMessage":"Floor equal to first and use is commercial then decrease rate by 10 %","enabled":true,"ruleExpressionType":"LambdaExpression","expression":"input.FloorId == 1 && (input.TypeOfUseGroupId == 2 || input.TypeOfUseGroupId == 3)","Actions":{"OnSuccess":{"Name":"MultiEffect","Context":{"effects":[{"Expression":"input.Rate * (1 - 10 / 100)","effectType":"Decrease %","value":"10","ParameterCode":"input.Rate"}]}}},"stopProcessing":false},{"RuleCode":"d4a44548-eaec-4130-8015-e0aae8749f1b","errorMessage":"Commercial Floor Wise Decrees  20% Rate","enabled":true,"ruleExpressionType":"LambdaExpression","expression":"input.FloorId > 1 && (input.TypeOfUseGroupId == 2 || input.TypeOfUseGroupId == 3)","Actions":{"OnSuccess":{"Name":"MultiEffect","Context":{"effects":[{"Expression":"input.Rate * (1 - 20 / 100)","effectType":"Decrease %","value":"20","ParameterCode":"input.Rate"}]}}},"stopProcessing":false}]}', 1, 1, 1, 1, CAST(N'2026-07-18T13:28:30.783' AS DateTime), 1, CAST(N'2026-07-22T16:33:47.763' AS DateTime), N'[{"id":"a97af7b4-c73b-47ff-8182-edc5edaacf5d","description":"Floor equal to first and use is commercial then decrease rate by 10 %","conditions":{"id":"c62c8773-3ba2-44c0-b5c1-52d607a55263","logicalOperator":"AND","conditions":[{"id":"d27481ef-a9ef-439d-a8a0-94f4f94d3ba0","fieldId":"FloorId","operator":"=","value":"1","valueLabel":"1 - पहिला मजला"},{"id":"80b4ee59-8b7d-45f0-9efc-b6f8ff0c33b7","fieldId":"TypeOfUseGroupId","operator":"In","value":["2","3"],"valueLabel":["C - व्यावसायिक","I - औद्योगिक"]}],"groups":[]},"effects":[{"effectType":"Decrease %","value":10,"isPercentage":true,"overrideRate":1}],"effect":[{"effectType":"Decrease %","value":10,"isPercentage":true,"overrideRate":1}],"ruleScopeName":"Property Level"},{"id":"d4a44548-eaec-4130-8015-e0aae8749f1b","description":"Commercial Floor Wise Decrees  20% Rate","conditions":{"id":"f6ece9b0-348f-49ce-92c0-df6264ccaca5","logicalOperator":"AND","conditions":[{"id":"49467857-4eda-45e6-8560-b0454380d421","fieldId":"FloorId","operator":">","value":"1","valueLabel":"1 - पहिला मजला"},{"id":"189bc7d5-f1f9-47f9-829f-7c2fff935245","fieldId":"TypeOfUseGroupId","operator":"In","value":["2","3"],"valueLabel":["C - व्यावसायिक","I - औद्योगिक"]}],"groups":[]},"effect":[{"effectType":"Decrease %","value":20,"isPercentage":true,"overrideRate":1}],"effects":[{"effectType":"Decrease %","value":20,"isPercentage":true,"overrideRate":1}],"stopProcessing":false,"ruleScopeName":"Property Level"}]', N'[{"effectType":"Decrease %","value":10,"isPercentage":true,"overrideRate":1}]', N'{}', 0, 1, 0, NULL,1)
 GO
 
