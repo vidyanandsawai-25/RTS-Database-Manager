@@ -11,3 +11,6 @@
 .vscode/
 *.user
 *.suo
+
+appsettings*.json
+src/appsettings*.json
