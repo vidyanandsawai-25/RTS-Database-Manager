@@ -5705,7 +5705,54 @@ CREATE NONCLUSTERED INDEX [IX_RetrospectiveRuleAuditLog_Rule_CreatedDate]
 	ON [PTIS].[RetrospectiveRuleAuditLog] ([RuleId], [CreatedDate]);
 GO
 
+/****** Object:  Table [PTIS].[GisPropertyGeometry] ******/
+CREATE TABLE [PTIS].[GisPropertyGeometry](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[PropertyId] [int] NOT NULL,
+	[BuildingId] [nvarchar](100) NULL,
+	[PolygonGeometry] [geometry] NOT NULL,
+	[TotalAreaSqMeter] [decimal](18,4) NULL,
+	[GoogleMapLink] [nvarchar](500) NULL,
+	[Link360] [nvarchar](500) NULL,
+	[CentroidX] [decimal](18,7) NULL,
+	[CentroidY] [decimal](18,7) NULL,
+	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_GisPropertyGeometry_MarkedForDeletion] DEFAULT (0),
+	[MarkedForDeletionDate] [datetime] NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_GisPropertyGeometry_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_GisPropertyGeometry_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_GisPropertyGeometry] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT [CK_GisPropertyGeometry_CentroidX] CHECK ([CentroidX] IS NULL OR [CentroidX] BETWEEN -180.0 AND 180.0),
+	CONSTRAINT [CK_GisPropertyGeometry_CentroidY] CHECK ([CentroidY] IS NULL OR [CentroidY] BETWEEN -90.0 AND 90.0),
+	CONSTRAINT [CK_GisPropertyGeometry_TotalAreaSqMeter] CHECK ([TotalAreaSqMeter] IS NULL OR [TotalAreaSqMeter] >= 0)
+) ON [PRIMARY]
+GO
 
+ALTER TABLE [PTIS].[GisPropertyGeometry] WITH CHECK ADD CONSTRAINT [FK_GisPropertyGeometry_PropertyMast]
+	FOREIGN KEY([PropertyId]) REFERENCES [PTIS].[PropertyMast] ([Id])
+GO
+ALTER TABLE [PTIS].[GisPropertyGeometry] CHECK CONSTRAINT [FK_GisPropertyGeometry_PropertyMast]
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX [UX_GisPropertyGeometry_PropertyId]
+	ON [PTIS].[GisPropertyGeometry] ([PropertyId])
+	WHERE [IsActive] = 1 AND [MarkedForDeletion] = 0;
+GO
+
+CREATE NONCLUSTERED INDEX [IX_GisPropertyGeometry_BuildingId]
+	ON [PTIS].[GisPropertyGeometry] ([BuildingId])
+	WHERE [BuildingId] IS NOT NULL;
+GO
+
+CREATE SPATIAL INDEX [SIX_GisPropertyGeometry_PolygonGeometry]
+	ON [PTIS].[GisPropertyGeometry] ([PolygonGeometry])
+	USING GEOMETRY_AUTO_GRID
+	WITH (
+		BOUNDING_BOX = (xmin = -180, ymin = -90, xmax = 180, ymax = 90)
+	);
+GO
 
 ---------- for RV hash comparison ------------
 CREATE TABLE [PTIS].[RVCalculationSignature](
@@ -5720,4 +5767,6 @@ CREATE TABLE [PTIS].[RVCalculationSignature](
 	[UpdatedDate] [datetime] NULL,
 	CONSTRAINT [PK_RVCalculationSignature] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_RVCalculationSignature_PropertyMast_PropertyId] FOREIGN KEY([PropertyId]) REFERENCES [PTIS].[PropertyMast] ([Id])
-)
+);
+GO
+
