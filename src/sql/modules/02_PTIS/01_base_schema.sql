@@ -1274,6 +1274,140 @@ GO
 
 
 
+
+/* ============================================================================
+   Table: PTIS.PolicyCodeMaster
+   Purpose:
+   Master table for all policy codes used in property tax processing.
+
+   PolicyType:
+   NORMAL      : NETTAX, AS_PER_OLD, MIN_RV, RETENTION
+   DATE_BASED  : OC_PARTIAL, OC, CC_PARTIAL, CC, ELECTRIC_PARTIAL, ELECTRIC_BILL
+   STAGE_BASED : SECTION_129_OLD_1, SECTION_129_OLD_2, SECTION_129_20,
+                 SECTION_129_40, SECTION_129_60, SECTION_129_80, SECTION_129_100
+   DECISION    : HEARING, APPEAL_COMMITTEE, REMISSION
+
+   Each _PARTIAL / staged policy chains to its next policy via
+   NextPolicyCodeId (e.g. OC_PARTIAL -> OC, SECTION_129_20 -> SECTION_129_40).
+
+   OC / CC / Electric Bill calculation rules are configured in
+   PTIS.CertificateTaxGuideline, not on this table.
+============================================================================ */
+
+CREATE TABLE [PTIS].[PolicyCodeMaster]
+(
+    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+
+    [PolicyCode] VARCHAR(30) NOT NULL,
+    [PolicyName] NVARCHAR(100) NOT NULL,
+    [Description] NVARCHAR(300) NULL,
+
+    /*
+        NORMAL:
+            NETTAX
+            AS_PER_OLD
+            MIN_RV
+            RETENTION
+
+        DATE_BASED:
+            OC_PARTIAL
+            OC
+            CC_PARTIAL
+            CC
+            ELECTRIC_PARTIAL
+            ELECTRIC_BILL
+
+        STAGE_BASED:
+            SECTION_129 stages
+
+        DECISION:
+            HEARING
+            APPEAL_COMMITTEE
+            REMISSION
+    */
+    [PolicyType] VARCHAR(20) NOT NULL,
+
+    /*
+        Identifies the next policy stage.
+
+        Examples:
+            OC_PARTIAL -> OC
+            SECTION_129_20 -> SECTION_129_40
+    */
+    [NextPolicyCodeId] INT NULL,
+
+    /*
+        1 = No further policy stage is required.
+        0 = Next policy stage is pending.
+    */
+    [IsFinalStage] BIT NOT NULL
+        CONSTRAINT [DF_PolicyCodeMaster_IsFinalStage]
+        DEFAULT (0),
+
+    /*
+        1 = No other policy can be applied together
+            with this policy.
+    */
+    [IsExclusive] BIT NOT NULL
+        CONSTRAINT [DF_PolicyCodeMaster_IsExclusive]
+        DEFAULT (0),
+
+    /*
+        1 = Policy requires next-year or stage processing.
+    */
+    [RequiresStageTracking] BIT NOT NULL
+        CONSTRAINT [DF_PolicyCodeMaster_RequiresStageTracking]
+        DEFAULT (0),
+
+    [DisplayOrder] INT NOT NULL
+        CONSTRAINT [DF_PolicyCodeMaster_DisplayOrder]
+        DEFAULT (0),
+
+	[IsProtected] BIT NOT NULL
+		CONSTRAINT [DF_PolicyCodeMaster_IsProtected]
+		DEFAULT (0),
+
+    [IsActive] BIT NOT NULL
+        CONSTRAINT [DF_PolicyCodeMaster_IsActive]
+        DEFAULT (1),
+
+    [CreatedBy] INT NULL,
+
+    [CreatedDate] DATETIME NOT NULL
+        CONSTRAINT [DF_PolicyCodeMaster_CreatedDate]
+        DEFAULT (GETDATE()),
+
+    [UpdatedBy] INT NULL,
+    [UpdatedDate] DATETIME NULL,
+
+    CONSTRAINT [PK_PolicyCodeMaster]
+        PRIMARY KEY CLUSTERED ([Id] ASC),
+
+    CONSTRAINT [UQ_PolicyCodeMaster_PolicyCode]
+        UNIQUE ([PolicyCode]),
+
+    CONSTRAINT [CK_PolicyCodeMaster_PolicyType]
+        CHECK
+        (
+            [PolicyType] IN
+            (
+                'NORMAL',
+                'DATE_BASED',
+                'STAGE_BASED',
+                'DECISION'
+            )
+        ),
+
+    CONSTRAINT [FK_PolicyCodeMaster_NextPolicyCodeId]
+        FOREIGN KEY ([NextPolicyCodeId])
+        REFERENCES [PTIS].[PolicyCodeMaster] ([Id])
+);
+GO
+
+-- PolicyCodeMaster must be created before PolicyTaxDetails, which references it via FK.
+
+
+
 /****** Object:  Table [PTIS].[PolicyTaxDetails] ******/
 -- DBA final design. PolicyCode (varchar + CHECK) is replaced by
 -- PolicyCodeId (FK to PTIS.PolicyCodeMaster, added below once that
@@ -1290,6 +1424,7 @@ CREATE TABLE [PTIS].[PolicyTaxDetails]
     [CalculationValue] MONEY NULL,
     [TaxId] INT NOT NULL,
     [TaxAmount] MONEY NULL,
+	[IsCurrent] BIT NOT NULL CONSTRAINT [DF_PolicyTaxDetails_IsCurrent] DEFAULT (1),
     [MarkedForDeletion] BIT NOT NULL CONSTRAINT [DF_PolicyTaxDetails_MarkedForDeletion] DEFAULT (0),
     [MarkedForDeletionDate] DATETIME  NULL  ,
     [IsActive] BIT NOT NULL CONSTRAINT [DF_PolicyTaxDetails_IsActive] DEFAULT (1),
@@ -1300,20 +1435,68 @@ CREATE TABLE [PTIS].[PolicyTaxDetails]
  
     CONSTRAINT [PK_PolicyTaxDetails] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_PolicyTaxDetails_PropertyMast_PropertyId] FOREIGN KEY([PropertyId]) REFERENCES [PTIS].[PropertyMast] ([Id]),
-    CONSTRAINT [FK_PolicyTaxDetails_TaxMaster_TaxId] FOREIGN KEY([TaxId]) REFERENCES [PTIS].[TaxMaster] ([Id])
+    CONSTRAINT [FK_PolicyTaxDetails_TaxMaster_TaxId] FOREIGN KEY([TaxId]) REFERENCES [PTIS].[TaxMaster] ([Id]),
+	CONSTRAINT [FK_PolicyTaxDetails_PolicyCodeMaster_PolicyCodeId] FOREIGN KEY ([PolicyCodeId]) REFERENCES [PTIS].[PolicyCodeMaster] ([Id])
 );
 GO
- 
-CREATE UNIQUE INDEX [UX_PolicyTaxDetails_Property_Year_PolicyCode_TaxId]
-ON [PTIS].[PolicyTaxDetails]([PropertyId], [PolicyCodeId], [TaxId]) WHERE [IsActive] = 1 AND [MarkedForDeletion] = 0;
+
+CREATE UNIQUE NONCLUSTERED INDEX
+    [UX_PolicyTaxDetails_Property_PolicyCode_Tax_Current]
+ON [PTIS].[PolicyTaxDetails] ([PropertyId], [PolicyCodeId],[TaxId]  ) 
+WHERE [IsCurrent] = 1  AND [IsActive] = 1 AND [MarkedForDeletion] = 0;
 GO
 CREATE INDEX [IX_PolicyTaxDetails_PropertyId] ON [PTIS].[PolicyTaxDetails]([PropertyId]);
-CREATE INDEX [IX_PolicyTaxDetails_PropertyYear] ON [PTIS].[PolicyTaxDetails]([PropertyId]) INCLUDE ([TaxId], [TaxAmount], [PolicyCodeId]);
+
+CREATE NONCLUSTERED INDEX
+    [IX_PolicyTaxDetails_Property_Current] ON [PTIS].[PolicyTaxDetails] (  [PropertyId],  [IsCurrent])
+INCLUDE( [TaxId], [TaxAmount], [PolicyCodeId], [CalculationValue]);
+GO
+
 CREATE INDEX [IX_PolicyTaxDetails_TaxId] ON [PTIS].[PolicyTaxDetails]([TaxId]);
 GO     
--- ALTER TABLE [PTIS].[PolicyTaxDetails] ADD CONSTRAINT [FK_PolicyTaxDetails_PolicyCodeMaster_PolicyCodeId]
---     FOREIGN KEY ([PolicyCodeId]) REFERENCES [PTIS].[PolicyCodeMaster] ([Id]);
--- GO
+
+
+----------- Policy tax details for Cv--------------
+CREATE TABLE [PTIS].[PolicyTaxDetailsCV]
+(
+    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [PropertyId] INT NOT NULL,
+    [PolicyCodeId] INT NOT NULL,
+    [CalculationValue] MONEY NULL,
+    [TaxId] INT NOT NULL,
+    [TaxAmount] MONEY NULL,
+	[IsCurrent] BIT NOT NULL CONSTRAINT [DF_PolicyTaxDetailsCV_IsCurrent] DEFAULT (1),
+    [MarkedForDeletion] BIT NOT NULL CONSTRAINT [DF_PolicyTaxDetailsCV_MarkedForDeletion] DEFAULT (0),
+    [MarkedForDeletionDate] DATETIME  NULL  ,
+    [IsActive] BIT NOT NULL CONSTRAINT [DF_PolicyTaxDetailsCV_IsActive] DEFAULT (1),
+    [CreatedBy] INT NULL,
+    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_PolicyTaxDetailsCV_CreatedDate] DEFAULT (GETDATE()),
+    [UpdatedBy] INT NULL,
+    [UpdatedDate] DATETIME NULL,
+ 
+    CONSTRAINT [PK_PolicyTaxDetailsCV] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_PolicyTaxDetailsCV_PropertyMast_PropertyId] FOREIGN KEY([PropertyId]) REFERENCES [PTIS].[PropertyMast] ([Id]),
+    CONSTRAINT [FK_PolicyTaxDetailsCV_TaxMaster_TaxId] FOREIGN KEY([TaxId]) REFERENCES [PTIS].[TaxMaster] ([Id]),
+    CONSTRAINT [FK_PolicyTaxDetailsCV_PolicyCodeMaster_PolicyCodeId] FOREIGN KEY ([PolicyCodeId]) REFERENCES [PTIS].[PolicyCodeMaster] ([Id])
+);
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX
+    [UX_PolicyTaxDetailsCV_Property_PolicyCode_Tax_Current]
+ON [PTIS].[PolicyTaxDetailsCV] ([PropertyId], [PolicyCodeId],[TaxId]  ) 
+WHERE [IsCurrent] = 1  AND [IsActive] = 1 AND [MarkedForDeletion] = 0;
+GO
+CREATE INDEX [IX_PolicyTaxDetailsCV_PropertyId] ON [PTIS].[PolicyTaxDetailsCV]([PropertyId]);
+
+CREATE NONCLUSTERED INDEX
+    [IX_PolicyTaxDetailsCV_Property_Current] ON [PTIS].[PolicyTaxDetailsCV] (  [PropertyId],  [IsCurrent])
+INCLUDE( [TaxId], [TaxAmount], [PolicyCodeId], [CalculationValue]);
+GO
+
+CREATE INDEX [IX_PolicyTaxDetailsCV_TaxId] ON [PTIS].[PolicyTaxDetailsCV]([TaxId]);
+GO     
+
+
 
 
 /****** Object:  Table [PTIS].[ApplyTaxesMaster]******/
@@ -2208,7 +2391,10 @@ CREATE TABLE [PTIS].[SocialAttributeMaster](
 
 CREATE TABLE [PTIS].[PropertySocialDetails](
     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-    [PropertyId] INT NOT NULL,
+	[EntityType]            CHAR(1)           NOT NULL,                      -- S = Society, W = Wing, P = Property | e.g. 'P'
+    [SocietyDetailId]       INT               NULL,                          -- FK → PTIS.SocietyDetailsMast.Id, set when EntityType = 'S'
+    [WingDetailId]          INT               NULL,                          -- FK → PTIS.WingDetailsMast.Id, set when EntityType = 'W'
+    [PropertyId] INT  NULL,
     [SocialAttributeId] INT NOT NULL,
     [BitValue] BIT NULL,
     [IntValue] INT NULL,
@@ -2226,9 +2412,37 @@ CREATE TABLE [PTIS].[PropertySocialDetails](
     [UpdatedBy] [int] NULL,
     [UpdatedDate] [datetime] NULL,
     CONSTRAINT PK_PropertySocialDetails   PRIMARY KEY ([Id]),
+	CONSTRAINT FK_PropertySocialDetails_SocietyDetailsMast FOREIGN KEY ([SocietyDetailId]) REFERENCES [PTIS].[SocietyDetailsMast]([Id]),
+	CONSTRAINT FK_PropertySocialDetails_WingDetailsMast FOREIGN KEY ([WingDetailId]) REFERENCES [PTIS].[WingDetailsMast]([Id]),
+	
     CONSTRAINT FK_PropertySocialDetails_Property FOREIGN KEY ([PropertyId]) REFERENCES [PTIS].[PropertyMast]([Id]),
 	CONSTRAINT FK_PropertySocialDetails_SocialAttribute FOREIGN KEY ([SocialAttributeId]) REFERENCES [PTIS].[SocialAttributeMaster]([Id]),
-	CONSTRAINT FK_PropertySocialDetails_DocumentBinding FOREIGN KEY ([DocumentBindingId]) REFERENCES [CORE].[DocumentBinding]([Id])
+	CONSTRAINT FK_PropertySocialDetails_DocumentBinding FOREIGN KEY ([DocumentBindingId]) REFERENCES [CORE].[DocumentBinding]([Id]),
+
+	CONSTRAINT [CK_PropertySocialDetails_EntityScope]
+CHECK
+(
+    (
+        [EntityType] = 'S'
+        AND [SocietyDetailId] IS NOT NULL
+        AND [WingDetailId] IS NULL
+        AND [PropertyId] IS NULL
+    )
+    OR
+    (
+        [EntityType] = 'W'
+        AND [SocietyDetailId] IS NULL
+        AND [WingDetailId] IS NOT NULL
+        AND [PropertyId] IS NULL
+    )
+    OR
+    (
+        [EntityType] = 'P'
+        AND [SocietyDetailId] IS NULL
+        AND [WingDetailId] IS NULL
+        AND [PropertyId] IS NOT NULL
+    )
+)
 );
 GO
 
@@ -2237,15 +2451,45 @@ CREATE NONCLUSTERED INDEX [IX_PropertySocialDetails_DocumentBindingId]
 	WHERE [DocumentBindingId] IS NOT NULL;
 GO
 
--- Replaces the old plain UNIQUE (PropertyId, SocialAttributeId) constraint with a
--- filtered index that excludes soft-deleted rows, so a value can be re-added for
--- the same property/attribute after a prior row was marked for deletion.
-CREATE UNIQUE INDEX [UX_PropertySocialDetails_Property_SocialAttribute]
-	ON [PTIS].[PropertySocialDetails]([PropertyId], [SocialAttributeId])
-	WHERE [IsActive] = 1 AND [MarkedForDeletion] = 0;
+
+CREATE UNIQUE NONCLUSTERED INDEX
+    [UX_PropertySocialDetails_Society_SocialAttribute]
+ON [PTIS].[PropertySocialDetails]
+(
+    [SocietyDetailId],
+    [SocialAttributeId]
+)
+WHERE
+    [EntityType] = 'S'
+    AND [IsActive] = 1
+    AND [MarkedForDeletion] = 0;
 GO
 
+CREATE UNIQUE NONCLUSTERED INDEX
+    [UX_PropertySocialDetails_Wing_SocialAttribute]
+ON [PTIS].[PropertySocialDetails]
+(
+    [WingDetailId],
+    [SocialAttributeId]
+)
+WHERE
+    [EntityType] = 'W'
+    AND [IsActive] = 1
+    AND [MarkedForDeletion] = 0;
+GO
 
+CREATE UNIQUE NONCLUSTERED INDEX
+    [UX_PropertySocialDetails_Property_SocialAttribute]
+ON [PTIS].[PropertySocialDetails]
+(
+    [PropertyId],
+    [SocialAttributeId]
+)
+WHERE
+    [EntityType] = 'P'
+    AND [IsActive] = 1
+    AND [MarkedForDeletion] = 0;
+GO
 
 
 
@@ -3202,139 +3446,139 @@ GO
 
 
 
-/****** Object:  Table [PTIS].[TaxPendingDetails]******/
+-- /****** Object:  Table [PTIS].[TaxPendingDetails]******/
 
-CREATE TABLE PTIS.TaxPendingDetails (
-    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-    [PropertyId] INT NOT NULL,
-    [PendingYearId] INT NOT NULL,
-    [TaxId] INT NOT NULL,
-    [PendingAmount] DECIMAL(18,2) NOT NULL CONSTRAINT [DF_TaxPendingDetails_PendingAmount] DEFAULT (0),
-    [PendingFixed] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetails_PendingFixed] DEFAULT (0),
-    [MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetails_MarkedForDeletion] DEFAULT (0),
-    [MarkedForDeletionDate] [datetime] NULL,
-    [IsActive] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetails_IsActive] DEFAULT (1),
-    [CreatedBy] [int] NULL,
-    [CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_TaxPendingDetails_CreatedDate] DEFAULT (GETDATE()),
-    [UpdatedBy] [int] NULL,
-    [UpdatedDate] [datetime] NULL,
+-- CREATE TABLE PTIS.TaxPendingDetails (
+--     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+--     [PropertyId] INT NOT NULL,
+--     [PendingYearId] INT NOT NULL,
+--     [TaxId] INT NOT NULL,
+--     [PendingAmount] DECIMAL(18,2) NOT NULL CONSTRAINT [DF_TaxPendingDetails_PendingAmount] DEFAULT (0),
+--     [PendingFixed] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetails_PendingFixed] DEFAULT (0),
+--     [MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetails_MarkedForDeletion] DEFAULT (0),
+--     [MarkedForDeletionDate] [datetime] NULL,
+--     [IsActive] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetails_IsActive] DEFAULT (1),
+--     [CreatedBy] [int] NULL,
+--     [CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_TaxPendingDetails_CreatedDate] DEFAULT (GETDATE()),
+--     [UpdatedBy] [int] NULL,
+--     [UpdatedDate] [datetime] NULL,
 
-    CONSTRAINT [PK_TaxPendingDetails] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_TaxPendingDetails_TaxMaster] FOREIGN KEY ([TaxId]) REFERENCES PTIS.TaxMaster([Id]),
-    CONSTRAINT [FK_TaxPendingDetails_PropertyMast]  FOREIGN KEY ([PropertyId]) REFERENCES PTIS.PropertyMast([Id]),
-    CONSTRAINT [FK_TaxPendingDetails_YearMaster]  FOREIGN KEY ([PendingYearId]) REFERENCES CORE.YearMaster([Id])
-);
+--     CONSTRAINT [PK_TaxPendingDetails] PRIMARY KEY CLUSTERED ([Id] ASC),
+--     CONSTRAINT [FK_TaxPendingDetails_TaxMaster] FOREIGN KEY ([TaxId]) REFERENCES PTIS.TaxMaster([Id]),
+--     CONSTRAINT [FK_TaxPendingDetails_PropertyMast]  FOREIGN KEY ([PropertyId]) REFERENCES PTIS.PropertyMast([Id]),
+--     CONSTRAINT [FK_TaxPendingDetails_YearMaster]  FOREIGN KEY ([PendingYearId]) REFERENCES CORE.YearMaster([Id])
+-- );
 
-/****** Object:  Table [PTIS].[TaxPendingDetailsArchive]******/
+-- /****** Object:  Table [PTIS].[TaxPendingDetailsArchive]******/
 
-CREATE TABLE  [PTIS].[TaxPendingDetailsArchive](
-    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-    [PropertyId] INT NOT NULL,
-    [PendingYearId] INT NOT NULL,
-    [TaxId] INT NOT NULL,
-    [PendingAmount] DECIMAL(18,2) NOT NULL CONSTRAINT [DF_TaxPendingDetailsArchive_ArrearsAmount] DEFAULT (0),
-    [PendingFixed] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsArchive_PendingFixed] DEFAULT (0),
-    [MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsArchive_MarkedForDeletion] DEFAULT (0),
-    [MarkedForDeletionDate] [datetime] NULL,
-    [IsActive] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsArchive_IsActive] DEFAULT (1),
-    [CreatedBy] INT NULL,
-    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_TaxPendingDetailsArchive_CreatedDate] DEFAULT (GETDATE()),
-    [UpdatedBy] INT NULL,
-    [UpdatedDate] DATETIME NULL,
+-- CREATE TABLE  [PTIS].[TaxPendingDetailsArchive](
+--     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+--     [PropertyId] INT NOT NULL,
+--     [PendingYearId] INT NOT NULL,
+--     [TaxId] INT NOT NULL,
+--     [PendingAmount] DECIMAL(18,2) NOT NULL CONSTRAINT [DF_TaxPendingDetailsArchive_ArrearsAmount] DEFAULT (0),
+--     [PendingFixed] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsArchive_PendingFixed] DEFAULT (0),
+--     [MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsArchive_MarkedForDeletion] DEFAULT (0),
+--     [MarkedForDeletionDate] [datetime] NULL,
+--     [IsActive] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsArchive_IsActive] DEFAULT (1),
+--     [CreatedBy] INT NULL,
+--     [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_TaxPendingDetailsArchive_CreatedDate] DEFAULT (GETDATE()),
+--     [UpdatedBy] INT NULL,
+--     [UpdatedDate] DATETIME NULL,
 
-    CONSTRAINT [PK_TaxPendingDetailsArchive] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_TaxPendingDetailsArchive_TaxMaster] FOREIGN KEY ([TaxId]) REFERENCES PTIS.TaxMaster([Id]),
-    CONSTRAINT [FK_TaxPendingDetailsArchive_PropertyMast]  FOREIGN KEY ([PropertyId]) REFERENCES PTIS.PropertyMast([Id]),
-    CONSTRAINT [FK_TaxPendingDetailsArchive_YearMaster]  FOREIGN KEY ([PendingYearId]) REFERENCES CORE.YearMaster([Id])
-);
+--     CONSTRAINT [PK_TaxPendingDetailsArchive] PRIMARY KEY CLUSTERED ([Id] ASC),
+--     CONSTRAINT [FK_TaxPendingDetailsArchive_TaxMaster] FOREIGN KEY ([TaxId]) REFERENCES PTIS.TaxMaster([Id]),
+--     CONSTRAINT [FK_TaxPendingDetailsArchive_PropertyMast]  FOREIGN KEY ([PropertyId]) REFERENCES PTIS.PropertyMast([Id]),
+--     CONSTRAINT [FK_TaxPendingDetailsArchive_YearMaster]  FOREIGN KEY ([PendingYearId]) REFERENCES CORE.YearMaster([Id])
+-- );
 
 
-/****** Object:  Table [PTIS].[TaxPendingDetailsCV]******/
+-- /****** Object:  Table [PTIS].[TaxPendingDetailsCV]******/
 
-CREATE TABLE  [PTIS].[TaxPendingDetailsCV](
-    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-    [PropertyId] INT NOT NULL,
-    [PendingYearId] INT NOT NULL,
-    [TaxId] INT NOT NULL,
-    [PendingAmount] DECIMAL(18,2) NOT NULL CONSTRAINT [DF_TaxPendingDetailsCV_ArrearsAmount] DEFAULT (0),
-   	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsCV_MarkedForDeletion] DEFAULT (0),
-	[MarkedForDeletionDate] [datetime] NULL,
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsCV_IsActive] DEFAULT (1),
-	[CreatedBy] [int] NULL,
-	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_TaxPendingDetailsCV_CreatedDate] DEFAULT (GETDATE()),
-	[UpdatedBy] [int] NULL,
-	[UpdatedDate] [datetime] NULL,
+-- CREATE TABLE  [PTIS].[TaxPendingDetailsCV](
+--     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+--     [PropertyId] INT NOT NULL,
+--     [PendingYearId] INT NOT NULL,
+--     [TaxId] INT NOT NULL,
+--     [PendingAmount] DECIMAL(18,2) NOT NULL CONSTRAINT [DF_TaxPendingDetailsCV_ArrearsAmount] DEFAULT (0),
+--    	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsCV_MarkedForDeletion] DEFAULT (0),
+-- 	[MarkedForDeletionDate] [datetime] NULL,
+-- 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsCV_IsActive] DEFAULT (1),
+-- 	[CreatedBy] [int] NULL,
+-- 	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_TaxPendingDetailsCV_CreatedDate] DEFAULT (GETDATE()),
+-- 	[UpdatedBy] [int] NULL,
+-- 	[UpdatedDate] [datetime] NULL,
 
-    CONSTRAINT [PK_TaxPendingDetailsCV] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_TaxPendingDetailsCV_TaxMaster] FOREIGN KEY ([TaxId]) REFERENCES PTIS.TaxMaster([Id]),
-    CONSTRAINT [FK_TaxPendingDetailsCV_PropertyMast]  FOREIGN KEY ([PropertyId]) REFERENCES PTIS.PropertyMast([Id]),
-    CONSTRAINT [FK_TaxPendingDetailsCV_YearMaster]  FOREIGN KEY ([PendingYearId]) REFERENCES CORE.YearMaster([Id])
-);
+--     CONSTRAINT [PK_TaxPendingDetailsCV] PRIMARY KEY CLUSTERED ([Id] ASC),
+--     CONSTRAINT [FK_TaxPendingDetailsCV_TaxMaster] FOREIGN KEY ([TaxId]) REFERENCES PTIS.TaxMaster([Id]),
+--     CONSTRAINT [FK_TaxPendingDetailsCV_PropertyMast]  FOREIGN KEY ([PropertyId]) REFERENCES PTIS.PropertyMast([Id]),
+--     CONSTRAINT [FK_TaxPendingDetailsCV_YearMaster]  FOREIGN KEY ([PendingYearId]) REFERENCES CORE.YearMaster([Id])
+-- );
 
-/****** Object:  Table [PTIS].[TaxPendingDetailsLookup]******/
-CREATE TABLE  [PTIS].[TaxPendingDetailsLookup](
-    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-    [PropertyId] INT NOT NULL,
-    [PendingYearId] INT NOT NULL,
-    [TaxId] INT NOT NULL,
-    [PendingAmount] DECIMAL(18,2) NOT NULL CONSTRAINT [DF_TaxPendingDetailsLookup_ArrearsAmount] DEFAULT (0),
-	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsLookup_MarkedForDeletion] DEFAULT (0),
-	[MarkedForDeletionDate] [datetime] NULL,
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsLookup_IsActive] DEFAULT (1),
-    [CreatedBy] INT NULL,
-    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_TaxPendingDetailsLookup_CreatedDate] DEFAULT (GETDATE()),
-    [UpdatedBy] INT NULL,
-    [UpdatedDate] DATETIME NULL,
+-- /****** Object:  Table [PTIS].[TaxPendingDetailsLookup]******/
+-- CREATE TABLE  [PTIS].[TaxPendingDetailsLookup](
+--     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+--     [PropertyId] INT NOT NULL,
+--     [PendingYearId] INT NOT NULL,
+--     [TaxId] INT NOT NULL,
+--     [PendingAmount] DECIMAL(18,2) NOT NULL CONSTRAINT [DF_TaxPendingDetailsLookup_ArrearsAmount] DEFAULT (0),
+-- 	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsLookup_MarkedForDeletion] DEFAULT (0),
+-- 	[MarkedForDeletionDate] [datetime] NULL,
+-- 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsLookup_IsActive] DEFAULT (1),
+--     [CreatedBy] INT NULL,
+--     [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_TaxPendingDetailsLookup_CreatedDate] DEFAULT (GETDATE()),
+--     [UpdatedBy] INT NULL,
+--     [UpdatedDate] DATETIME NULL,
 
-    CONSTRAINT [PK_TaxPendingDetailsLookup] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_TaxPendingDetailsLookup_TaxMaster] FOREIGN KEY ([TaxId]) REFERENCES PTIS.TaxMaster([Id]),
-    CONSTRAINT [FK_TaxPendingDetailsLookup_PropertyMast]  FOREIGN KEY ([PropertyId]) REFERENCES PTIS.PropertyMast([Id]),
-    CONSTRAINT [FK_TaxPendingDetailsLookup_YearMaster]  FOREIGN KEY ([PendingYearId]) REFERENCES CORE.YearMaster([Id])
-);
+--     CONSTRAINT [PK_TaxPendingDetailsLookup] PRIMARY KEY CLUSTERED ([Id] ASC),
+--     CONSTRAINT [FK_TaxPendingDetailsLookup_TaxMaster] FOREIGN KEY ([TaxId]) REFERENCES PTIS.TaxMaster([Id]),
+--     CONSTRAINT [FK_TaxPendingDetailsLookup_PropertyMast]  FOREIGN KEY ([PropertyId]) REFERENCES PTIS.PropertyMast([Id]),
+--     CONSTRAINT [FK_TaxPendingDetailsLookup_YearMaster]  FOREIGN KEY ([PendingYearId]) REFERENCES CORE.YearMaster([Id])
+-- );
 
-/****** Object:  Table [PTIS].[TaxPendingDetailsRetro]******/
+-- /****** Object:  Table [PTIS].[TaxPendingDetailsRetro]******/
 
-CREATE TABLE  [PTIS].[TaxPendingDetailsRetro](
-    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-    [PropertyId] INT NOT NULL,
-    [PendingYearId] INT NOT NULL,
-    [TaxId] INT NOT NULL,
-    [PendingAmount] DECIMAL(18,2) NOT NULL CONSTRAINT [DF_TaxPendingDetailsRetro_ArrearsAmount] DEFAULT (0),
-	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsRetro_MarkedForDeletion] DEFAULT (0),
-	[MarkedForDeletionDate] [datetime] NULL,
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsRetro_IsActive] DEFAULT (1),
-    [CreatedBy] INT NULL,
-    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_TaxPendingDetailsRetro_CreatedDate] DEFAULT (GETDATE()),
-    [UpdatedBy] INT NULL,
-    [UpdatedDate] DATETIME NULL,
+-- CREATE TABLE  [PTIS].[TaxPendingDetailsRetro](
+--     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+--     [PropertyId] INT NOT NULL,
+--     [PendingYearId] INT NOT NULL,
+--     [TaxId] INT NOT NULL,
+--     [PendingAmount] DECIMAL(18,2) NOT NULL CONSTRAINT [DF_TaxPendingDetailsRetro_ArrearsAmount] DEFAULT (0),
+-- 	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsRetro_MarkedForDeletion] DEFAULT (0),
+-- 	[MarkedForDeletionDate] [datetime] NULL,
+-- 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsRetro_IsActive] DEFAULT (1),
+--     [CreatedBy] INT NULL,
+--     [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_TaxPendingDetailsRetro_CreatedDate] DEFAULT (GETDATE()),
+--     [UpdatedBy] INT NULL,
+--     [UpdatedDate] DATETIME NULL,
 
-    CONSTRAINT [PK_TaxPendingDetailsRetro] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_TaxPendingDetailsRetro_TaxMaster] FOREIGN KEY ([TaxId]) REFERENCES PTIS.TaxMaster([Id]),
-    CONSTRAINT [FK_TaxPendingDetailsRetro_PropertyMast]  FOREIGN KEY ([PropertyId]) REFERENCES PTIS.PropertyMast([Id]),
-    CONSTRAINT [FK_TaxPendingDetailsRetro_YearMaster]  FOREIGN KEY ([PendingYearId]) REFERENCES CORE.YearMaster([Id])
-);
+--     CONSTRAINT [PK_TaxPendingDetailsRetro] PRIMARY KEY CLUSTERED ([Id] ASC),
+--     CONSTRAINT [FK_TaxPendingDetailsRetro_TaxMaster] FOREIGN KEY ([TaxId]) REFERENCES PTIS.TaxMaster([Id]),
+--     CONSTRAINT [FK_TaxPendingDetailsRetro_PropertyMast]  FOREIGN KEY ([PropertyId]) REFERENCES PTIS.PropertyMast([Id]),
+--     CONSTRAINT [FK_TaxPendingDetailsRetro_YearMaster]  FOREIGN KEY ([PendingYearId]) REFERENCES CORE.YearMaster([Id])
+-- );
 
-/****** Object:  Table [PTIS].[TaxPendingDetailsRV]******/
+-- /****** Object:  Table [PTIS].[TaxPendingDetailsRV]******/
 
-CREATE TABLE  [PTIS].[TaxPendingDetailsRV](
-    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-    [PropertyId] INT NOT NULL,
-    [PendingYearId] INT NOT NULL,
-    [TaxId] INT NOT NULL,
-    [PendingAmount] DECIMAL(18,2) NOT NULL CONSTRAINT [DF_TaxPendingDetailsRV_ArrearsAmount] DEFAULT (0),
-	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsRV_MarkedForDeletion] DEFAULT (0),
-	[MarkedForDeletionDate] [datetime] NULL,
-	[IsActive] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsRV_IsActive] DEFAULT (1),
-    [CreatedBy] INT NULL,
-    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_TaxPendingDetailsRV_CreatedDate] DEFAULT (GETDATE()),
-    [UpdatedBy] INT NULL,
-    [UpdatedDate] DATETIME NULL,
+-- CREATE TABLE  [PTIS].[TaxPendingDetailsRV](
+--     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+--     [PropertyId] INT NOT NULL,
+--     [PendingYearId] INT NOT NULL,
+--     [TaxId] INT NOT NULL,
+--     [PendingAmount] DECIMAL(18,2) NOT NULL CONSTRAINT [DF_TaxPendingDetailsRV_ArrearsAmount] DEFAULT (0),
+-- 	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsRV_MarkedForDeletion] DEFAULT (0),
+-- 	[MarkedForDeletionDate] [datetime] NULL,
+-- 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_TaxPendingDetailsRV_IsActive] DEFAULT (1),
+--     [CreatedBy] INT NULL,
+--     [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_TaxPendingDetailsRV_CreatedDate] DEFAULT (GETDATE()),
+--     [UpdatedBy] INT NULL,
+--     [UpdatedDate] DATETIME NULL,
 
-    CONSTRAINT [PK_TaxPendingDetailsRV] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_TaxPendingDetailsRV_TaxMaster] FOREIGN KEY ([TaxId]) REFERENCES PTIS.TaxMaster([Id]),
-    CONSTRAINT [FK_TaxPendingDetailsRV_PropertyMast]  FOREIGN KEY ([PropertyId]) REFERENCES PTIS.PropertyMast([Id]),
-    CONSTRAINT [FK_TaxPendingDetailsRV_YearMaster]  FOREIGN KEY ([PendingYearId]) REFERENCES CORE.YearMaster([Id])
-);
+--     CONSTRAINT [PK_TaxPendingDetailsRV] PRIMARY KEY CLUSTERED ([Id] ASC),
+--     CONSTRAINT [FK_TaxPendingDetailsRV_TaxMaster] FOREIGN KEY ([TaxId]) REFERENCES PTIS.TaxMaster([Id]),
+--     CONSTRAINT [FK_TaxPendingDetailsRV_PropertyMast]  FOREIGN KEY ([PropertyId]) REFERENCES PTIS.PropertyMast([Id]),
+--     CONSTRAINT [FK_TaxPendingDetailsRV_YearMaster]  FOREIGN KEY ([PendingYearId]) REFERENCES CORE.YearMaster([Id])
+-- );
 
 /****** Object:  Table [PTIS].[TransMast]******/
 
@@ -3347,6 +3591,7 @@ CREATE TABLE PTIS.TransMast (
     [CalculationValue] DECIMAL(18,2) NOT NULL,
     [TaxId] INT NOT NULL,                     -- FK to TaxMaster
     [TaxAmount] DECIMAL(18,2) NOT NULL   CONSTRAINT [DF_TransMast_TaxAmount] DEFAULT (0),
+	[PolicyCodeId] INT NOT NULL  CONSTRAINT [DF_TransMast_PolicyCodeId] DEFAULT (1), 
 	[MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_TransMast_MarkedForDeletion] DEFAULT (0),
 	[MarkedForDeletionDate] [datetime] NULL,
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_TransMast_IsActive] DEFAULT (1),
@@ -3358,24 +3603,28 @@ CREATE TABLE PTIS.TransMast (
     CONSTRAINT [PK_TransMast]  PRIMARY KEY CLUSTERED ([Id]),
     CONSTRAINT [FK_TransMast_TaxMaster] FOREIGN KEY ([TaxId]) REFERENCES PTIS.TaxMaster([Id]),
 	CONSTRAINT [FK_TransMast_PropertyMast] FOREIGN KEY ([PropertyId]) REFERENCES PTIS.PropertyMast([Id]),
-	CONSTRAINT [FK_TransMast_YearMaster] FOREIGN KEY ([FinanceYearId]) REFERENCES CORE.YearMaster([Id])
+	CONSTRAINT [FK_TransMast_YearMaster] FOREIGN KEY ([FinanceYearId]) REFERENCES CORE.YearMaster([Id]),
+	CONSTRAINT [FK_TransMast_PolicyCodeMaster] FOREIGN KEY ([PolicyCodeId]) REFERENCES [PTIS].[PolicyCodeMaster]([Id])
 	);
 
 
 CREATE UNIQUE NONCLUSTERED INDEX
-    [UQ_TransMast_Property_Year_CalculationType_Tax]
+    [UQ_TransMast_Property_Year_CalculationType_Policy_Tax]
 ON [PTIS].[TransMast]
 (
     [PropertyId],
     [FinanceYearId],
     [CalculationType],
+    [PolicyCodeId],
     [TaxId]
-	
 )
-WHERE [MarkedForDeletion] = 0;
+WHERE
+    [IsActive] = 1
+    AND [MarkedForDeletion] = 0;
 GO
 
-CREATE NONCLUSTERED INDEX [IX_TransMast_PropertyYear]
+CREATE NONCLUSTERED INDEX
+    [IX_TransMast_PropertyYear]
 ON [PTIS].[TransMast]
 (
     [PropertyId],
@@ -3386,14 +3635,36 @@ INCLUDE
     [CalculationType],
     [CalculationValue],
     [CalculationAnnualValue],
+    [PolicyCodeId],
     [TaxId],
     [TaxAmount]
-	
 )
-WHERE [MarkedForDeletion] = 0;
+WHERE
+    [IsActive] = 1
+    AND [MarkedForDeletion] = 0;
 GO
 
-CREATE NONCLUSTERED INDEX [IX_TransMast_TaxId]
+CREATE NONCLUSTERED INDEX
+    [IX_TransMast_PolicyCodeId]
+ON [PTIS].[TransMast]
+(
+    [PolicyCodeId]
+)
+INCLUDE
+(
+    [PropertyId],
+    [FinanceYearId],
+    [CalculationType],
+    [TaxId],
+    [TaxAmount]
+)
+WHERE
+    [IsActive] = 1
+    AND [MarkedForDeletion] = 0;
+GO
+
+CREATE NONCLUSTERED INDEX
+    [IX_TransMast_TaxId]
 ON [PTIS].[TransMast]
 (
     [TaxId]
@@ -3403,9 +3674,12 @@ INCLUDE
     [PropertyId],
     [FinanceYearId],
     [CalculationType],
+    [PolicyCodeId],
     [TaxAmount]
 )
-WHERE [MarkedForDeletion] = 0;
+WHERE
+    [IsActive] = 1
+    AND [MarkedForDeletion] = 0;
 GO
 
 
@@ -3478,32 +3752,32 @@ INCLUDE
 WHERE [MarkedForDeletion] = 0;
 GO
 
-/****** Object:  Table [PTIS].[TransMastArchive]******/
-CREATE TABLE PTIS.TransMastArchive (
-    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-    [PropertyId] INT NOT NULL,
-    [FinanceYearId] INT NOT NULL,
-    [RVorCV] CHAR(2) NOT NULL,
-    [RVorCVValue] DECIMAL(18,2) NOT NULL,
-    [TaxId] INT NOT NULL,
-    [TaxAmount] DECIMAL(18,2) NOT NULL,
-    [MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_TransMastArchive_MarkedForDeletion] DEFAULT (0),
-    [MarkedForDeletionDate] [datetime] NULL,
-    [IsActive] [bit] NOT NULL CONSTRAINT [DF_TransMastArchive_IsActive] DEFAULT (1),
-    [CreatedBy] INT NULL,
-    [CreatedDate] DATETIME  NOT NULL  CONSTRAINT [DF_TransMastArchive_CreatedDate] DEFAULT (GETDATE()),
-    [UpdatedBy] INT NULL,
-    [UpdatedDate] DATETIME NULL,
+-- /****** Object:  Table [PTIS].[TransMastArchive]******/
+-- CREATE TABLE PTIS.TransMastArchive (
+--     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+--     [PropertyId] INT NOT NULL,
+--     [FinanceYearId] INT NOT NULL,
+--     [RVorCV] CHAR(2) NOT NULL,
+--     [RVorCVValue] DECIMAL(18,2) NOT NULL,
+--     [TaxId] INT NOT NULL,
+--     [TaxAmount] DECIMAL(18,2) NOT NULL,
+--     [MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_TransMastArchive_MarkedForDeletion] DEFAULT (0),
+--     [MarkedForDeletionDate] [datetime] NULL,
+--     [IsActive] [bit] NOT NULL CONSTRAINT [DF_TransMastArchive_IsActive] DEFAULT (1),
+--     [CreatedBy] INT NULL,
+--     [CreatedDate] DATETIME  NOT NULL  CONSTRAINT [DF_TransMastArchive_CreatedDate] DEFAULT (GETDATE()),
+--     [UpdatedBy] INT NULL,
+--     [UpdatedDate] DATETIME NULL,
 
-    CONSTRAINT [PK_TransMastArchive]  PRIMARY KEY CLUSTERED ([Id]),
-    CONSTRAINT [FK_TransMastArchive_TaxMaster]  FOREIGN KEY ([TaxId]) REFERENCES PTIS.TaxMaster([Id]),
-    CONSTRAINT [FK_TransMastArchive_PropertyMast]  FOREIGN KEY ([PropertyId]) REFERENCES PTIS.PropertyMast([Id]),
-    CONSTRAINT [FK_TransMastArchive_YearMaster]  FOREIGN KEY ([FinanceYearId]) REFERENCES CORE.YearMaster([Id])    
-); 
+--     CONSTRAINT [PK_TransMastArchive]  PRIMARY KEY CLUSTERED ([Id]),
+--     CONSTRAINT [FK_TransMastArchive_TaxMaster]  FOREIGN KEY ([TaxId]) REFERENCES PTIS.TaxMaster([Id]),
+--     CONSTRAINT [FK_TransMastArchive_PropertyMast]  FOREIGN KEY ([PropertyId]) REFERENCES PTIS.PropertyMast([Id]),
+--     CONSTRAINT [FK_TransMastArchive_YearMaster]  FOREIGN KEY ([FinanceYearId]) REFERENCES CORE.YearMaster([Id])    
+-- ); 
 
-ALTER TABLE PTIS.TransMastArchive ADD CONSTRAINT [UQ_TransMastArchive_Property_Year_Tax] UNIQUE (PropertyId, FinanceYearId, TaxId);
-CREATE NONCLUSTERED INDEX IX_TransMastArchive_PropertyYear ON PTIS.TransMastArchive(PropertyId, FinanceYearId)  INCLUDE (TaxId, TaxAmount);
-CREATE NONCLUSTERED INDEX IX_TransMastArchive_TaxId ON PTIS.TransMastArchive(TaxId);
+-- ALTER TABLE PTIS.TransMastArchive ADD CONSTRAINT [UQ_TransMastArchive_Property_Year_Tax] UNIQUE (PropertyId, FinanceYearId, TaxId);
+-- CREATE NONCLUSTERED INDEX IX_TransMastArchive_PropertyYear ON PTIS.TransMastArchive(PropertyId, FinanceYearId)  INCLUDE (TaxId, TaxAmount);
+-- CREATE NONCLUSTERED INDEX IX_TransMastArchive_TaxId ON PTIS.TransMastArchive(TaxId);
 
 
 -- /****** Object:  Table [PTIS].[TransMastCV]******/
@@ -3535,33 +3809,33 @@ CREATE NONCLUSTERED INDEX IX_TransMastArchive_TaxId ON PTIS.TransMastArchive(Tax
 -- CREATE NONCLUSTERED INDEX IX_TransMastCV_TaxId ON PTIS.TransMastCV(TaxId);
 
 
-/****** Object:  Table [PTIS].[TransMastLookup]******/
-CREATE TABLE PTIS.TransMastLookup (
-    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-    [PropertyId] INT NOT NULL,
-    [FinanceYearId] INT NOT NULL,
-    [RVorCV] CHAR(2) NOT NULL,
-    [RVorCVValue] DECIMAL(18,2) NOT NULL,
-    [TaxId] INT NOT NULL,
-    [TaxAmount] DECIMAL(18,2) CONSTRAINT [DF_TransMastLookup_TaxAmount] DEFAULT (0),
-    [MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_TransMastLookup_MarkedForDeletion] DEFAULT (0),
-    [MarkedForDeletionDate] [datetime] NULL,
-    [IsActive] [bit] NOT NULL CONSTRAINT [DF_TransMastLookup_IsActive] DEFAULT (1),
-    [CreatedBy] INT NULL,
-    [CreatedDate] DATETIME  NOT NULL  CONSTRAINT [DF_TransMastLookup_CreatedDate] DEFAULT (GETDATE()),
-    [UpdatedBy] INT NULL,
-    [UpdatedDate] DATETIME NULL,
+-- /****** Object:  Table [PTIS].[TransMastLookup]******/
+-- CREATE TABLE PTIS.TransMastLookup (
+--     [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+--     [PropertyId] INT NOT NULL,
+--     [FinanceYearId] INT NOT NULL,
+--     [RVorCV] CHAR(2) NOT NULL,
+--     [RVorCVValue] DECIMAL(18,2) NOT NULL,
+--     [TaxId] INT NOT NULL,
+--     [TaxAmount] DECIMAL(18,2) CONSTRAINT [DF_TransMastLookup_TaxAmount] DEFAULT (0),
+--     [MarkedForDeletion] [bit] NOT NULL CONSTRAINT [DF_TransMastLookup_MarkedForDeletion] DEFAULT (0),
+--     [MarkedForDeletionDate] [datetime] NULL,
+--     [IsActive] [bit] NOT NULL CONSTRAINT [DF_TransMastLookup_IsActive] DEFAULT (1),
+--     [CreatedBy] INT NULL,
+--     [CreatedDate] DATETIME  NOT NULL  CONSTRAINT [DF_TransMastLookup_CreatedDate] DEFAULT (GETDATE()),
+--     [UpdatedBy] INT NULL,
+--     [UpdatedDate] DATETIME NULL,
 
-    CONSTRAINT [PK_TransMastLookup]  PRIMARY KEY CLUSTERED ([Id]),
-    CONSTRAINT [FK_TransMastLookup_TaxMaster]  FOREIGN KEY ([TaxId]) REFERENCES PTIS.TaxMaster([Id]),
-    CONSTRAINT [FK_TransMastLookup_PropertyMast]  FOREIGN KEY ([PropertyId]) REFERENCES PTIS.PropertyMast([Id]),
-    CONSTRAINT [FK_TransMastLookup_YearMaster]  FOREIGN KEY ([FinanceYearId]) REFERENCES CORE.YearMaster([Id])    
-); 
+--     CONSTRAINT [PK_TransMastLookup]  PRIMARY KEY CLUSTERED ([Id]),
+--     CONSTRAINT [FK_TransMastLookup_TaxMaster]  FOREIGN KEY ([TaxId]) REFERENCES PTIS.TaxMaster([Id]),
+--     CONSTRAINT [FK_TransMastLookup_PropertyMast]  FOREIGN KEY ([PropertyId]) REFERENCES PTIS.PropertyMast([Id]),
+--     CONSTRAINT [FK_TransMastLookup_YearMaster]  FOREIGN KEY ([FinanceYearId]) REFERENCES CORE.YearMaster([Id])    
+-- ); 
 
 
-ALTER TABLE PTIS.TransMastLookup ADD CONSTRAINT [UQ_TransMastLookup_Property_Year_Tax] UNIQUE (PropertyId, FinanceYearId, TaxId);
-CREATE NONCLUSTERED INDEX IX_TransMastLookup_PropertyYear ON PTIS.TransMastLookup(PropertyId, FinanceYearId)  INCLUDE (TaxId, TaxAmount);
-CREATE NONCLUSTERED INDEX IX_TransMastLookup_TaxId ON PTIS.TransMastLookup(TaxId);
+-- ALTER TABLE PTIS.TransMastLookup ADD CONSTRAINT [UQ_TransMastLookup_Property_Year_Tax] UNIQUE (PropertyId, FinanceYearId, TaxId);
+-- CREATE NONCLUSTERED INDEX IX_TransMastLookup_PropertyYear ON PTIS.TransMastLookup(PropertyId, FinanceYearId)  INCLUDE (TaxId, TaxAmount);
+-- CREATE NONCLUSTERED INDEX IX_TransMastLookup_TaxId ON PTIS.TransMastLookup(TaxId);
 
 
 
@@ -4727,141 +5001,6 @@ GO
 
 
 /* ============================================================================
-   Table: PTIS.PolicyCodeMaster
-   Purpose:
-   Master table for all policy codes used in property tax processing.
-
-   PolicyType:
-   NORMAL      : NETTAX, AS_PER_OLD, MIN_RV, RETENTION
-   DATE_BASED  : OC_PARTIAL, OC, CC_PARTIAL, CC, ELECTRIC_PARTIAL, ELECTRIC_BILL
-   STAGE_BASED : SECTION_129_OLD_1, SECTION_129_OLD_2, SECTION_129_20,
-                 SECTION_129_40, SECTION_129_60, SECTION_129_80, SECTION_129_100
-   DECISION    : HEARING, APPEAL_COMMITTEE, REMISSION
-
-   Each _PARTIAL / staged policy chains to its next policy via
-   NextPolicyCodeId (e.g. OC_PARTIAL -> OC, SECTION_129_20 -> SECTION_129_40).
-
-   OC / CC / Electric Bill calculation rules are configured in
-   PTIS.CertificateTaxGuideline, not on this table.
-============================================================================ */
-
-CREATE TABLE [PTIS].[PolicyCodeMaster]
-(
-    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-
-    [PolicyCode] VARCHAR(30) NOT NULL,
-    [PolicyName] NVARCHAR(100) NOT NULL,
-    [Description] NVARCHAR(300) NULL,
-
-    /*
-        NORMAL:
-            NETTAX
-            AS_PER_OLD
-            MIN_RV
-            RETENTION
-
-        DATE_BASED:
-            OC_PARTIAL
-            OC
-            CC_PARTIAL
-            CC
-            ELECTRIC_PARTIAL
-            ELECTRIC_BILL
-
-        STAGE_BASED:
-            SECTION_129 stages
-
-        DECISION:
-            HEARING
-            APPEAL_COMMITTEE
-            REMISSION
-    */
-    [PolicyType] VARCHAR(20) NOT NULL,
-
-    /*
-        Identifies the next policy stage.
-
-        Examples:
-            OC_PARTIAL -> OC
-            SECTION_129_20 -> SECTION_129_40
-    */
-    [NextPolicyCodeId] INT NULL,
-
-    /*
-        1 = No further policy stage is required.
-        0 = Next policy stage is pending.
-    */
-    [IsFinalStage] BIT NOT NULL
-        CONSTRAINT [DF_PolicyCodeMaster_IsFinalStage]
-        DEFAULT (0),
-
-    /*
-        1 = No other policy can be applied together
-            with this policy.
-    */
-    [IsExclusive] BIT NOT NULL
-        CONSTRAINT [DF_PolicyCodeMaster_IsExclusive]
-        DEFAULT (0),
-
-    /*
-        1 = Policy requires next-year or stage processing.
-    */
-    [RequiresStageTracking] BIT NOT NULL
-        CONSTRAINT [DF_PolicyCodeMaster_RequiresStageTracking]
-        DEFAULT (0),
-
-    [DisplayOrder] INT NOT NULL
-        CONSTRAINT [DF_PolicyCodeMaster_DisplayOrder]
-        DEFAULT (0),
-
-	[IsProtected] BIT NOT NULL
-		CONSTRAINT [DF_PolicyCodeMaster_IsProtected]
-		DEFAULT (0),
-
-    [IsActive] BIT NOT NULL
-        CONSTRAINT [DF_PolicyCodeMaster_IsActive]
-        DEFAULT (1),
-
-    [CreatedBy] INT NULL,
-
-    [CreatedDate] DATETIME NOT NULL
-        CONSTRAINT [DF_PolicyCodeMaster_CreatedDate]
-        DEFAULT (GETDATE()),
-
-    [UpdatedBy] INT NULL,
-    [UpdatedDate] DATETIME NULL,
-
-    CONSTRAINT [PK_PolicyCodeMaster]
-        PRIMARY KEY CLUSTERED ([Id] ASC),
-
-    CONSTRAINT [UQ_PolicyCodeMaster_PolicyCode]
-        UNIQUE ([PolicyCode]),
-
-    CONSTRAINT [CK_PolicyCodeMaster_PolicyType]
-        CHECK
-        (
-            [PolicyType] IN
-            (
-                'NORMAL',
-                'DATE_BASED',
-                'STAGE_BASED',
-                'DECISION'
-            )
-        ),
-
-    CONSTRAINT [FK_PolicyCodeMaster_NextPolicyCodeId]
-        FOREIGN KEY ([NextPolicyCodeId])
-        REFERENCES [PTIS].[PolicyCodeMaster] ([Id])
-);
-GO
-
--- Deferred: PTIS.PolicyTaxDetails (defined earlier in this script,
--- before PTIS.PolicyCodeMaster existed) references this table.
-ALTER TABLE [PTIS].[PolicyTaxDetails] ADD CONSTRAINT [FK_PolicyTaxDetails_PolicyCodeMaster_PolicyCodeId]
-    FOREIGN KEY ([PolicyCodeId]) REFERENCES [PTIS].[PolicyCodeMaster] ([Id]);
-GO
-
-/* ============================================================================
    Table: PTIS.CertificateTaxGuideline
    Purpose:
    Admin-configurable calculation rules for CC / OC / Electric Bill tax,
@@ -5565,3 +5704,20 @@ GO
 CREATE NONCLUSTERED INDEX [IX_RetrospectiveRuleAuditLog_Rule_CreatedDate]
 	ON [PTIS].[RetrospectiveRuleAuditLog] ([RuleId], [CreatedDate]);
 GO
+
+
+
+---------- for RV hash comparison ------------
+CREATE TABLE [PTIS].[RVCalculationSignature](
+	[Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[PropertyId] [int] NOT NULL,
+	[SignatureHash] [varchar](64) NOT NULL,
+	[CalculatedAt] [datetime] NOT NULL,
+	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RVCalculationSignature_IsActive] DEFAULT (1),
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_RVCalculationSignature_CreatedDate] DEFAULT (GETDATE()),
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+	CONSTRAINT [PK_RVCalculationSignature] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_RVCalculationSignature_PropertyMast_PropertyId] FOREIGN KEY([PropertyId]) REFERENCES [PTIS].[PropertyMast] ([Id])
+)

@@ -964,106 +964,106 @@ AND NOT EXISTS
 
 
 
-INSERT INTO PTIS.TaxPendingDetails
-(
-    PropertyId,
-    PendingYearId,
-    TaxId,
-    PendingAmount,
-    CreatedBy
-)
-SELECT
-    p.Id,
-    y.Id,
-    t.Id,
-    round(CAST(((p.Id * 5) + (t.Id * 11) + (y.Id * 3)) / 100.0 AS DECIMAL(18,2)),00) AS PendingAmount,
-    1
-FROM PTIS.PropertyMast p
-CROSS JOIN PTIS.TaxMaster t
-CROSS JOIN
-(
-    SELECT TOP 1 Id
-    FROM CORE.YearMaster
-    ORDER BY Id
-) y
-WHERE p.IsActive = 1
-AND t.IsActive = 1
-AND NOT EXISTS
-(
-    SELECT 1
-    FROM PTIS.TaxPendingDetails pd
-    WHERE pd.PropertyId = p.Id
-      AND pd.PendingYearId = y.Id
-      AND pd.TaxId = t.Id
-);
+-- INSERT INTO PTIS.TaxPendingDetails
+-- (
+--     PropertyId,
+--     PendingYearId,
+--     TaxId,
+--     PendingAmount,
+--     CreatedBy
+-- )
+-- SELECT
+--     p.Id,
+--     y.Id,
+--     t.Id,
+--     round(CAST(((p.Id * 5) + (t.Id * 11) + (y.Id * 3)) / 100.0 AS DECIMAL(18,2)),00) AS PendingAmount,
+--     1
+-- FROM PTIS.PropertyMast p
+-- CROSS JOIN PTIS.TaxMaster t
+-- CROSS JOIN
+-- (
+--     SELECT TOP 1 Id
+--     FROM CORE.YearMaster
+--     ORDER BY Id
+-- ) y
+-- WHERE p.IsActive = 1
+-- AND t.IsActive = 1
+-- AND NOT EXISTS
+-- (
+--     SELECT 1
+--     FROM PTIS.TaxPendingDetails pd
+--     WHERE pd.PropertyId = p.Id
+--       AND pd.PendingYearId = y.Id
+--       AND pd.TaxId = t.Id
+-- );
 
 
-INSERT INTO PTIS.TaxPendingDetailsCV
-(
-    PropertyId,
-    PendingYearId,
-    TaxId,
-    PendingAmount,
-    CreatedBy
-)
-SELECT
-    p.Id,
-    y.Id,
-    t.Id,
-    round(CAST(((p.Id * 7) + (t.Id * 13) + (y.Id * 2)) / 854.0 AS DECIMAL(18,2)),00) AS PendingAmount,
-    1
-FROM PTIS.PropertyMast p
-CROSS JOIN PTIS.TaxMaster t
-CROSS JOIN
-(
-    SELECT TOP 1 Id
-    FROM CORE.YearMaster
-    ORDER BY Id
-) y
-WHERE p.IsActive = 1
-AND t.IsActive = 1
-AND NOT EXISTS
-(
-    SELECT 1
-    FROM PTIS.TaxPendingDetailsCV pd
-    WHERE pd.PropertyId = p.Id
-      AND pd.PendingYearId = y.Id
-      AND pd.TaxId = t.Id
-);
+-- INSERT INTO PTIS.TaxPendingDetailsCV
+-- (
+--     PropertyId,
+--     PendingYearId,
+--     TaxId,
+--     PendingAmount,
+--     CreatedBy
+-- )
+-- SELECT
+--     p.Id,
+--     y.Id,
+--     t.Id,
+--     round(CAST(((p.Id * 7) + (t.Id * 13) + (y.Id * 2)) / 854.0 AS DECIMAL(18,2)),00) AS PendingAmount,
+--     1
+-- FROM PTIS.PropertyMast p
+-- CROSS JOIN PTIS.TaxMaster t
+-- CROSS JOIN
+-- (
+--     SELECT TOP 1 Id
+--     FROM CORE.YearMaster
+--     ORDER BY Id
+-- ) y
+-- WHERE p.IsActive = 1
+-- AND t.IsActive = 1
+-- AND NOT EXISTS
+-- (
+--     SELECT 1
+--     FROM PTIS.TaxPendingDetailsCV pd
+--     WHERE pd.PropertyId = p.Id
+--       AND pd.PendingYearId = y.Id
+--       AND pd.TaxId = t.Id
+-- );
 
 
-INSERT INTO PTIS.TaxPendingDetailsRV
-(
-    PropertyId,
-    PendingYearId,
-    TaxId,
-    PendingAmount,
-    CreatedBy
-)
-SELECT
-    p.Id,
-    y.Id,
-    t.Id,
-    round(CAST(((p.Id * 7) + (t.Id * 13) + (y.Id * 2)) / 854.0 AS DECIMAL(18,2)),00) AS PendingAmount,
-    1
-FROM PTIS.PropertyMast p
-CROSS JOIN PTIS.TaxMaster t
-CROSS JOIN
-(
-    SELECT TOP 1 Id
-    FROM CORE.YearMaster
-    ORDER BY Id
-) y
-WHERE p.IsActive = 1
-AND t.IsActive = 1
-AND NOT EXISTS
-(
-    SELECT 1
-    FROM PTIS.TaxPendingDetailsRV pd
-    WHERE pd.PropertyId = p.Id
-      AND pd.PendingYearId = y.Id
-      AND pd.TaxId = t.Id
-);
+-- INSERT INTO PTIS.TaxPendingDetailsRV
+-- (
+--     PropertyId,
+--     PendingYearId,
+--     TaxId,
+--     PendingAmount,
+--     CreatedBy
+-- )
+-- SELECT
+--     p.Id,
+--     y.Id,
+--     t.Id,
+--     round(CAST(((p.Id * 7) + (t.Id * 13) + (y.Id * 2)) / 854.0 AS DECIMAL(18,2)),00) AS PendingAmount,
+--     1
+-- FROM PTIS.PropertyMast p
+-- CROSS JOIN PTIS.TaxMaster t
+-- CROSS JOIN
+-- (
+--     SELECT TOP 1 Id
+--     FROM CORE.YearMaster
+--     ORDER BY Id
+-- ) y
+-- WHERE p.IsActive = 1
+-- AND t.IsActive = 1
+-- AND NOT EXISTS
+-- (
+--     SELECT 1
+--     FROM PTIS.TaxPendingDetailsRV pd
+--     WHERE pd.PropertyId = p.Id
+--       AND pd.PendingYearId = y.Id
+--       AND pd.TaxId = t.Id
+-- );
 
 
 
