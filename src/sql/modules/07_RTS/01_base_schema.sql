@@ -1,4 +1,4 @@
-﻿SET ANSI_NULLS ON
+SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
@@ -809,6 +809,52 @@ BEGIN
 END;
 GO
 
+/* ----------------------------------------------------------------------------
+   22. [RTS].[ServiceOfficerAllocation]
+   ---------------------------------------------------------------------------- */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceOfficerAllocation')
+BEGIN
+    CREATE TABLE [RTS].[ServiceOfficerAllocation]
+    (
+        [Id]                    INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+        [ServiceId]             INT NOT NULL,
+        [ZoneId]                INT NULL,
+        [ZoneName]              NVARCHAR(150) NOT NULL,
+        [ZoneNameLocal]         NVARCHAR(150) NULL,
+        [OfficerName]           NVARCHAR(150) NOT NULL,
+        [OfficerNameLocal]      NVARCHAR(150) NULL,
+        [Designation]           NVARCHAR(150) NOT NULL,
+        [DesignationLocal]      NVARCHAR(150) NULL,
+        [MobileNo]              VARCHAR(20) NOT NULL,
+        [Email]                 VARCHAR(100) NULL,
+        [OfficeAddress]         NVARCHAR(250) NULL,
+        [OfficeAddressLocal]    NVARCHAR(250) NULL,
+        [OfficerRole]           VARCHAR(50) NOT NULL CONSTRAINT [DF_ServiceOfficerAllocation_OfficerRole] DEFAULT ('DesignatedOfficer'),
+        [DisplayOrder]          INT NOT NULL CONSTRAINT [DF_ServiceOfficerAllocation_DisplayOrder] DEFAULT (1),
+        [IsActive]              BIT NOT NULL CONSTRAINT [DF_ServiceOfficerAllocation_IsActive] DEFAULT (1),
+        [CreatedBy]             INT NULL,
+        [CreatedDate]           DATETIME NOT NULL CONSTRAINT [DF_ServiceOfficerAllocation_CreatedDate] DEFAULT (GETDATE()),
+        [UpdatedBy]             INT NULL,
+        [UpdatedDate]           DATETIME NULL,
+
+        CONSTRAINT [PK_ServiceOfficerAllocation] PRIMARY KEY CLUSTERED ([Id] ASC),
+        CONSTRAINT [FK_ServiceOfficerAllocation_ServiceMaster] FOREIGN KEY ([ServiceId]) REFERENCES [RTS].[ServiceMaster] ([Id])
+    );
+END;
+ELSE
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceOfficerAllocation' AND COLUMN_NAME = 'ZoneNameLocal')
+        ALTER TABLE [RTS].[ServiceOfficerAllocation] ADD [ZoneNameLocal] NVARCHAR(150) NULL;
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceOfficerAllocation' AND COLUMN_NAME = 'OfficerNameLocal')
+        ALTER TABLE [RTS].[ServiceOfficerAllocation] ADD [OfficerNameLocal] NVARCHAR(150) NULL;
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceOfficerAllocation' AND COLUMN_NAME = 'DesignationLocal')
+        ALTER TABLE [RTS].[ServiceOfficerAllocation] ADD [DesignationLocal] NVARCHAR(150) NULL;
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceOfficerAllocation' AND COLUMN_NAME = 'OfficeAddressLocal')
+        ALTER TABLE [RTS].[ServiceOfficerAllocation] ADD [OfficeAddressLocal] NVARCHAR(250) NULL;
+END;
+GO
+
+
 /* ============================================================================
    RTS High-Performance Non-Clustered Indexes
    ============================================================================ */
@@ -874,3 +920,12 @@ BEGIN
     ON [RTS].[PaymentTransaction] ([ApplicationId], [PaymentStatusId]);
 END;
 GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_ServiceOfficerAllocation_Service_Active' AND object_id = OBJECT_ID(N'[RTS].[ServiceOfficerAllocation]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_ServiceOfficerAllocation_Service_Active]
+    ON [RTS].[ServiceOfficerAllocation] ([ServiceId], [IsActive], [DisplayOrder])
+    INCLUDE ([ZoneName], [ZoneNameLocal], [OfficerName], [OfficerNameLocal], [Designation], [DesignationLocal], [MobileNo]);
+END;
+GO
+

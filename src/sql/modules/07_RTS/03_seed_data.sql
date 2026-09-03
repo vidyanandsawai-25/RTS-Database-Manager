@@ -1,4 +1,4 @@
-﻿SET ANSI_NULLS ON
+SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
@@ -5803,3 +5803,98 @@ GO
 
 SET IDENTITY_INSERT [RTS].[CertificateTemplateMaster] OFF;
 GO
+
+/* ----------------------------------------------------------------------------
+   Table: [RTS].[ServiceOfficerAllocation] (Prabhag Samiti 1 to 4 Allocation)
+   ---------------------------------------------------------------------------- */
+MERGE INTO [RTS].[ServiceOfficerAllocation] AS target
+USING (
+    -- 1. Property Tax Services (Dept 1)
+    SELECT s.Id AS ServiceId, z.ZoneId, z.ZoneName, z.ZoneNameLocal, z.OfficerName, z.OfficerNameLocal, z.Designation, z.DesignationLocal, z.MobileNo, z.Email, z.OfficeAddress, z.OfficeAddressLocal, 'DesignatedOfficer' AS OfficerRole, z.ZoneId AS DisplayOrder, CAST(1 AS BIT) AS IsActive
+    FROM [RTS].[ServiceMaster] s
+    CROSS JOIN (
+        VALUES 
+        (1, N'Prabhag Samiti 1', N'प्रभाग समिती १', N'Sachin Deshmukh', N'श्री. सचिन देशमुख', N'Tax Superintendent', N'कर अधीक्षक', '9822011001', 'zone1.tax@akola.gov.in', N'Prabhag Samiti Office 1, Akola', N'प्रभाग समिती कार्यालय क्र. १, अकोला'),
+        (2, N'Prabhag Samiti 2', N'प्रभाग समिती २', N'Rahul Joshi', N'श्री. राहुल जोशी', N'Tax Superintendent', N'कर अधीक्षक', '9822011002', 'zone2.tax@akola.gov.in', N'Prabhag Samiti Office 2, Akola', N'प्रभाग समिती कार्यालय क्र. २, अकोला'),
+        (3, N'Prabhag Samiti 3', N'प्रभाग समिती ३', N'Anita Patil', N'सौ. अनिता पाटील', N'Tax Inspector', N'कर निरीक्षक', '9822011003', 'zone3.tax@akola.gov.in', N'Prabhag Samiti Office 3, Akola', N'प्रभाग समिती कार्यालय क्र. ३, अकोला'),
+        (4, N'Prabhag Samiti 4', N'प्रभाग समिती ४', N'Gajanan Pawar', N'श्री. गजानन पवार', N'Tax Superintendent', N'कर अधीक्षक', '9822011004', 'zone4.tax@akola.gov.in', N'Prabhag Samiti Office 4, Akola', N'प्रभाग समिती कार्यालय क्र. ४, अकोला')
+    ) AS z(ZoneId, ZoneName, ZoneNameLocal, OfficerName, OfficerNameLocal, Designation, DesignationLocal, MobileNo, Email, OfficeAddress, OfficeAddressLocal)
+    WHERE s.DepartmentId = 1
+
+    UNION ALL
+
+    -- 2. Town Planning Services (Dept 4)
+    SELECT s.Id AS ServiceId, z.ZoneId, z.ZoneName, z.ZoneNameLocal, z.OfficerName, z.OfficerNameLocal, z.Designation, z.DesignationLocal, z.MobileNo, z.Email, z.OfficeAddress, z.OfficeAddressLocal, 'DesignatedOfficer' AS OfficerRole, z.ZoneId AS DisplayOrder, CAST(1 AS BIT) AS IsActive
+    FROM [RTS].[ServiceMaster] s
+    CROSS JOIN (
+        VALUES 
+        (1, N'Prabhag Samiti 1', N'प्रभाग समिती १', N'Milind Kamble', N'श्री. मिलिंद कांबळे', N'Assistant Town Planner', N'सहाय्यक नगर रचनाकार', '9822022001', 'tp.zone1@akola.gov.in', N'Prabhag Samiti Office 1, Akola', N'प्रभाग समिती कार्यालय क्र. १, अकोला'),
+        (2, N'Prabhag Samiti 2', N'प्रभाग समिती २', N'Amit Kulkarni', N'श्री. अमित कुलकर्णी', N'Assistant Town Planner', N'सहाय्यक नगर रचनाकार', '9822022002', 'tp.zone2@akola.gov.in', N'Prabhag Samiti Office 2, Akola', N'प्रभाग समिती कार्यालय क्र. २, अकोला'),
+        (3, N'Prabhag Samiti 3', N'प्रभाग समिती ३', N'Pallavi Sawant', N'सौ. पल्लवी सावंत', N'Assistant Town Planner', N'सहाय्यक नगर रचनाकार', '9822022003', 'tp.zone3@akola.gov.in', N'Prabhag Samiti Office 3, Akola', N'प्रभाग समिती कार्यालय क्र. ३, अकोला'),
+        (4, N'Prabhag Samiti 4', N'प्रभाग समिती ४', N'Vikas Thakare', N'श्री. विकास ठाकरे', N'Assistant Town Planner', N'सहाय्यक नगर रचनाकार', '9822022004', 'tp.zone4@akola.gov.in', N'Prabhag Samiti Office 4, Akola', N'प्रभाग समिती कार्यालय क्र. ४, अकोला')
+    ) AS z(ZoneId, ZoneName, ZoneNameLocal, OfficerName, OfficerNameLocal, Designation, DesignationLocal, MobileNo, Email, OfficeAddress, OfficeAddressLocal)
+    WHERE s.DepartmentId = 4
+
+    UNION ALL
+
+    -- 3. Water Supply Services (Dept 2)
+    SELECT s.Id AS ServiceId, z.ZoneId, z.ZoneName, z.ZoneNameLocal, z.OfficerName, z.OfficerNameLocal, z.Designation, z.DesignationLocal, z.MobileNo, z.Email, z.OfficeAddress, z.OfficeAddressLocal, 'DesignatedOfficer' AS OfficerRole, z.ZoneId AS DisplayOrder, CAST(1 AS BIT) AS IsActive
+    FROM [RTS].[ServiceMaster] s
+    CROSS JOIN (
+        VALUES 
+        (1, N'Prabhag Samiti 1', N'प्रभाग समिती १', N'Sanjay Rathod', N'श्री. संजय राठोड', N'Deputy Engineer', N'उप अभियंता', '9822033001', 'water.zone1@akola.gov.in', N'Prabhag Samiti Office 1, Akola', N'प्रभाग समिती कार्यालय क्र. १, अकोला'),
+        (2, N'Prabhag Samiti 2', N'प्रभाग समिती २', N'Pradeep Gaikwad', N'श्री. प्रदीप गायकवाड', N'Junior Engineer', N'कनिष्ठ अभियंता', '9822033002', 'water.zone2@akola.gov.in', N'Prabhag Samiti Office 2, Akola', N'प्रभाग समिती कार्यालय क्र. २, अकोला'),
+        (3, N'Prabhag Samiti 3', N'प्रभाग समिती ३', N'Kishor Ingle', N'श्री. किशोर इंगळे', N'Junior Engineer', N'कनिष्ठ अभियंता', '9822033003', 'water.zone3@akola.gov.in', N'Prabhag Samiti Office 3, Akola', N'प्रभाग समिती कार्यालय क्र. ३, अकोला'),
+        (4, N'Prabhag Samiti 4', N'प्रभाग समिती ४', N'Nitin Bawane', N'श्री. नितीन बावणे', N'Deputy Engineer', N'उप अभियंता', '9822033004', 'water.zone4@akola.gov.in', N'Prabhag Samiti Office 4, Akola', N'प्रभाग समिती कार्यालय क्र. ४, अकोला')
+    ) AS z(ZoneId, ZoneName, ZoneNameLocal, OfficerName, OfficerNameLocal, Designation, DesignationLocal, MobileNo, Email, OfficeAddress, OfficeAddressLocal)
+    WHERE s.DepartmentId = 2
+
+    UNION ALL
+
+    -- 4. Health & Sanitation Services (Dept 5, 11)
+    SELECT s.Id AS ServiceId, z.ZoneId, z.ZoneName, z.ZoneNameLocal, z.OfficerName, z.OfficerNameLocal, z.Designation, z.DesignationLocal, z.MobileNo, z.Email, z.OfficeAddress, z.OfficeAddressLocal, 'DesignatedOfficer' AS OfficerRole, z.ZoneId AS DisplayOrder, CAST(1 AS BIT) AS IsActive
+    FROM [RTS].[ServiceMaster] s
+    CROSS JOIN (
+        VALUES 
+        (1, N'Prabhag Samiti 1', N'प्रभाग समिती १', N'Dr. Amol Wagh', N'डॉ. अमोल वाघ', N'Medical Health Officer', N'वैद्यकीय आरोग्य अधिकारी', '9822044001', 'health.zone1@akola.gov.in', N'Prabhag Samiti Office 1, Akola', N'प्रभाग समिती कार्यालय क्र. १, अकोला'),
+        (2, N'Prabhag Samiti 2', N'प्रभाग समिती २', N'Dr. Dipali More', N'डॉ. दिपाली मोरे', N'Medical Health Officer', N'वैद्यकीय आरोग्य अधिकारी', '9822044002', 'health.zone2@akola.gov.in', N'Prabhag Samiti Office 2, Akola', N'प्रभाग समिती कार्यालय क्र. २, अकोला'),
+        (3, N'Prabhag Samiti 3', N'प्रभाग समिती ३', N'Dr. Sandeep Wankhade', N'डॉ. संदीप वानखडे', N'Medical Health Officer', N'वैद्यकीय आरोग्य अधिकारी', '9822044003', 'health.zone3@akola.gov.in', N'Prabhag Samiti Office 3, Akola', N'प्रभाग समिती कार्यालय क्र. ३, अकोला'),
+        (4, N'Prabhag Samiti 4', N'प्रभाग समिती ४', N'Dr. Surekha Chavan', N'डॉ. सुरेखा चव्हाण', N'Medical Health Officer', N'वैद्यकीय आरोग्य अधिकारी', '9822044004', 'health.zone4@akola.gov.in', N'Prabhag Samiti Office 4, Akola', N'प्रभाग समिती कार्यालय क्र. ४, अकोला')
+    ) AS z(ZoneId, ZoneName, ZoneNameLocal, OfficerName, OfficerNameLocal, Designation, DesignationLocal, MobileNo, Email, OfficeAddress, OfficeAddressLocal)
+    WHERE s.DepartmentId IN (5, 11)
+
+    UNION ALL
+
+    -- 5. Remaining Services (Trade, Education, Tree, etc.)
+    SELECT s.Id AS ServiceId, z.ZoneId, z.ZoneName, z.ZoneNameLocal, z.OfficerName, z.OfficerNameLocal, z.Designation, z.DesignationLocal, z.MobileNo, z.Email, z.OfficeAddress, z.OfficeAddressLocal, 'DesignatedOfficer' AS OfficerRole, z.ZoneId AS DisplayOrder, CAST(1 AS BIT) AS IsActive
+    FROM [RTS].[ServiceMaster] s
+    CROSS JOIN (
+        VALUES 
+        (1, N'Prabhag Samiti 1', N'प्रभाग समिती १', N'Arvind More', N'श्री. अरविंद मोरे', N'Ward Officer', N'प्रभाग अधिकारी', '9822055001', 'zone1@akola.gov.in', N'Prabhag Samiti Office 1, Akola', N'प्रभाग समिती कार्यालय क्र. १, अकोला'),
+        (2, N'Prabhag Samiti 2', N'प्रभाग समिती २', N'Kiran Salve', N'श्री. किरण साळवे', N'Ward Officer', N'प्रभाग अधिकारी', '9822055002', 'zone2@akola.gov.in', N'Prabhag Samiti Office 2, Akola', N'प्रभाग समिती कार्यालय क्र. २, अकोला'),
+        (3, N'Prabhag Samiti 3', N'प्रभाग समिती ३', N'Sunita Bhonde', N'सौ. सुनिता भोंडे', N'Ward Officer', N'प्रभाग अधिकारी', '9822055003', 'zone3@akola.gov.in', N'Prabhag Samiti Office 3, Akola', N'प्रभाग समिती कार्यालय क्र. ३, अकोला'),
+        (4, N'Prabhag Samiti 4', N'प्रभाग समिती ४', N'Deepak Waghmare', N'श्री. दिपक वाघमारे', N'Ward Officer', N'प्रभाग अधिकारी', '9822055004', 'zone4@akola.gov.in', N'Prabhag Samiti Office 4, Akola', N'प्रभाग समिती कार्यालय क्र. ४, अकोला')
+    ) AS z(ZoneId, ZoneName, ZoneNameLocal, OfficerName, OfficerNameLocal, Designation, DesignationLocal, MobileNo, Email, OfficeAddress, OfficeAddressLocal)
+    WHERE s.DepartmentId NOT IN (1, 2, 4, 5, 11)
+) AS source
+ON (target.[ServiceId] = source.[ServiceId] AND target.[ZoneId] = source.[ZoneId])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[ZoneName]           = source.[ZoneName],
+        target.[ZoneNameLocal]      = source.[ZoneNameLocal],
+        target.[OfficerName]        = source.[OfficerName],
+        target.[OfficerNameLocal]   = source.[OfficerNameLocal],
+        target.[Designation]        = source.[Designation],
+        target.[DesignationLocal]   = source.[DesignationLocal],
+        target.[MobileNo]           = source.[MobileNo],
+        target.[Email]              = source.[Email],
+        target.[OfficeAddress]      = source.[OfficeAddress],
+        target.[OfficeAddressLocal] = source.[OfficeAddressLocal],
+        target.[OfficerRole]        = source.[OfficerRole],
+        target.[DisplayOrder]       = source.[DisplayOrder],
+        target.[IsActive]           = source.[IsActive]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([ServiceId], [ZoneId], [ZoneName], [ZoneNameLocal], [OfficerName], [OfficerNameLocal], [Designation], [DesignationLocal], [MobileNo], [Email], [OfficeAddress], [OfficeAddressLocal], [OfficerRole], [DisplayOrder], [IsActive])
+    VALUES (source.[ServiceId], source.[ZoneId], source.[ZoneName], source.[ZoneNameLocal], source.[OfficerName], source.[OfficerNameLocal], source.[Designation], source.[DesignationLocal], source.[MobileNo], source.[Email], source.[OfficeAddress], source.[OfficeAddressLocal], source.[OfficerRole], source.[DisplayOrder], source.[IsActive]);
+GO
+
