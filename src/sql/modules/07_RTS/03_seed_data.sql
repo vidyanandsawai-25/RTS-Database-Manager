@@ -126,7 +126,8 @@ USING (VALUES
     (5016, 3003, 1005, N'RTS_TRACK_STATUS', N'Track Application', N'अर्जाची स्थिती ट्रॅक करा', N'Search', N'/rts/track', 1, 0, 0, 2, 1, 1002, '2026-08-26T16:07:54.230', NULL, NULL),
     (5017, 3004, 1005, N'RTS_OFFICER_DASHBOARD', N'Officer Dashboard', N'अधिकारी डॅशबोर्ड', N'LayoutDashboard', N'/rts/officer-dashboard', 1, 0, 0, 1, 1, 1002, '2026-08-26T16:07:54.230', NULL, NULL),
     (5018, 3004, 1005, N'RTS_APPEAL_DASHBOARD', N'Appeals Management', N'अपील व्यवस्थापन', N'Gavel', N'/rts/appeals', 1, 0, 0, 2, 1, 1002, '2026-08-26T16:07:54.230', NULL, NULL),
-    (5019, 2005, 1005, N'RTS_DEPARTMENTS', N'Department Master', N'विभाग व्यवस्थापन', N'Building2', N'/rts/configuration-settings/rts-departments', 1, 0, 0, 1, 1, 1002, '2026-08-26T16:07:54.230', NULL, NULL)
+    (5019, 2005, 1005, N'RTS_DEPARTMENTS', N'Department Master', N'विभाग व्यवस्थापन', N'Building2', N'/rts/configuration-settings/rts-departments', 1, 0, 0, 1, 1, 1002, '2026-08-26T16:07:54.230', NULL, NULL),
+    (5020, 2005, 1005, N'RTS_OFFICERS', N'Service Officers', N'सेवा अधिकारी वाटप', N'UserCheck', N'/rts/configuration-settings/rts-officers', 1, 1, 0, 7, 1, 1002, '2026-09-04T18:00:00.000', 1002, '2026-09-04T18:00:00.000')
 ) AS source ([Id], [ScreenGroupId], [ModuleId], [ScreenCode], [ScreenName], [ScreenNameLocal], [ScreenIcon], [RoutePath], [IsMenu], [IsAuthenticationRequired], [IsPropertyLockable], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -195,7 +196,8 @@ USING (VALUES
     (3014, 2, 4020, 1, 1, 1, 1, 0, 1, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
     (3015, 2, 4021, 1, 1, 1, 1, 0, 1, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
     (3016, 2, 4022, 1, 1, 1, 1, 0, 1, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
-    (4008, 2, 5014, 1, 1, 1, 1, 0, 1, 1002, '2026-08-26T14:56:19.960', 1002, '2026-08-26T15:31:32.030')
+    (4008, 2, 5014, 1, 1, 1, 1, 0, 1, 1002, '2026-08-26T14:56:19.960', 1002, '2026-08-26T15:31:32.030'),
+    (4009, 2, 5020, 1, 1, 1, 1, 0, 1, 1002, '2026-09-04T18:00:00.000', 1002, '2026-09-04T18:00:00.000')
 ) AS source ([Id], [UserRoleId], [ScreenId], [CanView], [CanEdit], [CanDelete], [HaveFullAccess], [HaveNoAccess], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -595,12 +597,17 @@ WHEN MATCHED THEN
         target.[CreatedDate] = source.[CreatedDate],
         target.[UpdatedBy] = source.[UpdatedBy],
         target.[UpdatedDate] = source.[UpdatedDate],
+        target.[CertificateType] = CASE 
+            WHEN source.[Id] = 162 THEN 2
+            WHEN ISNULL(source.[IsCertificateRequired], 1) = 1 THEN 1
+            ELSE 0 
+        END,
         target.[IsCertificateRequired] = ISNULL(source.[IsCertificateRequired], 1),
         target.[IsSmsEnabled] = ISNULL(source.[IsSmsEnabled], 1),
         target.[ServiceCode] = source.[ServiceCode]
 WHEN NOT MATCHED BY TARGET THEN
-    INSERT ([Id], [DepartmentId], [GovtServiceCode], [ServiceName], [ServiceNameLocal], [Description], [ServiceUrl], [ServiceIcon], [DisplayOrder], [Sla], [Fees], [FeesRequired], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [IsCertificateRequired], [IsSmsEnabled], [ServiceCode])
-    VALUES (source.[Id], source.[DepartmentId], source.[GovtServiceCode], source.[ServiceName], source.[ServiceNameLocal], source.[Description], source.[ServiceUrl], source.[ServiceIcon], source.[DisplayOrder], source.[Sla], source.[Fees], ISNULL(source.[FeesRequired], 0), ISNULL(source.[IsActive], 1), source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], ISNULL(source.[IsCertificateRequired], 1), ISNULL(source.[IsSmsEnabled], 1), source.[ServiceCode]);
+    INSERT ([Id], [DepartmentId], [GovtServiceCode], [ServiceName], [ServiceNameLocal], [Description], [ServiceUrl], [ServiceIcon], [DisplayOrder], [Sla], [Fees], [FeesRequired], [CertificateType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [IsCertificateRequired], [IsSmsEnabled], [ServiceCode])
+    VALUES (source.[Id], source.[DepartmentId], source.[GovtServiceCode], source.[ServiceName], source.[ServiceNameLocal], source.[Description], source.[ServiceUrl], source.[ServiceIcon], source.[DisplayOrder], source.[Sla], source.[Fees], ISNULL(source.[FeesRequired], 0), CASE WHEN source.[Id] = 162 THEN 2 WHEN ISNULL(source.[IsCertificateRequired], 1) = 1 THEN 1 ELSE 0 END, ISNULL(source.[IsActive], 1), source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], ISNULL(source.[IsCertificateRequired], 1), ISNULL(source.[IsSmsEnabled], 1), source.[ServiceCode]);
 GO
 
 SET IDENTITY_INSERT [RTS].[ServiceMaster] OFF;

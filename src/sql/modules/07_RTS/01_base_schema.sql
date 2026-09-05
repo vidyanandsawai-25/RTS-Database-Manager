@@ -67,6 +67,7 @@ BEGIN
         [Sla]                   NVARCHAR(50) NULL,
         [Fees]                  DECIMAL(18,2) NULL,
         [FeesRequired]          BIT NOT NULL CONSTRAINT [DF_ServiceMaster_FeesRequired] DEFAULT (0),
+        [CertificateType]       TINYINT NOT NULL CONSTRAINT [DF_ServiceMaster_CertificateType] DEFAULT (0),
         [IsCertificateRequired] BIT NOT NULL CONSTRAINT [DF_ServiceMaster_IsCertificateRequired] DEFAULT (1),
         [IsSmsEnabled]          BIT NOT NULL CONSTRAINT [DF_ServiceMaster_IsSmsEnabled] DEFAULT (1),
         [IsActive]              BIT NOT NULL CONSTRAINT [DF_ServiceMaster_IsActive] DEFAULT (1),
@@ -82,10 +83,16 @@ ELSE
 BEGIN
     IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceMaster' AND COLUMN_NAME = 'ServiceCode')
         ALTER TABLE [RTS].[ServiceMaster] ADD [ServiceCode] VARCHAR(20) NULL;
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceMaster' AND COLUMN_NAME = 'CertificateType')
+        ALTER TABLE [RTS].[ServiceMaster] ADD [CertificateType] TINYINT NOT NULL CONSTRAINT [DF_ServiceMaster_CertificateType] DEFAULT (0);
     IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceMaster' AND COLUMN_NAME = 'IsCertificateRequired')
         ALTER TABLE [RTS].[ServiceMaster] ADD [IsCertificateRequired] BIT NOT NULL CONSTRAINT [DF_ServiceMaster_IsCertificateRequired] DEFAULT (1);
     IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceMaster' AND COLUMN_NAME = 'IsSmsEnabled')
         ALTER TABLE [RTS].[ServiceMaster] ADD [IsSmsEnabled] BIT NOT NULL CONSTRAINT [DF_ServiceMaster_IsSmsEnabled] DEFAULT (1);
+    IF EXISTS (SELECT 1 FROM sys.default_constraints WHERE name = 'DF_ServiceMaster_IsManualCertificate')
+        ALTER TABLE [RTS].[ServiceMaster] DROP CONSTRAINT [DF_ServiceMaster_IsManualCertificate];
+    IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceMaster' AND COLUMN_NAME = 'IsManualCertificate')
+        ALTER TABLE [RTS].[ServiceMaster] DROP COLUMN [IsManualCertificate];
 END;
 GO
 
@@ -343,6 +350,10 @@ BEGIN
         ALTER TABLE [RTS].[ApprovalFlowStageMaster] ADD [CanIssueCertificate] BIT NOT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_CanIssueCertificate] DEFAULT (0);
     IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ApprovalFlowStageMaster' AND COLUMN_NAME = 'CanEditCertificate')
         ALTER TABLE [RTS].[ApprovalFlowStageMaster] ADD [CanEditCertificate] BIT NOT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_CanEditCertificate] DEFAULT (0);
+    IF EXISTS (SELECT 1 FROM sys.default_constraints WHERE name = 'DF_ApprovalFlowStageMaster_IsManualCertificate')
+        ALTER TABLE [RTS].[ApprovalFlowStageMaster] DROP CONSTRAINT [DF_ApprovalFlowStageMaster_IsManualCertificate];
+    IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ApprovalFlowStageMaster' AND COLUMN_NAME = 'IsManualCertificate')
+        ALTER TABLE [RTS].[ApprovalFlowStageMaster] DROP COLUMN [IsManualCertificate];
 END;
 GO
 
@@ -442,7 +453,7 @@ BEGIN
         [CertificateNo]         NVARCHAR(100) NOT NULL,
         [ApplicationId]         INT NOT NULL,
         [ServiceId]             INT NOT NULL,
-        [TemplateId]            INT NOT NULL,
+        [CertificateServiceId]  INT NULL,
         [OfficerInputsJson]     NVARCHAR(MAX) NULL,
         [MergedHtmlContent]     NVARCHAR(MAX) NOT NULL,
         [QrCodePayload]         NVARCHAR(MAX) NULL,
@@ -450,6 +461,8 @@ BEGIN
         [IssuedAt]              DATETIME NOT NULL CONSTRAINT [DF_IssuedCertificate_IssuedAt] DEFAULT (GETDATE()),
         [IsDigitallySigned]     BIT NOT NULL CONSTRAINT [DF_IssuedCertificate_IsDigitallySigned] DEFAULT (1),
         [DigitalSignatureInfo]  NVARCHAR(MAX) NULL,
+        [CertificateType]       TINYINT NOT NULL CONSTRAINT [DF_IssuedCertificate_CertificateType] DEFAULT (1),
+        [DocumentGuid]          UNIQUEIDENTIFIER NULL,
         [IsActive]              BIT NOT NULL CONSTRAINT [DF_IssuedCertificate_IsActive] DEFAULT (1),
         [CreatedBy]             INT NULL,
         [CreatedDate]           DATETIME NOT NULL CONSTRAINT [DF_IssuedCertificate_CreatedDate] DEFAULT (GETDATE()),
@@ -462,6 +475,22 @@ BEGIN
         CONSTRAINT [UQ_IssuedCertificate_CertificateGuid] UNIQUE NONCLUSTERED ([CertificateGuid] ASC),
         CONSTRAINT [UQ_IssuedCertificate_CertificateNo] UNIQUE NONCLUSTERED ([CertificateNo] ASC)
     );
+END;
+ELSE
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'IssuedCertificate' AND COLUMN_NAME = 'CertificateType')
+        ALTER TABLE [RTS].[IssuedCertificate] ADD [CertificateType] TINYINT NOT NULL CONSTRAINT [DF_IssuedCertificate_CertificateType] DEFAULT (1);
+    IF EXISTS (SELECT 1 FROM sys.default_constraints WHERE name = 'DF_IssuedCertificate_IsManualCertificate')
+        ALTER TABLE [RTS].[IssuedCertificate] DROP CONSTRAINT [DF_IssuedCertificate_IsManualCertificate];
+    IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'IssuedCertificate' AND COLUMN_NAME = 'IsManualCertificate')
+        ALTER TABLE [RTS].[IssuedCertificate] DROP COLUMN [IsManualCertificate];
+    IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'IssuedCertificate' AND COLUMN_NAME = 'CertificateServiceId' AND IS_NULLABLE = 'NO')
+        ALTER TABLE [RTS].[IssuedCertificate] ALTER COLUMN [CertificateServiceId] INT NULL;
+    IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'IssuedCertificate' AND COLUMN_NAME = 'TemplateId')
+    BEGIN
+        EXEC sp_rename '[RTS].[IssuedCertificate].[TemplateId]', 'CertificateServiceId', 'COLUMN';
+        ALTER TABLE [RTS].[IssuedCertificate] ALTER COLUMN [CertificateServiceId] INT NULL;
+    END;
 END;
 GO
 
