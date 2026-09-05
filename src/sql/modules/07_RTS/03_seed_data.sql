@@ -597,10 +597,10 @@ WHEN MATCHED THEN
         target.[CreatedDate] = source.[CreatedDate],
         target.[UpdatedBy] = source.[UpdatedBy],
         target.[UpdatedDate] = source.[UpdatedDate],
-        target.[CertificateType] = CASE 
+        target.[CertificateType] = CASE
             WHEN source.[Id] = 162 THEN 2
             WHEN ISNULL(source.[IsCertificateRequired], 1) = 1 THEN 1
-            ELSE 0 
+            ELSE 0
         END,
         target.[IsCertificateRequired] = ISNULL(source.[IsCertificateRequired], 1),
         target.[IsSmsEnabled] = ISNULL(source.[IsSmsEnabled], 1),
