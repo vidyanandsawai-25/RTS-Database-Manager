@@ -874,5 +874,3 @@ BEGIN
 END;
 
 GO
-
-GO

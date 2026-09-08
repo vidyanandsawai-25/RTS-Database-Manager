@@ -1290,8 +1290,9 @@ GO
    Each _PARTIAL / staged policy chains to its next policy via
    NextPolicyCodeId (e.g. OC_PARTIAL -> OC, SECTION_129_20 -> SECTION_129_40).
 
-   OC / CC / Electric Bill calculation rules are configured in
-   PTIS.CertificateTaxGuideline, not on this table.
+   OC / CC / Electric Bill calculation rules are configured via the
+   Retrospective Rule Engine (PTIS.RetrospectiveRuleMaster and related
+   tables), not on this table.
 ============================================================================ */
 
 CREATE TABLE [PTIS].[PolicyCodeMaster]
@@ -1366,6 +1367,16 @@ CREATE TABLE [PTIS].[PolicyCodeMaster]
 	[IsProtected] BIT NOT NULL
 		CONSTRAINT [DF_PolicyCodeMaster_IsProtected]
 		DEFAULT (0),
+
+    /*
+        1 = This policy represents retrospective demand (OC/CC/Electric Bill and their
+            PARTIAL_ variants). Read by the Retrospective Tax engine to distinguish retro
+            demand from current-year (NETTAX) and migrated-arrears (OLD_ARREARS) demand in
+            PTIS.TransMast, without repeating the classification on every TransMast row.
+    */
+    [IsRetroDemand] BIT NOT NULL
+        CONSTRAINT [DF_PolicyCodeMaster_IsRetroDemand]
+        DEFAULT (0),
 
     [IsActive] BIT NOT NULL
         CONSTRAINT [DF_PolicyCodeMaster_IsActive]
@@ -1732,7 +1743,7 @@ CREATE TABLE [PTIS].[DepreciationMaster](
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT DF_DepreciationMaster_CreatedDate DEFAULT (GETDATE()),
 	[UpdatedBy] [int] NULL,
 	[UpdatedDate] [datetime] NULL,
-	
+
  CONSTRAINT [PK_DepreciationMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
  CONSTRAINT [UQ_DepreciationMaster] UNIQUE ([ConstructionTypeId], [MinYear], [MaxYear])
 ) ON [PRIMARY]
@@ -2661,9 +2672,8 @@ CREATE TABLE [PTIS].[PropertyCertificates]
         -- NULL = property-wise certificate.
         -- NOT NULL = floor-wise certificate.
         -- Whether property-wise or floor-wise tax applies at all is
-        -- decided globally via PTIS.CertificateTaxGuideline
-        -- (FloorCertificatePriority / TaxPersistenceMode), not per
-        -- certificate record.
+        -- decided by the Retrospective Rule Engine (PTIS.RetrospectiveRuleMaster
+        -- and related tables), not per certificate record.
 
     [CertificateTypeId] INT NOT NULL,
         -- FK to certificate type.
@@ -3934,14 +3944,24 @@ CREATE TABLE  [PTIS].[RenterMast] (
     [CreatedDate] [datetime] NOT NULL CONSTRAINT DF_RenterMast_CreatedDate DEFAULT (GETDATE()),
     [UpdatedBy] [INT] NULL,
     [UpdatedDate] [DATETIME] NULL,
+    [DocumentBindingId] [int] NULL,
 	CONSTRAINT Pk_RenterMast PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY]
 
 GO
 ALTER TABLE PTIS.RenterMast  WITH CHECK ADD  CONSTRAINT [FK_RenterMast_PropertyDetails] FOREIGN KEY([PropertyDetailsId])
 REFERENCES [PTIS].[PropertyDetails] ([Id])
-GO	
+GO
 ALTER TABLE PTIS.RenterMast CHECK CONSTRAINT [FK_RenterMast_PropertyDetails]
+GO
+ALTER TABLE PTIS.RenterMast WITH CHECK ADD CONSTRAINT [FK_RenterMast_DocumentBinding] FOREIGN KEY([DocumentBindingId])
+REFERENCES [CORE].[DocumentBinding] ([Id])
+GO
+ALTER TABLE PTIS.RenterMast CHECK CONSTRAINT [FK_RenterMast_DocumentBinding]
+GO
+CREATE NONCLUSTERED INDEX [IX_RenterMast_DocumentBindingId]
+	ON [PTIS].[RenterMast]([DocumentBindingId])
+	WHERE [DocumentBindingId] IS NOT NULL
 GO
 
 
@@ -4513,6 +4533,7 @@ CREATE TABLE [PTIS].[PropertyPhoto](
     [SocietyDetailId]       INT               NULL,                          -- FK → PTIS.SocietyDetailsMast.Id, set when EntityType = 'S'
     [WingDetailId]          INT               NULL,                          -- FK → PTIS.WingDetailsMast.Id, set when EntityType = 'W'
     [PropertyId]            INT               NULL,                          -- FK → PTIS.PropertyMast.Id, set when EntityType = 'P' | e.g. 101
+    [Type]                  NVARCHAR(50)      NULL,                          -- Mirrors PTIS.PropertyMast.Type; set only on the shared PROPERTY_PLAN row for a non-Amenity apartment unit (PropertyId NULL there) so every unit of that Type in the society resolves the same plan | e.g. '2BHK'
     [PhotoTypeId]           INT               NOT NULL,                      -- FK → PropertyPhotoType.Id | e.g. 1 (FRONT)
     [DocumentBindingId]     INT               NULL,                          -- FK → CORE.DocumentBinding.Id | e.g. 7701
     [IsLatest]              BIT               NOT NULL                       -- 1=current, 0=superseded | e.g. 1
@@ -4565,6 +4586,13 @@ CREATE NONCLUSTERED INDEX [IX_PropertyPhoto_Entity_Type]
 	ON [PTIS].[PropertyPhoto]([EntityType], [SocietyDetailId], [WingDetailId], [PropertyId], [PhotoTypeId], [IsLatest])
 	INCLUDE ([DocumentBindingId], [DisplayOrder], [Remarks])
 	WHERE [IsActive] = 1 AND [MarkedForDeletion] = 0;
+GO
+
+-- Shared plan lookup: one PROPERTY_PLAN row per (SocietyDetailId, PhotoTypeId, Type) is
+-- resolved by every apartment unit of that Type in that society.
+CREATE NONCLUSTERED INDEX [IX_PropertyPhoto_Society_Type_Plan]
+	ON [PTIS].[PropertyPhoto]([SocietyDetailId], [PhotoTypeId], [Type])
+	WHERE [IsLatest] = 1 AND [IsActive] = 1 AND [MarkedForDeletion] = 0 AND [SocietyDetailId] IS NOT NULL;
 GO
 
 ALTER TABLE [PTIS].[SocialAttributeMaster] WITH CHECK ADD CONSTRAINT [FK_SocialAttributeMaster_PhotoType]
@@ -5000,92 +5028,12 @@ GO
 
 
 
-/* ============================================================================
-   Table: PTIS.CertificateTaxGuideline
-   Purpose:
-   Admin-configurable calculation rules for CC / OC / Electric Bill tax,
-   plus the related general/proration settings. Row-wise master, like
-   PTIS.TaxMaster -- every individual guideline setting is its own row
-   (GuidelineCode), not a fixed column. New guidelines can be added by
-   inserting a row; no schema change needed. GuidelineGroup clusters
-   related rows for the admin UI, DisplayOrder controls both UI order
-   and, within the DATE_PRIORITY group, certificate-date priority.
-
-   Value shape takes its overview from PTIS.PolicyConfiguration (not
-   copied wholesale -- just the single-generic-value idea): one
-   NVARCHAR GuidelineValue column holds the value as text regardless
-   of type, DataType records how to interpret it, and AllowedValues
-   documents/validates the permitted set (e.g. a comma-separated list
-   of codes) where the setting isn't free-form.
-
-   Business rules encoded via rows (see seed data):
-   - OC: DATE_PRIORITY rows + OC_PERIOD_MULTIPLIER govern the OC
-     date-based calculation path. Retrospective tax from the OC date is
-     uncapped for this ULB -- NO_DATE_LOOKBACK_YEARS applies only to
-     the NO_DATE_RULE fallback (when no certificate date exists at
-     all), not to the OC path.
-   - CC: CC_PERIOD_MULTIPLIER = 1.5 -- taxed at 1.5x the normal rate.
-   - ELECTRIC_BILL: ELECTRIC_BILL_DATE_RULE / ELECTRIC_BILL_ADD_MONTHS
-     govern which date unauthorized-property tax is backdated to. No
-     absolute floor-year row exists, so the "never before 2016" floor
-     is documented per-row in Description and enforced by application
-     logic, not by a DB constraint.
-============================================================================ */
-
-CREATE TABLE [PTIS].[CertificateTaxGuideline]
-(
-    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-
-    [GuidelineCode] VARCHAR(50) NOT NULL,
-        -- Unique key for this individual guideline/setting row.
-        -- Example: 'CC_PERIOD_MULTIPLIER', 'ELECTRIC_BILL_DATE_RULE',
-        -- 'DATE_PRIORITY_1', 'FINANCIAL_YEAR_START_MONTH'.
-
-    [GuidelineName] NVARCHAR(150) NOT NULL,
-    [Description] NVARCHAR(500) NULL,
-
-    [GuidelineGroup] VARCHAR(30) NOT NULL,
-        -- Clusters related rows for the admin UI.
-        -- Example: 'GENERAL', 'DATE_PRIORITY', 'CC', 'OC',
-        -- 'ELECTRIC_BILL', 'NO_DATE', 'PRORATION'.
-
-    [DisplayOrder] INT NOT NULL
-        CONSTRAINT [DF_CertificateTaxGuideline_DisplayOrder] DEFAULT (0),
-        -- Sort order for UI. Within GuidelineGroup = 'DATE_PRIORITY',
-        -- this is also the certificate-date priority order.
-
-    [DataType] VARCHAR(20) NOT NULL
-        CONSTRAINT [DF_CertificateTaxGuideline_DataType] DEFAULT ('VARCHAR'),
-        -- How to interpret GuidelineValue.
-
-    [GuidelineValue] NVARCHAR(500) NULL,
-        -- The setting's value, always stored as text.
-
-    [AllowedValues] NVARCHAR(500) NULL,
-        -- Comma-separated list of permitted values, where applicable.
-        -- Example: 'NO_TAX,ADD_MONTHS,FROM_FY_START,EXACT_DATE'.
-        -- NULL where the value is free-form (e.g. a multiplier).
-
-    [IsActive] BIT NOT NULL
-        CONSTRAINT [DF_CertificateTaxGuideline_IsActive] DEFAULT (1),
-
-    [CreatedBy] INT NULL,
-    [CreatedDate] DATETIME NOT NULL
-        CONSTRAINT [DF_CertificateTaxGuideline_CreatedDate] DEFAULT (GETDATE()),
-
-    [UpdatedBy] INT NULL,
-    [UpdatedDate] DATETIME NULL,
-
-    CONSTRAINT [PK_CertificateTaxGuideline]
-        PRIMARY KEY CLUSTERED ([Id] ASC),
-
-    CONSTRAINT [UQ_CertificateTaxGuideline_Code]
-        UNIQUE ([GuidelineCode]),
-
-    CONSTRAINT [CK_CertificateTaxGuideline_DataType]
-        CHECK ([DataType] IN ('BIT', 'INT', 'DECIMAL', 'VARCHAR', 'DATE'))
-);
-
+-- PTIS.PolicyCodeMaster is defined earlier in this script (before PTIS.PolicyTaxDetails,
+-- which references it via inline FK).
+--
+-- PTIS.CertificateTaxGuideline retired (replaced by PTIS.RetrospectiveRuleMaster and the
+-- Retrospective Rule Engine); table removed for fresh installs, dropped via a guarded migration
+-- in 02_core_schema.sql for already-deployed databases.
 
 GO
 CREATE TABLE [PTIS].[PropertyWorkflowStageMaster](
@@ -5353,7 +5301,8 @@ CREATE TABLE [PTIS].[RetrospectiveRuleDateCondition](
 	[ComparatorCode] [varchar](50) NOT NULL
 		CONSTRAINT [CK_RetrospectiveRuleDateCondition_ComparatorCode] CHECK ([ComparatorCode] IN (
 			'NONE', 'ELECTRICITY_BEFORE_CC', 'ELECTRICITY_AFTER_CC', 'ELECTRICITY_BEFORE_CUTOFF',
-			'ELECTRICITY_AFTER_CUTOFF', 'OC_OLDER_THAN_ALLOWED_PERIOD', 'OC_WITHIN_ALLOWED_PERIOD')),
+			'ELECTRICITY_AFTER_CUTOFF', 'OC_OLDER_THAN_ALLOWED_PERIOD', 'OC_WITHIN_ALLOWED_PERIOD',
+			'EVIDENCE_GAP_WITHIN_PERIOD')),
 	[LeftEvidenceTypeId] [int] NULL,
 	[RightEvidenceTypeId] [int] NULL,
 	[CompareOperator] [varchar](30) NULL
@@ -5362,6 +5311,8 @@ CREATE TABLE [PTIS].[RetrospectiveRuleDateCondition](
 	[CompareDate] [datetime] NULL,
 	[CompareDateTo] [datetime] NULL,
 	[CompareYears] [int] NULL,
+	[CompareGapUnit] [varchar](10) NULL
+		CONSTRAINT [CK_RetrospectiveRuleDateCondition_CompareGapUnit] CHECK ([CompareGapUnit] IN ('DAYS', 'MONTHS', 'YEARS')),
 	[IsActive] [bit] NOT NULL CONSTRAINT [DF_RetrospectiveRuleDateCondition_IsActive] DEFAULT (1),
 	[CreatedBy] [int] NULL,
 	[CreatedDate] [datetime] NOT NULL CONSTRAINT [DF_RetrospectiveRuleDateCondition_CreatedDate] DEFAULT (GETDATE()),
@@ -5408,7 +5359,7 @@ CREATE TABLE [PTIS].[RetrospectiveRuleAction](
 	[MaximumYears] [int] NULL,
 	[CutoffDate] [datetime] NULL,
 	[TaxCalculationMode] [varchar](30) NOT NULL CONSTRAINT [DF_RetrospectiveRuleAction_TaxCalculationMode] DEFAULT ('SINGLE')
-		CONSTRAINT [CK_RetrospectiveRuleAction_TaxCalculationMode] CHECK ([TaxCalculationMode] IN ('SINGLE', 'SPLIT')),
+		CONSTRAINT [CK_RetrospectiveRuleAction_TaxCalculationMode] CHECK ([TaxCalculationMode] IN ('SINGLE', 'SPLIT', 'CC_THEN_OC_MERGE')),
 	[TaxMultiplier] [decimal](10,2) NOT NULL CONSTRAINT [DF_RetrospectiveRuleAction_TaxMultiplier] DEFAULT (1.00),
 	[SplitStartEvidenceTypeId] [int] NULL,
 	[SplitEndEvidenceTypeId] [int] NULL,
