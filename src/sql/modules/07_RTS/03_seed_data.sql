@@ -191,7 +191,7 @@ SET IDENTITY_INSERT [CORE].[UserMaster] ON;
 GO
 MERGE INTO [CORE].[UserMaster] AS target
 USING (VALUES
-    (1, N'Clerk', N'Hrishikesh', NULL, N'Patekar', N'CK', N'Pune', N'7058601590', N'8625085936', N'HrishikeshPatekar@gmail.com', 0, N'en', 1, N'Test', NULL, 0, '2026-09-09T18:19:28.180', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', 1, '2026-08-11T20:02:48.860', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (1, N'Clerk', N'Hrishikesh', NULL, N'Patekar', N'CK', N'Pune', N'7058601590', N'8625085936', N'HrishikeshPatekar@gmail.com', 0, N'en', 1, N'Test', NULL, 0, '2026-09-09T19:04:07.187', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', 1, '2026-08-11T20:02:48.860', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
     (2, N'HeadOfficer', N'Aditya', NULL, N'Fatke', N'HO', N'Pune', N'9876543210', NULL, N'Aditya55@gmail.com', 0, N'en', 1, N'Head Officer', NULL, 0, '2026-09-09T18:08:27.857', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:23:16.203', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
     (3, N'SeniorOfficer', N'Vidyanad', NULL, N'Sawai', N'SO', N'Amravati', N'9876543211', NULL, N'VidyanadSawai2508@gmail.com', 0, N'en', 1, N'Senior Officer', NULL, 1, '2026-09-09T16:19:45.040', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:22:23.800', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
     (1002, N'ADMIN', N'ADMIN', N'ADMIN', N'ADMIN', N'PB', N'Amravati', N'7058601590', N'8625085936', N'ashwineshmukh62@gmail.com', 0, N'en', 1, N'Test', NULL, 1, '2026-09-05T13:55:08.093', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:24:08.297', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
@@ -6452,7 +6452,7 @@ SET IDENTITY_INSERT [RTS].[PaymentGatewayConfig] OFF;
 GO
 
 /* ----------------------------------------------------------------------------
-   Table: [RTS].[ServiceOfficerAllocation] (239 rows)
+   Table: [RTS].[ServiceOfficerAllocation] (233 rows)
    ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [RTS].[ServiceOfficerAllocation] ON;
 GO
@@ -6499,14 +6499,14 @@ USING (VALUES
     (1408, 47, 3, N'Zone C', N'Dummy Officer 4-3', N'Department Officer', N'900000043', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'डमी अधिकारी', N'विभाग अधिकारी', N''),
     (1409, 47, 4, N'Zone D', N'Dummy Officer 4-4', N'Department Officer', N'900000044', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'डमी अधिकारी', N'विभाग अधिकारी', N''),
     (1410, 48, 1, N'Zone A', N'chetan Shankarpure', N'Junior Engineer', N'900000121', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'चेतन शंकरपुरे', N'कनिष्ठ अभियंता', N''),
-    (1414, 49, 1, N'Zone A', N'Satish Rathod', N'Junior Engineer', N'900000121', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'डमी अधिकारी', N'?????? ???????', N''),
-    (1415, 49, 2, N'Zone B', N'Manish Khatri', N'Junior Engineer', N'900000122', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'डमी अधिकारी', N'?????? ???????', N''),
-    (1416, 49, 3, N'Zone C', N'Swapnil Lahange', N'Junior Engineer', N'900000123', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'डमी अधिकारी', N'?????? ???????', N''),
-    (1417, 49, 4, N'Zone D', N'Hrishikesh Thakare', N'Junior Engineer', N'900000124', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'ऋषिकेश ठाकरे', N'?????? ???????', N''),
-    (1418, 50, 1, N'Zone A', N'Satish Rathod', N'Junior Engineer', N'900000121', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'डमी अधिकारी', N'?????? ???????', N''),
-    (1419, 50, 2, N'Zone B', N'Manish Khatri', N'Junior Engineer', N'900000122', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'डमी अधिकारी', N'?????? ???????', N''),
-    (1420, 50, 3, N'Zone C', N'Swapnil Lahange', N'Junior Engineer', N'900000123', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'डमी अधिकारी', N'?????? ???????', N''),
-    (1421, 50, 4, N'Zone D', N'Hrishikesh Thakare', N'Junior Engineer', N'900000124', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'ऋषिकेश ठाकरे', N'?????? ???????', N''),
+    (1414, 49, 1, N'Zone A', N'Satish Rathod', N'Junior Engineer', N'7350577080', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'सतिश राठोड', N'?????? ???????', N''),
+    (1415, 49, 2, N'Zone B', N'Manish Khatri', N'Junior Engineer', N'7588757988', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'मनिष खत्री', N'?????? ???????', N''),
+    (1416, 49, 3, N'Zone C', N'Swapnil Lahange', N'Junior Engineer', N'8329158110', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'स्वप्निल लहांगे', N'?????? ???????', N''),
+    (1417, 49, 4, N'Zone D', N'Hrishikesh Thakare', N'Junior Engineer', N'7588759824', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'ऋषिकेश ठाकरे', N'?????? ???????', N''),
+    (1418, 50, 1, N'Zone A', N'Satish Rathod', N'Junior Engineer', N'7350577080', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'सतिश राठोड', N'?????? ???????', N''),
+    (1419, 50, 2, N'Zone B', N'Manish Khatri', N'Junior Engineer', N'7588757988', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'मनिष खत्री', N'?????? ???????', N''),
+    (1420, 50, 3, N'Zone C', N'Swapnil Lahange', N'Junior Engineer', N'8329158110', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'स्वप्निल लहांगे', N'?????? ???????', N''),
+    (1421, 50, 4, N'Zone D', N'Hrishikesh Thakare', N'Junior Engineer', N'7588759824', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'ऋषिकेश ठाकरे', N'?????? ???????', N''),
     (1422, 53, 1, N'Zone A', N'Kailash Thakur', N'Clerk', N'7709409303', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'कैलाश ठाकुर', N'लिपिक', N''),
     (1426, 54, 1, N'Zone A', N'Akansha S. Hiwale', N'Clerk', N'9975130814', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'आकांशा हिवाळे', N'लिपिक', N''),
     (1430, 55, 1, N'Zone A', N'Dummy Officer 6-1', N'Department Officer', N'900000061', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'डमी अधिकारी', N'विभाग अधिकारी', N''),
@@ -6541,14 +6541,11 @@ USING (VALUES
     (1468, 64, 3, N'Zone C', N'Dummy Officer 8-3', N'Department Officer', N'900000083', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'डमी अधिकारी', N'विभाग अधिकारी', N''),
     (1469, 64, 4, N'Zone D', N'Dummy Officer 8-4', N'Department Officer', N'900000084', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'डमी अधिकारी', N'विभाग अधिकारी', N''),
     (1470, 65, 1, N'Zone A', N'Lata P. Ghime', N'Clerk', N'8080685518', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'लता घिमे', N'लिपिक', N''),
-    (1474, 66, 1, N'Zone A', N'Dummy Officer 10-1', N'Department Officer', N'900000101', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'डमी अधिकारी', N'विभाग अधिकारी', N''),
-    (1475, 66, 2, N'Zone B', N'Dummy Officer 10-2', N'Department Officer', N'900000102', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'डमी अधिकारी', N'विभाग अधिकारी', N''),
-    (1476, 66, 3, N'Zone C', N'Dummy Officer 10-3', N'Department Officer', N'900000103', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'डमी अधिकारी', N'विभाग अधिकारी', N''),
-    (1477, 66, 4, N'Zone D', N'Dummy Officer 10-4', N'Department Officer', N'900000104', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'डमी अधिकारी', N'विभाग अधिकारी', N''),
-    (1478, 68, 1, N'Zone A', N'Dummy Officer 11-1', N'Department Officer', N'900000111', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'डमी अधिकारी', N'विभाग अधिकारी', N''),
-    (1479, 68, 2, N'Zone B', N'Dummy Officer 11-2', N'Department Officer', N'900000112', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'डमी अधिकारी', N'विभाग अधिकारी', N''),
-    (1480, 68, 3, N'Zone C', N'Dummy Officer 11-3', N'Department Officer', N'900000113', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'डमी अधिकारी', N'विभाग अधिकारी', N''),
-    (1481, 68, 4, N'Zone D', N'Dummy Officer 11-4', N'Department Officer', N'900000114', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'डमी अधिकारी', N'विभाग अधिकारी', N''),
+    (1474, 66, 1, N'Zone A', N'Sonali Surwade', N'Clerk', N'9766859941', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'सोनाली सुरवाडे', N'लिपिक', N''),
+    (1475, 66, 2, N'Zone B', N'Jayant Sule', N'Clerk', N'7887309831', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'जयंत सुळे', N'लिपिक', N''),
+    (1476, 66, 3, N'Zone C', N'Hemant Shelwane', N'Clerk', N'9763861654', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'हेमंत शेलवणे', N'लिपिक', N''),
+    (1477, 66, 4, N'Zone D', N'Kamalkishor Yadav', N'Clerk', N'9763861654', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'कमलकिशोर यादव', N'लिपिक', N''),
+    (1478, 68, 1, N'Zone A', N'Prashant Rajurkar', N'Head of Department', N'8329184285', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'प्रशांत राजुरकर', N'विभाग प्रमुख', N''),
     (1482, 69, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
     (1483, 69, 2, N'Zone B', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अभिषेक गाई', N'अधिकारी', N''),
     (1484, 69, 3, N'Zone C', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'अभिषेक गाई', N'अधिकारी', N''),
@@ -6557,7 +6554,10 @@ USING (VALUES
     (1487, 80, 2, N'Zone B', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अभिषेक गाई', N'अधिकारी', N''),
     (1488, 80, 3, N'Zone C', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'अभिषेक गाई', N'अधिकारी', N''),
     (1489, 80, 4, N'Zone D', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1490, 81, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N'')
+    (1490, 81, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
+    (1491, 81, 2, N'Zone B', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अभिषेक गाई', N'अधिकारी', N''),
+    (1492, 81, 3, N'Zone C', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'अभिषेक गाई', N'अधिकारी', N''),
+    (1493, 81, 4, N'Zone D', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'अभिषेक गाई', N'अधिकारी', N'')
 ) AS source ([Id], [ServiceId], [ZoneId], [ZoneName], [OfficerName], [Designation], [MobileNo], [Email], [OfficeAddress], [OfficerRole], [DisplayOrder], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [ZoneNameLocal], [OfficerNameLocal], [DesignationLocal], [OfficeAddressLocal])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -6588,9 +6588,6 @@ GO
 
 MERGE INTO [RTS].[ServiceOfficerAllocation] AS target
 USING (VALUES
-    (1491, 81, 2, N'Zone B', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1492, 81, 3, N'Zone C', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1493, 81, 4, N'Zone D', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'अभिषेक गाई', N'अधिकारी', N''),
     (1494, 82, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
     (1495, 82, 2, N'Zone B', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अभिषेक गाई', N'अधिकारी', N''),
     (1496, 82, 3, N'Zone C', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'अभिषेक गाई', N'अधिकारी', N''),
@@ -6687,7 +6684,10 @@ USING (VALUES
     (1587, 152, 2, N'Zone B', N'Ajay Shirsat', N'In-charge Assistant Tax Superintendent', N'8888738991', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अजय शिरसाट', N'प्र. सहा. कर अधीक्षक', N''),
     (1588, 152, 3, N'Zone C', N'Pankaj Joglekar', N'Assistant Tax Superintendent', N'7709043399', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'पंकज जोगळेकर', N'सहा. कर अधीक्षक', N''),
     (1589, 152, 4, N'Zone D', N'Prashant Bole', N'Assistant Tax Superintendent', N'9011432125', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'प्रशांत बोळे', N'सहा. कर अधीक्षक', N''),
-    (1590, 153, 1, N'Zone A', N'Sudhir Misurkar', N'Assistant Tax Superintendent', N'9850318838', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'सुधीर मिसुरकर', N'सहा. कर अधीक्षक', N'')
+    (1590, 153, 1, N'Zone A', N'Sudhir Misurkar', N'Assistant Tax Superintendent', N'9850318838', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'सुधीर मिसुरकर', N'सहा. कर अधीक्षक', N''),
+    (1591, 153, 2, N'Zone B', N'Ajay Shirsat', N'In-charge Assistant Tax Superintendent', N'8888738991', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अजय शिरसाट', N'प्र. सहा. कर अधीक्षक', N''),
+    (1592, 153, 3, N'Zone C', N'Pankaj Joglekar', N'Assistant Tax Superintendent', N'7709043399', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'पंकज जोगळेकर', N'सहा. कर अधीक्षक', N''),
+    (1593, 153, 4, N'Zone D', N'Prashant Bole', N'Assistant Tax Superintendent', N'9011432125', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'प्रशांत बोळे', N'सहा. कर अधीक्षक', N'')
 ) AS source ([Id], [ServiceId], [ZoneId], [ZoneName], [OfficerName], [Designation], [MobileNo], [Email], [OfficeAddress], [OfficerRole], [DisplayOrder], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [ZoneNameLocal], [OfficerNameLocal], [DesignationLocal], [OfficeAddressLocal])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -6718,9 +6718,6 @@ GO
 
 MERGE INTO [RTS].[ServiceOfficerAllocation] AS target
 USING (VALUES
-    (1591, 153, 2, N'Zone B', N'Ajay Shirsat', N'In-charge Assistant Tax Superintendent', N'8888738991', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अजय शिरसाट', N'प्र. सहा. कर अधीक्षक', N''),
-    (1592, 153, 3, N'Zone C', N'Pankaj Joglekar', N'Assistant Tax Superintendent', N'7709043399', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'पंकज जोगळेकर', N'सहा. कर अधीक्षक', N''),
-    (1593, 153, 4, N'Zone D', N'Prashant Bole', N'Assistant Tax Superintendent', N'9011432125', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'प्रशांत बोळे', N'सहा. कर अधीक्षक', N''),
     (1594, 154, 1, N'Zone A', N'Sudhir Misurkar', N'Assistant Tax Superintendent', N'9850318838', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'सुधीर मिसुरकर', N'सहा. कर अधीक्षक', N''),
     (1595, 154, 2, N'Zone B', N'Ajay Shirsat', N'In-charge Assistant Tax Superintendent', N'8888738991', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अजय शिरसाट', N'प्र. सहा. कर अधीक्षक', N''),
     (1596, 154, 3, N'Zone C', N'Pankaj Joglekar', N'Assistant Tax Superintendent', N'7709043399', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'पंकज जोगळेकर', N'सहा. कर अधीक्षक', N''),
@@ -6753,10 +6750,7 @@ USING (VALUES
     (1623, 161, 2, N'Zone B', N'Gaurav Shrivas', N'Officer', N'8149260111', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'गौरव श्रीवास', N'अधिकारी', N''),
     (1624, 161, 3, N'Zone C', N'Surendra Jadhav', N'Officer', N'7218743145', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'सुरेंद्र जाधव', N'अधिकारी', N''),
     (1625, 161, 4, N'Zone D', N'Surendra Jadhav', N'Officer', N'7218743145', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'सुरेंद्र जाधव', N'अधिकारी', N''),
-    (1626, 162, 1, N'Zone A', N'Dummy Officer 13-1', N'Department Officer', N'900000131', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'डमी अधिकारी', N'विभाग अधिकारी', N''),
-    (1627, 162, 2, N'Zone B', N'Dummy Officer 13-2', N'Department Officer', N'900000132', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'डमी अधिकारी', N'विभाग अधिकारी', N''),
-    (1628, 162, 3, N'Zone C', N'Dummy Officer 13-3', N'Department Officer', N'900000133', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'डमी अधिकारी', N'विभाग अधिकारी', N''),
-    (1629, 162, 4, N'Zone D', N'Dummy Officer 13-4', N'Department Officer', N'900000134', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'डमी अधिकारी', N'विभाग अधिकारी', N'')
+    (1626, 162, 1, N'Zone A', N'Dummy Officer 13-1', N'Department Officer', N'9421894208', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'डमी अधिकारी', N'विभाग अधिकारी', N'')
 ) AS source ([Id], [ServiceId], [ZoneId], [ZoneName], [OfficerName], [Designation], [MobileNo], [Email], [OfficeAddress], [OfficerRole], [DisplayOrder], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [ZoneNameLocal], [OfficerNameLocal], [DesignationLocal], [OfficeAddressLocal])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN

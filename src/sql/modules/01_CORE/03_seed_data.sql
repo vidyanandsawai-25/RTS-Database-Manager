@@ -1,920 +1,859 @@
-﻿
-SET IDENTITY_INSERT [CORE].[DepartmentMaster] ON;
+﻿SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 
-INSERT INTO [CORE].[DepartmentMaster]
-(
-    [Id],[DepartmentCode],[DepartmentName],
-    [DepartmentNameLocal],[DepartmentIcon],
-    [DepartmentDescription],[IsProtected],[IsActive],
-    [CreatedBy],[CreatedDate],[UpdatedBy],[UpdatedDate]
-)
-SELECT *
-FROM
-(
-    VALUES
-    (1,'PTIS','Property Tax','string','string','string',1,1,0,GETDATE(),NULL,NULL),
-    (2,'TL','Trade License','string','string','string',1,1,0,GETDATE(),NULL,NULL),
-    (3,'AM','Asset Management','string','string','string',1,1,0,GETDATE(),NULL,NULL),
-    (4,'WT','Water Tax','string','string','string',1,1,0,GETDATE(),NULL,NULL)
-) S
-(
-    Id,DepartmentCode,DepartmentName,
-    DepartmentNameLocal,DepartmentIcon,
-    DepartmentDescription,IsProtected,IsActive,
-    CreatedBy,CreatedDate,UpdatedBy,UpdatedDate
-)
-WHERE NOT EXISTS
-(
-    SELECT 1
-    FROM [CORE].[DepartmentMaster] D
-    WHERE D.Id = S.Id
-       OR D.DepartmentCode = S.DepartmentCode
-);
+/* ============================================================================
+   CORE Platform Master Seed Data - 100% Live Reference Master Seed
+   Source: 192.168.1.21:RTS (Extracted strictly read-only)
+   Guaranteed 100% Idempotent, Full Unicode Devanagari/Marathi Preserved
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[DepartmentMaster] (5 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[DepartmentMaster] ON;
+GO
+MERGE INTO [CORE].[DepartmentMaster] AS target
+USING (VALUES
+    (1, N'PTIS', N'Property Tax', N'string', N'string', N'string', 1, 0, '2026-07-15T16:26:53.477', NULL, NULL),
+    (2, N'TL', N'Trade License', N'string', N'string', N'string', 1, 0, '2026-07-15T16:26:53.477', NULL, NULL),
+    (3, N'AM', N'Asset Management', N'string', N'string', N'string', 1, 0, '2026-07-15T16:26:53.477', NULL, NULL),
+    (4, N'WT', N'Water Tax', N'string', N'string', N'string', 1, 0, '2026-07-15T16:26:53.477', NULL, NULL),
+    (5, N'RTS', N'RTS Department', N'लोकसेवा हक्क', N'Landmark', N'Maharashtra Right to Public Services', 1, 1, '2026-07-17T12:47:46.777', 1002, '2026-08-28T13:47:16.937')
+) AS source ([Id], [DepartmentCode], [DepartmentName], [DepartmentNameLocal], [DepartmentIcon], [DepartmentDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[DepartmentCode] = source.[DepartmentCode],
+        target.[DepartmentName] = source.[DepartmentName],
+        target.[DepartmentNameLocal] = source.[DepartmentNameLocal],
+        target.[DepartmentIcon] = source.[DepartmentIcon],
+        target.[DepartmentDescription] = source.[DepartmentDescription],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [DepartmentCode], [DepartmentName], [DepartmentNameLocal], [DepartmentIcon], [DepartmentDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[DepartmentCode], source.[DepartmentName], source.[DepartmentNameLocal], source.[DepartmentIcon], source.[DepartmentDescription], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
 
 SET IDENTITY_INSERT [CORE].[DepartmentMaster] OFF;
+GO
 
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[ModuleMaster] (4 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[ModuleMaster] ON;
+GO
+MERGE INTO [CORE].[ModuleMaster] AS target
+USING (VALUES
+    (1, 1, N'PTIS_M', N'Property Tax', N'Property Tax', N'home', N'PTIS', N'Property Tax Module', 1, 1, '2026-07-15T16:26:53.537', NULL, NULL),
+    (1001, 2, N'TL_M', N'Trade License', N'Trade License', N'home', N'TL', N'Trade License Module', 1, 1, '2026-07-15T16:26:53.537', NULL, NULL),
+    (1004, 3, N'AM_M', N'Asset Management', N'Asset Management', N'home', N'AM', N'Asset Management Module', 1, 1, '2026-07-15T16:26:53.537', NULL, NULL),
+    (1005, 5, N'RTS_M', N'Right to Service', N'लोकसेवा हक्क', N'Landmark', N'RTS', N'Right to Service administration module', 1, 1, '2026-07-17T12:47:46.783', 1002, '2026-08-28T13:47:16.953')
+) AS source ([Id], [DepartmentId], [ModuleCode], [ModuleName], [ModuleNameLocal], [ModuleIcon], [ModuleLabel], [ModuleDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[DepartmentId] = source.[DepartmentId],
+        target.[ModuleCode] = source.[ModuleCode],
+        target.[ModuleName] = source.[ModuleName],
+        target.[ModuleNameLocal] = source.[ModuleNameLocal],
+        target.[ModuleIcon] = source.[ModuleIcon],
+        target.[ModuleLabel] = source.[ModuleLabel],
+        target.[ModuleDescription] = source.[ModuleDescription],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [DepartmentId], [ModuleCode], [ModuleName], [ModuleNameLocal], [ModuleIcon], [ModuleLabel], [ModuleDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[DepartmentId], source.[ModuleCode], source.[ModuleName], source.[ModuleNameLocal], source.[ModuleIcon], source.[ModuleLabel], source.[ModuleDescription], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
 
-IF NOT EXISTS
-(
-    SELECT 1
-    FROM CORE.EmployeeTypeMaster
-    WHERE EmployeeType = 'Office'
-)
-BEGIN
-    INSERT INTO CORE.EmployeeTypeMaster
-    (
-        EmployeeType,
-        IsActive,
-        CreatedBy,
-        CreatedDate
-    )
-    VALUES
-    (
-        'Office',
-        1,
-        1,
-        GETDATE()
-    );
-END
+SET IDENTITY_INSERT [CORE].[ModuleMaster] OFF;
+GO
 
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[ScreenGroupMaster] (13 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[ScreenGroupMaster] ON;
+GO
+MERGE INTO [CORE].[ScreenGroupMaster] AS target
+USING (VALUES
+    (1, N'Masters', N'Masters', N'Masters', N'one', 1, 0, NULL, '2026-01-09T11:06:52.080', NULL, '2026-05-07T16:26:08.887'),
+    (2, N'Configuration Setting', N'Configuration Setting', NULL, N'FolderTree', 1, 0, NULL, '2026-03-25T12:38:09.827', NULL, '2026-04-06T14:37:29.003'),
+    (3, N'GRP_DASHBOARD', N'Dashboard', N'GRP', N'dashboard', 1, 1, 1, '2026-05-05T19:50:22.753', NULL, NULL),
+    (1003, N'SG004_A', N'????????? ??????????', N'वापरकर्ता व्यवस्थापन', N'user-icon', 5, 1, 1, '2026-05-06T15:43:16.677', 1, '2026-05-07T18:51:57.687'),
+    (1004, N'SG004_B', N'User Management', N'User_M', N'user-icon', 4, 1, 1, '2026-05-06T16:07:02.837', NULL, NULL),
+    (1005, N'SG004_C', N'User Management', N'User_M', N'user-icon', 4, 1, 1, '2026-05-06T16:10:02.513', NULL, NULL),
+    (1006, N'SG005', N'Reports', N'अहवाल', N'report-icon', 5, 0, 1, '2026-05-06T17:40:53.643', NULL, '2026-05-07T16:54:29.060'),
+    (2003, N'RTS_DASHBOARD', N'RTS Dashboard', N'आरटीएस डॅशबोर्ड', N'LayoutDashboard', 70, 1, 1, '2026-07-27T17:15:41.550', 1002, '2026-08-26T15:31:32.030'),
+    (2004, N'RTS_OPERATIONS', N'RTS Operations', N'आरटीएस कामकाज', N'Files', 71, 1, 1, '2026-07-27T17:15:41.550', 1002, '2026-08-26T15:31:32.030'),
+    (2005, N'RTS_CONFIGURATION', N'System Configuration', N'प्रणाली संरचना', N'Settings', 3, 1, 1, '2026-07-27T17:15:41.550', 1002, '2026-08-28T13:47:16.957'),
+    (3003, N'RTS_CITIZEN', N'Citizen Services', N'नागरिक सेवा', N'Users', 1, 1, 1002, '2026-08-26T16:07:54.227', 1002, '2026-08-28T13:47:16.957'),
+    (3004, N'RTS_OFFICER', N'Officer Workplace', N'अधिकारी कार्यस्थळ', N'Briefcase', 2, 1, 1002, '2026-08-26T16:07:54.227', 1002, '2026-08-28T13:47:16.957'),
+    (3005, N'RTS_REPORTS', N'Reports & Analytics', N'अहवाल व विश्लेषण', N'BarChart3', 4, 1, 1002, '2026-08-26T16:07:54.227', 1002, '2026-08-28T13:47:16.957')
+) AS source ([Id], [ScreenGroupCode], [ScreenGroupName], [ScreenGroupNameLocal], [ScreenGroupIcon], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[ScreenGroupCode] = source.[ScreenGroupCode],
+        target.[ScreenGroupName] = source.[ScreenGroupName],
+        target.[ScreenGroupNameLocal] = source.[ScreenGroupNameLocal],
+        target.[ScreenGroupIcon] = source.[ScreenGroupIcon],
+        target.[DisplayOrder] = source.[DisplayOrder],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [ScreenGroupCode], [ScreenGroupName], [ScreenGroupNameLocal], [ScreenGroupIcon], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[ScreenGroupCode], source.[ScreenGroupName], source.[ScreenGroupNameLocal], source.[ScreenGroupIcon], source.[DisplayOrder], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
 
-/* =========================================
-   UserRoleMaster
- =======================================*/
-IF NOT EXISTS
-(
-    SELECT 1
-    FROM CORE.UserRoleMaster
-    WHERE UserRoleName = 'Admin'
-)
-BEGIN
-    INSERT INTO CORE.UserRoleMaster
-    (
-        UserRoleName,
-        DepartmentId,
-        IsActive,
-        CreatedBy,
-        CreatedDate
-    )
-    VALUES
-    (
-        'Admin',
-        1,
-        1,
-        1,
-        GETDATE()
-    );
-END
+SET IDENTITY_INSERT [CORE].[ScreenGroupMaster] OFF;
+GO
 
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[ScreenMaster] (45 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[ScreenMaster] ON;
+GO
+MERGE INTO [CORE].[ScreenMaster] AS target
+USING (VALUES
+    (1, 1, 1, N'M', N'Data Analytics', N'Data Analytics', N'', N'proprtytax/departmentmaster', 1, 0, 0, 1, 1, NULL, '2026-01-09T11:08:13.743', NULL, '2026-04-06T15:24:22.910', 1),
+    (2, 2, 1, N'BM', N'Search Property', N'Search Property', NULL, N'/bank-master', 1, 0, 0, 2, 1, NULL, '2026-03-25T12:38:22.990', NULL, NULL, 1),
+    (3, 2, 1, N'SM', N'PTIS', N'PTIS', NULL, N'/screen-access', 1, 1, 0, 3, 1, NULL, '2026-03-25T12:38:22.990', NULL, NULL, 1),
+    (4, 2, 1, N'OM', N'Report Engine', N'Report Engine', NULL, N'/office-master', 1, 1, 0, 4, 1, NULL, '2026-03-25T12:38:22.990', NULL, NULL, 1),
+    (5, 2, 1, N'UC', N'GIS', N'GIS', NULL, N'/ulb-configuration', 1, 1, 0, 5, 1, NULL, '2026-03-25T12:38:22.990', NULL, NULL, 1),
+    (6, 2, 1, N'FY', N'Master', N'Master', NULL, N'/financial-year-master', 1, 1, 0, 6, 1, NULL, '2026-03-25T12:38:22.990', NULL, NULL, 1),
+    (7, 2, 1, N'PM', N'User Management', N'User Management', NULL, N'/payment-mode-master', 1, 1, 0, 7, 1, NULL, '2026-03-25T12:38:22.990', NULL, NULL, 1),
+    (8, 1, 1, N'TEST', N'test', N'test', N'Monitor', N'/test', 1, 1, 0, 8, 1, NULL, '2026-04-06T14:38:12.743', 2, '2026-05-05T19:33:13.623', 1),
+    (1008, 2, 1001, N'SRC101', N'Screen Name 101', N'Screen Name 101', N'Monitor', N'/scr-101', 1, 1, 0, 9, 1, NULL, '2026-04-09T16:03:50.443', NULL, NULL, 1),
+    (1009, 1, 1, N'TEST1', N'test1', N'test1', N'Monitor', N'/tst1', 1, 1, 0, 10, 1, NULL, '2026-04-09T19:03:11.097', NULL, NULL, 1),
+    (1010, 2, 1004, N'SRC103', N'Screen Name 103', N'Screen Name 103', N'Monitor', N'/scr-103', 1, 1, 0, 11, 1, NULL, '2026-04-09T16:03:50.443', NULL, NULL, 1),
+    (1011, 1, 1, N'CT_01', N'Construction Type', N'बांधकाम प्रकार', NULL, N'/construction-type', 1, 1, 0, 1, 1, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
+    (1012, 1, 1, N'FM_01', N'Floor Master', N'मजला मास्टर', NULL, N'/floor-master/floor', 1, 1, 0, 2, 1, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
+    (1013, 1, 1, N'DM_01', N'Depreciation Master', N'घसारा मास्टर', NULL, N'/depreciationmaster', 1, 1, 0, 3, 0, NULL, '2026-04-28T15:46:49.360', NULL, '2026-05-08T16:24:38.507', 1),
+    (1014, 1, 1, N'TU_01', N'Type of Use Master', N'वापर प्रकार मास्टर', NULL, N'/typeofusemaster', 1, 1, 0, 4, 1, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
+    (1015, 1, 1, N'TZ_01', N'Tax Zone', N'कर क्षेत्र', NULL, N'/taxzone', 1, 1, 0, 5, 1, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
+    (1016, 1, 1, N'RS_01', N'Rate Section Master', N'दर विभाग मास्टर', NULL, N'/rate-section-master', 1, 1, 0, 6, 1, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
+    (1017, 1, 1, N'ZM_01_A', N'Zone Master', N'झोन मास्टर', NULL, N'/zone-master', 1, 1, 0, 7, 1, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
+    (1018, 1, 1, N'RM_01', N'Rate Master (RV)', N'दर मास्टर (RV)', NULL, N'/rate-master/rvratemaster', 1, 1, 0, 8, 1, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
+    (1019, 1, 1, N'RP_01', N'Retention Policy (Year)', N'रिटेन्शन पॉलिसी (वर्ष)', NULL, N'/retentionpolicy/yearwise', 1, 1, 0, 9, 1, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
+    (1020, 1, 1, N'RP_02', N'Retention Policy (Factor)', N'रिटेन्शन पॉलिसी (फॅक्टर)', NULL, N'/retentionpolicy/factorwise', 1, 1, 0, 10, 1, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
+    (1021, 1, 1, N'WM_01', N'Weightage Master', N'वेटेज मास्टर', NULL, N'/weightage-master', 1, 1, 0, 11, 1, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
+    (1022, 1, 1, N'TN_01', N'Tax Zoning', N'कर झोनिंग', NULL, N'/taxzoning', 1, 1, 0, 12, 1, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
+    (1023, 1, 1, N'AY_01', N'Assessment Year Range', N'मूल्यांकन वर्ष श्रेणी', NULL, N'/assessment-year-range/capitalvalue', 1, 1, 0, 13, 1, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
+    (1024, 1, 1, N'MJ_01', N'Mouja Master', N'मौजा मास्टर', NULL, N'/moujamaster', 1, 1, 0, 14, 1, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
+    (1025, 1, 1, N'PY_01', N'Property Type', N'मालमत्ता प्रकार', NULL, N'/propertytype', 1, 1, 0, 15, 1, NULL, '2026-04-28T15:46:49.360', NULL, NULL, 1),
+    (2011, 1, 1, N'ZM_01_B', N'Zone Master', N'झोन मास्टर', NULL, N'/zone-master', 1, 1, 0, 7, 1, 1, '2026-05-05T16:10:46.620', NULL, NULL, 1),
+    (2012, 2, 1, N'T1', N'TestTest', N'TestTest', N'Monitor', N'/testtest', 0, 1, 0, 0, 1, 2, '2026-05-05T19:26:47.937', NULL, NULL, 1),
+    (3011, 1, 1, N'SCR_DASHBOARD', N'Dashboard', N'मुख्यपृष्ठ', N'dashboard-icon', N'/dashboard', 1, 1, 0, 1, 1, 1, '2026-05-08T11:22:48.963', NULL, NULL, 1),
+    (3012, 2, 1, N'AMC_A', N'???????????? ????????', N'म.न.पा. मुख्यपृष्ठ', N'AMC-icon', N'/amc', 1, 1, 0, 1, 1, 1, '2026-05-08T12:57:11.273', NULL, NULL, 1),
+    (3013, 2, 1, N'AMC_B', N'????_????-????????', N'म.न_पा', N'AMC-icon', N'/amc', 1, 0, 0, 1, 1, 2, '2026-05-08T13:21:56.270', NULL, NULL, 1),
+    (4016, 2003, 1005, N'RTS_MIS', N'RTS MIS Dashboard', N'आरटीएस एमआयएस डॅशबोर्ड', N'LayoutDashboard', N'/rts/dashboard/rts-mis', 1, 1, 0, 1, 1, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030', 5),
+    (4017, 2004, 1005, N'RTS_APP', N'RTS Applications', N'आरटीएस अर्ज', N'Files', N'/rts/dashboard/rts-applications', 1, 1, 0, 1, 1, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030', 5),
+    (4018, 2005, 1005, N'RTS_DEPT', N'RTS Departments', N'आरटीएस विभाग', N'Building2', N'/rts/configuration-settings/rts-departments', 1, 1, 0, 1, 1, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030', 5),
+    (4019, 2005, 1005, N'RTS_SERVICES', N'RTS Services', N'आरटीएस सेवा', N'Activity', N'/rts/configuration-settings/rts-services', 1, 1, 0, 2, 1, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030', 5),
+    (4020, 2005, 1005, N'RTS_FIELDS', N'RTS Fields', N'आरटीएस फील्ड्स', N'Sliders', N'/rts/configuration-settings/rts-fields', 1, 1, 0, 3, 1, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030', 5),
+    (4021, 2005, 1005, N'RTS_APPROVAL_FLOW', N'Approval Flow Master', N'मंजुरी प्रवाह मास्टर', N'GitMerge', N'/rts/configuration-settings/rts-workflows', 1, 1, 0, 4, 1, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030', 5),
+    (4022, 2005, 1005, N'RTS_USERS', N'RTS User Management', N'आरटीएस वापरकर्ता व्यवस्थापन', N'Users', N'/rts/users', 1, 1, 0, 6, 1, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030', 5),
+    (5014, 2005, 1005, N'RTS_CERTIFICATES', N'Certificate Master', N'प्रमाणपत्र संरचना', N'Award', N'/rts/configuration-settings/rts-certificates', 1, 1, 0, 5, 1, 1002, '2026-08-26T14:56:19.947', 1002, '2026-08-26T15:31:32.030', 5),
+    (5015, 3003, 1005, N'RTS_SERVICES_PORTAL', N'Service Catalog', N'सेवा सूची', N'LayoutGrid', N'/rts/services', 1, 0, 0, 1, 1, 1002, '2026-08-26T16:07:54.230', NULL, NULL, 5),
+    (5016, 3003, 1005, N'RTS_TRACK_STATUS', N'Track Application', N'अर्जाची स्थिती ट्रॅक करा', N'Search', N'/rts/track', 1, 0, 0, 2, 1, 1002, '2026-08-26T16:07:54.230', NULL, NULL, 5),
+    (5017, 3004, 1005, N'RTS_OFFICER_DASHBOARD', N'Officer Dashboard', N'अधिकारी डॅशबोर्ड', N'LayoutDashboard', N'/rts/officer-dashboard', 1, 0, 0, 1, 1, 1002, '2026-08-26T16:07:54.230', NULL, NULL, 5),
+    (5018, 3004, 1005, N'RTS_APPEAL_DASHBOARD', N'Appeals Management', N'अपील व्यवस्थापन', N'Gavel', N'/rts/appeals', 1, 0, 0, 2, 1, 1002, '2026-08-26T16:07:54.230', NULL, NULL, 5),
+    (5019, 2005, 1005, N'RTS_DEPARTMENTS', N'Department Master', N'विभाग व्यवस्थापन', N'Building2', N'/rts/configuration-settings/rts-departments', 1, 0, 0, 1, 1, 1002, '2026-08-26T16:07:54.230', NULL, NULL, 5),
+    (5020, 2005, 1005, N'RTS_OFFICERS', N'Service Officers', N'à¤¸à¥‡à¤µà¤¾ à¤…à¤§à¤¿à¤•à¤¾à¤°à¥€ à¤µà¤¾à¤Ÿà¤ª', N'UserCheck', N'/rts/configuration-settings/rts-officers', 1, 1, 0, 7, 1, 1002, '2026-09-04T18:51:00.677', NULL, NULL, 5)
+) AS source ([Id], [ScreenGroupId], [ModuleId], [ScreenCode], [ScreenName], [ScreenNameLocal], [ScreenIcon], [RoutePath], [IsMenu], [IsAuthenticationRequired], [IsPropertyLockable], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DepartmentId])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[ScreenGroupId] = source.[ScreenGroupId],
+        target.[ModuleId] = source.[ModuleId],
+        target.[ScreenCode] = source.[ScreenCode],
+        target.[ScreenName] = source.[ScreenName],
+        target.[ScreenNameLocal] = source.[ScreenNameLocal],
+        target.[ScreenIcon] = source.[ScreenIcon],
+        target.[RoutePath] = source.[RoutePath],
+        target.[IsMenu] = source.[IsMenu],
+        target.[IsAuthenticationRequired] = source.[IsAuthenticationRequired],
+        target.[IsPropertyLockable] = source.[IsPropertyLockable],
+        target.[DisplayOrder] = source.[DisplayOrder],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate],
+        target.[DepartmentId] = source.[DepartmentId]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [ScreenGroupId], [ModuleId], [ScreenCode], [ScreenName], [ScreenNameLocal], [ScreenIcon], [RoutePath], [IsMenu], [IsAuthenticationRequired], [IsPropertyLockable], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DepartmentId])
+    VALUES (source.[Id], source.[ScreenGroupId], source.[ModuleId], source.[ScreenCode], source.[ScreenName], source.[ScreenNameLocal], source.[ScreenIcon], source.[RoutePath], source.[IsMenu], source.[IsAuthenticationRequired], source.[IsPropertyLockable], source.[DisplayOrder], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], source.[DepartmentId]);
+GO
 
-/* =========================================
-   UserMaster
- =======================================*/
+SET IDENTITY_INSERT [CORE].[ScreenMaster] OFF;
+GO
 
-DECLARE @EmployeeTypeId INT =
-(
-    SELECT TOP 1 Id
-    FROM CORE.EmployeeTypeMaster
-    WHERE EmployeeType = 'Office'
-);
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[UserRoleMaster] (2 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[UserRoleMaster] ON;
+GO
+MERGE INTO [CORE].[UserRoleMaster] AS target
+USING (VALUES
+    (1, N'Admin', 1, 1, '2026-07-15T16:26:53.477', NULL, NULL, 1),
+    (2, N'Admin', 1, 1, '2026-07-27T17:15:41.537', 1002, '2026-08-26T15:31:32.027', 5)
+) AS source ([Id], [UserRoleName], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DepartmentId])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[UserRoleName] = source.[UserRoleName],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate],
+        target.[DepartmentId] = source.[DepartmentId]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [UserRoleName], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DepartmentId])
+    VALUES (source.[Id], source.[UserRoleName], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], source.[DepartmentId]);
+GO
 
-IF NOT EXISTS
-(
-    SELECT 1
-    FROM CORE.UserMaster
-    WHERE UserName = 'ADMIN'
-)
-BEGIN
-    INSERT INTO [CORE].[UserMaster]
-    (
-        [UserName],[FirstName],[MiddleName],[LastName],
-        [UserCode],[Address],[MobileNo],
-        [AlternateMobileNo],[Email],[MustChangePassword],
-        [Language],[IsActive],[Remark],[EmployeeTypeId],
-        [PasswordHash],[FailedLoginCount],[LastLoginAt],
-        [LockedUntilAt],[CreatedBy],[CreatedDate],
-        [UpdatedBy],[UpdatedDate],[MarkedForDeletion],
-        [MarkedForDeletionDate],[UserLocked]
-    )
-    VALUES
-    (
-        N'ADMIN',
-        N'ADMIN',
-        N'ADMIN',
-        N'ADMIN',
-        N'PB',
-        N'Amravati',
-        N'7058601590',
-        N'8625085936',
-        N'ashwindeshmukh62@gmail.com',
-        0,
-        N'en',
-        1,
-        N'Test',
-        @EmployeeTypeId,
-        N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC',
-        0,
-        GETDATE(),
-        NULL,
-        1,
-        GETDATE(),
-        NULL,
-        NULL,
-        0,
-        NULL,
-        0
-    );
-END
+SET IDENTITY_INSERT [CORE].[UserRoleMaster] OFF;
+GO
 
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[UserMaster] (6 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[UserMaster] ON;
+GO
+MERGE INTO [CORE].[UserMaster] AS target
+USING (VALUES
+    (1, N'Clerk', N'Hrishikesh', NULL, N'Patekar', N'CK', N'Pune', N'7058601590', N'8625085936', N'HrishikeshPatekar@gmail.com', 0, N'en', 1, N'Test', NULL, 0, '2026-09-09T19:04:07.187', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', 1, '2026-08-11T20:02:48.860', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (2, N'HeadOfficer', N'Aditya', NULL, N'Fatke', N'HO', N'Pune', N'9876543210', NULL, N'Aditya55@gmail.com', 0, N'en', 1, N'Head Officer', NULL, 0, '2026-09-09T18:08:27.857', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:23:16.203', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (3, N'SeniorOfficer', N'Vidyanad', NULL, N'Sawai', N'SO', N'Amravati', N'9876543211', NULL, N'VidyanadSawai2508@gmail.com', 0, N'en', 1, N'Senior Officer', NULL, 1, '2026-09-09T16:19:45.040', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:22:23.800', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (1002, N'ADMIN', N'ADMIN', N'ADMIN', N'ADMIN', N'PB', N'Amravati', N'7058601590', N'8625085936', N'ashwineshmukh62@gmail.com', 0, N'en', 1, N'Test', NULL, 1, '2026-09-05T13:55:08.093', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:24:08.297', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (2004, N'FirstAppellateOfficer', N'neha', NULL, N'Puri', N'FAO', N'Amravarti', N'9370932047', NULL, N'nehap@gmail.com', 0, N'en', 1, N'Test', NULL, 0, '2026-09-09T18:29:22.020', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', NULL, '2026-08-24T12:57:33.160', NULL, NULL, 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (2005, N'SecondAppellateOfficer', N'test', NULL, N'Puri', N'SAO', N'Amravarti', N'9370932048', NULL, N'nehap19@gmail.com', 0, N'en', 1, N'Test', NULL, 1, '2026-09-07T20:06:03.940', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', NULL, '2026-08-24T12:57:33.160', NULL, NULL, 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL)
+) AS source ([Id], [UserName], [FirstName], [MiddleName], [LastName], [UserCode], [Address], [MobileNo], [AlternateMobileNo], [Email], [MustChangePassword], [Language], [IsActive], [Remark], [LockedUntilAt], [FailedLoginCount], [LastLoginAt], [UserLocked], [EmployeeTypeId], [PasswordHash], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [MarkedForDeletion], [MarkedForDeletionDate], [SecurityStamp], [TwoFactorEnabled], [TwoFactorEnabledAt], [TwoFactorRequired], [TwoFactorSecretEncrypted], [OtpChallengeFailCount], [OtpChallengeLockedUntilAt], [PasswordChangedAt])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[UserName] = source.[UserName],
+        target.[FirstName] = source.[FirstName],
+        target.[MiddleName] = source.[MiddleName],
+        target.[LastName] = source.[LastName],
+        target.[UserCode] = source.[UserCode],
+        target.[Address] = source.[Address],
+        target.[MobileNo] = source.[MobileNo],
+        target.[AlternateMobileNo] = source.[AlternateMobileNo],
+        target.[Email] = source.[Email],
+        target.[MustChangePassword] = source.[MustChangePassword],
+        target.[Language] = source.[Language],
+        target.[IsActive] = source.[IsActive],
+        target.[Remark] = source.[Remark],
+        target.[LockedUntilAt] = source.[LockedUntilAt],
+        target.[FailedLoginCount] = source.[FailedLoginCount],
+        target.[LastLoginAt] = source.[LastLoginAt],
+        target.[UserLocked] = source.[UserLocked],
+        target.[EmployeeTypeId] = source.[EmployeeTypeId],
+        target.[PasswordHash] = source.[PasswordHash],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate],
+        target.[MarkedForDeletion] = source.[MarkedForDeletion],
+        target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
+        target.[SecurityStamp] = source.[SecurityStamp],
+        target.[TwoFactorEnabled] = source.[TwoFactorEnabled],
+        target.[TwoFactorEnabledAt] = source.[TwoFactorEnabledAt],
+        target.[TwoFactorRequired] = source.[TwoFactorRequired],
+        target.[TwoFactorSecretEncrypted] = source.[TwoFactorSecretEncrypted],
+        target.[OtpChallengeFailCount] = source.[OtpChallengeFailCount],
+        target.[OtpChallengeLockedUntilAt] = source.[OtpChallengeLockedUntilAt],
+        target.[PasswordChangedAt] = source.[PasswordChangedAt]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [UserName], [FirstName], [MiddleName], [LastName], [UserCode], [Address], [MobileNo], [AlternateMobileNo], [Email], [MustChangePassword], [Language], [IsActive], [Remark], [LockedUntilAt], [FailedLoginCount], [LastLoginAt], [UserLocked], [EmployeeTypeId], [PasswordHash], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [MarkedForDeletion], [MarkedForDeletionDate], [SecurityStamp], [TwoFactorEnabled], [TwoFactorEnabledAt], [TwoFactorRequired], [TwoFactorSecretEncrypted], [OtpChallengeFailCount], [OtpChallengeLockedUntilAt], [PasswordChangedAt])
+    VALUES (source.[Id], source.[UserName], source.[FirstName], source.[MiddleName], source.[LastName], source.[UserCode], source.[Address], source.[MobileNo], source.[AlternateMobileNo], source.[Email], source.[MustChangePassword], source.[Language], source.[IsActive], source.[Remark], source.[LockedUntilAt], source.[FailedLoginCount], source.[LastLoginAt], source.[UserLocked], source.[EmployeeTypeId], source.[PasswordHash], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[SecurityStamp], source.[TwoFactorEnabled], source.[TwoFactorEnabledAt], source.[TwoFactorRequired], source.[TwoFactorSecretEncrypted], source.[OtpChallengeFailCount], source.[OtpChallengeLockedUntilAt], source.[PasswordChangedAt]);
+GO
 
-/* =========================================
-   Variable References
- =======================================*/
-DECLARE @adminUserId INT =
-(
-    SELECT Id
-    FROM CORE.UserMaster
-    WHERE UserName = 'ADMIN'
-);
+SET IDENTITY_INSERT [CORE].[UserMaster] OFF;
+GO
 
-DECLARE @AdminUserRoleId INT =
-(
-    SELECT Id
-    FROM CORE.UserRoleMaster
-    WHERE UserRoleName = 'Admin'
-);
-
-
-/* =========================================
-   UserDepartmentAllocation
-    =======================================*/
-
-SET IDENTITY_INSERT [CORE].[UserDepartmentAllocation] ON;
-
-INSERT INTO [CORE].[UserDepartmentAllocation]
-(
-    [Id],[UserId],[DepartmentId],
-    [IsActive],[CreatedBy],
-    [CreatedDate],[UpdatedBy],[UpdatedDate]
-)
-SELECT *
-FROM
-(
-    VALUES
-    (7,@adminUserId,1,1,1,GETDATE(),NULL,NULL),
-    (8,@adminUserId,2,1,1,GETDATE(),NULL,NULL),
-    (9,@adminUserId,3,1,1,GETDATE(),NULL,NULL)
-) S
-(
-    Id,UserId,DepartmentId,
-    IsActive,CreatedBy,
-    CreatedDate,UpdatedBy,UpdatedDate
-)
-WHERE NOT EXISTS
-(
-    SELECT 1
-    FROM [CORE].[UserDepartmentAllocation] UDA
-    WHERE UDA.Id = S.Id
-       OR (
-            UDA.UserId = S.UserId
-        AND UDA.DepartmentId = S.DepartmentId
-       )
-);
-
-SET IDENTITY_INSERT [CORE].[UserDepartmentAllocation] OFF;
-
-
-/* =========================================
-   UserModuleAllocation
- =======================================*/
-
-SET IDENTITY_INSERT [CORE].[UserModuleAllocation] ON;
-
-INSERT INTO [CORE].[UserModuleAllocation]
-(
-    [Id],[UserId],[DepartmentId],[ModuleId],
-    [IsActive],[CreatedBy],[CreatedDate],
-    [UpdatedBy],[UpdatedDate]
-)
-SELECT *
-FROM
-(
-    VALUES
-    (5,@adminUserId,1,1,1,1,GETDATE(),NULL,NULL),
-    (6,@adminUserId,2,1001,1,1,GETDATE(),NULL,NULL),
-    (7,@adminUserId,3,1004,1,1,GETDATE(),NULL,NULL)
-) S
-(
-    Id,UserId,DepartmentId,ModuleId,
-    IsActive,CreatedBy,CreatedDate,
-    UpdatedBy,UpdatedDate
-)
-WHERE NOT EXISTS
-(
-    SELECT 1
-    FROM [CORE].[UserModuleAllocation] UMA
-    WHERE UMA.Id = S.Id
-       OR (
-            UMA.UserId = S.UserId
-        AND UMA.DepartmentId = S.DepartmentId
-        AND UMA.ModuleId = S.ModuleId
-       )
-);
-
-SET IDENTITY_INSERT [CORE].[UserModuleAllocation] OFF;
-
-
-/* =========================================
-   UserRoleAllocation
-    =======================================*/
-
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[UserRoleAllocation] (24 rows)
+   ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [CORE].[UserRoleAllocation] ON;
-
-INSERT INTO [CORE].[UserRoleAllocation]
-(
-    [Id],[UserId],[DepartmentId],[UserRoleId],
-    [IsActive],[CreatedBy],[CreatedDate],
-    [UpdatedBy],[UpdatedDate]
-)
-SELECT *
-FROM
-(
-    VALUES
-    (4,@adminUserId,1,@AdminUserRoleId,1,1,GETDATE(),NULL,NULL),
-    (5,@adminUserId,2,@AdminUserRoleId,1,1,GETDATE(),NULL,NULL),
-    (6,@adminUserId,3,@AdminUserRoleId,1,1,GETDATE(),NULL,NULL)
-) S
-(
-    Id,UserId,DepartmentId,UserRoleId,
-    IsActive,CreatedBy,CreatedDate,
-    UpdatedBy,UpdatedDate
-)
-WHERE NOT EXISTS
-(
-    SELECT 1
-    FROM [CORE].[UserRoleAllocation] URA
-    WHERE URA.Id = S.Id
-       OR (
-            URA.UserId = S.UserId
-        AND URA.DepartmentId = S.DepartmentId
-        AND URA.UserRoleId = S.UserRoleId
-       )
-);
+GO
+MERGE INTO [CORE].[UserRoleAllocation] AS target
+USING (VALUES
+    (4, 1, 1, 1, 1, 1, '2026-07-15T16:26:53.480', NULL, NULL),
+    (5, 1, 2, 1, 1, 1, '2026-07-15T16:26:53.480', NULL, NULL),
+    (6, 1, 3, 1, 1, 1, '2026-07-15T16:26:53.480', NULL, NULL),
+    (2004, 1, 5, 2, 1, 1, '2026-07-27T17:15:41.540', NULL, NULL),
+    (3004, 3, 1, 1, 1, NULL, '2026-08-12T12:22:23.953', NULL, NULL),
+    (3005, 3, 2, 1, 1, NULL, '2026-08-12T12:22:23.957', NULL, NULL),
+    (3006, 3, 3, 1, 1, NULL, '2026-08-12T12:22:23.957', NULL, NULL),
+    (3007, 3, 5, 2, 1, NULL, '2026-08-12T12:22:23.957', NULL, NULL),
+    (3008, 2, 1, 1, 1, NULL, '2026-08-12T12:23:16.337', NULL, NULL),
+    (3009, 2, 2, 1, 1, NULL, '2026-08-12T12:23:16.337', NULL, NULL),
+    (3010, 2, 3, 1, 1, NULL, '2026-08-12T12:23:16.337', NULL, NULL),
+    (3011, 2, 5, 2, 1, NULL, '2026-08-12T12:23:16.337', NULL, NULL),
+    (3012, 1002, 1, 1, 1, NULL, '2026-08-12T12:24:08.400', NULL, NULL),
+    (3013, 1002, 2, 1, 1, NULL, '2026-08-12T12:24:08.400', NULL, NULL),
+    (3014, 1002, 3, 1, 1, NULL, '2026-08-12T12:24:08.400', NULL, NULL),
+    (3015, 1002, 5, 2, 1, NULL, '2026-08-12T12:24:08.400', 1002, '2026-08-26T15:31:32.027'),
+    (3016, 2004, 1, 1, 1, NULL, '2026-08-12T17:30:17.143', NULL, NULL),
+    (3017, 2004, 2, 1, 1, NULL, '2026-08-12T17:30:17.143', NULL, NULL),
+    (3018, 2004, 3, 1, 1, NULL, '2026-08-12T17:30:17.143', NULL, NULL),
+    (3019, 2004, 5, 2, 1, NULL, '2026-08-12T17:30:17.143', NULL, NULL),
+    (3020, 2005, 1, 1, 1, NULL, '2026-08-12T17:30:17.143', NULL, NULL),
+    (3021, 2005, 2, 1, 1, NULL, '2026-08-12T17:30:17.143', NULL, NULL),
+    (3022, 2005, 3, 1, 1, NULL, '2026-08-12T17:30:17.143', NULL, NULL),
+    (3023, 2005, 5, 2, 1, NULL, '2026-08-12T17:30:17.143', NULL, NULL)
+) AS source ([Id], [UserId], [DepartmentId], [UserRoleId], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[UserId] = source.[UserId],
+        target.[DepartmentId] = source.[DepartmentId],
+        target.[UserRoleId] = source.[UserRoleId],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [UserId], [DepartmentId], [UserRoleId], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[UserId], source.[DepartmentId], source.[UserRoleId], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
 
 SET IDENTITY_INSERT [CORE].[UserRoleAllocation] OFF;
 GO
 
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[UserDepartmentAllocation] (24 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[UserDepartmentAllocation] ON;
+GO
+MERGE INTO [CORE].[UserDepartmentAllocation] AS target
+USING (VALUES
+    (7, 1, 1, 1, 1, '2026-07-15T16:26:53.480', NULL, NULL),
+    (8, 1, 2, 1, 1, '2026-07-15T16:26:53.480', NULL, NULL),
+    (9, 1, 3, 1, 1, '2026-07-15T16:26:53.480', NULL, NULL),
+    (1007, 1, 5, 1, 1, '2026-07-17T12:47:46.783', 1, '2026-07-27T17:15:41.540'),
+    (2007, 3, 1, 1, NULL, '2026-08-12T12:22:23.850', NULL, NULL),
+    (2008, 3, 2, 1, NULL, '2026-08-12T12:22:23.860', NULL, NULL),
+    (2009, 3, 3, 1, NULL, '2026-08-12T12:22:23.860', NULL, NULL),
+    (2010, 3, 5, 1, NULL, '2026-08-12T12:22:23.860', NULL, NULL),
+    (2011, 2, 1, 1, NULL, '2026-08-12T12:23:16.267', NULL, NULL),
+    (2012, 2, 2, 1, NULL, '2026-08-12T12:23:16.267', NULL, NULL),
+    (2013, 2, 3, 1, NULL, '2026-08-12T12:23:16.267', NULL, NULL),
+    (2014, 2, 5, 1, NULL, '2026-08-12T12:23:16.267', NULL, NULL),
+    (2015, 1002, 1, 1, NULL, '2026-08-12T12:24:08.333', NULL, NULL),
+    (2016, 1002, 2, 1, NULL, '2026-08-12T12:24:08.333', NULL, NULL),
+    (2017, 1002, 3, 1, NULL, '2026-08-12T12:24:08.333', NULL, NULL),
+    (2018, 1002, 5, 1, NULL, '2026-08-12T12:24:08.333', 1002, '2026-08-26T15:31:32.027'),
+    (2019, 2004, 1, 1, NULL, '2026-08-12T17:29:30.660', NULL, NULL),
+    (2020, 2004, 2, 1, NULL, '2026-08-12T17:29:30.660', NULL, NULL),
+    (2021, 2004, 3, 1, NULL, '2026-08-12T17:29:30.660', NULL, NULL),
+    (2022, 2004, 5, 1, NULL, '2026-08-12T17:29:30.660', NULL, NULL),
+    (2023, 2005, 1, 1, NULL, '2026-08-12T17:29:30.663', NULL, NULL),
+    (2024, 2005, 2, 1, NULL, '2026-08-12T17:29:30.663', NULL, NULL),
+    (2025, 2005, 3, 1, NULL, '2026-08-12T17:29:30.663', NULL, NULL),
+    (2026, 2005, 5, 1, NULL, '2026-08-12T17:29:30.663', NULL, NULL)
+) AS source ([Id], [UserId], [DepartmentId], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[UserId] = source.[UserId],
+        target.[DepartmentId] = source.[DepartmentId],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [UserId], [DepartmentId], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[UserId], source.[DepartmentId], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
 
+SET IDENTITY_INSERT [CORE].[UserDepartmentAllocation] OFF;
+GO
 
-SET IDENTITY_INSERT [CORE].[ModuleMaster] ON;
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[UserModuleAllocation] (16 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[UserModuleAllocation] ON;
+GO
+MERGE INTO [CORE].[UserModuleAllocation] AS target
+USING (VALUES
+    (5, 1, 1, 1, 1, 1, '2026-07-15T16:26:53.480', NULL, NULL),
+    (6, 1, 2, 1001, 1, 1, '2026-07-15T16:26:53.480', NULL, NULL),
+    (7, 1, 3, 1004, 1, 1, '2026-07-15T16:26:53.480', NULL, NULL),
+    (1007, 1, 5, 1005, 1, 1, '2026-07-27T17:15:41.540', NULL, NULL),
+    (2005, 3, 1, 1, 1, NULL, '2026-08-12T12:22:23.910', NULL, NULL),
+    (2006, 3, 2, 1001, 1, NULL, '2026-08-12T12:22:23.913', NULL, NULL),
+    (2007, 3, 3, 1004, 1, NULL, '2026-08-12T12:22:23.913', NULL, NULL),
+    (2008, 3, 5, 1005, 1, NULL, '2026-08-12T12:22:23.913', NULL, NULL),
+    (2009, 2, 1, 1, 1, NULL, '2026-08-12T12:23:16.300', NULL, NULL),
+    (2010, 2, 2, 1001, 1, NULL, '2026-08-12T12:23:16.303', NULL, NULL),
+    (2011, 2, 3, 1004, 1, NULL, '2026-08-12T12:23:16.303', NULL, NULL),
+    (2012, 2, 5, 1005, 1, NULL, '2026-08-12T12:23:16.303', NULL, NULL),
+    (2013, 1002, 1, 1, 1, NULL, '2026-08-12T12:24:08.367', NULL, NULL),
+    (2014, 1002, 2, 1001, 1, NULL, '2026-08-12T12:24:08.367', NULL, NULL),
+    (2015, 1002, 3, 1004, 1, NULL, '2026-08-12T12:24:08.367', NULL, NULL),
+    (2016, 1002, 5, 1005, 1, NULL, '2026-08-12T12:24:08.367', 1002, '2026-08-26T15:31:32.027')
+) AS source ([Id], [UserId], [DepartmentId], [ModuleId], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[UserId] = source.[UserId],
+        target.[DepartmentId] = source.[DepartmentId],
+        target.[ModuleId] = source.[ModuleId],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [UserId], [DepartmentId], [ModuleId], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[UserId], source.[DepartmentId], source.[ModuleId], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
 
-;WITH SeedData AS
-(
-    SELECT *
-    FROM
-    (
-        VALUES
-        (1, 1, N'PTIS_M', N'Property Tax', N'Property Tax', N'home', N'PTIS', N'Property Tax Module', 1, 1, GETDATE(), NULL, NULL),
-        (1001, 2, N'TL_M', N'Trade License', N'Trade License', N'home', N'TL', N'Trade License Module', 1, 1, GETDATE(), NULL, NULL),
-        (1004, 3, N'ASSET_M', N'Asset Management', N'मालमत्ता व्यवस्थापन', N'inventory_2', N'ASSET', N'Asset Management Module', 1, 1, GETDATE(), NULL, NULL)
-    ) AS V
-    (
-        Id, DepartmentId, ModuleCode, ModuleName, ModuleNameLocal,
-        ModuleIcon, ModuleLabel, ModuleDescription,
-        IsActive, CreatedBy, CreatedDate, UpdatedBy, UpdatedDate
-    )
-)
-INSERT INTO [CORE].[ModuleMaster]
-(
-    [Id],[DepartmentId],[ModuleCode],[ModuleName],[ModuleNameLocal],
-    [ModuleIcon],[ModuleLabel],[ModuleDescription],
-    [IsActive],[CreatedBy],[CreatedDate],[UpdatedBy],[UpdatedDate]
-)
-SELECT
-    S.Id,
-    S.DepartmentId,
-    S.ModuleCode,
-    S.ModuleName,
-    S.ModuleNameLocal,
-    S.ModuleIcon,
-    S.ModuleLabel,
-    S.ModuleDescription,
-    ISNULL(S.IsActive,1),
-    S.CreatedBy,
-    ISNULL(S.CreatedDate,GETDATE()),
-    S.UpdatedBy,
-    S.UpdatedDate
-FROM SeedData S
-WHERE EXISTS
-(
-    SELECT 1
-    FROM [CORE].[DepartmentMaster] D
-    WHERE D.Id = S.DepartmentId
-)
-AND NOT EXISTS
-(
-    SELECT 1
-    FROM [CORE].[ModuleMaster] MM
-    WHERE MM.Id = S.Id
-       OR MM.ModuleCode = S.ModuleCode
-       OR MM.ModuleName = S.ModuleName
-);
+SET IDENTITY_INSERT [CORE].[UserModuleAllocation] OFF;
+GO
 
-SET IDENTITY_INSERT [CORE].[ModuleMaster] OFF;
-
-
-SET IDENTITY_INSERT [CORE].[ScreenGroupMaster] ON;
-
-;WITH SeedData AS
-(
-    SELECT *
-    FROM
-    (
-        VALUES
-        (1, N'Masters', N'Masters', N'Masters', N'one', 1, 0, NULL, CAST(N'2026-01-09T11:06:52.080' AS DATETIME), NULL, CAST(N'2026-05-07T16:26:08.887' AS DATETIME)),
-        (2, N'Configuration Setting', N'Configuration Setting', NULL, N'FolderTree', 1, 0, NULL, CAST(N'2026-03-25T12:38:09.827' AS DATETIME), NULL, CAST(N'2026-04-06T14:37:29.003' AS DATETIME)),
-        (3, N'GRP_DASHBOARD', N'Dashboard', N'GRP', N'dashboard', 1, 1, 1, CAST(N'2026-05-05T19:50:22.753' AS DATETIME), NULL, NULL),
-
-        (1003, N'SG004_A', N'वापरकर्ता व्यवस्थापन', N'वापरकर्ता व्यवस्थापन', N'user-icon', 5, 1, 1, CAST(N'2026-05-06T15:43:16.677' AS DATETIME), 1, CAST(N'2026-05-07T18:51:57.687' AS DATETIME)),
-
-
-        (1005, N'SG004_C', N'User Management', N'User_M', N'user-icon', 4, 1, 1, CAST(N'2026-05-06T16:10:02.513' AS DATETIME), NULL, NULL),
-
-        (1006, N'SG005', N'Reports', N'अहवाल', N'report-icon', 5, 0, 1, CAST(N'2026-05-06T17:40:53.643' AS DATETIME), NULL, CAST(N'2026-05-07T16:54:29.060' AS DATETIME)),
-
-        -- Asset Management screen groups
-        (4001, N'ASSET_DASHBOARD_GRP', N'Dashboard',            N'डॅशबोर्ड',              N'dashboard',       1, 1, 1, GETDATE(), NULL, NULL),
-        (4002, N'ASSET_MUNICIPAL_GRP', N'Municipal Assets',     N'महानगरपालिका मालमत्ता',  N'account_balance', 2, 1, 1, GETDATE(), NULL, NULL),
-        (4003, N'ASSET_REVENUE_GRP',   N'Revenue Management',   N'महसूल व्यवस्थापन',       N'payments',        3, 1, 1, GETDATE(), NULL, NULL),
-        (4004, N'ASSET_CONFIG_GRP',    N'Configure Masters',              N'कॉन्फिगर मास्टर्स',               N'settings',        4, 1, 1, GETDATE(), NULL, NULL)
-    ) AS V
-    (
-        Id, ScreenGroupCode, ScreenGroupName, ScreenGroupNameLocal,
-        ScreenGroupIcon, DisplayOrder, IsActive,
-        CreatedBy, CreatedDate, UpdatedBy, UpdatedDate
-    )
-)
-
-INSERT INTO [CORE].[ScreenGroupMaster]
-(
-    [Id], [ScreenGroupCode], [ScreenGroupName], [ScreenGroupNameLocal],
-    [ScreenGroupIcon], [DisplayOrder], [IsActive],
-    [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]
-)
-SELECT
-    S.Id,
-    S.ScreenGroupCode,
-    S.ScreenGroupName,
-    S.ScreenGroupNameLocal,
-    S.ScreenGroupIcon,
-    ISNULL(S.DisplayOrder,1),
-    ISNULL(S.IsActive,1),
-    S.CreatedBy,
-    ISNULL(S.CreatedDate,GETDATE()),
-    S.UpdatedBy,
-    S.UpdatedDate
-FROM SeedData S
-WHERE NOT EXISTS
-(
-    SELECT 1
-    FROM [CORE].[ScreenGroupMaster] X
-    WHERE X.Id = S.Id
-)
-AND NOT EXISTS
-(
-    SELECT 1
-    FROM [CORE].[ScreenGroupMaster] X
-    WHERE X.ScreenGroupCode = S.ScreenGroupCode
-);
-
-SET IDENTITY_INSERT [CORE].[ScreenGroupMaster] OFF;
-
-
-
-SET IDENTITY_INSERT [CORE].[ScreenMaster] ON;
-
-;WITH SeedData AS
-(
-    SELECT *
-    FROM
-    (
-        VALUES
-        (1,1,1,N'M',N'Data Analytics',N'Data Analytics',N'',N'proprtytax/departmentmaster',1,0,0,1,1,NULL,CAST('2026-01-09T11:08:13.743' AS DATETIME),NULL,CAST('2026-04-06T15:24:22.910' AS DATETIME)),
-        (2,2,1,N'BM',N'Search Property',N'Search Property',NULL,N'/bank-master',1,0,0,1,2,NULL,CAST('2026-03-25T12:38:22.990' AS DATETIME),NULL,NULL),
-        (3,2,1,N'SM',N'PTIS',N'PTIS',NULL,N'/screen-access',1,1,0,1,3,NULL,CAST('2026-03-25T12:38:22.990' AS DATETIME),NULL,NULL),
-        (4,2,1,N'OM',N'Report Engine',N'Report Engine',NULL,N'/office-master',1,1,0,1,4,NULL,CAST('2026-03-25T12:38:22.990' AS DATETIME),NULL,NULL),
-        (5,2,1,N'UC',N'GIS',N'GIS',NULL,N'/ulb-configuration',1,1,0,1,5,NULL,CAST('2026-03-25T12:38:22.990' AS DATETIME),NULL,NULL),
-        (6,2,1,N'FY',N'Master',N'Master',NULL,N'/financial-year-master',1,1,0,1,6,NULL,CAST('2026-03-25T12:38:22.990' AS DATETIME),NULL,NULL),
-        (7,2,1,N'PM',N'User Management',N'User Management',NULL,N'/payment-mode-master',1,1,0,1,7,NULL,CAST('2026-03-25T12:38:22.990' AS DATETIME),NULL,NULL),
-        (8,1,1,N'TEST',N'test',N'test',N'Monitor',N'/test',1,1,0,1,8,NULL,CAST('2026-04-06T14:38:12.743' AS DATETIME),2,CAST('2026-05-05T19:33:13.623' AS DATETIME)),
-        (1008,2,1001,N'SRC101',N'Screen Name 101',N'Screen Name 101',N'Monitor',N'/scr-101',1,1,0,1,9,NULL,CAST('2026-04-09T16:03:50.443' AS DATETIME),NULL,NULL),
-        (1009,1,1,N'TEST1',N'test1',N'test1',N'Monitor',N'/tst1',1,1,0,1,10,NULL,CAST('2026-04-09T19:03:11.097' AS DATETIME),NULL,NULL),
-        (1011,1,1,N'CT_01',N'Construction Type',N'बांधकाम प्रकार',NULL,N'/construction-type',1,1,0,1,1,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1012,1,1,N'FM_01',N'Floor Master',N'मजला मास्टर',NULL,N'/floor-master/floor',1,1,0,1,2,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1013,1,1,N'DM_01',N'Depreciation Master',N'घसारा मास्टर',NULL,N'/depreciationmaster',1,1,0,0,3,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,CAST('2026-05-08T16:24:38.507' AS DATETIME)),
-        (1014,1,1,N'TU_01',N'Type of Use Master',N'वापर प्रकार मास्टर',NULL,N'/typeofusemaster',1,1,0,1,4,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1015,1,1,N'TZ_01',N'Tax Zone',N'कर क्षेत्र',NULL,N'/taxzone',1,1,0,1,5,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1016,1,1,N'RS_01',N'Rate Section Master',N'दर विभाग मास्टर',NULL,N'/rate-section-master',1,1,0,1,6,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1017,1,1,N'ZM_01_A',N'Zone Master',N'झोन मास्टर',NULL,N'/zone-master',1,1,0,1,7,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1018,1,1,N'RM_01',N'Rate Master (RV)',N'दर मास्टर (RV)',NULL,N'/rate-master/rvratemaster',1,1,0,1,8,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1019,1,1,N'RP_01',N'Retention Policy (Year)',N'रिटेन्शन पॉलिसी (वर्ष)',NULL,N'/retentionpolicy/yearwise',1,1,0,1,9,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1020,1,1,N'RP_02',N'Retention Policy (Factor)',N'रिटेन्शन पॉलिसी (फॅक्टर)',NULL,N'/retentionpolicy/factorwise',1,1,0,1,10,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1021,1,1,N'WM_01',N'Weightage Master',N'वेटेज मास्टर',NULL,N'/weightage-master',1,1,0,1,11,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1022,1,1,N'TN_01',N'Tax Zoning',N'कर झोनिंग',NULL,N'/taxzoning',1,1,0,1,12,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1023,1,1,N'AY_01',N'Assessment Year Range',N'मूल्यांकन वर्ष श्रेणी',NULL,N'/assessment-year-range/capitalvalue',1,1,0,1,13,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1024,1,1,N'MJ_01',N'Mouja Master',N'मौजा मास्टर',NULL,N'/moujamaster',1,1,0,1,14,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (1025,1,1,N'PY_01',N'Property Type',N'मालमत्ता प्रकार',NULL,N'/propertytype',1,1,0,1,15,NULL,CAST('2026-04-28T15:46:49.360' AS DATETIME),NULL,NULL),
-        (2011,1,1,N'ZM_01_B',N'Zone Master',N'झोन मास्टर',NULL,N'/zone-master',1,1,0,1,7,1,CAST('2026-05-05T16:10:46.620' AS DATETIME),NULL,NULL),
-        (2012,2,1,N'T1',N'TestTest',N'TestTest',N'Monitor',N'/testtest',0,1,0,1,0,2,CAST('2026-05-05T19:26:47.937' AS DATETIME),NULL,NULL),
-        (3011,1,1,N'SCR_DASHBOARD',N'Dashboard',N'मुख्यपृष्ठ',N'dashboard-icon',N'/dashboard',1,1,0,1,1,1,CAST('2026-05-08T11:22:48.963' AS DATETIME),NULL,NULL),
-        (3012,2,1,N'AMC_A',N'महानगरपालिका डॅशबोर्ड',N'म.न.पा. मुख्यपृष्ठ',N'AMC-icon',N'/amc',1,1,0,1,1,1,CAST('2026-05-08T12:57:11.273' AS DATETIME),NULL,NULL),
-        (3013,2,1,N'AMC_B',N'पुणे_ऑफिस-डॅशबोर्ड',N'म.न_पा',N'AMC-icon',N'/amc',1,0,0,1,1,2,CAST('2026-05-08T13:21:56.270' AS DATETIME),NULL,NULL),
-
-        -- Asset Management screens (ModuleId 1004 = ASSET, groups 4001-4004)
-        (4001,4001,1004,N'ASSET_DASHBOARD',      N'Dashboard',             N'डॅशबोर्ड',                N'dashboard',       N'/assets/dashboard/master-dashboard',1,1,0,1,1,1,GETDATE(),NULL,NULL),
-        (4002,4002,1004,N'MUNICIPAL_ASSET',      N'Municipal Assets',      N'महानगरपालिका मालमत्ता',    N'account_balance', N'/assets/municipal-Asset',           1,1,0,1,1,1,GETDATE(),NULL,NULL),
-        (4003,4003,1004,N'MANAGE_RENTAL_DETAILS',N'Manage Rental Details', N'भाडे तपशील व्यवस्थापन',   N'groups',          N'/assets/revenue/manage-renters',    1,1,0,1,1,1,GETDATE(),NULL,NULL),
-        (4004,4003,1004,N'PAYMENT',              N'Payment',               N'पेमेंट',                  N'payment',         N'/assets/revenue/payment',           1,1,0,1,2,1,GETDATE(),NULL,NULL),
-        -- Old generic Configuration Master menu item: superseded by the 13 granular
-        -- master-data screens below (4006-4018), so seeded INACTIVE (IsActive = 0).
-        (4005,4004,1004,N'CONFIGURATION_MASTER', N'Configuration Master',  N'कॉन्फिगरेशन मास्टर',      N'settings',        N'/assets/configuration/master-data', 1,1,0,0,1,1,GETDATE(),NULL,NULL),
-
-        -- Asset master-data configuration screens (group 4004 = Masters, module 1004 = ASSET)
-        (4006,4004,1004,N'ASSET_MASTER_ASSET_CATEGORY',  N'Asset Category',      N'मालमत्ता श्रेणी',       N'category',        N'/assets/configuration/master-data/asset-category',     1,1,0,1,1, 1,GETDATE(),NULL,NULL),
-        (4007,4004,1004,N'ASSET_MASTER_ASSET_PHOTO_TYPE',N'Asset Photo Type',    N'मालमत्ता फोटो प्रकार',   N'photo_camera',    N'/assets/configuration/master-data/asset-photo-type',   1,1,0,1,2, 1,GETDATE(),NULL,NULL),
-        (4008,4004,1004,N'ASSET_MASTER_ASSET_ROOM_TYPE', N'Asset Room Type',     N'मालमत्ता खोली प्रकार',   N'meeting_room',    N'/assets/configuration/master-data/asset-room-type',    1,1,0,1,3, 1,GETDATE(),NULL,NULL),
-        (4009,4004,1004,N'ASSET_MASTER_ASSET_TYPE',      N'Asset Type',          N'मालमत्ता प्रकार',        N'inventory_2',     N'/assets/configuration/master-data/asset-type',         1,1,0,1,4, 1,GETDATE(),NULL,NULL),
-        (4010,4004,1004,N'ASSET_MASTER_GST',             N'GST Master',          N'जीएसटी मास्टर',          N'receipt_long',    N'/assets/configuration/master-data/gst-master',         1,1,0,1,5, 1,GETDATE(),NULL,NULL),
-        (4011,4004,1004,N'ASSET_MASTER_INVENTORY_CATEGORY',N'Inventory Category',N'इन्व्हेंटरी श्रेणी',      N'category',        N'/assets/configuration/master-data/inventory-category', 1,1,0,1,6, 1,GETDATE(),NULL,NULL),
-        (4012,4004,1004,N'ASSET_MASTER_INVENTORY_CONDITION',N'Condition Master',N'स्थिती मास्टर',    N'fact_check',      N'/assets/configuration/master-data/inventory-condition',1,1,0,1,7, 1,GETDATE(),NULL,NULL),
-        (4013,4004,1004,N'ASSET_MASTER_INVENTORY_MODEL', N'Inventory Model',     N'इन्व्हेंटरी मॉडेल',       N'view_module',     N'/assets/configuration/master-data/inventory-model',    1,1,0,1,8, 1,GETDATE(),NULL,NULL),
-        (4014,4004,1004,N'ASSET_MASTER_INVENTORY_NAME',  N'Inventory Name',      N'इन्व्हेंटरी नाव',        N'label',           N'/assets/configuration/master-data/inventory-name',     1,1,0,1,9, 1,GETDATE(),NULL,NULL),
-        (4015,4004,1004,N'ASSET_MASTER_OWNERSHIP_TYPE',  N'Ownership Type',      N'मालकी प्रकार',           N'home',            N'/assets/configuration/master-data/ownership-type',     1,1,0,1,10,1,GETDATE(),NULL,NULL),
-        (4016,4004,1004,N'ASSET_MASTER_OWNING_DEPARTMENT',N'Owning Department',  N'मालकी विभाग',            N'account_balance', N'/assets/configuration/master-data/owning-department',  1,1,0,1,11,1,GETDATE(),NULL,NULL),
-        (4017,4004,1004,N'ASSET_MASTER_PENALTY_RULE',    N'Penalty Rule Master', N'दंड नियम मास्टर',        N'rule',            N'/assets/configuration/master-data/penalty-rule-master',1,1,0,1,12,1,GETDATE(),NULL,NULL),
-        (4018,4004,1004,N'ASSET_MASTER_TYPE_OF_USE',     N'Type of Use Master',  N'वापर प्रकार मास्टर',      N'business',        N'/assets/configuration/master-data/type-of-use-master', 1,1,0,1,13,1,GETDATE(),NULL,NULL)
-    ) AS V
-    (
-        Id,ScreenGroupId,ModuleId,ScreenCode,ScreenName,ScreenNameLocal,
-        ScreenIcon,RoutePath,IsMenu,IsAuthenticationRequired,IsPropertyLockable,
-        IsActive,DisplayOrder,CreatedBy,CreatedDate,UpdatedBy,UpdatedDate
-    )
-)
-
-INSERT INTO [CORE].[ScreenMaster]
-(
-    [Id],[ScreenGroupId],[ModuleId],[ScreenCode],[ScreenName],
-    [ScreenNameLocal],[ScreenIcon],[RoutePath],[IsMenu],
-    [IsAuthenticationRequired],[IsPropertyLockable],[IsActive],[DisplayOrder],
-    [CreatedBy],[CreatedDate],[UpdatedBy],[UpdatedDate]
-)
-SELECT
-    S.Id,
-    S.ScreenGroupId,
-    S.ModuleId,
-    S.ScreenCode,
-    S.ScreenName,
-    S.ScreenNameLocal,
-    S.ScreenIcon,
-    S.RoutePath,
-    S.IsMenu,
-    S.IsAuthenticationRequired,
-    S.IsPropertyLockable,
-    ISNULL(S.IsActive,1),
-    ISNULL(S.DisplayOrder,1),
-    S.CreatedBy,
-    ISNULL(S.CreatedDate,GETDATE()),
-    S.UpdatedBy,
-    S.UpdatedDate
-FROM SeedData S
-INNER JOIN [CORE].[ScreenGroupMaster] SG
-    ON SG.Id = S.ScreenGroupId
-INNER JOIN [CORE].[ModuleMaster] MM
-    ON MM.Id = S.ModuleId
-LEFT JOIN [CORE].[ScreenMaster] SM
-    ON SM.Id = S.Id
-WHERE SM.Id IS NULL
-AND NOT EXISTS
-(
-    SELECT 1
-    FROM [CORE].[ScreenMaster] X
-    WHERE X.ScreenCode = S.ScreenCode
-);
-
-SET IDENTITY_INSERT [CORE].[ScreenMaster] OFF;
-
-
-/* =========================================
-   RoleWiseScreenAccessMaster
-    =======================================*/
-
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[RoleWiseScreenAccessMaster] (22 rows)
+   ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [CORE].[RoleWiseScreenAccessMaster] ON;
-
-;WITH SeedData AS
-(
-    SELECT *
-    FROM
-    (
-        VALUES
-        (1,1,1,1,0,0,0,0,1,GETDATE(),NULL,CAST('2026-05-05T17:13:17.827' AS DATETIME),2),
-        (2,1,2,1,0,0,0,0,1,GETDATE(),NULL,CAST('2026-04-23T16:23:59.647' AS DATETIME),2),
-        (3,1,3,1,1,0,0,0,1,GETDATE(),NULL,CAST('2026-04-23T16:24:04.193' AS DATETIME),2),
-        (4,1,4,1,1,1,1,0,1,GETDATE(),NULL,NULL,NULL),
-        (5,1,5,1,1,0,0,0,1,GETDATE(),NULL,CAST('2026-04-23T16:23:59.647' AS DATETIME),2),
-        (6,1,6,1,1,1,1,0,1,GETDATE(),NULL,NULL,NULL),
-        (7,1,7,1,0,0,0,0,1,GETDATE(),NULL,CAST('2026-04-23T16:23:59.647' AS DATETIME),2),
-        (8,1,8,1,0,0,0,0,1,CAST('2026-04-23T16:24:04.243' AS DATETIME),2,NULL,NULL),
-        (10,1,1008,1,0,0,0,0,1,CAST('2026-04-23T16:24:04.243' AS DATETIME),2,NULL,NULL),
-        (11,1,1009,1,1,0,0,0,1,CAST('2026-04-23T16:24:04.243' AS DATETIME),2,NULL,NULL),
-        (1008,1,1012,1,0,0,0,0,1,CAST('2026-05-05T11:45:44.033' AS DATETIME),3,NULL,NULL),
-        (1009,1,2012,1,1,0,0,0,1,CAST('2026-05-05T19:32:49.543' AS DATETIME),2,NULL,NULL),
-
-        -- Asset Management screen access (Admin role = full access on screens 4001-4005)
-        (2001,1,4001,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
-        (2002,1,4002,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
-        (2003,1,4003,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
-        (2004,1,4004,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
-        (2005,1,4005,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
-
-        -- Admin full access to the 13 asset master-data screens (4006-4018)
-        (2006,1,4006,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
-        (2007,1,4007,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
-        (2008,1,4008,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
-        (2009,1,4009,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
-        (2010,1,4010,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
-        (2011,1,4011,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
-        (2012,1,4012,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
-        (2013,1,4013,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
-        (2014,1,4014,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
-        (2015,1,4015,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
-        (2016,1,4016,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
-        (2017,1,4017,1,1,1,1,0,1,GETDATE(),1,NULL,NULL),
-        (2018,1,4018,1,1,1,1,0,1,GETDATE(),1,NULL,NULL)
-    ) AS V
-    (
-        Id,UserRoleId,ScreenId,
-        CanView,CanEdit,CanDelete,
-        HaveFullAccess,HaveNoAccess,
-        IsActive,CreatedDate,
-        CreatedBy,UpdatedDate,UpdatedBy
-    )
-)
-
-INSERT INTO [CORE].[RoleWiseScreenAccessMaster]
-(
-    [Id],[UserRoleId],[ScreenId],
-    [CanView],[CanEdit],[CanDelete],
-    [HaveFullAccess],[HaveNoAccess],
-    [IsActive],[CreatedDate],
-    [CreatedBy],[UpdatedDate],[UpdatedBy]
-)
-SELECT
-    S.Id,
-    S.UserRoleId,
-    S.ScreenId,
-    S.CanView,
-    S.CanEdit,
-    S.CanDelete,
-    S.HaveFullAccess,
-    S.HaveNoAccess,
-    ISNULL(S.IsActive,1),
-    ISNULL(S.CreatedDate,GETDATE()),
-    S.CreatedBy,
-    S.UpdatedDate,
-    S.UpdatedBy
-FROM SeedData S
-INNER JOIN [CORE].[UserRoleMaster] UR
-    ON UR.Id = S.UserRoleId
-INNER JOIN [CORE].[ScreenMaster] SM
-    ON SM.Id = S.ScreenId
-LEFT JOIN [CORE].[RoleWiseScreenAccessMaster] RW
-    ON RW.Id = S.Id
-    OR (RW.UserRoleId = S.UserRoleId AND RW.ScreenId = S.ScreenId)
-WHERE RW.Id IS NULL;
+GO
+MERGE INTO [CORE].[RoleWiseScreenAccessMaster] AS target
+USING (VALUES
+    (1, 1, 1, 1, 0, 0, 0, 0, 1, NULL, '2026-07-15T16:26:53.540', 2, '2026-05-05T17:13:17.827'),
+    (2, 1, 2, 1, 0, 0, 0, 0, 1, NULL, '2026-07-15T16:26:53.540', 2, '2026-04-23T16:23:59.647'),
+    (3, 1, 3, 1, 1, 0, 0, 0, 1, NULL, '2026-07-15T16:26:53.540', 2, '2026-04-23T16:24:04.193'),
+    (4, 1, 4, 1, 1, 1, 1, 0, 1, NULL, '2026-07-15T16:26:53.540', NULL, NULL),
+    (5, 1, 5, 1, 1, 0, 0, 0, 1, NULL, '2026-07-15T16:26:53.540', 2, '2026-04-23T16:23:59.647'),
+    (6, 1, 6, 1, 1, 1, 1, 0, 1, NULL, '2026-07-15T16:26:53.540', NULL, NULL),
+    (7, 1, 7, 1, 0, 0, 0, 0, 1, NULL, '2026-07-15T16:26:53.540', 2, '2026-04-23T16:23:59.647'),
+    (8, 1, 8, 1, 0, 0, 0, 0, 1, 2, '2026-04-23T16:24:04.243', NULL, NULL),
+    (9, 1, 1010, 1, 1, 1, 0, 0, 1, 2, '2026-04-23T16:24:04.243', 2, '2026-05-05T17:13:17.827'),
+    (10, 1, 1008, 1, 0, 0, 0, 0, 1, 2, '2026-04-23T16:24:04.243', NULL, NULL),
+    (11, 1, 1009, 1, 1, 0, 0, 0, 1, 2, '2026-04-23T16:24:04.243', NULL, NULL),
+    (1008, 1, 1012, 1, 0, 0, 0, 0, 1, 3, '2026-05-05T11:45:44.033', NULL, NULL),
+    (1009, 1, 2012, 1, 1, 0, 0, 0, 1, 2, '2026-05-05T19:32:49.543', NULL, NULL),
+    (3010, 2, 4016, 1, 1, 1, 1, 0, 1, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
+    (3011, 2, 4017, 1, 1, 1, 1, 0, 1, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
+    (3012, 2, 4018, 1, 1, 1, 1, 0, 1, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
+    (3013, 2, 4019, 1, 1, 1, 1, 0, 1, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
+    (3014, 2, 4020, 1, 1, 1, 1, 0, 1, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
+    (3015, 2, 4021, 1, 1, 1, 1, 0, 1, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
+    (3016, 2, 4022, 1, 1, 1, 1, 0, 1, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
+    (4008, 2, 5014, 1, 1, 1, 1, 0, 1, 1002, '2026-08-26T14:56:19.960', 1002, '2026-08-26T15:31:32.030'),
+    (4009, 2, 5020, 1, 1, 1, 1, 0, 1, 1002, '2026-09-04T18:52:06.060', NULL, NULL)
+) AS source ([Id], [UserRoleId], [ScreenId], [CanView], [CanEdit], [CanDelete], [HaveFullAccess], [HaveNoAccess], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[UserRoleId] = source.[UserRoleId],
+        target.[ScreenId] = source.[ScreenId],
+        target.[CanView] = source.[CanView],
+        target.[CanEdit] = source.[CanEdit],
+        target.[CanDelete] = source.[CanDelete],
+        target.[HaveFullAccess] = source.[HaveFullAccess],
+        target.[HaveNoAccess] = source.[HaveNoAccess],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [UserRoleId], [ScreenId], [CanView], [CanEdit], [CanDelete], [HaveFullAccess], [HaveNoAccess], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[UserRoleId], source.[ScreenId], source.[CanView], source.[CanEdit], source.[CanDelete], source.[HaveFullAccess], source.[HaveNoAccess], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
 
 SET IDENTITY_INSERT [CORE].[RoleWiseScreenAccessMaster] OFF;
+GO
 
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[EmployeeTypeMaster] (1 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[EmployeeTypeMaster] ON;
+GO
+MERGE INTO [CORE].[EmployeeTypeMaster] AS target
+USING (VALUES
+    (1, N'Office', 1, 1, '2026-07-15T16:26:53.477', NULL, NULL)
+) AS source ([Id], [EmployeeType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[EmployeeType] = source.[EmployeeType],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [EmployeeType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[EmployeeType], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
 
+SET IDENTITY_INSERT [CORE].[EmployeeTypeMaster] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[CommonRemarkTypeMaster] (1 rows)
+   ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [CORE].[CommonRemarkTypeMaster] ON;
-
-IF NOT EXISTS (
-    SELECT 1
-    FROM [CORE].[CommonRemarkTypeMaster]
-    WHERE [Id] = 1
-       OR [RemarkTypeName] = 'MobileNoRemark'
-)
-BEGIN
-    INSERT INTO [CORE].[CommonRemarkTypeMaster]
-        ([Id],[RemarkTypeName],[IsActive],[CreatedBy],[CreatedDate],[UpdatedBy],[UpdatedDate])
-    VALUES
-        (1,'MobileNoRemark',1,NULL,'2026-05-05T17:23:40.557',NULL,NULL);
-END
+GO
+MERGE INTO [CORE].[CommonRemarkTypeMaster] AS target
+USING (VALUES
+    (1, N'MobileNoRemark', 1, NULL, '2026-05-05T17:23:40.557', NULL, NULL)
+) AS source ([Id], [RemarkTypeName], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[RemarkTypeName] = source.[RemarkTypeName],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [RemarkTypeName], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[RemarkTypeName], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
 
 SET IDENTITY_INSERT [CORE].[CommonRemarkTypeMaster] OFF;
-
-
-  SET IDENTITY_INSERT [CORE].[ConfigCategoryMaster] ON
-GO
-INSERT [CORE].[ConfigCategoryMaster] ([Id], [CategoryCode], [CategoryName], [DisplayOrder], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (1, N'SECURITY_AUTH', N'Security & Authentication', 1, 1, GETDATE(), 1, NULL, NULL)
-GO
-INSERT [CORE].[ConfigCategoryMaster] ([Id], [CategoryCode], [CategoryName], [DisplayOrder], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (5, N'Payment', N'Payment Configurations', 3, 0, GETDATE(), 1, NULL, NULL)
-GO
-INSERT [CORE].[ConfigCategoryMaster] ([Id], [CategoryCode], [CategoryName], [DisplayOrder], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (3006, N'PAYROLL', N'Payroll Management', 3, 0, GETDATE(), 1, NULL, NULL)
-GO
-INSERT [CORE].[ConfigCategoryMaster] ([Id], [CategoryCode], [CategoryName], [DisplayOrder], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy]) VALUES (3007, N'EmailSettings', N'Email Configuration', 5, 1, GETDATE(), NULL, NULL, NULL)
-GO
-SET IDENTITY_INSERT [CORE].[ConfigCategoryMaster] OFF
-GO
-SET IDENTITY_INSERT [CORE].[ConfigKeyMaster] ON
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1, 1, N'MAXFAILEDATTEMPTS', N'Maximum Failed Login Attempts', N'Number of failed login attempts before account lockout', N'decimal', N'textbox', N'2', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2, 1, N'LOCKOUTDURATIONMINUTES', N'Lockout Duration Minutes', N'Duration in minutes for which account remains locked', N'int', N'calendar', N'30', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (3, 1, N'REFRESHTOKENEXPIRYDAYS', N'Refresh Token Expiry Days', N'Number of days before refresh token expires', N'int', N'number', N'7', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (4, 1, N'ACCESSTOKENEXPIRYMINUTES', N'Access Token Expiry Minutes', N'Number of minutes before access token expires', N'int', N'number', N'61', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (5, 1, N'PASSWORDALGORITHM', N'Password Hashing Algorithm', N'Algorithm used for password hashing (BCrypt/PBKDF2)', N'string', N'dropdown', N'BCrypt', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (6, 1, N'MINPASSWORDLENGTH', N'Minimum Password Length', N'Minimum number of characters required in password', N'int', N'number', N'8', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (7, 1, N'MAXPASSWORDLENGTH', N'Maximum Password Length', N'Maximum number of characters allowed in password', N'int', N'number', N'100', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (8, 1, N'REQUIREUPPERCASE', N'Require Uppercase Letter', N'Password must contain at least one uppercase letter', N'bool', N'checkbox', N'true', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (9, 1, N'REQUIRELOWERCASE', N'Require Lowercase Letter', N'Password must contain at least one lowercase letter', N'bool', N'checkbox', N'true', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (10, 1, N'REQUIREDIGIT', N'Require Digit', N'Password must contain at least one digit', N'bool', N'checkbox', N'true', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (11, 1, N'REQUIRESPECIALCHAR', N'Require Special Character', N'Password must contain at least one special character', N'bool', N'checkbox', N'true', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (12, 1, N'PASSWORDEXPIRYDAYS', N'Password Expiry Days', N'Number of days before password expires', N'int', N'number', N'15', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (13, 1, N'PASSWORDHISTORYCOUNT', N'Password History Count', N'Number of previous passwords that cannot be reused', N'int', N'number', N'5', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (14, 1, N'SESSIONTIMEOUTMINUTES', N'Session Timeout Minutes', N'Duration in minutes before session times out due to inactivity', N'int', N'number', N'480', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (15, 1, N'MAXCONCURRENTSESSIONS', N'Maximum Concurrent Sessions', N'Maximum number of concurrent sessions allowed per user', N'int', N'number', N'2', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (16, 1, N'MFAREQUIRED', N'MFA Required', N'Whether Multi-Factor Authentication is mandatory', N'boolean', N'checkbox', N'true', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (17, 1, N'MFABACKUPCODECOUNT', N'MFA Backup Code Count', N'Number of backup codes generated for MFA', N'int', N'number', N'10', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (19, 1, N'PASSWORDRESETTOKENEXPIRYMINUTES', N'Password Reset Token Expiry Minutes', N'Duration in minutes for which the password reset token remains valid Default is 60 minutes 1 hour', N'int', N'number', N'5', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (22, 1, N'LOGINOTPONMAIL', N'Login Otp On Mail', N'Login Otp On Mail', N'boolean', N'checkbox', N'true', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (23, 1, N'LOGINOTPONSMS', N'Enable Login OTP via SMS', N'When enabled, login OTP will be sent via SMS to user mobile number', N'Boolean', N'Toggle', N'false', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (25, 1, N'LOGINOTPEXPIRYMINUTES', N'Login Otp Expiry Minutes', N'Login OTP validity duration in minutes', N'int', N'number', N'2', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (29, 5, N'GOOGLE_PAY_01', N'GOOGLE PAY', N'GOOGLE PAY', N'datetime', N'calendar', N'2026-07-18T23:23', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (30, 5, N'PHONE PE', N'phone pe', N'phonepe', N'boolean', N'checkbox', N'true', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1034, 3006, N'PAYROLL_CONFIG', N'PayrollConfig', N'PayrollConfig', N'int', N'number', N'2', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1035, 3007, N'SMTPHOST', N'SMTP Server Host', N'SMTP server hostname (e.g., smtp.gmail.com)', N'string', N'textbox', N'smtp.gmail.com', 1, NULL, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2036, 3007, N'SMTPPORT', N'SMTP Port', N'SMTP server port 587 for TLS 465 for SSL', N'int', N'textbox', N'587', 1, 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2037, 3007, N'SMTPUSERNAME', N'SMTP Username', N'SMTP authentication username', N'string', N'textbox', N'hr.payrollsolutionservo@gmail.com', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2038, 3007, N'SMTPPASSWORD', N'SMTP Password', N'SMTP authentication password use App Password for Gmail', N'string', N'textbox', N'dujbbskqhedlmjpg', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2039, 3007, N'FROMEMAIL', N'From Email Address', N'Sender email address', N'string', N'textbox', N'hr.payrollsolutionservo@gmail.com', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2040, 3007, N'FROMNAME', N'From Display Name', N'Sender display name', N'string', N'textbox', N'UserInfo', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2041, 3007, N'USESSL', N'Use SSLTLS', N'Whether to use SSLTLS encryption', N'boolean', N'checkbox', N'true', 1, 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2042, 3007, N'LOGINURL', N'Login URL', N'Login URL', N'string', N'textbox', N'https://ptisqa.scipl.info.in/en/login', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (3036, 1, N'FPASSOTPMAIL', N'Forgot Password Otp on Mail', N'this flag use to define forgot passwork otp on mail', N'boolean', N'checkbox', N'true', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (3037, 1, N'FPASSOTPONSMS', N'Forgot password Otp On Sms', N'this flag use to get forgot password otp on sms', N'boolean', N'checkbox', N'false', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (3038, 1, N'2FALOGIN', N'2FA Activation For Login', N'2FA activation for Login', N'boolean', N'checkbox', N'true', 1, 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (3039, 1, N'2FALOGINFORFPASS', N'2FA Activation For Forgot Password', N'2FA Activation For Forgot Password', N'boolean', N'checkbox', N'false', 1, 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (3041, 1, N'MAXOTPCHALLENGELOCKOUTS', N'Max Otp Challenge Lockouts', N'Max Otp Challenge Lock outs', N'int', N'number', N'5', 1, 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigKeyMaster] ([Id], [CategoryId], [ConfigCode], [ConfigName], [Description], [DataType], [ControlType], [DefaultValue], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (3042, 1, N'OTPCHALLENGELOCKOUTDURATIONMINUTES', N'Otp Challenge Lockout Duration Minutes', N'OtpChallengeLockoutDurationMinutes', N'int', N'number', N'2', 1, 1, GETDATE(), NULL, NULL)
-GO
-SET IDENTITY_INSERT [CORE].[ConfigKeyMaster] OFF
-GO
-SET IDENTITY_INSERT [CORE].[ConfigValueMaster] ON
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (73, 29, 1, NULL, 1, N'2026-05-14T18:11', 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (74, 29, 1, 1, 0, N'2026-05-14T18:11', 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (75, 29, 4, NULL, 0, N'2026-05-14T18:11', 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (76, 30, 1, NULL, 1, N'true', 1, GETDATE(), 2, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (77, 30, 1, 1, 1, N'true', 1, GETDATE(), 2, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (78, 30, 2, NULL, 1, N'true', 1, GETDATE(), 2, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (79, 30, 2, 1001, 0, N'false', 1, GETDATE(), 2, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (82, 29, 2, NULL, 1, N'2026-05-14T18:11', 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (83, 29, 3, NULL, 1, N'2026-05-14T18:11', 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (84, 30, 3, NULL, 1, N'true', 1, GETDATE(), 2, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (85, 30, 4, NULL, 1, N'true', 1, GETDATE(), 2, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (86, 30, 3, 1004, 1, N'true', 1, GETDATE(), 2, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (87, 29, 3, 1004, 1, N'2026-05-16T18:14', 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (93, 29, 2, 1001, 1, N'2026-05-14T18:14', 2, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1101, 1034, 1, 1, 1, N'25', 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1102, 1034, 1, 2006, 0, N'2', 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1103, 1034, 1, NULL, 1, N'2', 1, GETDATE(), 1, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1104, 1034, 1, 8008, 0, N'2', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2119, 1035, NULL, NULL, 1, N'smtp.gmail.com', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2122, 2036, NULL, NULL, 1, N'587', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2124, 2038, NULL, NULL, 1, N'dujbbskqhedlmjpg', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2125, 2037, NULL, NULL, 1, N'hr.payrollsolutionservo@gmail.com', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2128, 2039, NULL, NULL, 1, N'hr.payrollsolutionservo@gmail.com', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2130, 2041, NULL, NULL, 1, N'true', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2131, 2042, NULL, NULL, 1, N'https://ptisqa.scipl.info.in/en/login', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2133, 2040, NULL, NULL, 1, N'UserInfo', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2144, 1, NULL, NULL, 1, N'3', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2145, 2, NULL, NULL, 1, N'2026-08-13', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2146, 3, NULL, NULL, 1, N'5', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2147, 4, NULL, NULL, 1, N'30', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2148, 6, NULL, NULL, 1, N'20', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2149, 8, NULL, NULL, 1, N'true', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2150, 9, NULL, NULL, 1, N'true', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2151, 10, NULL, NULL, 1, N'true', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2152, 12, NULL, NULL, 1, N'20', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2153, 11, NULL, NULL, 1, N'true', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2154, 14, NULL, NULL, 1, N'40', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2155, 15, NULL, NULL, 1, N'2', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2156, 16, NULL, NULL, 1, N'true', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2157, 19, NULL, NULL, 1, N'5', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2158, 22, NULL, NULL, 1, N'0', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2159, 25, NULL, NULL, 1, N'2', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2160, 3036, NULL, NULL, 1, N'true', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2161, 3038, NULL, NULL, 1, N'true', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2162, 3041, NULL, NULL, 1, N'5', 1, GETDATE(), NULL, NULL)
-GO
-INSERT [CORE].[ConfigValueMaster] ([Id], [ConfigKeyId], [DepartmentId], [ModuleId], [IsActive], [Value], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2163, 3042, NULL, NULL, 1, N'2', 1, GETDATE(), NULL, NULL)
-GO
-SET IDENTITY_INSERT [CORE].[ConfigValueMaster] OFF
 GO
 
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[UlbType] (3 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[UlbType] ON;
+GO
+MERGE INTO [CORE].[UlbType] AS target
+USING (VALUES
+    (1, N'Corporation', 1, NULL, '2026-07-15T16:26:53.477', NULL, NULL),
+    (2, N'Council', 1, NULL, '2026-07-15T16:26:53.477', NULL, NULL),
+    (3, N'Nagar Panchayat', 1, NULL, '2026-07-15T16:26:53.477', NULL, NULL)
+) AS source ([Id], [UlbTypeName], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[UlbTypeName] = source.[UlbTypeName],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [UlbTypeName], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[UlbTypeName], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
 
+SET IDENTITY_INSERT [CORE].[UlbType] OFF;
+GO
 
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[UlbMaster] (1 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[UlbMaster] ON;
+GO
+MERGE INTO [CORE].[UlbMaster] AS target
+USING (VALUES
+    (1, N'AK001', N'AKOLA MUNICIPAL CORPORATION', N'अकोला महानगरपालिका, अकोला', 1, N'/images/org_logo.png', N'akolamc@gmail.com', N'07242434412', N'110000', N'https://citizen.scipl.info.in', N'सक्षम अधिकारी', N'Competent Officer', N'एम. जी. रोड, मुख्य प्रशासकीय इमारत, नगर वाचनालय, शास्त्री पुतळ्याजवळ, जुना कापड बाजार, अकोला, महाराष्ट्र - ४४४००१', N'MH', N'Akola', N'444001', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '2026-07-15T16:26:53.477', NULL, NULL, NULL)
+) AS source ([Id], [UlbCode], [UlbName], [UlbNameLocal], [UlbTypeId], [UlbLogo], [EmailId], [MobileNo], [AlternateMobileNo], [WebsiteUrl], [ContactPersonName], [ContactPersonDesignation], [UlbAddress], [State], [District], [PinCode], [ProjectStartDate], [FinancialYearStartDate], [ExpectedGoLiveDate], [PartnerName], [PMName], [PMEmailId], [PMMobileNo], [LicenceType], [LicenceStartDate], [LicenceEndDate], [LicenceDuration], [SupportType], [LicenceKey], [IsActive], [CreatedDate], [UpdatedDate], [CreatedBy], [UpdatedBy])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[UlbCode] = source.[UlbCode],
+        target.[UlbName] = source.[UlbName],
+        target.[UlbNameLocal] = source.[UlbNameLocal],
+        target.[UlbTypeId] = source.[UlbTypeId],
+        target.[UlbLogo] = source.[UlbLogo],
+        target.[EmailId] = source.[EmailId],
+        target.[MobileNo] = source.[MobileNo],
+        target.[AlternateMobileNo] = source.[AlternateMobileNo],
+        target.[WebsiteUrl] = source.[WebsiteUrl],
+        target.[ContactPersonName] = source.[ContactPersonName],
+        target.[ContactPersonDesignation] = source.[ContactPersonDesignation],
+        target.[UlbAddress] = source.[UlbAddress],
+        target.[State] = source.[State],
+        target.[District] = source.[District],
+        target.[PinCode] = source.[PinCode],
+        target.[ProjectStartDate] = source.[ProjectStartDate],
+        target.[FinancialYearStartDate] = source.[FinancialYearStartDate],
+        target.[ExpectedGoLiveDate] = source.[ExpectedGoLiveDate],
+        target.[PartnerName] = source.[PartnerName],
+        target.[PMName] = source.[PMName],
+        target.[PMEmailId] = source.[PMEmailId],
+        target.[PMMobileNo] = source.[PMMobileNo],
+        target.[LicenceType] = source.[LicenceType],
+        target.[LicenceStartDate] = source.[LicenceStartDate],
+        target.[LicenceEndDate] = source.[LicenceEndDate],
+        target.[LicenceDuration] = source.[LicenceDuration],
+        target.[SupportType] = source.[SupportType],
+        target.[LicenceKey] = source.[LicenceKey],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedDate] = source.[UpdatedDate],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[UpdatedBy] = source.[UpdatedBy]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [UlbCode], [UlbName], [UlbNameLocal], [UlbTypeId], [UlbLogo], [EmailId], [MobileNo], [AlternateMobileNo], [WebsiteUrl], [ContactPersonName], [ContactPersonDesignation], [UlbAddress], [State], [District], [PinCode], [ProjectStartDate], [FinancialYearStartDate], [ExpectedGoLiveDate], [PartnerName], [PMName], [PMEmailId], [PMMobileNo], [LicenceType], [LicenceStartDate], [LicenceEndDate], [LicenceDuration], [SupportType], [LicenceKey], [IsActive], [CreatedDate], [UpdatedDate], [CreatedBy], [UpdatedBy])
+    VALUES (source.[Id], source.[UlbCode], source.[UlbName], source.[UlbNameLocal], source.[UlbTypeId], source.[UlbLogo], source.[EmailId], source.[MobileNo], source.[AlternateMobileNo], source.[WebsiteUrl], source.[ContactPersonName], source.[ContactPersonDesignation], source.[UlbAddress], source.[State], source.[District], source.[PinCode], source.[ProjectStartDate], source.[FinancialYearStartDate], source.[ExpectedGoLiveDate], source.[PartnerName], source.[PMName], source.[PMEmailId], source.[PMMobileNo], source.[LicenceType], source.[LicenceStartDate], source.[LicenceEndDate], source.[LicenceDuration], source.[SupportType], source.[LicenceKey], source.[IsActive], source.[CreatedDate], source.[UpdatedDate], source.[CreatedBy], source.[UpdatedBy]);
+GO
 
-/* =========================================
-    AliasMaster
-=======================================*/
+SET IDENTITY_INSERT [CORE].[UlbMaster] OFF;
+GO
 
-SET IDENTITY_INSERT [CORE].[AliasMaster] ON;
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[UlbImageMaster] (1 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[UlbImageMaster] ON;
+GO
+MERGE INTO [CORE].[UlbImageMaster] AS target
+USING (VALUES
+    (1, N'Background', 31257, 1, 1, '2026-09-05T14:02:06.700', NULL, NULL)
+) AS source ([Id], [ImageType], [ImageId], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[ImageType] = source.[ImageType],
+        target.[ImageId] = source.[ImageId],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [ImageType], [ImageId], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[ImageType], source.[ImageId], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
 
-;WITH SeedData AS
-(
-    SELECT *
-    FROM
-    (
-        VALUES
-        (47, 'Ward_No', N'Ward No', N'Sector No', N'सेक्टर क्र.1', N'सेक्टर क्र.2', 1, 1, CAST('2026-08-25T11:49:27.240' AS DATETIME), 1, CAST('2026-08-25T18:25:32.950' AS DATETIME)),
-        (48, 'Construction_Type', N'Construction Type', N'Construction Type', N'बांधकाम प्रकार', N'निर्माण प्रकार', 1, 1, CAST('2026-08-25T18:41:40.540' AS DATETIME), 1, CAST('2026-08-26T15:55:14.760' AS DATETIME)),
-        (49, 'Property_No', N'Property No', N'Property No', N'मालमत्ता क्र.', N'संपत्ति क्र.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), 1, CAST('2026-08-26T15:50:59.183' AS DATETIME)),
-        (50, 'Partition_No', N'Partition No', N'Partition No', N'विभाग क्र.', N'विभाजन क्र.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (51, 'Old_No', N'Old No', N'Old No', N'जुना क्र.', N'पुराना क्र.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (52, 'Upic_Id', N'Upic Id', N'Upic Id', N'UPIC क्र.', N'UPIC आईडी', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (53, 'Assessment_Status', N'Assessment Status', N'Assessment Status', N'आकारणी स्थिती', N'निर्धारण स्थिति', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), 1, CAST('2026-08-26T11:53:38.450' AS DATETIME)),
-        (54, 'Division', N'Division', N'Division', N'विभाग', N'प्रभाग', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (55, 'Category', N'Category', N'Category', N'वर्ग', N'श्रेणी', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (56, 'Wing', N'Wing', N'Wing', N'विंग', N'विंग', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (57, 'Flat_No_Shop_No', N'Flat No/Shop No', N'Flat No/Shop No', N'फ्लॅट क्र./दुकान क्र.', N'फ्लैट क्र./दुकान क्र.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (58, 'Tax_Zone_No', N'Tax Zone No', N'Tax Zone No', N'कर क्षेत्र क्र.', N'कर क्षेत्र क्र.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (59, 'Rate_Section_Name', N'Ratesection Name', N'Ratesection Name', N'दर विभागाचे नाव', N'दर अनुभाग का नाम', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (60, 'Mouja_Name', N'Mouja Name', N'Mouja Name', N'मौजा नाव', N'मौजा नाम', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), 1, CAST('2026-08-26T15:50:33.640' AS DATETIME)),
-        (61, 'Sub_Zone_No', N'Subzone No', N'Subzone No', N'उपक्षेत्र क्र.', N'उपक्षेत्र क्र.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (62, 'Survey_No', N'Survey No', N'Survey No', N'सर्वे क्र.', N'सर्वे क्र.', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (63, 'Floor', N'Floor', N'Floor', N'मजला', N'मंजिल', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (64, 'Sub_Floor', N'Sub Floor', N'Sub Floor', N'उपमजला', N'उपमंजिल', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (65, 'Construction_Year', N'Con Year', N'Con Year', N'बांधकाम वर्ष', N'निर्माण वर्ष', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (66, 'Assessment_Year', N'Asst Year', N'Asst Year', N'आकारणी वर्ष', N'निर्धारण वर्ष', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (67, 'Use', N'Use', N'Use', N'वापर', N'उपयोग', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (68, 'Sub_Type_Of_Use', N'Sub Type Of Use', N'Sub Type Of Use', N'वापराचा उपप्रकार', N'उपयोग का उपप्रकार', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (69, 'Rooms', N'Rooms', N'Rooms', N'खोल्या', N'कमरे', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (70, 'Carpet_Area', N'Carpet Area(Ft/Mtr)', N'Carpet Area(Ft/Mtr)', N'चटई क्षेत्रफळ (फु./मी.)', N'कार्पेट क्षेत्रफल (फु./मी.)', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (71, 'Builtup_Area', N'Builtup Area(Ft/Mtr)', N'Builtup Area(Ft/Mtr)', N'बांधकाम क्षेत्रफळ (फु./मी.)', N'निर्मित क्षेत्रफल (फु./मी.)', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (72, 'OC_Number', N'Oc Number', N'Oc Number', N'ओ.सी. क्र.', N'ओ.सी. नंबर', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL),
-        (73, 'OC_Date', N'Oc Date', N'Oc Date', N'ओ.सी. दिनांक', N'ओ.सी. दिनांक', 1, 1, CAST('2026-08-26T10:36:57.990' AS DATETIME), NULL, NULL)
-    ) AS V
-    (
-        Id, KeyName, LabelName, EnglishName, RegionalName, HindiName,
-        IsActive, CreatedBy, CreatedDate, UpdatedBy, UpdatedDate
-    )
-)
-INSERT INTO [CORE].[AliasMaster]
-(
-    [Id], [KeyName], [LabelName], [EnglishName], [RegionalName], [HindiName],
-    [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]
-)
+SET IDENTITY_INSERT [CORE].[UlbImageMaster] OFF;
+GO
 
-SELECT
-    S.Id, S.KeyName, S.LabelName, S.EnglishName, S.RegionalName, S.HindiName,
-    S.IsActive, S.CreatedBy, S.CreatedDate, S.UpdatedBy, S.UpdatedDate
-FROM SeedData S
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[YearMaster] (4 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[YearMaster] ON;
+GO
+MERGE INTO [CORE].[YearMaster] AS target
+USING (VALUES
+    (1, 2022, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2026-07-15T16:26:56.290', NULL, NULL),
+    (2, 2023, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2026-07-15T16:26:56.290', NULL, NULL),
+    (3, 2024, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2026-07-15T16:26:56.290', NULL, NULL),
+    (4, 2025, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2026-07-15T16:26:56.290', NULL, NULL)
+) AS source ([Id], [Year], [YearCode], [Status], [StartDate], [EndDate], [Description], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[Year] = source.[Year],
+        target.[YearCode] = source.[YearCode],
+        target.[Status] = source.[Status],
+        target.[StartDate] = source.[StartDate],
+        target.[EndDate] = source.[EndDate],
+        target.[Description] = source.[Description],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [Year], [YearCode], [Status], [StartDate], [EndDate], [Description], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[Year], source.[YearCode], source.[Status], source.[StartDate], source.[EndDate], source.[Description], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
 
-WHERE NOT EXISTS
-(
-    SELECT 1
-    FROM [CORE].[AliasMaster] X
-    WHERE X.Id = S.Id
-);
+SET IDENTITY_INSERT [CORE].[YearMaster] OFF;
+GO
 
-SET IDENTITY_INSERT [CORE].[AliasMaster] OFF;
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[SMSGatewayMaster] (1 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[SMSGatewayMaster] ON;
+GO
+MERGE INTO [CORE].[SMSGatewayMaster] AS target
+USING (VALUES
+    (1, N'Akola Municipal Corporation SMS Gateway', 1, 1, '2026-08-17T16:57:18.413')
+) AS source ([SMSGatewayMasterID], [ProviderName], [IsActive], [CreatedBy], [CreatedDate])
+ON (target.[SMSGatewayMasterID] = source.[SMSGatewayMasterID])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[ProviderName] = source.[ProviderName],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([SMSGatewayMasterID], [ProviderName], [IsActive], [CreatedBy], [CreatedDate])
+    VALUES (source.[SMSGatewayMasterID], source.[ProviderName], source.[IsActive], source.[CreatedBy], source.[CreatedDate]);
+GO
 
--- ==========================================================
--- 08. ULB Type & Master Seed Data
--- ==========================================================
-IF NOT EXISTS (SELECT 1 FROM [CORE].[UlbType] WHERE [Id] = 1)
-BEGIN
-    SET IDENTITY_INSERT [CORE].[UlbType] ON;
-    INSERT INTO [CORE].[UlbType] ([Id], [UlbTypeName], [IsActive], [CreatedDate]) VALUES (1, N'Corporation', 1, GETDATE());
-    INSERT INTO [CORE].[UlbType] ([Id], [UlbTypeName], [IsActive], [CreatedDate]) VALUES (2, N'Council', 1, GETDATE());
-    INSERT INTO [CORE].[UlbType] ([Id], [UlbTypeName], [IsActive], [CreatedDate]) VALUES (3, N'Nagar Panchayat', 1, GETDATE());
-    SET IDENTITY_INSERT [CORE].[UlbType] OFF;
-END;
+SET IDENTITY_INSERT [CORE].[SMSGatewayMaster] OFF;
+GO
 
-IF NOT EXISTS (SELECT 1 FROM [CORE].[UlbMaster] WHERE [Id] = 1)
-BEGIN
-    SET IDENTITY_INSERT [CORE].[UlbMaster] ON;
-    INSERT INTO [CORE].[UlbMaster] (
-        [Id], [UlbCode], [UlbName], [UlbNameLocal], [UlbTypeId], [UlbLogo],
-        [EmailId], [MobileNo], [AlternateMobileNo], [WebsiteUrl], [ContactPersonName],
-        [ContactPersonDesignation], [UlbAddress], [State], [District], [PinCode],
-        [IsActive], [CreatedDate]
-    ) VALUES (
-        1, N'AK001', N'AKOLA MUNICIPAL CORPORATION', N'अकोला महानगरपालिका, अकोला', 1, N'/images/akola-seal.png',
-        N'akolamc@gmail.com', N'07242434412', N'110000', N'https://citizen.scipl.info.in', N'सक्षम अधिकारी',
-        N'Competent Officer', N'एम. जी. रोड, मुख्य प्रशासकीय इमारत, नगर वाचनालय, शास्त्री पुतळ्याजवळ, जुना कापड बाजार, अकोला, महाराष्ट्र - ४४४००१', N'MH', N'Akola', N'444001',
-        1, GETDATE()
-    );
-    SET IDENTITY_INSERT [CORE].[UlbMaster] OFF;
-END;
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[SmsGatewayDetails] (11 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[SmsGatewayDetails] ON;
+GO
+MERGE INTO [CORE].[SmsGatewayDetails] AS target
+USING (VALUES
+    (1, 1, N'BaseURL', N'http://sms.ptaxcollection.com/sendsms.jsp', 1, 1, 0, 0, 0, 0, 1, 1, '2026-08-17T16:57:18.420'),
+    (2, 1, N'user', N'payakl', 2, 0, 0, 0, 0, 0, 1, 1, '2026-08-17T16:57:18.420'),
+    (3, 1, N'password', N'fb05b4a701XX', 3, 0, 0, 0, 0, 0, 1, 1, '2026-08-17T16:57:18.420'),
+    (4, 1, N'senderid', N'AKOLMC', 4, 0, 0, 0, 0, 0, 1, 1, '2026-08-17T16:57:18.420'),
+    (5, 1, N'mobiles', N'', 5, 0, 0, 1, 0, 0, 1, 1, '2026-08-17T16:57:18.420'),
+    (6, 1, N'sms', N'', 6, 0, 1, 0, 0, 0, 1, 1, '2026-08-17T16:57:18.420'),
+    (7, 1, N'tempid', N'', 7, 0, 0, 0, 1, 0, 1, 1, '2026-08-17T16:57:18.420'),
+    (8, 1, N'unicode', N'0', 8, 0, 0, 0, 0, 1, 1, 1, '2026-08-17T16:57:18.420'),
+    (9, 1, N'accusage', N'1', 8, 0, 0, 0, 0, 0, 1, 1, '2026-08-20T14:25:08.470'),
+    (10, 1, N'entityid', N'1701161970302682421', 9, 0, 0, 0, 0, 0, 1, 1, '2026-08-20T14:25:08.470'),
+    (11, 1, N'responsein', N'json', 10, 0, 0, 0, 0, 0, 1, 1, '2026-08-20T14:25:08.470')
+) AS source ([SMSGatewayDetailsID], [SMSGatewayMasterID], [PropertyName], [Value], [SequenceNo], [IsURL], [IsMessage], [IsMobile], [IsTemplateID], [IsUnicode], [IsActive], [CreatedBy], [CreatedDate])
+ON (target.[SMSGatewayDetailsID] = source.[SMSGatewayDetailsID])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[SMSGatewayMasterID] = source.[SMSGatewayMasterID],
+        target.[PropertyName] = source.[PropertyName],
+        target.[Value] = source.[Value],
+        target.[SequenceNo] = source.[SequenceNo],
+        target.[IsURL] = source.[IsURL],
+        target.[IsMessage] = source.[IsMessage],
+        target.[IsMobile] = source.[IsMobile],
+        target.[IsTemplateID] = source.[IsTemplateID],
+        target.[IsUnicode] = source.[IsUnicode],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([SMSGatewayDetailsID], [SMSGatewayMasterID], [PropertyName], [Value], [SequenceNo], [IsURL], [IsMessage], [IsMobile], [IsTemplateID], [IsUnicode], [IsActive], [CreatedBy], [CreatedDate])
+    VALUES (source.[SMSGatewayDetailsID], source.[SMSGatewayMasterID], source.[PropertyName], source.[Value], source.[SequenceNo], source.[IsURL], source.[IsMessage], source.[IsMobile], source.[IsTemplateID], source.[IsUnicode], source.[IsActive], source.[CreatedBy], source.[CreatedDate]);
+GO
+
+SET IDENTITY_INSERT [CORE].[SmsGatewayDetails] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[SMSType] (8 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[SMSType] ON;
+GO
+MERGE INTO [CORE].[SMSType] AS target
+USING (VALUES
+    (1, N'OTP', N'One Time Password for citizen login/verification', 1),
+    (2, N'Change Password', N'Notification for password updates', 1),
+    (3, N'Online Fee Paid', N'Receipt notification for online fee payments', 1),
+    (4, N'RTS Application Submitted', N'Notification sent when RTS application is submitted', 1),
+    (5, N'RTS Payment Pending', N'Notification requesting citizen to pay application fee', 1),
+    (6, N'RTS Application Approved', N'Notification when RTS service is approved and ready', 1),
+    (7, N'RTS Application Rejected', N'Notification when RTS application is rejected', 1),
+    (8, N'RTS Application Status Update', N'Unified status update notification for all RTS workflow steps', 1)
+) AS source ([SMSTypeID], [TypeName], [Description], [IsActive])
+ON (target.[SMSTypeID] = source.[SMSTypeID])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[TypeName] = source.[TypeName],
+        target.[Description] = source.[Description],
+        target.[IsActive] = source.[IsActive]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([SMSTypeID], [TypeName], [Description], [IsActive])
+    VALUES (source.[SMSTypeID], source.[TypeName], source.[Description], source.[IsActive]);
+GO
+
+SET IDENTITY_INSERT [CORE].[SMSType] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[SMSMaster] (11 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[SMSMaster] ON;
+GO
+MERGE INTO [CORE].[SMSMaster] AS target
+USING (VALUES
+    (9, 1, 3, N'RTS_FEE_PAID', N'1777178721313405133', N'Dear {CitizenName}, Payment of Rs.{Amount} for RTS Application No: {ApplicationNo} is successful. Receipt No: {ReceiptNo}. Download Receipt: https://citizen.scipl.info.in/service?receipt={ReceiptNo} Akola Municipal Corporation', 1, 1, '2026-08-17T16:57:18.437', NULL, '2026-08-20T13:26:49.787'),
+    (11, 1, 1, N'RTS_CITIZEN_LOGIN_OTP', N'1777178721904398497', N'Your RTS Citizen Portal login OTP is {Otp}. Please do not share this OTP with anyone. Akola Municipal Corporation', 1, 1, '2026-08-18T17:46:57.223', NULL, '2026-08-20T13:26:49.783'),
+    (12, 1, 8, N'RTS_APP_STATUS_UPDATE', N'1777178721329285369', N'Dear {CitizenName}, Your RTS Application No: {ApplicationNo} for {ServiceName} is Currently {Status} Track Status: https://citizen.scipl.info.in/service?track={ApplicationNo} Akola Municipal Corporation', 1, 1, '2026-08-18T17:46:57.223', NULL, '2026-08-20T13:26:49.783'),
+    (1011, 1, 1, N'RTS_SUBMITTED', N'1207161987654321001', N'प्रिय {CitizenName}, तुमचा आरटीएस अर्ज क्र. {ApplicationNo} ({ServiceName}) अकोला महानगरपालिकेकडे प्राप्त झाला आहे. ट्रॅकिंग लिंक: https://citizen.scipl.info.in/service?track={ApplicationNo} - अकोला मनपा', 1, 1, '2026-08-26T16:09:35.657', NULL, '2026-08-28T13:47:17.467'),
+    (1012, 1, 8, N'RTS_STAGE_FORWARDED', N'1207161987654321002', N'प्रिय {CitizenName}, तुमचा अर्ज क्र. {ApplicationNo} पुढील टप्प्यावर पडताळणीसाठी पाठवला आहे. - अकोला मनपा', 1, 1, '2026-08-26T16:09:35.657', NULL, '2026-08-28T13:47:17.467'),
+    (1013, 1, 3, N'RTS_PAYMENT_REQUEST', N'1207161987654321003', N'प्रिय {CitizenName}, अर्ज क्र. {ApplicationNo} ({ServiceName}) साठी शुल्क भरणे आवश्यक आहे. भरण्यासाठी लिंक: https://citizen.scipl.info.in/service?pay={ApplicationNo} - अकोला मनपा', 1, 1, '2026-08-26T16:09:35.657', NULL, '2026-08-28T13:47:17.467'),
+    (1014, 1, 3, N'RTS_PAYMENT_SUCCESS', N'1207161987654321004', N'प्रिय {CitizenName}, अर्ज क्र. {ApplicationNo} साठी रु. {Amount}/- चे शुल्क यशस्वीरीत्या प्राप्त झाले. पावती क्र.: {ReceiptNo}. - अकोला मनपा', 1, 1, '2026-08-26T16:09:35.657', NULL, '2026-08-28T13:47:17.467'),
+    (1015, 1, 8, N'RTS_APPROVED', N'1207161987654321005', N'अभिनंदन {CitizenName}! तुमचा अर्ज क्र. {ApplicationNo} ({ServiceName}) मंजूर करण्यात आला आहे. आपले अधिकृत प्रमाणपत्र डाउनलोड करा: https://citizen.scipl.info.in/service?cert={ApplicationNo} - अकोला मनपा', 1, 1, '2026-08-26T16:09:35.657', NULL, '2026-08-28T13:47:17.467'),
+    (1016, 1, 8, N'RTS_REJECTED', N'1207161987654321006', N'प्रिय {CitizenName}, अर्ज क्र. {ApplicationNo} ({ServiceName}) नामंजूर केला आहे. आपण ३० दिवसांत प्रथम अपील करू शकता: https://citizen.scipl.info.in/service?appeal={ApplicationNo} - अकोला मनपा', 1, 1, '2026-08-26T16:09:35.657', NULL, '2026-08-28T13:47:17.467'),
+    (1017, 1, 8, N'RTS_RETURNED', N'1207161987654321007', N'प्रिय {CitizenName}, अर्ज क्र. {ApplicationNo} मधील त्रुटींच्या पूर्ततेसाठी अर्ज परत पाठवला आहे. दुरुस्तीसाठी लिंक: https://citizen.scipl.info.in/service?edit={ApplicationNo} - अकोला मनपा', 1, 1, '2026-08-26T16:09:35.657', NULL, '2026-08-28T13:47:17.467'),
+    (1018, 1, 8, N'RTS_APPEAL_FILED', N'1207161987654321008', N'प्रिय {CitizenName}, अर्ज क्र. {ApplicationNo} वरील आपले अपील नोंदवले गेले आहे. सुनावणीची तारीख लवकरच कळवली जाईल. - अकोला मनपा', 1, 1, '2026-08-26T16:09:35.657', NULL, '2026-08-28T13:47:17.467')
+) AS source ([SmsID], [SMSGatewayMasterID], [SMSTypeID], [TemplateName], [TemplateID], [SmsText], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[SmsID] = source.[SmsID])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[SMSGatewayMasterID] = source.[SMSGatewayMasterID],
+        target.[SMSTypeID] = source.[SMSTypeID],
+        target.[TemplateName] = source.[TemplateName],
+        target.[TemplateID] = source.[TemplateID],
+        target.[SmsText] = source.[SmsText],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([SmsID], [SMSGatewayMasterID], [SMSTypeID], [TemplateName], [TemplateID], [SmsText], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[SmsID], source.[SMSGatewayMasterID], source.[SMSTypeID], source.[TemplateName], source.[TemplateID], source.[SmsText], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
+
+SET IDENTITY_INSERT [CORE].[SMSMaster] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[DocumentBinding] (2 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[DocumentBinding] ON;
+GO
+MERGE INTO [CORE].[DocumentBinding] AS target
+USING (VALUES
+    (1, 10041, 1, 1, N'string', NULL, '3fa85f64-5717-4562-b3fc-2c963f66afa6', N'string', N'string', 1, NULL, NULL, 1, 2, 1, 0, 1, '2026-08-10T17:54:39.670', 0, '2026-08-10T17:12:03.780', 0, '2026-08-10T17:54:39.670', N'System.Byte[]'),
+    (2, 10042, 1, 1, N'string', NULL, '3fa85f64-5717-4562-b3fc-2c963f66afa6', N'string', N'string', 1, NULL, NULL, 1, 2, 1, 1, 0, NULL, 0, '2026-08-10T17:54:39.627', NULL, NULL, N'System.Byte[]')
+) AS source ([Id], [DocumentId], [DepartmentId], [ModuleId], [ReferenceTableName], [ReferenceTableId], [ReferenceTableIdGuid], [ReferencePropertyName], [BindingPurpose], [IsPrimaryDocument], [Notes], [AccessPermission], [AuthDepartmentId], [AuthReferenceId], [IsReferenceValid], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [RowVersion])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[DocumentId] = source.[DocumentId],
+        target.[DepartmentId] = source.[DepartmentId],
+        target.[ModuleId] = source.[ModuleId],
+        target.[ReferenceTableName] = source.[ReferenceTableName],
+        target.[ReferenceTableId] = source.[ReferenceTableId],
+        target.[ReferenceTableIdGuid] = source.[ReferenceTableIdGuid],
+        target.[ReferencePropertyName] = source.[ReferencePropertyName],
+        target.[BindingPurpose] = source.[BindingPurpose],
+        target.[IsPrimaryDocument] = source.[IsPrimaryDocument],
+        target.[Notes] = source.[Notes],
+        target.[AccessPermission] = source.[AccessPermission],
+        target.[AuthDepartmentId] = source.[AuthDepartmentId],
+        target.[AuthReferenceId] = source.[AuthReferenceId],
+        target.[IsReferenceValid] = source.[IsReferenceValid],
+        target.[IsActive] = source.[IsActive],
+        target.[MarkedForDeletion] = source.[MarkedForDeletion],
+        target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate],
+        target.[RowVersion] = source.[RowVersion]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [DocumentId], [DepartmentId], [ModuleId], [ReferenceTableName], [ReferenceTableId], [ReferenceTableIdGuid], [ReferencePropertyName], [BindingPurpose], [IsPrimaryDocument], [Notes], [AccessPermission], [AuthDepartmentId], [AuthReferenceId], [IsReferenceValid], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [RowVersion])
+    VALUES (source.[Id], source.[DocumentId], source.[DepartmentId], source.[ModuleId], source.[ReferenceTableName], source.[ReferenceTableId], source.[ReferenceTableIdGuid], source.[ReferencePropertyName], source.[BindingPurpose], source.[IsPrimaryDocument], source.[Notes], source.[AccessPermission], source.[AuthDepartmentId], source.[AuthReferenceId], source.[IsReferenceValid], source.[IsActive], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], source.[RowVersion]);
+GO
+
+SET IDENTITY_INSERT [CORE].[DocumentBinding] OFF;
+GO
+
