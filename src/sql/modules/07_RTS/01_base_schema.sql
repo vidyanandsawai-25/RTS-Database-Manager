@@ -214,10 +214,16 @@ BEGIN
         [CreatedDate]               DATETIME NOT NULL CONSTRAINT [DF_ApplicationDetails_CreatedDate] DEFAULT (GETDATE()),
         [UpdatedBy]                 INT NULL,
         [UpdatedDate]               DATETIME NULL,
+        [IssuedCertificateGuid]     UNIQUEIDENTIFIER NULL,
 
         CONSTRAINT [PK_ApplicationDetails] PRIMARY KEY CLUSTERED ([Id] ASC),
         CONSTRAINT [UQ_ApplicationDetails_ApplicationNo] UNIQUE NONCLUSTERED ([ApplicationNo] ASC)
     );
+END;
+ELSE
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ApplicationDetails' AND COLUMN_NAME = 'IssuedCertificateGuid')
+        ALTER TABLE [RTS].[ApplicationDetails] ADD [IssuedCertificateGuid] UNIQUEIDENTIFIER NULL;
 END;
 GO
 
@@ -442,6 +448,73 @@ END;
 GO
 
 /* ----------------------------------------------------------------------------
+   10B. [RTS].[CertificateCoreTemplateMaster]
+   ---------------------------------------------------------------------------- */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'CertificateCoreTemplateMaster')
+BEGIN
+    CREATE TABLE [RTS].[CertificateCoreTemplateMaster]
+    (
+        [Id]                    INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+        [TemplateName]          NVARCHAR(200) NOT NULL,
+        [TemplateCode]          NVARCHAR(50) NOT NULL,
+        [Description]           NVARCHAR(500) NULL,
+        [HeaderContent]         NVARCHAR(MAX) NULL,
+        [BodyContent]           NVARCHAR(MAX) NOT NULL,
+        [FooterContent]         NVARCHAR(MAX) NULL,
+        [DesignJson]            NVARCHAR(MAX) NULL,
+        [IsActive]              BIT NOT NULL CONSTRAINT [DF_CertificateCoreTemplateMaster_IsActive] DEFAULT (1),
+        [CreatedDate]           DATETIME NOT NULL CONSTRAINT [DF_CertificateCoreTemplateMaster_CreatedDate] DEFAULT (GETDATE()),
+        [UpdatedDate]           DATETIME NULL,
+        [CreatedBy]             INT NULL,
+        [UpdatedBy]             INT NULL,
+        [MarkedForDeletion]     BIT NOT NULL CONSTRAINT [DF_CertificateCoreTemplateMaster_MarkedForDeletion] DEFAULT (0),
+        [MarkedForDeletionDate] DATETIME NULL,
+
+        CONSTRAINT [PK_CertificateCoreTemplateMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
+    );
+END;
+GO
+
+/* ----------------------------------------------------------------------------
+   10C. [RTS].[ServiceCertificateMaster]
+   ---------------------------------------------------------------------------- */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceCertificateMaster')
+BEGIN
+    CREATE TABLE [RTS].[ServiceCertificateMaster]
+    (
+        [Id]                        INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+        [ServiceId]                 INT NOT NULL,
+        [TemplateName]              NVARCHAR(200) NOT NULL,
+        [TemplateCode]              NVARCHAR(100) NULL,
+        [HeaderContent]             NVARCHAR(MAX) NULL,
+        [BodyContent]               NVARCHAR(MAX) NOT NULL,
+        [FooterContent]             NVARCHAR(MAX) NULL,
+        [DefaultConditionsJson]     NVARCHAR(MAX) NULL,
+        [OfficerFieldsConfigJson]   NVARCHAR(MAX) NULL,
+        [IsActive]                  BIT NOT NULL CONSTRAINT [DF_ServiceCertificateMaster_IsActive] DEFAULT (1),
+        [CreatedBy]                 INT NULL,
+        [CreatedDate]               DATETIME NOT NULL CONSTRAINT [DF_ServiceCertificateMaster_CreatedDate] DEFAULT (GETDATE()),
+        [UpdatedBy]                 INT NULL,
+        [UpdatedDate]               DATETIME NULL,
+        [MarkedForDeletion]         BIT NOT NULL CONSTRAINT [DF_ServiceCertificateMaster_MarkedForDeletion] DEFAULT (0),
+        [MarkedForDeletionDate]     DATETIME NULL,
+        [DesignJson]                NVARCHAR(MAX) NULL,
+
+        CONSTRAINT [PK_ServiceCertificateMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
+    );
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_ServiceCertificateMaster_ServiceMaster')
+BEGIN
+    ALTER TABLE [RTS].[ServiceCertificateMaster] WITH CHECK
+        ADD CONSTRAINT [FK_ServiceCertificateMaster_ServiceMaster]
+        FOREIGN KEY ([ServiceId])
+        REFERENCES [RTS].[ServiceMaster] ([Id]);
+END;
+GO
+
+/* ----------------------------------------------------------------------------
    11. [RTS].[IssuedCertificate]
    ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'IssuedCertificate')
@@ -598,6 +671,27 @@ BEGIN
 
         CONSTRAINT [PK_AppealApplicationDetails] PRIMARY KEY CLUSTERED ([Id] ASC)
     );
+END;
+ELSE
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'ReasonForComplaint')
+        ALTER TABLE [RTS].[AppealApplicationDetails] ADD [ReasonForComplaint] NVARCHAR(MAX) NULL;
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'MobileNumber')
+        ALTER TABLE [RTS].[AppealApplicationDetails] ADD [MobileNumber] VARCHAR(15) NULL;
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'EmailAddress')
+        ALTER TABLE [RTS].[AppealApplicationDetails] ADD [EmailAddress] VARCHAR(150) NULL;
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'AppealStatus')
+        ALTER TABLE [RTS].[AppealApplicationDetails] ADD [AppealStatus] VARCHAR(30) NULL;
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'ActionRemarks')
+        ALTER TABLE [RTS].[AppealApplicationDetails] ADD [ActionRemarks] NVARCHAR(MAX) NULL;
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'ActionDate')
+        ALTER TABLE [RTS].[AppealApplicationDetails] ADD [ActionDate] DATETIME NULL;
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'ActionByUserId')
+        ALTER TABLE [RTS].[AppealApplicationDetails] ADD [ActionByUserId] INT NULL;
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'MarkedForDeletion')
+        ALTER TABLE [RTS].[AppealApplicationDetails] ADD [MarkedForDeletion] BIT NOT NULL CONSTRAINT [DF_AppealApplicationDetails_MarkedForDeletion] DEFAULT (0);
+    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'MarkedForDeletionDate')
+        ALTER TABLE [RTS].[AppealApplicationDetails] ADD [MarkedForDeletionDate] DATETIME NULL;
 END;
 GO
 
