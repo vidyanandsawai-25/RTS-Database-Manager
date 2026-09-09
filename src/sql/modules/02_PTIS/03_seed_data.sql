@@ -5208,10 +5208,14 @@ GO
 /* ============================================================================
    1. Seed PTIS.PolicyCodeMaster
    DBA-provided final policy code list and NextPolicyCodeId workflow
-   chains (OC_PARTIAL -> OC, CC_PARTIAL -> CC, ELECTRIC_PARTIAL ->
+   chains (PARTIAL_OC -> OC, PARTIAL_CC -> CC, PARTIAL_ELECTRIC_BILL ->
    ELECTRIC_BILL, SECTION_129 staged chain). Runs once against a fresh
    table, so it is not wrapped in a WHERE NOT EXISTS -- guarded by
    IsSeeded check below instead.
+   IsRetroDemand = 1 for OC/PARTIAL_OC/CC/PARTIAL_CC/ELECTRIC_BILL/
+   PARTIAL_ELECTRIC_BILL -- the Retrospective Tax engine's own demand
+   families. OLD_ARREARS (migrated ULB pending tax) is explicitly NOT
+   retro demand -- see PTIS.TransMast's PolicyCodeId classification.
 ============================================================================ */
 
 IF NOT EXISTS (SELECT 1 FROM [PTIS].[PolicyCodeMaster])
@@ -5235,29 +5239,31 @@ BEGIN
             [DisplayOrder],
             [IsProtected],
             [IsActive],
-            [CreatedBy]
+            [CreatedBy],
+            [IsRetroDemand]
         )
         VALUES
-        (1,  'NETTAX',            N'Net Tax',                        N'Normal final calculated property tax',                                                'NORMAL',      NULL, 1, 0, 0,  1, 1, 1, 1),
-        (2,  'AS_PER_OLD',        N'As Per Old',                     N'Old ULB tax is considered as the final applicable tax',                               'NORMAL',      NULL, 1, 1, 0,  2, 1, 1, 1),
-        (3,  'MIN_RV',            N'Minimum RV',                     N'Minimum rateable value policy is applied',                                            'NORMAL',      NULL, 1, 1, 0,  3, 1, 1, 1),
-        (4,  'RETENTION',         N'Retention',                      N'Previous tax or rateable value is retained',                                          'NORMAL',      NULL, 1, 1, 0,  4, 1, 1, 1),
-        (5,  'OC_PARTIAL',        N'Partial Occupancy Certificate',  N'Prorated OC tax for the remaining days of the current financial year',                'DATE_BASED',  6,    0, 1, 1,  5, 1, 1, 1),
-        (6,  'OC',                N'Occupancy Certificate',          N'Full-year tax based on the occupancy certificate',                                    'DATE_BASED',  NULL, 1, 1, 0,  6, 1, 1, 1),
-        (7,  'CC_PARTIAL',        N'Partial Completion Certificate', N'Prorated CC tax for the remaining days of the current financial year',                'DATE_BASED',  8,    0, 1, 1,  7, 1, 1, 1),
-        (8,  'CC',                N'Completion Certificate',         N'Full-year tax based on the completion certificate',                                   'DATE_BASED',  NULL, 1, 1, 0,  8, 1, 1, 1),
-        (9,  'ELECTRIC_PARTIAL',  N'Partial Electricity Bill',       N'Prorated electricity-bill tax for the remaining days of the current financial year',  'DATE_BASED',  10,   0, 1, 1,  9, 1, 1, 1),
-        (10, 'ELECTRIC_BILL',     N'Electricity Bill',               N'Full-year tax based on the electricity bill date',                                    'DATE_BASED',  NULL, 1, 1, 0, 10, 1, 1, 1),
-        (11, 'SECTION_129_OLD_1', N'Section 129 - Old Tax Year 1',   N'First financial year tax is equal to old ULB tax',                                    'STAGE_BASED', 12,   0, 1, 1, 11, 1, 1, 1),
-        (12, 'SECTION_129_OLD_2', N'Section 129 - Old Tax Year 2',   N'Second financial year tax is equal to old ULB tax',                                   'STAGE_BASED', 13,   0, 1, 1, 12, 1, 1, 1),
-        (13, 'SECTION_129_20',    N'Section 129 - 20 Percent',       N'Section 129 twenty-percent stage',                                                     'STAGE_BASED', 14,   0, 1, 1, 13, 1, 1, 1),
-        (14, 'SECTION_129_40',    N'Section 129 - 40 Percent',       N'Section 129 forty-percent stage',                                                      'STAGE_BASED', 15,   0, 1, 1, 14, 1, 1, 1),
-        (15, 'SECTION_129_60',    N'Section 129 - 60 Percent',       N'Section 129 sixty-percent stage',                                                      'STAGE_BASED', 16,   0, 1, 1, 15, 1, 1, 1),
-        (16, 'SECTION_129_80',    N'Section 129 - 80 Percent',       N'Section 129 eighty-percent stage',                                                     'STAGE_BASED', 17,   0, 1, 1, 16, 1, 1, 1),
-        (17, 'SECTION_129_100',   N'Section 129 - 100 Percent',      N'Final Section 129 stage with full new assessment tax',                                'STAGE_BASED', NULL, 1, 1, 1, 17, 1, 1, 1),
-        (18, 'HEARING',           N'Hearing',                        N'Final tax decided during hearing',                                                     'DECISION',    NULL, 1, 1, 0, 18, 1, 1, 1),
-        (19, 'APPEAL_COMMITTEE',  N'Appeal Committee',               N'Final tax decided by the appeal committee',                                            'DECISION',    NULL, 1, 1, 0, 19, 1, 1, 1),
-        (20, 'REMISSION',         N'Remission',                      N'Final tax decided after remission',                                                    'DECISION',    NULL, 1, 1, 0, 20, 1, 1, 1);
+        (1,  'NETTAX',                 N'Net Tax',                        N'Normal final calculated property tax',                                                'NORMAL',      NULL, 1, 0, 0,  1, 1, 1, 1, 0),
+        (2,  'AS_PER_OLD',             N'As Per Old',                     N'Old ULB tax is considered as the final applicable tax',                               'NORMAL',      NULL, 1, 1, 0,  2, 1, 1, 1, 0),
+        (3,  'MIN_RV',                 N'Minimum RV',                     N'Minimum rateable value policy is applied',                                            'NORMAL',      NULL, 1, 1, 0,  3, 1, 1, 1, 0),
+        (4,  'RETENTION',              N'Retention',                      N'Previous tax or rateable value is retained',                                          'NORMAL',      NULL, 1, 1, 0,  4, 1, 1, 1, 0),
+        (5,  'PARTIAL_OC',             N'Partial Occupancy Certificate',  N'Prorated OC tax for the remaining days of the current financial year',                'DATE_BASED',  6,    0, 1, 1,  5, 1, 1, 1, 1),
+        (6,  'OC',                     N'Occupancy Certificate',          N'Full-year tax based on the occupancy certificate',                                    'DATE_BASED',  NULL, 1, 1, 0,  6, 1, 1, 1, 1),
+        (7,  'PARTIAL_CC',             N'Partial Completion Certificate', N'Prorated CC tax for the remaining days of the current financial year',                'DATE_BASED',  8,    0, 1, 1,  7, 1, 1, 1, 1),
+        (8,  'CC',                     N'Completion Certificate',         N'Full-year tax based on the completion certificate',                                   'DATE_BASED',  NULL, 1, 1, 0,  8, 1, 1, 1, 1),
+        (9,  'PARTIAL_ELECTRIC_BILL',  N'Partial Electricity Bill',       N'Prorated electricity-bill tax for the remaining days of the current financial year',  'DATE_BASED',  10,   0, 1, 1,  9, 1, 1, 1, 1),
+        (10, 'ELECTRIC_BILL',          N'Electricity Bill',               N'Full-year tax based on the electricity bill date',                                    'DATE_BASED',  NULL, 1, 1, 0, 10, 1, 1, 1, 1),
+        (11, 'SECTION_129_OLD_1',      N'Section 129 - Old Tax Year 1',   N'First financial year tax is equal to old ULB tax',                                    'STAGE_BASED', 12,   0, 1, 1, 11, 1, 1, 1, 0),
+        (12, 'SECTION_129_OLD_2',      N'Section 129 - Old Tax Year 2',   N'Second financial year tax is equal to old ULB tax',                                   'STAGE_BASED', 13,   0, 1, 1, 12, 1, 1, 1, 0),
+        (13, 'SECTION_129_20',         N'Section 129 - 20 Percent',       N'Section 129 twenty-percent stage',                                                     'STAGE_BASED', 14,   0, 1, 1, 13, 1, 1, 1, 0),
+        (14, 'SECTION_129_40',         N'Section 129 - 40 Percent',       N'Section 129 forty-percent stage',                                                      'STAGE_BASED', 15,   0, 1, 1, 14, 1, 1, 1, 0),
+        (15, 'SECTION_129_60',         N'Section 129 - 60 Percent',       N'Section 129 sixty-percent stage',                                                      'STAGE_BASED', 16,   0, 1, 1, 15, 1, 1, 1, 0),
+        (16, 'SECTION_129_80',         N'Section 129 - 80 Percent',       N'Section 129 eighty-percent stage',                                                     'STAGE_BASED', 17,   0, 1, 1, 16, 1, 1, 1, 0),
+        (17, 'SECTION_129_100',        N'Section 129 - 100 Percent',      N'Final Section 129 stage with full new assessment tax',                                'STAGE_BASED', NULL, 1, 1, 1, 17, 1, 1, 1, 0),
+        (18, 'HEARING',                N'Hearing',                        N'Final tax decided during hearing',                                                     'DECISION',    NULL, 1, 1, 0, 18, 1, 1, 1, 0),
+        (19, 'APPEAL_COMMITTEE',       N'Appeal Committee',               N'Final tax decided by the appeal committee',                                            'DECISION',    NULL, 1, 1, 0, 19, 1, 1, 1, 0),
+        (20, 'REMISSION',              N'Remission',                      N'Final tax decided after remission',                                                    'DECISION',    NULL, 1, 1, 0, 20, 1, 1, 1, 0),
+        (21, 'OLD_ARREARS',            N'Old Arrears',                    N'Pending tax amount received from ULB during migration',                               'NORMAL',      NULL, 1, 1, 0, 21, 1, 1, 1, 0);
 
         SET IDENTITY_INSERT [PTIS].[PolicyCodeMaster] OFF;
 
@@ -5301,81 +5307,9 @@ IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_PolicyCodeMaster_Polic
         [RequiresStageTracking]
     );
 GO
-/* ============================================================================
-   2. Seed PTIS.CertificateTaxGuideline
-   Row-wise defaults, one row per individual setting. Admin can add,
-   edit or deactivate rows from the Guideline Master UI without any
-   schema change.
-============================================================================ */
+-- PTIS.CertificateTaxGuideline retired (replaced by PTIS.RetrospectiveRuleMaster and the
+-- Retrospective Rule Engine) -- seed data removed.
 
-INSERT INTO PTIS.CertificateTaxGuideline
-(
-    GuidelineCode,
-    GuidelineName,
-    Description,
-    GuidelineGroup,
-    DisplayOrder,
-    DataType,
-    GuidelineValue,
-    AllowedValues
-)
-SELECT
-    v.GuidelineCode,
-    v.GuidelineName,
-    v.Description,
-    v.GuidelineGroup,
-    v.DisplayOrder,
-    v.DataType,
-    v.GuidelineValue,
-    v.AllowedValues
-FROM (VALUES
-    ('ENABLE_CERTIFICATE_BASED_TAX',   N'Enable certificate-based tax',       N'Master switch for CC/OC/Electric Bill certificate-based tax calculation.',                                   'GENERAL',       1, 'BIT',     '1',                    NULL),
-    ('APPLY_ONLY_PROTECTED_CERT_TYPES', N'Apply only protected certificate types', N'Only IsProtected certificate types participate in tax calculation.',                                  'GENERAL',       2, 'BIT',     '1',                    NULL),
-    ('FINANCIAL_YEAR_START_MONTH',     N'Financial year start month',         N'Month the financial year starts.',                                                                           'GENERAL',       3, 'INT',     '4',                    '1-12'),
-    ('FINANCIAL_YEAR_START_DAY',       N'Financial year start day',           N'Day of month the financial year starts.',                                                                    'GENERAL',       4, 'INT',     '1',                    '1-31'),
-
-    ('DATE_PRIORITY_1',                N'Certificate date priority 1',        N'Highest-priority certificate date source when multiple dates exist for a property.',                        'DATE_PRIORITY', 1, 'VARCHAR', 'OC',                   'RETROSPECTIVE,ELECTRIC_BILL,CC,OC'),
-    ('DATE_PRIORITY_2',                N'Certificate date priority 2',        N'Second-priority certificate date source.',                                                                   'DATE_PRIORITY', 2, 'VARCHAR', 'CC',                   'RETROSPECTIVE,ELECTRIC_BILL,CC,OC'),
-    ('DATE_PRIORITY_3',                N'Certificate date priority 3',        N'Third-priority certificate date source.',                                                                    'DATE_PRIORITY', 3, 'VARCHAR', 'ELECTRIC_BILL',        'RETROSPECTIVE,ELECTRIC_BILL,CC,OC'),
-    ('DATE_PRIORITY_4',                N'Certificate date priority 4',        N'Lowest-priority / fallback certificate date source.',                                                        'DATE_PRIORITY', 4, 'VARCHAR', 'RETROSPECTIVE',        'RETROSPECTIVE,ELECTRIC_BILL,CC,OC'),
-
-    ('ENABLE_CC_TO_OC_SPLIT',          N'Enable CC to OC split',              N'Whether CC-period and OC-period tax are calculated as separate spans.',                                     'CC_OC',         1, 'BIT',     '1',                    NULL),
-    ('IGNORE_CC_TO_OC_WITHIN_VALUE',   N'Ignore CC to OC gap within value',   N'If the CC-to-OC gap is within this value (see IGNORE_CC_TO_OC_WITHIN_TYPE), the split is ignored.',           'CC_OC',         2, 'INT',     '6',                    NULL),
-    ('IGNORE_CC_TO_OC_WITHIN_TYPE',    N'Ignore CC to OC gap within type',    N'Unit for IGNORE_CC_TO_OC_WITHIN_VALUE.',                                                                     'CC_OC',         3, 'VARCHAR', 'MONTHS',               'YEARS,MONTHS,DAYS'),
-    ('CC_PERIOD_MULTIPLIER',           N'CC period multiplier',               N'CC-period tax is calculated at this multiple of the normal rate.',                                          'CC',            1, 'DECIMAL', '1.5000',               NULL),
-    ('OC_PERIOD_MULTIPLIER',           N'OC period multiplier',               N'OC-period tax multiplier. OC retrospective tax is day-wise and uncapped for this ULB -- NO_DATE_LOOKBACK_YEARS does not apply to the OC path.', 'OC', 1, 'DECIMAL', '1.0000', NULL),
-
-    ('ELECTRIC_BILL_DATE_RULE',        N'Electric Bill date rule',            N'How the electric-bill date is used to backdate unauthorized-property tax. Never backdated before FY 2016 (fixed floor, enforced by app logic).', 'ELECTRIC_BILL', 1, 'VARCHAR', 'EXACT_DATE',       'NO_TAX,ADD_MONTHS,FROM_FY_START,EXACT_DATE'),
-    ('ELECTRIC_BILL_ADD_MONTHS',       N'Electric Bill add months',           N'Months added to the electric-bill date when ELECTRIC_BILL_DATE_RULE = ADD_MONTHS.',                          'ELECTRIC_BILL', 2, 'INT',     '0',                    NULL),
-    ('ELECTRIC_BILL_MULTIPLIER',       N'Electric Bill multiplier',           N'Electric-Bill-based tax multiplier for unauthorized properties.',                                             'ELECTRIC_BILL', 3, 'DECIMAL', '1.0000',               NULL),
-
-    ('NO_DATE_RULE',                   N'No-date fallback rule',              N'How tax is calculated when no certificate date exists at all.',                                             'NO_DATE',       1, 'VARCHAR', 'DEFAULT_RETROSPECTIVE', 'ASSESSMENT_YEAR,CONSTRUCTION_YEAR,NO_TAX,DEFAULT_RETROSPECTIVE'),
-    ('NO_DATE_LOOKBACK_YEARS',         N'No-date lookback years',             N'Retrospective lookback cap, in years, for the NO_DATE_RULE fallback only.',                                  'NO_DATE',       2, 'INT',     '5',                    NULL),
-    ('NO_DATE_RETROSPECTIVE_MULTIPLIER', N'No-date retrospective multiplier', N'Tax multiplier applied under the NO_DATE_RULE fallback.',                                                   'NO_DATE',       3, 'DECIMAL', '1.0000',               NULL),
-
-    ('FLOOR_CERTIFICATE_PRIORITY',     N'Floor certificate priority',         N'Whether a property-wise or floor-wise certificate takes priority when both exist.',                          'FLOOR',         1, 'VARCHAR', 'PROPERTY_OVERRIDES_FLOOR', 'PROPERTY_OVERRIDES_FLOOR,FLOOR_OVERRIDES_PROPERTY'),
-
-    ('ENABLE_CURRENT_YEAR_PRORATION',  N'Enable current year proration',      N'Whether the current financial year''s tax is prorated from the certificate date.',                           'PRORATION',     1, 'BIT',     '1',                    NULL),
-    ('PRORATION_METHOD',               N'Proration method',                   N'Method used to prorate the current financial year''s tax.',                                                 'PRORATION',     2, 'VARCHAR', 'DAILY',                'FULL_YEAR,MONTHLY,DAILY'),
-    ('TAX_PERSISTENCE_MODE',           N'Tax persistence mode',               N'Whether calculated tax is persisted per-floor or aggregated at the property level.',                         'PRORATION',     3, 'VARCHAR', 'PROPERTY_AGGREGATED',  'FLOOR_LEDGER,PROPERTY_AGGREGATED')
-) v
-(
-    GuidelineCode,
-    GuidelineName,
-    Description,
-    GuidelineGroup,
-    DisplayOrder,
-    DataType,
-    GuidelineValue,
-    AllowedValues
-)
-WHERE NOT EXISTS
-(
-    SELECT 1
-    FROM PTIS.CertificateTaxGuideline g
-    WHERE g.GuidelineCode = v.GuidelineCode
-);
-GO
 /* ============================================================================
    3. Seed PTIS.PropertyCertificateTypeMaster
 ============================================================================ */
@@ -5615,7 +5549,8 @@ SELECT
     v.Remarks,
     1
 FROM (VALUES
-    ('THA-09', 'OC + CC - 1.5x from CC to OC, then 1x', 'Both OC and CC are available. Retrospective tax starts from CC date. Tax is 1.5x from CC to OC and 1x after OC.', 5, 'CONDITION_BASED', 0, 'Active', 'AUTHORIZED', 1, 6, 15, '1.0', '2026-04-01', 1, 'Specific OC + CC split multiplier rule.'),
+    ('THA-10', 'OC + CC within 6 months - OC alone', 'Both OC and CC are available, and the CC-to-OC gap is within 6 months. Retrospective tax starts from OC date alone (CC is not billed separately).', 4, 'CONDITION_BASED', 0, 'Active', 'AUTHORIZED', 1, 6, 15, '1.0', '2026-04-01', 1, 'OC + CC gap within 6 months -- OC governs alone.'),
+    ('THA-09', 'OC + CC gap exceeds 6 months - 1.5x from CC to OC, then 1x', 'Both OC and CC are available, and the CC-to-OC gap exceeds 6 months. Retrospective tax starts from CC date. Tax is 1.5x from CC to OC and 1x after OC.', 5, 'CONDITION_BASED', 0, 'Active', 'AUTHORIZED', 1, 6, 15, '1.0', '2026-04-01', 1, 'OC + CC gap exceeds 6 months -- CC-then-OC merge, 1.5x/1x split multiplier rule.'),
     ('THA-01', 'OC evidence - start from OC date', 'Only OC is available. Retrospective tax applicable from OC date.', 10, 'CONDITION_BASED', 0, 'Active', 'AUTHORIZED', 1, 6, 15, '1.0', '2026-04-01', 1, 'OC evidence available.'),
     ('THA-02', 'CC evidence - start from CC date', 'Only CC is available. Retrospective tax applicable from CC date.', 20, 'CONDITION_BASED', 0, 'Active', 'AUTHORIZED', 1, 6, 15, '1.0', '2026-04-01', 1, 'CC evidence available.'),
     ('THA-03', 'CC + electricity earlier than CC', 'CC and electricity available. Electricity date is before CC date. Retrospective tax starts from CC date with 1.5 multiplier.', 30, 'CONDITION_BASED', 0, 'Active', 'AUTHORIZED', 1, 6, 15, '1.0', '2026-04-01', 1, 'CC plus electricity before CC.'),
@@ -5702,6 +5637,8 @@ FROM (VALUES
     ('THA-08', 'CHANGE_DETECTION', 'UNAVAILABLE'),
     ('THA-09', 'OC', 'AVAILABLE'),
     ('THA-09', 'CC', 'AVAILABLE'),
+    ('THA-10', 'OC', 'AVAILABLE'),
+    ('THA-10', 'CC', 'AVAILABLE'),
     ('PCM-01', 'OC', 'AVAILABLE'),
     ('PCM-01', 'CC', 'UNAVAILABLE'),
     ('PCM-01', 'ELECTRICITY', 'UNAVAILABLE'),
@@ -5772,6 +5709,7 @@ INSERT INTO PTIS.RetrospectiveRuleDateCondition
     CompareDate,
     CompareDateTo,
     CompareYears,
+    CompareGapUnit,
     IsActive,
     CreatedBy
 )
@@ -5784,29 +5722,31 @@ SELECT
     v.CompareDate,
     v.CompareDateTo,
     v.CompareYears,
+    v.CompareGapUnit,
     1,
     1
 FROM (VALUES
-    ('THA-01', 'NONE', NULL, NULL, NULL, NULL, CAST(NULL AS DATE), NULL),
-    ('THA-02', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL),
-    ('THA-03', 'ELECTRICITY_BEFORE_CC', 'ELECTRICITY', 'CC', 'BEFORE', NULL, NULL, NULL),
-    ('THA-04', 'ELECTRICITY_AFTER_CC', 'ELECTRICITY', 'CC', 'AFTER', NULL, NULL, NULL),
-    ('THA-05', 'ELECTRICITY_BEFORE_CUTOFF', 'ELECTRICITY', NULL, 'BEFORE', '2016-04-01', NULL, NULL),
-    ('THA-06', 'ELECTRICITY_AFTER_CUTOFF', 'ELECTRICITY', NULL, 'AFTER', '2016-04-01', NULL, NULL),
-    ('THA-07', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL),
-    ('THA-08', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL),
-    ('THA-09', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL),
-    ('PCM-01', 'OC_OLDER_THAN_ALLOWED_PERIOD', 'OC', NULL, 'OLDER_THAN_YEARS', NULL, NULL, 6),
-    ('PCM-02', 'OC_WITHIN_ALLOWED_PERIOD', 'OC', NULL, 'WITHIN_YEARS', NULL, NULL, 6),
-    ('PCM-03', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL),
-    ('PCM-04', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL),
-    ('PCM-05', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL),
-    ('PCM-06', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL),
-    ('FUR-01', 'OC_OLDER_THAN_ALLOWED_PERIOD', 'OC', NULL, 'OLDER_THAN_YEARS', NULL, NULL, 6),
-    ('FUR-02', 'OC_WITHIN_ALLOWED_PERIOD', 'OC', NULL, 'WITHIN_YEARS', NULL, NULL, 6),
-    ('FUR-03', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL),
-    ('FUR-04', 'ELECTRICITY_AFTER_CUTOFF', 'ELECTRICITY', NULL, 'AFTER', '2024-09-01', NULL, NULL)
-) v (RuleCode, ComparatorCode, LeftEvidenceCode, RightEvidenceCode, CompareOperator, CompareDate, CompareDateTo, CompareYears)
+    ('THA-01', 'NONE', NULL, NULL, NULL, NULL, CAST(NULL AS DATE), NULL, NULL),
+    ('THA-02', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+    ('THA-03', 'ELECTRICITY_BEFORE_CC', 'ELECTRICITY', 'CC', 'BEFORE', NULL, NULL, NULL, NULL),
+    ('THA-04', 'ELECTRICITY_AFTER_CC', 'ELECTRICITY', 'CC', 'AFTER', NULL, NULL, NULL, NULL),
+    ('THA-05', 'ELECTRICITY_BEFORE_CUTOFF', 'ELECTRICITY', NULL, 'BEFORE', '2016-04-01', NULL, NULL, NULL),
+    ('THA-06', 'ELECTRICITY_AFTER_CUTOFF', 'ELECTRICITY', NULL, 'AFTER', '2016-04-01', NULL, NULL, NULL),
+    ('THA-07', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+    ('THA-08', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+    ('THA-09', 'EVIDENCE_GAP_WITHIN_PERIOD', 'CC', 'OC', 'OLDER_THAN_YEARS', NULL, NULL, 6, 'MONTHS'),
+    ('THA-10', 'EVIDENCE_GAP_WITHIN_PERIOD', 'CC', 'OC', 'WITHIN_YEARS', NULL, NULL, 6, 'MONTHS'),
+    ('PCM-01', 'OC_OLDER_THAN_ALLOWED_PERIOD', 'OC', NULL, 'OLDER_THAN_YEARS', NULL, NULL, 6, NULL),
+    ('PCM-02', 'OC_WITHIN_ALLOWED_PERIOD', 'OC', NULL, 'WITHIN_YEARS', NULL, NULL, 6, NULL),
+    ('PCM-03', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+    ('PCM-04', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+    ('PCM-05', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+    ('PCM-06', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+    ('FUR-01', 'OC_OLDER_THAN_ALLOWED_PERIOD', 'OC', NULL, 'OLDER_THAN_YEARS', NULL, NULL, 6, NULL),
+    ('FUR-02', 'OC_WITHIN_ALLOWED_PERIOD', 'OC', NULL, 'WITHIN_YEARS', NULL, NULL, 6, NULL),
+    ('FUR-03', 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+    ('FUR-04', 'ELECTRICITY_AFTER_CUTOFF', 'ELECTRICITY', NULL, 'AFTER', '2024-09-01', NULL, NULL, NULL)
+) v (RuleCode, ComparatorCode, LeftEvidenceCode, RightEvidenceCode, CompareOperator, CompareDate, CompareDateTo, CompareYears, CompareGapUnit)
 INNER JOIN PTIS.RetrospectiveRuleMaster R
     ON R.RuleCode = v.RuleCode
 LEFT JOIN PTIS.EvidenceTypeMaster LET
@@ -5868,7 +5808,8 @@ FROM (VALUES
     ('THA-06', 'EVIDENCE_DATE', 'ELECTRICITY', NULL, 'FIXED_CUTOFF_DATE', NULL, '2016-04-01', 'SINGLE', 1.00, NULL, NULL, NULL, NULL),
     ('THA-07', 'EVIDENCE_DATE', 'CHANGE_DETECTION', NULL, 'FIXED_CUTOFF_DATE', NULL, '2016-04-01', 'SINGLE', 1.00, NULL, NULL, NULL, NULL),
     ('THA-08', 'CONSTRUCTION_YEAR', 'CONSTRUCTION_YEAR', NULL, 'FIXED_CUTOFF_DATE', NULL, '2016-04-01', 'SINGLE', 1.00, NULL, NULL, NULL, NULL),
-    ('THA-09', 'EVIDENCE_DATE', 'CC', NULL, 'FIXED_CUTOFF_DATE', NULL, '2016-04-01', 'SPLIT', 1.00, 'CC', 'OC', 1.50, 1.00),
+    ('THA-09', 'EVIDENCE_DATE', 'CC', NULL, 'FIXED_CUTOFF_DATE', NULL, '2016-04-01', 'CC_THEN_OC_MERGE', 1.00, 'CC', 'OC', 1.50, 1.00),
+    ('THA-10', 'EVIDENCE_DATE', 'OC', NULL, 'FIXED_CUTOFF_DATE', NULL, '2016-04-01', 'SINGLE', 1.00, NULL, NULL, NULL, NULL),
     ('PCM-01', 'MAX_LOOK_BACK_DATE', NULL, NULL, 'MAXIMUM_YEARS', 6, NULL, 'SINGLE', 1.00, NULL, NULL, NULL, NULL),
     ('PCM-02', 'EVIDENCE_DATE', 'OC', NULL, 'MAXIMUM_YEARS', 6, NULL, 'SINGLE', 1.00, NULL, NULL, NULL, NULL),
     ('PCM-03', 'NEXT_FINANCIAL_YEAR', 'CC', NULL, 'MAXIMUM_YEARS', 6, NULL, 'SINGLE', 1.00, NULL, NULL, NULL, NULL),
@@ -5938,6 +5879,7 @@ FROM (VALUES
     ('THA-03', 0, 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Penalty not applicable because OC or CC is available.'),
     ('THA-04', 0, 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Penalty not applicable because OC or CC is available.'),
     ('THA-09', 0, 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Penalty not applicable because OC or CC is available.'),
+    ('THA-10', 0, 'NONE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Penalty not applicable because OC or CC is available.'),
     ('THA-05', 1, 'ACT_PENALTY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Apply unauthorized construction penalty as per Act.'),
     ('THA-06', 1, 'ACT_PENALTY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Apply unauthorized construction penalty as per Act.'),
     ('THA-07', 1, 'ACT_PENALTY', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Apply unauthorized construction penalty as per Act.'),
@@ -5994,7 +5936,8 @@ FROM (VALUES
     ('THA-06', 'Electricity available; OC, CC, Change Detection unavailable; Electricity date after cutoff date', 'Start from Electricity date; not before 01-Apr-2016; tax x 1.', 'Apply penalty as per the Act.'),
     ('THA-07', 'Change Detection available; OC, CC, Electricity unavailable', 'Start from Change Detection date; not before 01-Apr-2016; tax x 1.', 'Apply penalty as per the Act.'),
     ('THA-08', 'Construction Year available; OC, CC, Electricity, Change Detection unavailable', 'Start from Construction Year/date; not before 01-Apr-2016; tax x 1.', 'Apply penalty as per the Act.'),
-    ('THA-09', 'OC and CC available', 'Start from CC date; not before 01-Apr-2016; tax 1.5x from CC date to OC date, then 1x.', 'Not applicable because OC or CC is available.'),
+    ('THA-09', 'OC and CC available; CC-to-OC gap exceeds 6 months', 'Start from CC date; not before 01-Apr-2016; tax 1.5x from CC date to OC date, then 1x from OC date (day-split within the OC-onset year).', 'Not applicable because OC or CC is available.'),
+    ('THA-10', 'OC and CC available; CC-to-OC gap within 6 months', 'Start from OC date; not before 01-Apr-2016; tax x 1.', 'Not applicable because OC or CC is available.'),
     ('PCM-01', 'OC available; OC date older than allowed period', 'Start from rolling six-year boundary; maximum 6 years; tax x 1.', 'Not applicable because OC or CC is available.'),
     ('PCM-02', 'OC available; OC date within allowed period', 'Start from OC date; maximum 6 years; tax x 1.', 'Not applicable because OC or CC is available.'),
     ('PCM-03', 'CC available; OC, Electricity, Change Detection unavailable', 'Start from next financial year after CC date; maximum 6 years; tax x 1.', 'Not applicable because OC or CC is available.'),
@@ -6207,6 +6150,33 @@ BEGIN TRY
             N'Property Board Photo',
             N'Board / name plate photo of individual property',
             4,
+            'PROPERTY',
+            1,
+            1
+        );
+    END
+
+    IF NOT EXISTS (
+        SELECT 1 FROM [PTIS].[PropertyPhotoType]
+        WHERE [PhotoTypeCode] = 'PROPERTY_PLAN'
+    )
+    BEGIN
+        INSERT INTO [PTIS].[PropertyPhotoType]
+        (
+            [PhotoTypeCode],
+            [PhotoTypeName],
+            [Description],
+            [DisplayOrder],
+            [PhotoScope],
+            [IsActive],
+            [CreatedBy]
+        )
+        VALUES
+        (
+            'PROPERTY_PLAN',
+            N'Property Plan',
+            N'Plan image of individual property / flat / shop',
+            5,
             'PROPERTY',
             1,
             1
