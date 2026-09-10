@@ -5721,3 +5721,43 @@ CREATE TABLE [PTIS].[RVCalculationSignature](
 );
 GO
 
+/****** Object:  Table [PTIS].[OldZoneMaster] ******/
+CREATE TABLE [PTIS].[OldZoneMaster](
+    [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+    [OldZoneNo] [nvarchar](20) NOT NULL,
+    [Description] [nvarchar](100) NOT NULL,
+    [SequenceNo] int null,
+    [IsActive] [bit] NOT NULL CONSTRAINT [DF_OldZoneMaster_IsActive] DEFAULT (1),
+    [CreatedBy] [int] NULL,
+    [CreatedDate] [datetime]  NOT NULL CONSTRAINT DF_OldZoneMaster_CreatedDate DEFAULT (GETDATE()),
+    [UpdatedBy] [int] NULL,
+    [UpdatedDate] [datetime] NULL,
+    CONSTRAINT [PK_OldZoneMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT [UQ_OldZoneMaster_OldZoneNo] UNIQUE ([OldZoneNo]),
+    CONSTRAINT [UQ_OldZoneMaster_Description] UNIQUE ([Description] ASC)
+) ON [PRIMARY]
+ 
+GO
+ 
+ 
+ 
+/****** Object:  Table [PTIS].[OldWardMaster] ******/
+CREATE TABLE [PTIS].[OldWardMaster](
+    [Id] [int] IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+	[OldZoneId] Int NOT NULL,
+    [OldWardNo] [nvarchar](20) NOT NULL,
+    [Description] [nvarchar] (100) NOT NULL,
+    [SequenceNo] int null,
+    [IsActive] [bit] NOT NULL CONSTRAINT [DF_OldWardMaster_IsActive] DEFAULT (1),
+    [CreatedBy] [int] NULL,
+    [CreatedDate] [datetime]  NOT NULL CONSTRAINT DF_OldWardMaster_CreatedDate DEFAULT (GETDATE()),
+    [UpdatedBy] [int] NULL,
+    [UpdatedDate] [datetime] NULL,
+    CONSTRAINT [PK_OldWardMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [UQ_OldWardMaster_OldWardNo] UNIQUE ([OldWardNo] ASC),
+    CONSTRAINT [UQ_OldWardMaster_Description] UNIQUE ([Description] ASC),
+    CONSTRAINT [FK_OldWardMaster_OldZoneMaster] FOREIGN KEY ([OldZoneId]) REFERENCES [PTIS].[OldZoneMaster]([Id])
+) ON [PRIMARY]
+ 
+GO
+
