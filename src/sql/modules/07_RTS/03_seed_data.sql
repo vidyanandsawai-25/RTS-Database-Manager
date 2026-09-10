@@ -46,7 +46,7 @@ SET IDENTITY_INSERT [CORE].[ModuleMaster] ON;
 GO
 MERGE INTO [CORE].[ModuleMaster] AS target
 USING (VALUES
-    (1005, 5, N'RTS_M', N'Right to Service', N'लोकसेवा हक्क', N'Landmark', N'RTS', N'Right to Service administration module', 1, 1, '2026-07-17T12:47:46.783', 1002, '2026-08-28T13:47:16.953')
+    (1005, 5, N'RTS_M', N'RTS', N'लोकसेवा हक्क', N'Landmark', N'RTS', N'Right to Service administration module', 1, 1, '2026-07-17T12:47:46.783', 1002, '2026-08-28T13:47:16.953')
 ) AS source ([Id], [DepartmentId], [ModuleCode], [ModuleName], [ModuleNameLocal], [ModuleIcon], [ModuleLabel], [ModuleDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -191,16 +191,17 @@ SET IDENTITY_INSERT [CORE].[UserMaster] ON;
 GO
 MERGE INTO [CORE].[UserMaster] AS target
 USING (VALUES
-    (1, N'Clerk', N'Hrishikesh', NULL, N'Patekar', N'CK', N'Pune', N'7058601590', N'8625085936', N'HrishikeshPatekar@gmail.com', 0, N'en', 1, N'Test', NULL, 0, '2026-09-09T19:04:07.187', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', 1, '2026-08-11T20:02:48.860', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
-    (2, N'HeadOfficer', N'Aditya', NULL, N'Fatke', N'HO', N'Pune', N'9876543210', NULL, N'Aditya55@gmail.com', 0, N'en', 1, N'Head Officer', NULL, 0, '2026-09-09T18:08:27.857', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:23:16.203', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
-    (3, N'SeniorOfficer', N'Vidyanad', NULL, N'Sawai', N'SO', N'Amravati', N'9876543211', NULL, N'VidyanadSawai2508@gmail.com', 0, N'en', 1, N'Senior Officer', NULL, 1, '2026-09-09T16:19:45.040', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:22:23.800', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
-    (1002, N'ADMIN', N'ADMIN', N'ADMIN', N'ADMIN', N'PB', N'Amravati', N'7058601590', N'8625085936', N'ashwineshmukh62@gmail.com', 0, N'en', 1, N'Test', NULL, 1, '2026-09-05T13:55:08.093', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:24:08.297', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
-    (2004, N'FirstAppellateOfficer', N'neha', NULL, N'Puri', N'FAO', N'Amravarti', N'9370932047', NULL, N'nehap@gmail.com', 0, N'en', 1, N'Test', NULL, 0, '2026-09-09T18:29:22.020', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', NULL, '2026-08-24T12:57:33.160', NULL, NULL, 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
-    (2005, N'SecondAppellateOfficer', N'test', NULL, N'Puri', N'SAO', N'Amravarti', N'9370932048', NULL, N'nehap19@gmail.com', 0, N'en', 1, N'Test', NULL, 1, '2026-09-07T20:06:03.940', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', NULL, '2026-08-24T12:57:33.160', NULL, NULL, 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL)
-) AS source ([Id], [UserName], [FirstName], [MiddleName], [LastName], [UserCode], [Address], [MobileNo], [AlternateMobileNo], [Email], [MustChangePassword], [Language], [IsActive], [Remark], [LockedUntilAt], [FailedLoginCount], [LastLoginAt], [UserLocked], [EmployeeTypeId], [PasswordHash], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [MarkedForDeletion], [MarkedForDeletionDate], [SecurityStamp], [TwoFactorEnabled], [TwoFactorEnabledAt], [TwoFactorRequired], [TwoFactorSecretEncrypted], [OtpChallengeFailCount], [OtpChallengeLockedUntilAt], [PasswordChangedAt])
+    (1, 1, N'Clerk', N'Hrishikesh', NULL, N'Patekar', N'CK', N'Pune', N'7058601590', N'8625085936', N'HrishikeshPatekar@gmail.com', 0, N'en', 1, N'Test', NULL, 0, '2026-09-10T15:24:02.990', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', 1, '2026-08-11T20:02:48.860', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (2, 1, N'HeadOfficer', N'Aditya', NULL, N'Fatke', N'HO', N'Pune', N'9876543210', NULL, N'Aditya55@gmail.com', 0, N'en', 1, N'Head Officer', NULL, 0, '2026-09-10T12:49:40.577', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:23:16.203', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (3, 1, N'SeniorOfficer', N'Vidyanad', NULL, N'Sawai', N'SO', N'Amravati', N'9876543211', NULL, N'VidyanadSawai2508@gmail.com', 0, N'en', 1, N'Senior Officer', NULL, 0, '2026-09-10T12:41:53.110', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:22:23.800', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (1002, 1, N'ADMIN', N'ADMIN', N'ADMIN', N'ADMIN', N'PB', N'Amravati', N'7058601590', N'8625085936', N'ashwineshmukh62@gmail.com', 0, N'en', 1, N'Test', NULL, 0, '2026-09-10T12:34:29.143', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:24:08.297', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (2004, 1, N'FirstAppellateOfficer', N'neha', NULL, N'Puri', N'FAO', N'Amravarti', N'9370932047', NULL, N'nehap@gmail.com', 0, N'en', 1, N'Test', NULL, 0, '2026-09-09T18:29:22.020', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', NULL, '2026-08-24T12:57:33.160', NULL, NULL, 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (2005, 1, N'SecondAppellateOfficer', N'test', NULL, N'Puri', N'SAO', N'Amravarti', N'9370932048', NULL, N'nehap19@gmail.com', 0, N'en', 1, N'Test', NULL, 1, '2026-09-07T20:06:03.940', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', NULL, '2026-08-24T12:57:33.160', NULL, NULL, 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL)
+) AS source ([Id], [DeptId], [UserName], [FirstName], [MiddleName], [LastName], [UserCode], [Address], [MobileNo], [AlternateMobileNo], [Email], [MustChangePassword], [Language], [IsActive], [Remark], [LockedUntilAt], [FailedLoginCount], [LastLoginAt], [UserLocked], [EmployeeTypeId], [PasswordHash], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [MarkedForDeletion], [MarkedForDeletionDate], [SecurityStamp], [TwoFactorEnabled], [TwoFactorEnabledAt], [TwoFactorRequired], [TwoFactorSecretEncrypted], [OtpChallengeFailCount], [OtpChallengeLockedUntilAt], [PasswordChangedAt])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
     UPDATE SET
+        target.[DeptId] = source.[DeptId],
         target.[UserName] = source.[UserName],
         target.[FirstName] = source.[FirstName],
         target.[MiddleName] = source.[MiddleName],
@@ -235,8 +236,8 @@ WHEN MATCHED THEN
         target.[OtpChallengeLockedUntilAt] = source.[OtpChallengeLockedUntilAt],
         target.[PasswordChangedAt] = source.[PasswordChangedAt]
 WHEN NOT MATCHED BY TARGET THEN
-    INSERT ([Id], [UserName], [FirstName], [MiddleName], [LastName], [UserCode], [Address], [MobileNo], [AlternateMobileNo], [Email], [MustChangePassword], [Language], [IsActive], [Remark], [LockedUntilAt], [FailedLoginCount], [LastLoginAt], [UserLocked], [EmployeeTypeId], [PasswordHash], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [MarkedForDeletion], [MarkedForDeletionDate], [SecurityStamp], [TwoFactorEnabled], [TwoFactorEnabledAt], [TwoFactorRequired], [TwoFactorSecretEncrypted], [OtpChallengeFailCount], [OtpChallengeLockedUntilAt], [PasswordChangedAt])
-    VALUES (source.[Id], source.[UserName], source.[FirstName], source.[MiddleName], source.[LastName], source.[UserCode], source.[Address], source.[MobileNo], source.[AlternateMobileNo], source.[Email], source.[MustChangePassword], source.[Language], source.[IsActive], source.[Remark], source.[LockedUntilAt], source.[FailedLoginCount], source.[LastLoginAt], source.[UserLocked], source.[EmployeeTypeId], source.[PasswordHash], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[SecurityStamp], source.[TwoFactorEnabled], source.[TwoFactorEnabledAt], source.[TwoFactorRequired], source.[TwoFactorSecretEncrypted], source.[OtpChallengeFailCount], source.[OtpChallengeLockedUntilAt], source.[PasswordChangedAt]);
+    INSERT ([Id], [DeptId], [UserName], [FirstName], [MiddleName], [LastName], [UserCode], [Address], [MobileNo], [AlternateMobileNo], [Email], [MustChangePassword], [Language], [IsActive], [Remark], [LockedUntilAt], [FailedLoginCount], [LastLoginAt], [UserLocked], [EmployeeTypeId], [PasswordHash], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [MarkedForDeletion], [MarkedForDeletionDate], [SecurityStamp], [TwoFactorEnabled], [TwoFactorEnabledAt], [TwoFactorRequired], [TwoFactorSecretEncrypted], [OtpChallengeFailCount], [OtpChallengeLockedUntilAt], [PasswordChangedAt])
+    VALUES (source.[Id], source.[DeptId], source.[UserName], source.[FirstName], source.[MiddleName], source.[LastName], source.[UserCode], source.[Address], source.[MobileNo], source.[AlternateMobileNo], source.[Email], source.[MustChangePassword], source.[Language], source.[IsActive], source.[Remark], source.[LockedUntilAt], source.[FailedLoginCount], source.[LastLoginAt], source.[UserLocked], source.[EmployeeTypeId], source.[PasswordHash], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[SecurityStamp], source.[TwoFactorEnabled], source.[TwoFactorEnabledAt], source.[TwoFactorRequired], source.[TwoFactorSecretEncrypted], source.[OtpChallengeFailCount], source.[OtpChallengeLockedUntilAt], source.[PasswordChangedAt]);
 GO
 
 SET IDENTITY_INSERT [CORE].[UserMaster] OFF;
@@ -823,7 +824,7 @@ SET IDENTITY_INSERT [RTS].[ServiceMaster] OFF;
 GO
 
 /* ----------------------------------------------------------------------------
-   Table: [RTS].[FieldDefinition] (817 rows)
+   Table: [RTS].[FieldDefinition] (826 rows)
    ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [RTS].[FieldDefinition] ON;
 GO
@@ -2495,15 +2496,15 @@ USING (VALUES
   {"value":"C","label":{"en":"C","hi":"C","mr":"प्रभाग समिती क"}},
   {"value":"D","label":{"en":"D","hi":"D","mr":"प्रभाग समिती ड"}}
 ]', NULL, NULL, 1, 4, NULL, NULL, NULL, 0, 0, NULL, 0, '2026-07-15T16:26:57.763', NULL, NULL),
-    (597, 5, 53, N'dischargeCardDoc', N'Hospital Discharge Card', N'रुग्णालयाचा डिस्चार्ज कार्ड दाखला', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 62, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15T16:26:57.780', NULL, NULL),
-    (598, 5, 53, N'informantIdDoc', N'Informant ID Proof', N'माहिती देणाऱ्याचा ओळख पुरावा', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 63, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15T16:26:57.780', NULL, NULL),
+    (597, 5, 53, N'hospitalreportdoc', N'Hospital Report', N'रुग्णालयाचा अहवाल', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 62, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15T16:26:57.780', NULL, NULL),
+    (598, 5, 53, N'adharcard', N'Parents Aadhar Card', N'पालकांचे आधार कार्ड', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 63, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15T16:26:57.780', NULL, NULL),
     (599, 5, 54, N'doctorCertificateDoc', N'Doctor Certificate of Cause of Death', N'मृत्यूचे कारण दर्शविणारा डॉक्टरांचा दाखला', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 58, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15T16:26:57.780', NULL, NULL),
     (600, 5, 54, N'cremationCertificateDoc', N'Cremation / Burial Ground Certificate', N'स्मशानभूमी किंवा दफनभूमीचा दाखला', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 59, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15T16:26:57.780', NULL, NULL),
-    (601, 9, 65, N'groomAgeProofDoc', N'Groom Age Proof Document', N'नवरदेवाच्या वयाचा पुरावा', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 50, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15T16:26:57.780', NULL, NULL),
-    (602, 9, 65, N'brideAgeProofDoc', N'Bride Age Proof Document', N'नवरीच्या वयाचा पुरावा', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 51, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15T16:26:57.780', NULL, NULL),
-    (603, 9, 65, N'weddingInvitationDoc', N'Wedding Invitation Card', N'लग्नपत्रिका', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 0, 52, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15T16:26:57.780', NULL, NULL),
-    (604, 9, 65, N'witness1IdProofDoc', N'Witness 1 ID Proof', N'साक्षीदार १ ओळख पुरावा', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 53, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15T16:26:57.780', NULL, NULL),
-    (605, 9, 65, N'witness2IdProofDoc', N'Witness 2 ID Proof', N'साक्षीदार २ ओळख पुरावा', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 54, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15T16:26:57.780', NULL, NULL),
+    (601, 9, 65, N'groomAgeProofDoc', N'Groom Age Proof Document (School Leaving Certificate/Birth Certificate/Passport)', N'नवरदेवाच्या वयाचा पुरावा दस्तऐवज (शाळा सोडल्याचा दाखला/जन्म दाखला/पासपोर्ट)', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 50, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15T16:26:57.780', NULL, '2026-09-10T08:23:06.233'),
+    (602, 9, 65, N'brideAgeProofDoc', N'Bride Age Proof Document (School Leaving Certificate/Birth Certificate/Passport)', N'नवरीच्या वयाचा पुरावा दस्तऐवज (शाळा सोडल्याचा दाखला/जन्म दाखला/पासपोर्ट)', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 51, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15T16:26:57.780', NULL, '2026-09-10T08:23:06.237'),
+    (603, 9, 65, N'weddingInvitationDoc', N'Wedding Invitation Card (Original invitation card + 2 color wedding photographs. Note: For Muslim marriages, Nikahnama is required)', N'लग्नपत्रिका (मूळ लग्नपत्रिका + विवाहाची २ रंगीत छायाचित्रे. टीप: मुस्लिम विवाहासाठी निकाहनामा आवश्यक आहे)', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 0, 52, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15T16:26:57.780', NULL, '2026-09-10T08:23:06.237'),
+    (604, 9, 65, N'witness1IdProofDoc', N'Witness 1 ID Proof (Voter ID Card/Aadhaar Card. Note: 2 passport-size photographs also required)', N'साक्षीदार १ ओळखपत्र पुरावा (मतदार ओळखपत्र/आधार कार्ड. टीप: २ पासपोर्ट आकाराचे फोटो देखील आवश्यक आहेत)', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 53, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15T16:26:57.780', NULL, '2026-09-10T08:23:06.237'),
+    (605, 9, 65, N'witness2IdProofDoc', N'Witness 2 ID Proof (Voter ID Card/Aadhaar Card. Note: 2 passport-size photographs also required)', N'साक्षीदार २ ओळखपत्र पुरावा (मतदार ओळखपत्र/आधार कार्ड. टीप: २ पासपोर्ट आकाराचे फोटो देखील आवश्यक आहेत)', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 54, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15T16:26:57.780', NULL, '2026-09-10T08:23:06.237'),
     (606, 2, 69, N'idProofDoc', N'Applicant ID Proof Document', N'अर्जदाराच्या ओळखपत्राचा पुरावा', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 23, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15T16:26:57.780', NULL, NULL),
     (607, 2, 69, N'propertyTaxReceiptDoc', N'Property Tax Receipt Document', N'मालमत्ता कराची पावती', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 24, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15T16:26:57.780', NULL, NULL),
     (608, 2, 69, N'premisesMapDoc', N'Premises Layout Map', N'जागेचा नकाशा / आराखडा', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 0, 25, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-15T16:26:57.780', NULL, NULL),
@@ -2515,7 +2516,7 @@ USING (VALUES
     (1119, 4, 43, N'ownershipDoc', N'7/12 Extract or City Survey Extract', N'७/१२ चा उतारा / सिटी सर्व्हेचा उतारा', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 50, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21T18:44:51.360', NULL, NULL),
     (1124, 12, 48, N'routeMapDoc', N'Proposed OFC Cable Route Diagram', N'प्रस्तावित ओएफसी केबल मार्गाचा नकाशा', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 50, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21T18:44:51.360', NULL, NULL),
     (1125, 6, 55, N'studentIdDoc', N'Student ID Proof / Aadhaar', N'विद्यार्थी ओळखपत्र / आधार', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 50, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21T18:44:51.360', NULL, NULL),
-    (1126, 6, 55, N'previousMarksheetDoc', N'Previous Class Marksheet', N'मागील इयत्तेची गुणपत्रिका', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 0, 51, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21T18:44:51.360', NULL, NULL),
+    (1126, 6, 55, N'previousMarksheetDoc', N'Latest Paid Tax Receipt', N'नवीनतम भरलेली कर पावती', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 0, 51, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21T18:44:51.360', NULL, '2026-09-10T08:35:52.190'),
     (1134, 8, 64, N'fireSafetyBlueprintDoc', N'Approved Fire Safety Blueprint', N'मंजूर अग्निसुरक्षा आराखडा', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 50, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21T18:44:51.360', NULL, NULL),
     (1135, 8, 63, N'equipmentInvoiceDoc', N'Fire Equipment Purchase / Inspection Receipt', N'अग्निशमन उपकरण खरेदी / तपासणी पावती', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 50, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21T18:44:51.360', NULL, NULL),
     (1138, 4, 61, N'propertyTaxDoc', N'Property Tax Receipt Document', N'मालमत्ता कराची पावती', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 51, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21T18:44:51.360', NULL, NULL),
@@ -2946,9 +2947,9 @@ USING (VALUES
 }', 1, 7, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21T18:51:28.123', NULL, NULL),
     (1207, 6, 57, N'studentFullName', N'Student Full Name', N'विद्यार्थ्याचे पूर्ण नाव', N'text', N'Student Details', NULL, NULL, NULL, 1, 4, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21T18:51:28.123', NULL, NULL),
     (1208, 4, 46, N'CommencementCertificateDoc', N'Construction Commencement Certificate', N'बांधकाम आरंभ प्रमाणपत्र', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 51, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21T18:51:28.150', NULL, NULL),
-    (1210, 6, 56, N'previousMarksheetDoc', N'Previous Class Marksheet', N'मागील इयत्तेची गुणपत्रिका', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 51, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21T18:51:28.150', NULL, NULL),
+    (1210, 6, 56, N'previousMarksheetDoc', N'Latest Paid Tax Receipt', N'नवीनतम भरलेली कर पावती', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 51, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21T18:51:28.150', NULL, '2026-09-10T08:35:52.190'),
     (1211, 6, 56, N'studentIdDoc', N'Student ID Proof / Aadhaar', N'विद्यार्थी ओळखपत्र / आधार', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 50, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21T18:51:28.150', NULL, NULL),
-    (1212, 6, 57, N'firOrAffidavitDoc', N'Police FIR / Notarized Affidavit Document', N'पोलीस एफआयआर / नोटरीकृत प्रतिज्ञापत्र दस्तऐवज', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 51, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21T18:51:28.150', NULL, NULL),
+    (1212, 6, 57, N'firOrAffidavitDoc', N'Latest Paid Tax Receipt', N'नवीनतम भरलेली कर पावती', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 51, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21T18:51:28.150', NULL, '2026-09-10T08:35:52.190'),
     (1213, 6, 57, N'studentIdDoc', N'Student ID Proof / Aadhaar', N'विद्यार्थी ओळखपत्र / आधार', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 50, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21T18:51:28.150', NULL, NULL),
     (1214, 7, 58, N'bmwAgreementDoc', N'Bio Medical Waste Disposal Agreement', N'जैव वैद्यकीय कचरा विल्हेवाट करार', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 52, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21T18:51:28.150', NULL, NULL),
     (1215, 7, 58, N'doctorDegreeDoc', N'Chief Doctor MMC / Degree Certificate', N'मुख्य डॉक्टर एमएमसी / पदवी प्रमाणपत्र', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 50, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-07-21T18:51:28.150', NULL, NULL),
@@ -4466,7 +4467,70 @@ USING (VALUES
   "accept": ".pdf,.jpg,.jpeg,.png",
   "maxFileSizeMb": 5
 }', 0, 5, NULL, NULL, NULL, 1, 0, NULL, NULL, '2026-08-17T13:01:13.763', NULL, NULL),
-    (9325, 4, 62, N'idproof', N'Identity Proof', N'ओळख पुरावा', N'file', N'Document Uploads', NULL, NULL, NULL, 1, 60, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-08-29T13:42:10.413', NULL, NULL)
+    (9325, 4, 62, N'idproof', N'Identity Proof', N'ओळख पुरावा', N'file', N'Document Uploads', NULL, NULL, NULL, 1, 60, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-08-29T13:42:10.413', NULL, NULL),
+    (9326, 9, 65, N'brideResidenceProofDoc', N'Bride Residence Proof Document (Ration Card / Voter ID Card / Aadhaar Card / Electricity Bill / Telephone Bill)', N'नवरीचा रहिवासी पुरावा दस्तऐवज (रेशन कार्ड / मतदार ओळखपत्र / आधार कार्ड / वीज बिल / टेलिफोन बिल)', N'file', N'Document Uploads', NULL, NULL, N'{
+  "acceptedFormats": [
+    "pdf",
+    "jpg",
+    "jpeg",
+    "png"
+  ],
+  "accept": ".pdf,.jpg,.jpeg,.png",
+  "maxFileSizeMb": 5
+}', 1, 55, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-09-10T07:57:52.827', NULL, '2026-09-10T08:23:06.237'),
+    (9327, 9, 65, N'groomResidenceProofDoc', N'Groom Residence Proof Document (Ration Card / Voter ID Card / Aadhaar Card / Electricity Bill / Telephone Bill)', N'नवरदेवाचा रहिवासी पुरावा दस्तऐवज (रेशन कार्ड / मतदार ओळखपत्र / आधार कार्ड / वीज बिल / टेलिफोन बिल)', N'file', N'Document Uploads', NULL, NULL, N'{
+  "acceptedFormats": [
+    "pdf",
+    "jpg",
+    "jpeg",
+    "png"
+  ],
+  "accept": ".pdf,.jpg,.jpeg,.png",
+  "maxFileSizeMb": 5
+}', 1, 56, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-09-10T07:57:52.827', NULL, '2026-09-10T08:23:06.237'),
+    (9328, 9, 65, N'witness3IdProofDoc', N'Witness 3 ID Proof (Voter ID Card/Aadhaar Card. Note: 2 passport-size photographs also required)', N'साक्षीदार ३ ओळखपत्र पुरावा (मतदार ओळखपत्र/आधार कार्ड. टीप: २ पासपोर्ट आकाराचे फोटो देखील आवश्यक आहेत)', N'file', N'Document Uploads', NULL, NULL, N'{
+  "acceptedFormats": [
+    "pdf",
+    "jpg",
+    "jpeg",
+    "png"
+  ],
+  "accept": ".pdf,.jpg,.jpeg,.png",
+  "maxFileSizeMb": 5
+}', 1, 57, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-09-10T07:57:52.827', NULL, '2026-09-10T08:23:06.240'),
+    (9329, 9, 65, N'divorceDecreeDoc', N'Divorce Decree (For Divorced Bride/Groom, if applicable): certified copy of the court divorce decree', N'घटस्फोटाचा आदेश (घटस्फोटित नवरी/नवरदेव यांच्यासाठी, लागू असल्यास): न्यायालयाच्या घटस्फोट आदेशाची प्रमाणित प्रत', N'file', N'Document Uploads', NULL, NULL, N'{
+  "acceptedFormats": [
+    "pdf",
+    "jpg",
+    "jpeg",
+    "png"
+  ],
+  "accept": ".pdf,.jpg,.jpeg,.png",
+  "maxFileSizeMb": 5
+}', 0, 58, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-09-10T07:57:52.827', NULL, '2026-09-10T08:23:06.240'),
+    (9330, 9, 65, N'deceasedSpouseDeathCertDoc', N'Death Certificate of Deceased Spouse (For Widowed Bride/Groom, if applicable): Original death certificate', N'मृत जोडीदाराचा मृत्यू दाखला (विधवा नवरी / विधुर नवरदेव यांच्यासाठी, लागू असल्यास): मूळ मृत्यू दाखला', N'file', N'Document Uploads', NULL, NULL, N'{
+  "acceptedFormats": [
+    "pdf",
+    "jpg",
+    "jpeg",
+    "png"
+  ],
+  "accept": ".pdf,.jpg,.jpeg,.png",
+  "maxFileSizeMb": 5
+}', 0, 59, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-09-10T07:57:52.827', NULL, '2026-09-10T08:23:06.240'),
+    (9331, 9, 65, N'outOfTownAffidavitDoc', N'If groom or bride is from out of town then Affidavit stating this marriage is not registered in their area', N'नवरदेव किंवा नवरी बाहेरगावचे असल्यास, हे लग्न त्यांच्या भागात नोंदणीकृत नाही असे नमूद करणारे प्रतिज्ञापत्र', N'file', N'Document Uploads', NULL, NULL, N'{
+  "acceptedFormats": [
+    "pdf",
+    "jpg",
+    "jpeg",
+    "png"
+  ],
+  "accept": ".pdf,.jpg,.jpeg,.png",
+  "maxFileSizeMb": 5
+}', 0, 60, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-09-10T07:57:52.827', NULL, '2026-09-10T08:23:06.240'),
+    (9332, 6, 55, N'passportSizePhotoDoc', N'Passport Size Photo', N'पासपोर्ट आकाराचा फोटो', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 52, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-09-10T08:31:39.943', NULL, NULL),
+    (9333, 6, 56, N'passportSizePhotoDoc', N'Passport Size Photo', N'पासपोर्ट आकाराचा फोटो', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 52, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-09-10T08:31:39.943', NULL, NULL),
+    (9334, 6, 57, N'passportSizePhotoDoc', N'Passport Size Photo', N'पासपोर्ट आकाराचा फोटो', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', 1, 52, NULL, NULL, NULL, 1, 0, NULL, 0, '2026-09-10T08:31:39.943', NULL, NULL)
 ) AS source ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -6452,24 +6516,15 @@ SET IDENTITY_INSERT [RTS].[PaymentGatewayConfig] OFF;
 GO
 
 /* ----------------------------------------------------------------------------
-   Table: [RTS].[ServiceOfficerAllocation] (233 rows)
+   Table: [RTS].[ServiceOfficerAllocation] (191 rows)
    ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [RTS].[ServiceOfficerAllocation] ON;
 GO
 MERGE INTO [RTS].[ServiceOfficerAllocation] AS target
 USING (VALUES
     (1370, 19, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1371, 19, 2, N'Zone B', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1372, 19, 3, N'Zone C', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1373, 19, 4, N'Zone D', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'अभिषेक गाई', N'अधिकारी', N''),
     (1374, 20, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1375, 20, 2, N'Zone B', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1376, 20, 3, N'Zone C', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1377, 20, 4, N'Zone D', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'अभिषेक गाई', N'अधिकारी', N''),
     (1378, 26, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1379, 26, 2, N'Zone B', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1380, 26, 3, N'Zone C', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1381, 26, 4, N'Zone D', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'अभिषेक गाई', N'अधिकारी', N''),
     (1382, 33, 1, N'Zone A', N'Gaurav Shrivas', N'Officer', N'8149260111', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'गौरव श्रीवास', N'अधिकारी', N''),
     (1383, 33, 2, N'Zone B', N'Gaurav Shrivas', N'Officer', N'8149260111', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'गौरव श्रीवास', N'अधिकारी', N''),
     (1384, 33, 3, N'Zone C', N'Surendra Jadhav', N'Officer', N'7218743145', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'सुरेंद्र जाधव', N'अधिकारी', N''),
@@ -6547,17 +6602,26 @@ USING (VALUES
     (1477, 66, 4, N'Zone D', N'Kamalkishor Yadav', N'Clerk', N'9763861654', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'कमलकिशोर यादव', N'लिपिक', N''),
     (1478, 68, 1, N'Zone A', N'Prashant Rajurkar', N'Head of Department', N'8329184285', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'प्रशांत राजुरकर', N'विभाग प्रमुख', N''),
     (1482, 69, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1483, 69, 2, N'Zone B', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1484, 69, 3, N'Zone C', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1485, 69, 4, N'Zone D', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'अभिषेक गाई', N'अधिकारी', N''),
     (1486, 80, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1487, 80, 2, N'Zone B', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1488, 80, 3, N'Zone C', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1489, 80, 4, N'Zone D', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'अभिषेक गाई', N'अधिकारी', N''),
     (1490, 81, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1491, 81, 2, N'Zone B', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1492, 81, 3, N'Zone C', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1493, 81, 4, N'Zone D', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'अभिषेक गाई', N'अधिकारी', N'')
+    (1494, 82, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
+    (1498, 83, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
+    (1502, 84, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
+    (1506, 85, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
+    (1510, 86, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
+    (1514, 87, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
+    (1518, 100, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
+    (1522, 101, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
+    (1526, 137, 1, N'Zone A', N'Gaurav Shrivas', N'Officer', N'8149260111', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'गौरव श्रीवास', N'अधिकारी', N''),
+    (1527, 137, 2, N'Zone B', N'Gaurav Shrivas', N'Officer', N'8149260111', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'गौरव श्रीवास', N'अधिकारी', N''),
+    (1528, 137, 3, N'Zone C', N'Surendra Jadhav', N'Officer', N'7218743145', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'सुरेंद्र जाधव', N'अधिकारी', N''),
+    (1529, 137, 4, N'Zone D', N'Surendra Jadhav', N'Officer', N'7218743145', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'सुरेंद्र जाधव', N'अधिकारी', N''),
+    (1530, 138, 1, N'Zone A', N'Gaurav Shrivas', N'Officer', N'8149260111', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'गौरव श्रीवास', N'अधिकारी', N''),
+    (1531, 138, 2, N'Zone B', N'Gaurav Shrivas', N'Officer', N'8149260111', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'गौरव श्रीवास', N'अधिकारी', N''),
+    (1532, 138, 3, N'Zone C', N'Surendra Jadhav', N'Officer', N'7218743145', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'सुरेंद्र जाधव', N'अधिकारी', N''),
+    (1533, 138, 4, N'Zone D', N'Surendra Jadhav', N'Officer', N'7218743145', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'सुरेंद्र जाधव', N'अधिकारी', N''),
+    (1534, 139, 1, N'Zone A', N'Gaurav Shrivas', N'Officer', N'8149260111', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'गौरव श्रीवास', N'अधिकारी', N''),
+    (1535, 139, 2, N'Zone B', N'Gaurav Shrivas', N'Officer', N'8149260111', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'गौरव श्रीवास', N'अधिकारी', N'')
 ) AS source ([Id], [ServiceId], [ZoneId], [ZoneName], [OfficerName], [Designation], [MobileNo], [Email], [OfficeAddress], [OfficerRole], [DisplayOrder], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [ZoneNameLocal], [OfficerNameLocal], [DesignationLocal], [OfficeAddressLocal])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -6588,48 +6652,6 @@ GO
 
 MERGE INTO [RTS].[ServiceOfficerAllocation] AS target
 USING (VALUES
-    (1494, 82, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1495, 82, 2, N'Zone B', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1496, 82, 3, N'Zone C', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1497, 82, 4, N'Zone D', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1498, 83, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1499, 83, 2, N'Zone B', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1500, 83, 3, N'Zone C', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1501, 83, 4, N'Zone D', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1502, 84, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1503, 84, 2, N'Zone B', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1504, 84, 3, N'Zone C', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1505, 84, 4, N'Zone D', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1506, 85, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1507, 85, 2, N'Zone B', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1508, 85, 3, N'Zone C', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1509, 85, 4, N'Zone D', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1510, 86, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1511, 86, 2, N'Zone B', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1512, 86, 3, N'Zone C', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1513, 86, 4, N'Zone D', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1514, 87, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1515, 87, 2, N'Zone B', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1516, 87, 3, N'Zone C', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1517, 87, 4, N'Zone D', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1518, 100, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1519, 100, 2, N'Zone B', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1520, 100, 3, N'Zone C', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1521, 100, 4, N'Zone D', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1522, 101, 1, N'Zone A', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1523, 101, 2, N'Zone B', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1524, 101, 3, N'Zone C', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1525, 101, 4, N'Zone D', N'Abhishek Gai', N'Officer', N'8830913060', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'अभिषेक गाई', N'अधिकारी', N''),
-    (1526, 137, 1, N'Zone A', N'Gaurav Shrivas', N'Officer', N'8149260111', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'गौरव श्रीवास', N'अधिकारी', N''),
-    (1527, 137, 2, N'Zone B', N'Gaurav Shrivas', N'Officer', N'8149260111', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'गौरव श्रीवास', N'अधिकारी', N''),
-    (1528, 137, 3, N'Zone C', N'Surendra Jadhav', N'Officer', N'7218743145', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'सुरेंद्र जाधव', N'अधिकारी', N''),
-    (1529, 137, 4, N'Zone D', N'Surendra Jadhav', N'Officer', N'7218743145', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'सुरेंद्र जाधव', N'अधिकारी', N''),
-    (1530, 138, 1, N'Zone A', N'Gaurav Shrivas', N'Officer', N'8149260111', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'गौरव श्रीवास', N'अधिकारी', N''),
-    (1531, 138, 2, N'Zone B', N'Gaurav Shrivas', N'Officer', N'8149260111', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'गौरव श्रीवास', N'अधिकारी', N''),
-    (1532, 138, 3, N'Zone C', N'Surendra Jadhav', N'Officer', N'7218743145', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'सुरेंद्र जाधव', N'अधिकारी', N''),
-    (1533, 138, 4, N'Zone D', N'Surendra Jadhav', N'Officer', N'7218743145', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'सुरेंद्र जाधव', N'अधिकारी', N''),
-    (1534, 139, 1, N'Zone A', N'Gaurav Shrivas', N'Officer', N'8149260111', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'गौरव श्रीवास', N'अधिकारी', N''),
-    (1535, 139, 2, N'Zone B', N'Gaurav Shrivas', N'Officer', N'8149260111', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'गौरव श्रीवास', N'अधिकारी', N''),
     (1536, 139, 3, N'Zone C', N'Surendra Jadhav', N'Officer', N'7218743145', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'सुरेंद्र जाधव', N'अधिकारी', N''),
     (1537, 139, 4, N'Zone D', N'Surendra Jadhav', N'Officer', N'7218743145', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'सुरेंद्र जाधव', N'अधिकारी', N''),
     (1538, 140, 1, N'Zone A', N'Gaurav Shrivas', N'Officer', N'8149260111', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'गौरव श्रीवास', N'अधिकारी', N''),
@@ -6687,37 +6709,7 @@ USING (VALUES
     (1590, 153, 1, N'Zone A', N'Sudhir Misurkar', N'Assistant Tax Superintendent', N'9850318838', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'सुधीर मिसुरकर', N'सहा. कर अधीक्षक', N''),
     (1591, 153, 2, N'Zone B', N'Ajay Shirsat', N'In-charge Assistant Tax Superintendent', N'8888738991', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अजय शिरसाट', N'प्र. सहा. कर अधीक्षक', N''),
     (1592, 153, 3, N'Zone C', N'Pankaj Joglekar', N'Assistant Tax Superintendent', N'7709043399', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'पंकज जोगळेकर', N'सहा. कर अधीक्षक', N''),
-    (1593, 153, 4, N'Zone D', N'Prashant Bole', N'Assistant Tax Superintendent', N'9011432125', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'प्रशांत बोळे', N'सहा. कर अधीक्षक', N'')
-) AS source ([Id], [ServiceId], [ZoneId], [ZoneName], [OfficerName], [Designation], [MobileNo], [Email], [OfficeAddress], [OfficerRole], [DisplayOrder], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [ZoneNameLocal], [OfficerNameLocal], [DesignationLocal], [OfficeAddressLocal])
-ON (target.[Id] = source.[Id])
-WHEN MATCHED THEN
-    UPDATE SET
-        target.[ServiceId] = source.[ServiceId],
-        target.[ZoneId] = source.[ZoneId],
-        target.[ZoneName] = source.[ZoneName],
-        target.[OfficerName] = source.[OfficerName],
-        target.[Designation] = source.[Designation],
-        target.[MobileNo] = source.[MobileNo],
-        target.[Email] = source.[Email],
-        target.[OfficeAddress] = source.[OfficeAddress],
-        target.[OfficerRole] = source.[OfficerRole],
-        target.[DisplayOrder] = source.[DisplayOrder],
-        target.[IsActive] = source.[IsActive],
-        target.[CreatedDate] = source.[CreatedDate],
-        target.[CreatedBy] = source.[CreatedBy],
-        target.[UpdatedDate] = source.[UpdatedDate],
-        target.[UpdatedBy] = source.[UpdatedBy],
-        target.[ZoneNameLocal] = source.[ZoneNameLocal],
-        target.[OfficerNameLocal] = source.[OfficerNameLocal],
-        target.[DesignationLocal] = source.[DesignationLocal],
-        target.[OfficeAddressLocal] = source.[OfficeAddressLocal]
-WHEN NOT MATCHED BY TARGET THEN
-    INSERT ([Id], [ServiceId], [ZoneId], [ZoneName], [OfficerName], [Designation], [MobileNo], [Email], [OfficeAddress], [OfficerRole], [DisplayOrder], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [ZoneNameLocal], [OfficerNameLocal], [DesignationLocal], [OfficeAddressLocal])
-    VALUES (source.[Id], source.[ServiceId], source.[ZoneId], source.[ZoneName], source.[OfficerName], source.[Designation], source.[MobileNo], source.[Email], source.[OfficeAddress], source.[OfficerRole], source.[DisplayOrder], source.[IsActive], source.[CreatedDate], source.[CreatedBy], source.[UpdatedDate], source.[UpdatedBy], source.[ZoneNameLocal], source.[OfficerNameLocal], source.[DesignationLocal], source.[OfficeAddressLocal]);
-GO
-
-MERGE INTO [RTS].[ServiceOfficerAllocation] AS target
-USING (VALUES
+    (1593, 153, 4, N'Zone D', N'Prashant Bole', N'Assistant Tax Superintendent', N'9011432125', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'प्रशांत बोळे', N'सहा. कर अधीक्षक', N''),
     (1594, 154, 1, N'Zone A', N'Sudhir Misurkar', N'Assistant Tax Superintendent', N'9850318838', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'सुधीर मिसुरकर', N'सहा. कर अधीक्षक', N''),
     (1595, 154, 2, N'Zone B', N'Ajay Shirsat', N'In-charge Assistant Tax Superintendent', N'8888738991', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'अजय शिरसाट', N'प्र. सहा. कर अधीक्षक', N''),
     (1596, 154, 3, N'Zone C', N'Pankaj Joglekar', N'Assistant Tax Superintendent', N'7709043399', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'पंकज जोगळेकर', N'सहा. कर अधीक्षक', N''),
@@ -6750,7 +6742,7 @@ USING (VALUES
     (1623, 161, 2, N'Zone B', N'Gaurav Shrivas', N'Officer', N'8149260111', N'', N'', N'ZONE_OFFICER', 2, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'गौरव श्रीवास', N'अधिकारी', N''),
     (1624, 161, 3, N'Zone C', N'Surendra Jadhav', N'Officer', N'7218743145', N'', N'', N'ZONE_OFFICER', 3, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'सुरेंद्र जाधव', N'अधिकारी', N''),
     (1625, 161, 4, N'Zone D', N'Surendra Jadhav', N'Officer', N'7218743145', N'', N'', N'ZONE_OFFICER', 4, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'सुरेंद्र जाधव', N'अधिकारी', N''),
-    (1626, 162, 1, N'Zone A', N'Dummy Officer 13-1', N'Department Officer', N'9421894208', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'डमी अधिकारी', N'विभाग अधिकारी', N'')
+    (1626, 162, 1, N'Zone A', N'Pramod Gaikwad', N'Clerk', N'9421894208', N'', N'', N'ZONE_OFFICER', 1, 1, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'प्रमोद गायकवाड', N'लिपिक', N'')
 ) AS source ([Id], [ServiceId], [ZoneId], [ZoneName], [OfficerName], [Designation], [MobileNo], [Email], [OfficeAddress], [OfficerRole], [DisplayOrder], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [ZoneNameLocal], [OfficerNameLocal], [DesignationLocal], [OfficeAddressLocal])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN

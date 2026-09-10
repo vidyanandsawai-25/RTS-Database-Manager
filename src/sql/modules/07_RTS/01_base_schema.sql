@@ -636,7 +636,7 @@ BEGIN
         [StageOrder]        INT NOT NULL,
         [StageName]         NVARCHAR(100) NOT NULL,
         [UserId]            INT NULL,
-        [SLADays]           INT NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_SLADays] DEFAULT (3),
+        [SLADays]           INT NULL CONSTRAINT [DF_AppealFlowStageMaster_SLADays] DEFAULT (3),
         [CanVerifyDocument] BIT NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_CanVerifyDocument] DEFAULT (0),
         [CanApprove]        BIT NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_CanApprove] DEFAULT (0),
         [CanReject]         BIT NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_CanReject] DEFAULT (1),
@@ -646,6 +646,13 @@ BEGIN
 
         CONSTRAINT [PK_AppealFlowStageMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
     );
+END;
+ELSE
+BEGIN
+    IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealFlowStageMaster' AND COLUMN_NAME = 'SLADays' AND IS_NULLABLE = 'NO')
+    BEGIN
+        ALTER TABLE [RTS].[AppealFlowStageMaster] ALTER COLUMN [SLADays] INT NULL;
+    END;
 END;
 GO
 

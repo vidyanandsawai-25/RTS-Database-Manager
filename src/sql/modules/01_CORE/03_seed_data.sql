@@ -53,7 +53,7 @@ USING (VALUES
     (1, 1, N'PTIS_M', N'Property Tax', N'Property Tax', N'home', N'PTIS', N'Property Tax Module', 1, 1, '2026-07-15T16:26:53.537', NULL, NULL),
     (1001, 2, N'TL_M', N'Trade License', N'Trade License', N'home', N'TL', N'Trade License Module', 1, 1, '2026-07-15T16:26:53.537', NULL, NULL),
     (1004, 3, N'AM_M', N'Asset Management', N'Asset Management', N'home', N'AM', N'Asset Management Module', 1, 1, '2026-07-15T16:26:53.537', NULL, NULL),
-    (1005, 5, N'RTS_M', N'Right to Service', N'लोकसेवा हक्क', N'Landmark', N'RTS', N'Right to Service administration module', 1, 1, '2026-07-17T12:47:46.783', 1002, '2026-08-28T13:47:16.953')
+    (1005, 5, N'RTS_M', N'RTS', N'लोकसेवा हक्क', N'Landmark', N'RTS', N'Right to Service administration module', 1, 1, '2026-07-17T12:47:46.783', 1002, '2026-08-28T13:47:16.953')
 ) AS source ([Id], [DepartmentId], [ModuleCode], [ModuleName], [ModuleNameLocal], [ModuleIcon], [ModuleLabel], [ModuleDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -230,22 +230,28 @@ SET IDENTITY_INSERT [CORE].[UserRoleMaster] OFF;
 GO
 
 /* ----------------------------------------------------------------------------
-   Table: [CORE].[UserMaster] (6 rows)
+   Table: [CORE].[UserMaster] (11 rows)
    ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [CORE].[UserMaster] ON;
 GO
 MERGE INTO [CORE].[UserMaster] AS target
 USING (VALUES
-    (1, N'Clerk', N'Hrishikesh', NULL, N'Patekar', N'CK', N'Pune', N'7058601590', N'8625085936', N'HrishikeshPatekar@gmail.com', 0, N'en', 1, N'Test', NULL, 0, '2026-09-09T19:04:07.187', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', 1, '2026-08-11T20:02:48.860', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
-    (2, N'HeadOfficer', N'Aditya', NULL, N'Fatke', N'HO', N'Pune', N'9876543210', NULL, N'Aditya55@gmail.com', 0, N'en', 1, N'Head Officer', NULL, 0, '2026-09-09T18:08:27.857', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:23:16.203', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
-    (3, N'SeniorOfficer', N'Vidyanad', NULL, N'Sawai', N'SO', N'Amravati', N'9876543211', NULL, N'VidyanadSawai2508@gmail.com', 0, N'en', 1, N'Senior Officer', NULL, 1, '2026-09-09T16:19:45.040', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:22:23.800', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
-    (1002, N'ADMIN', N'ADMIN', N'ADMIN', N'ADMIN', N'PB', N'Amravati', N'7058601590', N'8625085936', N'ashwineshmukh62@gmail.com', 0, N'en', 1, N'Test', NULL, 1, '2026-09-05T13:55:08.093', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:24:08.297', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
-    (2004, N'FirstAppellateOfficer', N'neha', NULL, N'Puri', N'FAO', N'Amravarti', N'9370932047', NULL, N'nehap@gmail.com', 0, N'en', 1, N'Test', NULL, 0, '2026-09-09T18:29:22.020', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', NULL, '2026-08-24T12:57:33.160', NULL, NULL, 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
-    (2005, N'SecondAppellateOfficer', N'test', NULL, N'Puri', N'SAO', N'Amravarti', N'9370932048', NULL, N'nehap19@gmail.com', 0, N'en', 1, N'Test', NULL, 1, '2026-09-07T20:06:03.940', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', NULL, '2026-08-24T12:57:33.160', NULL, NULL, 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL)
-) AS source ([Id], [UserName], [FirstName], [MiddleName], [LastName], [UserCode], [Address], [MobileNo], [AlternateMobileNo], [Email], [MustChangePassword], [Language], [IsActive], [Remark], [LockedUntilAt], [FailedLoginCount], [LastLoginAt], [UserLocked], [EmployeeTypeId], [PasswordHash], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [MarkedForDeletion], [MarkedForDeletionDate], [SecurityStamp], [TwoFactorEnabled], [TwoFactorEnabledAt], [TwoFactorRequired], [TwoFactorSecretEncrypted], [OtpChallengeFailCount], [OtpChallengeLockedUntilAt], [PasswordChangedAt])
+    (1, 1, N'Clerk', N'Hrishikesh', NULL, N'Patekar', N'CK', N'Pune', N'7058601590', N'8625085936', N'HrishikeshPatekar@gmail.com', 0, N'en', 1, N'Test', NULL, 0, '2026-09-10T15:24:02.990', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', 1, '2026-08-11T20:02:48.860', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (2, 1, N'HeadOfficer', N'Aditya', NULL, N'Fatke', N'HO', N'Pune', N'9876543210', NULL, N'Aditya55@gmail.com', 0, N'en', 1, N'Head Officer', NULL, 0, '2026-09-10T12:49:40.577', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:23:16.203', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (3, 1, N'SeniorOfficer', N'Vidyanad', NULL, N'Sawai', N'SO', N'Amravati', N'9876543211', NULL, N'VidyanadSawai2508@gmail.com', 0, N'en', 1, N'Senior Officer', NULL, 0, '2026-09-10T12:41:53.110', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:22:23.800', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (4, 1, N'Prashant.r', N'Prashant', NULL, N'Rajurkar', N'HOD', N'Akola', N'8329184285', NULL, NULL, 0, N'en', 1, N'HOD', NULL, 0, '2026-09-10T15:05:41.950', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T12:00:17.400', 1, '2026-09-10T13:19:44.673', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (5, 9, N'Lata.g', N'Lata', NULL, N'Ghime', N'CK1', N'Akola', N'8080685518', NULL, NULL, 0, N'en', 1, N'Clerk', NULL, 0, '2026-09-10T15:06:10.133', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T11:55:53.667', 1, '2026-09-10T13:59:17.430', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (6, 1, N'Pramod.g', N'Pramod', NULL, N'Gaikwad', N'CK2', N'Akola', N'9421894208', NULL, NULL, 0, N'en', 1, N'Clerk', NULL, 0, '2026-09-10T15:09:59.997', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T12:05:43.063', 1, '2026-09-10T13:30:00.987', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (7, 5, N'Kailash.t', N'Kailash', NULL, N'Thakur', N'CK3', N'Akola', N'7709409303', NULL, NULL, 0, N'en', 1, N'Clerk', NULL, 0, '2026-09-10T15:24:58.863', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T15:24:58.863', 1, '2026-09-10T15:24:58.863', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (8, 5, N'Akansha.h', N'Akansha', NULL, N'Hiwale', N'CK4', N'Akola', N'9975130814', NULL, NULL, 0, N'en', 1, N'Clerk', NULL, 0, '2026-09-10T15:28:19.670', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T15:28:19.670', 1, '2026-09-10T15:28:19.670', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (1002, 1, N'ADMIN', N'ADMIN', N'ADMIN', N'ADMIN', N'PB', N'Amravati', N'7058601590', N'8625085936', N'ashwineshmukh62@gmail.com', 0, N'en', 1, N'Test', NULL, 0, '2026-09-10T12:34:29.143', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:24:08.297', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (2004, 1, N'FirstAppellateOfficer', N'neha', NULL, N'Puri', N'FAO', N'Amravarti', N'9370932047', NULL, N'nehap@gmail.com', 0, N'en', 1, N'Test', NULL, 0, '2026-09-09T18:29:22.020', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', NULL, '2026-08-24T12:57:33.160', NULL, NULL, 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (2005, 1, N'SecondAppellateOfficer', N'test', NULL, N'Puri', N'SAO', N'Amravarti', N'9370932048', NULL, N'nehap19@gmail.com', 0, N'en', 1, N'Test', NULL, 1, '2026-09-07T20:06:03.940', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', NULL, '2026-08-24T12:57:33.160', NULL, NULL, 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL)
+) AS source ([Id], [DeptId], [UserName], [FirstName], [MiddleName], [LastName], [UserCode], [Address], [MobileNo], [AlternateMobileNo], [Email], [MustChangePassword], [Language], [IsActive], [Remark], [LockedUntilAt], [FailedLoginCount], [LastLoginAt], [UserLocked], [EmployeeTypeId], [PasswordHash], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [MarkedForDeletion], [MarkedForDeletionDate], [SecurityStamp], [TwoFactorEnabled], [TwoFactorEnabledAt], [TwoFactorRequired], [TwoFactorSecretEncrypted], [OtpChallengeFailCount], [OtpChallengeLockedUntilAt], [PasswordChangedAt])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
     UPDATE SET
+        target.[DeptId] = source.[DeptId],
         target.[UserName] = source.[UserName],
         target.[FirstName] = source.[FirstName],
         target.[MiddleName] = source.[MiddleName],
@@ -280,15 +286,15 @@ WHEN MATCHED THEN
         target.[OtpChallengeLockedUntilAt] = source.[OtpChallengeLockedUntilAt],
         target.[PasswordChangedAt] = source.[PasswordChangedAt]
 WHEN NOT MATCHED BY TARGET THEN
-    INSERT ([Id], [UserName], [FirstName], [MiddleName], [LastName], [UserCode], [Address], [MobileNo], [AlternateMobileNo], [Email], [MustChangePassword], [Language], [IsActive], [Remark], [LockedUntilAt], [FailedLoginCount], [LastLoginAt], [UserLocked], [EmployeeTypeId], [PasswordHash], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [MarkedForDeletion], [MarkedForDeletionDate], [SecurityStamp], [TwoFactorEnabled], [TwoFactorEnabledAt], [TwoFactorRequired], [TwoFactorSecretEncrypted], [OtpChallengeFailCount], [OtpChallengeLockedUntilAt], [PasswordChangedAt])
-    VALUES (source.[Id], source.[UserName], source.[FirstName], source.[MiddleName], source.[LastName], source.[UserCode], source.[Address], source.[MobileNo], source.[AlternateMobileNo], source.[Email], source.[MustChangePassword], source.[Language], source.[IsActive], source.[Remark], source.[LockedUntilAt], source.[FailedLoginCount], source.[LastLoginAt], source.[UserLocked], source.[EmployeeTypeId], source.[PasswordHash], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[SecurityStamp], source.[TwoFactorEnabled], source.[TwoFactorEnabledAt], source.[TwoFactorRequired], source.[TwoFactorSecretEncrypted], source.[OtpChallengeFailCount], source.[OtpChallengeLockedUntilAt], source.[PasswordChangedAt]);
+    INSERT ([Id], [DeptId], [UserName], [FirstName], [MiddleName], [LastName], [UserCode], [Address], [MobileNo], [AlternateMobileNo], [Email], [MustChangePassword], [Language], [IsActive], [Remark], [LockedUntilAt], [FailedLoginCount], [LastLoginAt], [UserLocked], [EmployeeTypeId], [PasswordHash], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [MarkedForDeletion], [MarkedForDeletionDate], [SecurityStamp], [TwoFactorEnabled], [TwoFactorEnabledAt], [TwoFactorRequired], [TwoFactorSecretEncrypted], [OtpChallengeFailCount], [OtpChallengeLockedUntilAt], [PasswordChangedAt])
+    VALUES (source.[Id], source.[DeptId], source.[UserName], source.[FirstName], source.[MiddleName], source.[LastName], source.[UserCode], source.[Address], source.[MobileNo], source.[AlternateMobileNo], source.[Email], source.[MustChangePassword], source.[Language], source.[IsActive], source.[Remark], source.[LockedUntilAt], source.[FailedLoginCount], source.[LastLoginAt], source.[UserLocked], source.[EmployeeTypeId], source.[PasswordHash], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[SecurityStamp], source.[TwoFactorEnabled], source.[TwoFactorEnabledAt], source.[TwoFactorRequired], source.[TwoFactorSecretEncrypted], source.[OtpChallengeFailCount], source.[OtpChallengeLockedUntilAt], source.[PasswordChangedAt]);
 GO
 
 SET IDENTITY_INSERT [CORE].[UserMaster] OFF;
 GO
 
 /* ----------------------------------------------------------------------------
-   Table: [CORE].[UserRoleAllocation] (24 rows)
+   Table: [CORE].[UserRoleAllocation] (31 rows)
    ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [CORE].[UserRoleAllocation] ON;
 GO
@@ -317,7 +323,14 @@ USING (VALUES
     (3020, 2005, 1, 1, 1, NULL, '2026-08-12T17:30:17.143', NULL, NULL),
     (3021, 2005, 2, 1, 1, NULL, '2026-08-12T17:30:17.143', NULL, NULL),
     (3022, 2005, 3, 1, 1, NULL, '2026-08-12T17:30:17.143', NULL, NULL),
-    (3023, 2005, 5, 2, 1, NULL, '2026-08-12T17:30:17.143', NULL, NULL)
+    (3023, 2005, 5, 2, 1, NULL, '2026-08-12T17:30:17.143', NULL, NULL),
+    (4016, 6, 5, 2, 0, 1002, '2026-09-10T12:39:19.760', 1, '2026-09-10T13:30:01.153'),
+    (4017, 4, 5, 1, 1, 1, '2026-09-10T13:19:44.787', NULL, NULL),
+    (4018, 5, 5, 1, 1, 1, '2026-09-10T13:27:11.480', NULL, NULL),
+    (4019, 6, 5, 1, 1, 1, '2026-09-10T13:30:01.153', NULL, NULL),
+    (4020, 5, 1, 1, 0, 1, '2026-09-10T13:50:10.593', 1, '2026-09-10T13:59:17.587'),
+    (4021, 5, 2, 1, 0, 1, '2026-09-10T13:50:10.593', 1, '2026-09-10T13:59:17.587'),
+    (4022, 5, 3, 1, 0, 1, '2026-09-10T13:50:10.593', 1, '2026-09-10T13:59:17.587')
 ) AS source ([Id], [UserId], [DepartmentId], [UserRoleId], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -339,7 +352,7 @@ SET IDENTITY_INSERT [CORE].[UserRoleAllocation] OFF;
 GO
 
 /* ----------------------------------------------------------------------------
-   Table: [CORE].[UserDepartmentAllocation] (24 rows)
+   Table: [CORE].[UserDepartmentAllocation] (33 rows)
    ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [CORE].[UserDepartmentAllocation] ON;
 GO
@@ -368,7 +381,16 @@ USING (VALUES
     (2023, 2005, 1, 1, NULL, '2026-08-12T17:29:30.663', NULL, NULL),
     (2024, 2005, 2, 1, NULL, '2026-08-12T17:29:30.663', NULL, NULL),
     (2025, 2005, 3, 1, NULL, '2026-08-12T17:29:30.663', NULL, NULL),
-    (2026, 2005, 5, 1, NULL, '2026-08-12T17:29:30.663', NULL, NULL)
+    (2026, 2005, 5, 1, NULL, '2026-08-12T17:29:30.663', NULL, NULL),
+    (2027, 6, 5, 1, 1, '2026-09-10T12:30:50.687', 1, '2026-09-10T12:30:50.687'),
+    (2028, 6, 1, 0, 1, '2026-09-10T12:32:29.093', 1, '2026-09-10T13:30:01.040'),
+    (2029, 6, 2, 0, 1, '2026-09-10T12:32:39.203', 1, '2026-09-10T13:30:01.040'),
+    (2030, 6, 3, 0, 1, '2026-09-10T12:32:49.983', 1, '2026-09-10T13:30:01.040'),
+    (3019, 4, 5, 1, 1, '2026-09-10T13:19:44.713', NULL, NULL),
+    (3020, 5, 5, 1, 1, '2026-09-10T13:27:11.360', NULL, NULL),
+    (3021, 5, 1, 0, 1, '2026-09-10T13:50:10.507', 1, '2026-09-10T13:59:17.497'),
+    (3022, 5, 2, 0, 1, '2026-09-10T13:50:10.507', 1, '2026-09-10T13:59:17.497'),
+    (3023, 5, 3, 0, 1, '2026-09-10T13:50:10.507', 1, '2026-09-10T13:59:17.497')
 ) AS source ([Id], [UserId], [DepartmentId], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -389,7 +411,7 @@ SET IDENTITY_INSERT [CORE].[UserDepartmentAllocation] OFF;
 GO
 
 /* ----------------------------------------------------------------------------
-   Table: [CORE].[UserModuleAllocation] (16 rows)
+   Table: [CORE].[UserModuleAllocation] (22 rows)
    ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [CORE].[UserModuleAllocation] ON;
 GO
@@ -410,7 +432,13 @@ USING (VALUES
     (2013, 1002, 1, 1, 1, NULL, '2026-08-12T12:24:08.367', NULL, NULL),
     (2014, 1002, 2, 1001, 1, NULL, '2026-08-12T12:24:08.367', NULL, NULL),
     (2015, 1002, 3, 1004, 1, NULL, '2026-08-12T12:24:08.367', NULL, NULL),
-    (2016, 1002, 5, 1005, 1, NULL, '2026-08-12T12:24:08.367', 1002, '2026-08-26T15:31:32.027')
+    (2016, 1002, 5, 1005, 1, NULL, '2026-08-12T12:24:08.367', 1002, '2026-08-26T15:31:32.027'),
+    (2017, 6, 5, 1005, 1, 1002, '2026-09-10T12:16:25.870', NULL, NULL),
+    (2018, 4, 5, 1005, 1, 1, '2026-09-10T13:19:44.750', NULL, NULL),
+    (2019, 5, 5, 1005, 1, 1, '2026-09-10T13:27:11.417', NULL, NULL),
+    (2020, 5, 1, 1, 0, 1, '2026-09-10T13:50:10.537', 1, '2026-09-10T13:59:17.543'),
+    (2021, 5, 2, 1001, 0, 1, '2026-09-10T13:50:10.537', 1, '2026-09-10T13:59:17.543'),
+    (2022, 5, 3, 1004, 0, 1, '2026-09-10T13:50:10.537', 1, '2026-09-10T13:59:17.543')
 ) AS source ([Id], [UserId], [DepartmentId], [ModuleId], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -821,9 +849,9 @@ SET IDENTITY_INSERT [CORE].[DocumentBinding] ON;
 GO
 MERGE INTO [CORE].[DocumentBinding] AS target
 USING (VALUES
-    (1, 10041, 1, 1, N'string', NULL, '3fa85f64-5717-4562-b3fc-2c963f66afa6', N'string', N'string', 1, NULL, NULL, 1, 2, 1, 0, 1, '2026-08-10T17:54:39.670', 0, '2026-08-10T17:12:03.780', 0, '2026-08-10T17:54:39.670', N'System.Byte[]'),
-    (2, 10042, 1, 1, N'string', NULL, '3fa85f64-5717-4562-b3fc-2c963f66afa6', N'string', N'string', 1, NULL, NULL, 1, 2, 1, 1, 0, NULL, 0, '2026-08-10T17:54:39.627', NULL, NULL, N'System.Byte[]')
-) AS source ([Id], [DocumentId], [DepartmentId], [ModuleId], [ReferenceTableName], [ReferenceTableId], [ReferenceTableIdGuid], [ReferencePropertyName], [BindingPurpose], [IsPrimaryDocument], [Notes], [AccessPermission], [AuthDepartmentId], [AuthReferenceId], [IsReferenceValid], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [RowVersion])
+    (1, 10041, 1, 1, N'string', NULL, '3fa85f64-5717-4562-b3fc-2c963f66afa6', N'string', N'string', 1, NULL, NULL, 1, 2, 1, 0, 1, '2026-08-10T17:54:39.670', 0, '2026-08-10T17:12:03.780', 0, '2026-08-10T17:54:39.670'),
+    (2, 10042, 1, 1, N'string', NULL, '3fa85f64-5717-4562-b3fc-2c963f66afa6', N'string', N'string', 1, NULL, NULL, 1, 2, 1, 1, 0, NULL, 0, '2026-08-10T17:54:39.627', NULL, NULL)
+) AS source ([Id], [DocumentId], [DepartmentId], [ModuleId], [ReferenceTableName], [ReferenceTableId], [ReferenceTableIdGuid], [ReferencePropertyName], [BindingPurpose], [IsPrimaryDocument], [Notes], [AccessPermission], [AuthDepartmentId], [AuthReferenceId], [IsReferenceValid], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
     UPDATE SET
@@ -847,11 +875,10 @@ WHEN MATCHED THEN
         target.[CreatedBy] = source.[CreatedBy],
         target.[CreatedDate] = source.[CreatedDate],
         target.[UpdatedBy] = source.[UpdatedBy],
-        target.[UpdatedDate] = source.[UpdatedDate],
-        target.[RowVersion] = source.[RowVersion]
+        target.[UpdatedDate] = source.[UpdatedDate]
 WHEN NOT MATCHED BY TARGET THEN
-    INSERT ([Id], [DocumentId], [DepartmentId], [ModuleId], [ReferenceTableName], [ReferenceTableId], [ReferenceTableIdGuid], [ReferencePropertyName], [BindingPurpose], [IsPrimaryDocument], [Notes], [AccessPermission], [AuthDepartmentId], [AuthReferenceId], [IsReferenceValid], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [RowVersion])
-    VALUES (source.[Id], source.[DocumentId], source.[DepartmentId], source.[ModuleId], source.[ReferenceTableName], source.[ReferenceTableId], source.[ReferenceTableIdGuid], source.[ReferencePropertyName], source.[BindingPurpose], source.[IsPrimaryDocument], source.[Notes], source.[AccessPermission], source.[AuthDepartmentId], source.[AuthReferenceId], source.[IsReferenceValid], source.[IsActive], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], source.[RowVersion]);
+    INSERT ([Id], [DocumentId], [DepartmentId], [ModuleId], [ReferenceTableName], [ReferenceTableId], [ReferenceTableIdGuid], [ReferencePropertyName], [BindingPurpose], [IsPrimaryDocument], [Notes], [AccessPermission], [AuthDepartmentId], [AuthReferenceId], [IsReferenceValid], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[DocumentId], source.[DepartmentId], source.[ModuleId], source.[ReferenceTableName], source.[ReferenceTableId], source.[ReferenceTableIdGuid], source.[ReferencePropertyName], source.[BindingPurpose], source.[IsPrimaryDocument], source.[Notes], source.[AccessPermission], source.[AuthDepartmentId], source.[AuthReferenceId], source.[IsReferenceValid], source.[IsActive], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
 GO
 
 SET IDENTITY_INSERT [CORE].[DocumentBinding] OFF;
