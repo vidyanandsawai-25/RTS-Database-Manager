@@ -1,4 +1,4 @@
-﻿/* ===========================
+/* ===========================
  CommunicationDetails
 =========================== */
 
@@ -222,23 +222,8 @@ REFERENCES [GSMS].[CommonRemarkDetails] ([Id])
 GO
 
 
-CREATE TABLE [GSMS].[OldWardMaster]
-(
-    [Id] INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-    [OldZoneName] NVARCHAR(200) NOT NULL,
-    [OldWardNo] VARCHAR(100) NOT NULL,
-    [IsActive] BIT NOT NULL CONSTRAINT [DF_OldWardMaster_IsActive] DEFAULT (1),
-    [CreatedBy] INT NOT NULL,
-    [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_OldWardMaster_CreatedDate] DEFAULT GETDATE(),
-    [UpdatedBy] INT NULL,
-    [UpdatedDate] DATETIME NULL,
-    CONSTRAINT [PK_OldWardMaster] PRIMARY KEY CLUSTERED ([Id]),
-    CONSTRAINT [UQ_OldWardMaster_OldZoneName_OldWardNo] UNIQUE ([OldZoneName], [OldWardNo])
-);
-GO
-
  ALTER TABLE [GSMS].[WardAllocation] WITH CHECK ADD CONSTRAINT [FK_WardAllocation_OldWardMaster_OldWardId]
-     FOREIGN KEY ([OldWardId]) REFERENCES [GSMS].[OldWardMaster] ([Id]);
+     FOREIGN KEY ([OldWardId]) REFERENCES [PTIS].[OldWardMaster] ([Id]);
 GO
 ALTER TABLE [GSMS].[WardAllocation] CHECK CONSTRAINT [FK_WardAllocation_OldWardMaster_OldWardId];
 
