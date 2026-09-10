@@ -883,4 +883,3 @@ GO
 
 SET IDENTITY_INSERT [CORE].[DocumentBinding] OFF;
 GO
-
