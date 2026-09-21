@@ -40,11 +40,6 @@ BEGIN
         CONSTRAINT [UQ_DepartmentMaster_DepartmentName] UNIQUE NONCLUSTERED ([DepartmentName] ASC)
     );
 END;
-ELSE
-BEGIN
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'DepartmentMaster' AND COLUMN_NAME = 'DepartmentCode')
-        ALTER TABLE [RTS].[DepartmentMaster] ADD [DepartmentCode] VARCHAR(20) NULL;
-END;
 GO
 
 /* ----------------------------------------------------------------------------
@@ -78,21 +73,6 @@ BEGIN
 
         CONSTRAINT [PK_ServiceMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
     );
-END;
-ELSE
-BEGIN
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceMaster' AND COLUMN_NAME = 'ServiceCode')
-        ALTER TABLE [RTS].[ServiceMaster] ADD [ServiceCode] VARCHAR(20) NULL;
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceMaster' AND COLUMN_NAME = 'CertificateType')
-        ALTER TABLE [RTS].[ServiceMaster] ADD [CertificateType] TINYINT NOT NULL CONSTRAINT [DF_ServiceMaster_CertificateType] DEFAULT (0);
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceMaster' AND COLUMN_NAME = 'IsCertificateRequired')
-        ALTER TABLE [RTS].[ServiceMaster] ADD [IsCertificateRequired] BIT NOT NULL CONSTRAINT [DF_ServiceMaster_IsCertificateRequired] DEFAULT (1);
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceMaster' AND COLUMN_NAME = 'IsSmsEnabled')
-        ALTER TABLE [RTS].[ServiceMaster] ADD [IsSmsEnabled] BIT NOT NULL CONSTRAINT [DF_ServiceMaster_IsSmsEnabled] DEFAULT (1);
-    IF EXISTS (SELECT 1 FROM sys.default_constraints WHERE name = 'DF_ServiceMaster_IsManualCertificate')
-        ALTER TABLE [RTS].[ServiceMaster] DROP CONSTRAINT [DF_ServiceMaster_IsManualCertificate];
-    IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceMaster' AND COLUMN_NAME = 'IsManualCertificate')
-        ALTER TABLE [RTS].[ServiceMaster] DROP COLUMN [IsManualCertificate];
 END;
 GO
 
@@ -220,11 +200,6 @@ BEGIN
         CONSTRAINT [UQ_ApplicationDetails_ApplicationNo] UNIQUE NONCLUSTERED ([ApplicationNo] ASC)
     );
 END;
-ELSE
-BEGIN
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ApplicationDetails' AND COLUMN_NAME = 'IssuedCertificateGuid')
-        ALTER TABLE [RTS].[ApplicationDetails] ADD [IssuedCertificateGuid] UNIQUEIDENTIFIER NULL;
-END;
 GO
 
 IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_ApplicationDetails_DepartmentMaster')
@@ -349,17 +324,6 @@ BEGIN
         CONSTRAINT [PK_ApprovalFlowStageMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
         CONSTRAINT [UQ_ApprovalFlowStageMaster_FlowStage] UNIQUE NONCLUSTERED ([ApprovalFlowId] ASC, [StageOrder] ASC)
     );
-END;
-ELSE
-BEGIN
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ApprovalFlowStageMaster' AND COLUMN_NAME = 'CanIssueCertificate')
-        ALTER TABLE [RTS].[ApprovalFlowStageMaster] ADD [CanIssueCertificate] BIT NOT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_CanIssueCertificate] DEFAULT (0);
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ApprovalFlowStageMaster' AND COLUMN_NAME = 'CanEditCertificate')
-        ALTER TABLE [RTS].[ApprovalFlowStageMaster] ADD [CanEditCertificate] BIT NOT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_CanEditCertificate] DEFAULT (0);
-    IF EXISTS (SELECT 1 FROM sys.default_constraints WHERE name = 'DF_ApprovalFlowStageMaster_IsManualCertificate')
-        ALTER TABLE [RTS].[ApprovalFlowStageMaster] DROP CONSTRAINT [DF_ApprovalFlowStageMaster_IsManualCertificate];
-    IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ApprovalFlowStageMaster' AND COLUMN_NAME = 'IsManualCertificate')
-        ALTER TABLE [RTS].[ApprovalFlowStageMaster] DROP COLUMN [IsManualCertificate];
 END;
 GO
 
@@ -549,22 +513,6 @@ BEGIN
         CONSTRAINT [UQ_IssuedCertificate_CertificateNo] UNIQUE NONCLUSTERED ([CertificateNo] ASC)
     );
 END;
-ELSE
-BEGIN
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'IssuedCertificate' AND COLUMN_NAME = 'CertificateType')
-        ALTER TABLE [RTS].[IssuedCertificate] ADD [CertificateType] TINYINT NOT NULL CONSTRAINT [DF_IssuedCertificate_CertificateType] DEFAULT (1);
-    IF EXISTS (SELECT 1 FROM sys.default_constraints WHERE name = 'DF_IssuedCertificate_IsManualCertificate')
-        ALTER TABLE [RTS].[IssuedCertificate] DROP CONSTRAINT [DF_IssuedCertificate_IsManualCertificate];
-    IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'IssuedCertificate' AND COLUMN_NAME = 'IsManualCertificate')
-        ALTER TABLE [RTS].[IssuedCertificate] DROP COLUMN [IsManualCertificate];
-    IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'IssuedCertificate' AND COLUMN_NAME = 'CertificateServiceId' AND IS_NULLABLE = 'NO')
-        ALTER TABLE [RTS].[IssuedCertificate] ALTER COLUMN [CertificateServiceId] INT NULL;
-    IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'IssuedCertificate' AND COLUMN_NAME = 'TemplateId')
-    BEGIN
-        EXEC sp_rename '[RTS].[IssuedCertificate].[TemplateId]', 'CertificateServiceId', 'COLUMN';
-        ALTER TABLE [RTS].[IssuedCertificate] ALTER COLUMN [CertificateServiceId] INT NULL;
-    END;
-END;
 GO
 
 IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_IssuedCertificate_ApplicationDetails')
@@ -647,13 +595,6 @@ BEGIN
         CONSTRAINT [PK_AppealFlowStageMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
     );
 END;
-ELSE
-BEGIN
-    IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealFlowStageMaster' AND COLUMN_NAME = 'SLADays' AND IS_NULLABLE = 'NO')
-    BEGIN
-        ALTER TABLE [RTS].[AppealFlowStageMaster] ALTER COLUMN [SLADays] INT NULL;
-    END;
-END;
 GO
 
 /* ----------------------------------------------------------------------------
@@ -663,42 +604,30 @@ IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS
 BEGIN
     CREATE TABLE [RTS].[AppealApplicationDetails]
     (
-        [Id]                INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-        [AppealNo]          VARCHAR(50) NULL,
-        [ApplicationId]     INT NOT NULL,
-        [AppealTypeId]      INT NOT NULL,
-        [DepartmentId]      INT NOT NULL,
-        [ServiceId]         INT NOT NULL,
-        [AppealLevel]       TINYINT NOT NULL,
-        [Reason]            NVARCHAR(MAX) NULL,
-        [Status]            NVARCHAR(50) NOT NULL CONSTRAINT [DF_AppealApplicationDetails_Status] DEFAULT ('Submitted'),
-        [IsActive]          BIT NOT NULL CONSTRAINT [DF_AppealApplicationDetails_IsActive] DEFAULT (1),
-        [CreatedBy]         INT NULL,
-        [CreatedDate]       DATETIME NOT NULL CONSTRAINT [DF_AppealApplicationDetails_CreatedDate] DEFAULT (GETDATE()),
+        [Id]                    INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+        [AppealNo]              VARCHAR(50) NULL,
+        [ApplicationId]         INT NOT NULL,
+        [AppealTypeId]          INT NOT NULL,
+        [DepartmentId]          INT NOT NULL,
+        [ServiceId]             INT NOT NULL,
+        [AppealLevel]           TINYINT NOT NULL,
+        [Reason]                NVARCHAR(MAX) NULL,
+        [ReasonForComplaint]    NVARCHAR(MAX) NULL,
+        [MobileNumber]          VARCHAR(15) NULL,
+        [EmailAddress]          VARCHAR(150) NULL,
+        [Status]                NVARCHAR(50) NOT NULL CONSTRAINT [DF_AppealApplicationDetails_Status] DEFAULT ('Submitted'),
+        [AppealStatus]          VARCHAR(30) NULL,
+        [ActionRemarks]         NVARCHAR(MAX) NULL,
+        [ActionDate]            DATETIME NULL,
+        [ActionByUserId]        INT NULL,
+        [IsActive]              BIT NOT NULL CONSTRAINT [DF_AppealApplicationDetails_IsActive] DEFAULT (1),
+        [MarkedForDeletion]     BIT NOT NULL CONSTRAINT [DF_AppealApplicationDetails_MarkedForDeletion] DEFAULT (0),
+        [MarkedForDeletionDate] DATETIME NULL,
+        [CreatedBy]             INT NULL,
+        [CreatedDate]           DATETIME NOT NULL CONSTRAINT [DF_AppealApplicationDetails_CreatedDate] DEFAULT (GETDATE()),
 
         CONSTRAINT [PK_AppealApplicationDetails] PRIMARY KEY CLUSTERED ([Id] ASC)
     );
-END;
-ELSE
-BEGIN
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'ReasonForComplaint')
-        ALTER TABLE [RTS].[AppealApplicationDetails] ADD [ReasonForComplaint] NVARCHAR(MAX) NULL;
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'MobileNumber')
-        ALTER TABLE [RTS].[AppealApplicationDetails] ADD [MobileNumber] VARCHAR(15) NULL;
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'EmailAddress')
-        ALTER TABLE [RTS].[AppealApplicationDetails] ADD [EmailAddress] VARCHAR(150) NULL;
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'AppealStatus')
-        ALTER TABLE [RTS].[AppealApplicationDetails] ADD [AppealStatus] VARCHAR(30) NULL;
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'ActionRemarks')
-        ALTER TABLE [RTS].[AppealApplicationDetails] ADD [ActionRemarks] NVARCHAR(MAX) NULL;
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'ActionDate')
-        ALTER TABLE [RTS].[AppealApplicationDetails] ADD [ActionDate] DATETIME NULL;
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'ActionByUserId')
-        ALTER TABLE [RTS].[AppealApplicationDetails] ADD [ActionByUserId] INT NULL;
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'MarkedForDeletion')
-        ALTER TABLE [RTS].[AppealApplicationDetails] ADD [MarkedForDeletion] BIT NOT NULL CONSTRAINT [DF_AppealApplicationDetails_MarkedForDeletion] DEFAULT (0);
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'MarkedForDeletionDate')
-        ALTER TABLE [RTS].[AppealApplicationDetails] ADD [MarkedForDeletionDate] DATETIME NULL;
 END;
 GO
 
@@ -970,17 +899,6 @@ BEGIN
         CONSTRAINT [PK_ServiceOfficerAllocation] PRIMARY KEY CLUSTERED ([Id] ASC),
         CONSTRAINT [FK_ServiceOfficerAllocation_ServiceMaster] FOREIGN KEY ([ServiceId]) REFERENCES [RTS].[ServiceMaster] ([Id])
     );
-END;
-ELSE
-BEGIN
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceOfficerAllocation' AND COLUMN_NAME = 'ZoneNameLocal')
-        ALTER TABLE [RTS].[ServiceOfficerAllocation] ADD [ZoneNameLocal] NVARCHAR(150) NULL;
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceOfficerAllocation' AND COLUMN_NAME = 'OfficerNameLocal')
-        ALTER TABLE [RTS].[ServiceOfficerAllocation] ADD [OfficerNameLocal] NVARCHAR(150) NULL;
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceOfficerAllocation' AND COLUMN_NAME = 'DesignationLocal')
-        ALTER TABLE [RTS].[ServiceOfficerAllocation] ADD [DesignationLocal] NVARCHAR(150) NULL;
-    IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ServiceOfficerAllocation' AND COLUMN_NAME = 'OfficeAddressLocal')
-        ALTER TABLE [RTS].[ServiceOfficerAllocation] ADD [OfficeAddressLocal] NVARCHAR(250) NULL;
 END;
 GO
 
