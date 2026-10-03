@@ -705,83 +705,89 @@ SET IDENTITY_INSERT [RTS].[DepartmentMaster] OFF;
 GO
 
 /* ----------------------------------------------------------------------------
-   Table: [RTS].[ServiceMaster] (65 rows)
+   Table: [RTS].[ServiceMaster] (71 rows)
    ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [RTS].[ServiceMaster] ON;
 GO
 MERGE INTO [RTS].[ServiceMaster] AS target
 USING (VALUES
-    (19, 2, 7165, N'Change of Water Connection Usage Type', N'वापरामध्ये बदल करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'Droplets', 39, N'15 Days', 0.00, 0, NULL, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, 0, NULL, 2),
-    (20, 2, 7166, N'Preparation of Water Bill', N'पाणी देयक तयार करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/OnlineTaxAndNewConnectionPayment?upicid=', N'FileText', 40, N'3 Days', 0.00, 0, NULL, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, 0, NULL, 2),
-    (26, 2, 7172, N'Complaint Regarding Water Pressure Capacity', N'पाण्याच्या दाब क्षमता तक्रार', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=19&upicid=', N'AlertTriangle', 46, N'3 Days', 0.00, 0, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, 0, NULL, 2),
-    (33, 3, 13, N'Changing Occupations / Business Type', N'व्यवसाय बदलणे', NULL, N'https://test.tradeamc.org/SHEL/minorchanges?appType=1', N'Briefcase', 13, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, 0, NULL, 2),
-    (36, 3, 16, N'Cancellation of License', N'परवाना रद्द करणे', NULL, N'https://test.tradeamc.org/SHEL/minorchanges?appType=3', N'Briefcase', 16, N'15 Days', 0.00, 0, NULL, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, 0, NULL, 2),
-    (43, 4, 3, N'Issuance of Zone Certificate', N'झोन दाखला देणे', NULL, NULL, N'Map', 3, N'7 Days', 500.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', 2, '2026-09-16T18:32:06.943', NULL, NULL, NULL, 1),
-    (44, 4, 4, N'Giving Part Map', N'भाग नकाशा देणे', NULL, N'https://mahavastu.maharashtra.gov.in/', N'Map', 4, N'3 Days', 700.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, NULL, 2),
-    (45, 4, 5, N'Issuance of Construction Permit', N'बांधकाम परवाना देणे', NULL, N'https://mahavastu.maharashtra.gov.in/', N'HardHat', 5, N'7 Days', 500.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, NULL, 2),
-    (46, 4, 6, N'Issuance of plinth certificate', N'जोते प्रमाणपत्र देणे', NULL, NULL, N'MapPin', 6, N'7 Days', 200.00, NULL, NULL, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, NULL, NULL, 2),
-    (47, 4, 7, N'Issuance of Occupancy Certificate', N'भोगवटा प्रमाणपत्र देणे', NULL, N'https://mahavastu.maharashtra.gov.in/', N'Key', 7, N'7 Days', 0.00, 0, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, NULL, 2),
-    (48, 12, 61, N'Underground OFC Cable Permission', N'भुमिगत दुरसंचार वाहिनी (ऑप्टीकल फायबर केबल) टाकण्याकरीता परवानगी देणे', NULL, NULL, N'Cable', 61, N'60 Days', 120.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', 1, '2026-09-17T15:53:08.023', NULL, NULL, NULL, 2),
-    (49, 12, 63, N'Filling Potholes on City Roads', N'रस्त्यांवरील खड्डे बुजविणे', NULL, NULL, N'Wrench', 63, N'5 Days', 0.00, 0, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, NULL, 2),
-    (50, 12, 64, N'Maintaining & Securing Sewer Covers', N'गटारांवरील झाकणे सुस्थितीत ठेवणे', NULL, NULL, N'Shield', 64, N'5 Days', 0.00, 0, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, 0, NULL, NULL, 0),
-    (53, 5, 20, N'Birth Certificate', N'जन्म प्रमाणपत्र देणे', NULL, NULL, N'Baby', 20, N'3 Days', 10.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', 1, '2026-09-17T12:28:10.540', NULL, NULL, NULL, 2),
-    (54, 5, 21, N'Death Certificate', N'मृत्यु प्रमाणपत्र देणे', NULL, NULL, N'HeartOff', 21, N'3 Days', 10.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, NULL, 2),
-    (55, 6, 50, N'School Leaving / Duplicate Certificate', N'विद्यार्थ्याचा शाळा सोडण्याचा दाखला व दुय्यम प्रत दाखला देणे', NULL, NULL, N'GraduationCap', 50, N'3 Days', 25.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, NULL, 2),
-    (56, 6, 51, N'Issuance of transfer certificate', N'स्थलांतर दाखला देणे', NULL, NULL, N'GraduationCap', 51, N'15 Days', 25.00, NULL, NULL, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, NULL, NULL, 2),
-    (57, 6, 52, N'Issuance of duplicate mark sheet', N'गुणपत्रिकेची दुय्यम प्रत देणे', NULL, NULL, N'GraduationCap', 52, N'7 Days', 25.00, NULL, NULL, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, NULL, NULL, 2),
-    (58, 7, 53, N'Nursing home license', N'शुश्रूषा-गृह परवाना देणे', NULL, N'https://maha-mnhregistration.co.in/', N'PlusSquare', 53, N'30 Days', 3500.00, NULL, NULL, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, NULL, NULL, 2),
-    (59, 7, 54, N'Renewal of nursing home license', N'शुश्रूषा-गृह परवान्याचे नुतनीकरण करणे', NULL, N'https://maha-mnhregistration.co.in/', N'PlusSquare', 54, N'30 Days', 3500.00, NULL, NULL, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, NULL, NULL, 2),
-    (60, 7, 55, N'Change of nursing home license holder / partner name', N'शुश्रूषा-गृह परवान्यावर परवानाधारक/भागीदाराचे नाव बदलणे', NULL, N'https://maha-mnhregistration.co.in/', N'UserPlus', 55, N'30 Days', 200.00, NULL, NULL, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, NULL, NULL, 2),
-    (61, 4, 1, N'Trade / Business / Storage Non-Revocation NOC', N'व्यापार/व्यवसाय/साठा करण्यासाठी ना-हरकत प्रमाणपत्र', NULL, NULL, N'ShieldCheck', 1, N'7 Days', 120.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, NULL, 2),
-    (62, 4, 2, N'Mandap NOC', N'मंडपासाठी ना-हरकत प्रमाणपत्र', NULL, NULL, N'Building2', 2, N'7 Days', 200.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, NULL, 2),
-    (63, 8, 18, N'Issuance of Fire Safety NOC', N'अग्निशमन नाहरकत दाखला देणे', NULL, N'#', N'Flame', 18, N'7 Days', 1000.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, NULL, 2),
-    (64, 8, 19, N'Issuance of Final Fire Exemption Certificate', N'अग्निशमन अंतिम नाहरकत दाखला देणे', NULL, N'#', N'Flame', 19, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, NULL, 2),
-    (65, 9, 22, N'Marriage Registration Certificate', N'विवाह नोंदणी प्रमाणपत्र देणे', NULL, N'https://mahaulb.in/MahaULB/index', N'Heart', 22, N'3 Days', 100.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, NULL, 2),
-    (66, 10, 62, N'Tree Felling Permission', N'वृक्षतोड परवानगी देणे', NULL, NULL, N'TreePine', 62, N'45 Days', 2000.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, 0, NULL, NULL, 0),
-    (68, 11, 65, N'Maintaining cleanliness', N'शहरात स्वच्छता राखणे', NULL, NULL, N'Trash2', 65, N'1 Days', 0.00, 0, NULL, 1, '2026-07-20T13:31:33.447', 1, '2026-09-16T16:37:50.180', 0, NULL, NULL, 0),
-    (69, 2, 7175, N'Providing drainage connections', N'जलनिःसारण जोडणी देणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=21&upicid=', N'Droplet', 49, N'15 Days', 0.00, 0, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, 0, NULL, 2),
-    (80, 2, 7174, N'Provision of New Water Tap Connection', N'नळ जोडणी देणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=6&upicid=', N'Droplets', 48, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:44:51.083', NULL, NULL, NULL, 0, NULL, 2),
-    (81, 2, 7162, N'Changing the Water Connection Size', N'नळ जोडणी आकारामध्ये बदल करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'Droplets', 36, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:44:51.083', NULL, NULL, NULL, 0, NULL, 2),
-    (82, 2, 7163, N'Temporary / Permanent Disconnection of Water Connection', N'तात्पुरते/कायमस्वरूपी नळ जोडणी खंडीत करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=10&upicid=', N'Droplets', 37, N'7 Days', 0.00, 0, NULL, 0, '2026-07-21T18:44:51.083', NULL, NULL, NULL, 0, NULL, 2),
-    (83, 2, 7164, N'Reconnection of Water Tap', N'पुनः जोडणी करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=14&upicid=', N'Droplets', 38, N'15 Days', 1000.00, NULL, NULL, 0, '2026-07-21T18:44:51.083', NULL, NULL, NULL, 0, NULL, 2),
-    (84, 2, 43, N'Water Bill No Dues Certificate', N'थकबाकी नसल्याचा दाखला', NULL, N'https://akolawatertest.tabamc.in/WaterBill/OnlineTaxAndNewConnectionPayment?upicid=', N'FileCheck', 43, N'3 Days', 0.00, 0, NULL, 0, '2026-07-21T18:44:51.083', NULL, NULL, NULL, 0, NULL, 2),
-    (85, 2, 7170, N'Complaint Regarding Faulty Water Meter', N'नादुरुस्त मीटर तक्रार करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=17&upicid=', N'AlertTriangle', 44, N'7 Days', 0.00, 0, NULL, 0, '2026-07-21T18:44:51.083', NULL, NULL, NULL, 0, NULL, 2),
-    (86, 2, 7171, N'Complaint Regarding Unauthorized Water Tap Connection', N'अनधिकृत नळ जोडणी तक्रार', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=18&upicid=', N'AlertTriangle', 45, N'7 Days', 0.00, 0, NULL, 0, '2026-07-21T18:44:51.083', NULL, NULL, NULL, 0, NULL, 2),
-    (87, 2, 7173, N'Complaint Regarding Water Quality', N'पाण्याची गुणवत्ता तक्रार', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=20&upicid=', N'AlertTriangle', 47, N'3 Days', 0.00, 0, NULL, 0, '2026-07-21T18:44:51.083', NULL, NULL, NULL, 0, NULL, 2),
-    (100, 2, 7167, N'Issuance of Plumber License', N'प्लंबर परवाना', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=15&upicid=', N'Wrench', 41, N'15 Days', 1000.00, NULL, NULL, 0, '2026-07-21T18:44:51.083', NULL, NULL, NULL, 0, NULL, 2),
-    (101, 2, 7168, N'Renewal of Plumber License', N'प्लंबर परवाना नुतनीकरण करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=16&upicid=', N'Wrench', 42, N'15 Days', 1000.00, NULL, NULL, 0, '2026-07-21T18:44:51.083', NULL, NULL, NULL, 0, NULL, 2),
-    (137, 3, 8, N'Obtaining New Trade License', N'नविन परवाना मिळणे', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General', N'Briefcase', 8, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-09-18T10:52:42.293', NULL, 0, NULL, 2),
-    (138, 3, 9, N'Renewal of Trade License', N'परवान्याचे नुतनीकरण', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Briefcase', 9, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', NULL, NULL, NULL, 0, NULL, 2),
-    (139, 3, 10, N'Transfer of Trade License', N'परवाना हस्तांतर', NULL, N'https://test.tradeamc.org/SHEL/minorchanges?appType=1', N'Briefcase', 10, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-21T18:57:16.223', NULL, NULL, NULL, 0, NULL, 2),
-    (140, 3, 11, N'Duplicate Copy of Trade License', N'परवाना दुय्यम प्रत', NULL, N'https://test.tradeamc.org/SHEL/minorchanges?appType=2', N'Briefcase', 11, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-21T18:57:16.223', NULL, NULL, NULL, 0, NULL, 2),
-    (141, 3, 12, N'Change of Business Name / Establishment / Address', N'व्यवसायाचे नाव बदलणे/प्रतिष्ठानात/पत्यात बदल', NULL, N'https://test.tradeamc.org/SHEL/minorchanges?appType=1', N'Briefcase', 12, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-21T18:57:16.223', NULL, NULL, NULL, 0, NULL, 2),
-    (142, 3, 14, N'Change of License Holder / Partner Name', N'परवाना धारक/भागीदाराचे नाव बदलणे', NULL, N'https://test.tradeamc.org/SHEL/minorchanges?appType=1', N'Briefcase', 14, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-21T18:57:16.223', NULL, NULL, NULL, 0, NULL, 2),
-    (143, 3, 15, N'Change in Number of Partners (Increase/Decrease)', N'भागीदाराच्या संख्येत बदल (वाढ/कमी)', NULL, N'https://test.tradeamc.org/SHEL/minorchanges?appType=1', N'Briefcase', 15, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-21T18:57:16.223', NULL, NULL, NULL, 0, NULL, 2),
-    (144, 3, 17, N'Notice on Renewal of Expired License', N'कालबाह्य परवानासाठी नुतनीकरण सुचना', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Briefcase', 17, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-21T18:57:16.223', NULL, NULL, NULL, 0, NULL, 2),
-    (145, 1, 7176, N'New Property Tax Assessment', N'नव्याने कर आकारणी', NULL, N'https://onesolutionakola.tabamc.in/selfAssessment/index', N'Home', 23, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, NULL, 2),
-    (146, 1, 7177, N'Re-Assessment of Property Tax', N'पुनः कर आकारणी', NULL, N'https://onesolutionakola.tabamc.in/Citizens/RaiseApplication/21?upicNo=', N'Home', 24, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, NULL, 2),
-    (147, 1, 7178, N'Preparation of Tax Demand Notice', N'कराचे मागणी पत्र तयार करणे', NULL, N'https://onesolutionakola.tabamc.in/Citizens/DownLoadCertificate?upicNo=', N'FileText', 25, N'3 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, NULL, 2),
-    (148, 1, 7179, N'Avail Property Tax Exemption', N'कर माफी मिळणे', NULL, N'https://onesolutionakola.tabamc.in/Citizens/RaiseApplication/9?upicNo=', N'Receipt', 26, N'7 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, NULL, 2),
-    (149, 1, 7180, N'Tax Exemption for Non-Resident Properties', N'रहिवास नसल्यास मालमत्तांना करात सुट मिळणे', NULL, N'https://onesolutionakola.tabamc.in/Citizens/RaiseApplication/20?upicNo=', N'Receipt', 27, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, NULL, 2),
-    (150, 1, 7181, N'Property Tax Self-Assessment', N'स्वयंमुल्यांकन', NULL, N'https://onesolutionakola.tabamc.in/selfAssessment/index', N'Calculator', 28, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, NULL, 2),
-    (151, 1, 7182, N'Registration of Objection on Tax Assessment', N'आक्षेप नोंदविणे', NULL, N'https://onesolutionakola.tabamc.in/Citizens/RaiseApplication/19?upicNo=', N'AlertTriangle', 29, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, NULL, 2),
-    (152, 1, 7183, N'Sub-division of Property', N'उपविभागामध्ये मालमत्ता विभाजन', NULL, N'https://onesolutionakola.tabamc.in/Citizens/RaiseApplication/PropertySplit?upicNo=', N'GitFork', 30, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, NULL, 2),
-    (153, 1, 7184, N'Re-assessment After Demolition and Reconstruction', N'मालमत्ता पाडणे व पुनःबांधणी कर आकारणे', NULL, N'https://onesolutionakola.tabamc.in/Citizens/RaiseApplication/ChangeInUse?upicNo=', N'Hammer', 31, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, NULL, 2),
-    (154, 1, 7185, N'Issuance of Property Tax Assessment Copy (8A)', N'मालमत्ता कर उतारा देणे', NULL, N'https://onesolutionakola.tabamc.in/Citizens/DownLoadCertificate?upicNo=', N'FileText', 32, N'3 Days', 25.00, NULL, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, NULL, 2),
-    (155, 1, 7186, N'Issuance of No Dues Certificate', N'थकबाकी नसल्याचा दाखला देणे', NULL, N'https://onesolutionakola.tabamc.in/Citizens/DownLoadCertificate?upicNo=', N'FileCheck', 33, N'3 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, NULL, 2),
-    (156, 1, 7187, N'Property Transfer Registration Certificate', N'अ) दस्ताऐवजाच्या आधारे मालमत्ता हस्तांतरण नोंद प्रमाणपत्र देणे ब) वारसा हक्काने मालमत्ता हस्तांतरण नोंद प्रमाणपत्र देणे', NULL, N'https://onesolutionakola.tabamc.in/Citizens/MutationView?upicNo=', N'UserCheck', 34, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, NULL, 2),
-    (157, 1, 7189, N'Change of Ownership Name', N'मालकी हक्कात बदल करणे', NULL, N'https://onesolutionakola.tabamc.in/Citizens/MutationView?upicNo=', N'UserPlus', 35, N'7 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, NULL, 2),
-    (158, 3, 56, N'Issuance of Lodging House License', N'लॉजिंग हाऊस परवाना देणे', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Hotel', 56, N'30 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', NULL, NULL, NULL, 0, NULL, 2),
-    (159, 3, 57, N'Renewal of Lodging House License', N'लॉजिंग हाऊस परवान्याचे नुतनीकरण करणे', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Hotel', 57, N'30 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', NULL, NULL, NULL, 0, NULL, 2),
-    (160, 3, 58, N'Issuance of Marriage Hall / Auditorium License', N'मंगल कार्यालय/सभागृह वगैरे परवाना देणे', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Building2', 58, N'30 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', NULL, NULL, NULL, 0, NULL, 2),
-    (161, 3, 59, N'Renewal of Marriage Hall / Auditorium License', N'मंगल कार्यालय/सभागृह वगैरे परवान्याचे नुतनीकरण करणे', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Building2', 59, N'30 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', NULL, NULL, NULL, 0, NULL, 2),
-    (162, 13, NULL, N'Issuance of Hawker Registration Certificate', N'फेरीवाले नोंदणी प्रमाणपत्र देणे', NULL, NULL, NULL, 60, N'30 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 3, '2026-09-04T19:20:09.260', 0, NULL, NULL, 0)
-) AS source ([Id], [DepartmentId], [GovtServiceCode], [ServiceName], [ServiceNameLocal], [Description], [ServiceUrl], [ServiceIcon], [DisplayOrder], [Sla], [Fees], [FeesRequired], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [IsCertificateRequired], [IsSmsEnabled], [ServiceCode], [CertificateType])
+    (19, 2, 7165, N'Change of Water Connection Usage Type', N'वापरामध्ये बदल करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'Droplets', 39, N'15 Days', 0.00, 0, NULL, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, 0, 2),
+    (20, 2, 7166, N'Preparation of Water Bill', N'पाणी देयक तयार करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/OnlineTaxAndNewConnectionPayment?upicid=', N'FileText', 40, N'3 Days', 0.00, 0, NULL, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, 0, 2),
+    (26, 2, 7172, N'Complaint Regarding Water Pressure Capacity', N'पाण्याच्या दाब क्षमता तक्रार', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=19&upicid=', N'AlertTriangle', 46, N'3 Days', 0.00, 0, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, 0, 2),
+    (33, 3, 13, N'Changing Occupations / Business Type', N'व्यवसाय बदलणे', NULL, N'https://test.tradeamc.org/SHEL/minorchanges?appType=1', N'Briefcase', 13, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, 0, 2),
+    (36, 3, 16, N'Cancellation of License', N'परवाना रद्द करणे', NULL, N'https://test.tradeamc.org/SHEL/minorchanges?appType=3', N'Briefcase', 16, N'15 Days', 0.00, 0, NULL, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, 0, 2),
+    (43, 4, 3, N'Issuance of Zone Certificate', N'झोन दाखला देणे', NULL, NULL, N'Map', 3, N'7 Days', 500.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', 2, '2026-09-16T18:32:06.943', NULL, NULL, 1),
+    (44, 4, 4, N'Giving Part Map', N'भाग नकाशा देणे', NULL, N'https://mahavastu.maharashtra.gov.in/', N'Map', 4, N'3 Days', 700.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, 2),
+    (45, 4, 5, N'Issuance of Construction Permit', N'बांधकाम परवाना देणे', NULL, N'https://mahavastu.maharashtra.gov.in/', N'HardHat', 5, N'7 Days', 500.00, NULL, 0, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, 2),
+    (46, 4, 6, N'Issuance of plinth certificate', N'जोते प्रमाणपत्र देणे', NULL, NULL, N'MapPin', 6, N'7 Days', 200.00, NULL, 0, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, NULL, 2),
+    (47, 4, 7, N'Issuance of Occupancy Certificate', N'भोगवटा प्रमाणपत्र देणे', NULL, N'https://mahavastu.maharashtra.gov.in/', N'Key', 7, N'7 Days', 0.00, 0, 0, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, 2),
+    (48, 12, 61, N'Underground OFC Cable Permission', N'भुमिगत दुरसंचार वाहिनी (ऑप्टीकल फायबर केबल) टाकण्याकरीता परवानगी देणे', NULL, NULL, N'Cable', 61, N'60 Days', 120.00, NULL, 0, 0, '2026-07-15T16:26:57.497', 1, '2026-09-17T15:53:08.023', NULL, NULL, 2),
+    (49, 12, 63, N'Filling Potholes on City Roads', N'रस्त्यांवरील खड्डे बुजविणे', NULL, NULL, N'Wrench', 63, N'5 Days', 0.00, 0, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, 2),
+    (50, 12, 64, N'Maintaining & Securing Sewer Covers', N'गटारांवरील झाकणे सुस्थितीत ठेवणे', NULL, NULL, N'Shield', 64, N'5 Days', 0.00, 0, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, 0, NULL, 0),
+    (51, 12, 66, N'Road Cutting Permission', N'रस्ता खोदाई परवानगी देणे', NULL, NULL, N'Wrench', 64, N'5 Days', 0.00, 0, NULL, 0, '2026-10-01T16:26:43.230', NULL, NULL, 0, NULL, 0),
+    (53, 5, 20, N'Birth Certificate', N'जन्म प्रमाणपत्र देणे', NULL, N'https://dc.crsorgi.gov.in/crs/Auth/general-public', N'Baby', 20, N'0 Days', 10.00, NULL, 0, 0, '2026-07-15T16:26:57.497', 1, '2026-09-17T12:28:10.540', NULL, NULL, 2),
+    (54, 5, 21, N'Death Certificate', N'मृत्यु प्रमाणपत्र देणे', NULL, N'https://dc.crsorgi.gov.in/crs/Auth/general-public', N'HeartOff', 21, N'0 Days', 10.00, NULL, 0, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, 2),
+    (55, 6, 50, N'School Leaving / Duplicate Certificate', N'विद्यार्थ्याचा शाळा सोडण्याचा दाखला व दुय्यम प्रत दाखला देणे', NULL, NULL, N'GraduationCap', 50, N'3 Days', 25.00, NULL, 0, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, 2),
+    (56, 6, 51, N'Issuance of transfer certificate', N'स्थलांतर दाखला देणे', NULL, NULL, N'GraduationCap', 51, N'15 Days', 25.00, NULL, 0, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, NULL, 2),
+    (57, 6, 52, N'Issuance of duplicate mark sheet', N'गुणपत्रिकेची दुय्यम प्रत देणे', NULL, NULL, N'GraduationCap', 52, N'7 Days', 25.00, NULL, 0, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, NULL, 2),
+    (58, 7, 53, N'Nursing home license', N'शुश्रूषा-गृह परवाना देणे', NULL, N'https://maha-mnhregistration.co.in/', N'PlusSquare', 53, N'30 Days', 3500.00, NULL, 0, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, NULL, 2),
+    (59, 7, 54, N'Renewal of nursing home license', N'शुश्रूषा-गृह परवान्याचे नुतनीकरण करणे', NULL, N'https://maha-mnhregistration.co.in/', N'PlusSquare', 54, N'30 Days', 3500.00, NULL, 0, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, NULL, 2),
+    (60, 7, 55, N'Change of nursing home license holder / partner name', N'शुश्रूषा-गृह परवान्यावर परवानाधारक/भागीदाराचे नाव बदलणे', NULL, N'https://maha-mnhregistration.co.in/', N'UserPlus', 55, N'30 Days', 200.00, NULL, 0, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, NULL, 2),
+    (61, 4, 1, N'Trade / Business / Storage Non-Revocation NOC', N'व्यापार/व्यवसाय/साठा करण्यासाठी ना-हरकत प्रमाणपत्र', NULL, NULL, N'ShieldCheck', 1, N'7 Days', 120.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, 2),
+    (62, 4, 2, N'Mandap NOC', N'मंडपासाठी ना-हरकत प्रमाणपत्र', NULL, NULL, N'Building2', 2, N'7 Days', 200.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, 2),
+    (63, 8, 18, N'Issuance of Fire Safety NOC', N'अग्निशमन नाहरकत दाखला देणे', NULL, N'#', N'Flame', 18, N'7 Days', 1000.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, 2),
+    (64, 8, 19, N'Issuance of Final Fire Exemption Certificate', N'अग्निशमन अंतिम नाहरकत दाखला देणे', NULL, N'#', N'Flame', 19, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, 2),
+    (65, 9, 22, N'Marriage Registration Certificate', N'विवाह नोंदणी प्रमाणपत्र देणे', NULL, N'https://mahaulb.in/MahaULB/index', N'Heart', 22, N'3 Days', 100.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, 2),
+    (66, 10, 62, N'Tree Felling Permission', N'वृक्षतोड परवानगी देणे', NULL, NULL, N'TreePine', 62, N'45 Days', 2000.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, 0, NULL, 0),
+    (68, 11, 65, N'Maintaining cleanliness', N'शहरात स्वच्छता राखणे', NULL, NULL, N'Trash2', 65, N'1 Days', 0.00, 0, NULL, 1, '2026-07-20T13:31:33.447', 1, '2026-09-16T16:37:50.180', 0, NULL, 0),
+    (69, 2, 7175, N'Providing drainage connections', N'जलनिःसारण जोडणी देणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=21&upicid=', N'Droplet', 49, N'15 Days', 0.00, 0, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, 0, 2),
+    (80, 2, 7174, N'Provision of New Water Tap Connection', N'नळ जोडणी देणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=6&upicid=', N'Droplets', 48, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:44:51.083', NULL, NULL, NULL, 0, 2),
+    (81, 2, 7162, N'Changing the Water Connection Size', N'नळ जोडणी आकारामध्ये बदल करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'Droplets', 36, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:44:51.083', NULL, NULL, NULL, 0, 2),
+    (82, 2, 7163, N'Temporary / Permanent Disconnection of Water Connection', N'तात्पुरते/कायमस्वरूपी नळ जोडणी खंडीत करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=10&upicid=', N'Droplets', 37, N'7 Days', 0.00, 0, NULL, 0, '2026-07-21T18:44:51.083', NULL, NULL, NULL, 0, 2),
+    (83, 2, 7164, N'Reconnection of Water Tap', N'पुनः जोडणी करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=14&upicid=', N'Droplets', 38, N'15 Days', 1000.00, NULL, NULL, 0, '2026-07-21T18:44:51.083', NULL, NULL, NULL, 0, 2),
+    (84, 2, 43, N'Water Bill No Dues Certificate', N'थकबाकी नसल्याचा दाखला', NULL, N'https://akolawatertest.tabamc.in/WaterBill/OnlineTaxAndNewConnectionPayment?upicid=', N'FileCheck', 43, N'3 Days', 0.00, 0, NULL, 0, '2026-07-21T18:44:51.083', NULL, NULL, NULL, 0, 2),
+    (85, 2, 7170, N'Complaint Regarding Faulty Water Meter', N'नादुरुस्त मीटर तक्रार करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=17&upicid=', N'AlertTriangle', 44, N'7 Days', 0.00, 0, NULL, 0, '2026-07-21T18:44:51.083', NULL, NULL, NULL, 0, 2),
+    (86, 2, 7171, N'Complaint Regarding Unauthorized Water Tap Connection', N'अनधिकृत नळ जोडणी तक्रार', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=18&upicid=', N'AlertTriangle', 45, N'7 Days', 0.00, 0, NULL, 0, '2026-07-21T18:44:51.083', NULL, NULL, NULL, 0, 2),
+    (87, 2, 7173, N'Complaint Regarding Water Quality', N'पाण्याची गुणवत्ता तक्रार', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=20&upicid=', N'AlertTriangle', 47, N'3 Days', 0.00, 0, NULL, 0, '2026-07-21T18:44:51.083', NULL, NULL, NULL, 0, 2),
+    (100, 2, 7167, N'Issuance of Plumber License', N'प्लंबर परवाना', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=15&upicid=', N'Wrench', 41, N'15 Days', 1000.00, NULL, NULL, 0, '2026-07-21T18:44:51.083', NULL, NULL, NULL, 0, 2),
+    (101, 2, 7168, N'Renewal of Plumber License', N'प्लंबर परवाना नुतनीकरण करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=16&upicid=', N'Wrench', 42, N'15 Days', 1000.00, NULL, NULL, 0, '2026-07-21T18:44:51.083', NULL, NULL, NULL, 0, 2),
+    (137, 3, 8, N'Obtaining New Trade License', N'नविन परवाना मिळणे', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General', N'Briefcase', 8, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-09-18T10:52:42.293', NULL, 0, 2),
+    (138, 3, 9, N'Renewal of Trade License', N'परवान्याचे नुतनीकरण', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Briefcase', 9, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', NULL, NULL, NULL, 0, 2),
+    (139, 3, 10, N'Transfer of Trade License', N'परवाना हस्तांतर', NULL, N'https://test.tradeamc.org/SHEL/minorchanges?appType=1', N'Briefcase', 10, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-21T18:57:16.223', NULL, NULL, NULL, 0, 2),
+    (140, 3, 11, N'Duplicate Copy of Trade License', N'परवाना दुय्यम प्रत', NULL, N'https://test.tradeamc.org/SHEL/minorchanges?appType=2', N'Briefcase', 11, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-21T18:57:16.223', NULL, NULL, NULL, 0, 2),
+    (141, 3, 12, N'Change of Business Name / Establishment / Address', N'व्यवसायाचे नाव बदलणे/प्रतिष्ठानात/पत्यात बदल', NULL, N'https://test.tradeamc.org/SHEL/minorchanges?appType=1', N'Briefcase', 12, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-21T18:57:16.223', NULL, NULL, NULL, 0, 2),
+    (142, 3, 14, N'Change of License Holder / Partner Name', N'परवाना धारक/भागीदाराचे नाव बदलणे', NULL, N'https://test.tradeamc.org/SHEL/minorchanges?appType=1', N'Briefcase', 14, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-21T18:57:16.223', NULL, NULL, NULL, 0, 2),
+    (143, 3, 15, N'Change in Number of Partners (Increase/Decrease)', N'भागीदाराच्या संख्येत बदल (वाढ/कमी)', NULL, N'https://test.tradeamc.org/SHEL/minorchanges?appType=1', N'Briefcase', 15, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-21T18:57:16.223', NULL, NULL, NULL, 0, 2),
+    (144, 3, 17, N'Notice on Renewal of Expired License', N'कालबाह्य परवानासाठी नुतनीकरण सुचना', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Briefcase', 17, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-21T18:57:16.223', NULL, NULL, NULL, 0, 2),
+    (145, 1, 7176, N'New Property Tax Assessment', N'नव्याने कर आकारणी', NULL, N'https://testamc.tabamc.in/selfAssessment/index', N'Home', 23, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, 2),
+    (146, 1, 7177, N'Re-Assessment of Property Tax', N'पुनः कर आकारणी', NULL, N'https://testamc.tabamc.in/Citizens/RaiseApplication/21?upicNo=', N'Home', 24, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, 2),
+    (147, 1, 7178, N'Preparation of Tax Demand Notice', N'कराचे मागणी पत्र तयार करणे', NULL, N'https://testamc.tabamc.in/Citizens/DownLoadCertificate?upicNo=', N'FileText', 25, N'3 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, 2),
+    (148, 1, 7179, N'Avail Property Tax Exemption', N'कर माफी मिळणे', NULL, N'https://testamc.tabamc.in/Citizens/RaiseApplication/9?upicNo=', N'Receipt', 26, N'7 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, 2),
+    (149, 1, 7180, N'Tax Exemption for Non-Resident Properties', N'रहिवास नसल्यास मालमत्तांना करात सुट मिळणे', NULL, N'https://testamc.tabamc.in/Citizens/RaiseApplication/20?upicNo=', N'Receipt', 27, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, 2),
+    (150, 1, 7181, N'Property Tax Self-Assessment', N'स्वयंमुल्यांकन', NULL, N'https://testamc.tabamc.in/selfAssessment/index', N'Calculator', 28, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, 2),
+    (151, 1, 7182, N'Registration of Objection on Tax Assessment', N'आक्षेप नोंदविणे', NULL, N'https://testamc.tabamc.in/Citizens/RaiseApplication/19?upicNo=', N'AlertTriangle', 29, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, 2),
+    (152, 1, 7183, N'Sub-division of Property', N'उपविभागामध्ये मालमत्ता विभाजन', NULL, N'https://testamc.tabamc.in/Citizens/RaiseApplication/PropertySplit?upicNo=', N'GitFork', 30, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, 2),
+    (153, 1, 7184, N'Re-assessment After Demolition and Reconstruction', N'मालमत्ता पाडणे व पुनःबांधणी कर आकारणे', NULL, N'https://testamc.tabamc.in/Citizens/RaiseApplication/ChangeInUse?upicNo=', N'Hammer', 31, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, 2),
+    (154, 1, 7185, N'Issuance of Property Tax Assessment Copy (8A)', N'मालमत्ता कर उतारा देणे', NULL, N'https://testamc.tabamc.in/Citizens/DownLoadCertificate?upicNo=', N'FileText', 32, N'3 Days', 25.00, NULL, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, 2),
+    (155, 1, 7186, N'Issuance of No Dues Certificate', N'थकबाकी नसल्याचा दाखला देणे', NULL, N'https://testamc.tabamc.in/Citizens/DownLoadCertificate?upicNo=', N'FileCheck', 33, N'3 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, 2),
+    (156, 1, 7187, N'Property Transfer Registration Certificate', N'अ) दस्ताऐवजाच्या आधारे मालमत्ता हस्तांतरण नोंद प्रमाणपत्र देणे ब) वारसा हक्काने मालमत्ता हस्तांतरण नोंद प्रमाणपत्र देणे', NULL, N'https://testamc.tabamc.in/Citizens/MutationView?upicNo=', N'UserCheck', 34, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 3, '2026-09-24T12:28:11.650', 0, 0, 0),
+    (157, 2, 7189, N'Change of Ownership Name', N'मालकी हक्कात बदल करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'UserPlus', 35, N'7 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, 2),
+    (158, 3, 56, N'Issuance of Lodging House License', N'लॉजिंग हाऊस परवाना देणे', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Hotel', 56, N'30 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', NULL, NULL, NULL, 0, 2),
+    (159, 3, 57, N'Renewal of Lodging House License', N'लॉजिंग हाऊस परवान्याचे नुतनीकरण करणे', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Hotel', 57, N'30 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', NULL, NULL, NULL, 0, 2),
+    (160, 3, 58, N'Issuance of Marriage Hall / Auditorium License', N'मंगल कार्यालय/सभागृह वगैरे परवाना देणे', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Building2', 58, N'30 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', NULL, NULL, NULL, 0, 2),
+    (161, 3, 59, N'Renewal of Marriage Hall / Auditorium License', N'मंगल कार्यालय/सभागृह वगैरे परवान्याचे नुतनीकरण करणे', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Building2', 59, N'30 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', NULL, NULL, NULL, 0, 2),
+    (162, 13, NULL, N'Issuance of Hawker Registration Certificate', N'फेरीवाले नोंदणी प्रमाणपत्र देणे', NULL, NULL, NULL, 60, N'30 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 3, '2026-09-04T19:20:09.260', 0, NULL, 0),
+    (163, 2, 7188, N'Water Non-Availability Certificate', N'पाणी अनुपलब्धता प्रमाणपत्र', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'Droplets', 50, N'7 Days', 0.00, 0, NULL, 0, '2026-10-01T18:07:11.620', NULL, NULL, 0, NULL, 0),
+    (164, 3, 7189, N'Auto-renewal of Trade License', N'व्यवसाय परवाना स्वयंनुतनीकरण', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'briefcase', 60, N'15 Days', 0.00, 0, NULL, 0, '2026-10-01T18:13:14.610', NULL, NULL, 0, NULL, 0),
+    (165, 3, 7190, N'Advertisement / Signage License', N'जाहिरात / आकाशचिन्ह परवाना', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Briefcase', 60, N'15 Days', 0.00, 0, NULL, 0, '2026-10-01T18:16:00.840', NULL, NULL, 0, NULL, 0),
+    (166, 7, 7191, N'Food Business License NOC', N'खाद्य व्यवसाय परवाना ना-हरकत प्रमाणपत्र', NULL, NULL, N'PlusSquare', 53, N'30 Days', 3500.00, NULL, NULL, 1, '2026-10-02T11:05:13.290', NULL, NULL, NULL, NULL, 2),
+    (167, 7, 7192, N'Food Registration Health NOC', N'खाद्य नोंदणी आरोग्य ना-हरकत प्रमाणपत्र', NULL, NULL, N'PlusSquare', 53, N'30 Days', 3500.00, NULL, NULL, 1, '2026-10-02T11:06:17.090', NULL, NULL, NULL, NULL, 2)
+) AS source ([Id], [DepartmentId], [GovtCode], [ServiceName], [ServiceNameLocal], [Description], [ServiceUrl], [ServiceIcon], [DisplayOrder], [Sla], [Fees], [FeesRequired], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [IsCertificateRequired], [IsSmsEnabled], [CertificateType])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
     UPDATE SET
         target.[DepartmentId] = source.[DepartmentId],
-        target.[GovtServiceCode] = source.[GovtServiceCode],
+        target.[GovtCode] = source.[GovtCode],
         target.[ServiceName] = source.[ServiceName],
         target.[ServiceNameLocal] = source.[ServiceNameLocal],
         target.[Description] = source.[Description],
@@ -798,14 +804,14 @@ WHEN MATCHED THEN
         target.[UpdatedDate] = source.[UpdatedDate],
         target.[IsCertificateRequired] = source.[IsCertificateRequired],
         target.[IsSmsEnabled] = source.[IsSmsEnabled],
-        target.[ServiceCode] = source.[ServiceCode],
         target.[CertificateType] = source.[CertificateType]
 WHEN NOT MATCHED BY TARGET THEN
-    INSERT ([Id], [DepartmentId], [GovtServiceCode], [ServiceName], [ServiceNameLocal], [Description], [ServiceUrl], [ServiceIcon], [DisplayOrder], [Sla], [Fees], [FeesRequired], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [IsCertificateRequired], [IsSmsEnabled], [ServiceCode], [CertificateType])
-    VALUES (source.[Id], source.[DepartmentId], source.[GovtServiceCode], source.[ServiceName], source.[ServiceNameLocal], source.[Description], source.[ServiceUrl], source.[ServiceIcon], source.[DisplayOrder], source.[Sla], source.[Fees], source.[FeesRequired], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], source.[IsCertificateRequired], source.[IsSmsEnabled], source.[ServiceCode], source.[CertificateType]);
+    INSERT ([Id], [DepartmentId], [GovtCode], [ServiceName], [ServiceNameLocal], [Description], [ServiceUrl], [ServiceIcon], [DisplayOrder], [Sla], [Fees], [FeesRequired], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [IsCertificateRequired], [IsSmsEnabled], [CertificateType])
+    VALUES (source.[Id], source.[DepartmentId], source.[GovtCode], source.[ServiceName], source.[ServiceNameLocal], source.[Description], source.[ServiceUrl], source.[ServiceIcon], source.[DisplayOrder], source.[Sla], source.[Fees], source.[FeesRequired], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], source.[IsCertificateRequired], source.[IsSmsEnabled], source.[CertificateType]);
 GO
 SET IDENTITY_INSERT [RTS].[ServiceMaster] OFF;
 GO
+
 
 /* ----------------------------------------------------------------------------
    Table: [RTS].[FieldDefinition] (826 rows)
@@ -7111,21 +7117,21 @@ SET IDENTITY_INSERT [RTS].[AapleSarkarServiceMapping] ON;
 GO
 MERGE INTO [RTS].[AapleSarkarServiceMapping] AS target
 USING (VALUES
-    (1, 55, 8273, N'Issuance of School Leaving Certificate and Duplicate Certificate of students', 3, '2026-09-28T18:06:01.000', NULL, NULL, NULL, 1),
-    (2, 55, 8275, N'Issuing Duplicate Mark Sheet', 7, '2026-09-28T18:06:01.000', NULL, NULL, NULL, 1),
-    (3, 55, 8274, N'Issuance of migration certificate', 15, '2026-09-28T18:06:01.000', NULL, NULL, NULL, 1)
-) AS source ([Id], [RtsServiceId], [MahaItServiceId], [MahaItServiceName], [MaxProcessingDays], [CreatedDate], [UpdatedDate], [CreatedBy], [UpdatedBy], [IsActive])
+    (1, 55, 8273, N'Issuance of School Leaving Certificate and Duplicate Certificate of students', 3, '2026-09-28T18:06:01.613', NULL, NULL, NULL, 1),
+    (2, 55, 8275, N'Issuing Duplicate Mark Sheet', 7, '2026-09-28T18:06:01.613', NULL, NULL, NULL, 1),
+    (3, 55, 8274, N'Issuance of migration certificate', 15, '2026-09-28T18:06:01.613', NULL, NULL, NULL, 1)
+) AS source ([Id], [RtsServiceId], [GovtCode], [GovtServiceName], [MaxProcessingDays], [CreatedDate], [UpdatedDate], [CreatedBy], [UpdatedBy], [IsActive])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
     UPDATE SET
         target.[RtsServiceId] = source.[RtsServiceId],
-        target.[MahaItServiceId] = source.[MahaItServiceId],
-        target.[MahaItServiceName] = source.[MahaItServiceName],
+        target.[GovtCode] = source.[GovtCode],
+        target.[GovtServiceName] = source.[GovtServiceName],
         target.[MaxProcessingDays] = source.[MaxProcessingDays],
         target.[IsActive] = source.[IsActive]
 WHEN NOT MATCHED BY TARGET THEN
-    INSERT ([Id], [RtsServiceId], [MahaItServiceId], [MahaItServiceName], [MaxProcessingDays], [CreatedDate], [UpdatedDate], [CreatedBy], [UpdatedBy], [IsActive])
-    VALUES (source.[Id], source.[RtsServiceId], source.[MahaItServiceId], source.[MahaItServiceName], source.[MaxProcessingDays], source.[CreatedDate], source.[UpdatedDate], source.[CreatedBy], source.[UpdatedBy], source.[IsActive]);
+    INSERT ([Id], [RtsServiceId], [GovtCode], [GovtServiceName], [MaxProcessingDays], [CreatedDate], [UpdatedDate], [CreatedBy], [UpdatedBy], [IsActive])
+    VALUES (source.[Id], source.[RtsServiceId], source.[GovtCode], source.[GovtServiceName], source.[MaxProcessingDays], source.[CreatedDate], source.[UpdatedDate], source.[CreatedBy], source.[UpdatedBy], source.[IsActive]);
 GO
 SET IDENTITY_INSERT [RTS].[AapleSarkarServiceMapping] OFF;
 GO
