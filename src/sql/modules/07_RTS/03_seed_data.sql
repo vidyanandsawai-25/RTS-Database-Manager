@@ -1,6 +1,818 @@
-SET ANSI_NULLS ON
+﻿SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
+GO
+
+/* ============================================================================
+   RTS Module Master Seed Data - 100% Live Reference Master Seed
+   Source: 192.168.1.21:RTS (Extracted strictly read-only)
+   Guaranteed 100% Idempotent, Full Unicode Devanagari/Marathi Preserved
+   All Active Municipal Officers & Latest Certificate Configurations Included
+   Generated Date: 2026-09-21 12:59:38
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[DepartmentMaster] (1 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[DepartmentMaster] ON;
+GO
+MERGE INTO [CORE].[DepartmentMaster] AS target
+USING (VALUES
+    (5, N'RTS', N'RTS Department', N'लोकसेवा हक्क', N'Landmark', N'Maharashtra Right to Public Services', NULL, 1, '2026-07-17T12:47:46.777', 1002, '2026-08-28T13:47:16.937')
+) AS source ([Id], [DepartmentCode], [DepartmentName], [DepartmentNameLocal], [DepartmentIcon], [DepartmentDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[DepartmentCode] = source.[DepartmentCode],
+        target.[DepartmentName] = source.[DepartmentName],
+        target.[DepartmentNameLocal] = source.[DepartmentNameLocal],
+        target.[DepartmentIcon] = source.[DepartmentIcon],
+        target.[DepartmentDescription] = source.[DepartmentDescription],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [DepartmentCode], [DepartmentName], [DepartmentNameLocal], [DepartmentIcon], [DepartmentDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[DepartmentCode], source.[DepartmentName], source.[DepartmentNameLocal], source.[DepartmentIcon], source.[DepartmentDescription], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
+SET IDENTITY_INSERT [CORE].[DepartmentMaster] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[ModuleMaster] (1 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[ModuleMaster] ON;
+GO
+MERGE INTO [CORE].[ModuleMaster] AS target
+USING (VALUES
+    (1005, 5, N'RTS_M', N'RTS', N'लोकसेवा हक्क', N'Landmark', N'RTS', N'Right to Service administration module', NULL, 1, '2026-07-17T12:47:46.783', 1002, '2026-08-28T13:47:16.953')
+) AS source ([Id], [DepartmentId], [ModuleCode], [ModuleName], [ModuleNameLocal], [ModuleIcon], [ModuleLabel], [ModuleDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[DepartmentId] = source.[DepartmentId],
+        target.[ModuleCode] = source.[ModuleCode],
+        target.[ModuleName] = source.[ModuleName],
+        target.[ModuleNameLocal] = source.[ModuleNameLocal],
+        target.[ModuleIcon] = source.[ModuleIcon],
+        target.[ModuleLabel] = source.[ModuleLabel],
+        target.[ModuleDescription] = source.[ModuleDescription],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [DepartmentId], [ModuleCode], [ModuleName], [ModuleNameLocal], [ModuleIcon], [ModuleLabel], [ModuleDescription], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[DepartmentId], source.[ModuleCode], source.[ModuleName], source.[ModuleNameLocal], source.[ModuleIcon], source.[ModuleLabel], source.[ModuleDescription], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
+SET IDENTITY_INSERT [CORE].[ModuleMaster] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[ScreenGroupMaster] (6 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[ScreenGroupMaster] ON;
+GO
+MERGE INTO [CORE].[ScreenGroupMaster] AS target
+USING (VALUES
+    (2003, N'RTS_DASHBOARD', N'RTS Dashboard', N'आरटीएस डॅशबोर्ड', N'LayoutDashboard', 70, NULL, 1, '2026-07-27T17:15:41.550', 1002, '2026-08-26T15:31:32.030'),
+    (2004, N'RTS_OPERATIONS', N'RTS Operations', N'आरटीएस कामकाज', N'Files', 71, NULL, 1, '2026-07-27T17:15:41.550', 1002, '2026-08-26T15:31:32.030'),
+    (2005, N'RTS_CONFIGURATION', N'System Configuration', N'प्रणाली संरचना', N'Settings', 3, NULL, 1, '2026-07-27T17:15:41.550', 1002, '2026-08-28T13:47:16.957'),
+    (3003, N'RTS_CITIZEN', N'Citizen Services', N'नागरिक सेवा', N'Users', 1, NULL, 1002, '2026-08-26T16:07:54.227', 1002, '2026-08-28T13:47:16.957'),
+    (3004, N'RTS_OFFICER', N'Officer Workplace', N'अधिकारी कार्यस्थळ', N'Briefcase', 2, NULL, 1002, '2026-08-26T16:07:54.227', 1002, '2026-08-28T13:47:16.957'),
+    (3005, N'RTS_REPORTS', N'Reports & Analytics', N'अहवाल व विश्लेषण', N'BarChart3', 4, NULL, 1002, '2026-08-26T16:07:54.227', 1002, '2026-08-28T13:47:16.957')
+) AS source ([Id], [ScreenGroupCode], [ScreenGroupName], [ScreenGroupNameLocal], [ScreenGroupIcon], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[ScreenGroupCode] = source.[ScreenGroupCode],
+        target.[ScreenGroupName] = source.[ScreenGroupName],
+        target.[ScreenGroupNameLocal] = source.[ScreenGroupNameLocal],
+        target.[ScreenGroupIcon] = source.[ScreenGroupIcon],
+        target.[DisplayOrder] = source.[DisplayOrder],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [ScreenGroupCode], [ScreenGroupName], [ScreenGroupNameLocal], [ScreenGroupIcon], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[ScreenGroupCode], source.[ScreenGroupName], source.[ScreenGroupNameLocal], source.[ScreenGroupIcon], source.[DisplayOrder], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
+SET IDENTITY_INSERT [CORE].[ScreenGroupMaster] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[ScreenMaster] (14 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[ScreenMaster] ON;
+GO
+MERGE INTO [CORE].[ScreenMaster] AS target
+USING (VALUES
+    (4016, 2003, 1005, N'RTS_MIS', N'RTS MIS Dashboard', N'आरटीएस एमआयएस डॅशबोर्ड', N'LayoutDashboard', N'/rts/dashboard/rts-mis', NULL, NULL, 0, 1, NULL, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030', 5),
+    (4017, 2004, 1005, N'RTS_APP', N'RTS Applications', N'आरटीएस अर्ज', N'Files', N'/rts/dashboard/rts-applications', NULL, NULL, 0, 1, NULL, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030', 5),
+    (4018, 2005, 1005, N'RTS_DEPT', N'RTS Departments', N'आरटीएस विभाग', N'Building2', N'/rts/configuration-settings/rts-departments', NULL, NULL, 0, 1, NULL, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030', 5),
+    (4019, 2005, 1005, N'RTS_SERVICES', N'RTS Services', N'आरटीएस सेवा', N'Activity', N'/rts/configuration-settings/rts-services', NULL, NULL, 0, 2, NULL, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030', 5),
+    (4020, 2005, 1005, N'RTS_FIELDS', N'RTS Fields', N'आरटीएस फील्ड्स', N'Sliders', N'/rts/configuration-settings/rts-fields', NULL, NULL, 0, 3, NULL, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030', 5),
+    (4021, 2005, 1005, N'RTS_APPROVAL_FLOW', N'Approval Flow Master', N'मंजुरी प्रवाह मास्टर', N'GitMerge', N'/rts/configuration-settings/rts-workflows', NULL, NULL, 0, 4, NULL, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030', 5),
+    (4022, 2005, 1005, N'RTS_USERS', N'RTS User Management', N'आरटीएस वापरकर्ता व्यवस्थापन', N'Users', N'/rts/users', NULL, NULL, 0, 6, NULL, 1, '2026-07-27T17:15:41.573', 1002, '2026-08-26T15:31:32.030', 5),
+    (5014, 2005, 1005, N'RTS_CERTIFICATES', N'Certificate Master', N'प्रमाणपत्र संरचना', N'Award', N'/rts/configuration-settings/rts-certificates', NULL, NULL, 0, 5, NULL, 1002, '2026-08-26T14:56:19.947', 1002, '2026-08-26T15:31:32.030', 5),
+    (5015, 3003, 1005, N'RTS_SERVICES_PORTAL', N'Service Catalog', N'सेवा सूची', N'LayoutGrid', N'/rts/services', NULL, 0, 0, 1, NULL, 1002, '2026-08-26T16:07:54.230', NULL, NULL, 5),
+    (5016, 3003, 1005, N'RTS_TRACK_STATUS', N'Track Application', N'अर्जाची स्थिती ट्रॅक करा', N'Search', N'/rts/track', NULL, 0, 0, 2, NULL, 1002, '2026-08-26T16:07:54.230', NULL, NULL, 5),
+    (5017, 3004, 1005, N'RTS_OFFICER_DASHBOARD', N'Officer Dashboard', N'अधिकारी डॅशबोर्ड', N'LayoutDashboard', N'/rts/officer-dashboard', NULL, 0, 0, 1, NULL, 1002, '2026-08-26T16:07:54.230', NULL, NULL, 5),
+    (5018, 3004, 1005, N'RTS_APPEAL_DASHBOARD', N'Appeals Management', N'अपील व्यवस्थापन', N'Gavel', N'/rts/appeals', NULL, 0, 0, 2, NULL, 1002, '2026-08-26T16:07:54.230', NULL, NULL, 5),
+    (5019, 2005, 1005, N'RTS_DEPARTMENTS', N'Department Master', N'विभाग व्यवस्थापन', N'Building2', N'/rts/configuration-settings/rts-departments', NULL, 0, 0, 1, NULL, 1002, '2026-08-26T16:07:54.230', NULL, NULL, 5),
+    (5020, 2005, 1005, N'RTS_OFFICERS', N'Service Officers', N'à¤¸à¥‡à¤µà¤¾ à¤…à¤§à¤¿à¤•à¤¾à¤°à¥€ à¤µà¤¾à¤Ÿà¤ª', N'UserCheck', N'/rts/configuration-settings/rts-officers', NULL, NULL, 0, 7, NULL, 1002, '2026-09-04T18:51:00.677', NULL, NULL, 5)
+) AS source ([Id], [ScreenGroupId], [ModuleId], [ScreenCode], [ScreenName], [ScreenNameLocal], [ScreenIcon], [RoutePath], [IsMenu], [IsAuthenticationRequired], [IsPropertyLockable], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DepartmentId])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[ScreenGroupId] = source.[ScreenGroupId],
+        target.[ModuleId] = source.[ModuleId],
+        target.[ScreenCode] = source.[ScreenCode],
+        target.[ScreenName] = source.[ScreenName],
+        target.[ScreenNameLocal] = source.[ScreenNameLocal],
+        target.[ScreenIcon] = source.[ScreenIcon],
+        target.[RoutePath] = source.[RoutePath],
+        target.[IsMenu] = source.[IsMenu],
+        target.[IsAuthenticationRequired] = source.[IsAuthenticationRequired],
+        target.[IsPropertyLockable] = source.[IsPropertyLockable],
+        target.[DisplayOrder] = source.[DisplayOrder],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate],
+        target.[DepartmentId] = source.[DepartmentId]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [ScreenGroupId], [ModuleId], [ScreenCode], [ScreenName], [ScreenNameLocal], [ScreenIcon], [RoutePath], [IsMenu], [IsAuthenticationRequired], [IsPropertyLockable], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DepartmentId])
+    VALUES (source.[Id], source.[ScreenGroupId], source.[ModuleId], source.[ScreenCode], source.[ScreenName], source.[ScreenNameLocal], source.[ScreenIcon], source.[RoutePath], source.[IsMenu], source.[IsAuthenticationRequired], source.[IsPropertyLockable], source.[DisplayOrder], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], source.[DepartmentId]);
+GO
+SET IDENTITY_INSERT [CORE].[ScreenMaster] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[EmployeeTypeMaster] (1 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[EmployeeTypeMaster] ON;
+GO
+MERGE INTO [CORE].[EmployeeTypeMaster] AS target
+USING (VALUES
+    (1, N'Office', NULL, 1, '2026-07-15T16:26:53.477', NULL, NULL)
+) AS source ([Id], [EmployeeType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[EmployeeType] = source.[EmployeeType],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [EmployeeType], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[EmployeeType], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
+SET IDENTITY_INSERT [CORE].[EmployeeTypeMaster] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[UserRoleMaster] (2 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[UserRoleMaster] ON;
+GO
+MERGE INTO [CORE].[UserRoleMaster] AS target
+USING (VALUES
+    (1, N'Admin', NULL, 1, '2026-07-15T16:26:53.477', NULL, NULL, 1),
+    (2, N'Admin', NULL, 1, '2026-07-27T17:15:41.537', 1002, '2026-08-26T15:31:32.027', 5)
+) AS source ([Id], [UserRoleName], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DepartmentId])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[UserRoleName] = source.[UserRoleName],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate],
+        target.[DepartmentId] = source.[DepartmentId]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [UserRoleName], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DepartmentId])
+    VALUES (source.[Id], source.[UserRoleName], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], source.[DepartmentId]);
+GO
+SET IDENTITY_INSERT [CORE].[UserRoleMaster] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[RoleWiseScreenAccessMaster] (9 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[RoleWiseScreenAccessMaster] ON;
+GO
+MERGE INTO [CORE].[RoleWiseScreenAccessMaster] AS target
+USING (VALUES
+    (3010, 2, 4016, NULL, NULL, NULL, NULL, 0, NULL, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
+    (3011, 2, 4017, NULL, NULL, NULL, NULL, 0, NULL, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
+    (3012, 2, 4018, NULL, NULL, NULL, NULL, 0, NULL, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
+    (3013, 2, 4019, NULL, NULL, NULL, NULL, 0, NULL, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
+    (3014, 2, 4020, NULL, NULL, NULL, NULL, 0, NULL, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
+    (3015, 2, 4021, NULL, NULL, NULL, NULL, 0, NULL, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
+    (3016, 2, 4022, NULL, NULL, NULL, NULL, 0, NULL, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
+    (4008, 2, 5014, NULL, NULL, NULL, NULL, 0, NULL, 1002, '2026-08-26T14:56:19.960', 1002, '2026-08-26T15:31:32.030'),
+    (4009, 2, 5020, NULL, NULL, NULL, NULL, 0, NULL, 1002, '2026-09-04T18:52:06.060', NULL, NULL)
+) AS source ([Id], [UserRoleId], [ScreenId], [CanView], [CanEdit], [CanDelete], [HaveFullAccess], [HaveNoAccess], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[UserRoleId] = source.[UserRoleId],
+        target.[ScreenId] = source.[ScreenId],
+        target.[CanView] = source.[CanView],
+        target.[CanEdit] = source.[CanEdit],
+        target.[CanDelete] = source.[CanDelete],
+        target.[HaveFullAccess] = source.[HaveFullAccess],
+        target.[HaveNoAccess] = source.[HaveNoAccess],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [UserRoleId], [ScreenId], [CanView], [CanEdit], [CanDelete], [HaveFullAccess], [HaveNoAccess], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[UserRoleId], source.[ScreenId], source.[CanView], source.[CanEdit], source.[CanDelete], source.[HaveFullAccess], source.[HaveNoAccess], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
+SET IDENTITY_INSERT [CORE].[RoleWiseScreenAccessMaster] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[SMSGatewayMaster] (1 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[SMSGatewayMaster] ON;
+GO
+MERGE INTO [CORE].[SMSGatewayMaster] AS target
+USING (VALUES
+    (1, N'Akola Municipal Corporation SMS Gateway', NULL, 1, '2026-08-17T16:57:18.413')
+) AS source ([SMSGatewayMasterID], [ProviderName], [IsActive], [CreatedBy], [CreatedDate])
+ON (target.[SMSGatewayMasterID] = source.[SMSGatewayMasterID])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[ProviderName] = source.[ProviderName],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([SMSGatewayMasterID], [ProviderName], [IsActive], [CreatedBy], [CreatedDate])
+    VALUES (source.[SMSGatewayMasterID], source.[ProviderName], source.[IsActive], source.[CreatedBy], source.[CreatedDate]);
+GO
+SET IDENTITY_INSERT [CORE].[SMSGatewayMaster] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[SmsGatewayDetails] (11 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[SmsGatewayDetails] ON;
+GO
+MERGE INTO [CORE].[SmsGatewayDetails] AS target
+USING (VALUES
+    (1, 1, N'BaseURL', N'http://sms.ptaxcollection.com/sendsms.jsp', 1, NULL, 0, 0, 0, 0, NULL, 1, '2026-08-17T16:57:18.420'),
+    (2, 1, N'user', N'payakl', 2, 0, 0, 0, 0, 0, NULL, 1, '2026-08-17T16:57:18.420'),
+    (3, 1, N'password', N'fb05b4a701XX', 3, 0, 0, 0, 0, 0, NULL, 1, '2026-08-17T16:57:18.420'),
+    (4, 1, N'senderid', N'AKOLMC', 4, 0, 0, 0, 0, 0, NULL, 1, '2026-08-17T16:57:18.420'),
+    (5, 1, N'mobiles', NULL, 5, 0, 0, NULL, 0, 0, NULL, 1, '2026-08-17T16:57:18.420'),
+    (6, 1, N'sms', NULL, 6, 0, NULL, 0, 0, 0, NULL, 1, '2026-08-17T16:57:18.420'),
+    (7, 1, N'tempid', NULL, 7, 0, 0, 0, NULL, 0, NULL, 1, '2026-08-17T16:57:18.420'),
+    (8, 1, N'unicode', N'0', 8, 0, 0, 0, 0, NULL, NULL, 1, '2026-08-17T16:57:18.420'),
+    (9, 1, N'accusage', N'1', 8, 0, 0, 0, 0, 0, NULL, 1, '2026-08-20T14:25:08.470'),
+    (10, 1, N'entityid', N'1701161970302682421', 9, 0, 0, 0, 0, 0, NULL, 1, '2026-08-20T14:25:08.470'),
+    (11, 1, N'responsein', N'json', 10, 0, 0, 0, 0, 0, NULL, 1, '2026-08-20T14:25:08.470')
+) AS source ([SMSGatewayDetailsID], [SMSGatewayMasterID], [PropertyName], [Value], [SequenceNo], [IsURL], [IsMessage], [IsMobile], [IsTemplateID], [IsUnicode], [IsActive], [CreatedBy], [CreatedDate])
+ON (target.[SMSGatewayDetailsID] = source.[SMSGatewayDetailsID])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[SMSGatewayMasterID] = source.[SMSGatewayMasterID],
+        target.[PropertyName] = source.[PropertyName],
+        target.[Value] = source.[Value],
+        target.[SequenceNo] = source.[SequenceNo],
+        target.[IsURL] = source.[IsURL],
+        target.[IsMessage] = source.[IsMessage],
+        target.[IsMobile] = source.[IsMobile],
+        target.[IsTemplateID] = source.[IsTemplateID],
+        target.[IsUnicode] = source.[IsUnicode],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([SMSGatewayDetailsID], [SMSGatewayMasterID], [PropertyName], [Value], [SequenceNo], [IsURL], [IsMessage], [IsMobile], [IsTemplateID], [IsUnicode], [IsActive], [CreatedBy], [CreatedDate])
+    VALUES (source.[SMSGatewayDetailsID], source.[SMSGatewayMasterID], source.[PropertyName], source.[Value], source.[SequenceNo], source.[IsURL], source.[IsMessage], source.[IsMobile], source.[IsTemplateID], source.[IsUnicode], source.[IsActive], source.[CreatedBy], source.[CreatedDate]);
+GO
+SET IDENTITY_INSERT [CORE].[SmsGatewayDetails] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[SMSType] (8 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[SMSType] ON;
+GO
+MERGE INTO [CORE].[SMSType] AS target
+USING (VALUES
+    (1, N'OTP', N'One Time Password for citizen login/verification', NULL),
+    (2, N'Change Password', N'Notification for password updates', NULL),
+    (3, N'Online Fee Paid', N'Receipt notification for online fee payments', NULL),
+    (4, N'RTS Application Submitted', N'Notification sent when RTS application is submitted', NULL),
+    (5, N'RTS Payment Pending', N'Notification requesting citizen to pay application fee', NULL),
+    (6, N'RTS Application Approved', N'Notification when RTS service is approved and ready', NULL),
+    (7, N'RTS Application Rejected', N'Notification when RTS application is rejected', NULL),
+    (8, N'RTS Application Status Update', N'Unified status update notification for all RTS workflow steps', NULL)
+) AS source ([SMSTypeID], [TypeName], [Description], [IsActive])
+ON (target.[SMSTypeID] = source.[SMSTypeID])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[TypeName] = source.[TypeName],
+        target.[Description] = source.[Description],
+        target.[IsActive] = source.[IsActive]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([SMSTypeID], [TypeName], [Description], [IsActive])
+    VALUES (source.[SMSTypeID], source.[TypeName], source.[Description], source.[IsActive]);
+GO
+SET IDENTITY_INSERT [CORE].[SMSType] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[SMSMaster] (11 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[SMSMaster] ON;
+GO
+MERGE INTO [CORE].[SMSMaster] AS target
+USING (VALUES
+    (9, 1, 3, N'RTS_FEE_PAID', N'1777178721313405133', N'Dear {CitizenName}, Payment of Rs.{Amount} for RTS Application No: {ApplicationNo} is successful. Receipt No: {ReceiptNo}. Download Receipt: https://citizen.scipl.info.in/service?receipt={ReceiptNo} Akola Municipal Corporation', NULL, 1, '2026-08-17T16:57:18.437', NULL, '2026-08-20T13:26:49.787'),
+    (11, 1, 1, N'RTS_CITIZEN_LOGIN_OTP', N'1777178721904398497', N'Your RTS Citizen Portal login OTP is {Otp}. Please do not share this OTP with anyone. Akola Municipal Corporation', NULL, 1, '2026-08-18T17:46:57.223', NULL, '2026-08-20T13:26:49.783'),
+    (12, 1, 8, N'RTS_APP_STATUS_UPDATE', N'1777178721329285369', N'Dear {CitizenName}, Your RTS Application No: {ApplicationNo} for {ServiceName} is Currently {Status} Track Status: https://citizen.scipl.info.in/service?track={ApplicationNo} Akola Municipal Corporation', NULL, 1, '2026-08-18T17:46:57.223', NULL, '2026-08-20T13:26:49.783'),
+    (1011, 1, 1, N'RTS_SUBMITTED', N'1207161987654321001', N'प्रिय {CitizenName}, तुमचा आरटीएस अर्ज क्र. {ApplicationNo} ({ServiceName}) अकोला महानगरपालिकेकडे प्राप्त झाला आहे. ट्रॅकिंग लिंक: https://citizen.scipl.info.in/service?track={ApplicationNo} - अकोला मनपा', NULL, 1, '2026-08-26T16:09:35.657', NULL, '2026-08-28T13:47:17.467'),
+    (1012, 1, 8, N'RTS_STAGE_FORWARDED', N'1207161987654321002', N'प्रिय {CitizenName}, तुमचा अर्ज क्र. {ApplicationNo} पुढील टप्प्यावर पडताळणीसाठी पाठवला आहे. - अकोला मनपा', NULL, 1, '2026-08-26T16:09:35.657', NULL, '2026-08-28T13:47:17.467'),
+    (1013, 1, 3, N'RTS_PAYMENT_REQUEST', N'1207161987654321003', N'प्रिय {CitizenName}, अर्ज क्र. {ApplicationNo} ({ServiceName}) साठी शुल्क भरणे आवश्यक आहे. भरण्यासाठी लिंक: https://citizen.scipl.info.in/service?pay={ApplicationNo} - अकोला मनपा', NULL, 1, '2026-08-26T16:09:35.657', NULL, '2026-08-28T13:47:17.467'),
+    (1014, 1, 3, N'RTS_PAYMENT_SUCCESS', N'1207161987654321004', N'प्रिय {CitizenName}, अर्ज क्र. {ApplicationNo} साठी रु. {Amount}/- चे शुल्क यशस्वीरीत्या प्राप्त झाले. पावती क्र.: {ReceiptNo}. - अकोला मनपा', NULL, 1, '2026-08-26T16:09:35.657', NULL, '2026-08-28T13:47:17.467'),
+    (1015, 1, 8, N'RTS_APPROVED', N'1207161987654321005', N'अभिनंदन {CitizenName}! तुमचा अर्ज क्र. {ApplicationNo} ({ServiceName}) मंजूर करण्यात आला आहे. आपले अधिकृत प्रमाणपत्र डाउनलोड करा: https://citizen.scipl.info.in/service?cert={ApplicationNo} - अकोला मनपा', NULL, 1, '2026-08-26T16:09:35.657', NULL, '2026-08-28T13:47:17.467'),
+    (1016, 1, 8, N'RTS_REJECTED', N'1207161987654321006', N'प्रिय {CitizenName}, अर्ज क्र. {ApplicationNo} ({ServiceName}) नामंजूर केला आहे. आपण ३० दिवसांत प्रथम अपील करू शकता: https://citizen.scipl.info.in/service?appeal={ApplicationNo} - अकोला मनपा', NULL, 1, '2026-08-26T16:09:35.657', NULL, '2026-08-28T13:47:17.467'),
+    (1017, 1, 8, N'RTS_RETURNED', N'1207161987654321007', N'प्रिय {CitizenName}, अर्ज क्र. {ApplicationNo} मधील त्रुटींच्या पूर्ततेसाठी अर्ज परत पाठवला आहे. दुरुस्तीसाठी लिंक: https://citizen.scipl.info.in/service?edit={ApplicationNo} - अकोला मनपा', NULL, 1, '2026-08-26T16:09:35.657', NULL, '2026-08-28T13:47:17.467'),
+    (1018, 1, 8, N'RTS_APPEAL_FILED', N'1207161987654321008', N'प्रिय {CitizenName}, अर्ज क्र. {ApplicationNo} वरील आपले अपील नोंदवले गेले आहे. सुनावणीची तारीख लवकरच कळवली जाईल. - अकोला मनपा', NULL, 1, '2026-08-26T16:09:35.657', NULL, '2026-08-28T13:47:17.467')
+) AS source ([SmsID], [SMSGatewayMasterID], [SMSTypeID], [TemplateName], [TemplateID], [SmsText], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[SmsID] = source.[SmsID])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[SMSGatewayMasterID] = source.[SMSGatewayMasterID],
+        target.[SMSTypeID] = source.[SMSTypeID],
+        target.[TemplateName] = source.[TemplateName],
+        target.[TemplateID] = source.[TemplateID],
+        target.[SmsText] = source.[SmsText],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([SmsID], [SMSGatewayMasterID], [SMSTypeID], [TemplateName], [TemplateID], [SmsText], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[SmsID], source.[SMSGatewayMasterID], source.[SMSTypeID], source.[TemplateName], source.[TemplateID], source.[SmsText], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
+SET IDENTITY_INSERT [CORE].[SMSMaster] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[UserMaster] (30 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[UserMaster] ON;
+GO
+MERGE INTO [CORE].[UserMaster] AS target
+USING (VALUES
+    (1, N'Clerk', N'Hrishikesh', NULL, N'Patekar', N'CK', N'Pune', N'7058601590', N'8625085936', N'HrishikeshPatekar@gmail.com', 0, N'en', NULL, N'Test', NULL, 0, '2026-09-21T12:53:49.107', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', 1, '2026-08-11T20:02:48.860', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (2, N'HeadOfficer', N'Aditya', NULL, N'Fatke', N'HO', N'Pune', N'9876543210', NULL, N'Aditya55@gmail.com', 0, N'en', NULL, N'Head Officer', NULL, 0, '2026-09-21T12:56:38.430', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:23:16.203', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (3, N'SeniorOfficer', N'Vidyanad', NULL, N'Sawai', N'SO', N'Amravati', N'9876543211', NULL, N'VidyanadSawai2508@gmail.com', 0, N'en', NULL, N'Senior Officer', NULL, 0, '2026-09-21T11:16:24.103', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:22:23.800', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (4, N'Prashant.r', N'Prashant', NULL, N'Rajurkar', N'HOD', N'Akola', N'8329184285', NULL, NULL, 0, N'en', NULL, N'HOD', NULL, 0, '2026-09-10T16:05:32.527', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T12:00:17.400', 1, '2026-09-10T13:19:44.673', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (5, N'Lata.g', N'Lata', NULL, N'Ghime', N'CK1', N'Akola', N'8080685518', NULL, NULL, 0, N'en', NULL, N'Clerk', NULL, 0, '2026-09-10T15:37:26.117', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T11:55:53.667', 1, '2026-09-10T13:59:17.430', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (6, N'Pramod.g', N'Pramod', NULL, N'Gaikwad', N'CK2', N'Akola', N'9421894208', NULL, NULL, 0, N'en', NULL, N'Clerk', NULL, 0, '2026-09-10T16:54:14.280', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T12:05:43.063', 1, '2026-09-10T13:30:00.987', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (7, N'Kailash.t', N'Kailash', NULL, N'Thakur', N'CK3', N'Akola', N'7709409303', NULL, NULL, 0, N'en', NULL, N'Clerk', NULL, 0, '2026-09-10T15:45:16.677', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T15:24:58.863', 1, '2026-09-10T15:24:58.863', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (8, N'Akansha.h', N'Akansha', NULL, N'Hiwale', N'CK4', N'Akola', N'9975130814', NULL, NULL, 0, N'en', NULL, N'Clerk', NULL, 0, '2026-09-10T16:50:42.340', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T15:28:19.670', 1, '2026-09-10T15:28:19.670', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (9, N'Anup.c', N'Anup', NULL, N'Choudhary', N'MOH', N'Akola', N'7721818117', NULL, NULL, 0, N'en', NULL, N'Additional MOH', NULL, 0, '2026-09-10T17:03:16.700', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T16:59:20.047', 1, '2026-09-10T16:59:20.047', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (10, N'Sonali.s', N'Sonali', NULL, N'Surwade', N'CK5', N'Akola', N'9766859941', NULL, NULL, 0, N'en', NULL, N'Clerk', NULL, 0, '2026-09-10T17:09:52.063', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T17:06:36.770', 1, '2026-09-10T17:06:36.770', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (11, N'Avinash.s', N'Avinash', NULL, N'Sonone', N'MOH', N'Akola', N'9730521213', NULL, NULL, 0, N'en', NULL, N'MOH', NULL, 0, '2026-09-17T11:10:50.713', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T11:19:59.617', 1, '2026-09-16T11:19:59.617', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (12, N'Chetan.s', N'Chetan', NULL, N'Shankarpure', N'JE', N'Akola', N'9673222213', NULL, NULL, 0, N'en', NULL, N'Junior Engineer', NULL, 0, '2026-09-16T12:25:23.913', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:25:23.913', 1, '2026-09-16T12:25:23.913', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (13, N'Ajay.g', N'Ajay', NULL, N'Gujar', N'EE', N'Akola', N'7709322666', NULL, NULL, 0, N'en', NULL, N'Executive Engineer', NULL, 0, '2026-09-16T12:28:27.793', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:28:27.793', 1, '2026-09-16T12:28:27.793', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (14, N'Satish.r', N'Satish', NULL, N'Rathod', N'JE', N'Akola', N'7350577080', NULL, NULL, 0, N'en', NULL, N'Junior Engineer', NULL, 0, '2026-09-16T12:31:04.490', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:31:04.490', 1, '2026-09-16T12:31:04.490', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (15, N'Manish.k', N'Manish', NULL, N'Khatri', N'JE', N'Akola', N'7588757988', NULL, NULL, 0, N'en', NULL, N'Junior Engineer', NULL, 0, '2026-09-16T12:33:05.907', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:33:05.907', 1, '2026-09-16T12:33:05.907', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (16, N'Swapnil.l', N'Swapnil', NULL, N'Lahange', N'JE', N'Akola', N'8329158110', NULL, NULL, 0, N'en', NULL, N'Junior Engineer', NULL, 0, '2026-09-16T12:34:44.183', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:34:44.183', 1, '2026-09-16T12:34:44.183', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (17, N'Hrishikesh.t', N'Hrishikesh', NULL, N'Thakare', N'JE', N'Akola', N'7588759824', NULL, NULL, 0, N'en', NULL, N'Junior Engineer', NULL, 0, '2026-09-16T12:37:05.867', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:37:05.867', 1, '2026-09-16T12:37:05.867', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (18, N'Ashish.n', N'Ashish', NULL, N'Nichal', N'DE', N'Akola', N'9696642727', NULL, NULL, 0, N'en', NULL, N'Deputy Engineer', NULL, 0, '2026-09-16T12:39:43.573', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:39:43.573', 1, '2026-09-16T12:39:43.573', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (19, N'Nakul.p', N'Nakul', NULL, N'Pagrut', N'DE', N'Akola', N'9922030206', NULL, NULL, 0, N'en', NULL, N'Deputy Engineer', NULL, 0, '2026-09-16T12:42:50.630', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:42:50.630', 1, '2026-09-16T12:42:50.630', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (20, N'Yusuf.k', N'Yusuf', NULL, N'Khan', N'DE', N'Akola', N'9890007530', NULL, NULL, 0, N'en', NULL, N'Deputy Engineer', NULL, 0, '2026-09-16T12:45:00.023', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:45:00.023', 1, '2026-09-16T12:45:00.023', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (21, N'Anil.g', N'Anil', NULL, N'Gawande', N'DE', N'Akola', N'7709049675', NULL, NULL, 0, N'en', NULL, N'Deputy Engineer', NULL, 0, '2026-09-16T12:46:07.290', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:46:07.290', 1, '2026-09-16T12:46:07.290', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (22, N'Ganesh.b', N'Ganesh', NULL, N'Billewar', N'HOD', N'Akola', N'9422142224', NULL, NULL, 0, N'en', NULL, N'HOD', NULL, 0, '2026-09-16T12:54:06.360', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:54:06.360', 1, '2026-09-16T12:54:06.360', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (23, N'Sanjay.k', N'Sanjay', NULL, N'Kharate', N'CK7', N'Akola', NULL, NULL, NULL, 0, N'en', NULL, N'Clerk', NULL, 0, '2026-09-16T12:59:33.957', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:59:33.957', 1, '2026-09-16T12:59:33.957', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (24, N'Poornima.g', N'Poornima', NULL, N'Ghatale', N'Reg', N'Akola', N'9011684722', NULL, NULL, 0, N'en', NULL, N'Registrar', NULL, 0, '2026-09-16T13:25:58.860', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T13:08:45.187', 1, '2026-09-16T13:08:45.187', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (25, N'Jayant.s', N'Jayant', NULL, N'Sule', N'CK8', N'Akola', N'7887309831', NULL, NULL, 0, N'en', NULL, N'Clerk', NULL, 0, '2026-09-16T13:11:31.127', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T13:11:31.127', 1, '2026-09-16T13:11:31.127', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (26, N'Hemant.s', N'Hemant', NULL, N'Shelwane', N'CK9', N'Akola', N'7709043156', NULL, NULL, 0, N'en', NULL, N'Clerk', NULL, 0, '2026-09-16T13:12:58.070', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T13:12:58.070', 1, '2026-09-16T13:12:58.070', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (27, N'Kamalkishor.y', N'Kamalkishor', NULL, N'Yadav', N'CK', N'Akola', N'9763861654', NULL, NULL, 0, N'en', NULL, N'Clerk', NULL, 0, '2026-09-16T13:18:11.677', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T13:14:48.573', 1, '2026-09-16T13:14:48.573', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (1002, N'ADMIN', N'ADMIN', N'ADMIN', N'ADMIN', N'PB', N'Amravati', N'7058601590', N'8625085936', N'ashwineshmukh62@gmail.com', 0, N'en', NULL, N'Test', NULL, 0, '2026-09-10T12:34:29.143', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:24:08.297', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (2004, N'FirstAppellateOfficer', N'neha', NULL, N'Puri', N'FAO', N'Amravarti', N'9370932047', NULL, N'nehap@gmail.com', 0, N'en', NULL, N'Test', NULL, 0, '2026-09-21T12:34:36.507', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', NULL, '2026-08-24T12:57:33.160', NULL, NULL, 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (2005, N'SecondAppellateOfficer', N'test', NULL, N'Puri', N'SAO', N'Amravarti', N'9370932048', NULL, N'nehap19@gmail.com', 0, N'en', NULL, N'Test', NULL, 0, '2026-09-15T12:47:31.100', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', NULL, '2026-08-24T12:57:33.160', NULL, NULL, 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL)
+) AS source ([Id], [UserName], [FirstName], [MiddleName], [LastName], [UserCode], [Address], [MobileNo], [AlternateMobileNo], [Email], [MustChangePassword], [Language], [IsActive], [Remark], [LockedUntilAt], [FailedLoginCount], [LastLoginAt], [UserLocked], [EmployeeTypeId], [PasswordHash], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [MarkedForDeletion], [MarkedForDeletionDate], [SecurityStamp], [TwoFactorEnabled], [TwoFactorEnabledAt], [TwoFactorRequired], [TwoFactorSecretEncrypted], [OtpChallengeFailCount], [OtpChallengeLockedUntilAt], [PasswordChangedAt])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[UserName] = source.[UserName],
+        target.[FirstName] = source.[FirstName],
+        target.[MiddleName] = source.[MiddleName],
+        target.[LastName] = source.[LastName],
+        target.[UserCode] = source.[UserCode],
+        target.[Address] = source.[Address],
+        target.[MobileNo] = source.[MobileNo],
+        target.[AlternateMobileNo] = source.[AlternateMobileNo],
+        target.[Email] = source.[Email],
+        target.[MustChangePassword] = source.[MustChangePassword],
+        target.[Language] = source.[Language],
+        target.[IsActive] = source.[IsActive],
+        target.[Remark] = source.[Remark],
+        target.[LockedUntilAt] = source.[LockedUntilAt],
+        target.[FailedLoginCount] = source.[FailedLoginCount],
+        target.[LastLoginAt] = source.[LastLoginAt],
+        target.[UserLocked] = source.[UserLocked],
+        target.[EmployeeTypeId] = source.[EmployeeTypeId],
+        target.[PasswordHash] = source.[PasswordHash],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate],
+        target.[MarkedForDeletion] = source.[MarkedForDeletion],
+        target.[MarkedForDeletionDate] = source.[MarkedForDeletionDate],
+        target.[SecurityStamp] = source.[SecurityStamp],
+        target.[TwoFactorEnabled] = source.[TwoFactorEnabled],
+        target.[TwoFactorEnabledAt] = source.[TwoFactorEnabledAt],
+        target.[TwoFactorRequired] = source.[TwoFactorRequired],
+        target.[TwoFactorSecretEncrypted] = source.[TwoFactorSecretEncrypted],
+        target.[OtpChallengeFailCount] = source.[OtpChallengeFailCount],
+        target.[OtpChallengeLockedUntilAt] = source.[OtpChallengeLockedUntilAt],
+        target.[PasswordChangedAt] = source.[PasswordChangedAt]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [UserName], [FirstName], [MiddleName], [LastName], [UserCode], [Address], [MobileNo], [AlternateMobileNo], [Email], [MustChangePassword], [Language], [IsActive], [Remark], [LockedUntilAt], [FailedLoginCount], [LastLoginAt], [UserLocked], [EmployeeTypeId], [PasswordHash], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [MarkedForDeletion], [MarkedForDeletionDate], [SecurityStamp], [TwoFactorEnabled], [TwoFactorEnabledAt], [TwoFactorRequired], [TwoFactorSecretEncrypted], [OtpChallengeFailCount], [OtpChallengeLockedUntilAt], [PasswordChangedAt])
+    VALUES (source.[Id], source.[UserName], source.[FirstName], source.[MiddleName], source.[LastName], source.[UserCode], source.[Address], source.[MobileNo], source.[AlternateMobileNo], source.[Email], source.[MustChangePassword], source.[Language], source.[IsActive], source.[Remark], source.[LockedUntilAt], source.[FailedLoginCount], source.[LastLoginAt], source.[UserLocked], source.[EmployeeTypeId], source.[PasswordHash], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], source.[MarkedForDeletion], source.[MarkedForDeletionDate], source.[SecurityStamp], source.[TwoFactorEnabled], source.[TwoFactorEnabledAt], source.[TwoFactorRequired], source.[TwoFactorSecretEncrypted], source.[OtpChallengeFailCount], source.[OtpChallengeLockedUntilAt], source.[PasswordChangedAt]);
+GO
+SET IDENTITY_INSERT [CORE].[UserMaster] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[UserDepartmentAllocation] (54 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[UserDepartmentAllocation] ON;
+GO
+MERGE INTO [CORE].[UserDepartmentAllocation] AS target
+USING (VALUES
+    (7, 1, 1, NULL, 1, '2026-07-15T16:26:53.480', NULL, NULL),
+    (8, 1, 2, NULL, 1, '2026-07-15T16:26:53.480', NULL, NULL),
+    (9, 1, 3, NULL, 1, '2026-07-15T16:26:53.480', NULL, NULL),
+    (1007, 1, 5, NULL, 1, '2026-07-17T12:47:46.783', 1, '2026-07-27T17:15:41.540'),
+    (2007, 3, 1, NULL, NULL, '2026-08-12T12:22:23.850', NULL, NULL),
+    (2008, 3, 2, NULL, NULL, '2026-08-12T12:22:23.860', NULL, NULL),
+    (2009, 3, 3, NULL, NULL, '2026-08-12T12:22:23.860', NULL, NULL),
+    (2010, 3, 5, NULL, NULL, '2026-08-12T12:22:23.860', NULL, NULL),
+    (2011, 2, 1, NULL, NULL, '2026-08-12T12:23:16.267', NULL, NULL),
+    (2012, 2, 2, NULL, NULL, '2026-08-12T12:23:16.267', NULL, NULL),
+    (2013, 2, 3, NULL, NULL, '2026-08-12T12:23:16.267', NULL, NULL),
+    (2014, 2, 5, NULL, NULL, '2026-08-12T12:23:16.267', NULL, NULL),
+    (2015, 1002, 1, NULL, NULL, '2026-08-12T12:24:08.333', NULL, NULL),
+    (2016, 1002, 2, NULL, NULL, '2026-08-12T12:24:08.333', NULL, NULL),
+    (2017, 1002, 3, NULL, NULL, '2026-08-12T12:24:08.333', NULL, NULL),
+    (2018, 1002, 5, NULL, NULL, '2026-08-12T12:24:08.333', 1002, '2026-08-26T15:31:32.027'),
+    (2019, 2004, 1, NULL, NULL, '2026-08-12T17:29:30.660', NULL, NULL),
+    (2020, 2004, 2, NULL, NULL, '2026-08-12T17:29:30.660', NULL, NULL),
+    (2021, 2004, 3, NULL, NULL, '2026-08-12T17:29:30.660', NULL, NULL),
+    (2022, 2004, 5, NULL, NULL, '2026-08-12T17:29:30.660', NULL, NULL),
+    (2023, 2005, 1, NULL, NULL, '2026-08-12T17:29:30.663', NULL, NULL),
+    (2024, 2005, 2, NULL, NULL, '2026-08-12T17:29:30.663', NULL, NULL),
+    (2025, 2005, 3, NULL, NULL, '2026-08-12T17:29:30.663', NULL, NULL),
+    (2026, 2005, 5, NULL, NULL, '2026-08-12T17:29:30.663', NULL, NULL),
+    (2027, 6, 5, NULL, 1, '2026-09-10T12:30:50.687', 1, '2026-09-10T12:30:50.687'),
+    (2028, 6, 1, 0, 1, '2026-09-10T12:32:29.093', 1, '2026-09-10T13:30:01.040'),
+    (2029, 6, 2, 0, 1, '2026-09-10T12:32:39.203', 1, '2026-09-10T13:30:01.040'),
+    (2030, 6, 3, 0, 1, '2026-09-10T12:32:49.983', 1, '2026-09-10T13:30:01.040'),
+    (2031, 7, 5, NULL, 1, '2026-09-10T16:45:52.033', 1, '2026-09-10T16:45:52.033'),
+    (2032, 8, 5, NULL, 1, '2026-09-10T16:44:33.643', 1, '2026-09-10T16:44:33.643'),
+    (2033, 9, 5, NULL, 1, '2026-09-10T17:00:26.190', 1, '2026-09-10T17:00:26.190'),
+    (2034, 10, 5, NULL, 1, '2026-09-10T17:07:02.860', 1, '2026-09-10T17:07:02.860'),
+    (2035, 11, 5, NULL, 1, '2026-09-16T11:36:14.593', 1, '2026-09-16T11:36:14.593'),
+    (2036, 12, 5, NULL, 1, '2026-09-16T12:25:27.763', 1, '2026-09-16T12:25:27.763'),
+    (2037, 13, 5, NULL, 1, '2026-09-16T12:28:31.697', 1, '2026-09-16T12:28:31.697'),
+    (2038, 14, 5, NULL, 1, '2026-09-16T12:31:07.560', 1, '2026-09-16T12:31:07.560'),
+    (2039, 15, 5, NULL, 1, '2026-09-16T12:33:08.773', 1, '2026-09-16T12:33:08.773'),
+    (2040, 16, 5, NULL, 1, '2026-09-16T12:34:48.623', 1, '2026-09-16T12:34:48.623'),
+    (2041, 17, 5, NULL, 1, '2026-09-16T12:37:08.897', 1, '2026-09-16T12:37:08.897'),
+    (2042, 18, 5, NULL, 1, '2026-09-16T12:39:47.453', 1, '2026-09-16T12:39:47.453'),
+    (2043, 19, 5, NULL, 1, '2026-09-16T12:42:50.630', 1, '2026-09-16T12:42:50.630'),
+    (2044, 20, 5, NULL, 1, '2026-09-16T12:45:00.043', 1, '2026-09-16T12:45:00.043'),
+    (2045, 21, 5, NULL, 1, '2026-09-16T12:46:07.290', 1, '2026-09-16T12:46:07.290'),
+    (2046, 22, 5, NULL, 1, '2026-09-16T12:54:06.373', 1, '2026-09-16T12:54:06.373'),
+    (2047, 23, 5, NULL, 1, '2026-09-16T12:59:33.960', 1, '2026-09-16T12:59:33.960'),
+    (2048, 24, 5, NULL, 1, '2026-09-16T13:08:45.190', 1, '2026-09-16T13:08:45.190'),
+    (2049, 25, 5, NULL, 1, '2026-09-16T13:11:31.140', 1, '2026-09-16T13:11:31.140'),
+    (2050, 26, 5, NULL, 1, '2026-09-16T13:12:58.083', 1, '2026-09-16T13:12:58.083'),
+    (2051, 27, 5, NULL, 1, '2026-09-16T13:14:48.583', 1, '2026-09-16T13:14:48.583'),
+    (3019, 4, 5, NULL, 1, '2026-09-10T13:19:44.713', NULL, NULL),
+    (3020, 5, 5, NULL, 1, '2026-09-10T13:27:11.360', NULL, NULL),
+    (3021, 5, 1, 0, 1, '2026-09-10T13:50:10.507', 1, '2026-09-10T13:59:17.497'),
+    (3022, 5, 2, 0, 1, '2026-09-10T13:50:10.507', 1, '2026-09-10T13:59:17.497'),
+    (3023, 5, 3, 0, 1, '2026-09-10T13:50:10.507', 1, '2026-09-10T13:59:17.497')
+) AS source ([Id], [UserId], [DepartmentId], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[UserId] = source.[UserId],
+        target.[DepartmentId] = source.[DepartmentId],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [UserId], [DepartmentId], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[UserId], source.[DepartmentId], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
+SET IDENTITY_INSERT [CORE].[UserDepartmentAllocation] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[UserModuleAllocation] (43 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[UserModuleAllocation] ON;
+GO
+MERGE INTO [CORE].[UserModuleAllocation] AS target
+USING (VALUES
+    (5, 1, 1, 1, NULL, 1, '2026-07-15T16:26:53.480', NULL, NULL),
+    (6, 1, 2, 1001, NULL, 1, '2026-07-15T16:26:53.480', NULL, NULL),
+    (7, 1, 3, 1004, NULL, 1, '2026-07-15T16:26:53.480', NULL, NULL),
+    (1007, 1, 5, 1005, NULL, 1, '2026-07-27T17:15:41.540', NULL, NULL),
+    (2005, 3, 1, 1, NULL, NULL, '2026-08-12T12:22:23.910', NULL, NULL),
+    (2006, 3, 2, 1001, NULL, NULL, '2026-08-12T12:22:23.913', NULL, NULL),
+    (2007, 3, 3, 1004, NULL, NULL, '2026-08-12T12:22:23.913', NULL, NULL),
+    (2008, 3, 5, 1005, NULL, NULL, '2026-08-12T12:22:23.913', NULL, NULL),
+    (2009, 2, 1, 1, NULL, NULL, '2026-08-12T12:23:16.300', NULL, NULL),
+    (2010, 2, 2, 1001, NULL, NULL, '2026-08-12T12:23:16.303', NULL, NULL),
+    (2011, 2, 3, 1004, NULL, NULL, '2026-08-12T12:23:16.303', NULL, NULL),
+    (2012, 2, 5, 1005, NULL, NULL, '2026-08-12T12:23:16.303', NULL, NULL),
+    (2013, 1002, 1, 1, NULL, NULL, '2026-08-12T12:24:08.367', NULL, NULL),
+    (2014, 1002, 2, 1001, NULL, NULL, '2026-08-12T12:24:08.367', NULL, NULL),
+    (2015, 1002, 3, 1004, NULL, NULL, '2026-08-12T12:24:08.367', NULL, NULL),
+    (2016, 1002, 5, 1005, NULL, NULL, '2026-08-12T12:24:08.367', 1002, '2026-08-26T15:31:32.027'),
+    (2017, 6, 5, 1005, NULL, 1002, '2026-09-10T12:16:25.870', NULL, NULL),
+    (2018, 4, 5, 1005, NULL, 1, '2026-09-10T13:19:44.750', NULL, NULL),
+    (2019, 5, 5, 1005, NULL, 1, '2026-09-10T13:27:11.417', NULL, NULL),
+    (2020, 5, 1, 1, 0, 1, '2026-09-10T13:50:10.537', 1, '2026-09-10T13:59:17.543'),
+    (2021, 5, 2, 1001, 0, 1, '2026-09-10T13:50:10.537', 1, '2026-09-10T13:59:17.543'),
+    (2022, 5, 3, 1004, 0, 1, '2026-09-10T13:50:10.537', 1, '2026-09-10T13:59:17.543'),
+    (2023, 7, 5, 1005, NULL, 1, '2026-09-10T16:47:43.373', 1, '2026-09-10T16:47:43.373'),
+    (2024, 8, 5, 1005, NULL, 1, '2026-09-10T16:47:34.103', 1, '2026-09-10T16:47:34.103'),
+    (2025, 9, 5, 1005, NULL, 1, '2026-09-10T17:00:09.673', 1, '2026-09-10T17:00:09.673'),
+    (2026, 10, 5, 1005, NULL, 1, '2026-09-10T17:06:51.300', 1, '2026-09-10T17:06:51.300'),
+    (2027, 11, 5, 1005, NULL, 1, '2026-09-16T11:36:19.800', 1, '2026-09-16T11:36:19.800'),
+    (2028, 12, 5, 1005, NULL, 1, '2026-09-16T12:25:39.170', 1, '2026-09-16T12:25:39.170'),
+    (2029, 13, 5, 1005, NULL, 1, '2026-09-16T12:28:34.960', 1, '2026-09-16T12:28:34.960'),
+    (2030, 14, 5, 1005, NULL, 1, '2026-09-16T12:31:11.110', 1, '2026-09-16T12:31:11.110'),
+    (2031, 15, 5, 1005, NULL, 1, '2026-09-16T12:33:11.417', 1, '2026-09-16T12:33:11.417'),
+    (2032, 16, 5, 1005, NULL, 1, '2026-09-16T12:34:51.437', 1, '2026-09-16T12:34:51.437'),
+    (2033, 17, 5, 1005, NULL, 1, '2026-09-16T12:37:11.353', 1, '2026-09-16T12:37:11.353'),
+    (2034, 18, 5, 1005, NULL, 1, '2026-09-16T12:39:50.783', 1, '2026-09-16T12:39:50.783'),
+    (2035, 19, 5, 1005, NULL, 1, '2026-09-16T12:42:50.630', 1, '2026-09-16T12:42:50.630'),
+    (2036, 20, 5, 1005, NULL, 1, '2026-09-16T12:45:00.043', 1, '2026-09-16T12:45:00.043'),
+    (2037, 21, 5, 1005, NULL, 1, '2026-09-16T12:46:07.290', 1, '2026-09-16T12:46:07.290'),
+    (2038, 22, 5, 1005, NULL, 1, '2026-09-16T12:54:06.373', 1, '2026-09-16T12:54:06.373'),
+    (2039, 23, 5, 1005, NULL, 1, '2026-09-16T12:59:33.960', 1, '2026-09-16T12:59:33.960'),
+    (2040, 24, 5, 1005, NULL, 1, '2026-09-16T13:08:45.190', 1, '2026-09-16T13:08:45.190'),
+    (2041, 25, 5, 1005, NULL, 1, '2026-09-16T13:11:31.140', 1, '2026-09-16T13:11:31.140'),
+    (2042, 26, 5, 1005, NULL, 1, '2026-09-16T13:12:58.083', 1, '2026-09-16T13:12:58.083'),
+    (2043, 27, 5, 1005, NULL, 1, '2026-09-16T13:14:48.583', 1, '2026-09-16T13:14:48.583')
+) AS source ([Id], [UserId], [DepartmentId], [ModuleId], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[UserId] = source.[UserId],
+        target.[DepartmentId] = source.[DepartmentId],
+        target.[ModuleId] = source.[ModuleId],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [UserId], [DepartmentId], [ModuleId], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[UserId], source.[DepartmentId], source.[ModuleId], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
+SET IDENTITY_INSERT [CORE].[UserModuleAllocation] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [CORE].[UserRoleAllocation] (31 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [CORE].[UserRoleAllocation] ON;
+GO
+MERGE INTO [CORE].[UserRoleAllocation] AS target
+USING (VALUES
+    (4, 1, 1, 1, NULL, 1, '2026-07-15T16:26:53.480', NULL, NULL),
+    (5, 1, 2, 1, NULL, 1, '2026-07-15T16:26:53.480', NULL, NULL),
+    (6, 1, 3, 1, NULL, 1, '2026-07-15T16:26:53.480', NULL, NULL),
+    (2004, 1, 5, 2, NULL, 1, '2026-07-27T17:15:41.540', NULL, NULL),
+    (3004, 3, 1, 1, NULL, NULL, '2026-08-12T12:22:23.953', NULL, NULL),
+    (3005, 3, 2, 1, NULL, NULL, '2026-08-12T12:22:23.957', NULL, NULL),
+    (3006, 3, 3, 1, NULL, NULL, '2026-08-12T12:22:23.957', NULL, NULL),
+    (3007, 3, 5, 2, NULL, NULL, '2026-08-12T12:22:23.957', NULL, NULL),
+    (3008, 2, 1, 1, NULL, NULL, '2026-08-12T12:23:16.337', NULL, NULL),
+    (3009, 2, 2, 1, NULL, NULL, '2026-08-12T12:23:16.337', NULL, NULL),
+    (3010, 2, 3, 1, NULL, NULL, '2026-08-12T12:23:16.337', NULL, NULL),
+    (3011, 2, 5, 2, NULL, NULL, '2026-08-12T12:23:16.337', NULL, NULL),
+    (3012, 1002, 1, 1, NULL, NULL, '2026-08-12T12:24:08.400', NULL, NULL),
+    (3013, 1002, 2, 1, NULL, NULL, '2026-08-12T12:24:08.400', NULL, NULL),
+    (3014, 1002, 3, 1, NULL, NULL, '2026-08-12T12:24:08.400', NULL, NULL),
+    (3015, 1002, 5, 2, NULL, NULL, '2026-08-12T12:24:08.400', 1002, '2026-08-26T15:31:32.027'),
+    (3016, 2004, 1, 1, NULL, NULL, '2026-08-12T17:30:17.143', NULL, NULL),
+    (3017, 2004, 2, 1, NULL, NULL, '2026-08-12T17:30:17.143', NULL, NULL),
+    (3018, 2004, 3, 1, NULL, NULL, '2026-08-12T17:30:17.143', NULL, NULL),
+    (3019, 2004, 5, 2, NULL, NULL, '2026-08-12T17:30:17.143', NULL, NULL),
+    (3020, 2005, 1, 1, NULL, NULL, '2026-08-12T17:30:17.143', NULL, NULL),
+    (3021, 2005, 2, 1, NULL, NULL, '2026-08-12T17:30:17.143', NULL, NULL),
+    (3022, 2005, 3, 1, NULL, NULL, '2026-08-12T17:30:17.143', NULL, NULL),
+    (3023, 2005, 5, 2, NULL, NULL, '2026-08-12T17:30:17.143', NULL, NULL),
+    (4016, 6, 5, 2, 0, 1002, '2026-09-10T12:39:19.760', 1, '2026-09-10T13:30:01.153'),
+    (4017, 4, 5, 1, NULL, 1, '2026-09-10T13:19:44.787', NULL, NULL),
+    (4018, 5, 5, 1, NULL, 1, '2026-09-10T13:27:11.480', NULL, NULL),
+    (4019, 6, 5, 1, NULL, 1, '2026-09-10T13:30:01.153', NULL, NULL),
+    (4020, 5, 1, 1, 0, 1, '2026-09-10T13:50:10.593', 1, '2026-09-10T13:59:17.587'),
+    (4021, 5, 2, 1, 0, 1, '2026-09-10T13:50:10.593', 1, '2026-09-10T13:59:17.587'),
+    (4022, 5, 3, 1, 0, 1, '2026-09-10T13:50:10.593', 1, '2026-09-10T13:59:17.587')
+) AS source ([Id], [UserId], [DepartmentId], [UserRoleId], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[UserId] = source.[UserId],
+        target.[DepartmentId] = source.[DepartmentId],
+        target.[UserRoleId] = source.[UserRoleId],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [UserId], [DepartmentId], [UserRoleId], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[UserId], source.[DepartmentId], source.[UserRoleId], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
+SET IDENTITY_INSERT [CORE].[UserRoleAllocation] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [RTS].[DepartmentMaster] (13 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [RTS].[DepartmentMaster] ON;
+GO
+MERGE INTO [RTS].[DepartmentMaster] AS target
+USING (VALUES
+    (1, N'Property Tax', N'मालमत्ता कर', N'Home', 1, NULL, 0, '2026-07-15T16:26:57.467', NULL, NULL, N'PTAX'),
+    (2, N'Water Connection', N'पाणी पुरवठा', N'Droplets', 2, NULL, 0, '2026-07-15T16:26:57.467', NULL, NULL, N'WATER'),
+    (3, N'Trade License', N'व्यवसाय परवाना', N'Briefcase', 3, NULL, 0, '2026-07-15T16:26:57.467', NULL, NULL, N'TRADE'),
+    (4, N'Town Planning', N'नगर रचना', N'Map', 4, NULL, 0, '2026-07-15T16:26:57.467', NULL, NULL, N'TP'),
+    (5, N'Birth & Death', N'जन्म आणि मृत्यू', N'HeartPulse', 5, NULL, 0, '2026-07-15T16:26:57.467', NULL, NULL, N'BND'),
+    (6, N'Education', N'शिक्षण', N'GraduationCap', 6, NULL, 0, '2026-07-15T16:26:57.467', NULL, NULL, N'EDU'),
+    (7, N'Health', N'आरोग्य', N'Activity', 7, NULL, 0, '2026-07-15T16:26:57.467', NULL, NULL, N'HLTH'),
+    (8, N'Fire', N'अग्निशमन', N'Flame', 8, NULL, 0, '2026-07-15T16:26:57.467', NULL, NULL, N'FIRE'),
+    (9, N'Marriage Certificate', N'लग्न नोंदणी प्रमाणपत्र', N'Heart', 9, NULL, 0, '2026-07-15T16:26:57.467', NULL, NULL, N'MARR'),
+    (10, N'Tree', N'वृक्ष प्राधिकरण', N'TreePine', 10, NULL, 0, '2026-07-15T16:26:57.467', NULL, NULL, N'TREE'),
+    (11, N'Sanitation', N'स्वच्छता विभाग', N'Trash2', 11, NULL, 0, '2026-07-15T16:26:57.467', NULL, NULL, N'SANI'),
+    (12, N'PWD', N'सार्वजनिक बांधकाम विभाग', N'Building', 12, NULL, 0, '2026-08-17T13:30:48.017', NULL, NULL, N'PWD'),
+    (13, N'NULM', N'राष्ट्रीय नागरी उपजीविका अभियान (फेरीवाला विभाग)', N'ShoppingBag', 13, NULL, 1, '2026-08-26T12:00:00.000', NULL, NULL, N'NULM')
+) AS source ([Id], [DepartmentName], [DepartmentNameLocal], [DepartmentIcon], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DepartmentCode])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[DepartmentName] = source.[DepartmentName],
+        target.[DepartmentNameLocal] = source.[DepartmentNameLocal],
+        target.[DepartmentIcon] = source.[DepartmentIcon],
+        target.[DisplayOrder] = source.[DisplayOrder],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate],
+        target.[DepartmentCode] = source.[DepartmentCode]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [DepartmentName], [DepartmentNameLocal], [DepartmentIcon], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DepartmentCode])
+    VALUES (source.[Id], source.[DepartmentName], source.[DepartmentNameLocal], source.[DepartmentIcon], source.[DisplayOrder], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], source.[DepartmentCode]);
+GO
+SET IDENTITY_INSERT [RTS].[DepartmentMaster] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [RTS].[ServiceMaster] (72 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [RTS].[ServiceMaster] ON;
+GO
+MERGE INTO [RTS].[ServiceMaster] AS target
+USING (VALUES
+    (19, 2, 7165, N'Change of Water Connection Usage Type', N'वापरामध्ये बदल करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'Droplets', 39, N'15 Days', 0.00, 0, NULL, 1, '2026-07-20T13:31:33.447', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (20, 2, 7166, N'Preparation of Water Bill', N'पाणी देयक तयार करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/OnlineTaxAndNewConnectionPayment?upicid=', N'FileText', 40, N'3 Days', 0.00, 0, NULL, 1, '2026-07-20T13:31:33.447', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (26, 2, 7172, N'Complaint Regarding Water Pressure Capacity', N'पाण्याच्या दाब क्षमता तक्रार', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=19&upicid=', N'AlertTriangle', 46, N'3 Days', 0.00, 0, NULL, 0, '2026-07-15T16:26:57.497', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (33, 3, 7195, N'Changing Occupations / Business Type', N'व्यवसाय बदलणे', NULL, N'https://test.tradeamc.org/SHEL/minorchanges?appType=1', N'Briefcase', 13, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (36, 3, 7198, N'Cancellation of License', N'परवाना रद्द करणे', NULL, N'https://test.tradeamc.org/SHEL/minorchanges?appType=3', N'Briefcase', 16, N'15 Days', 0.00, 0, NULL, 1, '2026-07-20T13:31:33.447', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (43, 4, 7207, N'Issuance of Zone Certificate', N'झोन दाखला देणे', NULL, NULL, N'Map', 3, N'7 Days', 500.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', 2, '2026-10-03T11:39:08.583', NULL, NULL, 1),
+    (44, 4, 7208, N'Giving Part Map', N'भाग नकाशा देणे', NULL, N'https://mahavastu.maharashtra.gov.in/', N'Map', 4, N'3 Days', 700.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, '2026-10-03T11:39:08.583', NULL, NULL, 2),
+    (45, 4, 5, N'Issuance of Construction Permit', N'बांधकाम परवाना देणे', NULL, N'https://mahavastu.maharashtra.gov.in/', N'HardHat', 5, N'7 Days', 500.00, NULL, 0, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, 2),
+    (46, 4, 6, N'Issuance of plinth certificate', N'जोते प्रमाणपत्र देणे', NULL, NULL, N'MapPin', 6, N'7 Days', 200.00, NULL, 0, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, NULL, 2),
+    (47, 4, 7, N'Issuance of Occupancy Certificate', N'भोगवटा प्रमाणपत्र देणे', NULL, N'https://mahavastu.maharashtra.gov.in/', N'Key', 7, N'7 Days', 0.00, 0, 0, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, 2),
+    (48, 12, 61, N'Underground OFC Cable Permission', N'भुमिगत दुरसंचार वाहिनी (ऑप्टीकल फायबर केबल) टाकण्याकरीता परवानगी देणे', NULL, NULL, N'Cable', 61, N'60 Days', 120.00, NULL, 0, 0, '2026-07-15T16:26:57.497', 1, '2026-09-17T15:53:08.023', NULL, NULL, 2),
+    (49, 12, 63, N'Filling Potholes on City Roads', N'रस्त्यांवरील खड्डे बुजविणे', NULL, NULL, N'Wrench', 63, N'5 Days', 0.00, 0, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, 2),
+    (50, 12, 64, N'Maintaining & Securing Sewer Covers', N'गटारांवरील झाकणे सुस्थितीत ठेवणे', NULL, NULL, N'Shield', 64, N'5 Days', 0.00, 0, NULL, 0, '2026-07-15T16:26:57.497', NULL, NULL, 0, NULL, 0),
+    (51, 12, 66, N'Road Cutting Permission', N'रस्ता खोदाई परवानगी देणे', NULL, NULL, N'Wrench', 64, N'5 Days', 0.00, 0, NULL, 0, '2026-10-01T16:26:43.230', NULL, NULL, 0, NULL, 0),
+    (53, 5, 20, N'Birth Certificate', N'जन्म प्रमाणपत्र देणे', NULL, N'https://dc.crsorgi.gov.in/crs/Auth/general-public', N'Baby', 20, N'0 Days', 10.00, NULL, 0, 0, '2026-07-15T16:26:57.497', 1, '2026-09-17T12:28:10.540', NULL, NULL, 2),
+    (54, 5, 21, N'Death Certificate', N'मृत्यु प्रमाणपत्र देणे', NULL, N'https://dc.crsorgi.gov.in/crs/Auth/general-public', N'HeartOff', 21, N'0 Days', 10.00, NULL, 0, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, 2),
+    (55, 6, 8273, N'School Leaving / Duplicate Certificate', N'विद्यार्थ्याचा शाळा सोडण्याचा दाखला व दुय्यम प्रत दाखला देणे', NULL, NULL, N'GraduationCap', 50, N'3 Days', 25.00, NULL, 0, 0, '2026-07-15T16:26:57.497', NULL, NULL, NULL, NULL, 2),
+    (56, 6, 8274, N'Issuance of transfer certificate', N'स्थलांतर दाखला देणे', NULL, NULL, N'GraduationCap', 51, N'15 Days', 25.00, NULL, 0, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, NULL, 2),
+    (57, 6, 8275, N'Issuance of duplicate mark sheet', N'गुणपत्रिकेची दुय्यम प्रत देणे', NULL, NULL, N'GraduationCap', 52, N'7 Days', 25.00, NULL, 0, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, NULL, 2),
+    (58, 7, 53, N'Nursing home license', N'शुश्रूषा-गृह परवाना देणे', NULL, N'https://maha-mnhregistration.co.in/', N'PlusSquare', 53, N'30 Days', 3500.00, NULL, 0, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, NULL, 2),
+    (59, 7, 54, N'Renewal of nursing home license', N'शुश्रूषा-गृह परवान्याचे नुतनीकरण करणे', NULL, N'https://maha-mnhregistration.co.in/', N'PlusSquare', 54, N'30 Days', 3500.00, NULL, 0, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, NULL, 2),
+    (60, 7, 55, N'Change of nursing home license holder / partner name', N'शुश्रूषा-गृह परवान्यावर परवानाधारक/भागीदाराचे नाव बदलणे', NULL, N'https://maha-mnhregistration.co.in/', N'UserPlus', 55, N'30 Days', 200.00, NULL, 0, 1, '2026-07-20T13:31:33.447', NULL, NULL, NULL, NULL, 2),
+    (61, 4, 7200, N'Trade / Business / Storage Non-Revocation NOC', N'व्यापार/व्यवसाय/साठा करण्यासाठी ना-हरकत प्रमाणपत्र', NULL, NULL, N'ShieldCheck', 1, N'7 Days', 120.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, '2026-10-03T11:39:08.583', NULL, NULL, 2),
+    (62, 4, 7201, N'Mandap NOC', N'मंडपासाठी ना-हरकत प्रमाणपत्र', NULL, NULL, N'Building2', 2, N'7 Days', 200.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, '2026-10-03T11:39:08.583', NULL, NULL, 2),
+    (63, 8, 7202, N'Issuance of Fire Safety NOC', N'अग्निशमन नाहरकत दाखला देणे', NULL, N'#', N'Flame', 18, N'7 Days', 1000.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, '2026-10-03T11:39:08.583', NULL, NULL, 2),
+    (64, 8, 7203, N'Issuance of Final Fire Exemption Certificate', N'अग्निशमन अंतिम नाहरकत दाखला देणे', NULL, N'#', N'Flame', 19, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, '2026-10-03T11:39:08.583', NULL, NULL, 2),
+    (65, 9, 7206, N'Marriage Registration Certificate', N'विवाह नोंदणी प्रमाणपत्र देणे', NULL, N'https://mahaulb.in/MahaULB/index', N'Heart', 22, N'3 Days', 100.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, '2026-10-03T11:39:08.583', NULL, NULL, 2),
+    (66, 10, 8276, N'Tree Felling Permission', N'वृक्षतोड परवानगी देणे', NULL, NULL, N'TreePine', 62, N'45 Days', 2000.00, NULL, NULL, 0, '2026-07-15T16:26:57.497', NULL, '2026-10-03T11:39:08.583', 0, NULL, 0),
+    (68, 11, 65, N'Maintaining cleanliness', N'शहरात स्वच्छता राखणे', NULL, NULL, N'Trash2', 65, N'1 Days', 0.00, 0, NULL, 1, '2026-07-20T13:31:33.447', 1, '2026-09-16T16:37:50.180', 0, NULL, 0),
+    (69, 2, 7175, N'Providing drainage connections', N'जलनिःसारण जोडणी देणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=21&upicid=', N'Droplet', 49, N'15 Days', 0.00, 0, NULL, 0, '2026-07-15T16:26:57.497', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (80, 2, 7174, N'Provision of New Water Tap Connection', N'नळ जोडणी देणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=6&upicid=', N'Droplets', 48, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:44:51.083', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (81, 2, 7162, N'Changing the Water Connection Size', N'नळ जोडणी आकारामध्ये बदल करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'Droplets', 36, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:44:51.083', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (82, 2, 7163, N'Temporary / Permanent Disconnection of Water Connection', N'तात्पुरते/कायमस्वरूपी नळ जोडणी खंडीत करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=10&upicid=', N'Droplets', 37, N'7 Days', 0.00, 0, NULL, 0, '2026-07-21T18:44:51.083', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (83, 2, 7164, N'Reconnection of Water Tap', N'पुनः जोडणी करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=14&upicid=', N'Droplets', 38, N'15 Days', 1000.00, NULL, NULL, 0, '2026-07-21T18:44:51.083', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (84, 2, 7169, N'Water Bill No Dues Certificate', N'थकबाकी नसल्याचा दाखला', NULL, N'https://akolawatertest.tabamc.in/WaterBill/OnlineTaxAndNewConnectionPayment?upicid=', N'FileCheck', 43, N'3 Days', 0.00, 0, NULL, 0, '2026-07-21T18:44:51.083', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (85, 2, 7170, N'Complaint Regarding Faulty Water Meter', N'नादुरुस्त मीटर तक्रार करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=17&upicid=', N'AlertTriangle', 44, N'7 Days', 0.00, 0, NULL, 0, '2026-07-21T18:44:51.083', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (86, 2, 7171, N'Complaint Regarding Unauthorized Water Tap Connection', N'अनधिकृत नळ जोडणी तक्रार', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=18&upicid=', N'AlertTriangle', 45, N'7 Days', 0.00, 0, NULL, 0, '2026-07-21T18:44:51.083', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (87, 2, 7173, N'Complaint Regarding Water Quality', N'पाण्याची गुणवत्ता तक्रार', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=20&upicid=', N'AlertTriangle', 47, N'3 Days', 0.00, 0, NULL, 0, '2026-07-21T18:44:51.083', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (100, 2, 7167, N'Issuance of Plumber License', N'प्लंबर परवाना', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=15&upicid=', N'Wrench', 41, N'15 Days', 1000.00, NULL, NULL, 0, '2026-07-21T18:44:51.083', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (101, 2, 7168, N'Renewal of Plumber License', N'प्लंबर परवाना नुतनीकरण करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=16&upicid=', N'Wrench', 42, N'15 Days', 1000.00, NULL, NULL, 0, '2026-07-21T18:44:51.083', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (137, 3, 7190, N'Obtaining New Trade License', N'नविन परवाना मिळणे', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General', N'Briefcase', 8, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (138, 3, 7191, N'Renewal of Trade License', N'परवान्याचे नुतनीकरण', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Briefcase', 9, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (139, 3, 7192, N'Transfer of Trade License', N'परवाना हस्तांतर', NULL, N'https://test.tradeamc.org/SHEL/minorchanges?appType=1', N'Briefcase', 10, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-21T18:57:16.223', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (140, 3, 7193, N'Duplicate Copy of Trade License', N'परवाना दुय्यम प्रत', NULL, N'https://test.tradeamc.org/SHEL/minorchanges?appType=2', N'Briefcase', 11, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-21T18:57:16.223', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (141, 3, 7194, N'Change of Business Name / Establishment / Address', N'व्यवसायाचे नाव बदलणे/प्रतिष्ठानात/पत्यात बदल', NULL, N'https://test.tradeamc.org/SHEL/minorchanges?appType=1', N'Briefcase', 12, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-21T18:57:16.223', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (142, 3, 7196, N'Change of License Holder / Partner Name', N'परवाना धारक/भागीदाराचे नाव बदलणे', NULL, N'https://test.tradeamc.org/SHEL/minorchanges?appType=1', N'Briefcase', 14, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-21T18:57:16.223', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (143, 3, 7197, N'Change in Number of Partners (Increase/Decrease)', N'भागीदाराच्या संख्येत बदल (वाढ/कमी)', NULL, N'https://test.tradeamc.org/SHEL/minorchanges?appType=1', N'Briefcase', 15, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-21T18:57:16.223', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (144, 3, 7199, N'Notice on Renewal of Expired License', N'कालबाह्य परवानासाठी नुतनीकरण सुचना', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Briefcase', 17, N'15 Days', 200.00, NULL, NULL, 0, '2026-07-21T18:57:16.223', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (145, 1, 7176, N'New Property Tax Assessment', N'नव्याने कर आकारणी', NULL, N'https://testamc.tabamc.in/selfAssessment/index', N'Home', 23, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (146, 1, 7177, N'Re-Assessment of Property Tax', N'पुनः कर आकारणी', NULL, N'https://testamc.tabamc.in/Citizens/RaiseApplication/21?upicNo=', N'Home', 24, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (147, 1, 7178, N'Preparation of Tax Demand Notice', N'कराचे मागणी पत्र तयार करणे', NULL, N'https://testamc.tabamc.in/Citizens/DownLoadCertificate?upicNo=', N'FileText', 25, N'3 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (148, 1, 7179, N'Avail Property Tax Exemption', N'कर माफी मिळणे', NULL, N'https://testamc.tabamc.in/Citizens/RaiseApplication/9?upicNo=', N'Receipt', 26, N'7 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (149, 1, 7180, N'Tax Exemption for Non-Resident Properties', N'रहिवास नसल्यास मालमत्तांना करात सुट मिळणे', NULL, N'https://testamc.tabamc.in/Citizens/RaiseApplication/20?upicNo=', N'Receipt', 27, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-07-23T16:27:10.443', NULL, 0, 2),
+    (150, 1, 7181, N'Property Tax Self-Assessment', N'स्वयंमुल्यांकन', NULL, N'https://testamc.tabamc.in/selfAssessment/index', N'Calculator', 28, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (151, 1, 7182, N'Registration of Objection on Tax Assessment', N'आक्षेप नोंदविणे', NULL, N'https://testamc.tabamc.in/Citizens/RaiseApplication/19?upicNo=', N'AlertTriangle', 29, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (152, 1, 7183, N'Sub-division of Property', N'उपविभागामध्ये मालमत्ता विभाजन', NULL, N'https://testamc.tabamc.in/Citizens/RaiseApplication/PropertySplit?upicNo=', N'GitFork', 30, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (153, 1, 7184, N'Re-assessment After Demolition and Reconstruction', N'मालमत्ता पाडणे व पुनःबांधणी कर आकारणे', NULL, N'https://testamc.tabamc.in/Citizens/RaiseApplication/ChangeInUse?upicNo=', N'Hammer', 31, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (154, 1, 7185, N'Issuance of Property Tax Assessment Copy (8A)', N'मालमत्ता कर उतारा देणे', NULL, N'https://testamc.tabamc.in/Citizens/DownLoadCertificate?upicNo=', N'FileText', 32, N'3 Days', 25.00, NULL, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (155, 1, 7186, N'Issuance of No Dues Certificate', N'थकबाकी नसल्याचा दाखला देणे', NULL, N'https://testamc.tabamc.in/Citizens/DownLoadCertificate?upicNo=', N'FileCheck', 33, N'3 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (156, 1, 7187, N'Property Transfer Registration Certificate', N'अ) दस्ताऐवजाच्या आधारे मालमत्ता हस्तांतरण नोंद प्रमाणपत्र देणे ब) वारसा हक्काने मालमत्ता हस्तांतरण नोंद प्रमाणपत्र देणे', NULL, N'https://testamc.tabamc.in/Citizens/MutationView?upicNo=', N'UserCheck', 34, N'15 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 3, '2026-10-03T11:39:08.583', 0, 0, 0),
+    (157, 2, 7189, N'Change of Ownership Name', N'मालकी हक्कात बदल करणे', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'UserPlus', 35, N'7 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 1, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (158, 3, 8266, N'Issuance of Lodging House License', N'लॉजिंग हाऊस परवाना देणे', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Hotel', 56, N'30 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (159, 3, 8267, N'Renewal of Lodging House License', N'लॉजिंग हाऊस परवान्याचे नुतनीकरण करणे', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Hotel', 57, N'30 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (160, 3, 8268, N'Issuance of Marriage Hall / Auditorium License', N'मंगल कार्यालय/सभागृह वगैरे परवाना देणे', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Building2', 58, N'30 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (161, 3, 8269, N'Renewal of Marriage Hall / Auditorium License', N'मंगल कार्यालय/सभागृह वगैरे परवान्याचे नुतनीकरण करणे', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Building2', 59, N'30 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', NULL, '2026-10-03T11:39:08.583', NULL, 0, 2),
+    (162, 13, 8278, N'Issuance of Hawker Registration Certificate', N'फेरीवाले नोंदणी प्रमाणपत्र देणे', NULL, NULL, NULL, 60, N'30 Days', 0.00, 0, NULL, 0, '2026-07-21T18:57:16.223', 3, '2026-10-03T11:39:08.583', 0, NULL, 0),
+    (163, 2, NULL, N'Water Non-Availability Certificate', N'पाणी अनुपलब्धता प्रमाणपत्र', NULL, N'https://akolawatertest.tabamc.in/WaterBill/Citizen?service=12&upicid=', N'Droplets', 50, N'7 Days', 0.00, 0, NULL, 0, '2026-10-01T18:07:11.620', NULL, NULL, 0, NULL, 0),
+    (164, 3, NULL, N'Auto-renewal of Trade License', N'व्यवसाय परवाना स्वयंनुतनीकरण', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'briefcase', 60, N'15 Days', 0.00, 0, NULL, 0, '2026-10-01T18:13:14.610', NULL, NULL, 0, NULL, 0),
+    (165, 3, NULL, N'Advertisement / Signage License', N'जाहिरात / आकाशचिन्ह परवाना', NULL, N'https://test.tradeamc.org/shel/TradeLicense?General?upicid=', N'Briefcase', 60, N'15 Days', 0.00, 0, NULL, 0, '2026-10-01T18:16:00.840', NULL, NULL, 0, NULL, 0),
+    (166, 7, NULL, N'Food Business License NOC', N'खाद्य व्यवसाय परवाना ना-हरकत प्रमाणपत्र', NULL, NULL, N'PlusSquare', 53, N'30 Days', 3500.00, NULL, NULL, 1, '2026-10-02T11:05:13.290', NULL, NULL, NULL, NULL, 2),
+    (167, 7, NULL, N'Food Registration Health NOC', N'खाद्य नोंदणी आरोग्य ना-हरकत प्रमाणपत्र', NULL, NULL, N'PlusSquare', 53, N'30 Days', 3500.00, NULL, NULL, 1, '2026-10-02T11:06:17.090', NULL, NULL, NULL, NULL, 2),
+    (170, 1, 7188, N'Property Transfer Registration Certificate - Inheritance', N'वारसा हक्काने मालमत्ता हस्तांतरण नोंद प्रमाणपत्र देणे', NULL, N'https://testamc.tabamc.in/Citizens/MutationView?upicNo=', N'UserCheck', 35, N'15 Days', 0.00, 0, NULL, 0, '2026-10-03T11:37:10.417', NULL, '2026-10-03T11:39:08.583', 0, 0, 0)
+) AS source ([Id], [DepartmentId], [GovtCode], [ServiceName], [ServiceNameLocal], [Description], [ServiceUrl], [ServiceIcon], [DisplayOrder], [Sla], [Fees], [FeesRequired], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [IsCertificateRequired], [IsSmsEnabled], [CertificateType])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[DepartmentId] = source.[DepartmentId],
+        target.[GovtCode] = source.[GovtCode],
+        target.[ServiceName] = source.[ServiceName],
+        target.[ServiceNameLocal] = source.[ServiceNameLocal],
+        target.[Description] = source.[Description],
+        target.[ServiceUrl] = source.[ServiceUrl],
+        target.[ServiceIcon] = source.[ServiceIcon],
+        target.[DisplayOrder] = source.[DisplayOrder],
+        target.[Sla] = source.[Sla],
+        target.[Fees] = source.[Fees],
+        target.[FeesRequired] = source.[FeesRequired],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate],
+        target.[IsCertificateRequired] = source.[IsCertificateRequired],
+        target.[IsSmsEnabled] = source.[IsSmsEnabled],
+        target.[CertificateType] = source.[CertificateType]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [DepartmentId], [GovtCode], [ServiceName], [ServiceNameLocal], [Description], [ServiceUrl], [ServiceIcon], [DisplayOrder], [Sla], [Fees], [FeesRequired], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [IsCertificateRequired], [IsSmsEnabled], [CertificateType])
+    VALUES (source.[Id], source.[DepartmentId], source.[GovtCode], source.[ServiceName], source.[ServiceNameLocal], source.[Description], source.[ServiceUrl], source.[ServiceIcon], source.[DisplayOrder], source.[Sla], source.[Fees], source.[FeesRequired], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate], source.[IsCertificateRequired], source.[IsSmsEnabled], source.[CertificateType]);
+GO
+SET IDENTITY_INSERT [RTS].[ServiceMaster] OFF;
+GO
+
 GO
 
 /* ============================================================================
@@ -7111,15 +7923,79 @@ SET IDENTITY_INSERT [RTS].[AapleSarkarCredential] OFF;
 GO
 
 /* ----------------------------------------------------------------------------
-   Table: [RTS].[AapleSarkarServiceMapping] (3 rows)
+   Table: [RTS].[AapleSarkarServiceMapping] (67 rows)
    ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [RTS].[AapleSarkarServiceMapping] ON;
 GO
 MERGE INTO [RTS].[AapleSarkarServiceMapping] AS target
 USING (VALUES
-    (1, 55, 8273, N'Issuance of School Leaving Certificate and Duplicate Certificate of students', 3, '2026-09-28T18:06:01.613', NULL, NULL, NULL, 1),
-    (2, 55, 8275, N'Issuing Duplicate Mark Sheet', 7, '2026-09-28T18:06:01.613', NULL, NULL, NULL, 1),
-    (3, 55, 8274, N'Issuance of migration certificate', 15, '2026-09-28T18:06:01.613', NULL, NULL, NULL, 1)
+    (1, 55, 8273, N'Issuance of School Leaving Certificate and Duplicate Certificate of students', 3, '2026-09-28T18:06:01.613', NULL, NULL, NULL, NULL),
+    (2, 57, 8275, N'Issuing Duplicate Mark Sheet', 7, '2026-09-28T18:06:01.613', NULL, NULL, NULL, NULL),
+    (3, 56, 8274, N'Issuance of migration certificate', 15, '2026-09-28T18:06:01.613', NULL, NULL, NULL, NULL),
+    (4, 19, 7165, N'Change of Water Connection Usage Type', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (5, 20, 7166, N'Preparation of Water Bill', 3, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (6, 26, 7172, N'Complaint Regarding Water Pressure Capacity', 3, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (7, 33, 7195, N'Changing Occupations / Business Type', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (8, 36, 7198, N'Cancellation of License', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (9, 43, 7207, N'Issuance of Zone Certificate', 7, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (10, 44, 7208, N'Giving Part Map', 3, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (11, 45, 5, N'Issuance of Construction Permit', 7, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (12, 46, 6, N'Issuance of plinth certificate', 7, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (13, 47, 7, N'Issuance of Occupancy Certificate', 7, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (14, 48, 61, N'Underground OFC Cable Permission', 60, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (15, 49, 63, N'Filling Potholes on City Roads', 5, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (16, 50, 64, N'Maintaining & Securing Sewer Covers', 5, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (17, 51, 66, N'Road Cutting Permission', 5, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (18, 53, 20, N'Birth Certificate', 7, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (19, 54, 21, N'Death Certificate', 7, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (20, 58, 53, N'Nursing home license', 30, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (21, 59, 54, N'Renewal of nursing home license', 30, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (22, 60, 55, N'Change of nursing home license holder / partner name', 30, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (23, 61, 7200, N'Trade / Business / Storage Non-Revocation NOC', 7, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (24, 62, 7201, N'Mandap NOC', 7, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (25, 63, 7202, N'Issuance of Fire Safety NOC', 7, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (26, 64, 7203, N'Issuance of Final Fire Exemption Certificate', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (27, 65, 7206, N'Marriage Registration Certificate', 3, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (28, 66, 8276, N'Tree Felling Permission', 45, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (29, 68, 65, N'Maintaining cleanliness', 1, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (30, 69, 7175, N'Providing drainage connections', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (31, 80, 7174, N'Provision of New Water Tap Connection', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (32, 81, 7162, N'Changing the Water Connection Size', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (33, 82, 7163, N'Temporary / Permanent Disconnection of Water Connection', 7, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (34, 83, 7164, N'Reconnection of Water Tap', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (35, 84, 7169, N'Water Bill No Dues Certificate', 3, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (36, 85, 7170, N'Complaint Regarding Faulty Water Meter', 7, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (37, 86, 7171, N'Complaint Regarding Unauthorized Water Tap Connection', 7, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (38, 87, 7173, N'Complaint Regarding Water Quality', 3, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (39, 100, 7167, N'Issuance of Plumber License', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (40, 101, 7168, N'Renewal of Plumber License', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (41, 137, 7190, N'Obtaining New Trade License', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (42, 138, 7191, N'Renewal of Trade License', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (43, 139, 7192, N'Transfer of Trade License', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (44, 140, 7193, N'Duplicate Copy of Trade License', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (45, 141, 7194, N'Change of Business Name / Establishment / Address', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (46, 142, 7196, N'Change of License Holder / Partner Name', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (47, 143, 7197, N'Change in Number of Partners (Increase/Decrease)', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (48, 144, 7199, N'Notice on Renewal of Expired License', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (49, 145, 7176, N'New Property Tax Assessment', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (50, 146, 7177, N'Re-Assessment of Property Tax', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (51, 147, 7178, N'Preparation of Tax Demand Notice', 3, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (52, 148, 7179, N'Avail Property Tax Exemption', 7, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (53, 149, 7180, N'Tax Exemption for Non-Resident Properties', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (54, 150, 7181, N'Property Tax Self-Assessment', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (55, 151, 7182, N'Registration of Objection on Tax Assessment', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (56, 152, 7183, N'Sub-division of Property', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (57, 153, 7184, N'Re-assessment After Demolition and Reconstruction', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (58, 154, 7185, N'Issuance of Property Tax Assessment Copy (8A)', 3, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (59, 155, 7186, N'Issuance of No Dues Certificate', 3, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (60, 156, 7187, N'Property Transfer Registration Certificate', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (61, 157, 7189, N'Change of Ownership Name', 7, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (62, 158, 8266, N'Issuance of Lodging House License', 30, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (63, 159, 8267, N'Renewal of Lodging House License', 30, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (64, 160, 8268, N'Issuance of Marriage Hall / Auditorium License', 30, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (65, 161, 8269, N'Renewal of Marriage Hall / Auditorium License', 30, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (66, 162, 8278, N'Issuance of Hawker Registration Certificate', 30, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL),
+    (67, 170, 7188, N'Property Transfer Registration Certificate - Inheritance', 15, '2026-10-03T12:14:09.647', NULL, NULL, NULL, NULL)
 ) AS source ([Id], [RtsServiceId], [GovtCode], [GovtServiceName], [MaxProcessingDays], [CreatedDate], [UpdatedDate], [CreatedBy], [UpdatedBy], [IsActive])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
