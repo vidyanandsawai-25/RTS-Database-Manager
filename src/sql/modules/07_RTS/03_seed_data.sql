@@ -1,4 +1,4 @@
-﻿SET ANSI_NULLS ON
+SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
@@ -7074,3 +7074,58 @@ GO
 SET IDENTITY_INSERT [RTS].[ServiceOfficerAllocation] OFF;
 GO
 
+
+/* ----------------------------------------------------------------------------
+   Table: [RTS].[AapleSarkarCredential] (1 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [RTS].[AapleSarkarCredential] ON;
+GO
+MERGE INTO [RTS].[AapleSarkarCredential] AS target
+USING (VALUES
+    (1, 1, 2, 501, 'AKMCDEPT', 'GAKMCA8v4G8F', '@pn@AKM@m@h@0nl!ne@30446', 'AKM@02@4', 'http://testcitizenservices.mahaitgov.in/Dept_Authentication.asmx', 'http://localhost:3000', '2026-09-28T18:06:01.000', NULL, NULL, NULL, 1)
+) AS source ([Id], [IntegrationId], [UlbId], [UlbDistrict], [ClientCode], [ChecksumKey], [EncryptionKey], [EncryptionIV], [ServiceUrl], [PortalBaseUrl], [CreatedDate], [UpdatedDate], [CreatedBy], [UpdatedBy], [IsActive])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[IntegrationId] = source.[IntegrationId],
+        target.[UlbId] = source.[UlbId],
+        target.[UlbDistrict] = source.[UlbDistrict],
+        target.[ClientCode] = source.[ClientCode],
+        target.[ChecksumKey] = source.[ChecksumKey],
+        target.[EncryptionKey] = source.[EncryptionKey],
+        target.[EncryptionIV] = source.[EncryptionIV],
+        target.[ServiceUrl] = source.[ServiceUrl],
+        target.[PortalBaseUrl] = source.[PortalBaseUrl],
+        target.[IsActive] = source.[IsActive]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [IntegrationId], [UlbId], [UlbDistrict], [ClientCode], [ChecksumKey], [EncryptionKey], [EncryptionIV], [ServiceUrl], [PortalBaseUrl], [CreatedDate], [UpdatedDate], [CreatedBy], [UpdatedBy], [IsActive])
+    VALUES (source.[Id], source.[IntegrationId], source.[UlbId], source.[UlbDistrict], source.[ClientCode], source.[ChecksumKey], source.[EncryptionKey], source.[EncryptionIV], source.[ServiceUrl], source.[PortalBaseUrl], source.[CreatedDate], source.[UpdatedDate], source.[CreatedBy], source.[UpdatedBy], source.[IsActive]);
+GO
+SET IDENTITY_INSERT [RTS].[AapleSarkarCredential] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [RTS].[AapleSarkarServiceMapping] (3 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [RTS].[AapleSarkarServiceMapping] ON;
+GO
+MERGE INTO [RTS].[AapleSarkarServiceMapping] AS target
+USING (VALUES
+    (1, 55, 8273, N'Issuance of School Leaving Certificate and Duplicate Certificate of students', 3, '2026-09-28T18:06:01.000', NULL, NULL, NULL, 1),
+    (2, 55, 8275, N'Issuing Duplicate Mark Sheet', 7, '2026-09-28T18:06:01.000', NULL, NULL, NULL, 1),
+    (3, 55, 8274, N'Issuance of migration certificate', 15, '2026-09-28T18:06:01.000', NULL, NULL, NULL, 1)
+) AS source ([Id], [RtsServiceId], [MahaItServiceId], [MahaItServiceName], [MaxProcessingDays], [CreatedDate], [UpdatedDate], [CreatedBy], [UpdatedBy], [IsActive])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[RtsServiceId] = source.[RtsServiceId],
+        target.[MahaItServiceId] = source.[MahaItServiceId],
+        target.[MahaItServiceName] = source.[MahaItServiceName],
+        target.[MaxProcessingDays] = source.[MaxProcessingDays],
+        target.[IsActive] = source.[IsActive]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [RtsServiceId], [MahaItServiceId], [MahaItServiceName], [MaxProcessingDays], [CreatedDate], [UpdatedDate], [CreatedBy], [UpdatedBy], [IsActive])
+    VALUES (source.[Id], source.[RtsServiceId], source.[MahaItServiceId], source.[MahaItServiceName], source.[MaxProcessingDays], source.[CreatedDate], source.[UpdatedDate], source.[CreatedBy], source.[UpdatedBy], source.[IsActive]);
+GO
+SET IDENTITY_INSERT [RTS].[AapleSarkarServiceMapping] OFF;
+GO

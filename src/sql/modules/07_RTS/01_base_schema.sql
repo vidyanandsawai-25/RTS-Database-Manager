@@ -902,6 +902,135 @@ BEGIN
 END;
 GO
 
+/* ============================================================================
+   RTS / Aaple Sarkar (MahaIT) Technical Integration v3.3 Tables
+   ============================================================================ */
+
+-- 1. [RTS].[AapleSarkarCredential]
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AapleSarkarCredential')
+BEGIN
+    CREATE TABLE [RTS].[AapleSarkarCredential](
+        [Id]            [int] IDENTITY(1,1) NOT NULL,
+        [IntegrationId] [int] NOT NULL CONSTRAINT [DF_AapleSarkarCredential_IntegrationId] DEFAULT (1),
+        [UlbId]         [int] NOT NULL,
+        [UlbDistrict]   [int] NOT NULL,
+        [ClientCode]    [varchar](50) NOT NULL,
+        [ChecksumKey]   [varchar](100) NOT NULL,
+        [EncryptionKey] [varchar](100) NOT NULL,
+        [EncryptionIV]  [varchar](100) NOT NULL,
+        [ServiceUrl]    [varchar](255) NULL,
+        [PortalBaseUrl] [varchar](255) NULL,
+        [CreatedDate]   [datetime] NOT NULL CONSTRAINT [DF_AapleSarkarCredential_CreatedDate] DEFAULT (GETDATE()),
+        [UpdatedDate]   [datetime] NULL,
+        [CreatedBy]     [int] NULL,
+        [UpdatedBy]     [int] NULL,
+        [IsActive]      [bit] NOT NULL CONSTRAINT [DF_AapleSarkarCredential_IsActive] DEFAULT (1),
+
+        CONSTRAINT [PK_AapleSarkarCredential] PRIMARY KEY CLUSTERED ([Id] ASC)
+    );
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AapleSarkarCredential' AND COLUMN_NAME = 'PortalBaseUrl')
+BEGIN
+    ALTER TABLE [RTS].[AapleSarkarCredential] ADD [PortalBaseUrl] VARCHAR(255) NULL;
+END;
+GO
+
+-- 2. [RTS].[AapleSarkarServiceMapping]
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AapleSarkarServiceMapping')
+BEGIN
+    CREATE TABLE [RTS].[AapleSarkarServiceMapping](
+        [Id]                [int] IDENTITY(1,1) NOT NULL,
+        [RtsServiceId]      [int] NOT NULL,
+        [MahaItServiceId]   [int] NOT NULL,
+        [MahaItServiceName] [nvarchar](255) NULL,
+        [MaxProcessingDays] [int] NOT NULL CONSTRAINT [DF_AapleSarkarServiceMapping_MaxProcessingDays] DEFAULT (7),
+        [CreatedDate]       [datetime] NOT NULL CONSTRAINT [DF_AapleSarkarServiceMapping_CreatedDate] DEFAULT (GETDATE()),
+        [UpdatedDate]       [datetime] NULL,
+        [CreatedBy]         [int] NULL,
+        [UpdatedBy]         [int] NULL,
+        [IsActive]          [bit] NOT NULL CONSTRAINT [DF_AapleSarkarServiceMapping_IsActive] DEFAULT (1),
+
+        CONSTRAINT [PK_AapleSarkarServiceMapping] PRIMARY KEY CLUSTERED ([Id] ASC),
+        CONSTRAINT [FK_AapleSarkarServiceMapping_ServiceMaster] FOREIGN KEY ([RtsServiceId]) REFERENCES [RTS].[ServiceMaster] ([Id])
+    );
+END;
+GO
+
+-- 3. [RTS].[AapleSarkarRequest]
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AapleSarkarRequest')
+BEGIN
+    CREATE TABLE [RTS].[AapleSarkarRequest](
+        [Id]                 [bigint] IDENTITY(1,1) NOT NULL,
+        [AapleSarkarTrackId] [varchar](50) NOT NULL,
+        [ApplicationId]      [int] NULL,
+        [ApplicationNo]      [varchar](50) NULL,
+        [CitizenUserId]      [varchar](100) NULL,
+        [CitizenName]        [nvarchar](200) NULL,
+        [MobileNo]           [varchar](20) NULL,
+        [Email]              [nvarchar](150) NULL,
+        [DistrictId]         [int] NULL,
+        [TalukaId]           [int] NULL,
+        [VillageId]          [int] NULL,
+        [DivisionId]         [int] NULL,
+        [RtsServiceId]       [int] NULL,
+        [MahaItServiceId]    [int] NULL,
+        [UlbId]              [int] NULL,
+        [UlbDistrict]        [int] NULL,
+        [Status]             [varchar](50) NOT NULL CONSTRAINT [DF_AapleSarkarRequest_Status] DEFAULT ('Received'),
+        [RawPayload]         [nvarchar](max) NULL,
+        [CreatedDate]        [datetime] NOT NULL CONSTRAINT [DF_AapleSarkarRequest_CreatedDate] DEFAULT (GETDATE()),
+        [UpdatedDate]        [datetime] NULL,
+        [CreatedBy]          [int] NULL,
+        [UpdatedBy]          [int] NULL,
+        [IsActive]           [bit] NOT NULL CONSTRAINT [DF_AapleSarkarRequest_IsActive] DEFAULT (1),
+
+        CONSTRAINT [PK_AapleSarkarRequest] PRIMARY KEY CLUSTERED ([Id] ASC),
+        CONSTRAINT [FK_AapleSarkarRequest_ApplicationDetails] FOREIGN KEY ([ApplicationId]) REFERENCES [RTS].[ApplicationDetails] ([Id]),
+        CONSTRAINT [FK_AapleSarkarRequest_ServiceMaster] FOREIGN KEY ([RtsServiceId]) REFERENCES [RTS].[ServiceMaster] ([Id])
+    );
+END;
+GO
+
+-- 4. [RTS].[AapleSarkarStatusLog]
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AapleSarkarStatusLog')
+BEGIN
+    CREATE TABLE [RTS].[AapleSarkarStatusLog](
+        [Id]                 [bigint] IDENTITY(1,1) NOT NULL,
+        [AapleSarkarTrackId] [varchar](50) NOT NULL,
+        [ApplicationNo]      [varchar](50) NULL,
+        [Status]             [varchar](50) NOT NULL,
+        [Remark]             [nvarchar](500) NULL,
+        [CreatedDate]        [datetime] NOT NULL CONSTRAINT [DF_AapleSarkarStatusLog_CreatedDate] DEFAULT (GETDATE()),
+        [CreatedBy]          [varchar](100) NULL,
+
+        CONSTRAINT [PK_AapleSarkarStatusLog] PRIMARY KEY CLUSTERED ([Id] ASC)
+    );
+END;
+GO
+
+-- 5. [RTS].[AapleSarkarWebhookLog]
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AapleSarkarWebhookLog')
+BEGIN
+    CREATE TABLE [RTS].[AapleSarkarWebhookLog](
+        [Id]                 [bigint] IDENTITY(1,1) NOT NULL,
+        [AapleSarkarTrackId] [varchar](50) NOT NULL,
+        [ApplicationNo]      [varchar](50) NULL,
+        [ServiceId]          [int] NULL,
+        [Status]             [varchar](50) NOT NULL,
+        [MahaItStatusCode]   [varchar](10) NULL,
+        [RequestPayload]     [nvarchar](max) NULL,
+        [ResponsePayload]    [nvarchar](max) NULL,
+        [IsSuccess]          [bit] NOT NULL CONSTRAINT [DF_AapleSarkarWebhookLog_IsSuccess] DEFAULT (0),
+        [CreatedDate]        [datetime] NOT NULL CONSTRAINT [DF_AapleSarkarWebhookLog_CreatedDate] DEFAULT (GETDATE()),
+
+        CONSTRAINT [PK_AapleSarkarWebhookLog] PRIMARY KEY CLUSTERED ([Id] ASC)
+    );
+END;
+GO
+
+
 
 /* ============================================================================
    RTS High-Performance Non-Clustered Indexes
@@ -976,3 +1105,34 @@ BEGIN
     INCLUDE ([ZoneName], [ZoneNameLocal], [OfficerName], [OfficerNameLocal], [Designation], [DesignationLocal], [MobileNo]);
 END;
 GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_AapleSarkarRequest_TrackId' AND object_id = OBJECT_ID(N'[RTS].[AapleSarkarRequest]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_AapleSarkarRequest_TrackId]
+    ON [RTS].[AapleSarkarRequest] ([AapleSarkarTrackId])
+    INCLUDE ([ApplicationNo], [Status]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_AapleSarkarRequest_ApplicationNo' AND object_id = OBJECT_ID(N'[RTS].[AapleSarkarRequest]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_AapleSarkarRequest_ApplicationNo]
+    ON [RTS].[AapleSarkarRequest] ([ApplicationNo])
+    WHERE ([ApplicationNo] IS NOT NULL);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_AapleSarkarStatusLog_TrackId' AND object_id = OBJECT_ID(N'[RTS].[AapleSarkarStatusLog]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_AapleSarkarStatusLog_TrackId]
+    ON [RTS].[AapleSarkarStatusLog] ([AapleSarkarTrackId], [CreatedDate] DESC);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_AapleSarkarWebhookLog_TrackId' AND object_id = OBJECT_ID(N'[RTS].[AapleSarkarWebhookLog]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_AapleSarkarWebhookLog_TrackId]
+    ON [RTS].[AapleSarkarWebhookLog] ([AapleSarkarTrackId], [CreatedDate] DESC);
+END;
+GO
+
