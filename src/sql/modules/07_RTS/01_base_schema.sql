@@ -963,7 +963,6 @@ BEGIN
     CREATE TABLE [RTS].[AapleSarkarRequest](
         [Id]                 [bigint] IDENTITY(1,1) NOT NULL,
         [AapleSarkarTrackId] [varchar](50) NOT NULL,
-        [ApplicationId]      [int] NULL,
         [ApplicationNo]      [varchar](50) NULL,
         [CitizenUserId]      [varchar](100) NULL,
         [CitizenName]        [nvarchar](200) NULL,
@@ -974,7 +973,7 @@ BEGIN
         [VillageId]          [int] NULL,
         [DivisionId]         [int] NULL,
         [RtsServiceId]       [int] NULL,
-        [GovtCode]           [int] NULL,
+        [ServiceId]          [varchar](50) NULL,
         [UlbId]              [int] NULL,
         [UlbDistrict]        [int] NULL,
         [Status]             [varchar](50) NOT NULL CONSTRAINT [DF_AapleSarkarRequest_Status] DEFAULT ('Received'),
@@ -986,7 +985,7 @@ BEGIN
         [IsActive]           [bit] NOT NULL CONSTRAINT [DF_AapleSarkarRequest_IsActive] DEFAULT (1),
 
         CONSTRAINT [PK_AapleSarkarRequest] PRIMARY KEY CLUSTERED ([Id] ASC),
-        CONSTRAINT [FK_AapleSarkarRequest_ApplicationDetails] FOREIGN KEY ([ApplicationId]) REFERENCES [RTS].[ApplicationDetails] ([Id]),
+        CONSTRAINT [UQ_AapleSarkarRequest_TrackId] UNIQUE NONCLUSTERED ([AapleSarkarTrackId] ASC),
         CONSTRAINT [FK_AapleSarkarRequest_ServiceMaster] FOREIGN KEY ([RtsServiceId]) REFERENCES [RTS].[ServiceMaster] ([Id])
     );
 END;
