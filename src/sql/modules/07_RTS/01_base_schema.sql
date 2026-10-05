@@ -51,7 +51,6 @@ BEGIN
     (
         [Id]                    INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
         [DepartmentId]          INT NOT NULL,
-        [GovtCode]              INT NULL,
         [ServiceName]           NVARCHAR(200) NOT NULL,
         [ServiceNameLocal]      NVARCHAR(MAX) NULL,
         [Description]           NVARCHAR(500) NULL,
@@ -942,7 +941,7 @@ BEGIN
     CREATE TABLE [RTS].[AapleSarkarServiceMapping](
         [Id]                [int] IDENTITY(1,1) NOT NULL,
         [RtsServiceId]      [int] NOT NULL,
-        [GovtCode]          [int] NOT NULL,
+        [MahaITServiceId]   [int] NOT NULL,
         [GovtServiceName]   [nvarchar](255) NULL,
         [MaxProcessingDays] [int] NOT NULL CONSTRAINT [DF_AapleSarkarServiceMapping_MaxProcessingDays] DEFAULT (7),
         [CreatedDate]       [datetime] NOT NULL CONSTRAINT [DF_AapleSarkarServiceMapping_CreatedDate] DEFAULT (GETDATE()),
