@@ -7088,8 +7088,10 @@ SET IDENTITY_INSERT [RTS].[AapleSarkarCredential] ON;
 GO
 MERGE INTO [RTS].[AapleSarkarCredential] AS target
 USING (VALUES
-    (1, 1, 2, 501, 'AKMCDEPT', 'GAKMCA8v4G8F', '@pn@AKM@m@h@0nl!ne@30446', 'AKM@02@4', 'http://testcitizenservices.mahaitgov.in/Dept_Authentication.asmx', 'http://localhost:3000', '2026-09-28T18:06:01.000', NULL, NULL, NULL, 1)
-) AS source ([Id], [IntegrationId], [UlbId], [UlbDistrict], [ClientCode], [ChecksumKey], [EncryptionKey], [EncryptionIV], [ServiceUrl], [PortalBaseUrl], [CreatedDate], [UpdatedDate], [CreatedBy], [UpdatedBy], [IsActive])
+    (1, 1, 2, 501, 'AKMCDEPT', 'GAKMCA8v4G8F', '@pn@AKM@m@h@0nl!ne@30446', 'AKM@02@4', 'http://testcitizenservices.mahaitgov.in/Dept_Authentication.asmx', 'http://localhost:3000', 'http://localhost:3000/mr/service/dashboard', 'https://rtsdashboarddeptapi.mahaitgov.in/api/Token/GetToken', 'https://rtsdashboarddeptapi.mahaitgov.in/api/Dashboard/PushDepartmentDetails', '4332093E-07D9-4765-AA1E-4C6A640ACF94', 'AKMCDEPT', 6, 520, 4173, '2026-09-28T18:06:01.000', NULL, NULL, NULL, 1)
+) AS source (
+    [Id], [IntegrationId], [UlbId], [UlbDistrict], [ClientCode], [ChecksumKey], [EncryptionKey], [EncryptionIV], [ServiceUrl], [PortalBaseUrl], [DashboardUrl], [MahaITTokenUrl], [MahaITPushUrl], [MahaITClientSecretKey], [MahaITDepartmentCode], [Division], [District], [Taluka], [CreatedDate], [UpdatedDate], [CreatedBy], [UpdatedBy], [IsActive]
+)
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
     UPDATE SET
@@ -7102,10 +7104,22 @@ WHEN MATCHED THEN
         target.[EncryptionIV] = source.[EncryptionIV],
         target.[ServiceUrl] = source.[ServiceUrl],
         target.[PortalBaseUrl] = source.[PortalBaseUrl],
+        target.[DashboardUrl] = source.[DashboardUrl],
+        target.[MahaITTokenUrl] = source.[MahaITTokenUrl],
+        target.[MahaITPushUrl] = source.[MahaITPushUrl],
+        target.[MahaITClientSecretKey] = source.[MahaITClientSecretKey],
+        target.[MahaITDepartmentCode] = source.[MahaITDepartmentCode],
+        target.[Division] = source.[Division],
+        target.[District] = source.[District],
+        target.[Taluka] = source.[Taluka],
         target.[IsActive] = source.[IsActive]
 WHEN NOT MATCHED BY TARGET THEN
-    INSERT ([Id], [IntegrationId], [UlbId], [UlbDistrict], [ClientCode], [ChecksumKey], [EncryptionKey], [EncryptionIV], [ServiceUrl], [PortalBaseUrl], [CreatedDate], [UpdatedDate], [CreatedBy], [UpdatedBy], [IsActive])
-    VALUES (source.[Id], source.[IntegrationId], source.[UlbId], source.[UlbDistrict], source.[ClientCode], source.[ChecksumKey], source.[EncryptionKey], source.[EncryptionIV], source.[ServiceUrl], source.[PortalBaseUrl], source.[CreatedDate], source.[UpdatedDate], source.[CreatedBy], source.[UpdatedBy], source.[IsActive]);
+    INSERT (
+        [Id], [IntegrationId], [UlbId], [UlbDistrict], [ClientCode], [ChecksumKey], [EncryptionKey], [EncryptionIV], [ServiceUrl], [PortalBaseUrl], [DashboardUrl], [MahaITTokenUrl], [MahaITPushUrl], [MahaITClientSecretKey], [MahaITDepartmentCode], [Division], [District], [Taluka], [CreatedDate], [UpdatedDate], [CreatedBy], [UpdatedBy], [IsActive]
+    )
+    VALUES (
+        source.[Id], source.[IntegrationId], source.[UlbId], source.[UlbDistrict], source.[ClientCode], source.[ChecksumKey], source.[EncryptionKey], source.[EncryptionIV], source.[ServiceUrl], source.[PortalBaseUrl], source.[DashboardUrl], source.[MahaITTokenUrl], source.[MahaITPushUrl], source.[MahaITClientSecretKey], source.[MahaITDepartmentCode], source.[Division], source.[District], source.[Taluka], source.[CreatedDate], source.[UpdatedDate], source.[CreatedBy], source.[UpdatedBy], source.[IsActive]
+    );
 GO
 SET IDENTITY_INSERT [RTS].[AapleSarkarCredential] OFF;
 GO

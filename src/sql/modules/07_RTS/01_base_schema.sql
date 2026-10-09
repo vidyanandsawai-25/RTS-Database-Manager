@@ -908,21 +908,29 @@ GO
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AapleSarkarCredential')
 BEGIN
     CREATE TABLE [RTS].[AapleSarkarCredential](
-        [Id]            [int] IDENTITY(1,1) NOT NULL,
-        [IntegrationId] [int] NOT NULL CONSTRAINT [DF_AapleSarkarCredential_IntegrationId] DEFAULT (1),
-        [UlbId]         [int] NOT NULL,
-        [UlbDistrict]   [int] NOT NULL,
-        [ClientCode]    [varchar](50) NOT NULL,
-        [ChecksumKey]   [varchar](100) NOT NULL,
-        [EncryptionKey] [varchar](100) NOT NULL,
-        [EncryptionIV]  [varchar](100) NOT NULL,
-        [ServiceUrl]    [varchar](255) NULL,
-        [PortalBaseUrl] [varchar](255) NULL,
-        [CreatedDate]   [datetime] NOT NULL CONSTRAINT [DF_AapleSarkarCredential_CreatedDate] DEFAULT (GETDATE()),
-        [UpdatedDate]   [datetime] NULL,
-        [CreatedBy]     [int] NULL,
-        [UpdatedBy]     [int] NULL,
-        [IsActive]      [bit] NOT NULL CONSTRAINT [DF_AapleSarkarCredential_IsActive] DEFAULT (1),
+        [Id]                    [int] IDENTITY(1,1) NOT NULL,
+        [IntegrationId]         [int] NOT NULL CONSTRAINT [DF_AapleSarkarCredential_IntegrationId] DEFAULT (1),
+        [UlbId]                 [int] NOT NULL,
+        [UlbDistrict]           [int] NOT NULL,
+        [ClientCode]            [varchar](50) NOT NULL,
+        [ChecksumKey]           [varchar](100) NOT NULL,
+        [EncryptionKey]         [varchar](100) NOT NULL,
+        [EncryptionIV]          [varchar](100) NOT NULL,
+        [ServiceUrl]            [varchar](255) NULL,
+        [PortalBaseUrl]         [varchar](255) NULL,
+        [DashboardUrl]          [varchar](500) NULL,
+        [MahaITTokenUrl]        [varchar](500) NULL,
+        [MahaITPushUrl]         [varchar](500) NULL,
+        [MahaITClientSecretKey] [varchar](200) NULL,
+        [MahaITDepartmentCode]  [varchar](50) NULL,
+        [Division]              [int] NULL,
+        [District]              [int] NULL,
+        [Taluka]                [int] NULL,
+        [CreatedDate]           [datetime] NOT NULL CONSTRAINT [DF_AapleSarkarCredential_CreatedDate] DEFAULT (GETDATE()),
+        [UpdatedDate]           [datetime] NULL,
+        [CreatedBy]             [int] NULL,
+        [UpdatedBy]             [int] NULL,
+        [IsActive]              [bit] NOT NULL CONSTRAINT [DF_AapleSarkarCredential_IsActive] DEFAULT (1),
 
         CONSTRAINT [PK_AapleSarkarCredential] PRIMARY KEY CLUSTERED ([Id] ASC)
     );
@@ -932,6 +940,20 @@ GO
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AapleSarkarCredential' AND COLUMN_NAME = 'PortalBaseUrl')
 BEGIN
     ALTER TABLE [RTS].[AapleSarkarCredential] ADD [PortalBaseUrl] VARCHAR(255) NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AapleSarkarCredential' AND COLUMN_NAME = 'DashboardUrl')
+BEGIN
+    ALTER TABLE [RTS].[AapleSarkarCredential] ADD
+        [DashboardUrl]          VARCHAR(500) NULL,
+        [MahaITTokenUrl]        VARCHAR(500) NULL,
+        [MahaITPushUrl]         VARCHAR(500) NULL,
+        [MahaITClientSecretKey] VARCHAR(200) NULL,
+        [MahaITDepartmentCode]  VARCHAR(50) NULL,
+        [Division]              INT NULL,
+        [District]              INT NULL,
+        [Taluka]                INT NULL;
 END;
 GO
 
@@ -1023,6 +1045,61 @@ BEGIN
         [CreatedDate]        [datetime] NOT NULL CONSTRAINT [DF_AapleSarkarWebhookLog_CreatedDate] DEFAULT (GETDATE()),
 
         CONSTRAINT [PK_AapleSarkarWebhookLog] PRIMARY KEY CLUSTERED ([Id] ASC)
+    );
+END;
+GO
+
+-- 6. [RTS].[MahaITDashboardReport]
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'MahaITDashboardReport')
+BEGIN
+    CREATE TABLE [RTS].[MahaITDashboardReport](
+        [Id]                  [int] IDENTITY(1,1) NOT NULL,
+        [ReportYear]          [int] NOT NULL,
+        [ReportMonth]         [int] NOT NULL,
+        [RtsServiceId]        [int] NOT NULL,
+        [MahaITServiceId]     [int] NOT NULL,
+        [ServiceName]         [nvarchar](250) NULL,
+        [DepartmentCode]      [varchar](50) NOT NULL CONSTRAINT [DF_MahaITDashboardReport_DepartmentCode] DEFAULT ('AKMC'),
+        [Division]            [int] NOT NULL CONSTRAINT [DF_MahaITDashboardReport_Division] DEFAULT (6),
+        [District]            [int] NOT NULL CONSTRAINT [DF_MahaITDashboardReport_District] DEFAULT (520),
+        [Taluka]              [int] NOT NULL CONSTRAINT [DF_MahaITDashboardReport_Taluka] DEFAULT (4173),
+        [Approved]            [int] NOT NULL CONSTRAINT [DF_MahaITDashboardReport_Approved] DEFAULT (0),
+        [Rejected]            [int] NOT NULL CONSTRAINT [DF_MahaITDashboardReport_Rejected] DEFAULT (0),
+        [PendingatUser]       [int] NOT NULL CONSTRAINT [DF_MahaITDashboardReport_PendingatUser] DEFAULT (0),
+        [PendingatDepartment] [int] NOT NULL CONSTRAINT [DF_MahaITDashboardReport_PendingatDepartment] DEFAULT (0),
+        [OnTimeDelivery]      [int] NOT NULL CONSTRAINT [DF_MahaITDashboardReport_OnTimeDelivery] DEFAULT (0),
+        [NotOnTimeDelivery]   [int] NOT NULL CONSTRAINT [DF_MahaITDashboardReport_NotOnTimeDelivery] DEFAULT (0),
+        [ApplicationSource]   [varchar](2) NOT NULL CONSTRAINT [DF_MahaITDashboardReport_ApplicationSource] DEFAULT ('U'),
+        [PaymentMode]         [varchar](5) NOT NULL CONSTRAINT [DF_MahaITDashboardReport_PaymentMode] DEFAULT ('PG'),
+        [GeneratedOn]         [datetime] NOT NULL CONSTRAINT [DF_MahaITDashboardReport_GeneratedOn] DEFAULT (GETUTCDATE()),
+        [LastPushedOn]        [datetime] NULL,
+        [PushStatus]          [varchar](50) NULL,
+        [PushResponse]        [nvarchar](max) NULL,
+
+        CONSTRAINT [PK_MahaITDashboardReport] PRIMARY KEY CLUSTERED ([Id] ASC),
+        CONSTRAINT [UQ_MahaITDashboardReport_Year_Month_Service] UNIQUE NONCLUSTERED ([ReportYear] ASC, [ReportMonth] ASC, [RtsServiceId] ASC)
+    );
+END;
+GO
+
+-- 7. [RTS].[MahaITDashboardPushLog]
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'MahaITDashboardPushLog')
+BEGIN
+    CREATE TABLE [RTS].[MahaITDashboardPushLog](
+        [Id]              [int] IDENTITY(1,1) NOT NULL,
+        [ReportYear]      [int] NOT NULL,
+        [ReportMonth]     [int] NOT NULL,
+        [TotalServices]   [int] NOT NULL,
+        [SuccessServices] [int] NOT NULL CONSTRAINT [DF_MahaITDashboardPushLog_SuccessServices] DEFAULT (0),
+        [FailedServices]  [int] NOT NULL CONSTRAINT [DF_MahaITDashboardPushLog_FailedServices] DEFAULT (0),
+        [IsSuccess]       [bit] NOT NULL CONSTRAINT [DF_MahaITDashboardPushLog_IsSuccess] DEFAULT (0),
+        [TokenObtained]   [bit] NOT NULL CONSTRAINT [DF_MahaITDashboardPushLog_TokenObtained] DEFAULT (0),
+        [RequestBody]     [nvarchar](max) NULL,
+        [ResponseBody]    [nvarchar](max) NULL,
+        [ErrorMessage]    [nvarchar](max) NULL,
+        [PushedAt]        [datetime] NOT NULL CONSTRAINT [DF_MahaITDashboardPushLog_PushedAt] DEFAULT (GETUTCDATE()),
+
+        CONSTRAINT [PK_MahaITDashboardPushLog] PRIMARY KEY CLUSTERED ([Id] ASC)
     );
 END;
 GO
@@ -1130,6 +1207,21 @@ IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_AapleSarkarWebhookLog_
 BEGIN
     CREATE NONCLUSTERED INDEX [IX_AapleSarkarWebhookLog_TrackId]
     ON [RTS].[AapleSarkarWebhookLog] ([AapleSarkarTrackId], [CreatedDate] DESC);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_MahaITDashboardReport_Year_Month' AND object_id = OBJECT_ID(N'[RTS].[MahaITDashboardReport]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_MahaITDashboardReport_Year_Month]
+    ON [RTS].[MahaITDashboardReport] ([ReportYear], [ReportMonth])
+    INCLUDE ([RtsServiceId], [MahaITServiceId], [Approved], [Rejected], [OnTimeDelivery]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_MahaITDashboardPushLog_Year_Month' AND object_id = OBJECT_ID(N'[RTS].[MahaITDashboardPushLog]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_MahaITDashboardPushLog_Year_Month]
+    ON [RTS].[MahaITDashboardPushLog] ([ReportYear], [ReportMonth], [PushedAt] DESC);
 END;
 GO
 
