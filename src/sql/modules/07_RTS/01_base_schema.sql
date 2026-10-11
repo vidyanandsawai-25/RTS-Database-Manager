@@ -926,6 +926,10 @@ BEGIN
         [Division]              [int] NULL,
         [District]              [int] NULL,
         [Taluka]                [int] NULL,
+        [DailyPushEnabled]      [bit] NOT NULL CONSTRAINT [DF_AapleSarkarCredential_DailyPushEnabled] DEFAULT (1),
+        [MorningPushHour]       [int] NOT NULL CONSTRAINT [DF_AapleSarkarCredential_MorningPushHour] DEFAULT (6),
+        [MorningPushMinute]     [int] NOT NULL CONSTRAINT [DF_AapleSarkarCredential_MorningPushMinute] DEFAULT (0),
+        [RunOnStartup]          [bit] NOT NULL CONSTRAINT [DF_AapleSarkarCredential_RunOnStartup] DEFAULT (0),
         [CreatedDate]           [datetime] NOT NULL CONSTRAINT [DF_AapleSarkarCredential_CreatedDate] DEFAULT (GETDATE()),
         [UpdatedDate]           [datetime] NULL,
         [CreatedBy]             [int] NULL,
@@ -954,6 +958,16 @@ BEGIN
         [Division]              INT NULL,
         [District]              INT NULL,
         [Taluka]                INT NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AapleSarkarCredential' AND COLUMN_NAME = 'DailyPushEnabled')
+BEGIN
+    ALTER TABLE [RTS].[AapleSarkarCredential] ADD
+        [DailyPushEnabled]      BIT NOT NULL CONSTRAINT [DF_AapleSarkarCredential_DailyPushEnabled_Alt] DEFAULT (1),
+        [MorningPushHour]       INT NOT NULL CONSTRAINT [DF_AapleSarkarCredential_MorningPushHour_Alt] DEFAULT (6),
+        [MorningPushMinute]     INT NOT NULL CONSTRAINT [DF_AapleSarkarCredential_MorningPushMinute_Alt] DEFAULT (0),
+        [RunOnStartup]          BIT NOT NULL CONSTRAINT [DF_AapleSarkarCredential_RunOnStartup_Alt] DEFAULT (0);
 END;
 GO
 
