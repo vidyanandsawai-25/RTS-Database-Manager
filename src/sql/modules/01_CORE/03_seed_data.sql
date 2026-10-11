@@ -1,4 +1,4 @@
-﻿SET ANSI_NULLS ON
+SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
@@ -121,7 +121,7 @@ SET IDENTITY_INSERT [CORE].[ScreenGroupMaster] OFF;
 GO
 
 /* ----------------------------------------------------------------------------
-   Table: [CORE].[ScreenMaster] (45 rows)
+   Table: [CORE].[ScreenMaster] (48 rows)
    ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [CORE].[ScreenMaster] ON;
 GO
@@ -171,7 +171,10 @@ USING (VALUES
     (5017, 3004, 1005, N'RTS_OFFICER_DASHBOARD', N'Officer Dashboard', N'अधिकारी डॅशबोर्ड', N'LayoutDashboard', N'/rts/officer-dashboard', 1, 0, 0, 1, 1, 1002, '2026-08-26T16:07:54.230', NULL, NULL, 5),
     (5018, 3004, 1005, N'RTS_APPEAL_DASHBOARD', N'Appeals Management', N'अपील व्यवस्थापन', N'Gavel', N'/rts/appeals', 1, 0, 0, 2, 1, 1002, '2026-08-26T16:07:54.230', NULL, NULL, 5),
     (5019, 2005, 1005, N'RTS_DEPARTMENTS', N'Department Master', N'विभाग व्यवस्थापन', N'Building2', N'/rts/configuration-settings/rts-departments', 1, 0, 0, 1, 1, 1002, '2026-08-26T16:07:54.230', NULL, NULL, 5),
-    (5020, 2005, 1005, N'RTS_OFFICERS', N'Service Officers', N'à¤¸à¥‡à¤µà¤¾ à¤…à¤§à¤¿à¤•à¤¾à¤°à¥€ à¤µà¤¾à¤Ÿà¤ª', N'UserCheck', N'/rts/configuration-settings/rts-officers', 1, 1, 0, 7, 1, 1002, '2026-09-04T18:51:00.677', NULL, NULL, 5)
+    (5020, 2005, 1005, N'RTS_OFFICERS', N'Service Officers', N'à¤¸à¥‡à¤µà¤¾ à¤…à¤§à¤¿à¤•à¤¾à¤°à¥€ à¤µà¤¾à¤Ÿà¤ª', N'UserCheck', N'/rts/configuration-settings/rts-officers', 1, 1, 0, 7, 1, 1002, '2026-09-04T18:51:00.677', NULL, NULL, 5),
+    (6020, 2005, 1005, N'RTS_USER_MASTER', N'RTS User Master', N'RTS User Master', N'UserCheck', N'/rts/configuration-settings/rts-user', 1, 1, 0, 8, 1, 1002, '2026-09-29T13:40:12.390', 1002, '2026-10-02T15:40:17.773', 5),
+    (6021, 2005, 1005, N'RTS_SCREEN_MASTER', N'RTS Screen Master', N'RTS Screen Master', N'Sliders', N'/rts/configuration-settings/rts-screen', 1, 1, 0, 9, 1, 1002, '2026-09-29T13:40:12.390', 1002, '2026-10-02T15:40:25.467', 5),
+    (6022, 2005, 1005, N'RTS_RULE_MASTER', N'RTS Rule Master', N'RTS नियम मास्टर', N'PencilRuler', N'/rts/configuration-settings/rts-rule', 1, 1, NULL, 11, 1, 1002, '2026-10-03T13:00:23.413', NULL, NULL, 5)
 ) AS source ([Id], [ScreenGroupId], [ModuleId], [ScreenCode], [ScreenName], [ScreenNameLocal], [ScreenIcon], [RoutePath], [IsMenu], [IsAuthenticationRequired], [IsPropertyLockable], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DepartmentId])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -294,7 +297,7 @@ SET IDENTITY_INSERT [CORE].[UserMaster] OFF;
 GO
 
 /* ----------------------------------------------------------------------------
-   Table: [CORE].[UserRoleAllocation] (31 rows)
+   Table: [CORE].[UserRoleAllocation] (40 rows)
    ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [CORE].[UserRoleAllocation] ON;
 GO
@@ -330,7 +333,16 @@ USING (VALUES
     (4019, 6, 5, 1, 1, 1, '2026-09-10T13:30:01.153', NULL, NULL),
     (4020, 5, 1, 1, 0, 1, '2026-09-10T13:50:10.593', 1, '2026-09-10T13:59:17.587'),
     (4021, 5, 2, 1, 0, 1, '2026-09-10T13:50:10.593', 1, '2026-09-10T13:59:17.587'),
-    (4022, 5, 3, 1, 0, 1, '2026-09-10T13:50:10.593', 1, '2026-09-10T13:59:17.587')
+    (4022, 5, 3, 1, 0, 1, '2026-09-10T13:50:10.593', 1, '2026-09-10T13:59:17.587'),
+    (5021, 1002, 3, 1006, 1, 1002, '2026-09-30T20:08:04.250', 1002, '2026-09-30T20:08:32.603'),
+    (5022, 1002, 5, 1002, 0, 1002, '2026-09-30T20:08:04.250', 1002, '2026-10-01T17:45:11.007'),
+    (5023, 1002, 5, 1003, 0, 1002, '2026-09-30T20:08:04.250', 1002, '2026-10-01T17:45:11.007'),
+    (5024, 1002, 5, 1004, 0, 1002, '2026-09-30T20:08:04.250', 1002, '2026-10-01T17:45:11.007'),
+    (5025, 1, 5, 1002, 1, 1002, '2026-09-30T20:24:57.930', NULL, NULL),
+    (6016, 7, 5, 1002, 1, 1002, '2026-10-01T16:01:52.813', NULL, NULL),
+    (6017, 3004, 5, 1002, 0, 1002, '2026-10-01T18:28:21.787', 1002, '2026-10-01T18:28:39.867'),
+    (6018, 8, 5, 1002, 1, 1002, '2026-10-01T18:45:45.320', NULL, NULL),
+    (6019, 9, 5, 1002, 1, 1002, '2026-10-01T18:46:15.683', NULL, NULL)
 ) AS source ([Id], [UserId], [DepartmentId], [UserRoleId], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -460,7 +472,7 @@ SET IDENTITY_INSERT [CORE].[UserModuleAllocation] OFF;
 GO
 
 /* ----------------------------------------------------------------------------
-   Table: [CORE].[RoleWiseScreenAccessMaster] (22 rows)
+   Table: [CORE].[RoleWiseScreenAccessMaster] (29 rows)
    ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [CORE].[RoleWiseScreenAccessMaster] ON;
 GO
@@ -487,7 +499,14 @@ USING (VALUES
     (3015, 2, 4021, 1, 1, 1, 1, 0, 1, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
     (3016, 2, 4022, 1, 1, 1, 1, 0, 1, 1, '2026-07-27T17:15:41.577', 1002, '2026-08-26T15:31:32.030'),
     (4008, 2, 5014, 1, 1, 1, 1, 0, 1, 1002, '2026-08-26T14:56:19.960', 1002, '2026-08-26T15:31:32.030'),
-    (4009, 2, 5020, 1, 1, 1, 1, 0, 1, 1002, '2026-09-04T18:52:06.060', NULL, NULL)
+    (4009, 2, 5020, 1, 1, 1, 1, 0, 1, 1002, '2026-09-04T18:52:06.060', NULL, NULL),
+    (5009, 2, 6020, 1, 1, 1, 1, 0, 1, 1, '2026-09-29T13:49:52.403', 3, '2026-09-29T13:50:01.850'),
+    (5010, 2, 6021, 1, 1, 1, 1, 0, 1, 1, '2026-09-29T13:49:52.403', 3, '2026-09-29T13:50:01.850'),
+    (5011, 1002, 4016, 1, 0, 0, 0, 0, 0, 1, '2026-09-30T20:39:13.093', 1002, '2026-10-02T12:10:02.140'),
+    (6011, 1002, 4017, 1, 0, 0, 0, 0, 1, 1002, '2026-10-01T18:08:08.270', 1002, '2026-10-01T18:55:01.580'),
+    (6012, 1003, 4016, 1, 0, 0, 0, 0, 1, 1002, '2026-10-01T18:55:50.537', NULL, NULL),
+    (6013, 1003, 4017, 1, 0, 0, 0, 0, 1, 1002, '2026-10-01T18:56:29.100', 1002, '2026-10-01T18:56:55.490'),
+    (7011, 2, 6022, 1, 1, 1, 1, 0, 1, 1002, '2026-10-03T13:01:26.313', NULL, NULL)
 ) AS source ([Id], [UserRoleId], [ScreenId], [CanView], [CanEdit], [CanDelete], [HaveFullAccess], [HaveNoAccess], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN

@@ -1,4 +1,4 @@
-SET ANSI_NULLS ON
+﻿SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
@@ -814,7 +814,7 @@ GO
 
 
 /* ----------------------------------------------------------------------------
-   Table: [RTS].[FieldDefinition] (826 rows)
+   Table: [RTS].[FieldDefinition] (869 rows)
    ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [RTS].[FieldDefinition] ON;
 GO
@@ -4974,7 +4974,1327 @@ USING (VALUES
 }', 0, 60, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-09-10T07:57:52.827', NULL, '2026-09-10T08:23:06.240'),
     (9332, 6, 55, N'passportSizePhotoDoc', N'Passport Size Photo', N'पासपोर्ट आकाराचा फोटो', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', NULL, 52, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-09-10T08:31:39.943', NULL, NULL),
     (9333, 6, 56, N'passportSizePhotoDoc', N'Passport Size Photo', N'पासपोर्ट आकाराचा फोटो', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', NULL, 52, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-09-10T08:31:39.943', NULL, NULL),
-    (9334, 6, 57, N'passportSizePhotoDoc', N'Passport Size Photo', N'पासपोर्ट आकाराचा फोटो', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', NULL, 52, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-09-10T08:31:39.943', NULL, NULL)
+    (9334, 6, 57, N'passportSizePhotoDoc', N'Passport Size Photo', N'पासपोर्ट आकाराचा फोटो', N'file', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', NULL, 52, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-09-10T08:31:39.943', NULL, NULL),
+(537, 12, 51, N'citizenFullName', N'Applicant Full Name', N'अर्जदाराचे पूर्ण नाव', N'text', N'Citizen Details', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-01T16:43:24.783', NULL, NULL),
+    (538, 12, 51, N'mobileno', N'Mobile Number', N'मोबाईल नंबर', N'tel', N'Citizen Details', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-01T16:45:23.050', NULL, NULL),
+    (539, 12, 51, N'email', N'Email', N'ईमेल', N'email', N'Citizen Details', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-01T16:46:26.090', NULL, NULL),
+    (540, 12, 51, N'wardId', N'Ward', N'प्रभाग', N'select', N'Road Location Details', N'[
+  {"value":"A1","label":{"en":"A1","hi":"A1","mr":"A1"}},
+  {"value":"A2","label":{"en":"A2","hi":"A2","mr":"A2"}},
+  {"value":"A3","label":{"en":"A3","hi":"A3","mr":"A3"}},
+  {"value":"A4","label":{"en":"A4","hi":"A4","mr":"A4"}},
+  {"value":"A5","label":{"en":"A5","hi":"A5","mr":"A5"}},
+  {"value":"A6","label":{"en":"A6","hi":"A6","mr":"A6"}},
+  {"value":"A7","label":{"en":"A7","hi":"A7","mr":"A7"}},
+  {"value":"A8","label":{"en":"A8","hi":"A8","mr":"A8"}},
+  {"value":"A9","label":{"en":"A9","hi":"A9","mr":"A9"}},
+  {"value":"A10","label":{"en":"A10","hi":"A10","mr":"A10"}},
+  {"value":"A11","label":{"en":"A11","hi":"A11","mr":"A11"}},
+
+  {"value":"B1","label":{"en":"B1","hi":"B1","mr":"B1"}},
+  {"value":"B2","label":{"en":"B2","hi":"B2","mr":"B2"}},
+  {"value":"B3","label":{"en":"B3","hi":"B3","mr":"B3"}},
+  {"value":"B4","label":{"en":"B4","hi":"B4","mr":"B4"}},
+  {"value":"B5","label":{"en":"B5","hi":"B5","mr":"B5"}},
+  {"value":"B6","label":{"en":"B6","hi":"B6","mr":"B6"}},
+  {"value":"B7","label":{"en":"B7","hi":"B7","mr":"B7"}},
+  {"value":"B8","label":{"en":"B8","hi":"B8","mr":"B8"}},
+  {"value":"B9","label":{"en":"B9","hi":"B9","mr":"B9"}},
+  {"value":"B10","label":{"en":"B10","hi":"B10","mr":"B10"}},
+  {"value":"B11","label":{"en":"B11","hi":"B11","mr":"B11"}},
+  {"value":"B12","label":{"en":"B12","hi":"B12","mr":"B12"}},
+  {"value":"B13","label":{"en":"B13","hi":"B13","mr":"B13"}},
+  {"value":"B14","label":{"en":"B14","hi":"B14","mr":"B14"}},
+
+  {"value":"C1","label":{"en":"C1","hi":"C1","mr":"C1"}},
+  {"value":"C2","label":{"en":"C2","hi":"C2","mr":"C2"}},
+  {"value":"C3","label":{"en":"C3","hi":"C3","mr":"C3"}},
+  {"value":"C4","label":{"en":"C4","hi":"C4","mr":"C4"}},
+  {"value":"C5","label":{"en":"C5","hi":"C5","mr":"C5"}},
+  {"value":"C6","label":{"en":"C6","hi":"C6","mr":"C6"}},
+  {"value":"C7","label":{"en":"C7","hi":"C7","mr":"C7"}},
+  {"value":"C8","label":{"en":"C8","hi":"C8","mr":"C8"}},
+  {"value":"C9","label":{"en":"C9","hi":"C9","mr":"C9"}},
+  {"value":"C10","label":{"en":"C10","hi":"C10","mr":"C10"}},
+  {"value":"C11","label":{"en":"C11","hi":"C11","mr":"C11"}},
+
+  {"value":"D1","label":{"en":"D1","hi":"D1","mr":"D1"}},
+  {"value":"D2","label":{"en":"D2","hi":"D2","mr":"D2"}},
+  {"value":"D3","label":{"en":"D3","hi":"D3","mr":"D3"}},
+  {"value":"D4","label":{"en":"D4","hi":"D4","mr":"D4"}},
+  {"value":"D5","label":{"en":"D5","hi":"D5","mr":"D5"}},
+  {"value":"D6","label":{"en":"D6","hi":"D6","mr":"D6"}},
+  {"value":"D7","label":{"en":"D7","hi":"D7","mr":"D7"}},
+  {"value":"D8","label":{"en":"D8","hi":"D8","mr":"D8"}},
+  {"value":"D9","label":{"en":"D9","hi":"D9","mr":"D9"}},
+  {"value":"D10","label":{"en":"D10","hi":"D10","mr":"D10"}},
+  {"value":"D11","label":{"en":"D11","hi":"D11","mr":"D11"}},
+  {"value":"D12","label":{"en":"D12","hi":"D12","mr":"D12"}}
+]', NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-01T16:49:08.283', NULL, NULL),
+    (541, 12, 51, N'roadStreetName', N'Road / Street Name', N'रस्ता / गल्लीचे नाव', N'text', N'Road Location Details', NULL, NULL, NULL, NULL, 7, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-01T16:51:32.510', NULL, NULL),
+    (542, 12, 51, N'landmark', N'Landmark', N'जवळची खूण', N'text', N'Road Location Details', NULL, NULL, NULL, NULL, 8, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-01T16:56:09.993', NULL, NULL),
+    (543, 12, 51, N'fromLocation', N'From (optional)', N'सुरुवातीचे ठिकाण (ऐच्छिक)', N'text', N'Road Location Details', NULL, NULL, NULL, 0, 9, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-01T17:00:43.357', NULL, NULL),
+    (544, 12, 51, N'toLocation', N'To (optional)', N'अंतिम ठिकाण (ऐच्छिक)', N'text', N'Road Location Details', NULL, NULL, NULL, 0, 10, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-01T17:02:02.967', NULL, NULL),
+    (545, 12, 51, N'DOC_POTHOLE_PHOTO', N'Photo of Street/Road', N'रोड चे छायाचित्र / फोटो', N'fileLatLog', N'Document Uploads', NULL, NULL, N'{"acceptedFormats": ["pdf", "jpg", "jpeg", "png"],"accept": ".pdf,.jpg,.jpeg,.png","maxFileSizeMb": 5}', NULL, 17, NULL, NULL, NULL, NULL, 0, NULL, NULL, '2026-10-01T17:04:51.210', NULL, NULL),
+    (546, 12, 51, N'declaration', N'I hereby declare that the information provided is true and correct.', N'घोषणापत्र / मी सहमत आहे', N'checkbox', N'Declaration', NULL, NULL, NULL, NULL, 18, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-01T17:08:13.310', NULL, NULL),
+    (9335, 7, 167, N'applicantfullname', N'Applicant Full Name', N'अर्जदाराचे पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-02T11:34:45.493', NULL, NULL),
+    (9336, 7, 167, N'mobileno', N'Mobile Number', N'मोबाईल नंबर', N'tel', N'Applicant Details', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-02T11:36:58.653', NULL, NULL),
+    (9337, 7, 167, N'email', N'Email Address', N'ई-मेल पत्ता', N'email', N'Applicant Details', NULL, NULL, N'{
+  "pattern": "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
+  "inputMode": "email"
+}', NULL, 3, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-02T11:39:09.367', NULL, NULL),
+    (9338, 7, 167, N'foodbusinesstype', N'Food Business Type', N'खाद्य व्यवसायाचा प्रकार', N'select', N'Business Location Details', N'[{
+    "value": "restaurant",
+    "label": {
+      "en": "Restaurant / Eating House",
+      "hi": "रेस्तरां / भोजनालय",
+      "mr": "उपाहारगृह / भोजनालय"
+    }
+  },
+  {
+    "value": "tea_snacks",
+    "label": {
+      "en": "Tea and Snacks Centre",
+      "hi": "चाय एवं नाश्ता केंद्र",
+      "mr": "चहा व नाश्ता केंद्र"
+    }
+  },
+  {
+    "value": "bakery",
+    "label": {
+      "en": "Bakery",
+      "hi": "बेकरी",
+      "mr": "बेकरी"
+    }
+  },
+  {
+    "value": "sweet_shop",
+    "label": {
+      "en": "Sweet Shop",
+      "hi": "मिठाई की दुकान",
+      "mr": "मिठाईचे दुकान"
+    }
+  },
+  {
+    "value": "grocery",
+    "label": {
+      "en": "Grocery / Food Retail Shop",
+      "hi": "किराना / खाद्य पदार्थों की खुदरा दुकान",
+      "mr": "किराणा / खाद्यपदार्थ विक्री दुकान"
+    }
+  },
+  {
+    "value": "dairy",
+    "label": {
+      "en": "Milk and Dairy Products Shop",
+      "hi": "दूध एवं दुग्ध उत्पादों की दुकान",
+      "mr": "दूध व दुग्धजन्य पदार्थ विक्री दुकान"
+    }
+  },
+  {
+    "value": "fruit_vegetable",
+    "label": {
+      "en": "Fruit and Vegetable Shop",
+      "hi": "फल एवं सब्जी की दुकान",
+      "mr": "फळे व भाजीपाला विक्री दुकान"
+    }
+  },
+  {
+    "value": "meat_fish",
+    "label": {
+      "en": "Meat / Fish / Poultry Shop",
+      "hi": "मांस / मछली / मुर्गे की दुकान",
+      "mr": "मांस / मासे / कुक्कुट विक्री दुकान"
+    }
+  },
+  {
+    "value": "catering",
+    "label": {
+      "en": "Catering Service",
+      "hi": "खानपान सेवा",
+      "mr": "खानपान सेवा"
+    }
+  },
+  {
+    "value": "food_processing",
+    "label": {
+      "en": "Food Manufacturing / Processing",
+      "hi": "खाद्य पदार्थ निर्माण / प्रसंस्करण",
+      "mr": "खाद्यपदार्थ उत्पादन / प्रक्रिया"
+    }
+  },
+  {
+    "value": "food_stall",
+    "label": {
+      "en": "Food Stall / Handcart",
+      "hi": "खाद्य पदार्थों का स्टॉल / ठेला",
+      "mr": "खाद्यपदार्थ स्टॉल / हातगाडी"
+    }
+  },
+  {
+    "value": "other",
+    "label": {
+      "en": "Other",
+      "hi": "अन्य",
+      "mr": "इतर"
+    }
+  }
+]', NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-02T11:58:01.687', NULL, NULL),
+    (9339, 7, 167, N'ward', N'Ward', N'प्रभाग', N'select', N'Business Location Details', N'[
+  {
+    "value": "A1",
+    "label": {
+      "en": "A1",
+      "hi": "A1",
+      "mr": "A1"
+    }
+  },
+  {
+    "value": "A2",
+    "label": {
+      "en": "A2",
+      "hi": "A2",
+      "mr": "A2"
+    }
+  },
+  {
+    "value": "A3",
+    "label": {
+      "en": "A3",
+      "hi": "A3",
+      "mr": "A3"
+    }
+  },
+  {
+    "value": "A4",
+    "label": {
+      "en": "A4",
+      "hi": "A4",
+      "mr": "A4"
+    }
+  },
+  {
+    "value": "A5",
+    "label": {
+      "en": "A5",
+      "hi": "A5",
+      "mr": "A5"
+    }
+  },
+  {
+    "value": "A6",
+    "label": {
+      "en": "A6",
+      "hi": "A6",
+      "mr": "A6"
+    }
+  },
+  {
+    "value": "A7",
+    "label": {
+      "en": "A7",
+      "hi": "A7",
+      "mr": "A7"
+    }
+  },
+  {
+    "value": "A8",
+    "label": {
+      "en": "A8",
+      "hi": "A8",
+      "mr": "A8"
+    }
+  },
+  {
+    "value": "A9",
+    "label": {
+      "en": "A9",
+      "hi": "A9",
+      "mr": "A9"
+    }
+  },
+  {
+    "value": "A10",
+    "label": {
+      "en": "A10",
+      "hi": "A10",
+      "mr": "A10"
+    }
+  },
+  {
+    "value": "A11",
+    "label": {
+      "en": "A11",
+      "hi": "A11",
+      "mr": "A11"
+    }
+  },
+  {
+    "value": "B1",
+    "label": {
+      "en": "B1",
+      "hi": "B1",
+      "mr": "B1"
+    }
+  },
+  {
+    "value": "B2",
+    "label": {
+      "en": "B2",
+      "hi": "B2",
+      "mr": "B2"
+    }
+  },
+  {
+    "value": "B3",
+    "label": {
+      "en": "B3",
+      "hi": "B3",
+      "mr": "B3"
+    }
+  },
+  {
+    "value": "B4",
+    "label": {
+      "en": "B4",
+      "hi": "B4",
+      "mr": "B4"
+    }
+  },
+  {
+    "value": "B5",
+    "label": {
+      "en": "B5",
+      "hi": "B5",
+      "mr": "B5"
+    }
+  },
+  {
+    "value": "B6",
+    "label": {
+      "en": "B6",
+      "hi": "B6",
+      "mr": "B6"
+    }
+  },
+  {
+    "value": "B7",
+    "label": {
+      "en": "B7",
+      "hi": "B7",
+      "mr": "B7"
+    }
+  },
+  {
+    "value": "B8",
+    "label": {
+      "en": "B8",
+      "hi": "B8",
+      "mr": "B8"
+    }
+  },
+  {
+    "value": "B9",
+    "label": {
+      "en": "B9",
+      "hi": "B9",
+      "mr": "B9"
+    }
+  },
+  {
+    "value": "B10",
+    "label": {
+      "en": "B10",
+      "hi": "B10",
+      "mr": "B10"
+    }
+  },
+  {
+    "value": "B11",
+    "label": {
+      "en": "B11",
+      "hi": "B11",
+      "mr": "B11"
+    }
+  },
+  {
+    "value": "B12",
+    "label": {
+      "en": "B12",
+      "hi": "B12",
+      "mr": "B12"
+    }
+  },
+  {
+    "value": "B13",
+    "label": {
+      "en": "B13",
+      "hi": "B13",
+      "mr": "B13"
+    }
+  },
+  {
+    "value": "B14",
+    "label": {
+      "en": "B14",
+      "hi": "B14",
+      "mr": "B14"
+    }
+  },
+  {
+    "value": "C1",
+    "label": {
+      "en": "C1",
+      "hi": "C1",
+      "mr": "C1"
+    }
+  },
+  {
+    "value": "C2",
+    "label": {
+      "en": "C2",
+      "hi": "C2",
+      "mr": "C2"
+    }
+  },
+  {
+    "value": "C3",
+    "label": {
+      "en": "C3",
+      "hi": "C3",
+      "mr": "C3"
+    }
+  },
+  {
+    "value": "C4",
+    "label": {
+      "en": "C4",
+      "hi": "C4",
+      "mr": "C4"
+    }
+  },
+  {
+    "value": "C5",
+    "label": {
+      "en": "C5",
+      "hi": "C5",
+      "mr": "C5"
+    }
+  },
+  {
+    "value": "C6",
+    "label": {
+      "en": "C6",
+      "hi": "C6",
+      "mr": "C6"
+    }
+  },
+  {
+    "value": "C7",
+    "label": {
+      "en": "C7",
+      "hi": "C7",
+      "mr": "C7"
+    }
+  },
+  {
+    "value": "C8",
+    "label": {
+      "en": "C8",
+      "hi": "C8",
+      "mr": "C8"
+    }
+  },
+  {
+    "value": "C9",
+    "label": {
+      "en": "C9",
+      "hi": "C9",
+      "mr": "C9"
+    }
+  },
+  {
+    "value": "C10",
+    "label": {
+      "en": "C10",
+      "hi": "C10",
+      "mr": "C10"
+    }
+  },
+  {
+    "value": "C11",
+    "label": {
+      "en": "C11",
+      "hi": "C11",
+      "mr": "C11"
+    }
+  },
+  {
+    "value": "D1",
+    "label": {
+      "en": "D1",
+      "hi": "D1",
+      "mr": "D1"
+    }
+  },
+  {
+    "value": "D2",
+    "label": {
+      "en": "D2",
+      "hi": "D2",
+      "mr": "D2"
+    }
+  },
+  {
+    "value": "D3",
+    "label": {
+      "en": "D3",
+      "hi": "D3",
+      "mr": "D3"
+    }
+  },
+  {
+    "value": "D4",
+    "label": {
+      "en": "D4",
+      "hi": "D4",
+      "mr": "D4"
+    }
+  },
+  {
+    "value": "D5",
+    "label": {
+      "en": "D5",
+      "hi": "D5",
+      "mr": "D5"
+    }
+  },
+  {
+    "value": "D6",
+    "label": {
+      "en": "D6",
+      "hi": "D6",
+      "mr": "D6"
+    }
+  },
+  {
+    "value": "D7",
+    "label": {
+      "en": "D7",
+      "hi": "D7",
+      "mr": "D7"
+    }
+  },
+  {
+    "value": "D8",
+    "label": {
+      "en": "D8",
+      "hi": "D8",
+      "mr": "D8"
+    }
+  },
+  {
+    "value": "D9",
+    "label": {
+      "en": "D9",
+      "hi": "D9",
+      "mr": "D9"
+    }
+  },
+  {
+    "value": "D10",
+    "label": {
+      "en": "D10",
+      "hi": "D10",
+      "mr": "D10"
+    }
+  },
+  {
+    "value": "D11",
+    "label": {
+      "en": "D11",
+      "hi": "D11",
+      "mr": "D11"
+    }
+  },
+  {
+    "value": "D12",
+    "label": {
+      "en": "D12",
+      "hi": "D12",
+      "mr": "D12"
+    }
+  }
+]', NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-02T12:01:50.700', NULL, NULL),
+    (9340, 7, 167, N'shopnumber', N'Shop / House Number', N'दुकान / घर क्रमांक', N'text', N'Business Location Details', NULL, NULL, NULL, NULL, 5, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-02T12:03:52.100', NULL, NULL),
+    (9341, 7, 167, N'propertynumber', N'Business Premises Property Number', N'व्यवसायाच्या जागेचा मालमत्ता क्रमांक', N'text', N'Business Location Details', NULL, NULL, NULL, NULL, 7, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-02T12:05:35.670', NULL, NULL),
+    (9342, 7, 167, N'DOC_affidavit', N'Premises Owner’s Consent through Affidavit', N'व्यवसायाच्या जागेच्या मालकाचे प्रतिज्ञापत्राद्वारे संमतीपत्र', N'file', N'Document Uploads', NULL, NULL, NULL, NULL, 8, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-02T12:07:43.507', NULL, NULL),
+    (9343, 7, 167, N'DOC_taxreceipt', N'Current-Year Property Tax Receipt with Tax NOC', N'चालू वर्षाची मालमत्ता कर पावती व कर ना-हरकत प्रमाणपत्र', N'file', N'Document Uploads', NULL, NULL, NULL, NULL, 9, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-02T12:08:24.003', NULL, NULL),
+    (9344, 7, 167, N'businessaddress', N'Business Address / Locality', N'व्यवसायाचा पत्ता / परिसर', N'text', N'Business Location Details', NULL, NULL, NULL, NULL, 7, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-02T12:10:25.183', NULL, NULL),
+    (9345, 7, 166, N'applicantfullname', N'Applicant Full Name', N'अर्जदाराचे पूर्ण नाव', N'text', N'Applicant Details', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-02T12:14:04.660', NULL, NULL),
+    (9346, 7, 166, N'businessaddress', N'Business Address / Locality', N'व्यवसायाचा पत्ता / परिसर', N'text', N'Business Location Details', NULL, NULL, NULL, NULL, 7, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-02T12:15:28.370', NULL, NULL),
+    (9347, 7, 166, N'DOC_affidavit', N'Premises Owner’s Consent through Affidavit', N'व्यवसायाच्या जागेच्या मालकाचे प्रतिज्ञापत्राद्वारे संमतीपत्र', N'file', N'Document Uploads', NULL, NULL, NULL, NULL, 8, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-02T12:16:36.607', NULL, NULL),
+    (9348, 7, 166, N'DOC_taxreceipt', N'Current-Year Property Tax Receipt with Tax NOC', N'चालू वर्षाची मालमत्ता कर पावती व कर ना-हरकत प्रमाणपत्र', N'file', N'Document Uploads', NULL, NULL, NULL, NULL, 9, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-02T12:17:58.413', NULL, NULL),
+    (9349, 7, 166, N'email', N'Email Address', N'ई-मेल पत्ता', N'email', N'Applicant Details', NULL, NULL, N'{
+  "pattern": "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
+  "inputMode": "email"
+}', NULL, 3, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-02T12:19:35.523', NULL, NULL),
+    (9350, 7, 166, N'foodbusinesstype', N'Food Business Type', N'खाद्य व्यवसायाचा प्रकार', N'select', N'Business Location Details', N'[{
+    "value": "restaurant",
+    "label": {
+      "en": "Restaurant / Eating House",
+      "hi": "रेस्तरां / भोजनालय",
+      "mr": "उपाहारगृह / भोजनालय"
+    }
+  },
+  {
+    "value": "tea_snacks",
+    "label": {
+      "en": "Tea and Snacks Centre",
+      "hi": "चाय एवं नाश्ता केंद्र",
+      "mr": "चहा व नाश्ता केंद्र"
+    }
+  },
+  {
+    "value": "bakery",
+    "label": {
+      "en": "Bakery",
+      "hi": "बेकरी",
+      "mr": "बेकरी"
+    }
+  },
+  {
+    "value": "sweet_shop",
+    "label": {
+      "en": "Sweet Shop",
+      "hi": "मिठाई की दुकान",
+      "mr": "मिठाईचे दुकान"
+    }
+  },
+  {
+    "value": "grocery",
+    "label": {
+      "en": "Grocery / Food Retail Shop",
+      "hi": "किराना / खाद्य पदार्थों की खुदरा दुकान",
+      "mr": "किराणा / खाद्यपदार्थ विक्री दुकान"
+    }
+  },
+  {
+    "value": "dairy",
+    "label": {
+      "en": "Milk and Dairy Products Shop",
+      "hi": "दूध एवं दुग्ध उत्पादों की दुकान",
+      "mr": "दूध व दुग्धजन्य पदार्थ विक्री दुकान"
+    }
+  },
+  {
+    "value": "fruit_vegetable",
+    "label": {
+      "en": "Fruit and Vegetable Shop",
+      "hi": "फल एवं सब्जी की दुकान",
+      "mr": "फळे व भाजीपाला विक्री दुकान"
+    }
+  },
+  {
+    "value": "meat_fish",
+    "label": {
+      "en": "Meat / Fish / Poultry Shop",
+      "hi": "मांस / मछली / मुर्गे की दुकान",
+      "mr": "मांस / मासे / कुक्कुट विक्री दुकान"
+    }
+  },
+  {
+    "value": "catering",
+    "label": {
+      "en": "Catering Service",
+      "hi": "खानपान सेवा",
+      "mr": "खानपान सेवा"
+    }
+  },
+  {
+    "value": "food_processing",
+    "label": {
+      "en": "Food Manufacturing / Processing",
+      "hi": "खाद्य पदार्थ निर्माण / प्रसंस्करण",
+      "mr": "खाद्यपदार्थ उत्पादन / प्रक्रिया"
+    }
+  },
+  {
+    "value": "food_stall",
+    "label": {
+      "en": "Food Stall / Handcart",
+      "hi": "खाद्य पदार्थों का स्टॉल / ठेला",
+      "mr": "खाद्यपदार्थ स्टॉल / हातगाडी"
+    }
+  },
+  {
+    "value": "other",
+    "label": {
+      "en": "Other",
+      "hi": "अन्य",
+      "mr": "इतर"
+    }
+  }
+]', NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-02T12:22:50.477', NULL, NULL),
+    (9352, 7, 166, N'mobileno', N'Mobile Number', N'मोबाईल नंबर', N'tel', N'Applicant Details', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-02T12:24:46.133', NULL, NULL),
+    (9353, 7, 166, N'shopnumber', N'Shop / House Number', N'दुकान / घर क्रमांक', N'text', N'Business Location Details', NULL, NULL, NULL, NULL, 5, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-02T12:27:00.150', NULL, NULL),
+    (9354, 7, 166, N'ward', N'Ward', N'प्रभाग', N'select', N'Business Location Details', N'[
+  {
+    "value": "A1",
+    "label": {
+      "en": "A1",
+      "hi": "A1",
+      "mr": "A1"
+    }
+  },
+  {
+    "value": "A2",
+    "label": {
+      "en": "A2",
+      "hi": "A2",
+      "mr": "A2"
+    }
+  },
+  {
+    "value": "A3",
+    "label": {
+      "en": "A3",
+      "hi": "A3",
+      "mr": "A3"
+    }
+  },
+  {
+    "value": "A4",
+    "label": {
+      "en": "A4",
+      "hi": "A4",
+      "mr": "A4"
+    }
+  },
+  {
+    "value": "A5",
+    "label": {
+      "en": "A5",
+      "hi": "A5",
+      "mr": "A5"
+    }
+  },
+  {
+    "value": "A6",
+    "label": {
+      "en": "A6",
+      "hi": "A6",
+      "mr": "A6"
+    }
+  },
+  {
+    "value": "A7",
+    "label": {
+      "en": "A7",
+      "hi": "A7",
+      "mr": "A7"
+    }
+  },
+  {
+    "value": "A8",
+    "label": {
+      "en": "A8",
+      "hi": "A8",
+      "mr": "A8"
+    }
+  },
+  {
+    "value": "A9",
+    "label": {
+      "en": "A9",
+      "hi": "A9",
+      "mr": "A9"
+    }
+  },
+  {
+    "value": "A10",
+    "label": {
+      "en": "A10",
+      "hi": "A10",
+      "mr": "A10"
+    }
+  },
+  {
+    "value": "A11",
+    "label": {
+      "en": "A11",
+      "hi": "A11",
+      "mr": "A11"
+    }
+  },
+  {
+    "value": "B1",
+    "label": {
+      "en": "B1",
+      "hi": "B1",
+      "mr": "B1"
+    }
+  },
+  {
+    "value": "B2",
+    "label": {
+      "en": "B2",
+      "hi": "B2",
+      "mr": "B2"
+    }
+  },
+  {
+    "value": "B3",
+    "label": {
+      "en": "B3",
+      "hi": "B3",
+      "mr": "B3"
+    }
+  },
+  {
+    "value": "B4",
+    "label": {
+      "en": "B4",
+      "hi": "B4",
+      "mr": "B4"
+    }
+  },
+  {
+    "value": "B5",
+    "label": {
+      "en": "B5",
+      "hi": "B5",
+      "mr": "B5"
+    }
+  },
+  {
+    "value": "B6",
+    "label": {
+      "en": "B6",
+      "hi": "B6",
+      "mr": "B6"
+    }
+  },
+  {
+    "value": "B7",
+    "label": {
+      "en": "B7",
+      "hi": "B7",
+      "mr": "B7"
+    }
+  },
+  {
+    "value": "B8",
+    "label": {
+      "en": "B8",
+      "hi": "B8",
+      "mr": "B8"
+    }
+  },
+  {
+    "value": "B9",
+    "label": {
+      "en": "B9",
+      "hi": "B9",
+      "mr": "B9"
+    }
+  },
+  {
+    "value": "B10",
+    "label": {
+      "en": "B10",
+      "hi": "B10",
+      "mr": "B10"
+    }
+  },
+  {
+    "value": "B11",
+    "label": {
+      "en": "B11",
+      "hi": "B11",
+      "mr": "B11"
+    }
+  },
+  {
+    "value": "B12",
+    "label": {
+      "en": "B12",
+      "hi": "B12",
+      "mr": "B12"
+    }
+  },
+  {
+    "value": "B13",
+    "label": {
+      "en": "B13",
+      "hi": "B13",
+      "mr": "B13"
+    }
+  },
+  {
+    "value": "B14",
+    "label": {
+      "en": "B14",
+      "hi": "B14",
+      "mr": "B14"
+    }
+  },
+  {
+    "value": "C1",
+    "label": {
+      "en": "C1",
+      "hi": "C1",
+      "mr": "C1"
+    }
+  },
+  {
+    "value": "C2",
+    "label": {
+      "en": "C2",
+      "hi": "C2",
+      "mr": "C2"
+    }
+  },
+  {
+    "value": "C3",
+    "label": {
+      "en": "C3",
+      "hi": "C3",
+      "mr": "C3"
+    }
+  },
+  {
+    "value": "C4",
+    "label": {
+      "en": "C4",
+      "hi": "C4",
+      "mr": "C4"
+    }
+  },
+  {
+    "value": "C5",
+    "label": {
+      "en": "C5",
+      "hi": "C5",
+      "mr": "C5"
+    }
+  },
+  {
+    "value": "C6",
+    "label": {
+      "en": "C6",
+      "hi": "C6",
+      "mr": "C6"
+    }
+  },
+  {
+    "value": "C7",
+    "label": {
+      "en": "C7",
+      "hi": "C7",
+      "mr": "C7"
+    }
+  },
+  {
+    "value": "C8",
+    "label": {
+      "en": "C8",
+      "hi": "C8",
+      "mr": "C8"
+    }
+  },
+  {
+    "value": "C9",
+    "label": {
+      "en": "C9",
+      "hi": "C9",
+      "mr": "C9"
+    }
+  },
+  {
+    "value": "C10",
+    "label": {
+      "en": "C10",
+      "hi": "C10",
+      "mr": "C10"
+    }
+  },
+  {
+    "value": "C11",
+    "label": {
+      "en": "C11",
+      "hi": "C11",
+      "mr": "C11"
+    }
+  },
+  {
+    "value": "D1",
+    "label": {
+      "en": "D1",
+      "hi": "D1",
+      "mr": "D1"
+    }
+  },
+  {
+    "value": "D2",
+    "label": {
+      "en": "D2",
+      "hi": "D2",
+      "mr": "D2"
+    }
+  },
+  {
+    "value": "D3",
+    "label": {
+      "en": "D3",
+      "hi": "D3",
+      "mr": "D3"
+    }
+  },
+  {
+    "value": "D4",
+    "label": {
+      "en": "D4",
+      "hi": "D4",
+      "mr": "D4"
+    }
+  },
+  {
+    "value": "D5",
+    "label": {
+      "en": "D5",
+      "hi": "D5",
+      "mr": "D5"
+    }
+  },
+  {
+    "value": "D6",
+    "label": {
+      "en": "D6",
+      "hi": "D6",
+      "mr": "D6"
+    }
+  },
+  {
+    "value": "D7",
+    "label": {
+      "en": "D7",
+      "hi": "D7",
+      "mr": "D7"
+    }
+  },
+  {
+    "value": "D8",
+    "label": {
+      "en": "D8",
+      "hi": "D8",
+      "mr": "D8"
+    }
+  },
+  {
+    "value": "D9",
+    "label": {
+      "en": "D9",
+      "hi": "D9",
+      "mr": "D9"
+    }
+  },
+  {
+    "value": "D10",
+    "label": {
+      "en": "D10",
+      "hi": "D10",
+      "mr": "D10"
+    }
+  },
+  {
+    "value": "D11",
+    "label": {
+      "en": "D11",
+      "hi": "D11",
+      "mr": "D11"
+    }
+  },
+  {
+    "value": "D12",
+    "label": {
+      "en": "D12",
+      "hi": "D12",
+      "mr": "D12"
+    }
+  }
+]', NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-02T12:29:17.563', NULL, NULL),
+    (9355, 7, 166, N'businessname', N'Business / Establishment Name', N'व्यवसायाचे / आस्थापनेचे नाव', N'text', N'Business Location Details', NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-02T12:32:55.443', NULL, NULL),
+    (9356, 7, 166, N'propertyno', N'Business Premises Property Number', N'व्यवसायाच्या जागेचा मालमत्ता क्रमांक', N'text', N'Business Location Details', NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-02T12:37:18.570', NULL, NULL),
+    (9357, 9, 65, N'witness1adhar', N'Witness 1 Aadhar Number', N'साक्षीदार १ आधार नंबर', N'number', N'Witness Details', NULL, NULL, N'{
+  "inputMode": "numeric",
+  "allow": "numeric",
+  "exactLength": 12,
+  "pattern": "^[2-9][0-9]{11}$",
+  "message": "Enter a valid 12-digit Aadhaar number."
+}', NULL, 45, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-03T12:29:42.923', NULL, NULL),
+    (9358, 9, 65, N'witness2adhar', N'Witness 2 Aadhar Number', N'साक्षीदार २ आधार नंबर', N'number', N'Witness Details', NULL, NULL, N'{
+  "inputMode": "numeric",
+  "allow": "numeric",
+  "exactLength": 12,
+  "pattern": "^[2-9][0-9]{11}$",
+  "message": "Enter a valid 12-digit Aadhaar number."
+}', NULL, 48, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-03T12:31:24.747', NULL, NULL),
+    (9359, 9, 65, N'Priestfirstname', N'First Name', N'पहिले नाव', N'Text', N'Priest Details', NULL, NULL, NULL, NULL, 49, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-10T11:02:04.710', NULL, NULL),
+    (9360, 9, 65, N'Priestmiddlename', N'Middle Name', N'मधले नाव', N'Text', N'Priest Details', NULL, NULL, NULL, NULL, 50, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-10T11:06:16.860', NULL, NULL),
+    (9361, 9, 65, N'PriestLastname', N'Last Name', N'आडनाव', N'Text', N'Priest Details', NULL, NULL, NULL, NULL, 51, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-10T11:07:36.463', NULL, NULL),
+    (9362, 9, 65, N'Priest_age', N'Age', N'वय', N'number', N'Priest Details', NULL, NULL, NULL, NULL, 52, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-10T11:09:33.943', NULL, NULL),
+    (9363, 9, 65, N'PriestReligion', N'Religion', N'धर्म', N'Select', N'Priest Details', N'[
+  {
+    "value": "buddha",
+    "label": {
+      "en": "Buddha",
+      "hi": "बौद्ध",
+      "mr": "बौद्ध"
+    }
+  },
+  {
+    "value": "christian",
+    "label": {
+      "en": "Christian",
+      "hi": "ईसाई",
+      "mr": "ईसाई"
+    }
+  },
+  {
+    "value": "hindu",
+    "label": {
+      "en": "Hindu",
+      "hi": "हिंदू",
+      "mr": "हिंदू"
+    }
+  },
+  {
+    "value": "jain",
+    "label": {
+      "en": "Jain",
+      "hi": "जैन",
+      "mr": "जैन"
+    }
+  },
+  {
+    "value": "marwadi",
+    "label": {
+      "en": "Marwadi",
+      "hi": "मारवाड़ी",
+      "mr": "मारवाडी"
+    }
+  },
+  {
+    "value": "muslim",
+    "label": {
+      "en": "Muslim",
+      "hi": "मुस्लिम",
+      "mr": "मुस्लिम"
+    }
+  },
+  {
+    "value": "sikh",
+    "label": {
+      "en": "Sikh",
+      "hi": "सिख",
+      "mr": "सिख"
+    }
+  },
+  {
+    "value": "parsi",
+    "label": {
+      "en": "Parsi",
+      "hi": "पारसी",
+      "mr": "पारसी"
+    }
+  },
+    {
+    "value": "others",
+    "label": {
+      "en": "Others",
+      "hi": "अन्य",
+      "mr": "इतर"
+    }
+  }
+]', NULL, NULL, NULL, 52, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-10T11:31:26.033', NULL, NULL),
+    (9364, 9, 65, N'Priestmobno', N'Mobile Number', N'मोबाईल नंबर', N'tel', N'Priest Details', NULL, NULL, NULL, 0, 52, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-10T11:34:16.927', NULL, NULL),
+    (9365, 9, 65, N'religionbyadoption', N'Religion by Adoption (if any)', N'स्वीकारलेला धर्म (असल्यास)', N'select', N'Groom Details', N'[
+  {
+    "value": "buddha",
+    "label": {
+      "en": "Buddha",
+      "hi": "बौद्ध",
+      "mr": "बौद्ध"
+    }
+  },
+  {
+    "value": "christian",
+    "label": {
+      "en": "Christian",
+      "hi": "ईसाई",
+      "mr": "ईसाई"
+    }
+  },
+  {
+    "value": "hindu",
+    "label": {
+      "en": "Hindu",
+      "hi": "हिंदू",
+      "mr": "हिंदू"
+    }
+  },
+  {
+    "value": "jain",
+    "label": {
+      "en": "Jain",
+      "hi": "जैन",
+      "mr": "जैन"
+    }
+  },
+  {
+    "value": "marwadi",
+    "label": {
+      "en": "Marwadi",
+      "hi": "मारवाड़ी",
+      "mr": "मारवाडी"
+    }
+  },
+  {
+    "value": "muslim",
+    "label": {
+      "en": "Muslim",
+      "hi": "मुस्लिम",
+      "mr": "मुस्लिम"
+    }
+  },
+  {
+    "value": "sikh",
+    "label": {
+      "en": "Sikh",
+      "hi": "सिख",
+      "mr": "सिख"
+    }
+  },
+  {
+    "value": "parsi",
+    "label": {
+      "en": "Parsi",
+      "hi": "पारसी",
+      "mr": "पारसी"
+    }
+  },
+  {
+    "value": "others",
+    "label": {
+      "en": "Others",
+      "hi": "अन्य",
+      "mr": "इतर"
+    }
+  }
+]', NULL, NULL, 0, 23, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-10T11:54:35.537', NULL, NULL),
+    (9366, 9, 65, N'maritalstatus', N'Marital Status', N'वैवाहिक स्थिती', N'select', N'Groom Details', N'[
+  {
+    "value": "divorced",
+    "label": {
+      "en": "Divorced",
+      "hi": "तलाकशुदा",
+      "mr": "घटस्फोटित"
+    }
+  },
+  {
+    "value": "married",
+    "label": {
+      "en": "Married",
+      "hi": "विवाहित",
+      "mr": "विवाहित"
+    }
+  },
+  {
+    "value": "unmarried",
+    "label": {
+      "en": "Unmarried",
+      "hi": "अविवाहित",
+      "mr": "अविवाहित"
+    }
+  },
+  {
+    "value": "widow",
+    "label": {
+      "en": "Widow",
+      "hi": "विधवा",
+      "mr": "विधवा"
+    }
+  },
+  {
+    "value": "widower",
+    "label": {
+      "en": "Widower",
+      "hi": "विधुर",
+      "mr": "विधुर"
+    }
+  }
+]', NULL, NULL, NULL, 23, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-10T14:09:12.780', NULL, NULL),
+    (9367, 9, 65, N'maritalstatusbride', N'Marital Status', N'वैवाहिक स्थिती', N'select', N'Bride Details', N'[
+  {
+    "value": "divorced",
+    "label": {
+      "en": "Divorced",
+      "hi": "तलाकशुदा",
+      "mr": "घटस्फोटित"
+    }
+  },
+  {
+    "value": "married",
+    "label": {
+      "en": "Married",
+      "hi": "विवाहित",
+      "mr": "विवाहित"
+    }
+  },
+  {
+    "value": "unmarried",
+    "label": {
+      "en": "Unmarried",
+      "hi": "अविवाहित",
+      "mr": "अविवाहित"
+    }
+  },
+  {
+    "value": "widow",
+    "label": {
+      "en": "Widow",
+      "hi": "विधवा",
+      "mr": "विधवा"
+    }
+  },
+  {
+    "value": "widower",
+    "label": {
+      "en": "Widower",
+      "hi": "विधुर",
+      "mr": "विधुर"
+    }
+  }
+]', NULL, NULL, NULL, 39, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-10T14:15:13.300', NULL, NULL),
+    (9368, 9, 65, N'interreligionmarriage', N'Inter Religion Marriage', N'आंतरधर्मीय विवाह', N'select', N'Marriage Details', N'[
+  {
+    "value": "yes",
+    "label": {
+      "en": "Yes",
+      "hi": "हाँ",
+      "mr": "होय"
+    }
+  },
+  {
+    "value": "no",
+    "label": {
+      "en": "No",
+      "hi": "नहीं",
+      "mr": "नाही"
+    }
+  }
+]', NULL, NULL, NULL, 42, NULL, NULL, NULL, NULL, 0, NULL, 0, '2026-10-10T14:22:23.397', NULL, NULL)
 ) AS source ([Id], [DepartmentId], [ServiceId], [FieldCode], [FieldLabel], [FieldLabelLocal], [FieldType], [FieldGroup], [OptionsJson], [DefaultValue], [ValidationRules], [IsRequired], [DisplayOrder], [MinValue], [MaxValue], [MaxLength], [IsActive], [MarkedForDeletion], [MarkedForDeletionDate], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -5099,7 +6419,7 @@ SET IDENTITY_INSERT [RTS].[ApprovalFlowMaster] OFF;
 GO
 
 /* ----------------------------------------------------------------------------
-   Table: [RTS].[ApprovalFlowStageMaster] (194 rows)
+   Table: [RTS].[ApprovalFlowStageMaster] (197 rows)
    ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [RTS].[ApprovalFlowStageMaster] ON;
 GO
@@ -5128,7 +6448,6 @@ USING (VALUES
     (1097, 56, 1, N'Clerk', 1, 3, NULL, 0, 0, NULL, NULL, 0, NULL, 0, 0, 0),
     (1098, 57, 1, N'Zone Officer', 1, 3, NULL, 0, 0, NULL, NULL, 0, NULL, 0, 0, 0),
     (1099, 58, 1, N'Clerk', 1, 3, NULL, 0, 0, NULL, NULL, 0, NULL, 0, 0, 0),
-    (1100, 59, 1, N'Junior Engineer', 1, 3, NULL, 0, 0, NULL, NULL, 0, NULL, 0, 0, 0),
     (1101, 36, 2, N'Junior Engineer', 2, 4, 0, NULL, NULL, NULL, 0, 0, 0, NULL, 0, 0),
     (1102, 37, 2, N'Junior Engineer', 2, 4, 0, NULL, NULL, NULL, 0, 0, 0, NULL, 0, 0),
     (1103, 38, 2, N'Junior Engineer', 2, 4, 0, NULL, NULL, NULL, 0, 0, 0, NULL, 0, 0),
@@ -5152,14 +6471,12 @@ USING (VALUES
     (1121, 56, 2, N'Registrar', 2, 4, 0, NULL, NULL, NULL, 0, NULL, 0, NULL, 0, 0),
     (1122, 57, 2, N'Clerk', 2, 4, 0, NULL, NULL, NULL, 0, 0, 0, NULL, 0, 0),
     (1123, 58, 2, N'Senior Sanitary Inspector', 2, 4, 0, NULL, NULL, NULL, 0, NULL, 0, NULL, 0, 0),
-    (1124, 59, 2, N'Ass. Town Planner', 2, 4, 0, NULL, NULL, NULL, 0, 0, 0, NULL, 0, 0),
     (1125, 36, 3, N'Assistant Town Planner', 3, 2, 0, NULL, NULL, NULL, 0, NULL, 0, NULL, NULL, NULL),
     (1126, 37, 3, N'Assistant Town Planner', 3, 3, 0, NULL, NULL, NULL, 0, NULL, 0, NULL, 0, 0),
     (1127, 38, 3, N'Assistant Town Planner', 3, 3, 0, NULL, NULL, NULL, 0, NULL, 0, NULL, 0, 0),
     (1128, 39, 3, N'Assistant Town Planner', 3, 2, 0, NULL, NULL, NULL, 0, NULL, 0, NULL, 0, 0),
     (1129, 40, 3, N'Assistant Town Planner', 3, 3, 0, NULL, NULL, NULL, 0, NULL, 0, NULL, 0, 0),
     (1132, 57, 3, N'Deputy Commissioner', 3, 3, 0, NULL, NULL, NULL, 0, NULL, 0, NULL, 0, 0),
-    (1133, 59, 3, N'Ass. Town Planner', 3, 3, 0, NULL, NULL, NULL, 0, NULL, 0, NULL, 0, 0),
     (2077, 1029, 1, N'Ward Clerk', 1, 1, NULL, 0, NULL, NULL, NULL, 0, NULL, 0, 0, 0),
     (2078, 1029, 2, N'Ass. Town Planner', 2, 1, NULL, 0, NULL, NULL, 0, 0, 0, 0, 0, 0),
     (2079, 1029, 3, N'Ass. Town Planner', 3, 1, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0),
@@ -5298,7 +6615,13 @@ USING (VALUES
     (2215, 54, 3, N'Chief Fire Officer', 3, 5, 0, NULL, NULL, NULL, 0, NULL, 0, NULL, 0, 0),
     (2216, 55, 3, N'Chief Fire Officer', 3, 5, 0, NULL, NULL, NULL, 0, NULL, 0, NULL, 0, 0),
     (3077, 52, 3, N'Assistant Town Planner', 3, 3, 0, NULL, NULL, NULL, 0, NULL, 0, NULL, 0, 0),
-    (3078, 53, 3, N'Assistant Town Planner', 3, 3, 0, NULL, NULL, NULL, 0, NULL, 0, NULL, NULL, NULL)
+    (3078, 53, 3, N'Assistant Town Planner', 3, 3, 0, NULL, NULL, NULL, 0, NULL, 0, NULL, NULL, NULL),
+    (1133, 60, 1, N'Deputy Medical Officer of Health', 1, 3, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0),
+    (1134, 60, 2, N'Medical Officer of Health', 2, 4, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1),
+    (1135, 61, 1, N'Deputy Medical Officer of Health', 1, 3, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1),
+    (1136, 61, 2, N'Medical Officer of Health', 2, 4, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1),
+    (1137, 59, 1, N'Junior Engineer', 1, 3, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0),
+    (1138, 59, 2, N'Deputy Engineer', 2, 2, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1)
 ) AS source ([Id], [ApprovalFlowId], [StageOrder], [StageName], [UserId], [SLADays], [CanVerifyDocument], [CanApprove], [CanReject], [CanReturn], [CanPay], [IsFinalStage], [CanEdit], [CanViewNoteSheet], [CanIssueCertificate], [CanEditCertificate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -6889,7 +8212,7 @@ SET IDENTITY_INSERT [RTS].[PaymentGatewayConfig] OFF;
 GO
 
 /* ----------------------------------------------------------------------------
-   Table: [RTS].[ServiceOfficerAllocation] (155 rows)
+   Table: [RTS].[ServiceOfficerAllocation] (161 rows)
    ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [RTS].[ServiceOfficerAllocation] ON;
 GO
@@ -7049,7 +8372,13 @@ USING (VALUES
     (1623, 161, 2, N'Zone B', N'Gaurav Shrivas', N'Officer', N'8149260111', NULL, NULL, N'ZONE_OFFICER', 2, NULL, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ब', N'गौरव श्रीवास', N'अधिकारी', NULL),
     (1624, 161, 3, N'Zone C', N'Surendra Jadhav', N'Officer', N'7218743145', NULL, NULL, N'ZONE_OFFICER', 3, NULL, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन क', N'सुरेंद्र जाधव', N'अधिकारी', NULL),
     (1625, 161, 4, N'Zone D', N'Surendra Jadhav', N'Officer', N'7218743145', NULL, NULL, N'ZONE_OFFICER', 4, NULL, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन ड', N'सुरेंद्र जाधव', N'अधिकारी', NULL),
-    (1626, 162, 1, N'Zone A', N'Pramod Gaikwad', N'Clerk', N'9421894208', NULL, NULL, N'ZONE_OFFICER', 1, NULL, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'प्रमोद गायकवाड', N'लिपिक', NULL)
+    (1626, 162, 1, N'Zone A', N'Pramod Gaikwad', N'Clerk', N'9421894208', NULL, NULL, N'ZONE_OFFICER', 1, NULL, '2026-09-09T15:45:35.310', 1, NULL, NULL, N'झोन अ', N'प्रमोद गायकवाड', N'लिपिक', NULL),
+(1627, 51, 1, N'Zone A', N'Satish Rathod', N'Junior Engineer', N'7350577080', NULL, NULL, N'ZONE_OFFICER', 1, NULL, '2026-10-02T14:43:33.363', 1, NULL, NULL, N'झोन अ', N'सतिश राठोड', N'कनिष्ठ अभियंता', NULL),
+    (1628, 166, 1, N'Zone A', N'Dr. Anup Choudhary', N'Deputy Medical Officer of Health', N'7721818117', NULL, NULL, N'ZONE_OFFICER', 1, NULL, '2026-10-02T14:47:15.723', 1, NULL, NULL, N'झोन अ', N'डॉ. अनुप चौधरी', N'उप आरोग्य वेद्यकीय अधिकारी', NULL),
+    (1629, 167, 1, N'Zone A', N'Dr. Anup Choudhary', N'Deputy Medical Officer of Health', N'7721818117', NULL, NULL, N'ZONE_OFFICER', 1, NULL, '2026-10-02T14:47:29.383', 1, NULL, NULL, N'झोन अ', N'डॉ. अनुप चौधरी', N'उप आरोग्य वेद्यकीय अधिकारी', NULL),
+    (1630, 51, 2, N'Zone B', N'Manish Khatri', N'Junior Engineer', N'7588757988', NULL, NULL, N'ZONE_OFFICER', 2, NULL, '2026-10-02T14:50:38.990', 1, NULL, NULL, N'झोन ब', N'मनिष खत्री', N'कनिष्ठ अभियंता', NULL),
+    (1631, 51, 3, N'Zone D', N'Hrishikesh Thakare', N'Junior Engineer', N'7588759824', NULL, NULL, N'ZONE_OFFICER', 3, NULL, '2026-10-02T14:52:04.887', 1, NULL, NULL, N'झोन ड', N'ऋषिकेश ठाकरे', N'कनिष्ठ अभियंता', NULL),
+    (1632, 51, 4, N'Zone D', N'Satish Rathod', N'Satish Rathod', N'7350577080', NULL, NULL, N'ZONE_OFFICER', 4, NULL, '2026-10-02T14:53:39.240', 1, NULL, NULL, N'झोन ड', N'सतिश राठोड', N'कनिष्ठ अभियंता', NULL)
 ) AS source ([Id], [ServiceId], [ZoneId], [ZoneName], [OfficerName], [Designation], [MobileNo], [Email], [OfficeAddress], [OfficerRole], [DisplayOrder], [IsActive], [CreatedDate], [CreatedBy], [UpdatedDate], [UpdatedBy], [ZoneNameLocal], [OfficerNameLocal], [DesignationLocal], [OfficeAddressLocal])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -7082,11 +8411,11 @@ GO
 
 
 /* ----------------------------------------------------------------------------
-   Table: [RTS].[AapleSarkarCredential] (1 rows)
+   Table: [RTS].[AapleSarkarConfiguration] (1 rows)
    ---------------------------------------------------------------------------- */
-SET IDENTITY_INSERT [RTS].[AapleSarkarCredential] ON;
+SET IDENTITY_INSERT [RTS].[AapleSarkarConfiguration] ON;
 GO
-MERGE INTO [RTS].[AapleSarkarCredential] AS target
+MERGE INTO [RTS].[AapleSarkarConfiguration] AS target
 USING (VALUES
     (1, 1, 2, 501, 'AKMCDEPT', 'GAKMCA8v4G8F', '@pn@AKM@m@h@0nl!ne@30446', 'AKM@02@4', 'http://testcitizenservices.mahaitgov.in/Dept_Authentication.asmx', 'http://localhost:3000', 'http://localhost:3000/mr/service/dashboard', 'https://rtsdashboarddeptapi.mahaitgov.in/api/Token/GetToken', 'https://rtsdashboarddeptapi.mahaitgov.in/api/Dashboard/PushDepartmentDetails', '4332093E-07D9-4765-AA1E-4C6A640ACF94', 'AKMCDEPT', 6, 520, 4173, 1, 6, 0, 0, '2026-09-28T18:06:01.000', NULL, NULL, NULL, 1)
 ) AS source (
@@ -7125,7 +8454,7 @@ WHEN NOT MATCHED BY TARGET THEN
         source.[Id], source.[IntegrationId], source.[UlbId], source.[UlbDistrict], source.[ClientCode], source.[ChecksumKey], source.[EncryptionKey], source.[EncryptionIV], source.[ServiceUrl], source.[PortalBaseUrl], source.[DashboardUrl], source.[MahaITTokenUrl], source.[MahaITPushUrl], source.[MahaITClientSecretKey], source.[MahaITDepartmentCode], source.[Division], source.[District], source.[Taluka], source.[DailyPushEnabled], source.[MorningPushHour], source.[MorningPushMinute], source.[RunOnStartup], source.[CreatedDate], source.[UpdatedDate], source.[CreatedBy], source.[UpdatedBy], source.[IsActive]
     );
 GO
-SET IDENTITY_INSERT [RTS].[AapleSarkarCredential] OFF;
+SET IDENTITY_INSERT [RTS].[AapleSarkarConfiguration] OFF;
 GO
 
 /* ----------------------------------------------------------------------------
@@ -7209,4 +8538,173 @@ WHEN NOT MATCHED BY TARGET THEN
     VALUES (source.[Id], source.[RtsServiceId], source.[MahaITServiceId], source.[GovtServiceName], source.[MaxProcessingDays], source.[CreatedDate], source.[UpdatedDate], source.[CreatedBy], source.[UpdatedBy], source.[IsActive]);
 GO
 SET IDENTITY_INSERT [RTS].[AapleSarkarServiceMapping] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [RTS].[RuleMaster] (9 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [RTS].[RuleMaster] ON;
+GO
+MERGE INTO [RTS].[RuleMaster] AS target
+USING (VALUES
+    (4, 62, N'Mandap NOC - Marriage Event Fee', N'eventType', 8289, N'=', N'marriage', N'BASE_FEE', 1200.00, NULL, 1, N'FEE', NULL, 0, 1, 1, '2026-10-01T19:11:35.492', 1002, '2026-10-05T20:12:11.314'),
+    (5, 62, N'Mandap NOC - Festival Event Fee', N'eventType', 8289, N'=', N'festival', N'BASE_FEE', 1800.00, NULL, 1, N'FEE', NULL, 0, 1, 1, '2026-10-01T19:11:35.492', 1, '2026-10-02T13:51:34.238'),
+    (6, 62, N'Mandap NOC - Cultural Program Fee', N'eventType', 8289, N'=', N'cultural', N'BASE_FEE', 2200.00, NULL, 1, N'FEE', NULL, 0, 1, 1, '2026-10-01T19:11:35.492', 1, '2026-10-02T13:51:34.262'),
+    (7, 62, N'Mandap NOC - Political Rally Fee', N'eventType', 8289, N'=', N'political', N'BASE_FEE', 2500.00, NULL, 1, N'FEE', NULL, 0, 1, 1, '2026-10-01T19:11:35.492', NULL, NULL),
+    (8, 62, N'Mandap NOC - Exhibition Fee', N'eventType', 8289, N'=', N'exhibition', N'BASE_FEE', 3000.00, NULL, 1, N'FEE', NULL, 0, 1, 1, '2026-10-01T19:11:35.492', NULL, NULL),
+    (9, 62, N'Mandap NOC - Commercial Event Fee', N'eventType', 8289, N'=', N'commercial', N'BASE_FEE', 5000.00, NULL, 1, N'FEE', NULL, 0, 1, 1, '2026-10-01T19:11:35.492', NULL, NULL),
+    (2002, 44, N'Giving Part Map - City Development Map (DP)', N'partMapType', 327, N'=', N'dp', N'STAGE_ALLOCATION', NULL, 1, 1, N'USER_ALLOCATION', N'{"approvalFlowStageId":1078,"stageOrder":1}', 0, 1, 1002, '2026-10-08T17:01:35.734', NULL, NULL),
+    (2003, 44, N'Giving Part Map - TP Scheme Map (TPS)', N'partMapType', 327, N'=', N'tps', N'STAGE_ALLOCATION', NULL, 5, 1, N'USER_ALLOCATION', N'{"approvalFlowStageId":1078,"stageOrder":1}', 0, 1, 1002, '2026-10-08T17:03:28.332', NULL, NULL),
+    (2004, 62, N'Mandap NOC', N'landOwnershipType', 8292, N'=', N'publicFootpath', N'ADDON_FEE', 100.00, NULL, 1, N'FEE', NULL, 0, 1, 1002, '2026-10-08T21:09:57.866', NULL, NULL)
+) AS source ([Id], [ServiceId], [RuleDescription], [ConditionField], [ConditionFieldDefinitionId], [ComparisonOperator], [ExpectedValue], [RuleActionType], [RateAmount], [UserId], [Priority], [RuleGroup], [ActionValue], [IsCumulative], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[ServiceId] = source.[ServiceId],
+        target.[RuleDescription] = source.[RuleDescription],
+        target.[ConditionField] = source.[ConditionField],
+        target.[ConditionFieldDefinitionId] = source.[ConditionFieldDefinitionId],
+        target.[ComparisonOperator] = source.[ComparisonOperator],
+        target.[ExpectedValue] = source.[ExpectedValue],
+        target.[RuleActionType] = source.[RuleActionType],
+        target.[RateAmount] = source.[RateAmount],
+        target.[UserId] = source.[UserId],
+        target.[Priority] = source.[Priority],
+        target.[RuleGroup] = source.[RuleGroup],
+        target.[ActionValue] = source.[ActionValue],
+        target.[IsCumulative] = source.[IsCumulative],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [ServiceId], [RuleDescription], [ConditionField], [ConditionFieldDefinitionId], [ComparisonOperator], [ExpectedValue], [RuleActionType], [RateAmount], [UserId], [Priority], [RuleGroup], [ActionValue], [IsCumulative], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[ServiceId], source.[RuleDescription], source.[ConditionField], source.[ConditionFieldDefinitionId], source.[ComparisonOperator], source.[ExpectedValue], source.[RuleActionType], source.[RateAmount], source.[UserId], source.[Priority], source.[RuleGroup], source.[ActionValue], source.[IsCumulative], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
+SET IDENTITY_INSERT [RTS].[RuleMaster] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [RTS].[ApprovalRuleMaster] (3 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [RTS].[ApprovalRuleMaster] ON;
+GO
+MERGE INTO [RTS].[ApprovalRuleMaster] AS target
+USING (VALUES
+    (1, 55, 11, N'Marathi Boys School No. 4, Ramdas Peth', N'SCH001', 1, 1, 1, '2026-09-24T15:29:52.490', NULL, '2026-09-24T15:29:52.490'),
+    (2, 56, 12, N'Marathi Boys School No. 4, Ramdas Peth', N'SCH001', 1, 1, 1, '2026-09-24T15:31:23.723', NULL, '2026-09-24T15:31:23.723'),
+    (3, 57, 13, N'Marathi Boys School No. 4, Ramdas Peth', N'SCH001', 1, 1, 1, '2026-09-24T15:31:40.110', NULL, '2026-09-24T15:31:40.110')
+) AS source ([ApprovalRuleID], [ServiceID], [ApproverUserID], [FieldName], [FieldValue], [ApprovalLevel], [IsActive], [CreatedBy], [CreatedDate], [ModifiedBy], [ModifiedDate])
+ON (target.[ApprovalRuleID] = source.[ApprovalRuleID])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[ServiceID] = source.[ServiceID],
+        target.[ApproverUserID] = source.[ApproverUserID],
+        target.[FieldName] = source.[FieldName],
+        target.[FieldValue] = source.[FieldValue],
+        target.[ApprovalLevel] = source.[ApprovalLevel],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[ModifiedBy] = source.[ModifiedBy],
+        target.[ModifiedDate] = source.[ModifiedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([ApprovalRuleID], [ServiceID], [ApproverUserID], [FieldName], [FieldValue], [ApprovalLevel], [IsActive], [CreatedBy], [CreatedDate], [ModifiedBy], [ModifiedDate])
+    VALUES (source.[ApprovalRuleID], source.[ServiceID], source.[ApproverUserID], source.[FieldName], source.[FieldValue], source.[ApprovalLevel], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[ModifiedBy], source.[ModifiedDate]);
+GO
+SET IDENTITY_INSERT [RTS].[ApprovalRuleMaster] OFF;
+GO
+
+/* ----------------------------------------------------------------------------
+   Table: [RTS].[ApprovalFlowStageUserAllocationMaster] (67 rows)
+   ---------------------------------------------------------------------------- */
+SET IDENTITY_INSERT [RTS].[ApprovalFlowStageUserAllocationMaster] ON;
+GO
+MERGE INTO [RTS].[ApprovalFlowStageUserAllocationMaster] AS target
+USING (VALUES
+    (1, 1077, 1, 1, 1, NULL, '2026-10-07T21:35:46.689', NULL, '2026-10-09T19:03:47.758'),
+    (2, 1101, 2, 1, 1, NULL, '2026-10-07T21:36:01.908', NULL, NULL),
+    (3, 1125, 3, 1, 1, NULL, '2026-10-07T21:36:27.067', NULL, NULL),
+    (4, 1078, 1, 1, 1, NULL, '2026-10-07T21:40:37.529', NULL, '2026-10-08T16:37:47.492'),
+    (5, 1102, 2, 1, 1, NULL, '2026-10-07T21:40:53.730', NULL, NULL),
+    (6, 1126, 3, 1, 1, NULL, '2026-10-07T21:41:08.730', NULL, NULL),
+    (7, 1079, 1, 1, 1, NULL, '2026-10-07T21:41:33.513', NULL, NULL),
+    (8, 1103, 2, 1, 1, NULL, '2026-10-07T21:41:48.682', NULL, NULL),
+    (9, 1127, 3, 1, 1, NULL, '2026-10-07T21:42:07.137', NULL, NULL),
+    (10, 1080, 1, 1, 1, NULL, '2026-10-07T21:43:30.285', NULL, NULL),
+    (1002, 1104, 2, 1, 1, NULL, '2026-10-08T11:44:31.081', NULL, NULL),
+    (1003, 1128, 3, 1, 1, NULL, '2026-10-08T11:44:44.910', NULL, NULL),
+    (1004, 1081, 1, 1, 1, NULL, '2026-10-08T11:52:22.153', NULL, NULL),
+    (1005, 1105, 2, 1, 1, NULL, '2026-10-08T11:52:31.354', NULL, NULL),
+    (1006, 1129, 3, 1, 1, NULL, '2026-10-08T11:52:47.777', NULL, NULL),
+    (1007, 1082, 1, 1, 1, NULL, '2026-10-08T11:56:02.348', NULL, NULL),
+    (1008, 1106, 2, 1, 1, NULL, '2026-10-08T11:56:18.313', NULL, NULL),
+    (1009, 1083, 1, 1, 1, NULL, '2026-10-08T12:05:01.471', NULL, NULL),
+    (1010, 1107, 2, 1, 1, NULL, '2026-10-08T12:05:18.053', NULL, NULL),
+    (1011, 1084, 1, 1, 1, NULL, '2026-10-08T12:05:34.341', NULL, NULL),
+    (1012, 1108, 2, 1, 1, NULL, '2026-10-08T12:05:47.782', NULL, NULL),
+    (1013, 1085, 1, 1, 1, NULL, '2026-10-08T12:06:01.491', NULL, NULL),
+    (1014, 1109, 2, 1, 1, NULL, '2026-10-08T12:06:25.435', NULL, NULL),
+    (1015, 1086, 1, 1, 1, NULL, '2026-10-08T13:04:55.280', NULL, NULL),
+    (1016, 1110, 2, 1, 1, NULL, '2026-10-08T13:05:06.169', NULL, NULL),
+    (1017, 1087, 1, 1, 1, NULL, '2026-10-08T13:06:55.910', NULL, NULL),
+    (1018, 1111, 2, 1, 1, NULL, '2026-10-08T13:07:05.685', NULL, NULL),
+    (1019, 1088, 1, 1, 1, NULL, '2026-10-08T13:07:58.991', NULL, NULL),
+    (1020, 1112, 2, 1, 1, NULL, '2026-10-08T13:08:20.376', NULL, NULL),
+    (1021, 1089, 1, 1, 1, NULL, '2026-10-08T13:10:37.165', NULL, NULL),
+    (1022, 1113, 2, 1, 1, NULL, '2026-10-08T13:11:08.340', NULL, NULL),
+    (1023, 1090, 1, 1, 1, NULL, '2026-10-08T13:11:57.132', NULL, NULL),
+    (1024, 1114, 2, 1, 1, NULL, '2026-10-08T13:12:06.475', NULL, NULL),
+    (1025, 1091, 1, 1, 1, NULL, '2026-10-08T13:12:19.947', NULL, NULL),
+    (1026, 1115, 2, 1, 1, NULL, '2026-10-08T13:12:32.329', NULL, NULL),
+    (1027, 1092, 1, 1, 1, NULL, '2026-10-08T13:13:47.332', NULL, NULL),
+    (1028, 1116, 2, 1, 1, NULL, '2026-10-08T13:14:00.704', NULL, NULL),
+    (1029, 1093, 1, 1, 1, NULL, '2026-10-08T13:15:04.948', NULL, NULL),
+    (1030, 1117, 2, 1, 1, NULL, '2026-10-08T13:15:18.606', NULL, NULL),
+    (1031, 3077, 3, 1, 1, NULL, '2026-10-08T13:15:28.606', NULL, NULL),
+    (1032, 1094, 1, 1, 1, NULL, '2026-10-08T13:16:25.734', NULL, NULL),
+    (1033, 1118, 2, 1, 1, NULL, '2026-10-08T13:16:41.044', NULL, NULL),
+    (1034, 3078, 3, 1, 1, NULL, '2026-10-08T13:16:53.364', NULL, NULL),
+    (1035, 1095, 1, 1, 1, NULL, '2026-10-08T13:17:13.351', NULL, NULL),
+    (1036, 1119, 2, 1, 1, NULL, '2026-10-08T13:17:29.452', NULL, NULL),
+    (1037, 2215, 3, 1, 1, NULL, '2026-10-08T13:17:42.266', NULL, NULL),
+    (1038, 1096, 1, 1, 1, NULL, '2026-10-08T13:18:56.067', NULL, NULL),
+    (1039, 1120, 2, 1, 1, NULL, '2026-10-08T13:19:08.959', NULL, NULL),
+    (1040, 2216, 3, 1, 1, NULL, '2026-10-08T13:19:21.212', NULL, NULL),
+    (1041, 1097, 1, 1, 1, NULL, '2026-10-08T13:19:42.090', NULL, NULL),
+    (1042, 1121, 2, 1, 1, NULL, '2026-10-08T13:19:52.397', NULL, NULL),
+    (1043, 1098, 1, 1, 1, NULL, '2026-10-08T13:20:05.197', NULL, NULL),
+    (1044, 1122, 2, 1, 1, NULL, '2026-10-08T13:20:13.302', NULL, NULL),
+    (1045, 1132, 3, 1, 1, NULL, '2026-10-08T13:20:24.590', NULL, NULL),
+    (1046, 1099, 1, 1, 1, NULL, '2026-10-08T13:20:48.474', NULL, NULL),
+    (1047, 1123, 2, 1, 1, NULL, '2026-10-08T13:21:01.822', NULL, NULL),
+    (1048, 1137, 1, 1, 1, NULL, '2026-10-08T13:21:25.311', NULL, NULL),
+    (1049, 1138, 2, 1, 1, NULL, '2026-10-08T13:21:33.669', NULL, NULL),
+    (1050, 1133, 1, 1, 1, NULL, '2026-10-08T13:21:46.654', NULL, NULL),
+    (1051, 1134, 2, 1, 1, NULL, '2026-10-08T13:21:56.169', NULL, NULL),
+    (1052, 1135, 1, 1, 1, NULL, '2026-10-08T13:23:29.301', NULL, NULL),
+    (1053, 1136, 2, 1, 1, NULL, '2026-10-08T13:23:40.038', NULL, NULL),
+    (1054, 2210, 1, 1, 1, NULL, '2026-10-08T13:24:02.028', NULL, NULL),
+    (1055, 2211, 2, 1, 1, NULL, '2026-10-08T13:24:15.698', NULL, NULL),
+    (1056, 1078, 5, 2, 1, NULL, '2026-10-08T16:37:47.594', NULL, NULL),
+    (2002, 1077, 2, 2, 1, NULL, '2026-10-09T19:03:48.784', NULL, NULL),
+    (2003, 1077, 3, 3, 1, NULL, '2026-10-09T19:03:49.330', NULL, NULL)
+) AS source ([Id], [ApprovalFlowStageId], [UserId], [Priority], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+ON (target.[Id] = source.[Id])
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[ApprovalFlowStageId] = source.[ApprovalFlowStageId],
+        target.[UserId] = source.[UserId],
+        target.[Priority] = source.[Priority],
+        target.[IsActive] = source.[IsActive],
+        target.[CreatedBy] = source.[CreatedBy],
+        target.[CreatedDate] = source.[CreatedDate],
+        target.[UpdatedBy] = source.[UpdatedBy],
+        target.[UpdatedDate] = source.[UpdatedDate]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [ApprovalFlowStageId], [UserId], [Priority], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
+    VALUES (source.[Id], source.[ApprovalFlowStageId], source.[UserId], source.[Priority], source.[IsActive], source.[CreatedBy], source.[CreatedDate], source.[UpdatedBy], source.[UpdatedDate]);
+GO
+SET IDENTITY_INSERT [RTS].[ApprovalFlowStageUserAllocationMaster] OFF;
 GO

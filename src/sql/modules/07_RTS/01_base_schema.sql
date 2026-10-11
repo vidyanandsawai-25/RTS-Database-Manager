@@ -904,12 +904,19 @@ GO
    RTS / Aaple Sarkar (MahaIT) Technical Integration v3.3 Tables
    ============================================================================ */
 
--- 1. [RTS].[AapleSarkarCredential]
-IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AapleSarkarCredential')
+-- 1. [RTS].[AapleSarkarConfiguration]
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AapleSarkarConfiguration')
+   AND EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AapleSarkarCredential')
 BEGIN
-    CREATE TABLE [RTS].[AapleSarkarCredential](
+    EXEC sp_rename '[RTS].[AapleSarkarCredential]', 'AapleSarkarConfiguration';
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AapleSarkarConfiguration')
+BEGIN
+    CREATE TABLE [RTS].[AapleSarkarConfiguration](
         [Id]                    [int] IDENTITY(1,1) NOT NULL,
-        [IntegrationId]         [int] NOT NULL CONSTRAINT [DF_AapleSarkarCredential_IntegrationId] DEFAULT (1),
+        [IntegrationId]         [int] NOT NULL CONSTRAINT [DF_AapleSarkarConfiguration_IntegrationId] DEFAULT (1),
         [UlbId]                 [int] NOT NULL,
         [UlbDistrict]           [int] NOT NULL,
         [ClientCode]            [varchar](50) NOT NULL,
@@ -926,30 +933,30 @@ BEGIN
         [Division]              [int] NULL,
         [District]              [int] NULL,
         [Taluka]                [int] NULL,
-        [DailyPushEnabled]      [bit] NOT NULL CONSTRAINT [DF_AapleSarkarCredential_DailyPushEnabled] DEFAULT (1),
-        [MorningPushHour]       [int] NOT NULL CONSTRAINT [DF_AapleSarkarCredential_MorningPushHour] DEFAULT (6),
-        [MorningPushMinute]     [int] NOT NULL CONSTRAINT [DF_AapleSarkarCredential_MorningPushMinute] DEFAULT (0),
-        [RunOnStartup]          [bit] NOT NULL CONSTRAINT [DF_AapleSarkarCredential_RunOnStartup] DEFAULT (0),
-        [CreatedDate]           [datetime] NOT NULL CONSTRAINT [DF_AapleSarkarCredential_CreatedDate] DEFAULT (GETDATE()),
+        [DailyPushEnabled]      [bit] NOT NULL CONSTRAINT [DF_AapleSarkarConfiguration_DailyPushEnabled] DEFAULT (1),
+        [MorningPushHour]       [int] NOT NULL CONSTRAINT [DF_AapleSarkarConfiguration_MorningPushHour] DEFAULT (6),
+        [MorningPushMinute]     [int] NOT NULL CONSTRAINT [DF_AapleSarkarConfiguration_MorningPushMinute] DEFAULT (0),
+        [RunOnStartup]          [bit] NOT NULL CONSTRAINT [DF_AapleSarkarConfiguration_RunOnStartup] DEFAULT (0),
+        [CreatedDate]           [datetime] NOT NULL CONSTRAINT [DF_AapleSarkarConfiguration_CreatedDate] DEFAULT (GETDATE()),
         [UpdatedDate]           [datetime] NULL,
         [CreatedBy]             [int] NULL,
         [UpdatedBy]             [int] NULL,
-        [IsActive]              [bit] NOT NULL CONSTRAINT [DF_AapleSarkarCredential_IsActive] DEFAULT (1),
+        [IsActive]              [bit] NOT NULL CONSTRAINT [DF_AapleSarkarConfiguration_IsActive] DEFAULT (1),
 
-        CONSTRAINT [PK_AapleSarkarCredential] PRIMARY KEY CLUSTERED ([Id] ASC)
+        CONSTRAINT [PK_AapleSarkarConfiguration] PRIMARY KEY CLUSTERED ([Id] ASC)
     );
 END;
 GO
 
-IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AapleSarkarCredential' AND COLUMN_NAME = 'PortalBaseUrl')
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AapleSarkarConfiguration' AND COLUMN_NAME = 'PortalBaseUrl')
 BEGIN
-    ALTER TABLE [RTS].[AapleSarkarCredential] ADD [PortalBaseUrl] VARCHAR(255) NULL;
+    ALTER TABLE [RTS].[AapleSarkarConfiguration] ADD [PortalBaseUrl] VARCHAR(255) NULL;
 END;
 GO
 
-IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AapleSarkarCredential' AND COLUMN_NAME = 'DashboardUrl')
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AapleSarkarConfiguration' AND COLUMN_NAME = 'DashboardUrl')
 BEGIN
-    ALTER TABLE [RTS].[AapleSarkarCredential] ADD
+    ALTER TABLE [RTS].[AapleSarkarConfiguration] ADD
         [DashboardUrl]          VARCHAR(500) NULL,
         [MahaITTokenUrl]        VARCHAR(500) NULL,
         [MahaITPushUrl]         VARCHAR(500) NULL,
@@ -961,13 +968,13 @@ BEGIN
 END;
 GO
 
-IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AapleSarkarCredential' AND COLUMN_NAME = 'DailyPushEnabled')
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AapleSarkarConfiguration' AND COLUMN_NAME = 'DailyPushEnabled')
 BEGIN
-    ALTER TABLE [RTS].[AapleSarkarCredential] ADD
-        [DailyPushEnabled]      BIT NOT NULL CONSTRAINT [DF_AapleSarkarCredential_DailyPushEnabled_Alt] DEFAULT (1),
-        [MorningPushHour]       INT NOT NULL CONSTRAINT [DF_AapleSarkarCredential_MorningPushHour_Alt] DEFAULT (6),
-        [MorningPushMinute]     INT NOT NULL CONSTRAINT [DF_AapleSarkarCredential_MorningPushMinute_Alt] DEFAULT (0),
-        [RunOnStartup]          BIT NOT NULL CONSTRAINT [DF_AapleSarkarCredential_RunOnStartup_Alt] DEFAULT (0);
+    ALTER TABLE [RTS].[AapleSarkarConfiguration] ADD
+        [DailyPushEnabled]      BIT NOT NULL CONSTRAINT [DF_AapleSarkarConfiguration_DailyPushEnabled_Alt] DEFAULT (1),
+        [MorningPushHour]       INT NOT NULL CONSTRAINT [DF_AapleSarkarConfiguration_MorningPushHour_Alt] DEFAULT (6),
+        [MorningPushMinute]     INT NOT NULL CONSTRAINT [DF_AapleSarkarConfiguration_MorningPushMinute_Alt] DEFAULT (0),
+        [RunOnStartup]          BIT NOT NULL CONSTRAINT [DF_AapleSarkarConfiguration_RunOnStartup_Alt] DEFAULT (0);
 END;
 GO
 
@@ -1236,6 +1243,80 @@ IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_MahaITDashboardPushLog
 BEGIN
     CREATE NONCLUSTERED INDEX [IX_MahaITDashboardPushLog_Year_Month]
     ON [RTS].[MahaITDashboardPushLog] ([ReportYear], [ReportMonth], [PushedAt] DESC);
+END;
+GO
+
+/* ============================================================================
+   RTS Business Rules & Dynamic Approval Configuration Tables
+   ============================================================================ */
+
+-- 33. [RTS].[RuleMaster]
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'RuleMaster')
+BEGIN
+    CREATE TABLE [RTS].[RuleMaster](
+        [Id]                          [int] IDENTITY(1,1) NOT NULL,
+        [ServiceId]                   [int] NOT NULL,
+        [RuleDescription]             [varchar](200) NOT NULL,
+        [ConditionField]              [varchar](100) NOT NULL,
+        [ConditionFieldDefinitionId]  [int] NULL,
+        [ComparisonOperator]          [varchar](20) NOT NULL,
+        [ExpectedValue]               [varchar](200) NOT NULL,
+        [RuleActionType]              [varchar](50) NOT NULL,
+        [RateAmount]                  [decimal](18, 2) NULL,
+        [UserId]                      [int] NULL,
+        [Priority]                    [int] NOT NULL CONSTRAINT [DF_RuleMaster_Priority] DEFAULT ((1)),
+        [RuleGroup]                   [varchar](100) NULL,
+        [ActionValue]                 [nvarchar](500) NULL,
+        [IsCumulative]                [bit] NOT NULL CONSTRAINT [DF_RuleMaster_IsCumulative] DEFAULT ((0)),
+        [IsActive]                    [bit] NOT NULL CONSTRAINT [DF_RuleMaster_IsActive] DEFAULT ((1)),
+        [CreatedBy]                   [int] NULL,
+        [CreatedDate]                 [datetime2](7) NOT NULL CONSTRAINT [DF_RuleMaster_CreatedDate] DEFAULT (getdate()),
+        [UpdatedBy]                   [int] NULL,
+        [UpdatedDate]                 [datetime2](7) NULL,
+
+        CONSTRAINT [PK_RuleMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
+    );
+END;
+GO
+
+-- 34. [RTS].[ApprovalRuleMaster]
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ApprovalRuleMaster')
+BEGIN
+    CREATE TABLE [RTS].[ApprovalRuleMaster](
+        [ApprovalRuleID] [int] IDENTITY(1,1) NOT NULL,
+        [ServiceID]      [int] NOT NULL,
+        [ApproverUserID] [int] NOT NULL,
+        [FieldName]      [nvarchar](100) NOT NULL,
+        [FieldValue]     [nvarchar](200) NOT NULL,
+        [ApprovalLevel]  [int] NOT NULL CONSTRAINT [DF_ApprovalRuleMaster_ApprovalLevel] DEFAULT ((1)),
+        [IsActive]       [bit] NOT NULL CONSTRAINT [DF_ApprovalRuleMaster_IsActive] DEFAULT ((1)),
+        [CreatedBy]      [int] NULL,
+        [CreatedDate]    [datetime] NOT NULL CONSTRAINT [DF_ApprovalRuleMaster_CreatedDate] DEFAULT (getdate()),
+        [ModifiedBy]     [int] NULL,
+        [ModifiedDate]   [datetime] NULL,
+
+        CONSTRAINT [PK_ApprovalRuleMaster] PRIMARY KEY CLUSTERED ([ApprovalRuleID] ASC),
+        CONSTRAINT [UQ_ApprovalRule_Service_Field_Value_Level] UNIQUE NONCLUSTERED ([ServiceID] ASC, [FieldName] ASC, [FieldValue] ASC, [ApprovalLevel] ASC)
+    );
+END;
+GO
+
+-- 35. [RTS].[ApprovalFlowStageUserAllocationMaster]
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ApprovalFlowStageUserAllocationMaster')
+BEGIN
+    CREATE TABLE [RTS].[ApprovalFlowStageUserAllocationMaster](
+        [Id]                  [int] IDENTITY(1,1) NOT NULL,
+        [ApprovalFlowStageId] [int] NULL,
+        [UserId]              [int] NULL,
+        [Priority]            [int] NULL CONSTRAINT [DF_ApprovalFlowStageUserAllocationMaster_Priority] DEFAULT ((1)),
+        [IsActive]            [bit] NULL CONSTRAINT [DF_ApprovalFlowStageUserAllocationMaster_IsActive] DEFAULT ((1)),
+        [CreatedBy]           [int] NULL,
+        [CreatedDate]         [datetime2](7) NULL CONSTRAINT [DF_ApprovalFlowStageUserAllocationMaster_CreatedDate] DEFAULT (sysdatetime()),
+        [UpdatedBy]           [int] NULL,
+        [UpdatedDate]         [datetime2](7) NULL,
+
+        CONSTRAINT [PK_ApprovalFlowStageUserAllocationMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
+    );
 END;
 GO
 
