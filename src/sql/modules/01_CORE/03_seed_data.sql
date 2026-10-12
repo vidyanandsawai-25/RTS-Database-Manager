@@ -98,7 +98,8 @@ USING (VALUES
     (3003, N'RTS_CITIZEN', N'Citizen Services', N'नागरिक सेवा', N'Users', 1, 1, 1002, '2026-08-26T16:07:54.227', 1002, '2026-08-28T13:47:16.957'),
     (3004, N'RTS_OFFICER', N'Officer Workplace', N'अधिकारी कार्यस्थळ', N'Briefcase', 2, 1, 1002, '2026-08-26T16:07:54.227', 1002, '2026-08-28T13:47:16.957'),
     (3005, N'RTS_REPORTS', N'Reports & Analytics', N'अहवाल व विश्लेषण', N'BarChart3', 4, 1, 1002, '2026-08-26T16:07:54.227', 1002, '2026-08-28T13:47:16.957'),
-    (2006, N'RTS_SETTLEMENT', N'RTS Payment Settlement', N'à¤†à¤°à¤Ÿà¥€à¤à¤¸ à¤¶à¥à¤²à¥à¤• à¤µ à¤µà¤Ÿà¤£à¤¾à¤µà¤³', N'CreditCard', 72, 1, 1, '2026-10-11T22:05:00.000', NULL, NULL)
+    (2006, N'RTS_SETTLEMENT', N'RTS Payment Settlement', N'à¤†à¤°à¤Ÿà¥€à¤à¤¸ à¤¶à¥à¤²à¥à¤• à¤µ à¤µà¤Ÿà¤£à¤¾à¤µà¤³', N'CreditCard', 72, 1, 1, '2026-10-11T22:05:00.000', NULL, NULL),
+    (2007, N'RTS_REPORTS', N'RTS Reports Center', N'आरटीएस अहवाल केंद्र', N'FileText', 73, 1, 1, '2026-10-12T23:50:00.000', NULL, NULL)
 ) AS source ([Id], [ScreenGroupCode], [ScreenGroupName], [ScreenGroupNameLocal], [ScreenGroupIcon], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -176,8 +177,8 @@ USING (VALUES
     (6020, 2005, 1005, N'RTS_USER_MASTER', N'RTS User Master', N'RTS User Master', N'UserCheck', N'/rts/configuration-settings/rts-user', 1, 1, 0, 8, 1, 1002, '2026-09-29T13:40:12.390', 1002, '2026-10-02T15:40:17.773', 5),
     (6021, 2005, 1005, N'RTS_SCREEN_MASTER', N'RTS Screen Master', N'RTS Screen Master', N'Sliders', N'/rts/configuration-settings/rts-screen', 1, 1, 0, 9, 1, 1002, '2026-09-29T13:40:12.390', 1002, '2026-10-02T15:40:25.467', 5),
     (6022, 2005, 1005, N'RTS_RULE_MASTER', N'RTS Rule Master', N'RTS नियम मास्टर', N'PencilRuler', N'/rts/configuration-settings/rts-rule', 1, 1, NULL, 11, 1, 1002, '2026-10-03T13:00:23.413', NULL, NULL, 5),
-    (6023, 2006, 1005, N'RTS_SETTLEMENT', N'RTS Payment Settlement', N'à¤†à¤°à¤Ÿà¥€à¤à¤¸ à¤¶à¥à¤²à¥à¤• à¤®à¤‚à¤œà¥à¤°à¥€ à¤µ à¤µà¤Ÿà¤£à¤¾à¤µà¤³', N'CreditCard', N'/rts/dashboard/rts-settlement', 1, 1, 0, 2, 1, 1, '2026-10-11T21:50:00.000', NULL, NULL, 5),
-    (6024, 2006, 1005, N'RTS_REPORTS', N'RTS Reports Center', N'आरटीएस अहवाल केंद्र', N'FileText', N'/rts/dashboard/rts-reports', 1, 1, 0, 3, 1, 1, '2026-10-12T23:50:00.000', NULL, NULL, 5)
+    (6023, 2006, 1005, N'RTS_SETTLEMENT', N'RTS Payment Settlement', N'आरटीएस शुल्क मंजुरी व वटणावळ', N'CreditCard', N'/rts/dashboard/rts-settlement', 1, 1, 0, 1, 1, 1, '2026-10-11T21:50:00.000', NULL, NULL, 5),
+    (6024, 2007, 1005, N'RTS_REPORTS', N'RTS Reports Center', N'आरटीएस अहवाल केंद्र', N'FileText', N'/rts/dashboard/rts-reports', 1, 1, 0, 1, 1, 1, '2026-10-12T23:50:00.000', NULL, NULL, 5)
 ) AS source ([Id], [ScreenGroupId], [ModuleId], [ScreenCode], [ScreenName], [ScreenNameLocal], [ScreenIcon], [RoutePath], [IsMenu], [IsAuthenticationRequired], [IsPropertyLockable], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DepartmentId])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -541,7 +542,9 @@ USING (VALUES
     (7014, 1003, 6023, 1, 1, 1, 1, 0, 1, 1, '2026-10-11T21:50:00.000', NULL, NULL),
     (7015, 2, 6024, 1, 1, 1, 1, 0, 1, 1, '2026-10-12T23:50:00.000', NULL, NULL),
     (7016, 1002, 6024, 1, 1, 1, 1, 0, 1, 1, '2026-10-12T23:50:00.000', NULL, NULL),
-    (7017, 1003, 6024, 1, 1, 1, 1, 0, 1, 1, '2026-10-12T23:50:00.000', NULL, NULL)
+    (7017, 1003, 6024, 1, 1, 1, 1, 0, 1, 1, '2026-10-12T23:50:00.000', NULL, NULL),
+    (7018, 1004, 6024, 1, 1, 1, 1, 0, 1, 1, '2026-10-12T23:50:00.000', NULL, NULL),
+    (7019, 1, 6024, 1, 1, 1, 1, 0, 1, 1, '2026-10-12T23:50:00.000', NULL, NULL)
 ) AS source ([Id], [UserRoleId], [ScreenId], [CanView], [CanEdit], [CanDelete], [HaveFullAccess], [HaveNoAccess], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
