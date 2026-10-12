@@ -1,4 +1,4 @@
-SET ANSI_NULLS ON
+﻿SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
@@ -97,7 +97,8 @@ USING (VALUES
     (2005, N'RTS_CONFIGURATION', N'System Configuration', N'प्रणाली संरचना', N'Settings', 3, 1, 1, '2026-07-27T17:15:41.550', 1002, '2026-08-28T13:47:16.957'),
     (3003, N'RTS_CITIZEN', N'Citizen Services', N'नागरिक सेवा', N'Users', 1, 1, 1002, '2026-08-26T16:07:54.227', 1002, '2026-08-28T13:47:16.957'),
     (3004, N'RTS_OFFICER', N'Officer Workplace', N'अधिकारी कार्यस्थळ', N'Briefcase', 2, 1, 1002, '2026-08-26T16:07:54.227', 1002, '2026-08-28T13:47:16.957'),
-    (3005, N'RTS_REPORTS', N'Reports & Analytics', N'अहवाल व विश्लेषण', N'BarChart3', 4, 1, 1002, '2026-08-26T16:07:54.227', 1002, '2026-08-28T13:47:16.957')
+    (3005, N'RTS_REPORTS', N'Reports & Analytics', N'अहवाल व विश्लेषण', N'BarChart3', 4, 1, 1002, '2026-08-26T16:07:54.227', 1002, '2026-08-28T13:47:16.957'),
+    (2006, N'RTS_SETTLEMENT', N'RTS Payment Settlement', N'à¤†à¤°à¤Ÿà¥€à¤à¤¸ à¤¶à¥à¤²à¥à¤• à¤µ à¤µà¤Ÿà¤£à¤¾à¤µà¤³', N'CreditCard', 72, 1, 1, '2026-10-11T22:05:00.000', NULL, NULL)
 ) AS source ([Id], [ScreenGroupCode], [ScreenGroupName], [ScreenGroupNameLocal], [ScreenGroupIcon], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -174,7 +175,8 @@ USING (VALUES
     (5020, 2005, 1005, N'RTS_OFFICERS', N'Service Officers', N'à¤¸à¥‡à¤µà¤¾ à¤…à¤§à¤¿à¤•à¤¾à¤°à¥€ à¤µà¤¾à¤Ÿà¤ª', N'UserCheck', N'/rts/configuration-settings/rts-officers', 1, 1, 0, 7, 1, 1002, '2026-09-04T18:51:00.677', NULL, NULL, 5),
     (6020, 2005, 1005, N'RTS_USER_MASTER', N'RTS User Master', N'RTS User Master', N'UserCheck', N'/rts/configuration-settings/rts-user', 1, 1, 0, 8, 1, 1002, '2026-09-29T13:40:12.390', 1002, '2026-10-02T15:40:17.773', 5),
     (6021, 2005, 1005, N'RTS_SCREEN_MASTER', N'RTS Screen Master', N'RTS Screen Master', N'Sliders', N'/rts/configuration-settings/rts-screen', 1, 1, 0, 9, 1, 1002, '2026-09-29T13:40:12.390', 1002, '2026-10-02T15:40:25.467', 5),
-    (6022, 2005, 1005, N'RTS_RULE_MASTER', N'RTS Rule Master', N'RTS नियम मास्टर', N'PencilRuler', N'/rts/configuration-settings/rts-rule', 1, 1, NULL, 11, 1, 1002, '2026-10-03T13:00:23.413', NULL, NULL, 5)
+    (6022, 2005, 1005, N'RTS_RULE_MASTER', N'RTS Rule Master', N'RTS नियम मास्टर', N'PencilRuler', N'/rts/configuration-settings/rts-rule', 1, 1, NULL, 11, 1, 1002, '2026-10-03T13:00:23.413', NULL, NULL, 5),
+    (6023, 2006, 1005, N'RTS_SETTLEMENT', N'RTS Payment Settlement', N'à¤†à¤°à¤Ÿà¥€à¤à¤¸ à¤¶à¥à¤²à¥à¤• à¤®à¤‚à¤œà¥à¤°à¥€ à¤µ à¤µà¤Ÿà¤£à¤¾à¤µà¤³', N'CreditCard', N'/rts/dashboard/rts-settlement', 1, 1, 0, 2, 1, 1, '2026-10-11T21:50:00.000', NULL, NULL, 5)
 ) AS source ([Id], [ScreenGroupId], [ModuleId], [ScreenCode], [ScreenName], [ScreenNameLocal], [ScreenIcon], [RoutePath], [IsMenu], [IsAuthenticationRequired], [IsPropertyLockable], [DisplayOrder], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DepartmentId])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -212,7 +214,13 @@ GO
 MERGE INTO [CORE].[UserRoleMaster] AS target
 USING (VALUES
     (1, N'Admin', 1, 1, '2026-07-15T16:26:53.477', NULL, NULL, 1),
-    (2, N'Admin', 1, 1, '2026-07-27T17:15:41.537', 1002, '2026-08-26T15:31:32.027', 5)
+    (2, N'Admin', 1, 1, '2026-07-27T17:15:41.537', 1002, '2026-08-26T15:31:32.027', 5),
+    (1002, N'Clerk', 1, 1, '2026-09-30T17:11:37.633', NULL, NULL, 5),
+    (1003, N'Head Officer', 1, 1, '2026-09-30T17:11:55.870', NULL, NULL, 5),
+    (1004, N'Senior Officer', 1, 1, '2026-09-30T17:13:24.013', NULL, NULL, 5),
+    (1005, N'Admin', 1, 1, '2026-09-30T19:33:25.347', NULL, NULL, 2),
+    (1006, N'Admin', 1, 1, '2026-09-30T19:33:51.410', NULL, NULL, 3),
+    (1007, N'Admin', 1, 1, '2026-09-30T19:34:05.407', NULL, NULL, 4)
 ) AS source ([Id], [UserRoleName], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [DepartmentId])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -233,23 +241,43 @@ SET IDENTITY_INSERT [CORE].[UserRoleMaster] OFF;
 GO
 
 /* ----------------------------------------------------------------------------
-   Table: [CORE].[UserMaster] (11 rows)
+   Table: [CORE].[UserMaster] (31 rows)
    ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [CORE].[UserMaster] ON;
 GO
 MERGE INTO [CORE].[UserMaster] AS target
 USING (VALUES
-    (1, 1, N'Clerk', N'Hrishikesh', NULL, N'Patekar', N'CK', N'Pune', N'7058601590', N'8625085936', N'HrishikeshPatekar@gmail.com', 0, N'en', 1, N'Test', NULL, 0, '2026-09-10T15:24:02.990', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', 1, '2026-08-11T20:02:48.860', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
-    (2, 1, N'HeadOfficer', N'Aditya', NULL, N'Fatke', N'HO', N'Pune', N'9876543210', NULL, N'Aditya55@gmail.com', 0, N'en', 1, N'Head Officer', NULL, 0, '2026-09-10T12:49:40.577', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:23:16.203', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
-    (3, 1, N'SeniorOfficer', N'Vidyanad', NULL, N'Sawai', N'SO', N'Amravati', N'9876543211', NULL, N'VidyanadSawai2508@gmail.com', 0, N'en', 1, N'Senior Officer', NULL, 0, '2026-09-10T12:41:53.110', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:22:23.800', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
-    (4, 1, N'Prashant.r', N'Prashant', NULL, N'Rajurkar', N'HOD', N'Akola', N'8329184285', NULL, NULL, 0, N'en', 1, N'HOD', NULL, 0, '2026-09-10T15:05:41.950', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T12:00:17.400', 1, '2026-09-10T13:19:44.673', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
-    (5, 9, N'Lata.g', N'Lata', NULL, N'Ghime', N'CK1', N'Akola', N'8080685518', NULL, NULL, 0, N'en', 1, N'Clerk', NULL, 0, '2026-09-10T15:06:10.133', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T11:55:53.667', 1, '2026-09-10T13:59:17.430', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
-    (6, 1, N'Pramod.g', N'Pramod', NULL, N'Gaikwad', N'CK2', N'Akola', N'9421894208', NULL, NULL, 0, N'en', 1, N'Clerk', NULL, 0, '2026-09-10T15:09:59.997', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T12:05:43.063', 1, '2026-09-10T13:30:00.987', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
-    (7, 5, N'Kailash.t', N'Kailash', NULL, N'Thakur', N'CK3', N'Akola', N'7709409303', NULL, NULL, 0, N'en', 1, N'Clerk', NULL, 0, '2026-09-10T15:24:58.863', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T15:24:58.863', 1, '2026-09-10T15:24:58.863', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
-    (8, 5, N'Akansha.h', N'Akansha', NULL, N'Hiwale', N'CK4', N'Akola', N'9975130814', NULL, NULL, 0, N'en', 1, N'Clerk', NULL, 0, '2026-09-10T15:28:19.670', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T15:28:19.670', 1, '2026-09-10T15:28:19.670', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
-    (1002, 1, N'ADMIN', N'ADMIN', N'ADMIN', N'ADMIN', N'PB', N'Amravati', N'7058601590', N'8625085936', N'ashwineshmukh62@gmail.com', 0, N'en', 1, N'Test', NULL, 0, '2026-09-10T12:34:29.143', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:24:08.297', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
-    (2004, 1, N'FirstAppellateOfficer', N'neha', NULL, N'Puri', N'FAO', N'Amravarti', N'9370932047', NULL, N'nehap@gmail.com', 0, N'en', 1, N'Test', NULL, 0, '2026-09-09T18:29:22.020', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', NULL, '2026-08-24T12:57:33.160', NULL, NULL, 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
-    (2005, 1, N'SecondAppellateOfficer', N'test', NULL, N'Puri', N'SAO', N'Amravarti', N'9370932048', NULL, N'nehap19@gmail.com', 0, N'en', 1, N'Test', NULL, 1, '2026-09-07T20:06:03.940', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', NULL, '2026-08-24T12:57:33.160', NULL, NULL, 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL)
+(1, NULL, N'Clerk', N'Hrishikesh', N'', N'Patekar', N'CK12', N'Pune', N'7058601590', N'8625085936', N'HrishikeshPatekar@gmail.com', 0, N'en', 1, N'Test', NULL, 0, '2026-10-11T12:09:19.617', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', 1002, '2026-09-30T20:24:57.853', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (2, NULL, N'HeadOfficer', N'Aditya', NULL, N'Fatke', N'HO', N'Pune', N'9876543210', NULL, N'Aditya55@gmail.com', 0, N'en', 1, N'Head Officer', NULL, 0, '2026-10-11T11:09:00.883', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:23:16.203', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (3, NULL, N'SeniorOfficer', N'Vidyanad', NULL, N'Sawai', N'SO', N'Amravati', N'9876543211', NULL, N'VidyanadSawai2508@gmail.com', 0, N'en', 1, N'Senior Officer', NULL, 0, '2026-10-10T18:12:45.957', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', NULL, '2026-08-12T12:22:23.800', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (4, NULL, N'Prashant.r', N'Prashant', NULL, N'Rajurkar', N'HOD', N'Akola', N'8329184285', NULL, NULL, 0, N'en', 1, N'HOD', NULL, 0, '2026-09-28T11:02:49.017', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T12:00:17.400', 1, '2026-09-10T13:19:44.673', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (5, NULL, N'Lata.g', N'Lata', N'', N'Ghime', N'CK1', N'Akola', N'8080685518', N'', NULL, 0, N'en', 1, N'Clerk', NULL, 0, '2026-09-10T15:37:26.117', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T11:55:53.667', 1, '2026-09-30T19:34:56.387', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (6, NULL, N'Pramod.g', N'Pramod', N'', N'Gaikwad', N'CK2', N'Akola', N'9421894208', N'', NULL, 0, N'en', 1, N'Clerk', NULL, 0, '2026-09-10T16:54:14.280', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T12:05:43.063', 1, '2026-09-30T19:40:20.510', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (7, NULL, N'Kailash.t', N'Kailash', N'', N'Thakur', N'CK3', N'Akola', N'7709409303', N'', NULL, 0, N'en', 1, N'Clerk', NULL, 0, '2026-10-01T17:48:41.350', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T15:24:58.863', 1002, '2026-10-01T16:01:52.653', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (8, NULL, N'Akansha.h', N'Akansha', N'', N'Hiwale', N'CK4', N'Akola', N'9975130814', N'', NULL, 0, N'en', 1, N'Clerk', NULL, 0, '2026-10-01T18:19:14.693', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T15:28:19.670', 1002, '2026-10-01T18:45:45.263', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (9, NULL, N'Anup.c', N'Anup', N'', N'Choudhary', N'MOH.CK', N'Akola', N'7721818117', N'', NULL, 0, N'en', 1, N'Additional MOH', NULL, 0, '2026-09-10T17:03:16.700', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T16:59:20.047', 1002, '2026-10-01T18:46:15.623', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (10, NULL, N'Sonali.s', N'Sonali', NULL, N'Surwade', N'CK5', N'Akola', N'9766859941', NULL, NULL, 0, N'en', 1, N'Clerk', NULL, 0, '2026-10-01T19:20:22.220', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-10T17:06:36.770', 1002, '2026-10-01T18:25:48.163', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (11, NULL, N'Avinash.s', N'Avinash', NULL, N'Sonone', N'MOH', N'Akola', N'9730521213', NULL, NULL, 0, N'en', 1, N'MOH', NULL, 0, '2026-09-17T11:10:50.713', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T11:19:59.617', 1, '2026-09-16T11:19:59.617', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (12, NULL, N'Chetan.s', N'Chetan', NULL, N'Shankarpure', N'JE', N'Akola', N'9673222213', NULL, NULL, 0, N'en', 1, N'Junior Engineer', NULL, 0, '2026-09-16T12:25:23.913', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:25:23.913', 1, '2026-09-16T12:25:23.913', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (13, NULL, N'Ajay.g', N'Ajay', NULL, N'Gujar', N'EE', N'Akola', N'7709322666', NULL, NULL, 0, N'en', 1, N'Executive Engineer', NULL, 0, '2026-09-16T12:28:27.793', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:28:27.793', 1, '2026-09-16T12:28:27.793', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (14, NULL, N'Satish.r', N'Satish', NULL, N'Rathod', N'JE', N'Akola', N'7350577080', NULL, NULL, 0, N'en', 1, N'Junior Engineer', NULL, 0, '2026-09-16T12:31:04.490', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:31:04.490', 1, '2026-09-16T12:31:04.490', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (15, NULL, N'Manish.k', N'Manish', NULL, N'Khatri', N'JE', N'Akola', N'7588757988', NULL, NULL, 0, N'en', 1, N'Junior Engineer', NULL, 0, '2026-09-16T12:33:05.907', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:33:05.907', 1, '2026-09-16T12:33:05.907', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (16, NULL, N'Swapnil.l', N'Swapnil', NULL, N'Lahange', N'JE', N'Akola', N'8329158110', NULL, NULL, 0, N'en', 1, N'Junior Engineer', NULL, 0, '2026-09-16T12:34:44.183', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:34:44.183', 1, '2026-09-16T12:34:44.183', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (17, NULL, N'Hrishikesh.t', N'Hrishikesh', NULL, N'Thakare', N'JE', N'Akola', N'7588759824', NULL, NULL, 0, N'en', 1, N'Junior Engineer', NULL, 0, '2026-09-16T12:37:05.867', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:37:05.867', 1, '2026-09-16T12:37:05.867', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (18, NULL, N'Ashish.n', N'Ashish', NULL, N'Nichal', N'DE', N'Akola', N'9696642727', NULL, NULL, 0, N'en', 1, N'Deputy Engineer', NULL, 0, '2026-09-16T12:39:43.573', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:39:43.573', 1, '2026-09-16T12:39:43.573', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (19, NULL, N'Nakul.p', N'Nakul', NULL, N'Pagrut', N'DE', N'Akola', N'9922030206', NULL, NULL, 0, N'en', 1, N'Deputy Engineer', NULL, 0, '2026-09-16T12:42:50.630', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:42:50.630', 1, '2026-09-16T12:42:50.630', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (20, NULL, N'Yusuf.k', N'Yusuf', NULL, N'Khan', N'DE', N'Akola', N'9890007530', NULL, NULL, 0, N'en', 1, N'Deputy Engineer', NULL, 0, '2026-09-16T12:45:00.023', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:45:00.023', 1, '2026-09-16T12:45:00.023', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (21, NULL, N'Anil.g', N'Anil', NULL, N'Gawande', N'DE', N'Akola', N'7709049675', NULL, NULL, 0, N'en', 1, N'Deputy Engineer', NULL, 0, '2026-09-16T12:46:07.290', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:46:07.290', 1, '2026-09-16T12:46:07.290', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (22, NULL, N'Ganesh.b', N'Ganesh', NULL, N'Billewar', N'HOD', N'Akola', N'9422142224', NULL, NULL, 0, N'en', 1, N'HOD', NULL, 0, '2026-09-16T12:54:06.360', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:54:06.360', 1, '2026-09-16T12:54:06.360', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (23, NULL, N'Sanjay.k', N'Sanjay', NULL, N'Kharate', N'CK7', N'Akola', NULL, NULL, NULL, 0, N'en', 1, N'Clerk', NULL, 0, '2026-09-16T12:59:33.957', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T12:59:33.957', 1, '2026-09-16T12:59:33.957', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (24, NULL, N'Poornima.g', N'Poornima', NULL, N'Ghatale', N'Reg', N'Akola', N'9011684722', NULL, NULL, 0, N'en', 1, N'Registrar', NULL, 0, '2026-09-16T13:25:58.860', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T13:08:45.187', 1, '2026-09-16T13:08:45.187', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (25, NULL, N'Jayant.s', N'Jayant', NULL, N'Sule', N'CK8', N'Akola', N'7887309831', NULL, NULL, 0, N'en', 1, N'Clerk', NULL, 0, '2026-09-16T13:11:31.127', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T13:11:31.127', 1, '2026-09-16T13:11:31.127', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (26, NULL, N'Hemant.s', N'Hemant', NULL, N'Shelwane', N'CK9', N'Akola', N'7709043156', NULL, NULL, 0, N'en', 1, N'Clerk', NULL, 0, '2026-09-16T13:12:58.070', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T13:12:58.070', 1, '2026-09-16T13:12:58.070', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (27, NULL, N'Kamalkishor.y', N'Kamalkishor', NULL, N'Yadav', N'CK', N'Akola', N'9763861654', NULL, NULL, 0, N'en', 1, N'Clerk', NULL, 0, '2026-09-16T13:18:11.677', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-09-16T13:14:48.573', 1, '2026-09-16T13:14:48.573', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (1002, NULL, N'ADMIN', N'ADMIN', N'ADMIN', N'ADMIN', N'PB', N'Amravati', N'7058601590', N'8625085936', N'ashwineshmukh62@gmail.com', 0, N'en', 1, N'Test', NULL, 0, '2026-10-11T13:44:13.893', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', 1, '2026-08-24T12:57:33.160', 1002, '2026-10-01T17:45:10.887', 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (2004, NULL, N'FirstAppellateOfficer', N'neha', NULL, N'Puri', N'FAO', N'Amravarti', N'9370932047', NULL, N'nehap@gmail.com', 0, N'en', 1, N'Test', NULL, 0, '2026-09-24T16:38:07.953', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', NULL, '2026-08-24T12:57:33.160', NULL, NULL, 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (2005, NULL, N'SecondAppellateOfficer', N'test', NULL, N'Puri', N'SAO', N'Amravarti', N'9370932048', NULL, N'nehap19@gmail.com', 0, N'en', 1, N'Test', NULL, 0, '2026-09-15T12:47:31.100', 0, 1, N'$2a$12$UrYOuPYbZ2y17gPcoIDtzu2V8GymSpKa/YBByn3q/Q0JxlmjixqAC', NULL, '2026-08-24T12:57:33.160', NULL, NULL, 0, NULL, NULL, 0, NULL, 0, NULL, 0, NULL, NULL),
+    (3004, NULL, N'Hrishikesh.P', N'Hrishikesh', N'Mahesh', N'Patekar', N'HP.CK123', N'Pune', N'9356686560', N'', N'hmpatekar2002@gmail.com', 0, N'en', 0, N'Clerk', NULL, 0, NULL, 0, 1, N'$2a$12$0g.bERvCaKFKP8GwKCTx0Ov5EP7rplsiw6bB5XA1I8VL65I7qmQ.i', 1002, '2026-10-01T18:28:21.747', NULL, '2026-10-01T18:28:39.873', 1, '2026-10-01T18:28:39.873', NULL, 0, NULL, 0, NULL, 0, NULL, '2026-10-01T18:28:21.747')
 ) AS source ([Id], [DeptId], [UserName], [FirstName], [MiddleName], [LastName], [UserCode], [Address], [MobileNo], [AlternateMobileNo], [Email], [MustChangePassword], [Language], [IsActive], [Remark], [LockedUntilAt], [FailedLoginCount], [LastLoginAt], [UserLocked], [EmployeeTypeId], [PasswordHash], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [MarkedForDeletion], [MarkedForDeletionDate], [SecurityStamp], [TwoFactorEnabled], [TwoFactorEnabledAt], [TwoFactorRequired], [TwoFactorSecretEncrypted], [OtpChallengeFailCount], [OtpChallengeLockedUntilAt], [PasswordChangedAt])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -506,7 +534,10 @@ USING (VALUES
     (6011, 1002, 4017, 1, 0, 0, 0, 0, 1, 1002, '2026-10-01T18:08:08.270', 1002, '2026-10-01T18:55:01.580'),
     (6012, 1003, 4016, 1, 0, 0, 0, 0, 1, 1002, '2026-10-01T18:55:50.537', NULL, NULL),
     (6013, 1003, 4017, 1, 0, 0, 0, 0, 1, 1002, '2026-10-01T18:56:29.100', 1002, '2026-10-01T18:56:55.490'),
-    (7011, 2, 6022, 1, 1, 1, 1, 0, 1, 1002, '2026-10-03T13:01:26.313', NULL, NULL)
+    (7011, 2, 6022, 1, 1, 1, 1, 0, 1, 1002, '2026-10-03T13:01:26.313', NULL, NULL),
+    (7012, 2, 6023, 1, 1, 1, 1, 0, 1, 1, '2026-10-11T21:50:00.000', NULL, NULL),
+    (7013, 1002, 6023, 1, 1, 1, 1, 0, 1, 1, '2026-10-11T21:50:00.000', NULL, NULL),
+    (7014, 1003, 6023, 1, 1, 1, 1, 0, 1, 1, '2026-10-11T21:50:00.000', NULL, NULL)
 ) AS source ([Id], [UserRoleId], [ScreenId], [CanView], [CanEdit], [CanDelete], [HaveFullAccess], [HaveNoAccess], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
@@ -901,4 +932,54 @@ WHEN NOT MATCHED BY TARGET THEN
 GO
 
 SET IDENTITY_INSERT [CORE].[DocumentBinding] OFF;
+GO
+
+/* ============================================================================
+   Table: [CORE].[BankMaster] (21 rows)
+   ============================================================================ */
+SET IDENTITY_INSERT [CORE].[BankMaster] ON;
+GO
+
+MERGE INTO [CORE].[BankMaster] AS target
+USING (VALUES
+    (1, N'SBIN', N'State Bank of India', N'Akola Main Branch', 'SBIN0000300', N'Station Road, Akola', N'Akola', N'Maharashtra', '444001', 1, 1, '2026-01-01T00:00:00'),
+    (2, N'MAHB', N'Bank of Maharashtra', N'Akola Branch', 'MAHB0000010', N'Gandhi Road, Akola', N'Akola', N'Maharashtra', '444001', 1, 1, '2026-01-01T00:00:00'),
+    (3, N'PUNB', N'Punjab National Bank', N'Akola Branch', 'PUNB0000100', N'Tilak Road, Akola', N'Akola', N'Maharashtra', '444001', 1, 1, '2026-01-01T00:00:00'),
+    (4, N'BARB', N'Bank of Baroda', N'Akola Branch', 'BARB0AKOLAX', N'Nehru Park, Akola', N'Akola', N'Maharashtra', '444001', 1, 1, '2026-01-01T00:00:00'),
+    (5, N'CNRB', N'Canara Bank', N'Akola Branch', 'CNRB0000200', N'Murtizapur Road, Akola', N'Akola', N'Maharashtra', '444001', 1, 1, '2026-01-01T00:00:00'),
+    (6, N'UBIN', N'Union Bank of India', N'Akola Branch', 'UBIN0530001', N'Civil Lines, Akola', N'Akola', N'Maharashtra', '444001', 1, 1, '2026-01-01T00:00:00'),
+    (7, N'CBIN', N'Central Bank of India', N'Akola Branch', 'CBIN0280001', N'Open Theater, Akola', N'Akola', N'Maharashtra', '444001', 1, 1, '2026-01-01T00:00:00'),
+    (8, N'IDIB', N'Indian Bank', N'Akola Branch', 'IDIB000A001', N'Jatharpeth, Akola', N'Akola', N'Maharashtra', '444005', 1, 1, '2026-01-01T00:00:00'),
+    (9, N'HDFC', N'HDFC Bank Ltd', N'Akola Branch', 'HDFC0000250', N'Gorakshan Road, Akola', N'Akola', N'Maharashtra', '444004', 1, 1, '2026-01-01T00:00:00'),
+    (10, N'ICIC', N'ICICI Bank Ltd', N'Akola Branch', 'ICIC0000150', N'Old Cotton Market, Akola', N'Akola', N'Maharashtra', '444001', 1, 1, '2026-01-01T00:00:00'),
+    (11, N'UTIB', N'Axis Bank Ltd', N'Akola Branch', 'UTIB0000120', N'Civil Lines, Akola', N'Akola', N'Maharashtra', '444001', 1, 1, '2026-01-01T00:00:00'),
+    (12, N'KKBK', N'Kotak Mahindra Bank', N'Akola Branch', 'KKBK0000210', N'Ramdaspeth, Akola', N'Akola', N'Maharashtra', '444001', 1, 1, '2026-01-01T00:00:00'),
+    (13, N'INDB', N'IndusInd Bank', N'Akola Branch', 'INDB0000100', N'Toshniwal Layout, Akola', N'Akola', N'Maharashtra', '444001', 1, 1, '2026-01-01T00:00:00'),
+    (14, N'IBKL', N'IDBI Bank Ltd', N'Akola Branch', 'IBKL0000050', N'Murtizapur Road, Akola', N'Akola', N'Maharashtra', '444001', 1, 1, '2026-01-01T00:00:00'),
+    (15, N'ADCC', N'The Akola District Central Co-op Bank Ltd', N'Head Office Akola', 'HDFC0CADCCB', N'Civil Lines, Akola', N'Akola', N'Maharashtra', '444001', 1, 1, '2026-01-01T00:00:00'),
+    (16, N'AUCB', N'The Akola Urban Co-operative Bank Ltd', N'Main Branch Akola', 'AUCB0000001', N'Tajnapeth, Akola', N'Akola', N'Maharashtra', '444001', 1, 1, '2026-01-01T00:00:00'),
+    (17, N'AJCC', N'The Akola Janata Commercial Co-op Bank Ltd', N'Main Branch Akola', 'AJCC0000001', N'Old Cotton Market, Akola', N'Akola', N'Maharashtra', '444001', 1, 1, '2026-01-01T00:00:00'),
+    (18, N'MAHG', N'Maharashtra Gramin Bank', N'Akola Branch', 'MAHG0004100', N'Alsi Plots, Akola', N'Akola', N'Maharashtra', '444001', 1, 1, '2026-01-01T00:00:00'),
+    (19, N'SRCB', N'Saraswat Co-operative Bank Ltd', N'Akola Branch', 'SRCB0000020', N'Ramdaspeth, Akola', N'Akola', N'Maharashtra', '444001', 1, 1, '2026-01-01T00:00:00'),
+    (20, N'COSB', N'Cosmos Co-operative Bank Ltd', N'Akola Branch', 'COSB0000015', N'Civil Lines, Akola', N'Akola', N'Maharashtra', '444001', 1, 1, '2026-01-01T00:00:00'),
+    (21, N'TJSB', N'TJSB Sahakari Bank Ltd', N'Akola Branch', 'TJSB0000025', N'Gorakshan Road, Akola', N'Akola', N'Maharashtra', '444004', 1, 1, '2026-01-01T00:00:00')
+) AS source ([Id], [BankCode], [BankName], [BranchName], [IFSCCode], [Address], [City], [State], [Pincode], [IsActive], [CreatedBy], [CreatedDate])
+ON target.[Id] = source.[Id]
+WHEN MATCHED THEN
+    UPDATE SET
+        target.[BankCode] = source.[BankCode],
+        target.[BankName] = source.[BankName],
+        target.[BranchName] = source.[BranchName],
+        target.[IFSCCode] = source.[IFSCCode],
+        target.[Address] = source.[Address],
+        target.[City] = source.[City],
+        target.[State] = source.[State],
+        target.[Pincode] = source.[Pincode],
+        target.[IsActive] = source.[IsActive]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([Id], [BankCode], [BankName], [BranchName], [IFSCCode], [Address], [City], [State], [Pincode], [IsActive], [CreatedBy], [CreatedDate])
+    VALUES (source.[Id], source.[BankCode], source.[BankName], source.[BranchName], source.[IFSCCode], source.[Address], source.[City], source.[State], source.[Pincode], source.[IsActive], source.[CreatedBy], source.[CreatedDate]);
+GO
+
+SET IDENTITY_INSERT [CORE].[BankMaster] OFF;
 GO

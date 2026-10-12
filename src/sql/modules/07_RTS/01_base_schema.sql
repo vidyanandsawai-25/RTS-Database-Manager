@@ -185,6 +185,7 @@ BEGIN
         [UserId]                    INT NULL,
         [IsReverted]                BIT NULL CONSTRAINT [DF_ApplicationDetails_IsReverted] DEFAULT (0),
         [Remark]                    NVARCHAR(500) NULL,
+        [IssuedCertificateGuid]     UNIQUEIDENTIFIER NULL,
         [IsActive]                  BIT NOT NULL CONSTRAINT [DF_ApplicationDetails_IsActive] DEFAULT (1),
         [MarkedForDeletion]         BIT NOT NULL CONSTRAINT [DF_ApplicationDetails_MarkedForDeletion] DEFAULT (0),
         [MarkedForDeletionDate]     DATETIME NULL,
@@ -192,7 +193,6 @@ BEGIN
         [CreatedDate]               DATETIME NOT NULL CONSTRAINT [DF_ApplicationDetails_CreatedDate] DEFAULT (GETDATE()),
         [UpdatedBy]                 INT NULL,
         [UpdatedDate]               DATETIME NULL,
-        [IssuedCertificateGuid]     UNIQUEIDENTIFIER NULL,
 
         CONSTRAINT [PK_ApplicationDetails] PRIMARY KEY CLUSTERED ([Id] ASC),
         CONSTRAINT [UQ_ApplicationDetails_ApplicationNo] UNIQUE NONCLUSTERED ([ApplicationNo] ASC)
@@ -215,6 +215,15 @@ BEGIN
         ADD CONSTRAINT [FK_ApplicationDetails_ServiceMaster]
         FOREIGN KEY ([ServiceId])
         REFERENCES [RTS].[ServiceMaster] ([Id]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_ApplicationDetails_CitizenSession')
+BEGIN
+    ALTER TABLE [RTS].[ApplicationDetails] WITH CHECK
+        ADD CONSTRAINT [FK_ApplicationDetails_CitizenSession]
+        FOREIGN KEY ([SessionId])
+        REFERENCES [RTS].[CitizenSession] ([SessionId]);
 END;
 GO
 
@@ -317,7 +326,7 @@ BEGIN
         [CanEdit]               BIT NULL,
         [CanViewNoteSheet]      BIT NOT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_CanViewNoteSheet] DEFAULT (0),
         [CanIssueCertificate]   BIT NOT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_CanIssueCertificate] DEFAULT (0),
-        [CanEditCertificate]    BIT NOT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_CanEditCertificate] DEFAULT (0),
+        [CanViewCertificate]    BIT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_CanViewCertificate] DEFAULT (1),
 
         CONSTRAINT [PK_ApprovalFlowStageMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
         CONSTRAINT [UQ_ApprovalFlowStageMaster_FlowStage] UNIQUE NONCLUSTERED ([ApprovalFlowId] ASC, [StageOrder] ASC)
@@ -370,44 +379,7 @@ BEGIN
 END;
 GO
 
-/* ----------------------------------------------------------------------------
-   10. [RTS].[CertificateTemplateMaster]
-   ---------------------------------------------------------------------------- */
-IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'CertificateTemplateMaster')
-BEGIN
-    CREATE TABLE [RTS].[CertificateTemplateMaster]
-    (
-        [Id]                        INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-        [ServiceId]                 INT NOT NULL,
-        [TemplateName]              NVARCHAR(200) NOT NULL,
-        [TemplateCode]              NVARCHAR(100) NULL,
-        [HeaderContent]             NVARCHAR(MAX) NULL,
-        [BodyContent]               NVARCHAR(MAX) NOT NULL,
-        [FooterContent]             NVARCHAR(MAX) NULL,
-        [DefaultConditionsJson]     NVARCHAR(MAX) NULL,
-        [OfficerFieldsConfigJson]   NVARCHAR(MAX) NULL,
-        [IsActive]                  BIT NOT NULL CONSTRAINT [DF_CertificateTemplateMaster_IsActive] DEFAULT (1),
-        [CreatedBy]                 INT NULL,
-        [CreatedDate]               DATETIME NOT NULL CONSTRAINT [DF_CertificateTemplateMaster_CreatedDate] DEFAULT (GETDATE()),
-        [UpdatedBy]                 INT NULL,
-        [UpdatedDate]               DATETIME NULL,
-        [MarkedForDeletion]         BIT NOT NULL CONSTRAINT [DF_CertificateTemplateMaster_MarkedForDeletion] DEFAULT (0),
-        [MarkedForDeletionDate]     DATETIME NULL,
 
-        CONSTRAINT [PK_CertificateTemplateMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
-        CONSTRAINT [UQ_CertificateTemplateMaster_ServiceId] UNIQUE NONCLUSTERED ([ServiceId] ASC)
-    );
-END;
-GO
-
-IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_CertificateTemplateMaster_ServiceMaster')
-BEGIN
-    ALTER TABLE [RTS].[CertificateTemplateMaster] WITH CHECK
-        ADD CONSTRAINT [FK_CertificateTemplateMaster_ServiceMaster]
-        FOREIGN KEY ([ServiceId])
-        REFERENCES [RTS].[ServiceMaster] ([Id]);
-END;
-GO
 
 /* ----------------------------------------------------------------------------
    10B. [RTS].[CertificateCoreTemplateMaster]
@@ -453,6 +425,7 @@ BEGIN
         [FooterContent]             NVARCHAR(MAX) NULL,
         [DefaultConditionsJson]     NVARCHAR(MAX) NULL,
         [OfficerFieldsConfigJson]   NVARCHAR(MAX) NULL,
+        [DesignJson]                NVARCHAR(MAX) NULL,
         [IsActive]                  BIT NOT NULL CONSTRAINT [DF_ServiceCertificateMaster_IsActive] DEFAULT (1),
         [CreatedBy]                 INT NULL,
         [CreatedDate]               DATETIME NOT NULL CONSTRAINT [DF_ServiceCertificateMaster_CreatedDate] DEFAULT (GETDATE()),
@@ -460,7 +433,6 @@ BEGIN
         [UpdatedDate]               DATETIME NULL,
         [MarkedForDeletion]         BIT NOT NULL CONSTRAINT [DF_ServiceCertificateMaster_MarkedForDeletion] DEFAULT (0),
         [MarkedForDeletionDate]     DATETIME NULL,
-        [DesignJson]                NVARCHAR(MAX) NULL,
 
         CONSTRAINT [PK_ServiceCertificateMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
     );
@@ -560,10 +532,10 @@ BEGIN
         [ServiceId]         INT NOT NULL,
         [AppealFlowName]    NVARCHAR(100) NOT NULL,
         [IsActive]          BIT NOT NULL CONSTRAINT [DF_AppealFlowMaster_IsActive] DEFAULT (1),
-        [CreatedDate]       DATETIME NOT NULL CONSTRAINT [DF_AppealFlowMaster_CreatedDate] DEFAULT (GETDATE()),
         [CreatedBy]         INT NULL,
-        [UpdatedDate]       DATETIME NULL,
+        [CreatedDate]       DATETIME NOT NULL CONSTRAINT [DF_AppealFlowMaster_CreatedDate] DEFAULT (GETDATE()),
         [UpdatedBy]         INT NULL,
+        [UpdatedDate]       DATETIME NULL,
 
         CONSTRAINT [PK_AppealFlowMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
     );
@@ -580,9 +552,8 @@ BEGIN
         [Id]                INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
         [AppealFlowId]      INT NOT NULL,
         [StageOrder]        INT NOT NULL,
-        [StageName]         NVARCHAR(100) NOT NULL,
+        [StageName]         NVARCHAR(200) NOT NULL,
         [UserId]            INT NULL,
-        [SLADays]           INT NULL CONSTRAINT [DF_AppealFlowStageMaster_SLADays] DEFAULT (3),
         [CanVerifyDocument] BIT NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_CanVerifyDocument] DEFAULT (0),
         [CanApprove]        BIT NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_CanApprove] DEFAULT (0),
         [CanReject]         BIT NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_CanReject] DEFAULT (1),
@@ -606,26 +577,42 @@ BEGIN
         [AppealNo]              VARCHAR(50) NULL,
         [ApplicationId]         INT NOT NULL,
         [AppealTypeId]          INT NOT NULL,
-        [DepartmentId]          INT NOT NULL,
-        [ServiceId]             INT NOT NULL,
-        [AppealLevel]           TINYINT NOT NULL,
-        [Reason]                NVARCHAR(MAX) NULL,
+        [AppealLevel]           INT NOT NULL CONSTRAINT [DF_AppealApplicationDetails_AppealLevel] DEFAULT (1),
         [ReasonForComplaint]    NVARCHAR(MAX) NULL,
-        [MobileNumber]          VARCHAR(15) NULL,
+        [MobileNumber]          VARCHAR(20) NULL,
         [EmailAddress]          VARCHAR(150) NULL,
-        [Status]                NVARCHAR(50) NOT NULL CONSTRAINT [DF_AppealApplicationDetails_Status] DEFAULT ('Submitted'),
-        [AppealStatus]          VARCHAR(30) NULL,
+        [AppealStatus]          VARCHAR(50) NULL CONSTRAINT [DF_AppealApplicationDetails_AppealStatus] DEFAULT ('Submitted'),
         [ActionRemarks]         NVARCHAR(MAX) NULL,
-        [ActionDate]            DATETIME NULL,
         [ActionByUserId]        INT NULL,
+        [ActionDate]            DATETIME NULL,
         [IsActive]              BIT NOT NULL CONSTRAINT [DF_AppealApplicationDetails_IsActive] DEFAULT (1),
         [MarkedForDeletion]     BIT NOT NULL CONSTRAINT [DF_AppealApplicationDetails_MarkedForDeletion] DEFAULT (0),
         [MarkedForDeletionDate] DATETIME NULL,
         [CreatedBy]             INT NULL,
         [CreatedDate]           DATETIME NOT NULL CONSTRAINT [DF_AppealApplicationDetails_CreatedDate] DEFAULT (GETDATE()),
+        [UpdatedBy]             INT NULL,
+        [UpdatedDate]           DATETIME NULL,
 
         CONSTRAINT [PK_AppealApplicationDetails] PRIMARY KEY CLUSTERED ([Id] ASC)
     );
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_AppealApplicationDetails_ApplicationDetails')
+BEGIN
+    ALTER TABLE [RTS].[AppealApplicationDetails] WITH CHECK
+        ADD CONSTRAINT [FK_AppealApplicationDetails_ApplicationDetails]
+        FOREIGN KEY ([ApplicationId])
+        REFERENCES [RTS].[ApplicationDetails] ([Id]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_AppealApplicationDetails_AppealTypeMaster')
+BEGIN
+    ALTER TABLE [RTS].[AppealApplicationDetails] WITH CHECK
+        ADD CONSTRAINT [FK_AppealApplicationDetails_AppealTypeMaster]
+        FOREIGN KEY ([AppealTypeId])
+        REFERENCES [RTS].[AppealTypeMaster] ([Id]);
 END;
 GO
 
@@ -668,8 +655,8 @@ BEGIN
         [BadgeColor]    VARCHAR(100) NULL,
         [DisplayOrder]  INT NOT NULL CONSTRAINT [DF_PaymentStatusMaster_DisplayOrder] DEFAULT (0),
         [IsActive]      BIT NOT NULL CONSTRAINT [DF_PaymentStatusMaster_IsActive] DEFAULT (1),
-        [CreatedBy]     INT NULL,
         [CreatedDate]   DATETIME NOT NULL CONSTRAINT [DF_PaymentStatusMaster_CreatedDate] DEFAULT (GETDATE()),
+        [CreatedBy]     INT NULL,
         [UpdatedBy]     INT NULL,
         [UpdatedDate]   DATETIME NULL,
 
@@ -692,8 +679,8 @@ BEGIN
         [ModeNameMr]    NVARCHAR(200) NOT NULL,
         [IconName]      VARCHAR(100) NULL,
         [IsActive]      BIT NOT NULL CONSTRAINT [DF_PaymentModeMaster_IsActive] DEFAULT (1),
-        [CreatedBy]     INT NULL,
         [CreatedDate]   DATETIME NOT NULL CONSTRAINT [DF_PaymentModeMaster_CreatedDate] DEFAULT (GETDATE()),
+        [CreatedBy]     INT NULL,
         [UpdatedBy]     INT NULL,
         [UpdatedDate]   DATETIME NULL,
 
@@ -719,12 +706,12 @@ BEGIN
         [WebhookSecret] VARCHAR(250) NULL,
         [ServiceUrl]    VARCHAR(500) NULL,
         [Currency]      VARCHAR(10) NOT NULL CONSTRAINT [DF_PaymentGatewayConfig_Currency] DEFAULT ('INR'),
-        [IsActive]      BIT NOT NULL CONSTRAINT [DF_PaymentGatewayConfig_IsActive] DEFAULT (1),
         [IsDefault]     BIT NOT NULL CONSTRAINT [DF_PaymentGatewayConfig_IsDefault] DEFAULT (0),
-        [CreatedBy]     INT NULL,
+        [IsActive]      BIT NOT NULL CONSTRAINT [DF_PaymentGatewayConfig_IsActive] DEFAULT (1),
         [CreatedDate]   DATETIME NOT NULL CONSTRAINT [DF_PaymentGatewayConfig_CreatedDate] DEFAULT (GETDATE()),
-        [UpdatedBy]     INT NULL,
+        [CreatedBy]     INT NULL,
         [UpdatedDate]   DATETIME NULL,
+        [UpdatedBy]     INT NULL,
 
         CONSTRAINT [PK_PaymentGatewayConfig] PRIMARY KEY CLUSTERED ([Id] ASC),
         CONSTRAINT [UQ_PaymentGatewayConfig_GatewayCode] UNIQUE NONCLUSTERED ([GatewayCode] ASC)
@@ -740,9 +727,9 @@ BEGIN
     CREATE TABLE [RTS].[PaymentTransaction]
     (
         [Id]                    BIGINT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-        [TransactionNo]         VARCHAR(60) NOT NULL,
+        [TransactionNo]         VARCHAR(50) NOT NULL,
         [ApplicationId]         INT NOT NULL,
-        [ApplicationNo]         VARCHAR(100) NOT NULL,
+        [ApplicationNo]         VARCHAR(50) NOT NULL,
         [ServiceId]             INT NOT NULL,
         [DepartmentId]          INT NOT NULL,
         [GatewayConfigId]       INT NOT NULL,
@@ -753,14 +740,28 @@ BEGIN
         [DiscountAmount]        DECIMAL(18,2) NOT NULL CONSTRAINT [DF_PaymentTransaction_DiscountAmount] DEFAULT (0),
         [TotalAmount]           DECIMAL(18,2) NOT NULL,
         [Currency]              VARCHAR(10) NOT NULL CONSTRAINT [DF_PaymentTransaction_Currency] DEFAULT ('INR'),
-        [GatewayOrderId]        VARCHAR(100) NULL,
+        [GatewayOrderId]        VARCHAR(100) NOT NULL,
         [GatewayPaymentId]      VARCHAR(100) NULL,
         [GatewaySignature]      VARCHAR(500) NULL,
         [GatewayFee]            DECIMAL(18,2) NULL,
         [GatewayTax]            DECIMAL(18,2) NULL,
         [BankRefNo]             VARCHAR(100) NULL,
+        [BankId]                INT NULL,
+        [BankName]              NVARCHAR(150) NULL,
+        [BranchName]            NVARCHAR(150) NULL,
+        [InstrumentNo]          VARCHAR(50) NULL,
+        [InstrumentDate]        DATETIME NULL,
+        [ClearanceDate]         DATETIME NULL,
+        [ApprovalStatus]        VARCHAR(50) NULL,
+        [ApprovedBy]            INT NULL,
+        [ApprovedDate]          DATETIME NULL,
+        [ApprovalRemarks]       NVARCHAR(500) NULL,
+        [IsReceiptCancelled]    BIT NOT NULL CONSTRAINT [DF_PaymentTransaction_IsReceiptCancelled] DEFAULT (0),
+        [ReceiptCancelledDate]  DATETIME NULL,
+        [ReceiptCancelledBy]    INT NULL,
+        [ReceiptCancellationReason] NVARCHAR(500) NULL,
         [PayerVpaOrAccount]     VARCHAR(150) NULL,
-        [ReceiptNo]             VARCHAR(60) NULL,
+        [ReceiptNo]             VARCHAR(100) NULL,
         [ReceiptDate]           DATETIME NULL,
         [PaymentDate]           DATETIME NULL,
         [GatewayResponseJson]   NVARCHAR(MAX) NULL,
@@ -833,6 +834,100 @@ BEGIN
 END;
 GO
 
+/* Add newly required settlement and clearance columns to existing PaymentTransaction table if not present */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentTransaction' AND COLUMN_NAME = 'BankId')
+BEGIN
+    ALTER TABLE [RTS].[PaymentTransaction] ADD [BankId] INT NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentTransaction' AND COLUMN_NAME = 'BankName')
+BEGIN
+    ALTER TABLE [RTS].[PaymentTransaction] ADD [BankName] NVARCHAR(150) NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentTransaction' AND COLUMN_NAME = 'BranchName')
+BEGIN
+    ALTER TABLE [RTS].[PaymentTransaction] ADD [BranchName] NVARCHAR(150) NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentTransaction' AND COLUMN_NAME = 'InstrumentNo')
+BEGIN
+    ALTER TABLE [RTS].[PaymentTransaction] ADD [InstrumentNo] VARCHAR(50) NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentTransaction' AND COLUMN_NAME = 'InstrumentDate')
+BEGIN
+    ALTER TABLE [RTS].[PaymentTransaction] ADD [InstrumentDate] DATETIME NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentTransaction' AND COLUMN_NAME = 'ClearanceDate')
+BEGIN
+    ALTER TABLE [RTS].[PaymentTransaction] ADD [ClearanceDate] DATETIME NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentTransaction' AND COLUMN_NAME = 'ApprovalStatus')
+BEGIN
+    ALTER TABLE [RTS].[PaymentTransaction] ADD [ApprovalStatus] VARCHAR(50) NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentTransaction' AND COLUMN_NAME = 'ApprovedBy')
+BEGIN
+    ALTER TABLE [RTS].[PaymentTransaction] ADD [ApprovedBy] INT NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentTransaction' AND COLUMN_NAME = 'ApprovedDate')
+BEGIN
+    ALTER TABLE [RTS].[PaymentTransaction] ADD [ApprovedDate] DATETIME NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentTransaction' AND COLUMN_NAME = 'ApprovalRemarks')
+BEGIN
+    ALTER TABLE [RTS].[PaymentTransaction] ADD [ApprovalRemarks] NVARCHAR(500) NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentTransaction' AND COLUMN_NAME = 'IsReceiptCancelled')
+BEGIN
+    ALTER TABLE [RTS].[PaymentTransaction] ADD [IsReceiptCancelled] BIT NOT NULL CONSTRAINT [DF_PaymentTransaction_IsReceiptCancelled] DEFAULT (0);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentTransaction' AND COLUMN_NAME = 'ReceiptCancelledDate')
+BEGIN
+    ALTER TABLE [RTS].[PaymentTransaction] ADD [ReceiptCancelledDate] DATETIME NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentTransaction' AND COLUMN_NAME = 'ReceiptCancelledBy')
+BEGIN
+    ALTER TABLE [RTS].[PaymentTransaction] ADD [ReceiptCancelledBy] INT NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentTransaction' AND COLUMN_NAME = 'ReceiptCancellationReason')
+BEGIN
+    ALTER TABLE [RTS].[PaymentTransaction] ADD [ReceiptCancellationReason] NVARCHAR(500) NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_PaymentTransaction_BankMaster')
+BEGIN
+    ALTER TABLE [RTS].[PaymentTransaction] WITH CHECK
+        ADD CONSTRAINT [FK_PaymentTransaction_BankMaster]
+        FOREIGN KEY ([BankId])
+        REFERENCES [CORE].[BankMaster] ([Id]);
+END;
+GO
+
 /* ----------------------------------------------------------------------------
    21. [RTS].[PaymentWebhookLog]
    ---------------------------------------------------------------------------- */
@@ -886,13 +981,13 @@ BEGIN
         [Email]                 VARCHAR(100) NULL,
         [OfficeAddress]         NVARCHAR(250) NULL,
         [OfficeAddressLocal]    NVARCHAR(250) NULL,
-        [OfficerRole]           VARCHAR(50) NOT NULL CONSTRAINT [DF_ServiceOfficerAllocation_OfficerRole] DEFAULT ('DesignatedOfficer'),
-        [DisplayOrder]          INT NOT NULL CONSTRAINT [DF_ServiceOfficerAllocation_DisplayOrder] DEFAULT (1),
-        [IsActive]              BIT NOT NULL CONSTRAINT [DF_ServiceOfficerAllocation_IsActive] DEFAULT (1),
+        [OfficerRole]           VARCHAR(50) NULL CONSTRAINT [DF_ServiceOfficerAllocation_OfficerRole] DEFAULT ('DesignatedOfficer'),
+        [DisplayOrder]          INT NULL CONSTRAINT [DF_ServiceOfficerAllocation_DisplayOrder] DEFAULT (1),
+        [IsActive]              BIT NULL CONSTRAINT [DF_ServiceOfficerAllocation_IsActive] DEFAULT (1),
+        [CreatedDate]           DATETIME NULL CONSTRAINT [DF_ServiceOfficerAllocation_CreatedDate] DEFAULT (GETDATE()),
         [CreatedBy]             INT NULL,
-        [CreatedDate]           DATETIME NOT NULL CONSTRAINT [DF_ServiceOfficerAllocation_CreatedDate] DEFAULT (GETDATE()),
-        [UpdatedBy]             INT NULL,
         [UpdatedDate]           DATETIME NULL,
+        [UpdatedBy]             INT NULL,
 
         CONSTRAINT [PK_ServiceOfficerAllocation] PRIMARY KEY CLUSTERED ([Id] ASC),
         CONSTRAINT [FK_ServiceOfficerAllocation_ServiceMaster] FOREIGN KEY ([ServiceId]) REFERENCES [RTS].[ServiceMaster] ([Id])
@@ -1257,10 +1352,13 @@ BEGIN
         [Id]                          [int] IDENTITY(1,1) NOT NULL,
         [ServiceId]                   [int] NOT NULL,
         [RuleDescription]             [varchar](200) NOT NULL,
-        [ConditionField]              [varchar](100) NOT NULL,
+        [ConditionField]              [varchar](100) NULL,
         [ConditionFieldDefinitionId]  [int] NULL,
-        [ComparisonOperator]          [varchar](20) NOT NULL,
-        [ExpectedValue]               [varchar](200) NOT NULL,
+        [ComparisonOperator]          [varchar](20) NULL,
+        [ExpectedValue]               [varchar](200) NULL,
+        [ConditionMatchType]          [varchar](3) NULL,
+        [CalculationType]             [varchar](20) NULL,
+        [QuantityFieldDefinitionId]   [int] NULL,
         [RuleActionType]              [varchar](50) NOT NULL,
         [RateAmount]                  [decimal](18, 2) NULL,
         [UserId]                      [int] NULL,
@@ -1279,44 +1377,55 @@ BEGIN
 END;
 GO
 
--- 34. [RTS].[ApprovalRuleMaster]
-IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ApprovalRuleMaster')
+/* ----------------------------------------------------------------------------
+   34. [RTS].[ReceiptCancellationLog]
+   ---------------------------------------------------------------------------- */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ReceiptCancellationLog')
 BEGIN
-    CREATE TABLE [RTS].[ApprovalRuleMaster](
-        [ApprovalRuleID] [int] IDENTITY(1,1) NOT NULL,
-        [ServiceID]      [int] NOT NULL,
-        [ApproverUserID] [int] NOT NULL,
-        [FieldName]      [nvarchar](100) NOT NULL,
-        [FieldValue]     [nvarchar](200) NOT NULL,
-        [ApprovalLevel]  [int] NOT NULL CONSTRAINT [DF_ApprovalRuleMaster_ApprovalLevel] DEFAULT ((1)),
-        [IsActive]       [bit] NOT NULL CONSTRAINT [DF_ApprovalRuleMaster_IsActive] DEFAULT ((1)),
-        [CreatedBy]      [int] NULL,
-        [CreatedDate]    [datetime] NOT NULL CONSTRAINT [DF_ApprovalRuleMaster_CreatedDate] DEFAULT (getdate()),
-        [ModifiedBy]     [int] NULL,
-        [ModifiedDate]   [datetime] NULL,
+    CREATE TABLE [RTS].[ReceiptCancellationLog]
+    (
+        [Id]                        INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+        [TransactionId]             BIGINT NOT NULL,
+        [ApplicationId]             INT NOT NULL,
+        [ReceiptNumber]             VARCHAR(100) NOT NULL,
+        [OriginalAmount]            DECIMAL(18,2) NOT NULL,
+        [PaymentMode]               VARCHAR(50) NOT NULL,
+        [InstrumentNo]              VARCHAR(50) NULL,
+        [BankId]                    INT NULL,
+        [BankName]                  NVARCHAR(150) NULL,
+        [CancelledBy]               INT NULL,
+        [CancelledByName]           NVARCHAR(150) NULL,
+        [CancelledDate]             DATETIME NOT NULL CONSTRAINT [DF_ReceiptCancellationLog_CancelledDate] DEFAULT (GETDATE()),
+        [CancellationReason]        NVARCHAR(500) NOT NULL,
+        [ApprovedBy]                INT NULL,
+        [ApprovedByName]            NVARCHAR(150) NULL,
+        [ApprovedDate]              DATETIME NULL,
+        [ApprovalRemarks]           NVARCHAR(500) NULL,
+        [IPAddress]                 VARCHAR(50) NULL,
+        [CreatedDate]               DATETIME NOT NULL CONSTRAINT [DF_ReceiptCancellationLog_CreatedDate] DEFAULT (GETDATE()),
 
-        CONSTRAINT [PK_ApprovalRuleMaster] PRIMARY KEY CLUSTERED ([ApprovalRuleID] ASC),
-        CONSTRAINT [UQ_ApprovalRule_Service_Field_Value_Level] UNIQUE NONCLUSTERED ([ServiceID] ASC, [FieldName] ASC, [FieldValue] ASC, [ApprovalLevel] ASC)
+        CONSTRAINT [PK_ReceiptCancellationLog] PRIMARY KEY CLUSTERED ([Id] ASC)
     );
 END;
 GO
 
--- 35. [RTS].[ApprovalFlowStageUserAllocationMaster]
-IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ApprovalFlowStageUserAllocationMaster')
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_ReceiptCancellationLog_PaymentTransaction')
 BEGIN
-    CREATE TABLE [RTS].[ApprovalFlowStageUserAllocationMaster](
-        [Id]                  [int] IDENTITY(1,1) NOT NULL,
-        [ApprovalFlowStageId] [int] NULL,
-        [UserId]              [int] NULL,
-        [Priority]            [int] NULL CONSTRAINT [DF_ApprovalFlowStageUserAllocationMaster_Priority] DEFAULT ((1)),
-        [IsActive]            [bit] NULL CONSTRAINT [DF_ApprovalFlowStageUserAllocationMaster_IsActive] DEFAULT ((1)),
-        [CreatedBy]           [int] NULL,
-        [CreatedDate]         [datetime2](7) NULL CONSTRAINT [DF_ApprovalFlowStageUserAllocationMaster_CreatedDate] DEFAULT (sysdatetime()),
-        [UpdatedBy]           [int] NULL,
-        [UpdatedDate]         [datetime2](7) NULL,
-
-        CONSTRAINT [PK_ApprovalFlowStageUserAllocationMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
-    );
+    ALTER TABLE [RTS].[ReceiptCancellationLog] WITH CHECK
+        ADD CONSTRAINT [FK_ReceiptCancellationLog_PaymentTransaction]
+        FOREIGN KEY ([TransactionId])
+        REFERENCES [RTS].[PaymentTransaction] ([Id]);
 END;
 GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_ReceiptCancellationLog_ApplicationDetails')
+BEGIN
+    ALTER TABLE [RTS].[ReceiptCancellationLog] WITH CHECK
+        ADD CONSTRAINT [FK_ReceiptCancellationLog_ApplicationDetails]
+        FOREIGN KEY ([ApplicationId])
+        REFERENCES [RTS].[ApplicationDetails] ([Id]);
+END;
+GO
+
+
 
