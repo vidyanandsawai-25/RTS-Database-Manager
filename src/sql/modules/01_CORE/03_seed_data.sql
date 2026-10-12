@@ -538,7 +538,10 @@ USING (VALUES
     (7011, 2, 6022, 1, 1, 1, 1, 0, 1, 1002, '2026-10-03T13:01:26.313', NULL, NULL),
     (7012, 2, 6023, 1, 1, 1, 1, 0, 1, 1, '2026-10-11T21:50:00.000', NULL, NULL),
     (7013, 1002, 6023, 1, 1, 1, 1, 0, 1, 1, '2026-10-11T21:50:00.000', NULL, NULL),
-    (7014, 1003, 6023, 1, 1, 1, 1, 0, 1, 1, '2026-10-11T21:50:00.000', NULL, NULL)
+    (7014, 1003, 6023, 1, 1, 1, 1, 0, 1, 1, '2026-10-11T21:50:00.000', NULL, NULL),
+    (7015, 2, 6024, 1, 1, 1, 1, 0, 1, 1, '2026-10-12T23:50:00.000', NULL, NULL),
+    (7016, 1002, 6024, 1, 1, 1, 1, 0, 1, 1, '2026-10-12T23:50:00.000', NULL, NULL),
+    (7017, 1003, 6024, 1, 1, 1, 1, 0, 1, 1, '2026-10-12T23:50:00.000', NULL, NULL)
 ) AS source ([Id], [UserRoleId], [ScreenId], [CanView], [CanEdit], [CanDelete], [HaveFullAccess], [HaveNoAccess], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
