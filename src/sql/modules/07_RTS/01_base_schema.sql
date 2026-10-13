@@ -510,14 +510,28 @@ IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS
 BEGIN
     CREATE TABLE [RTS].[AppealTypeMaster]
     (
-        [Id]                INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-        [AppealTypeName]    NVARCHAR(100) NOT NULL,
-        [Code]              VARCHAR(50) NULL,
-        [IsActive]          BIT NOT NULL CONSTRAINT [DF_AppealTypeMaster_IsActive] DEFAULT (1),
-        [CreatedDate]       DATETIME NOT NULL CONSTRAINT [DF_AppealTypeMaster_CreatedDate] DEFAULT (GETDATE()),
+        [Id]                    INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+        [AppealTypeName]        NVARCHAR(100) NOT NULL,
+        [Code]                  VARCHAR(50) NULL,
+        [AppealTypeNameLocal]   NVARCHAR(200) NULL,
+        [Description]           NVARCHAR(500) NULL,
+        [IsActive]              BIT NOT NULL CONSTRAINT [DF_AppealTypeMaster_IsActive] DEFAULT (1),
+        [CreatedDate]           DATETIME NOT NULL CONSTRAINT [DF_AppealTypeMaster_CreatedDate] DEFAULT (GETDATE()),
 
         CONSTRAINT [PK_AppealTypeMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
     );
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealTypeMaster' AND COLUMN_NAME = 'AppealTypeNameLocal')
+BEGIN
+    ALTER TABLE [RTS].[AppealTypeMaster] ADD [AppealTypeNameLocal] NVARCHAR(200) NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealTypeMaster' AND COLUMN_NAME = 'Description')
+BEGIN
+    ALTER TABLE [RTS].[AppealTypeMaster] ADD [Description] NVARCHAR(500) NULL;
 END;
 GO
 
@@ -585,6 +599,13 @@ BEGIN
         [ActionRemarks]         NVARCHAR(MAX) NULL,
         [ActionByUserId]        INT NULL,
         [ActionDate]            DATETIME NULL,
+        [HearingDate]           DATETIME NULL,
+        [HearingNoticeRemarks]  NVARCHAR(1000) NULL,
+        [OrderType]             VARCHAR(50) NULL,
+        [ServiceDeliveryDueDate] DATETIME NULL,
+        [PenaltyAmount]         DECIMAL(18,2) NULL,
+        [PenaltyRemarks]        NVARCHAR(1000) NULL,
+        [OrderDocumentPath]     NVARCHAR(500) NULL,
         [IsActive]              BIT NOT NULL CONSTRAINT [DF_AppealApplicationDetails_IsActive] DEFAULT (1),
         [MarkedForDeletion]     BIT NOT NULL CONSTRAINT [DF_AppealApplicationDetails_MarkedForDeletion] DEFAULT (0),
         [MarkedForDeletionDate] DATETIME NULL,
@@ -595,6 +616,48 @@ BEGIN
 
         CONSTRAINT [PK_AppealApplicationDetails] PRIMARY KEY CLUSTERED ([Id] ASC)
     );
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'HearingDate')
+BEGIN
+    ALTER TABLE [RTS].[AppealApplicationDetails] ADD [HearingDate] DATETIME NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'HearingNoticeRemarks')
+BEGIN
+    ALTER TABLE [RTS].[AppealApplicationDetails] ADD [HearingNoticeRemarks] NVARCHAR(1000) NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'OrderType')
+BEGIN
+    ALTER TABLE [RTS].[AppealApplicationDetails] ADD [OrderType] VARCHAR(50) NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'ServiceDeliveryDueDate')
+BEGIN
+    ALTER TABLE [RTS].[AppealApplicationDetails] ADD [ServiceDeliveryDueDate] DATETIME NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'PenaltyAmount')
+BEGIN
+    ALTER TABLE [RTS].[AppealApplicationDetails] ADD [PenaltyAmount] DECIMAL(18,2) NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'PenaltyRemarks')
+BEGIN
+    ALTER TABLE [RTS].[AppealApplicationDetails] ADD [PenaltyRemarks] NVARCHAR(1000) NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealApplicationDetails' AND COLUMN_NAME = 'OrderDocumentPath')
+BEGIN
+    ALTER TABLE [RTS].[AppealApplicationDetails] ADD [OrderDocumentPath] NVARCHAR(500) NULL;
 END;
 GO
 
