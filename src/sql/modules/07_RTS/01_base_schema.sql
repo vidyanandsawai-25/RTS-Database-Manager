@@ -536,28 +536,18 @@ END;
 GO
 
 /* ----------------------------------------------------------------------------
-   13. [RTS].[AppealFlowMaster]
+   13. Cleanup Obsolete [RTS].[AppealFlowMaster]
+   (Appellate hierarchy now maps directly to [RTS].[ApprovalFlowMaster])
    ---------------------------------------------------------------------------- */
-IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealFlowMaster')
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealFlowMaster')
 BEGIN
-    CREATE TABLE [RTS].[AppealFlowMaster]
-    (
-        [Id]                INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
-        [ServiceId]         INT NOT NULL,
-        [AppealFlowName]    NVARCHAR(100) NOT NULL,
-        [IsActive]          BIT NOT NULL CONSTRAINT [DF_AppealFlowMaster_IsActive] DEFAULT (1),
-        [CreatedBy]         INT NULL,
-        [CreatedDate]       DATETIME NOT NULL CONSTRAINT [DF_AppealFlowMaster_CreatedDate] DEFAULT (GETDATE()),
-        [UpdatedBy]         INT NULL,
-        [UpdatedDate]       DATETIME NULL,
-
-        CONSTRAINT [PK_AppealFlowMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
-    );
+    DROP TABLE [RTS].[AppealFlowMaster];
 END;
 GO
 
 /* ----------------------------------------------------------------------------
    14. [RTS].[AppealFlowStageMaster]
+   Appellate Hierarchy mapped to RTS Approval Flows (Stage 1: FAA, Stage 2: SAA)
    ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealFlowStageMaster')
 BEGIN
@@ -568,15 +558,44 @@ BEGIN
         [StageOrder]        INT NOT NULL,
         [StageName]         NVARCHAR(200) NOT NULL,
         [UserId]            INT NULL,
-        [CanVerifyDocument] BIT NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_CanVerifyDocument] DEFAULT (0),
-        [CanApprove]        BIT NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_CanApprove] DEFAULT (0),
+        [CanApprove]        BIT NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_CanApprove] DEFAULT (1),
         [CanReject]         BIT NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_CanReject] DEFAULT (1),
-        [CanReturn]         BIT NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_CanReturn] DEFAULT (0),
-        [IsFinalStage]      BIT NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_IsFinalStage] DEFAULT (0),
-        [CanEdit]           BIT NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_CanEdit] DEFAULT (0),
+        [CanReturn]         BIT NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_CanReturn] DEFAULT (1),
 
         CONSTRAINT [PK_AppealFlowStageMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
     );
+END;
+GO
+
+-- Drop obsolete prototype columns if they exist in existing database
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealFlowStageMaster' AND COLUMN_NAME = 'CanVerifyDocument')
+BEGIN
+    ALTER TABLE [RTS].[AppealFlowStageMaster] DROP CONSTRAINT IF EXISTS [DF_AppealFlowStageMaster_CanVerifyDocument];
+    ALTER TABLE [RTS].[AppealFlowStageMaster] DROP COLUMN [CanVerifyDocument];
+END;
+GO
+
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealFlowStageMaster' AND COLUMN_NAME = 'IsFinalStage')
+BEGIN
+    ALTER TABLE [RTS].[AppealFlowStageMaster] DROP CONSTRAINT IF EXISTS [DF_AppealFlowStageMaster_IsFinalStage];
+    ALTER TABLE [RTS].[AppealFlowStageMaster] DROP COLUMN [IsFinalStage];
+END;
+GO
+
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealFlowStageMaster' AND COLUMN_NAME = 'CanEdit')
+BEGIN
+    ALTER TABLE [RTS].[AppealFlowStageMaster] DROP CONSTRAINT IF EXISTS [DF_AppealFlowStageMaster_CanEdit];
+    ALTER TABLE [RTS].[AppealFlowStageMaster] DROP COLUMN [CanEdit];
+END;
+GO
+
+-- Enforce Foreign Key to [RTS].[ApprovalFlowMaster]
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_AppealFlowStageMaster_ApprovalFlowMaster')
+BEGIN
+    ALTER TABLE [RTS].[AppealFlowStageMaster] WITH CHECK
+        ADD CONSTRAINT [FK_AppealFlowStageMaster_ApprovalFlowMaster]
+        FOREIGN KEY ([AppealFlowId])
+        REFERENCES [RTS].[ApprovalFlowMaster] ([Id]);
 END;
 GO
 
