@@ -1,4 +1,4 @@
-﻿SET ANSI_NULLS ON
+SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
@@ -543,7 +543,12 @@ USING (VALUES
     (7016, 1002, 6024, 1, 1, 1, 1, 0, 1, 1, '2026-10-12T23:50:00.000', NULL, NULL),
     (7017, 1003, 6024, 1, 1, 1, 1, 0, 1, 1, '2026-10-12T23:50:00.000', NULL, NULL),
     (7018, 1004, 6024, 1, 1, 1, 1, 0, 1, 1, '2026-10-12T23:50:00.000', NULL, NULL),
-    (7019, 1, 6024, 1, 1, 1, 1, 0, 1, 1, '2026-10-12T23:50:00.000', NULL, NULL)
+    (7019, 1, 6024, 1, 1, 1, 1, 0, 1, 1, '2026-10-12T23:50:00.000', NULL, NULL),
+    (7020, 2, 5018, 1, 1, 1, 1, 0, 1, 1, '2026-10-13T00:00:00.000', NULL, NULL),
+    (7021, 1002, 5018, 1, 1, 1, 1, 0, 1, 1, '2026-10-13T00:00:00.000', NULL, NULL),
+    (7022, 1003, 5018, 1, 1, 1, 1, 0, 1, 1, '2026-10-13T00:00:00.000', NULL, NULL),
+    (7023, 1004, 5018, 1, 1, 1, 1, 0, 1, 1, '2026-10-13T00:00:00.000', NULL, NULL),
+    (7024, 1, 5018, 1, 1, 1, 1, 0, 1, 1, '2026-10-13T00:00:00.000', NULL, NULL)
 ) AS source ([Id], [UserRoleId], [ScreenId], [CanView], [CanEdit], [CanDelete], [HaveFullAccess], [HaveNoAccess], [IsActive], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
