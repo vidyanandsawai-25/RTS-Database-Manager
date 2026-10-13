@@ -7175,27 +7175,3 @@ WHEN NOT MATCHED BY TARGET THEN
 GO
 SET IDENTITY_INSERT [RTS].[RuleMaster] OFF;
 GO
-
-/* ----------------------------------------------------------------------------
-   Table: [RTS].[AppealTypeMaster] (3 rows)
-   ---------------------------------------------------------------------------- */
-SET IDENTITY_INSERT [RTS].[AppealTypeMaster] ON;
-GO
-MERGE INTO [RTS].[AppealTypeMaster] AS target
-USING (VALUES
-    (1, N'REJECTED', N'Rejected', 1, '2026-10-12T00:00:00'),
-    (2, N'DISAGREED', N'Disagreed', 1, '2026-10-12T00:00:00'),
-    (3, N'SLA_DUE', N'SLA Due', 1, '2026-10-12T00:00:00')
-) AS source ([Id], [Code], [AppealTypeName], [IsActive], [CreatedDate])
-ON (target.[Id] = source.[Id])
-WHEN MATCHED THEN
-    UPDATE SET
-        target.[Code] = source.[Code],
-        target.[AppealTypeName] = source.[AppealTypeName],
-        target.[IsActive] = source.[IsActive]
-WHEN NOT MATCHED BY TARGET THEN
-    INSERT ([Id], [Code], [AppealTypeName], [IsActive], [CreatedDate])
-    VALUES (source.[Id], source.[Code], source.[AppealTypeName], source.[IsActive], source.[CreatedDate]);
-GO
-SET IDENTITY_INSERT [RTS].[AppealTypeMaster] OFF;
-GO
