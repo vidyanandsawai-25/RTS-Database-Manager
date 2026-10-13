@@ -5995,26 +5995,28 @@ SET IDENTITY_INSERT [RTS].[ApprovalFlowStageMaster] OFF;
 GO
 /* ----------------------------------------------------------------------------
    Table: [RTS].[AppealTypeMaster] (3 rows)
+   Statutory Appeal Grounds under MRTSA 2015 Section 8(1)
    ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [RTS].[AppealTypeMaster] ON;
 GO
 MERGE INTO [RTS].[AppealTypeMaster] AS target
 USING (VALUES
-    
-    (1, N'Rejected', N'REJECTED', 1, '2026-08-11T12:21:38.987'),
-    (2, N'Disagreed', N'DISAGREED', 1, '2026-08-11T12:21:38.987'),
-    (3, N'SLA Due', N'SLA_DUE', 1, '2026-08-11T12:21:38.987')
-) AS source ([Id], [AppealTypeName], [Code], [IsActive], [CreatedDate])
+    (1, N'Rejection of application without justifiable cause (MRTSA 2015 Sec 8(1)(b))', N'REJECTED', N'अवाजवी कारणास्तव अर्ज नामंजूर करणे (कलम ८(१)(ख))', N'पदनिर्देशित अधिकाऱ्याने पुरेसे कारण न देता अथवा कायद्यातील तरतुदींचे उल्लंघन करून अर्ज फेटाळला.', 1, '2026-08-11T12:21:38.987'),
+    (2, N'Deficient or incomplete public service provided (MRTSA 2015 Sec 8(1))', N'DISAGREED', N'असमाधानकारक किंवा अपूर्ण सेवा मिळणे (कलम ८(१))', N'दिलेली सेवा अपूर्ण अथवा त्रुटीयुक्त असून नागरिकाच्या वैधानिक हक्कांची पूर्तता झालेली नाही.', 1, '2026-08-11T12:21:38.987'),
+    (3, N'Failure to deliver service within stipulated time limit (MRTSA 2015 Sec 8(1)(a))', N'SLA_DUE', N'विहित मुदतीत सेवा न मिळणे (कलम ८(१)(क))', N'पदनिर्देशित अधिकाऱ्याने विहित मुदतीत कोणतीही कारवाई न करता सेवा देण्यास विलंब केला.', 1, '2026-08-11T12:21:38.987')
+) AS source ([Id], [AppealTypeName], [Code], [AppealTypeNameLocal], [Description], [IsActive], [CreatedDate])
 ON (target.[Id] = source.[Id])
 WHEN MATCHED THEN
     UPDATE SET
         target.[AppealTypeName] = source.[AppealTypeName],
         target.[Code] = source.[Code],
+        target.[AppealTypeNameLocal] = source.[AppealTypeNameLocal],
+        target.[Description] = source.[Description],
         target.[IsActive] = source.[IsActive],
         target.[CreatedDate] = source.[CreatedDate]
 WHEN NOT MATCHED BY TARGET THEN
-    INSERT ([Id], [AppealTypeName], [Code], [IsActive], [CreatedDate])
-    VALUES (source.[Id], source.[AppealTypeName], source.[Code], source.[IsActive], source.[CreatedDate]);
+    INSERT ([Id], [AppealTypeName], [Code], [AppealTypeNameLocal], [Description], [IsActive], [CreatedDate])
+    VALUES (source.[Id], source.[AppealTypeName], source.[Code], source.[AppealTypeNameLocal], source.[Description], source.[IsActive], source.[CreatedDate]);
 GO
 SET IDENTITY_INSERT [RTS].[AppealTypeMaster] OFF;
 GO
