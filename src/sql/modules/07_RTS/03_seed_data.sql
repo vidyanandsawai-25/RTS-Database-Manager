@@ -6028,7 +6028,7 @@ GO
    ---------------------------------------------------------------------------- */
 SET IDENTITY_INSERT [RTS].[AppealFlowStageMaster] ON;
 GO
-DELETE FROM [RTS].[AppealFlowStageMaster] WHERE [AppealFlowId] <= 10;
+DELETE FROM [RTS].[AppealFlowStageMaster];
 GO
 MERGE INTO [RTS].[AppealFlowStageMaster] AS target
 USING (VALUES

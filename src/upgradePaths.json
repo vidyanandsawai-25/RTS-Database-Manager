@@ -1,5 +1,7 @@
 {
   "upgrades": {
-    "1.0.0": { "enabled": true }
+    "1.0.0": { "enabled": true },
+    "1.2.0": { "enabled": true },
+    "1.3.0": { "enabled": true, "description": "RTS Appeal Restructuring and MRTSA 2015 Statutory Seeds" }
   }
 }
