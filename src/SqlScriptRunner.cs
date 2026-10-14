@@ -112,12 +112,8 @@ END
             allFiles.Add((file, Path.GetFileName(file)));
         }
 
-        // Check for modules subfolder (support both {version}/modules and base/../modules)
-        var modulesPath = Path.Combine(folderPath, "modules");
-        if (!Directory.Exists(modulesPath))
-        {
-            modulesPath = Path.Combine(folderPath, "..", "modules");
-        }
+        // Check for modules subfolder and process each module alphabetically
+        var modulesPath = Path.Combine(folderPath, "..", "modules");
         if (Directory.Exists(modulesPath))
         {
             var moduleDirectories = Directory.GetDirectories(modulesPath).OrderBy(d => d).ToList();
