@@ -561,9 +561,31 @@ BEGIN
         [CanApprove]        BIT NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_CanApprove] DEFAULT (1),
         [CanReject]         BIT NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_CanReject] DEFAULT (1),
         [CanReturn]         BIT NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_CanReturn] DEFAULT (1),
+        [IsActive]          BIT NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_IsActive] DEFAULT (1),
+        [CreatedDate]       DATETIME NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_CreatedDate] DEFAULT (GETDATE()),
+        [UpdatedDate]       DATETIME NULL,
 
         CONSTRAINT [PK_AppealFlowStageMaster] PRIMARY KEY CLUSTERED ([Id] ASC)
     );
+END;
+GO
+
+-- Add audit columns if missing
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealFlowStageMaster' AND COLUMN_NAME = 'IsActive')
+BEGIN
+    ALTER TABLE [RTS].[AppealFlowStageMaster] ADD [IsActive] BIT NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_IsActive] DEFAULT (1);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealFlowStageMaster' AND COLUMN_NAME = 'CreatedDate')
+BEGIN
+    ALTER TABLE [RTS].[AppealFlowStageMaster] ADD [CreatedDate] DATETIME NOT NULL CONSTRAINT [DF_AppealFlowStageMaster_CreatedDate] DEFAULT (GETDATE());
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'AppealFlowStageMaster' AND COLUMN_NAME = 'UpdatedDate')
+BEGIN
+    ALTER TABLE [RTS].[AppealFlowStageMaster] ADD [UpdatedDate] DATETIME NULL;
 END;
 GO
 
@@ -596,6 +618,16 @@ BEGIN
         ADD CONSTRAINT [FK_AppealFlowStageMaster_ApprovalFlowMaster]
         FOREIGN KEY ([AppealFlowId])
         REFERENCES [RTS].[ApprovalFlowMaster] ([Id]);
+END;
+GO
+
+-- Enforce Foreign Key to [Core].[UserMaster]
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_AppealFlowStageMaster_UserMaster')
+BEGIN
+    ALTER TABLE [RTS].[AppealFlowStageMaster] WITH CHECK
+        ADD CONSTRAINT [FK_AppealFlowStageMaster_UserMaster]
+        FOREIGN KEY ([UserId])
+        REFERENCES [Core].[UserMaster] ([Id]);
 END;
 GO
 
@@ -720,6 +752,42 @@ BEGIN
 
         CONSTRAINT [PK_TrackAppealHistory] PRIMARY KEY CLUSTERED ([Id] ASC)
     );
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_TrackAppealHistory_AppealApplicationDetails')
+BEGIN
+    ALTER TABLE [RTS].[TrackAppealHistory] WITH CHECK
+        ADD CONSTRAINT [FK_TrackAppealHistory_AppealApplicationDetails]
+        FOREIGN KEY ([AppealId])
+        REFERENCES [RTS].[AppealApplicationDetails] ([Id]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_TrackAppealHistory_ApplicationDetails')
+BEGIN
+    ALTER TABLE [RTS].[TrackAppealHistory] WITH CHECK
+        ADD CONSTRAINT [FK_TrackAppealHistory_ApplicationDetails]
+        FOREIGN KEY ([ApplicationId])
+        REFERENCES [RTS].[ApplicationDetails] ([Id]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_TrackAppealHistory_AppealFlowStageMaster')
+BEGIN
+    ALTER TABLE [RTS].[TrackAppealHistory] WITH CHECK
+        ADD CONSTRAINT [FK_TrackAppealHistory_AppealFlowStageMaster]
+        FOREIGN KEY ([AppealFlowStageId])
+        REFERENCES [RTS].[AppealFlowStageMaster] ([Id]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_TrackAppealHistory_UserMaster')
+BEGIN
+    ALTER TABLE [RTS].[TrackAppealHistory] WITH CHECK
+        ADD CONSTRAINT [FK_TrackAppealHistory_UserMaster]
+        FOREIGN KEY ([ActionByUserId])
+        REFERENCES [Core].[UserMaster] ([Id]);
 END;
 GO
 
