@@ -325,12 +325,19 @@ BEGIN
         [IsFinalStage]          BIT NOT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_IsFinalStage] DEFAULT (0),
         [CanEdit]               BIT NULL,
         [CanViewNoteSheet]      BIT NOT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_CanViewNoteSheet] DEFAULT (0),
+        [CanUploadDocument]     BIT NOT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_CanUploadDocument] DEFAULT (0),
         [CanIssueCertificate]   BIT NOT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_CanIssueCertificate] DEFAULT (0),
         [CanViewCertificate]    BIT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_CanViewCertificate] DEFAULT (1),
 
         CONSTRAINT [PK_ApprovalFlowStageMaster] PRIMARY KEY CLUSTERED ([Id] ASC),
         CONSTRAINT [UQ_ApprovalFlowStageMaster_FlowStage] UNIQUE NONCLUSTERED ([ApprovalFlowId] ASC, [StageOrder] ASC)
     );
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'ApprovalFlowStageMaster' AND COLUMN_NAME = 'CanUploadDocument')
+BEGIN
+    ALTER TABLE [RTS].[ApprovalFlowStageMaster] ADD [CanUploadDocument] BIT NOT NULL CONSTRAINT [DF_ApprovalFlowStageMaster_CanUploadDocument] DEFAULT (0);
 END;
 GO
 
