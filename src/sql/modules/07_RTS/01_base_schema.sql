@@ -877,6 +877,150 @@ END;
 GO
 
 /* ----------------------------------------------------------------------------
+   19A. [RTS].[PaymentDemand]
+   ---------------------------------------------------------------------------- */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentDemand')
+BEGIN
+    CREATE TABLE [RTS].[PaymentDemand]
+    (
+        [Id]                    BIGINT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+        [DemandNo]              VARCHAR(50) NOT NULL,
+        [ApplicationId]         INT NOT NULL,
+        [ApplicationNo]         VARCHAR(50) NOT NULL,
+        [ServiceId]             INT NOT NULL,
+        [DepartmentId]          INT NOT NULL,
+        [BaseAmount]            DECIMAL(18,2) NOT NULL,
+        [LateFeeAmount]         DECIMAL(18,2) NOT NULL CONSTRAINT [DF_PaymentDemand_LateFeeAmount] DEFAULT (0),
+        [DiscountAmount]        DECIMAL(18,2) NOT NULL CONSTRAINT [DF_PaymentDemand_DiscountAmount] DEFAULT (0),
+        [TotalAmount]           DECIMAL(18,2) NOT NULL,
+        [Currency]              VARCHAR(10) NOT NULL CONSTRAINT [DF_PaymentDemand_Currency] DEFAULT ('INR'),
+        [DemandStatus]          VARCHAR(30) NOT NULL CONSTRAINT [DF_PaymentDemand_DemandStatus] DEFAULT ('Pending'),
+        [RuleDetailsJson]       NVARCHAR(MAX) NULL,
+        [Remarks]               NVARCHAR(500) NULL,
+        [IsActive]              BIT NOT NULL CONSTRAINT [DF_PaymentDemand_IsActive] DEFAULT (1),
+        [CreatedBy]             INT NULL,
+        [CreatedDate]           DATETIME NOT NULL CONSTRAINT [DF_PaymentDemand_CreatedDate] DEFAULT (GETDATE()),
+        [UpdatedBy]             INT NULL,
+        [UpdatedDate]           DATETIME NULL,
+
+        CONSTRAINT [PK_PaymentDemand] PRIMARY KEY CLUSTERED ([Id] ASC),
+        CONSTRAINT [UQ_PaymentDemand_DemandNo] UNIQUE NONCLUSTERED ([DemandNo] ASC),
+        CONSTRAINT [CK_PaymentDemand_TotalAmount] CHECK ([TotalAmount] >= 0)
+    );
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_PaymentDemand_ApplicationDetails')
+BEGIN
+    ALTER TABLE [RTS].[PaymentDemand] WITH CHECK
+        ADD CONSTRAINT [FK_PaymentDemand_ApplicationDetails]
+        FOREIGN KEY ([ApplicationId])
+        REFERENCES [RTS].[ApplicationDetails] ([Id]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_PaymentDemand_ServiceMaster')
+BEGIN
+    ALTER TABLE [RTS].[PaymentDemand] WITH CHECK
+        ADD CONSTRAINT [FK_PaymentDemand_ServiceMaster]
+        FOREIGN KEY ([ServiceId])
+        REFERENCES [RTS].[ServiceMaster] ([Id]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_PaymentDemand_DepartmentMaster')
+BEGIN
+    ALTER TABLE [RTS].[PaymentDemand] WITH CHECK
+        ADD CONSTRAINT [FK_PaymentDemand_DepartmentMaster]
+        FOREIGN KEY ([DepartmentId])
+        REFERENCES [RTS].[DepartmentMaster] ([Id]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_PaymentDemand_ApplicationId' AND object_id = OBJECT_ID(N'[RTS].[PaymentDemand]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_PaymentDemand_ApplicationId]
+    ON [RTS].[PaymentDemand] ([ApplicationId], [DemandStatus])
+    INCLUDE ([TotalAmount], [CreatedDate]);
+END;
+GO
+
+/* ----------------------------------------------------------------------------
+   19B. [RTS].[PaymentGatewayOrder]
+   ---------------------------------------------------------------------------- */
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentGatewayOrder')
+BEGIN
+    CREATE TABLE [RTS].[PaymentGatewayOrder]
+    (
+        [Id]                    BIGINT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+        [DemandId]              BIGINT NOT NULL,
+        [ApplicationId]         INT NOT NULL,
+        [GatewayConfigId]       INT NOT NULL,
+        [GatewayCode]           VARCHAR(50) NOT NULL,
+        [GatewayOrderId]        VARCHAR(100) NOT NULL,
+        [Amount]                DECIMAL(18,2) NOT NULL,
+        [Currency]              VARCHAR(10) NOT NULL CONSTRAINT [DF_PaymentGatewayOrder_Currency] DEFAULT ('INR'),
+        [OrderStatus]           VARCHAR(30) NOT NULL CONSTRAINT [DF_PaymentGatewayOrder_OrderStatus] DEFAULT ('Initiated'),
+        [GatewayPaymentId]      VARCHAR(100) NULL,
+        [GatewaySignature]      VARCHAR(500) NULL,
+        [GatewayFee]            DECIMAL(18,2) NULL,
+        [GatewayTax]            DECIMAL(18,2) NULL,
+        [GatewayResponseJson]   NVARCHAR(MAX) NULL,
+        [FailureReason]         NVARCHAR(500) NULL,
+        [CustomerName]          NVARCHAR(150) NULL,
+        [CustomerEmail]         VARCHAR(150) NULL,
+        [CustomerMobile]        VARCHAR(20) NULL,
+        [CreatedDate]           DATETIME NOT NULL CONSTRAINT [DF_PaymentGatewayOrder_CreatedDate] DEFAULT (GETDATE()),
+        [UpdatedDate]           DATETIME NULL,
+
+        CONSTRAINT [PK_PaymentGatewayOrder] PRIMARY KEY CLUSTERED ([Id] ASC)
+    );
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_PaymentGatewayOrder_PaymentDemand')
+BEGIN
+    ALTER TABLE [RTS].[PaymentGatewayOrder] WITH CHECK
+        ADD CONSTRAINT [FK_PaymentGatewayOrder_PaymentDemand]
+        FOREIGN KEY ([DemandId])
+        REFERENCES [RTS].[PaymentDemand] ([Id]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_PaymentGatewayOrder_ApplicationDetails')
+BEGIN
+    ALTER TABLE [RTS].[PaymentGatewayOrder] WITH CHECK
+        ADD CONSTRAINT [FK_PaymentGatewayOrder_ApplicationDetails]
+        FOREIGN KEY ([ApplicationId])
+        REFERENCES [RTS].[ApplicationDetails] ([Id]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_PaymentGatewayOrder_PaymentGatewayConfig')
+BEGIN
+    ALTER TABLE [RTS].[PaymentGatewayOrder] WITH CHECK
+        ADD CONSTRAINT [FK_PaymentGatewayOrder_PaymentGatewayConfig]
+        FOREIGN KEY ([GatewayConfigId])
+        REFERENCES [RTS].[PaymentGatewayConfig] ([Id]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_PaymentGatewayOrder_GatewayOrderId' AND object_id = OBJECT_ID(N'[RTS].[PaymentGatewayOrder]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_PaymentGatewayOrder_GatewayOrderId]
+    ON [RTS].[PaymentGatewayOrder] ([GatewayOrderId])
+    INCLUDE ([DemandId], [ApplicationId], [OrderStatus]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_PaymentGatewayOrder_DemandId' AND object_id = OBJECT_ID(N'[RTS].[PaymentGatewayOrder]'))
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_PaymentGatewayOrder_DemandId]
+    ON [RTS].[PaymentGatewayOrder] ([DemandId], [OrderStatus]);
+END;
+GO
+
+/* ----------------------------------------------------------------------------
    20. [RTS].[PaymentTransaction]
    ---------------------------------------------------------------------------- */
 IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentTransaction')
@@ -1082,6 +1226,48 @@ BEGIN
         ADD CONSTRAINT [FK_PaymentTransaction_BankMaster]
         FOREIGN KEY ([BankId])
         REFERENCES [CORE].[BankMaster] ([Id]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentTransaction' AND COLUMN_NAME = 'DemandId')
+BEGIN
+    ALTER TABLE [RTS].[PaymentTransaction] ADD [DemandId] BIGINT NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentTransaction' AND COLUMN_NAME = 'GatewayOrderRowId')
+BEGIN
+    ALTER TABLE [RTS].[PaymentTransaction] ADD [GatewayOrderRowId] BIGINT NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentTransaction' AND COLUMN_NAME = 'PayerName')
+BEGIN
+    ALTER TABLE [RTS].[PaymentTransaction] ADD [PayerName] NVARCHAR(150) NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'RTS' AND TABLE_NAME = 'PaymentTransaction' AND COLUMN_NAME = 'PayerMobile')
+BEGIN
+    ALTER TABLE [RTS].[PaymentTransaction] ADD [PayerMobile] VARCHAR(20) NULL;
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_PaymentTransaction_PaymentDemand')
+BEGIN
+    ALTER TABLE [RTS].[PaymentTransaction] WITH CHECK
+        ADD CONSTRAINT [FK_PaymentTransaction_PaymentDemand]
+        FOREIGN KEY ([DemandId])
+        REFERENCES [RTS].[PaymentDemand] ([Id]);
+END;
+GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_PaymentTransaction_PaymentGatewayOrder')
+BEGIN
+    ALTER TABLE [RTS].[PaymentTransaction] WITH CHECK
+        ADD CONSTRAINT [FK_PaymentTransaction_PaymentGatewayOrder]
+        FOREIGN KEY ([GatewayOrderRowId])
+        REFERENCES [RTS].[PaymentGatewayOrder] ([Id]);
 END;
 GO
 
@@ -1542,6 +1728,7 @@ BEGIN
     CREATE TABLE [RTS].[ReceiptCancellationLog]
     (
         [Id]                        INT IDENTITY(1,1) NOT FOR REPLICATION NOT NULL,
+        [DemandId]                  BIGINT NULL,
         [TransactionId]             BIGINT NOT NULL,
         [ApplicationId]             INT NOT NULL,
         [ReceiptNumber]             VARCHAR(100) NOT NULL,
@@ -1583,6 +1770,16 @@ BEGIN
         REFERENCES [RTS].[ApplicationDetails] ([Id]);
 END;
 GO
+
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_ReceiptCancellationLog_PaymentDemand')
+BEGIN
+    ALTER TABLE [RTS].[ReceiptCancellationLog] WITH CHECK
+        ADD CONSTRAINT [FK_ReceiptCancellationLog_PaymentDemand]
+        FOREIGN KEY ([DemandId])
+        REFERENCES [RTS].[PaymentDemand] ([Id]);
+END;
+GO
+
 
 
 
